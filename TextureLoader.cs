@@ -27,7 +27,7 @@ namespace Framework
 			BitmapData bmpData = bmp.LockBits(new Rectangle(0, 0, bmp.Width, bmp.Height), ImageLockMode.ReadOnly, bmp.PixelFormat);
 			PixelInternalFormat internalFormat = selectInternalPixelFormat(bmp.PixelFormat);
 			OpenTK.Graphics.OpenGL.PixelFormat inputPixelFormat = selectInputPixelFormat(bmp.PixelFormat);
-			texture.LoadPixels(bmpData.Scan0, bmpData.Width, bmpData.Height, internalFormat, inputPixelFormat);
+			texture.LoadPixels(bmpData.Scan0, bmpData.Width, bmpData.Height, internalFormat, inputPixelFormat, PixelType.UnsignedByte);
 			bmp.UnlockBits(bmpData);
 			texture.EndUse();
 			return texture;

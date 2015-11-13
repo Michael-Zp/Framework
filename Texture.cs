@@ -19,6 +19,21 @@ namespace Framework
 			Height = 0;
 		}
 
+		public void Clamp()
+		{
+			BeginUse();
+			GL.TexParameter(TextureTarget.Texture2D, TextureParameterName.TextureWrapS, (int)TextureWrapMode.ClampToBorder);
+			GL.TexParameter(TextureTarget.Texture2D, TextureParameterName.TextureWrapT, (int)TextureWrapMode.ClampToBorder);
+			EndUse();
+		}
+		public void Repeat()
+		{
+			BeginUse();
+			GL.TexParameter(TextureTarget.Texture2D, TextureParameterName.TextureWrapS, (int)TextureWrapMode.Repeat);
+			GL.TexParameter(TextureTarget.Texture2D, TextureParameterName.TextureWrapT, (int)TextureWrapMode.Repeat);
+			EndUse();
+		}
+
 		public void Dispose()
 		{
 			GL.DeleteTexture(m_uTextureID);
@@ -64,16 +79,30 @@ namespace Framework
 		}
 
 		public void EndUse()
-		{ 
+		{
+			GL.BindTexture(TextureTarget.Texture2D, 0);
 			GL.Disable(EnableCap.Texture2D);
 		}
 
-		public void LoadPixels(IntPtr pixels, int width, int height, PixelInternalFormat internalFormat, OpenTK.Graphics.OpenGL.PixelFormat inputPixelFormat)
+		public void LoadPixels(IntPtr pixels, int width, int height, PixelInternalFormat internalFormat, PixelFormat inputPixelFormat, PixelType type)
 		{
-			GL.TexImage2D(TextureTarget.Texture2D, 0, internalFormat, width, height, 0,
-				inputPixelFormat, PixelType.UnsignedByte, pixels);
+			BeginUse();
+			GL.TexImage2D(TextureTarget.Texture2D, 0, internalFormat, width, height, 0,	inputPixelFormat, type, pixels);
 			this.Width = width;
 			this.Height = height;
+			EndUse();
+		}
+
+		public static Texture Create(int width, int height, PixelInternalFormat internalFormat = PixelInternalFormat.Rgba8
+			, PixelFormat inputPixelFormat = PixelFormat.Rgba, PixelType type = PixelType.UnsignedByte)
+		{
+			var texture = new Texture();
+			//create empty texture of given size
+			texture.LoadPixels(IntPtr.Zero, width, height, internalFormat, inputPixelFormat, type);
+			//set default parameters for filtering and clamping
+			texture.FilterBilinear();
+			texture.Repeat();
+			return texture;
 		}
 
 		public int Width { get; private set; }
