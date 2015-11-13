@@ -85,6 +85,8 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="AABR.cs" />
+    <Compile Include="Shader.cs" />
+    <Compile Include="ShaderLoader.cs" />
     <Compile Include="TextureFont.cs" />
     <Compile Include="Texture.cs" />
     <Compile Include="TextureLoader.cs" />

@@ -6,7 +6,7 @@ using System.IO;
 
 namespace Framework
 {
-	public class TextureLoader
+	public static class TextureLoader
 	{
 		public static Texture FromFile(string fileName)
 		{
