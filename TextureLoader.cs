@@ -27,7 +27,7 @@ namespace Framework
 			BitmapData bmpData = bmp.LockBits(new Rectangle(0, 0, bmp.Width, bmp.Height), ImageLockMode.ReadOnly, bmp.PixelFormat);
 			PixelInternalFormat internalFormat = selectInternalPixelFormat(bmp.PixelFormat);
 			OpenTK.Graphics.OpenGL.PixelFormat inputPixelFormat = selectInputPixelFormat(bmp.PixelFormat);
-			texture.LoadPixels(bmpData.Scan0, bmpData.Width, bmpData.Height, internalFormat, inputPixelFormat);
+			texture.LoadPixels(bmpData.Scan0, bmpData.Width, bmpData.Height, internalFormat, inputPixelFormat, PixelType.UnsignedByte);
 			bmp.UnlockBits(bmpData);
 			texture.EndUse();
 			return texture;
@@ -37,6 +37,7 @@ namespace Framework
 		{
 			switch (pixelFormat)
 			{
+				case System.Drawing.Imaging.PixelFormat.Format8bppIndexed: return OpenTK.Graphics.OpenGL.PixelFormat.Red;
 				case System.Drawing.Imaging.PixelFormat.Format24bppRgb: return OpenTK.Graphics.OpenGL.PixelFormat.Bgr;
 				case System.Drawing.Imaging.PixelFormat.Format32bppArgb: return OpenTK.Graphics.OpenGL.PixelFormat.Bgra;
 				default: throw new FileLoadException("Wrong pixel format " + pixelFormat.ToString());
@@ -47,6 +48,7 @@ namespace Framework
 		{
 			switch (pixelFormat)
 			{
+				case System.Drawing.Imaging.PixelFormat.Format8bppIndexed: return PixelInternalFormat.Luminance;
 				case System.Drawing.Imaging.PixelFormat.Format24bppRgb: return PixelInternalFormat.Rgb;
 				case System.Drawing.Imaging.PixelFormat.Format32bppArgb: return PixelInternalFormat.Rgba;
 				default: throw new FileLoadException("Wrong pixel format " + pixelFormat.ToString());
