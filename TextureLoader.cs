@@ -22,6 +22,7 @@ namespace Framework
 			Texture texture = new Texture();
 			texture.BeginUse();
 			texture.FilterTrilinear();
+			//todo: 16bit channels
 			Bitmap bmp = new Bitmap(fileName);
 			bmp.RotateFlip(RotateFlipType.RotateNoneFlipY);
 			BitmapData bmpData = bmp.LockBits(new Rectangle(0, 0, bmp.Width, bmp.Height), ImageLockMode.ReadOnly, bmp.PixelFormat);

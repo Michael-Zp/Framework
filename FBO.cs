@@ -20,20 +20,20 @@ namespace Framework
 			GL.GenFramebuffers(1, out m_FBOHandle);
 		}
 
-		public void BeginUpdate(Texture texture)
+		public void BeginUse(Texture texture)
 		{
 			GL.BindFramebuffer(FramebufferTarget.Framebuffer, this.m_FBOHandle);
 			GL.FramebufferTexture2D(FramebufferTarget.Framebuffer, FramebufferAttachment.ColorAttachment0, TextureTarget.Texture2D, texture.ID, 0);
 			string status = GetStatusMessage();
 			if (!string.IsNullOrEmpty(status))
 			{
-				EndUpdate();
+				EndUse();
 				throw new FBOException(status);
 			}
 			GL.Viewport(0, 0, texture.Width, texture.Height);
 		}
 
-		public void EndUpdate()
+		public void EndUse()
 		{
 			GL.BindFramebuffer(FramebufferTarget.FramebufferExt, 0);
 		}
