@@ -34,6 +34,20 @@ namespace Framework
 			return texture;
 		}
 
+		public static void SaveToFile(Texture texture, string fileName)
+		{
+			var format = System.Drawing.Imaging.PixelFormat.Format32bppArgb;
+            texture.BeginUse();
+			Bitmap bmp = new Bitmap(texture.Width, texture.Height);
+			System.Drawing.Imaging.BitmapData data =
+			bmp.LockBits(new Rectangle(0, 0, bmp.Width, bmp.Height), System.Drawing.Imaging.ImageLockMode.WriteOnly, format);
+			GL.GetTexImage(TextureTarget.Texture2D, 0, selectInputPixelFormat(format), PixelType.UnsignedByte, data.Scan0);
+			bmp.UnlockBits(data);
+			texture.EndUse();
+			bmp.RotateFlip(RotateFlipType.RotateNoneFlipY);
+			bmp.Save(fileName);
+		}
+
 		private static OpenTK.Graphics.OpenGL.PixelFormat selectInputPixelFormat(System.Drawing.Imaging.PixelFormat pixelFormat)
 		{
 			switch (pixelFormat)
