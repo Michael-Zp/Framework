@@ -79,6 +79,9 @@
     </Reference>
     <Reference Include="System" />
     <Reference Include="System.Drawing" />
+    <Reference Include="System.Runtime.Serialization.Formatters.Soap" />
+    <Reference Include="System.XML" />
+    <Reference Include="System.Xml.Serialization" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Properties\" />
@@ -86,6 +89,7 @@
   <ItemGroup>
     <Compile Include="AABR.cs" />
     <Compile Include="FBO.cs" />
+    <Compile Include="Serialize.cs" />
     <Compile Include="Shader.cs" />
     <Compile Include="ShaderLoader.cs" />
     <Compile Include="TextureFont.cs" />
