@@ -15,7 +15,7 @@ namespace Framework
 		/// <returns></returns>
 		public static string Get(string fromPath, string toPath)
 		{
-			if (string.IsNullOrEmpty(fromPath)) return toPath;
+			if (string.IsNullOrEmpty(fromPath) || string.IsNullOrEmpty(toPath)) return toPath;
 			int fromAttr = GetPathAttribute(fromPath);
 			int toAttr = GetPathAttribute(toPath);
 
