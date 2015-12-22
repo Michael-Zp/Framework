@@ -16,15 +16,22 @@ namespace Framework
 		public static string Get(string fromPath, string toPath)
 		{
 			if (string.IsNullOrEmpty(fromPath) || string.IsNullOrEmpty(toPath)) return toPath;
-			int fromAttr = GetPathAttribute(fromPath);
-			int toAttr = GetPathAttribute(toPath);
+			try
+			{
+				int fromAttr = GetPathAttribute(fromPath);
+				int toAttr = GetPathAttribute(toPath);
 
-			StringBuilder path = new StringBuilder(5260); // todo: should we use MAX_PATH?
-			if (0 == PathRelativePathTo(path, fromPath, fromAttr, toPath, toAttr))
+				StringBuilder path = new StringBuilder(5260); // todo: should we use MAX_PATH?
+				if (0 == PathRelativePathTo(path, fromPath, fromAttr, toPath, toAttr))
+				{
+					return toPath;
+				}
+				return path.ToString();
+			}
+			catch
 			{
 				return toPath;
 			}
-			return path.ToString();
 		}
 
 		private static int GetPathAttribute(string path)
