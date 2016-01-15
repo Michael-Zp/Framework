@@ -5,47 +5,16 @@ namespace Framework
 {
 	public class ShaderException : Exception
 	{
+		public string Type { get; private set; }
+
 		/// <summary>
 		/// Initializes a new instance of the <see cref="ShaderException"/> class.
 		/// </summary>
 		/// <param name="msg">The error msg.</param>
-		public ShaderException(string msg) : base(msg) { }
-	}
-
-	/// <summary>
-	/// Exception for vertex compilation errors
-	/// </summary>
-	public class VertexShaderCompileException : ShaderException
-	{
-		/// <summary>
-		/// Initializes a new instance of the <see cref="VertexShaderCompileException"/> class.
-		/// </summary>
-		/// <param name="msg">The error msg.</param>
-		public VertexShaderCompileException(string msg) : base(msg) { }
-	}
-
-	/// <summary>
-	/// Exception for fragment shader compilation errors
-	/// </summary>
-	public class FragmentShaderCompileException : ShaderException
-	{
-		/// <summary>
-		/// Initializes a new instance of the <see cref="FragmentShaderCompileException"/> class.
-		/// </summary>
-		/// <param name="msg">The error msg.</param>
-		public FragmentShaderCompileException(string msg) : base(msg) { }
-	}
-	
-	/// <summary>
-	/// Exception for shader link errors
-	/// </summary>
-	public class ShaderLinkException : ShaderException
-	{
-		/// <summary>
-		/// Initializes a new instance of the <see cref="ShaderLinkException"/> class.
-		/// </summary>
-		/// <param name="msg">The error msg.</param>
-		public ShaderLinkException(string msg) : base(msg) { }
+		public ShaderException(string type, string msg) : base(msg)
+		{
+			Type = type;
+		}
 	}
 
 	/// <summary>
@@ -124,38 +93,34 @@ namespace Framework
 			return input.Replace("\n", Environment.NewLine);
 		}
 
+
+		private static int Compile(string sShader, ShaderType type)
+		{
+			int shaderObject = 0;
+			int status_code;
+			if (!string.IsNullOrEmpty(sShader))
+			{
+				shaderObject = GL.CreateShader(type);
+				// Compile vertex shader
+				GL.ShaderSource(shaderObject, sShader);
+				GL.CompileShader(shaderObject);
+				GL.GetShader(shaderObject, ShaderParameter.CompileStatus, out status_code);
+				if (1 != status_code)
+				{
+					string log = CorrectLineEndings(GL.GetShaderInfoLog(shaderObject));
+					throw new ShaderException(type.ToString(), log);
+				}
+			}
+			return shaderObject;
+		}
+
 		private static int CompileLink(string sVertexShd_, string sFragmentShd_)
 		{
 			int program = 0;
-			int vertexObject = 0;
-			int fragmentObject = 0;
+			int vertexObject = Compile(sVertexShd_, ShaderType.VertexShader);
+			int fragmentObject = Compile(sFragmentShd_, ShaderType.FragmentShader); ;
 			int status_code;
-			if (!string.IsNullOrEmpty(sVertexShd_))
-			{
-				vertexObject = GL.CreateShader(ShaderType.VertexShader);
-				// Compile vertex shader
-				GL.ShaderSource(vertexObject, sVertexShd_);
-				GL.CompileShader(vertexObject);
-				GL.GetShader(vertexObject, ShaderParameter.CompileStatus, out status_code);
-				if (1 != status_code)
-				{
-					string log = CorrectLineEndings(GL.GetShaderInfoLog(vertexObject));
-					throw new VertexShaderCompileException(log);
-				}
-			}
-			if (!string.IsNullOrEmpty(sFragmentShd_))
-			{
-				fragmentObject = GL.CreateShader(ShaderType.FragmentShader);
-				// Compile fragment shader
-				GL.ShaderSource(fragmentObject, sFragmentShd_);
-				GL.CompileShader(fragmentObject);
-				GL.GetShader(fragmentObject, ShaderParameter.CompileStatus, out status_code);
-				if (1 != status_code)
-				{
-					string log = CorrectLineEndings(GL.GetShaderInfoLog(fragmentObject));
-					throw new FragmentShaderCompileException(log);
-				}
-			}
+
 			program = GL.CreateProgram();
 			if (0 != vertexObject)
 			{
@@ -171,14 +136,14 @@ namespace Framework
 			}
 			catch (Exception)
 			{
-				throw new ShaderLinkException("Unknown link error!");
+				throw new ShaderException("Link", "Unknown error!");
 			}
 			GL.GetProgram(program, GetProgramParameterName.LinkStatus, out status_code);
 			if (1 != status_code)
 			{
 				string log = CorrectLineEndings(GL.GetProgramInfoLog(program));
 				GL.DeleteProgram(program);
-				throw new ShaderLinkException(log);
+				throw new ShaderException("Link", log);
 			}
 			GL.UseProgram(0);
 			return program;
