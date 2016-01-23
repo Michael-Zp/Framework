@@ -12,25 +12,30 @@ namespace Framework
 		/// <returns>a new instance</returns>
 		public static Shader FromFiles(string sVertexShdFile_, string sFragmentShdFile_)
 		{
-			string sVertexShd = null;
-			if (!File.Exists(sVertexShdFile_))
-			{
-				throw new FileNotFoundException("Could not find " + sVertexShdFile_);
-			}
-			using (StreamReader sr = new StreamReader(sVertexShdFile_))
-			{
-				sVertexShd = sr.ReadToEnd();
-			}
-			string sFragmentShd = null;
-			if (!File.Exists(sFragmentShdFile_))
-			{
-				throw new FileNotFoundException("Could not find " + sFragmentShdFile_);
-			}
-			using (StreamReader sr = new StreamReader(sFragmentShdFile_))
-			{
-				sFragmentShd = sr.ReadToEnd();
-			}
+
+			string sVertexShd = ShaderStringFromFileWithIncludes(sVertexShdFile_);
+			string sFragmentShd = ShaderStringFromFileWithIncludes(sFragmentShdFile_);
 			return Shader.LoadFromStrings(sVertexShd, sFragmentShd);
+		}
+
+		/// <summary>
+		/// Reads the contents of a file into a string
+		/// </summary>
+		/// <param name="shaderFile">path to the shader file</param>
+		/// <returns>string with contents of shaderFile</returns>
+		public static string ShaderStringFromFileWithIncludes(string shaderFile)
+		{
+			string sShader = null;
+			if (!File.Exists(shaderFile))
+			{
+				throw new FileNotFoundException("Could not find shader file '" + shaderFile + "'");
+			}
+			using (StreamReader sr = new StreamReader(shaderFile))
+			{
+				sShader = sr.ReadToEnd();
+				//todo: handle includes
+				return sShader;
+			}
 		}
 	}
 }
