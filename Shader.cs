@@ -27,6 +27,7 @@ namespace Framework
 		/// </summary>
 		public Shader()
 		{
+			m_ProgramID = GL.CreateProgram();
 		}
 
 		/// <summary>
@@ -34,27 +35,28 @@ namespace Framework
 		/// </summary>
 		public void Dispose()
 		{
-			if (IsLoaded())
+			if (0 != m_ProgramID)
 			{
 				GL.DeleteProgram(m_ProgramID);
 			}
 		}
 
-		/// <summary>
-		/// Loads vertex and fragment shaders from strings.
-		/// </summary>
-		/// <param name="sVertexShd_">The s vertex SHD_.</param>
-		/// <param name="sFragmentShd_">The s fragment SHD_.</param>
-		/// <returns>a new instance</returns>
-		public static Shader LoadFromStrings(string sVertexShd_, string sFragmentShd_)
+		public void Compile(string sShader, ShaderType type)
 		{
-			Shader shd = new Shader();
-			shd.m_ProgramID = CompileLink(sVertexShd_, sFragmentShd_);
-			if (!shd.IsLoaded())
+			int shaderObject = GL.CreateShader(type);
+			if (0 == shaderObject) throw new ShaderException(type.ToString(), "Could not create.");
+			// Compile vertex shader
+			GL.ShaderSource(shaderObject, sShader);
+			GL.CompileShader(shaderObject);
+			int status_code;
+			GL.GetShader(shaderObject, ShaderParameter.CompileStatus, out status_code);
+			if (1 != status_code)
 			{
-				shd = null;
+				string log = CorrectLineEndings(GL.GetShaderInfoLog(shaderObject));
+				throw new ShaderException(type.ToString(), log);
 			}
-			return shd;
+			GL.AttachShader(m_ProgramID, shaderObject);
+			//shaderIDs.Add(shaderObject);
 		}
 
 		/// <summary>
@@ -62,7 +64,7 @@ namespace Framework
 		/// </summary>
 		public void Begin()
 		{
-			if(IsLoaded()) GL.UseProgram(m_ProgramID);
+			GL.UseProgram(m_ProgramID);
 		}
 
 		/// <summary>
@@ -70,83 +72,48 @@ namespace Framework
 		/// </summary>
 		public void End()
 		{
-			if (IsLoaded()) GL.UseProgram(0);
+			GL.UseProgram(0);
 		}
-
-		/// <summary>
-		/// Determines whether this shader is loaded.
-		/// </summary>
-		/// <returns>
-		///   <c>true</c> if this shader is loaded; otherwise, <c>false</c>.
-		/// </returns>
-		public bool IsLoaded() { return 0 != m_ProgramID; }
 
 		public int GetUniformLocation(string name)
 		{
 			return GL.GetUniformLocation(m_ProgramID, name);
 		}
 
+		public void Link()
+		{
+			try
+			{
+				GL.LinkProgram(m_ProgramID);
+			}
+			catch (Exception)
+			{
+				throw new ShaderException("Link", "Unknown error!");
+			}
+			int status_code;
+			GL.GetProgram(m_ProgramID, GetProgramParameterName.LinkStatus, out status_code);
+			if (1 != status_code)
+			{
+				string log = CorrectLineEndings(GL.GetProgramInfoLog(m_ProgramID));
+				throw new ShaderException("Link", log);
+			}
+		}
+
 		private int m_ProgramID = 0;
+		//private List<int> shaderIDs = new List<int>();
 
 		private static string CorrectLineEndings(string input)
 		{
 			return input.Replace("\n", Environment.NewLine);
 		}
 
-
-		private static int Compile(string sShader, ShaderType type)
-		{
-			int shaderObject = 0;
-			int status_code;
-			if (!string.IsNullOrEmpty(sShader))
-			{
-				shaderObject = GL.CreateShader(type);
-				// Compile vertex shader
-				GL.ShaderSource(shaderObject, sShader);
-				GL.CompileShader(shaderObject);
-				GL.GetShader(shaderObject, ShaderParameter.CompileStatus, out status_code);
-				if (1 != status_code)
-				{
-					string log = CorrectLineEndings(GL.GetShaderInfoLog(shaderObject));
-					throw new ShaderException(type.ToString(), log);
-				}
-			}
-			return shaderObject;
-		}
-
-		private static int CompileLink(string sVertexShd_, string sFragmentShd_)
-		{
-			int program = 0;
-			int vertexObject = Compile(sVertexShd_, ShaderType.VertexShader);
-			int fragmentObject = Compile(sFragmentShd_, ShaderType.FragmentShader); ;
-			int status_code;
-
-			program = GL.CreateProgram();
-			if (0 != vertexObject)
-			{
-				GL.AttachShader(program, vertexObject);
-			}
-			if (0 != fragmentObject)
-			{
-				GL.AttachShader(program, fragmentObject);
-			}
-			try
-			{
-				GL.LinkProgram(program);
-			}
-			catch (Exception)
-			{
-				throw new ShaderException("Link", "Unknown error!");
-			}
-			GL.GetProgram(program, GetProgramParameterName.LinkStatus, out status_code);
-			if (1 != status_code)
-			{
-				string log = CorrectLineEndings(GL.GetProgramInfoLog(program));
-				GL.DeleteProgram(program);
-				throw new ShaderException("Link", log);
-			}
-			GL.UseProgram(0);
-			return program;
-		}
+		//private void DetachShaders()
+		//{
+		//	foreach (int id in shaderIDs)
+		//	{
+		//		GL.DetachShader(m_ProgramID, id);
+		//	}
+		//	shaderIDs.Clear();
+		//}
 	}
 }

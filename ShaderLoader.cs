@@ -1,11 +1,29 @@
 ﻿using System.IO;
+using OpenTK.Graphics.OpenGL;
+using System.Text.RegularExpressions;
+using System;
 
 namespace Framework
 {
 	public static class ShaderLoader
 	{
 		/// <summary>
-		/// Loads vertex and fragment shaders from files.
+		/// Compiles and links vertex and fragment shaders from strings.
+		/// </summary>
+		/// <param name="sVertexShd_">The s vertex SHD_.</param>
+		/// <param name="sFragmentShd_">The s fragment SHD_.</param>
+		/// <returns>a new instance</returns>
+		public static Shader FromStrings(string sVertexShd_, string sFragmentShd_)
+		{
+			Shader shd = new Shader();
+			shd.Compile(sVertexShd_, ShaderType.VertexShader);
+			shd.Compile(sFragmentShd_, ShaderType.FragmentShader);
+			shd.Link();
+			return shd;
+		}
+
+		/// <summary>
+		/// Compiles and links vertex and fragment shaders from files.
 		/// </summary>
 		/// <param name="sVertexShdFile_">The s vertex SHD file_.</param>
 		/// <param name="sFragmentShdFile_">The s fragment SHD file_.</param>
@@ -15,7 +33,7 @@ namespace Framework
 
 			string sVertexShd = ShaderStringFromFileWithIncludes(sVertexShdFile_);
 			string sFragmentShd = ShaderStringFromFileWithIncludes(sFragmentShdFile_);
-			return Shader.LoadFromStrings(sVertexShd, sFragmentShd);
+			return FromStrings(sVertexShd, sFragmentShd);
 		}
 
 		/// <summary>
@@ -30,12 +48,43 @@ namespace Framework
 			{
 				throw new FileNotFoundException("Could not find shader file '" + shaderFile + "'");
 			}
-			using (StreamReader sr = new StreamReader(shaderFile))
+			sShader = File.ReadAllText(shaderFile);
+			
+			//handle includes
+			string sCurrentPath = Path.GetDirectoryName(shaderFile) + Path.DirectorySeparatorChar; // get path to current shader
+			string sName = Path.GetFileName(shaderFile);
+			//split into lines
+			var lines = sShader.Split(new[] { Environment.NewLine }, StringSplitOptions.None);
+			var pattern = @"\s*#include\s+" + '"' + "(.+)" + '"';
+			int lineNr = 1;
+			foreach (var line in lines)
 			{
-				sShader = sr.ReadToEnd();
-				//todo: handle includes
-				return sShader;
+				// Search for include pattern (e.g. #include raycast.glsl) (nested not supported)
+				foreach (Match match in Regex.Matches(line, pattern, RegexOptions.Singleline))
+				{
+					string sFullMatch = match.Value;
+					string sIncludeFileName = match.Groups[1].ToString(); // get the filename to include
+					string sIncludePath = sCurrentPath + sIncludeFileName; // build path to file
+
+					if (!File.Exists(sIncludePath))
+					{
+						throw new FileNotFoundException("Could not find include-file '" + sIncludeFileName + "' for shader '" + shaderFile + "'.");
+					}
+					string sIncludeShd = File.ReadAllText(sIncludePath); // read include as string
+					try
+					{
+						new Shader().Compile(sIncludeShd, ShaderType.FragmentShader); //test compile include shader
+					}
+					catch (ShaderException e)
+					{
+						throw new ShaderException("include compile '" + sIncludePath + "'", e.Message);
+					}
+					sIncludeShd += Environment.NewLine + "#line " + lineNr.ToString() + Environment.NewLine;
+					sShader = sShader.Replace(sFullMatch, sIncludeShd); // replace #include with actual include
+	 			}
+				++lineNr;
 			}
+			return sShader;
 		}
 	}
 }
