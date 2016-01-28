@@ -1,19 +1,30 @@
-﻿using System;
-using System.IO;
+﻿using System.IO;
 using System.Runtime.InteropServices;
 using System.Text;
 
 namespace Framework
 {
-	public class RelativePath
+	public static class PathTools
 	{
+		public static string GetFullPath(string fileName)
+		{
+			try
+			{
+				return Path.GetFullPath(fileName);
+			}
+			catch
+			{
+				return fileName;
+			}
+		}
+
 		/// <summary>
 		/// returns the relative path. if no relative path is valid, the absolut path is returned.
 		/// </summary>
 		/// <param name="fromPath">the path the result should be relative to</param>
 		/// <param name="toPath">the path to be converted into relative form</param>
 		/// <returns></returns>
-		public static string Get(string fromPath, string toPath)
+		public static string GetRelativePath(string fromPath, string toPath)
 		{
 			if (string.IsNullOrEmpty(fromPath) || string.IsNullOrEmpty(toPath)) return toPath;
 			try
@@ -34,6 +45,9 @@ namespace Framework
 			}
 		}
 
+		private const int FILE_ATTRIBUTE_DIRECTORY = 0x10;
+		private const int FILE_ATTRIBUTE_NORMAL = 0x80;
+
 		private static int GetPathAttribute(string path)
 		{
 			DirectoryInfo di = new DirectoryInfo(path);
@@ -50,9 +64,6 @@ namespace Framework
 
 			throw new FileNotFoundException();
 		}
-
-		private const int FILE_ATTRIBUTE_DIRECTORY = 0x10;
-		private const int FILE_ATTRIBUTE_NORMAL = 0x80;
 
 		[DllImport("shlwapi.dll", SetLastError = true)]
 		private static extern int PathRelativePathTo(StringBuilder pszPath,

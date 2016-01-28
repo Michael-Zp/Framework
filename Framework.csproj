@@ -89,7 +89,7 @@
   <ItemGroup>
     <Compile Include="AABR.cs" />
     <Compile Include="FBO.cs" />
-    <Compile Include="RelativePath.cs" />
+    <Compile Include="PathTools.cs" />
     <Compile Include="Serialize.cs" />
     <Compile Include="Shader.cs" />
     <Compile Include="ShaderLoader.cs" />

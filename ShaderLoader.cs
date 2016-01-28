@@ -51,8 +51,8 @@ namespace Framework
 			sShader = File.ReadAllText(shaderFile);
 			
 			//handle includes
-			string sCurrentPath = Path.GetDirectoryName(shaderFile) + Path.DirectorySeparatorChar; // get path to current shader
-			string sName = Path.GetFileName(shaderFile);
+			string sCurrentPath = System.IO.Path.GetDirectoryName(shaderFile) + System.IO.Path.DirectorySeparatorChar; // get path to current shader
+			string sName = System.IO.Path.GetFileName(shaderFile);
 			//split into lines
 			var lines = sShader.Split(new[] { Environment.NewLine }, StringSplitOptions.None);
 			var pattern = @"\s*#include\s+" + '"' + "(.+)" + '"';
