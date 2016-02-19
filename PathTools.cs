@@ -33,7 +33,7 @@ namespace Framework
 				int toAttr = GetPathAttribute(toPath);
 
 				StringBuilder path = new StringBuilder(5260); // todo: should we use MAX_PATH?
-				if (0 == PathRelativePathTo(path, fromPath, fromAttr, toPath, toAttr))
+				if (0 == SafeNativeMethods.PathRelativePathTo(path, fromPath, fromAttr, toPath, toAttr))
 				{
 					return toPath;
 				}
@@ -65,8 +65,11 @@ namespace Framework
 			throw new FileNotFoundException();
 		}
 
-		[DllImport("shlwapi.dll", SetLastError = true)]
-		private static extern int PathRelativePathTo(StringBuilder pszPath,
-			string pszFrom, int dwAttrFrom, string pszTo, int dwAttrTo);
+		internal static class SafeNativeMethods
+		{
+			[DllImport("shlwapi.dll", SetLastError = true, CharSet = CharSet.Unicode)]
+			internal static extern int PathRelativePathTo(StringBuilder pszPath,
+				string pszFrom, int dwAttrFrom, string pszTo, int dwAttrTo);
+		}
 	}
 }
