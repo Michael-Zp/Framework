@@ -92,6 +92,7 @@
     <Compile Include="PathTools.cs" />
     <Compile Include="Serialize.cs" />
     <Compile Include="Shader.cs" />
+    <Compile Include="ShaderLogParser.cs" />
     <Compile Include="ShaderLoader.cs" />
     <Compile Include="TextureFont.cs" />
     <Compile Include="Texture.cs" />
