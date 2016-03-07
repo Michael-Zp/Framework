@@ -23,13 +23,15 @@ namespace Framework
 			texture.BeginUse();
 			texture.FilterTrilinear();
 			//todo: 16bit channels
-			Bitmap bmp = new Bitmap(fileName);
-			bmp.RotateFlip(RotateFlipType.RotateNoneFlipY);
-			BitmapData bmpData = bmp.LockBits(new Rectangle(0, 0, bmp.Width, bmp.Height), ImageLockMode.ReadOnly, bmp.PixelFormat);
-			PixelInternalFormat internalFormat = selectInternalPixelFormat(bmp.PixelFormat);
-			OpenTK.Graphics.OpenGL.PixelFormat inputPixelFormat = selectInputPixelFormat(bmp.PixelFormat);
-			texture.LoadPixels(bmpData.Scan0, bmpData.Width, bmpData.Height, internalFormat, inputPixelFormat, PixelType.UnsignedByte);
-			bmp.UnlockBits(bmpData);
+			using (Bitmap bmp = new Bitmap(fileName))
+			{
+				bmp.RotateFlip(RotateFlipType.RotateNoneFlipY);
+				BitmapData bmpData = bmp.LockBits(new Rectangle(0, 0, bmp.Width, bmp.Height), ImageLockMode.ReadOnly, bmp.PixelFormat);
+				PixelInternalFormat internalFormat = selectInternalPixelFormat(bmp.PixelFormat);
+				OpenTK.Graphics.OpenGL.PixelFormat inputPixelFormat = selectInputPixelFormat(bmp.PixelFormat);
+				texture.LoadPixels(bmpData.Scan0, bmpData.Width, bmpData.Height, internalFormat, inputPixelFormat, PixelType.UnsignedByte);
+				bmp.UnlockBits(bmpData);
+			}
 			texture.EndUse();
 			return texture;
 		}
@@ -38,14 +40,15 @@ namespace Framework
 		{
 			var format = System.Drawing.Imaging.PixelFormat.Format32bppArgb;
             texture.BeginUse();
-			Bitmap bmp = new Bitmap(texture.Width, texture.Height);
-			System.Drawing.Imaging.BitmapData data =
-			bmp.LockBits(new Rectangle(0, 0, bmp.Width, bmp.Height), System.Drawing.Imaging.ImageLockMode.WriteOnly, format);
-			GL.GetTexImage(TextureTarget.Texture2D, 0, selectInputPixelFormat(format), PixelType.UnsignedByte, data.Scan0);
-			bmp.UnlockBits(data);
-			texture.EndUse();
-			bmp.RotateFlip(RotateFlipType.RotateNoneFlipY);
-			bmp.Save(fileName);
+			using (Bitmap bmp = new Bitmap(texture.Width, texture.Height))
+			{
+				BitmapData data = bmp.LockBits(new Rectangle(0, 0, bmp.Width, bmp.Height), System.Drawing.Imaging.ImageLockMode.WriteOnly, format);
+				GL.GetTexImage(TextureTarget.Texture2D, 0, selectInputPixelFormat(format), PixelType.UnsignedByte, data.Scan0);
+				bmp.UnlockBits(data);
+				texture.EndUse();
+				bmp.RotateFlip(RotateFlipType.RotateNoneFlipY);
+				bmp.Save(fileName);
+			}
 		}
 
 		private static OpenTK.Graphics.OpenGL.PixelFormat selectInputPixelFormat(System.Drawing.Imaging.PixelFormat pixelFormat)
