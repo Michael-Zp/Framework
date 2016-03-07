@@ -16,9 +16,17 @@ namespace Framework
 		public static Shader FromStrings(string sVertexShd_, string sFragmentShd_)
 		{
 			Shader shd = new Shader();
-			shd.Compile(sVertexShd_, ShaderType.VertexShader);
-			shd.Compile(sFragmentShd_, ShaderType.FragmentShader);
-			shd.Link();
+			try
+			{
+				shd.Compile(sVertexShd_, ShaderType.VertexShader);
+				shd.Compile(sFragmentShd_, ShaderType.FragmentShader);
+				shd.Link();
+			}
+			catch(Exception e)
+			{
+				shd.Dispose();
+				throw e;
+			}
 			return shd;
 		}
 
@@ -51,8 +59,8 @@ namespace Framework
 			sShader = File.ReadAllText(shaderFile);
 			
 			//handle includes
-			string sCurrentPath = System.IO.Path.GetDirectoryName(shaderFile) + System.IO.Path.DirectorySeparatorChar; // get path to current shader
-			string sName = System.IO.Path.GetFileName(shaderFile);
+			string sCurrentPath = Path.GetDirectoryName(shaderFile) + Path.DirectorySeparatorChar; // get path to current shader
+			string sName = Path.GetFileName(shaderFile);
 			//split into lines
 			var lines = sShader.Split(new[] { Environment.NewLine }, StringSplitOptions.None);
 			var pattern = @"\s*#include\s+" + '"' + "(.+)" + '"';
@@ -71,13 +79,17 @@ namespace Framework
 						throw new FileNotFoundException("Could not find include-file '" + sIncludeFileName + "' for shader '" + shaderFile + "'.");
 					}
 					string sIncludeShd = File.ReadAllText(sIncludePath); // read include as string
-					try
+					using (var shader = new Shader())
 					{
-						new Shader().Compile(sIncludeShd, ShaderType.FragmentShader); //test compile include shader
-					}
-					catch (ShaderException e)
-					{
-						throw new ShaderException("include compile '" + sIncludePath + "'", e.Message);
+						try
+						{
+
+							shader.Compile(sIncludeShd, ShaderType.FragmentShader); //test compile include shader
+						}
+						catch (ShaderException e)
+						{
+							throw new ShaderException("include compile '" + sIncludePath + "'", e.Message);
+						}
 					}
 					sIncludeShd += Environment.NewLine + "#line " + lineNr.ToString() + Environment.NewLine;
 					sShader = sShader.Replace(sFullMatch, sIncludeShd); // replace #include with actual include

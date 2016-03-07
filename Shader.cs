@@ -43,6 +43,7 @@ namespace Framework
 
 		public void Compile(string sShader, ShaderType type)
 		{
+			isLinked = false;
 			int shaderObject = GL.CreateShader(type);
 			if (0 == shaderObject) throw new ShaderException(type.ToString(), "Could not create.");
 			// Compile vertex shader
@@ -80,6 +81,8 @@ namespace Framework
 			return GL.GetUniformLocation(m_ProgramID, name);
 		}
 
+		public bool IsLinked { get { return isLinked; } }
+
 		public void Link()
 		{
 			try
@@ -97,9 +100,12 @@ namespace Framework
 				string log = CorrectLineEndings(GL.GetProgramInfoLog(m_ProgramID));
 				throw new ShaderException("Link", log);
 			}
+			isLinked = true;
 		}
 
 		private int m_ProgramID = 0;
+		private bool isLinked = false;
+
 		//private List<int> shaderIDs = new List<int>();
 
 		private static string CorrectLineEndings(string input)
