@@ -10,6 +10,7 @@ namespace Framework
 			Length = length;
 			IsLooping = false;
 			IsRunning = false;
+			//timer.AutoReset = true;
 			timer.Elapsed += TimeFinished;
 			InitTimer(length);
 		}
@@ -66,7 +67,7 @@ namespace Framework
 		public bool IsRunning
 		{
 			get { return sw.IsRunning; }
-			set	{ if (value) sw.Start(); else sw.Stop(); }
+			set	{ if (value) { timer.Start(); sw.Start(); } else { timer.Stop(); sw.Stop(); } }
 		}
 
 		public event TimeFinishedHandler OnTimeFinished;
