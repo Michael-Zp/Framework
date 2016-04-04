@@ -89,6 +89,7 @@
   <ItemGroup>
     <Compile Include="AABR.cs" />
     <Compile Include="FBO.cs" />
+    <Compile Include="ITimeSource.cs" />
     <Compile Include="PathTools.cs" />
     <Compile Include="Serialize.cs" />
     <Compile Include="Shader.cs" />
@@ -97,6 +98,7 @@
     <Compile Include="TextureFont.cs" />
     <Compile Include="Texture.cs" />
     <Compile Include="TextureLoader.cs" />
+    <Compile Include="TimeSource.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
