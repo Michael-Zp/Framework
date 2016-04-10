@@ -76,6 +76,11 @@ namespace Framework
 			GL.UseProgram(0);
 		}
 
+		public int GetAttributeLocation(string name)
+		{
+			return GL.GetAttribLocation(m_ProgramID, name);
+		}
+
 		public int GetUniformLocation(string name)
 		{
 			return GL.GetUniformLocation(m_ProgramID, name);
