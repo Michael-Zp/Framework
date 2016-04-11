@@ -2,9 +2,20 @@
 using OpenTK.Graphics.OpenGL;
 using System.Collections.Generic;
 using System.Runtime.InteropServices;
+using System.Diagnostics;
 
 namespace Framework
 {
+	[Serializable]
+	public class VAOException : Exception
+	{
+		/// <summary>
+		/// Initializes a new instance of the <see cref="VAOException"/> class.
+		/// </summary>
+		/// <param name="msg">The error msg.</param>
+		public VAOException(string msg) : base(msg) { }
+	}
+
 	public class VAO : IDisposable
 	{
 		public VAO()
@@ -34,9 +45,10 @@ namespace Framework
 			int bufferByteSize = data.Length * elementBytes;
 			// set buffer data
 			GL.BufferData(BufferTarget.ElementArrayBuffer, (IntPtr)bufferByteSize, data, BufferUsageHint.StaticDraw);
+			//cleanup state
 			Deactive();
 			GL.BindBuffer(BufferTarget.ElementArrayBuffer, 0);
-
+			//save data for draw call
 			DrawElementsType drawElementsType = GetDrawElementsType(type);
 			idData = new IDData(primitiveType, data.Length, drawElementsType);
 		}
@@ -52,14 +64,14 @@ namespace Framework
 			int bufferByteSize = data.Length * elementBytes;
 			// set buffer data
 			GL.BufferData(BufferTarget.ArrayBuffer, (IntPtr)bufferByteSize, data, BufferUsageHint.StaticDraw);
+			//set data format
 			GL.VertexAttribPointer(bindingID, elementSize, type, false, elementBytes, 0);
 			GL.EnableVertexAttribArray(bindingID);
-
 			if (perInstance)
 			{
 				GL.VertexAttribDivisor(bindingID, 1);
 			}
-
+			//cleanup state
 			Deactive();
 			GL.BindBuffer(BufferTarget.ArrayBuffer, 0);
 			GL.DisableVertexAttribArray(bindingID);
@@ -77,6 +89,7 @@ namespace Framework
 
 		public void Draw(int instanceCount = 1)
 		{
+			if (0 == idData.length) throw new VAOException("Empty id data set! Draw yourself using active/deactivate!");
 			Activate();
 			GL.DrawElementsInstanced(idData.primitiveType, idData.length, idData.drawElementsType, (IntPtr)0, instanceCount);
 			Deactive();
