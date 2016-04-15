@@ -2,7 +2,7 @@
 
 namespace Framework
 {
-	public static class BasicMeshes
+	public static partial class Meshes
 	{
 		public static Mesh CreateCube(float size = 1.0f)
 		{

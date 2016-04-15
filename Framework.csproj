@@ -88,10 +88,12 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="AABR.cs" />
-    <Compile Include="BasicMeshes.cs" />
+    <Compile Include="Meshes.cs" />
     <Compile Include="FBO.cs" />
     <Compile Include="ITimeSource.cs" />
     <Compile Include="Mesh.cs" />
+    <Compile Include="Obj2Mesh.cs" />
+    <Compile Include="ObjParser.cs" />
     <Compile Include="PathTools.cs" />
     <Compile Include="Serialize.cs" />
     <Compile Include="Shader.cs" />
