@@ -88,9 +88,9 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="AABR.cs" />
+    <Compile Include="ITimedUpdate.cs" />
     <Compile Include="Meshes.cs" />
     <Compile Include="FBO.cs" />
-    <Compile Include="ITimeSource.cs" />
     <Compile Include="Mesh.cs" />
     <Compile Include="Obj2Mesh.cs" />
     <Compile Include="ObjParser.cs" />
@@ -102,7 +102,7 @@
     <Compile Include="TextureFont.cs" />
     <Compile Include="Texture.cs" />
     <Compile Include="TextureLoader.cs" />
-    <Compile Include="TimeSource.cs" />
+    <Compile Include="Timer.cs" />
     <Compile Include="VAO.cs" />
   </ItemGroup>
   <ItemGroup>

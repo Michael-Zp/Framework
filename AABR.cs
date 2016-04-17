@@ -26,9 +26,9 @@
 
 		public float Y { get; set; }
 
-		public float CenterX { get { return X + 0.5f * SizeX; } }
+		public float CenterX { get { return X + 0.5f * SizeX; }  set { X = value - 0.5f * SizeX; } }
 
-		public float CenterY { get { return Y + 0.5f * SizeY; } }
+		public float CenterY { get { return Y + 0.5f * SizeY; } set { Y = value - 0.5f * SizeY; } }
 
 		public bool Intersects(AABR frame)
 		{
@@ -62,9 +62,46 @@
 			return overlap;
 		}
 
-		public float MaxX { get { return X + SizeX; } }
+		public bool PushXRangeInside(AABR frame)
+		{
+			if (SizeX > frame.SizeX) return false;
+			if (X < frame.X)
+			{
+				X = frame.X;
+			}
+			if (MaxX > frame.MaxX)
+			{
+				MaxX = frame.MaxX;
+			}
+			return true;
+		}
 
-		public float MaxY { get { return Y + SizeY; } }
+		public bool PushYRangeInside(AABR frame)
+		{
+			if (SizeY > frame.SizeY) return false;
+			if (Y < frame.Y)
+			{
+				Y = frame.Y;
+			}
+			if (MaxY > frame.MaxY)
+			{
+				MaxY = frame.MaxY;
+			}
+			return true;
+		}
+
+		public bool Inside(AABR frame)
+		{
+			if (X < frame.X) return false;
+			if (MaxX > frame.MaxX) return false;
+			if (Y < frame.Y) return false;
+			if (MaxY > frame.MaxY) return false;
+			return true;
+		}
+
+		public float MaxX { get { return X + SizeX; } set { X = value - SizeX; } }
+
+		public float MaxY { get { return Y + SizeY; } set { Y = value - SizeY; } }
 
 		public override string ToString()
 		{
