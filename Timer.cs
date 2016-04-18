@@ -2,16 +2,17 @@
 {
 	public class Timer : ITimedUpdate
 	{
-		public Timer(float interval, bool enabled)
+		public Timer(float interval)
 		{
 			this.Interval = interval;
 			this.Count = 0;
-			this.Enabled = enabled;
+			this.Enabled = false;
 		}
 
 		public uint Count { get; private set; }
+		public float ElapsedTime { get { return elapsedTime; } }
 		public bool Enabled { get; set; }
-		public delegate void TimerElapsed();
+		public delegate void TimerElapsed(float absoluteTime);
 		public event TimerElapsed OnTimerElapsed;
 		public float Interval { get; set; }
 
@@ -20,17 +21,20 @@
 			if (!Enabled)
 			{
 				lastElapsedTime = absoluteTime;
+				elapsedTime = 0.0f;
 				return;
 			}
-			float delta = absoluteTime - lastElapsedTime;
-			if (delta > Interval)
+			elapsedTime = absoluteTime - lastElapsedTime;
+			if (elapsedTime > Interval)
 			{
-				OnTimerElapsed?.Invoke();
+				OnTimerElapsed?.Invoke(absoluteTime);
 				lastElapsedTime = absoluteTime;
+				elapsedTime = 0.0f;
 				++Count;
 			}
 		}
 
 		private float lastElapsedTime = 0.0f;
+		private float elapsedTime = 0.0f;
 	}
 }

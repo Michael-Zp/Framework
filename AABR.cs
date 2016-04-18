@@ -1,7 +1,17 @@
 ﻿namespace Framework
 {
+	/// <summary>
+	/// Represents an axis aligned bounding box - naming it rectangle would have been too simple ;)
+	/// </summary>
 	public class AABR
 	{
+		/// <summary>
+		/// creates an AABR
+		/// </summary>
+		/// <param name="x">left side x coordinate</param>
+		/// <param name="y">bottom side y coordinate</param>
+		/// <param name="sizeX">width</param>
+		/// <param name="sizeY">height</param>
 		public AABR(float x, float y, float sizeX, float sizeY)
 		{
 			this.X = x;
