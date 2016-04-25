@@ -1,4 +1,8 @@
-﻿namespace Framework
+﻿using OpenTK;
+using System.Collections.Generic;
+using System.Linq;
+
+namespace Framework
 {
 	/// <summary>
 	/// Represents an axis aligned bounding box - naming it rectangle would have been too simple ;)
@@ -36,7 +40,7 @@
 
 		public float Y { get; set; }
 
-		public float CenterX { get { return X + 0.5f * SizeX; }  set { X = value - 0.5f * SizeX; } }
+		public float CenterX { get { return X + 0.5f * SizeX; } set { X = value - 0.5f * SizeX; } }
 
 		public float CenterY { get { return Y + 0.5f * SizeY; } set { Y = value - 0.5f * SizeY; } }
 
@@ -70,6 +74,29 @@
 			}
 
 			return overlap;
+		}
+
+		/// <summary>
+		/// If an intersection with the frame occurs do the minimal translation to undo the overlap
+		/// </summary>
+		/// <param name="frame">The AABR to check for intersect</param>
+		public void UndoOverlap(AABR frame)
+		{
+			if (Intersects(frame))
+			{
+				List<Vector2> directions = new List<Vector2>()
+				{
+					new Vector2(frame.MaxX - X, 0),
+					new Vector2(frame.X - MaxX, 0),
+					new Vector2(0, frame.MaxY - Y),
+					new Vector2(0, frame.Y - MaxY)
+				};
+
+				Vector2 minimum = directions.Aggregate((curMin, x) => (curMin == null || (x.Length) < curMin.Length) ? x : curMin);
+
+				X += minimum.X;
+				Y += minimum.Y;
+			}
 		}
 
 		public bool PushXRangeInside(AABR frame)
