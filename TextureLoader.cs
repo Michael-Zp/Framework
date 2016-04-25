@@ -8,22 +8,13 @@ namespace Framework
 {
 	public static class TextureLoader
 	{
-		public static Texture FromFile(string fileName)
+		public static Texture FromBitmap(Bitmap bitmap)
 		{
-			if (String.IsNullOrEmpty(fileName))
-			{
-				throw new ArgumentException(fileName);
-			}
-			if (!File.Exists(fileName))
-			{
-				throw new FileLoadException(fileName);
-			}
-
 			Texture texture = new Texture();
 			texture.BeginUse();
 			texture.FilterTrilinear();
 			//todo: 16bit channels
-			using (Bitmap bmp = new Bitmap(fileName))
+			using (Bitmap bmp = new Bitmap(bitmap))
 			{
 				bmp.RotateFlip(RotateFlipType.RotateNoneFlipY);
 				BitmapData bmpData = bmp.LockBits(new Rectangle(0, 0, bmp.Width, bmp.Height), ImageLockMode.ReadOnly, bmp.PixelFormat);
@@ -34,6 +25,19 @@ namespace Framework
 			}
 			texture.EndUse();
 			return texture;
+		}
+
+		public static Texture FromFile(string fileName)
+		{
+			if (String.IsNullOrEmpty(fileName))
+			{
+				throw new ArgumentException(fileName);
+			}
+			if (!File.Exists(fileName))
+			{
+				throw new FileLoadException(fileName);
+			}
+			return FromBitmap(new Bitmap(fileName));
 		}
 
 		public static void SaveToFile(Texture texture, string fileName)
