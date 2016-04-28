@@ -1,8 +1,4 @@
-﻿using OpenTK;
-using System.Collections.Generic;
-using System.Linq;
-
-namespace Framework
+﻿namespace Framework
 {
 	/// <summary>
 	/// Represents an axis aligned bounding box - naming it rectangle would have been too simple ;)
