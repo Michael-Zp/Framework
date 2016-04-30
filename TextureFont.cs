@@ -42,7 +42,6 @@ namespace Framework
 
 		public void Print(float x, float y, float z, float size, string text)
 		{
-			texFont.BeginUse();
 			GL.PushMatrix();
 			GL.Translate(x, y, z);
 			GL.Scale(size, size, size);
@@ -51,7 +50,6 @@ namespace Framework
 			PrintRawQuads(bytes);
 			texFont.EndUse();
 			GL.PopMatrix();
-			texFont.EndUse();
 		}
 
 		public float Width(string text, float size)

@@ -1,4 +1,5 @@
 ﻿using OpenTK.Graphics.OpenGL;
+using System;
 
 namespace Framework
 {
@@ -12,6 +13,13 @@ namespace Framework
 			this.spritesPerLine = spritesPerLine;
 			this.spriteBoundingBoxWidth = spriteBoundingBoxWidth;
 			this.spriteBoundingBoxHeight = spriteBoundingBoxHeight;
+		}
+
+		public static uint CalcAnimationSpriteID(uint fromID, uint toID, float animationLength, float time)
+		{
+			float normalizedDeltaTime = (time % animationLength) / animationLength;
+			float id = fromID + normalizedDeltaTime * (toID - fromID);
+			return (uint)Math.Round(id);
 		}
 
 		public AABR CalcSpriteTexCoords(uint spriteID)
