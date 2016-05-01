@@ -19,18 +19,11 @@ namespace Framework
 			Height = 0;
 		}
 
-		public void Clamp()
+		public void WrapMode(TextureWrapMode mode)
 		{
 			BeginUse();
-			GL.TexParameter(TextureTarget.Texture2D, TextureParameterName.TextureWrapS, (int)TextureWrapMode.ClampToBorder);
-			GL.TexParameter(TextureTarget.Texture2D, TextureParameterName.TextureWrapT, (int)TextureWrapMode.ClampToBorder);
-			EndUse();
-		}
-		public void Repeat()
-		{
-			BeginUse();
-			GL.TexParameter(TextureTarget.Texture2D, TextureParameterName.TextureWrapS, (int)TextureWrapMode.Repeat);
-			GL.TexParameter(TextureTarget.Texture2D, TextureParameterName.TextureWrapT, (int)TextureWrapMode.Repeat);
+			GL.TexParameter(TextureTarget.Texture2D, TextureParameterName.TextureWrapS, (int)mode);
+			GL.TexParameter(TextureTarget.Texture2D, TextureParameterName.TextureWrapT, (int)mode);
 			EndUse();
 		}
 
@@ -101,7 +94,7 @@ namespace Framework
 			texture.LoadPixels(IntPtr.Zero, width, height, internalFormat, inputPixelFormat, type);
 			//set default parameters for filtering and clamping
 			texture.FilterBilinear();
-			texture.Repeat();
+			texture.WrapMode(TextureWrapMode.Repeat);
 			return texture;
 		}
 

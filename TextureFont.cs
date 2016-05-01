@@ -3,10 +3,22 @@ using System;
 
 namespace Framework
 {
+	/// <summary>
+	/// allows to print text were the individual characters come all from a single texture 
+	/// </summary>
 	public class TextureFont : IDisposable
 	{
+		/// <summary>
+		/// Create a new font that can be printed in OpenGL
+		/// </summary>
+		/// <param name="texture">texture containing a equally spaced grid of characters</param>
+		/// <param name="charactersPerLine">number of characters per grid row</param>
+		/// <param name="firstAsciiCode">ascii code of upper left most character in the grid</param>
+		/// <param name="characterBoundingBoxWidth">bounding box width of each character cell, allows to zoom in/out of each character</param>
+		/// <param name="characterBoundingBoxHeight">bounding box height of each character cell, allows to zoom in/out of each character</param>
+		/// <param name="characterSpacing">how much to move to the right after drawing a single character</param>
 		public TextureFont(Texture texture, uint charactersPerLine = 16, byte firstAsciiCode = 0
-			, float characterBoundingBoxWidth = 1.0f, float characterBoundingBoxHeight = 1.0f, float letterSpacing = 1.0f)
+			, float characterBoundingBoxWidth = 1.0f, float characterBoundingBoxHeight = 1.0f, float characterSpacing = 1.0f)
 		{
 			this.texFont = new SpriteSheet(texture, charactersPerLine, characterBoundingBoxWidth, characterBoundingBoxHeight);
 			// Creating 256 Display Lists
@@ -18,7 +30,7 @@ namespace Framework
 			{
 				GL.NewList((this.baseList + asciiCode), ListMode.Compile);
 				texFont.Draw(asciiCode - firstAsciiCode, rect);
-				GL.Translate(letterSpacing, 0, 0);	// Move To The next character
+				GL.Translate(characterSpacing, 0, 0);	// Move To The next character
 				GL.EndList();
 			}
 		}
@@ -40,10 +52,10 @@ namespace Framework
 			return bytes;
 		}
 
-		public void Print(float x, float y, float z, float size, string text)
+		public void Print(float xPos, float yPos, float zPos, float size, string text)
 		{
 			GL.PushMatrix();
-			GL.Translate(x, y, z);
+			GL.Translate(xPos, yPos, zPos);
 			GL.Scale(size, size, size);
 			var bytes = ConvertString2Ascii(text);
 			texFont.BeginUse();
@@ -52,9 +64,9 @@ namespace Framework
 			GL.PopMatrix();
 		}
 
-		public float Width(string text, float size)
+		public float Width(string text, float size, float characterSpacing = 1.0f)
 		{
-			return text.Length * size;
+			return text.Length * size * characterSpacing;
 		}
 
 		private readonly uint baseList = 0;	// Base Display List For The Font
