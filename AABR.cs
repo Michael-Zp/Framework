@@ -20,12 +20,12 @@
 			this.SizeY = sizeY;
 		}
 
-		public AABR(AABR aabr)
+		public AABR(AABR rectangle)
 		{
-			this.X = aabr.X;
-			this.Y = aabr.Y;
-			this.SizeX = aabr.SizeX;
-			this.SizeY = aabr.SizeY;
+			this.X = rectangle.X;
+			this.Y = rectangle.Y;
+			this.SizeX = rectangle.SizeX;
+			this.SizeY = rectangle.SizeY;
 		}
 
 		public float SizeX { get; set; }
@@ -40,20 +40,20 @@
 
 		public float CenterY { get { return Y + 0.5f * SizeY; } set { Y = value - 0.5f * SizeY; } }
 
-		public bool Intersects(AABR frame)
+		public bool Intersects(AABR rectangle)
 		{
-			if (null == frame) return false;
-			bool noXintersect = (MaxX < frame.X) || (X > frame.MaxX);
-			bool noYintersect = (MaxY < frame.Y) || (Y > frame.MaxY);
+			if (null == rectangle) return false;
+			bool noXintersect = (MaxX < rectangle.X) || (X > rectangle.MaxX);
+			bool noYintersect = (MaxY < rectangle.Y) || (Y > rectangle.MaxY);
 			return !(noXintersect || noYintersect);
 		}
 
-		public bool Inside(AABR frame)
+		public bool Inside(AABR rectangle)
 		{
-			if (X < frame.X) return false;
-			if (MaxX > frame.MaxX) return false;
-			if (Y < frame.Y) return false;
-			if (MaxY > frame.MaxY) return false;
+			if (X < rectangle.X) return false;
+			if (MaxX > rectangle.MaxX) return false;
+			if (Y < rectangle.Y) return false;
+			if (MaxY > rectangle.MaxY) return false;
 			return true;
 		}
 
