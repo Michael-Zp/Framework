@@ -36,7 +36,7 @@
 
 		public float Y { get; set; }
 
-		public float CenterX { get { return X + 0.5f * SizeX; }  set { X = value - 0.5f * SizeX; } }
+		public float CenterX { get { return X + 0.5f * SizeX; } set { X = value - 0.5f * SizeX; } }
 
 		public float CenterY { get { return Y + 0.5f * SizeY; } set { Y = value - 0.5f * SizeY; } }
 

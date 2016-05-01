@@ -1,4 +1,7 @@
-﻿namespace Framework
+﻿using OpenTK;
+using System.Linq;
+
+namespace Framework
 {
 	public static class AABRextensions
 	{
@@ -52,6 +55,29 @@
 			}
 
 			return overlap;
+		}
+
+		/// <summary>
+		/// If an intersection with the frame occurs do the minimal translation to undo the overlap
+		/// </summary>
+		/// <param name="frameB">The AABR to check for intersect</param>
+		public static void UndoOverlap(this AABR frameA, AABR frameB)
+		{
+			if (frameA.Intersects(frameB))
+			{
+				Vector2[] directions = new Vector2[]
+				{
+					new Vector2(frameB.MaxX - frameA.X, 0),
+					new Vector2(frameB.X - frameA.MaxX, 0),
+					new Vector2(0, frameB.MaxY - frameA.Y),
+					new Vector2(0, frameB.Y - frameA.MaxY)
+				};
+
+				Vector2 minimum = directions.Aggregate((curMin, x) => (curMin == null || (x.Length) < curMin.Length) ? x : curMin);
+
+				frameA.X += minimum.X;
+				frameA.Y += minimum.Y;
+			}
 		}
 	}
 }
