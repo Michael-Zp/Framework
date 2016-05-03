@@ -10,7 +10,7 @@ namespace Framework
 		public List<Vector2> uvs = new List<Vector2>();
 		public List<uint> ids = new List<uint>();
 
-		public Mesh SwitchTriangleMeshHandedness()
+		public Mesh SwitchHandedness()
 		{
 			var mesh = new Mesh();
 			foreach(var pos in positions)
@@ -25,11 +25,17 @@ namespace Framework
 				newN.Z = -newN.Z;
 				mesh.normals.Add(newN);
 			}
-			foreach (var uv in uvs)
-			{
-				mesh.uvs.Add(uv);
-			}
-			for(int i = 0; i < ids.Count; i += 3)
+			mesh.uvs.AddRange(uvs);
+			mesh.ids.AddRange(ids);
+			return mesh;
+		}
+		public Mesh SwitchTriangleMeshWinding()
+		{
+			var mesh = new Mesh();
+			mesh.positions.AddRange(positions);
+			mesh.normals.AddRange(normals);
+			mesh.uvs.AddRange(uvs);
+			for (int i = 0; i < ids.Count; i += 3)
 			{
 				mesh.ids.Add(ids[i]);
 				mesh.ids.Add(ids[i + 2]);
