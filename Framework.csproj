@@ -89,6 +89,7 @@
   <ItemGroup>
     <Compile Include="AABR.cs" />
     <Compile Include="AABRextensions.cs" />
+    <Compile Include="ControlPoints.cs" />
     <Compile Include="ITimedUpdate.cs" />
     <Compile Include="Meshes.cs" />
     <Compile Include="FBO.cs" />
