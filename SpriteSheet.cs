@@ -1,5 +1,4 @@
 ﻿using OpenTK.Graphics.OpenGL;
-using System;
 
 namespace Framework
 {
@@ -15,16 +14,9 @@ namespace Framework
 			this.spriteBoundingBoxHeight = spriteBoundingBoxHeight;
 		}
 
-		public static uint CalcAnimationSpriteID(uint fromID, uint toID, float animationLength, float time)
-		{
-			float normalizedDeltaTime = (time % animationLength) / animationLength;
-			float id = fromID + normalizedDeltaTime * (toID - fromID);
-			return (uint)Math.Round(id);
-		}
-
 		public AABR CalcSpriteTexCoords(uint spriteID)
 		{
-			return CalcSpriteTexCoords(spriteID, spritesPerLine, spriteBoundingBoxWidth, spriteBoundingBoxHeight);
+			return CalcSpriteTexCoords(spriteID, SpritesPerLine, SpriteBoundingBoxWidth, SpriteBoundingBoxHeight);
 		}
 
 		public static AABR CalcSpriteTexCoords(uint spriteID, uint spritesPerLine
@@ -61,9 +53,41 @@ namespace Framework
 			GL.End();
 		}
 
-		private readonly Texture tex;
-		private readonly uint spritesPerLine;
+		public float SpriteBoundingBoxWidth
+		{
+			get
+			{
+				return spriteBoundingBoxWidth;
+			}
+		}
+
+		public float SpriteBoundingBoxHeight
+		{
+			get
+			{
+				return spriteBoundingBoxHeight;
+			}
+		}
+
+		public uint SpritesPerLine
+		{
+			get
+			{
+				return spritesPerLine;
+			}
+		}
+
+		public Texture Tex
+		{
+			get
+			{
+				return tex;
+			}
+		}
+
 		private readonly float spriteBoundingBoxWidth;
 		private readonly float spriteBoundingBoxHeight;
+		private readonly uint spritesPerLine;
+		private readonly Texture tex;
 	}
 }
