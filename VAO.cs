@@ -3,6 +3,7 @@ using OpenTK.Graphics.OpenGL;
 using System.Collections.Generic;
 using System.Runtime.InteropServices;
 using System.Diagnostics;
+using OpenTK;
 
 namespace Framework
 {
@@ -25,10 +26,11 @@ namespace Framework
 
 		public void Dispose()
 		{
-			foreach (uint id in bufferIDs)
+			foreach (uint id in boundBuffers.Values)
 			{
 				GL.DeleteBuffer(id);
 			}
+			boundBuffers.Clear();
 			GL.DeleteVertexArray(idVAO);
 			idVAO = 0;
 		}
@@ -36,10 +38,9 @@ namespace Framework
 		public void SetID<Index>(Index[] data, PrimitiveType primitiveType) where Index : struct
 		{
 			Activate();
-			uint indexBufferID;
-			GL.GenBuffers(1, out indexBufferID);
-			bufferIDs.Push(indexBufferID);
-			GL.BindBuffer(BufferTarget.ElementArrayBuffer, indexBufferID);
+			uint bufferID = RequestBuffer(idBufferBinding);
+
+			GL.BindBuffer(BufferTarget.ElementArrayBuffer, bufferID);
 			var type = typeof(Index);
 			int elementBytes = Marshal.SizeOf(type);
 			int bufferByteSize = data.Length * elementBytes;
@@ -55,10 +56,9 @@ namespace Framework
 
 		public void SetAttribute<DataElement>(int bindingID, DataElement[] data, VertexAttribPointerType type, int elementSize, bool perInstance = false) where DataElement : struct
 		{
+			if (-1 == bindingID) return; //if matrix not used in shader or wrong name
 			Activate();
-			uint bufferID;
-			GL.GenBuffers(1, out bufferID);
-			bufferIDs.Push(bufferID);
+			uint bufferID = RequestBuffer(bindingID);
 			GL.BindBuffer(BufferTarget.ArrayBuffer, bufferID);
 			int elementBytes = Marshal.SizeOf(typeof(DataElement));
 			int bufferByteSize = data.Length * elementBytes;
@@ -75,6 +75,36 @@ namespace Framework
 			Deactive();
 			GL.BindBuffer(BufferTarget.ArrayBuffer, 0);
 			GL.DisableVertexAttribArray(bindingID);
+		}
+
+		public void SetMatrixAttribute(int bindingID, Matrix4[] data, bool perInstance = false)
+		{
+			if (-1 == bindingID) return; //if matrix not used in shader or wrong name
+			Activate();
+			uint bufferID = RequestBuffer(bindingID);
+			GL.BindBuffer(BufferTarget.ArrayBuffer, bufferID);
+			int elementBytes = Marshal.SizeOf(typeof(Matrix4));
+			int columnBytes = Marshal.SizeOf(typeof(Vector4));
+			int bufferByteSize = data.Length * elementBytes;
+			// set buffer data
+			GL.BufferData(BufferTarget.ArrayBuffer, (IntPtr)bufferByteSize, data, BufferUsageHint.StaticDraw);
+			//set data format
+			for (int i = 0; i < 4; i++)
+			{
+				GL.VertexAttribPointer(bindingID + i, 4, VertexAttribPointerType.Float, false, elementBytes, columnBytes * i);
+				GL.EnableVertexAttribArray(bindingID + i);
+				if (perInstance)
+				{
+					GL.VertexAttribDivisor(bindingID + i, 1);
+				}
+			}
+			//cleanup state
+			Deactive();
+			GL.BindBuffer(BufferTarget.ArrayBuffer, 0);
+			for (int i = 0; i < 4; i++)
+			{
+				GL.DisableVertexAttribArray(bindingID + i);
+			}
 		}
 
 		public void Activate()
@@ -111,13 +141,25 @@ namespace Framework
 
 		private IDData idData;
 		private int idVAO;
-		private Stack<uint> bufferIDs = new Stack<uint>();
+		private const int idBufferBinding = int.MaxValue;
+		private Dictionary<int, uint> boundBuffers = new Dictionary<int, uint>();
 
 		private static DrawElementsType GetDrawElementsType(Type type)
 		{
 			if (type == typeof(ushort)) return DrawElementsType.UnsignedShort;
 			if (type == typeof(uint)) return DrawElementsType.UnsignedInt;
 			throw new Exception("Invalid index type");
+		}
+
+		private uint RequestBuffer(int bindingID)
+		{
+			uint bufferID;
+			if (!boundBuffers.TryGetValue(bindingID, out bufferID))
+			{
+				GL.GenBuffers(1, out bufferID);
+				boundBuffers[bindingID] = bufferID;
+			}
+			return bufferID;
 		}
 	}
 }
