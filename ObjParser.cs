@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Globalization;
 using System.IO;
+using System.Text;
 
 namespace Framework
 {
@@ -21,17 +22,17 @@ namespace Framework
 			}
 		}
 		
-		public string materialFile;
+		public string materialFileName;
 		public List<Vector3> position = new List<Vector3>();
 		public List<Vector3> normals = new List<Vector3>();
 		public List<Vector2> texCoords = new List<Vector2>();
 		public List<List<Vertex>> faces = new List<List<Vertex>>();
 
-		public ObjParser(string fileName_)
+		public ObjParser(byte[] data)
 		{
 			char[] splitCharacters = new char[] { ' ' };
 			string line;
-			using (TextReader reader = File.OpenText(fileName_))
+			using (TextReader reader = new StreamReader((new MemoryStream(data))))
 			{
 				while ((line = reader.ReadLine()) != null)
 				{
@@ -42,7 +43,7 @@ namespace Framework
 					switch (parameters[0])
 					{
 						case "mtllib": //material lib
-							materialFile = parameters[1];
+							materialFileName = parameters[1];
 							break;
 						case "p": // Point
 							break;

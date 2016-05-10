@@ -17,9 +17,9 @@ namespace Framework
 			}
 		}
 
-		public static Mesh FromObj(string objFileName)
+		public static Mesh FromObj(byte[] objByteData)
 		{
-			var parser = new ObjParser(objFileName);
+			var parser = new ObjParser(objByteData);
 			var uniqueVertexIDs = new Dictionary<ObjParser.Vertex, uint>(new VertexComparer());
 
 			var mesh = new Mesh();

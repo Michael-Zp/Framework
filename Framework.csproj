@@ -87,6 +87,7 @@
     <Folder Include="Properties\" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="AABB.cs" />
     <Compile Include="AABR.cs" />
     <Compile Include="AABRextensions.cs" />
     <Compile Include="AnimationTextures.cs" />

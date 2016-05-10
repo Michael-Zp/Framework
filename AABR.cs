@@ -1,7 +1,7 @@
 ﻿namespace Framework
 {
 	/// <summary>
-	/// Represents an axis aligned bounding box - naming it rectangle would have been too simple ;)
+	/// Represents an 2D axis aligned bounding box - naming it rectangle would have been too simple ;)
 	/// </summary>
 	public class AABR
 	{

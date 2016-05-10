@@ -77,6 +77,12 @@ namespace Framework
 			GL.DisableVertexAttribArray(bindingID);
 		}
 
+		/// <summary>
+		/// sets or updates a vertex attribute of type Matrix4
+		/// </summary>
+		/// <param name="bindingID">shader binding location</param>
+		/// <param name="data">ATTENTION: here the matrices are assumed to be rowmajor. why i don't know</param>
+		/// <param name="perInstance"></param>
 		public void SetMatrixAttribute(int bindingID, Matrix4[] data, bool perInstance = false)
 		{
 			if (-1 == bindingID) return; //if matrix not used in shader or wrong name
