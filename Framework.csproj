@@ -91,6 +91,7 @@
     <Compile Include="AABR.cs" />
     <Compile Include="AABRextensions.cs" />
     <Compile Include="AnimationTextures.cs" />
+    <Compile Include="CameraOrbit.cs" />
     <Compile Include="IAnimation.cs" />
     <Compile Include="SpriteSheetAnimation.cs" />
     <Compile Include="ControlPoints.cs" />
@@ -110,7 +111,6 @@
     <Compile Include="Texture.cs" />
     <Compile Include="TextureLoader.cs" />
     <Compile Include="Timer.cs" />
-    <Compile Include="Transform2D.cs" />
     <Compile Include="VAO.cs" />
   </ItemGroup>
   <ItemGroup>
