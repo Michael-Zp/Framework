@@ -51,6 +51,14 @@
 			return !(noXintersect || noYintersect || noZintersect);
 		}
 
+		public bool Contains(float x, float y, float z)
+		{
+			if (x < X || MaxX < x) return false;
+			if (y < Y || MaxY < y) return false;
+			if (z < Z || MaxZ < z) return false;
+			return true;
+		}
+
 		public bool Inside(AABB box)
 		{
 			if (X < box.X) return false;
