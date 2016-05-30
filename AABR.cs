@@ -40,6 +40,14 @@
 
 		public float CenterY { get { return Y + 0.5f * SizeY; } set { Y = value - 0.5f * SizeY; } }
 
+		public static AABR CreateFromCenterSize(float centerX, float centerY, float sizeX, float sizeY)
+		{
+			var rectangle = new AABR(0, 0, sizeX, sizeY);
+			rectangle.CenterX = centerX;
+			rectangle.CenterY = centerY;
+			return rectangle;
+		}
+
 		public bool Intersects(AABR rectangle)
 		{
 			if (null == rectangle) return false;

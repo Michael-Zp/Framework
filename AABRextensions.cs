@@ -57,6 +57,13 @@ namespace Framework
 			return overlap;
 		}
 
+		public static void TransformCenter(this AABR rectangle, Matrix3 M)
+		{
+			var newPos = M.Transform(rectangle.CenterX, rectangle.CenterY);
+			rectangle.CenterX = newPos.X;
+			rectangle.CenterY = newPos.Y;
+		}
+
 		/// <summary>
 		/// If an intersection with the frame occurs do the minimal translation to undo the overlap
 		/// </summary>

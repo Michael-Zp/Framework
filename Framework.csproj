@@ -111,6 +111,7 @@
     <Compile Include="Texture.cs" />
     <Compile Include="TextureLoader.cs" />
     <Compile Include="Timer.cs" />
+    <Compile Include="Transform2D.cs" />
     <Compile Include="VAO.cs" />
   </ItemGroup>
   <ItemGroup>
