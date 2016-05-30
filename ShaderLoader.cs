@@ -88,7 +88,7 @@ namespace Framework
 						}
 						catch (ShaderException e)
 						{
-							throw new ShaderException("include compile '" + sIncludePath + "'", e.Message);
+							throw new ShaderException("include compile '" + sIncludePath + "'", e.Message, sIncludeShd);
 						}
 					}
 					sIncludeShd += Environment.NewLine + "#line " + lineNr.ToString() + Environment.NewLine;

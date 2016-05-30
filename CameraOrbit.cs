@@ -27,7 +27,7 @@ namespace Framework
 
 		public Matrix4 CalcMatrix()
 		{
-			FovY = MathHelper.Clamp(FovY, float.Epsilon, 180);
+			FovY = MathHelper.Clamp(FovY, 0.1f, 180);
 			Distance = MathHelper.Clamp(Distance, NearClip, FarClip);
 			var mtxProjection = Matrix4.Transpose(Matrix4.CreatePerspectiveFieldOfView(
 				MathHelper.DegreesToRadians(FovY), 

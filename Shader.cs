@@ -6,14 +6,16 @@ namespace Framework
 	public class ShaderException : Exception
 	{
 		public string Type { get; private set; }
+		public string ShaderCode { get; private set; }
 
 		/// <summary>
 		/// Initializes a new instance of the <see cref="ShaderException"/> class.
 		/// </summary>
 		/// <param name="msg">The error msg.</param>
-		public ShaderException(string type, string msg) : base(msg)
+		public ShaderException(string type, string msg, string shaderCode) : base(msg)
 		{
 			Type = type;
+			ShaderCode = shaderCode;
 		}
 	}
 
@@ -45,7 +47,7 @@ namespace Framework
 		{
 			isLinked = false;
 			int shaderObject = GL.CreateShader(type);
-			if (0 == shaderObject) throw new ShaderException(type.ToString(), "Could not create.");
+			if (0 == shaderObject) throw new ShaderException(type.ToString(), "Could not create.", sShader);
 			// Compile vertex shader
 			GL.ShaderSource(shaderObject, sShader);
 			GL.CompileShader(shaderObject);
@@ -54,7 +56,7 @@ namespace Framework
 			if (1 != status_code)
 			{
 				string log = CorrectLineEndings(GL.GetShaderInfoLog(shaderObject));
-				throw new ShaderException(type.ToString(), log);
+				throw new ShaderException(type.ToString(), log, sShader);
 			}
 			GL.AttachShader(m_ProgramID, shaderObject);
 			//shaderIDs.Add(shaderObject);
@@ -96,14 +98,14 @@ namespace Framework
 			}
 			catch (Exception)
 			{
-				throw new ShaderException("Link", "Unknown error!");
+				throw new ShaderException("Link", "Unknown error!", string.Empty);
 			}
 			int status_code;
 			GL.GetProgram(m_ProgramID, GetProgramParameterName.LinkStatus, out status_code);
 			if (1 != status_code)
 			{
 				string log = CorrectLineEndings(GL.GetProgramInfoLog(m_ProgramID));
-				throw new ShaderException("Link", log);
+				throw new ShaderException("Link", log, string.Empty);
 			}
 			isLinked = true;
 		}

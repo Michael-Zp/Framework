@@ -80,6 +80,7 @@
     <Reference Include="System" />
     <Reference Include="System.Drawing" />
     <Reference Include="System.Runtime.Serialization.Formatters.Soap" />
+    <Reference Include="System.Windows.Forms" />
     <Reference Include="System.XML" />
     <Reference Include="System.Xml.Serialization" />
   </ItemGroup>
@@ -92,6 +93,13 @@
     <Compile Include="AABRextensions.cs" />
     <Compile Include="AnimationTextures.cs" />
     <Compile Include="CameraOrbit.cs" />
+    <Compile Include="DialogShaderException.cs" />
+    <Compile Include="FormShaderError.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="FormShaderError.Designer.cs">
+      <DependentUpon>FormShaderError.cs</DependentUpon>
+    </Compile>
     <Compile Include="IAnimation.cs" />
     <Compile Include="SpriteSheetAnimation.cs" />
     <Compile Include="ControlPoints.cs" />
@@ -116,6 +124,11 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="readme.md" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="FormShaderError.resx">
+      <DependentUpon>FormShaderError.cs</DependentUpon>
+    </EmbeddedResource>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
