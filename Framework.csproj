@@ -94,7 +94,6 @@
     <Compile Include="CameraOrbit.cs" />
     <Compile Include="IAnimation.cs" />
     <Compile Include="ShaderException.cs" />
-    <Compile Include="ShaderLog.cs" />
     <Compile Include="SpriteSheetAnimation.cs" />
     <Compile Include="ControlPoints.cs" />
     <Compile Include="ITimedUpdate.cs" />
@@ -106,7 +105,6 @@
     <Compile Include="PathTools.cs" />
     <Compile Include="Serialize.cs" />
     <Compile Include="Shader.cs" />
-    <Compile Include="ShaderLogParser.cs" />
     <Compile Include="ShaderLoader.cs" />
     <Compile Include="SpriteSheet.cs" />
     <Compile Include="TextureFont.cs" />
