@@ -9,6 +9,10 @@ namespace Framework
 		public int FileNumber;
 		public int LineNumber;
 		public string Message;
+		public override string ToString()
+		{
+			return "Line " + LineNumber + " : " + Message;
+		}
 	}
 
 	public class ShaderLog
