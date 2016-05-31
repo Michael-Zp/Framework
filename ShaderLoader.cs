@@ -83,12 +83,13 @@ namespace Framework
 					{
 						try
 						{
-
 							shader.Compile(sIncludeShd, ShaderType.FragmentShader); //test compile include shader
 						}
 						catch (ShaderException e)
 						{
-							throw new ShaderException("include compile '" + sIncludePath + "'", e.Message, sIncludeShd);
+							throw new ShaderException(e.Type,
+								"include compile '" + sIncludePath + "'", 
+								e.Log, sIncludeShd);
 						}
 					}
 					sIncludeShd += Environment.NewLine + "#line " + lineNr.ToString() + Environment.NewLine;

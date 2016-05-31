@@ -28,35 +28,75 @@
 		/// </summary>
 		private void InitializeComponent()
 		{
-			this.textBox = new System.Windows.Forms.TextBox();
+			this.splitContainer1 = new System.Windows.Forms.SplitContainer();
+			this.listBox = new System.Windows.Forms.ListBox();
+			this.richTextBox = new System.Windows.Forms.RichTextBox();
+			((System.ComponentModel.ISupportInitialize)(this.splitContainer1)).BeginInit();
+			this.splitContainer1.Panel1.SuspendLayout();
+			this.splitContainer1.Panel2.SuspendLayout();
+			this.splitContainer1.SuspendLayout();
 			this.SuspendLayout();
 			// 
-			// textBox
+			// splitContainer1
 			// 
-			this.textBox.Dock = System.Windows.Forms.DockStyle.Fill;
-			this.textBox.Location = new System.Drawing.Point(0, 0);
-			this.textBox.Multiline = true;
-			this.textBox.Name = "textBox";
-			this.textBox.Size = new System.Drawing.Size(282, 255);
-			this.textBox.TabIndex = 0;
+			this.splitContainer1.Dock = System.Windows.Forms.DockStyle.Fill;
+			this.splitContainer1.Location = new System.Drawing.Point(0, 0);
+			this.splitContainer1.Name = "splitContainer1";
+			this.splitContainer1.Orientation = System.Windows.Forms.Orientation.Horizontal;
+			// 
+			// splitContainer1.Panel1
+			// 
+			this.splitContainer1.Panel1.Controls.Add(this.listBox);
+			// 
+			// splitContainer1.Panel2
+			// 
+			this.splitContainer1.Panel2.Controls.Add(this.richTextBox);
+			this.splitContainer1.Size = new System.Drawing.Size(968, 449);
+			this.splitContainer1.SplitterDistance = 110;
+			this.splitContainer1.TabIndex = 3;
+			// 
+			// listBox
+			// 
+			this.listBox.Dock = System.Windows.Forms.DockStyle.Fill;
+			this.listBox.FormattingEnabled = true;
+			this.listBox.ItemHeight = 16;
+			this.listBox.Location = new System.Drawing.Point(0, 0);
+			this.listBox.Name = "listBox";
+			this.listBox.Size = new System.Drawing.Size(968, 110);
+			this.listBox.TabIndex = 3;
+			this.listBox.SelectedIndexChanged += new System.EventHandler(this.listBox_SelectedIndexChanged);
+			// 
+			// richTextBox
+			// 
+			this.richTextBox.Dock = System.Windows.Forms.DockStyle.Fill;
+			this.richTextBox.Location = new System.Drawing.Point(0, 0);
+			this.richTextBox.Name = "richTextBox";
+			this.richTextBox.Size = new System.Drawing.Size(968, 335);
+			this.richTextBox.TabIndex = 2;
+			this.richTextBox.Text = "";
 			// 
 			// FormShaderError
 			// 
 			this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
 			this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-			this.ClientSize = new System.Drawing.Size(282, 255);
-			this.Controls.Add(this.textBox);
+			this.ClientSize = new System.Drawing.Size(968, 449);
+			this.Controls.Add(this.splitContainer1);
 			this.KeyPreview = true;
 			this.Name = "FormShaderError";
 			this.Text = "FormShaderError";
 			this.KeyDown += new System.Windows.Forms.KeyEventHandler(this.FormShaderError_KeyDown);
+			this.splitContainer1.Panel1.ResumeLayout(false);
+			this.splitContainer1.Panel2.ResumeLayout(false);
+			((System.ComponentModel.ISupportInitialize)(this.splitContainer1)).EndInit();
+			this.splitContainer1.ResumeLayout(false);
 			this.ResumeLayout(false);
-			this.PerformLayout();
 
 		}
 
 		#endregion
 
-		public System.Windows.Forms.TextBox textBox;
+		private System.Windows.Forms.SplitContainer splitContainer1;
+		public System.Windows.Forms.ListBox listBox;
+		public System.Windows.Forms.RichTextBox richTextBox;
 	}
 }
