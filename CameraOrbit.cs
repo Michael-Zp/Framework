@@ -25,19 +25,34 @@ namespace Framework
 		public Vector3 Target { get; set; }
 		public float Tilt { get; set; }
 
-		public Matrix4 CalcMatrix()
+		public Matrix4 CalcViewMatrix()
 		{
-			FovY = MathHelper.Clamp(FovY, 0.1f, 180);
 			Distance = MathHelper.Clamp(Distance, NearClip, FarClip);
-			var mtxProjection = Matrix4.Transpose(Matrix4.CreatePerspectiveFieldOfView(
-				MathHelper.DegreesToRadians(FovY), 
-				Aspect, NearClip, FarClip));
 			var mtxDistance = Matrix4.Transpose(Matrix4.CreateTranslation(0, 0, -Distance));
 			var mtxTilt = Matrix4.Transpose(Matrix4.CreateRotationX(Tilt));
 			var mtxHeading = Matrix4.Transpose(Matrix4.CreateRotationY(Heading));
 			var mtxTarget = Matrix4.Transpose(Matrix4.CreateTranslation(-Target));
-			var camera = mtxProjection * mtxDistance * mtxTilt * mtxHeading * mtxTarget;
-			return camera;
+			return mtxDistance * mtxTilt * mtxHeading * mtxTarget;
+		}
+
+		public Matrix4 CalcProjectionMatrix()
+		{
+			FovY = MathHelper.Clamp(FovY, 0.1f, 180);
+			return Matrix4.Transpose(Matrix4.CreatePerspectiveFieldOfView(
+				MathHelper.DegreesToRadians(FovY),
+				Aspect, NearClip, FarClip));
+		}
+
+		public Matrix4 CalcMatrix()
+		{
+			return CalcProjectionMatrix() * CalcViewMatrix();
+		}
+
+		public Vector3 CalcPosition()
+		{
+			var view = CalcViewMatrix();
+			view.Invert();
+			return -view.Column3.Xyz;
 		}
 	}
 }
