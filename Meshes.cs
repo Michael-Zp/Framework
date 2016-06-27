@@ -4,6 +4,63 @@ namespace Framework
 {
 	public static partial class Meshes
 	{
+		public static Mesh Clone(this Mesh m)
+		{
+			var mesh = new Mesh();
+			mesh.positions.AddRange(m.positions);
+			mesh.normals.AddRange(m.normals);
+			mesh.uvs.AddRange(m.uvs);
+			mesh.ids.AddRange(m.ids);
+			return mesh;
+		}
+
+		public static void Add(this Mesh a, Mesh b)
+		{
+			var count = (uint)a.positions.Count;
+			a.positions.AddRange(b.positions);
+			a.normals.AddRange(b.normals);
+			a.uvs.AddRange(b.uvs);
+			foreach(var id in b.ids)
+			{
+				a.ids.Add(id + count);
+			}
+		}
+
+		public static Mesh SwitchHandedness(this Mesh m)
+		{
+			var mesh = new Mesh();
+			foreach (var pos in m.positions)
+			{
+				var newPos = pos;
+				newPos.Z = -newPos.Z;
+				mesh.positions.Add(newPos);
+			}
+			foreach (var n in m.normals)
+			{
+				var newN = n;
+				newN.Z = -newN.Z;
+				mesh.normals.Add(newN);
+			}
+			mesh.uvs.AddRange(m.uvs);
+			mesh.ids.AddRange(m.ids);
+			return mesh;
+		}
+
+		public static Mesh SwitchTriangleMeshWinding(this Mesh m)
+		{
+			var mesh = new Mesh();
+			mesh.positions.AddRange(m.positions);
+			mesh.normals.AddRange(m.normals);
+			mesh.uvs.AddRange(m.uvs);
+			for (int i = 0; i < m.ids.Count; i += 3)
+			{
+				mesh.ids.Add(m.ids[i]);
+				mesh.ids.Add(m.ids[i + 2]);
+				mesh.ids.Add(m.ids[i + 1]);
+			}
+			return mesh;
+		}
+
 		public static Mesh CreateCube(float size = 1.0f)
 		{
 			float s2 = size * 0.5f;
@@ -61,7 +118,7 @@ namespace Framework
 			mesh.ids.Add(1);
 			mesh.ids.Add(4);
 			mesh.ids.Add(7);
-			return mesh;
+			return mesh.SwitchTriangleMeshWinding();
 		}
 
 		public static Mesh CreateSphere(float radius_ = 1.0f, uint subdivision = 1)
@@ -99,7 +156,7 @@ namespace Framework
 				mesh.positions[i] *= radius_;
 			}
 
-			return mesh;
+			return mesh.SwitchTriangleMeshWinding();
 		}
 
 		public static Mesh CreateIcosahedron(float radius)
