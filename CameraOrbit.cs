@@ -52,7 +52,7 @@ namespace Framework
 		{
 			var view = CalcViewMatrix();
 			view.Invert();
-			return -view.Column3.Xyz;
+			return view.Column3.Xyz;
 		}
 	}
 }
