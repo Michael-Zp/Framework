@@ -2,7 +2,6 @@
 using OpenTK.Graphics.OpenGL;
 using System.Collections.Generic;
 using System.Runtime.InteropServices;
-using System.Diagnostics;
 using OpenTK;
 
 namespace Framework
@@ -56,7 +55,7 @@ namespace Framework
 
 		public void SetAttribute<DataElement>(int bindingID, DataElement[] data, VertexAttribPointerType type, int elementSize, bool perInstance = false) where DataElement : struct
 		{
-			if (-1 == bindingID) return; //if matrix not used in shader or wrong name
+			if (-1 == bindingID) return; //if attribute not used in shader or wrong name
 			Activate();
 			uint bufferID = RequestBuffer(bindingID);
 			GL.BindBuffer(BufferTarget.ArrayBuffer, bufferID);
@@ -121,6 +120,13 @@ namespace Framework
 		public void Deactive()
 		{
 			GL.BindVertexArray(0);
+		}
+
+		public void DrawArrays(PrimitiveType type, int count, int start = 0)
+		{
+			Activate();
+			GL.DrawArrays(type, start, count);
+			Deactive();
 		}
 
 		public void Draw(int instanceCount = 1)
