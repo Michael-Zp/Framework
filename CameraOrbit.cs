@@ -29,8 +29,8 @@ namespace Framework
 		{
 			Distance = MathHelper.Clamp(Distance, NearClip, FarClip);
 			var mtxDistance = Matrix4.Transpose(Matrix4.CreateTranslation(0, 0, -Distance));
-			var mtxTilt = Matrix4.Transpose(Matrix4.CreateRotationX(Tilt));
-			var mtxHeading = Matrix4.Transpose(Matrix4.CreateRotationY(Heading));
+			var mtxTilt = Matrix4.Transpose(Matrix4.CreateRotationX(MathHelper.DegreesToRadians(Tilt)));
+			var mtxHeading = Matrix4.Transpose(Matrix4.CreateRotationY(MathHelper.DegreesToRadians(Heading)));
 			var mtxTarget = Matrix4.Transpose(Matrix4.CreateTranslation(-Target));
 			return mtxDistance * mtxTilt * mtxHeading * mtxTarget;
 		}
