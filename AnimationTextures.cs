@@ -44,7 +44,7 @@ namespace Framework
 		/// </summary>
 		/// <param name="rectangle">coordinates ofthe GL quad</param>
 		/// <param name="totalSeconds">animation position in seconds</param>
-		public void Draw(AABR rectangle, float totalSeconds)
+		public void Draw(Box2D rectangle, float totalSeconds)
 		{
 			var id = (int)CalcAnimationFrame(totalSeconds);
 			textures[id].BeginUse();

@@ -3,9 +3,9 @@ using System.Linq;
 
 namespace Framework
 {
-	public static class AABRextensions
+	public static class Box2dExtensions
 	{
-		public static bool PushXRangeInside(this AABR rectangleA, AABR rectangleB)
+		public static bool PushXRangeInside(this Box2D rectangleA, Box2D rectangleB)
 		{
 			if (rectangleA.SizeX > rectangleB.SizeX) return false;
 			if (rectangleA.X < rectangleB.X)
@@ -19,7 +19,7 @@ namespace Framework
 			return true;
 		}
 
-		public static bool PushYRangeInside(this AABR rectangleA, AABR rectangleB)
+		public static bool PushYRangeInside(this Box2D rectangleA, Box2D rectangleB)
 		{
 			if (rectangleA.SizeY > rectangleB.SizeY) return false;
 			if (rectangleA.Y < rectangleB.Y)
@@ -39,13 +39,13 @@ namespace Framework
 		/// </summary>
 		/// <param name="rectangleB"></param>
 		/// <returns>AABR in the overlap</returns>
-		public static AABR Overlap(this AABR rectangleA, AABR rectangleB)
+		public static Box2D Overlap(this Box2D rectangleA, Box2D rectangleB)
 		{
-			AABR overlap = null;
+			Box2D overlap = null;
 
 			if (rectangleA.Intersects(rectangleB))
 			{
-				overlap = new AABR(0.0f, 0.0f, 0.0f, 0.0f);
+				overlap = new Box2D(0.0f, 0.0f, 0.0f, 0.0f);
 
 				overlap.X = (rectangleA.X < rectangleB.X) ? rectangleB.X : rectangleA.X;
 				overlap.Y = (rectangleA.Y < rectangleB.Y) ? rectangleB.Y : rectangleA.Y;
@@ -57,7 +57,7 @@ namespace Framework
 			return overlap;
 		}
 
-		public static void TransformCenter(this AABR rectangle, Matrix3 M)
+		public static void TransformCenter(this Box2D rectangle, Matrix3 M)
 		{
 			var newPos = M.Transform(rectangle.CenterX, rectangle.CenterY);
 			rectangle.CenterX = newPos.X;
@@ -68,7 +68,7 @@ namespace Framework
 		/// If an intersection with the frame occurs do the minimal translation to undo the overlap
 		/// </summary>
 		/// <param name="rectangleB">The AABR to check for intersect</param>
-		public static void UndoOverlap(this AABR rectangleA, AABR rectangleB)
+		public static void UndoOverlap(this Box2D rectangleA, Box2D rectangleB)
 		{
 			if (rectangleA.Intersects(rectangleB))
 			{

@@ -3,9 +3,9 @@
 	/// <summary>
 	/// Represents an axis aligned bounding box
 	/// </summary>
-	public class AABB
+	public class Box
 	{
-		public AABB(float x, float y, float z, float sizeX, float sizeY, float sizeZ)
+		public Box(float x, float y, float z, float sizeX, float sizeY, float sizeZ)
 		{
 			this.X = x;
 			this.Y = y;
@@ -15,7 +15,7 @@
 			this.SizeZ = sizeZ;
 		}
 
-		public AABB(AABB box)
+		public Box(Box box)
 		{
 			this.X = box.X;
 			this.Y = box.Y;
@@ -42,7 +42,7 @@
 		public float CenterY { get { return Y + 0.5f * SizeY; } set { Y = value - 0.5f * SizeY; } }
 		public float CenterZ { get { return Y + 0.5f * SizeZ; } set { Y = value - 0.5f * SizeZ; } }
 
-		public bool Intersects(AABB box)
+		public bool Intersects(Box box)
 		{
 			if (null == box) return false;
 			bool noXintersect = (MaxX < box.X) || (X > box.MaxX);
@@ -59,7 +59,7 @@
 			return true;
 		}
 
-		public bool Inside(AABB box)
+		public bool Inside(Box box)
 		{
 			if (X < box.X) return false;
 			if (MaxX > box.MaxX) return false;

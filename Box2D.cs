@@ -1,9 +1,9 @@
 ﻿namespace Framework
 {
 	/// <summary>
-	/// Represents an 2D axis aligned bounding box - naming it rectangle would have been too simple ;)
+	/// Represents an 2D axis aligned bounding box
 	/// </summary>
-	public class AABR
+	public class Box2D
 	{
 		/// <summary>
 		/// creates an AABR
@@ -12,7 +12,7 @@
 		/// <param name="y">bottom side y coordinate</param>
 		/// <param name="sizeX">width</param>
 		/// <param name="sizeY">height</param>
-		public AABR(float x, float y, float sizeX, float sizeY)
+		public Box2D(float x, float y, float sizeX, float sizeY)
 		{
 			this.X = x;
 			this.Y = y;
@@ -20,7 +20,7 @@
 			this.SizeY = sizeY;
 		}
 
-		public AABR(AABR rectangle)
+		public Box2D(Box2D rectangle)
 		{
 			this.X = rectangle.X;
 			this.Y = rectangle.Y;
@@ -40,15 +40,15 @@
 
 		public float CenterY { get { return Y + 0.5f * SizeY; } set { Y = value - 0.5f * SizeY; } }
 
-		public static AABR CreateFromCenterSize(float centerX, float centerY, float sizeX, float sizeY)
+		public static Box2D CreateFromCenterSize(float centerX, float centerY, float sizeX, float sizeY)
 		{
-			var rectangle = new AABR(0, 0, sizeX, sizeY);
+			var rectangle = new Box2D(0, 0, sizeX, sizeY);
 			rectangle.CenterX = centerX;
 			rectangle.CenterY = centerY;
 			return rectangle;
 		}
 
-		public bool Intersects(AABR rectangle)
+		public bool Intersects(Box2D rectangle)
 		{
 			if (null == rectangle) return false;
 			bool noXintersect = (MaxX < rectangle.X) || (X > rectangle.MaxX);
@@ -56,7 +56,7 @@
 			return !(noXintersect || noYintersect);
 		}
 
-		public bool Inside(AABR rectangle)
+		public bool Inside(Box2D rectangle)
 		{
 			if (X < rectangle.X) return false;
 			if (MaxX > rectangle.MaxX) return false;

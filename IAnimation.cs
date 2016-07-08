@@ -4,6 +4,6 @@
 	{
 		float AnimationLength { get; set; }
 
-		void Draw(AABR rectangle, float totalSeconds);
+		void Draw(Box2D rectangle, float totalSeconds);
 	}
 }

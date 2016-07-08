@@ -25,7 +25,7 @@ namespace Framework
 			this.baseList = (uint)GL.GenLists(256);
 			//foreach of the 256 possible characters create a a quad 
 			//with texture coordinates and store it in a display list
-			var rect = new AABR(0, 0, 1, 1);
+			var rect = new Box2D(0, 0, 1, 1);
 			for (uint asciiCode = 0; asciiCode < 256; ++asciiCode)
 			{
 				GL.NewList((this.baseList + asciiCode), ListMode.Compile);

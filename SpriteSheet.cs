@@ -14,12 +14,12 @@ namespace Framework
 			this.spriteBoundingBoxHeight = spriteBoundingBoxHeight;
 		}
 
-		public AABR CalcSpriteTexCoords(uint spriteID)
+		public Box2D CalcSpriteTexCoords(uint spriteID)
 		{
 			return CalcSpriteTexCoords(spriteID, SpritesPerLine, SpriteBoundingBoxWidth, SpriteBoundingBoxHeight);
 		}
 
-		public static AABR CalcSpriteTexCoords(uint spriteID, uint spritesPerLine
+		public static Box2D CalcSpriteTexCoords(uint spriteID, uint spritesPerLine
 			, float spriteBoundingBoxWidth = 1.0f, float spriteBoundingBoxHeight = 1.0f)
 		{
 			uint row = spriteID / spritesPerLine;
@@ -29,7 +29,7 @@ namespace Framework
 			float centerY = 1.0f - (row + 0.5f) / spritesPerLine;
 			float height = spriteBoundingBoxHeight / spritesPerLine;
 			float width = spriteBoundingBoxWidth / spritesPerLine;
-			return new AABR(centerX - 0.5f * width, centerY - 0.5f * height, width, height);
+			return new Box2D(centerX - 0.5f * width, centerY - 0.5f * height, width, height);
 		}
 
 		public void BeginUse()
@@ -42,9 +42,9 @@ namespace Framework
 			tex.EndUse();
 		}
 
-		public void Draw(uint spriteID, AABR rectangle)
+		public void Draw(uint spriteID, Box2D rectangle)
 		{
-			AABR texCoords = CalcSpriteTexCoords(spriteID);
+			Box2D texCoords = CalcSpriteTexCoords(spriteID);
 			GL.Begin(PrimitiveType.Quads);
 			GL.TexCoord2(texCoords.X, texCoords.Y); GL.Vertex2(rectangle.X, rectangle.Y);
 			GL.TexCoord2(texCoords.MaxX, texCoords.Y); GL.Vertex2(rectangle.MaxX, rectangle.Y);
