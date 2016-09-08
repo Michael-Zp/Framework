@@ -25,9 +25,9 @@ namespace Framework
 
 		public void Dispose()
 		{
-			foreach (uint id in boundBuffers.Values)
+			foreach (var buffer in boundBuffers.Values)
 			{
-				GL.DeleteBuffer(id);
+				buffer.Dispose();
 			}
 			boundBuffers.Clear();
 			GL.DeleteVertexArray(idVAO);
@@ -37,19 +37,16 @@ namespace Framework
 		public void SetID<Index>(Index[] data, PrimitiveType primitiveType) where Index : struct
 		{
 			Activate();
-			uint bufferID = RequestBuffer(idBufferBinding);
-
-			GL.BindBuffer(BufferTarget.ElementArrayBuffer, bufferID);
-			var type = typeof(Index);
-			int elementBytes = Marshal.SizeOf(type);
-			int bufferByteSize = data.Length * elementBytes;
+			var buffer = RequestBuffer(idBufferBinding, BufferTarget.ElementArrayBuffer);
 			// set buffer data
-			GL.BufferData(BufferTarget.ElementArrayBuffer, (IntPtr)bufferByteSize, data, BufferUsageHint.StaticDraw);
+			buffer.Set(data, BufferUsageHint.StaticDraw);
+			//activate for state
+			buffer.Activate();
 			//cleanup state
 			Deactive();
-			GL.BindBuffer(BufferTarget.ElementArrayBuffer, 0);
+			buffer.Deactive();
 			//save data for draw call
-			DrawElementsType drawElementsType = GetDrawElementsType(type);
+			DrawElementsType drawElementsType = GetDrawElementsType(typeof(Index));
 			idData = new IDData(primitiveType, data.Length, drawElementsType);
 		}
 
@@ -57,13 +54,12 @@ namespace Framework
 		{
 			if (-1 == bindingID) return; //if attribute not used in shader or wrong name
 			Activate();
-			uint bufferID = RequestBuffer(bindingID);
-			GL.BindBuffer(BufferTarget.ArrayBuffer, bufferID);
-			int elementBytes = Marshal.SizeOf(typeof(DataElement));
-			int bufferByteSize = data.Length * elementBytes;
-			// set buffer data
-			GL.BufferData(BufferTarget.ArrayBuffer, (IntPtr)bufferByteSize, data, BufferUsageHint.StaticDraw);
+			var buffer = RequestBuffer(bindingID, BufferTarget.ArrayBuffer);
+			buffer.Set(data, BufferUsageHint.StaticDraw);
+			//activate for state
+			buffer.Activate();
 			//set data format
+			int elementBytes = Marshal.SizeOf(typeof(DataElement));
 			GL.VertexAttribPointer(bindingID, elementSize, type, false, elementBytes, 0);
 			GL.EnableVertexAttribArray(bindingID);
 			if (perInstance)
@@ -72,7 +68,7 @@ namespace Framework
 			}
 			//cleanup state
 			Deactive();
-			GL.BindBuffer(BufferTarget.ArrayBuffer, 0);
+			buffer.Deactive();
 			GL.DisableVertexAttribArray(bindingID);
 		}
 
@@ -86,14 +82,14 @@ namespace Framework
 		{
 			if (-1 == bindingID) return; //if matrix not used in shader or wrong name
 			Activate();
-			uint bufferID = RequestBuffer(bindingID);
-			GL.BindBuffer(BufferTarget.ArrayBuffer, bufferID);
-			int elementBytes = Marshal.SizeOf(typeof(Matrix4));
-			int columnBytes = Marshal.SizeOf(typeof(Vector4));
-			int bufferByteSize = data.Length * elementBytes;
+			var buffer = RequestBuffer(bindingID, BufferTarget.ArrayBuffer);
 			// set buffer data
-			GL.BufferData(BufferTarget.ArrayBuffer, (IntPtr)bufferByteSize, data, BufferUsageHint.StaticDraw);
+			buffer.Set(data, BufferUsageHint.StaticDraw);
+			//activate for state
+			buffer.Activate();
 			//set data format
+			int columnBytes = Marshal.SizeOf(typeof(Vector4));
+			int elementBytes = Marshal.SizeOf(typeof(Matrix4));
 			for (int i = 0; i < 4; i++)
 			{
 				GL.VertexAttribPointer(bindingID + i, 4, VertexAttribPointerType.Float, false, elementBytes, columnBytes * i);
@@ -154,7 +150,7 @@ namespace Framework
 		private IDData idData;
 		private int idVAO;
 		private const int idBufferBinding = int.MaxValue;
-		private Dictionary<int, uint> boundBuffers = new Dictionary<int, uint>();
+		private Dictionary<int, BufferObject> boundBuffers = new Dictionary<int, BufferObject>();
 
 		private static DrawElementsType GetDrawElementsType(Type type)
 		{
@@ -162,16 +158,16 @@ namespace Framework
 			if (type == typeof(uint)) return DrawElementsType.UnsignedInt;
 			throw new Exception("Invalid index type");
 		}
-
-		private uint RequestBuffer(int bindingID)
+		
+		private BufferObject RequestBuffer(int bindingID, BufferTarget bufferTarget)
 		{
-			uint bufferID;
-			if (!boundBuffers.TryGetValue(bindingID, out bufferID))
+			BufferObject buffer;
+			if (!boundBuffers.TryGetValue(bindingID, out buffer))
 			{
-				GL.GenBuffers(1, out bufferID);
-				boundBuffers[bindingID] = bufferID;
+				buffer = new BufferObject(bufferTarget);
+				boundBuffers[bindingID] = buffer;
 			}
-			return bufferID;
+			return buffer;
 		}
 	}
 }

@@ -4,12 +4,19 @@ using System.Runtime.InteropServices;
 
 namespace Framework
 {
-	public class BufferObject
+	public class BufferObject : IDisposable
 	{
 		public BufferObject(BufferTarget bufferTarget)
 		{
-			this.BufferTarget = bufferTarget;
+			BufferTarget = bufferTarget;
 			GL.GenBuffers​(1, out bufferID);
+		}
+
+		public void Dispose()
+		{
+			if (-1 == bufferID) return;
+			GL.DeleteBuffer(bufferID);
+			bufferID = -1;
 		}
 
 		public BufferTarget BufferTarget { get; private set; }
@@ -41,7 +48,6 @@ namespace Framework
 			//cleanup state
 			Deactive();
 		}
-
 
 		private int bufferID;
 	}
