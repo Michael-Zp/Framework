@@ -91,6 +91,7 @@
     <Compile Include="Box2D.cs" />
     <Compile Include="Box2dExtensions.cs" />
     <Compile Include="AnimationTextures.cs" />
+    <Compile Include="BufferObject.cs" />
     <Compile Include="CameraOrbit.cs" />
     <Compile Include="IAnimation.cs" />
     <Compile Include="ShaderException.cs" />

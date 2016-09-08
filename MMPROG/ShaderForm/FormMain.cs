@@ -82,10 +82,13 @@ namespace ShaderForm
 			string[] files = (string[])e.Data.GetData(DataFormats.FileDrop);
 			foreach (string file in files)
 			{
+				//check if texture
 				if (!demo.Textures.AddUpdate(file))
 				{
+					//check if sound file
 					if (!demo.TimeSource.Load(file))
 					{
+						//try shader
 						AddShader(file);
 					}
 				}

@@ -85,12 +85,12 @@ namespace ShaderForm
 				}
 				timeSource.IsLooping = isLooping;
 				timeSource.OnTimeFinished += CallOnTimeFinished;
-				if (null != OnLoaded) OnLoaded(this, EventArgs.Empty);
+				OnLoaded?.Invoke(this, EventArgs.Empty);
 				return true;
 			}
 			catch (Exception)
 			{
-				if (null != OnLoaded) OnLoaded(this, EventArgs.Empty);
+				OnLoaded?.Invoke(this, EventArgs.Empty);
 				return false;
 			}
 		}
