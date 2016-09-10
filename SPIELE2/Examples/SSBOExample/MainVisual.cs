@@ -3,6 +3,7 @@ using OpenTK;
 using OpenTK.Graphics.OpenGL;
 using ShaderDebugging;
 using System;
+using System.Collections.Generic;
 
 namespace Example
 {
@@ -33,7 +34,8 @@ namespace Example
 			GL.Clear(ClearBufferMask.ColorBufferBit);
 			var shader = shaderWatcher.Shader;
 			shader.Begin();
-			bufferParticles.ActivateBind(3);
+			var bindingIndex = shader.GetShaderStorageBufferBindingIndex("BufferParticle");
+			bufferParticles.ActivateBind(bindingIndex);
 			GL.DrawArrays(PrimitiveType.Points, 0, particelCount);
 			bufferParticles.Deactive();
 			shader.End();

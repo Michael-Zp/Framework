@@ -71,6 +71,16 @@ namespace Framework
 			return GL.GetUniformLocation(m_ProgramID, name);
 		}
 
+		public int GetShaderStorageBufferBindingIndex(string name)
+		{
+			var index = GL.GetProgramResourceIndex(m_ProgramID, ProgramInterface.ShaderStorageBlock, name);
+			ProgramProperty[] prop = { ProgramProperty.BufferBinding };
+			int length;
+			int[] value = { -1 };
+			GL.GetProgramResource(m_ProgramID, ProgramInterface.ShaderStorageBlock, index, 1, prop, 1, out length, value);
+			return value[0];
+		}
+
 		public bool IsLinked { get { return isLinked; } }
 
 		public void Link()

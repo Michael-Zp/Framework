@@ -1,6 +1,5 @@
 ﻿using System;
 using System.Collections.Generic;
-using OpenTK.Graphics.OpenGL;
 
 namespace Framework
 {
@@ -48,12 +47,7 @@ namespace Framework
 		{
 			var id = (int)CalcAnimationFrame(totalSeconds);
 			textures[id].BeginUse();
-			GL.Begin(PrimitiveType.Quads);
-			GL.TexCoord2(0, 0); GL.Vertex2(rectangle.X, rectangle.Y);
-			GL.TexCoord2(1, 0); GL.Vertex2(rectangle.MaxX, rectangle.Y);
-			GL.TexCoord2(1, 1); GL.Vertex2(rectangle.MaxX, rectangle.MaxY);
-			GL.TexCoord2(0, 1); GL.Vertex2(rectangle.X, rectangle.MaxY);
-			GL.End();
+			rectangle.DrawTexturedRect(Box2D.BOX01);
 			textures[id].EndUse();
 		}
 

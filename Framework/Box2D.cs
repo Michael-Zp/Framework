@@ -28,6 +28,8 @@
 			this.SizeY = rectangle.SizeY;
 		}
 
+		public static Box2D BOX01 = new Box2D(0, 0, 1, 1);
+
 		public float SizeX { get; set; }
 
 		public float SizeY { get; set; }

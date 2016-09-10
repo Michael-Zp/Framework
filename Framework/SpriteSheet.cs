@@ -1,6 +1,4 @@
-﻿using OpenTK.Graphics.OpenGL;
-
-namespace Framework
+﻿namespace Framework
 {
 	public class SpriteSheet
 	{
@@ -45,12 +43,7 @@ namespace Framework
 		public void Draw(uint spriteID, Box2D rectangle)
 		{
 			Box2D texCoords = CalcSpriteTexCoords(spriteID);
-			GL.Begin(PrimitiveType.Quads);
-			GL.TexCoord2(texCoords.X, texCoords.Y); GL.Vertex2(rectangle.X, rectangle.Y);
-			GL.TexCoord2(texCoords.MaxX, texCoords.Y); GL.Vertex2(rectangle.MaxX, rectangle.Y);
-			GL.TexCoord2(texCoords.MaxX, texCoords.MaxY); GL.Vertex2(rectangle.MaxX, rectangle.MaxY);
-			GL.TexCoord2(texCoords.X, texCoords.MaxY); GL.Vertex2(rectangle.X, rectangle.MaxY);
-			GL.End();
+			rectangle.DrawTexturedRect(texCoords);
 		}
 
 		public float SpriteBoundingBoxWidth
