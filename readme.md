@@ -10,5 +10,3 @@
 	1. create empty dir
 	1. right click <git clone...>
 	1. URL: https://github.com/danielscherzer/Framework
-
-About syntax highlighting in Visual Studio http://www.horsedrawngames.com/shader-syntax-highlighting-in-visual-studio-2013/
