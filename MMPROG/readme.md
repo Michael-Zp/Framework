@@ -1,6 +1,4 @@
-###Setup of Shader Form
-![ShaderForm](ShaderForm.png)
-
+###Setup of framework
 1. repository clone (shell)
     1. open git cmd / git bash
     1. change to empty directory
