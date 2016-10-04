@@ -203,6 +203,7 @@
   </ItemGroup>
   <ItemGroup />
   <ItemGroup>
+    <None Include="readme.md" />
     <None Include="Resources\Restart_6322.png" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
