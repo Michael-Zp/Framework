@@ -24,22 +24,17 @@ namespace ShaderForm
 
 		public string GetCurrentShader(float currentTime)
 		{
+            //if empty return empty string
+            if(0 == keyframes.Count) return string.Empty;
+			var firstItem = keyframes.First();
+			if (firstItem.Key > currentTime) return firstItem.Value;
 			try
 			{
-				var firstItem = keyframes.First();
-				if (firstItem.Key > currentTime) return firstItem.Value;
-				try
-				{
-					return keyframes.Last((item) => item.Key <= currentTime).Value;
-				}
-				catch
-				{
-					return firstItem.Value;
-				}
+				return keyframes.Last((item) => item.Key <= currentTime).Value;
 			}
 			catch
 			{
-				return string.Empty;
+				return firstItem.Value;
 			}
 		}
 

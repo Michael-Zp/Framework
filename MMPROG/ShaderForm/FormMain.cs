@@ -17,9 +17,9 @@ namespace ShaderForm
 		private Timing timing = new Timing(0.5f);
 		private MultiGraph multiGraph = new MultiGraph();
 		private FacadeFormMessages log = new FacadeFormMessages();
-        private FacadeCamera camera = new FacadeCamera();
+		private FacadeCamera camera = new FacadeCamera();
 
-        public FormMain()
+		public FormMain()
 		{
 			InitializeComponent();
 			string demoFilter = DefaultFiles.GetDemoExtension() + " (*" + DefaultFiles.GetDemoExtension() + ")|*" + DefaultFiles.GetDemoExtension();
@@ -36,7 +36,7 @@ namespace ShaderForm
 			this.menuSound.Click += (sender, e) => Dialogs.OpenFile("sound (*.*)|*.*", (fileName) => demo.TimeSource.Load(fileName));
 			this.MenuShaderAdd.Click += (sender, e) => Dialogs.OpenFile("glsl (*.glsl)|*.glsl", (fileName) => AddShader(fileName));
 			this.MenuTextureAdd.Click += (sender, e) => Dialogs.OpenFile("texture (*.*)|*.*", (fileName) => demo.Textures.AddUpdate(fileName));
-			this.menuSave.Click += (sender, e) => Dialogs.SaveFile(demoFilter, (fileName) => 
+			this.menuSave.Click += (sender, e) => Dialogs.SaveFile(demoFilter, (fileName) =>
 				{
 					try
 					{
@@ -163,6 +163,8 @@ namespace ShaderForm
 				demo.Shaders.OnChange += Shaders_OnChange;
 				demo.ShaderKeyframes.OnChange += ShaderKeframes_OnChange;
 				demo.Textures.OnChange += Textures_OnChange;
+				//make for valid time source even if no new demo is loaded afterwards (when starting with shader cmd line argument)
+				Demo_OnTimeSourceLoaded(null, EventArgs.Empty);
 			}
 			catch (Exception e)
 			{
@@ -268,8 +270,8 @@ namespace ShaderForm
 				if (null == keyApp) return;
 				this.LoadLayout();
 
-				string granularity = Convert.ToString(keyApp.GetValue("granularity", this.menuSizeSetting.Text));
-				this.menuSizeSetting.SelectedIndex = this.menuSizeSetting.FindString(granularity);
+				string granularity = Convert.ToString(keyApp.GetValue("granularity", menuSizeSetting.Text));
+				menuSizeSetting.SelectedIndex = menuSizeSetting.FindString(granularity);
 
 				String[] arguments = Environment.GetCommandLineArgs();
 				if (arguments.Length > 1)
@@ -278,10 +280,11 @@ namespace ShaderForm
 				}
 				else
 				{
+					//no cmd arguments
 					LoadDemo(DefaultFiles.GetAutoSaveDemoFilePath());
+					soundPlayerBar1.Position = (float)Convert.ToDouble(keyApp.GetValue("time", 0.0));
 				}
 				soundPlayerBar1.Playing = Convert.ToBoolean(keyApp.GetValue("play", false));
-				soundPlayerBar1.Position = (float)Convert.ToDouble(keyApp.GetValue("time", 0.0));
 			}
 			catch (Exception ex)
 			{
@@ -304,10 +307,10 @@ namespace ShaderForm
 				keyApp.SetValue("play", soundPlayerBar1.Playing);
 				keyApp.SetValue("granularity", this.menuSizeSetting.Text);
 				keyApp.SetValue("time", this.soundPlayerBar1.Position);
-                // rename old
-                DefaultFiles.RenameAutoSaveDemoFile(); 
-                // save new
-                DemoLoader.SaveToFile(demo, DefaultFiles.GetAutoSaveDemoFilePath());
+				// rename old
+				DefaultFiles.RenameAutoSaveDemoFile();
+				// save new
+				DemoLoader.SaveToFile(demo, DefaultFiles.GetAutoSaveDemoFilePath());
 				demo.Dispose();
 			}
 			catch (Exception ex)
@@ -319,7 +322,7 @@ namespace ShaderForm
 		private void FormMain_KeyDown(object sender, KeyEventArgs e)
 		{
 			if (e.Handled) return;
-            switch (e.KeyCode)
+			switch (e.KeyCode)
 			{
 				case Keys.Escape: Close(); return;
 				case Keys.C: camera.AddKeyFrames(soundPlayerBar1.Position, demo.Uniforms); break;
@@ -346,7 +349,7 @@ namespace ShaderForm
 			}
 		}
 
-        private void GlControl_MouseDown(object sender, MouseEventArgs e)
+		private void GlControl_MouseDown(object sender, MouseEventArgs e)
 		{
 			if (MouseButtons.Left == e.Button)
 			{
@@ -358,7 +361,7 @@ namespace ShaderForm
 		private void GlControl_MouseMove(object sender, MouseEventArgs e)
 		{
 			mousePos = e.Location;
-			if(!soundPlayerBar1.Playing) glControl.Invalidate(); //otherwise time stops during update?!
+			if (!soundPlayerBar1.Playing) glControl.Invalidate(); //otherwise time stops during update?!
 		}
 
 		private void GlControl_MouseUp(object sender, MouseEventArgs e)

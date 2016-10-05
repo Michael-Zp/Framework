@@ -62,7 +62,7 @@ namespace ShaderForm
 			uniforms.Interpolate(TimeSource.Position, (name, value) => visualContext.SetUniform(name, value));
 
 			//override with custom uniforms
-			if (null != OnSetCustomUniforms) OnSetCustomUniforms(visualContext);
+			OnSetCustomUniforms?.Invoke(visualContext);
 
 			visualContext.Update();
 		}
