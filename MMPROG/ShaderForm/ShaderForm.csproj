@@ -65,6 +65,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="DefaultFiles.cs" />
     <Compile Include="DemoModelFactory.cs" />
     <Compile Include="FacadeCamera.cs" />
     <Compile Include="FacadeFormMessages.cs" />

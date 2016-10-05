@@ -15,8 +15,6 @@ namespace ShaderForm
 		private Point mousePos;
 		//private int painting = 0;
 		private Timing timing = new Timing(0.5f);
-		const string fileNameDefaultSave = "default_save";
-		const string fileExtDefaultSave = ".config.xml";
 		private MultiGraph multiGraph = new MultiGraph();
 		private FacadeFormMessages log = new FacadeFormMessages();
         private FacadeCamera camera = new FacadeCamera();
@@ -24,7 +22,7 @@ namespace ShaderForm
         public FormMain()
 		{
 			InitializeComponent();
-			string demoFilter = fileExtDefaultSave + " (*" + fileExtDefaultSave + ")|*" + fileExtDefaultSave;
+			string demoFilter = DefaultFiles.GetDemoExtension() + " (*" + DefaultFiles.GetDemoExtension() + ")|*" + DefaultFiles.GetDemoExtension();
 			menuSizeSetting.SelectedIndexChanged += (sender, e) => glControl.Invalidate();
 			multiGraph.OnChangePosition += (pos) => soundPlayerBar1.Position = pos;
 			multiGraph.OnKeyDown += FormMain_KeyDown;
@@ -65,7 +63,6 @@ namespace ShaderForm
 		{
 			try
 			{
-				log.Clear();
 				camera.Reset();
 				DemoLoader.LoadFromFile(demo, fileName);
 			}
@@ -281,7 +278,7 @@ namespace ShaderForm
 				}
 				else
 				{
-					LoadDemo(fileNameDefaultSave + fileExtDefaultSave);
+					LoadDemo(DefaultFiles.GetAutoSaveDemoFilePath());
 				}
 				soundPlayerBar1.Playing = Convert.ToBoolean(keyApp.GetValue("play", false));
 				soundPlayerBar1.Position = (float)Convert.ToDouble(keyApp.GetValue("time", 0.0));
@@ -307,14 +304,10 @@ namespace ShaderForm
 				keyApp.SetValue("play", soundPlayerBar1.Playing);
 				keyApp.SetValue("granularity", this.menuSizeSetting.Text);
 				keyApp.SetValue("time", this.soundPlayerBar1.Position);
-				//rename old
-				try
-				{
-					var dt = File.GetLastWriteTime(fileNameDefaultSave + fileExtDefaultSave);
-					File.Move(fileNameDefaultSave + fileExtDefaultSave, fileNameDefaultSave + " " + DateTime.Now.ToString("yyyyMMdd HHmmss") + fileExtDefaultSave);
-				}
-				catch { }
-				DemoLoader.SaveToFile(demo, fileNameDefaultSave + fileExtDefaultSave);
+                // rename old
+                DefaultFiles.RenameAutoSaveDemoFile(); 
+                // save new
+                DemoLoader.SaveToFile(demo, DefaultFiles.GetAutoSaveDemoFilePath());
 				demo.Dispose();
 			}
 			catch (Exception ex)
