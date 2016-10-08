@@ -6,18 +6,31 @@ using System;
 
 namespace ShaderForm
 {
+	public class ErrorEventArgs : EventArgs
+	{
+		public ErrorEventArgs(string message)
+		{
+			Message = message;
+		}
+
+		public bool Cancel { get; set; }
+		public string Message { get; }
+	}
+
+	public delegate void ErrorEventHandler(object sender, ErrorEventArgs args);
+
 	public class DemoLoader
 	{
-		public static void LoadFromFile(DemoModel demo, string fileName)
+		public static void LoadFromFile(DemoModel demo, string fileName, ErrorEventHandler errorHandler = null)
 		{
 			try
 			{
-				LoadFromFile2(demo, fileName);
+				LoadFromFile2(demo, fileName, errorHandler);
 			}
 			catch
 			{
 				//todo1: as soon as no version 1 files are needed get rid of DemoData...
-				LoadFromFile1(demo, fileName);
+				LoadFromFile1(demo, fileName, errorHandler);
 			}
 		}
 
@@ -34,25 +47,24 @@ namespace ShaderForm
 			data.ObjIntoXMLFile(fileName);
 		}
 
-		private static void LoadFromFile1(DemoModel demo, string fileName)
+		private static void LoadFromFile1(DemoModel demo, string fileName, ErrorEventHandler errorHandler)
 		{
 			var data = Serialize.ObjFromXMLFile(fileName, typeof(DemoData.DemoData)) as DemoData.DemoData;
 			data.ConvertToAbsolutePath(Path.GetDirectoryName(Path.GetFullPath(fileName)));
-			Load(data, demo);
+			Load(data, demo, errorHandler);
 		}
 
-		private static void LoadFromFile2(DemoModel demo, string fileName)
+		private static void LoadFromFile2(DemoModel demo, string fileName, ErrorEventHandler errorHandler)
 		{
 			var data = Serialize.ObjFromXMLFile(fileName, typeof(DemoData2.DemoData2)) as DemoData2.DemoData2;
 			data.ConvertToAbsolutePath(Path.GetDirectoryName(Path.GetFullPath(fileName)));
-			Load(data, demo);
+			Load(data, demo, errorHandler);
 		}
 
-		private static void Load(DemoData.DemoData data, DemoModel demo)
+		private static void Load(DemoData.DemoData data, DemoModel demo, ErrorEventHandler errorHandler)
 		{
 			demo.Clear();
-			demo.TimeSource.Load(data.SoundFileName);
-
+			if (!LoadSound(data.SoundFileName, demo, errorHandler)) return;
 			var ratios = data.ShaderRatios.Select((item) => new Tuple<float, string>(item.Ratio, item.ShaderPath));
 			var keyframes = ShaderKeyframes.CalculatePosFromRatios(ratios, demo.TimeSource.Length);
 			foreach (var kf in keyframes)
@@ -77,10 +89,10 @@ namespace ShaderForm
 			}
 		}
 
-		private static void Load(DemoData2.DemoData2 data, DemoModel demo)
+		private static void Load(DemoData2.DemoData2 data, DemoModel demo, ErrorEventHandler errorHandler)
 		{
 			demo.Clear();
-			demo.TimeSource.Load(data.SoundFileName);
+			if (!LoadSound(data.SoundFileName, demo, errorHandler)) return;
 			foreach (var track in data.Tracks)
 			{
 				//todo1: load track.Name;
@@ -104,6 +116,22 @@ namespace ShaderForm
 					kfs.AddUpdate(kf.Time, kf.Value);
 				}
 			}
+		}
+
+		private static bool LoadSound(string soundFileName, DemoModel demo, ErrorEventHandler errorHandler)
+		{
+			if (!string.IsNullOrWhiteSpace(soundFileName))
+			{
+				var sound = DemoTimeSource.FromMediaFile(soundFileName);
+				if (null == sound && null != errorHandler)
+				{
+					var args = new ErrorEventArgs("Could not load sound file '" + soundFileName + "'");
+					errorHandler(demo, args);
+					if (args.Cancel) return false;
+				}
+				demo.TimeSource.Load(sound);
+			}
+			return true;
 		}
 
 		private static void Save(DemoModel demo, DemoData2.DemoData2 data)

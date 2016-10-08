@@ -89,7 +89,7 @@ namespace ShaderForm
 
 		protected void CallOnChange()
 		{
-			if (null != OnChange) OnChange(this, EventArgs.Empty);
+			OnChange?.Invoke(this, EventArgs.Empty);
 		}
 
 		private SortedDictionary<float, string> keyframes = new SortedDictionary<float, string>();

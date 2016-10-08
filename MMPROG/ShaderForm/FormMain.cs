@@ -30,13 +30,13 @@ namespace ShaderForm
 			soundPlayerBar1.OnPositionChanged += (position) => multiGraph.UpdatePosition(position);
 			soundPlayerBar1.OnPositionChanged += (position) => camera.UpdateFromUniforms(demo.Uniforms, position);
 
-			this.menuHelp.Click += (sender, e) => Dialogs.Help();
-			this.menuLoad.Click += (sender, e) => Dialogs.OpenFile(demoFilter
+			menuHelp.Click += (sender, e) => Dialogs.Help();
+			menuLoad.Click += (sender, e) => Dialogs.OpenFile(demoFilter
 				, (fileName) => LoadDemo(fileName));
-			this.menuSound.Click += (sender, e) => Dialogs.OpenFile("sound (*.*)|*.*", (fileName) => demo.TimeSource.Load(fileName));
-			this.MenuShaderAdd.Click += (sender, e) => Dialogs.OpenFile("glsl (*.glsl)|*.glsl", (fileName) => AddShader(fileName));
-			this.MenuTextureAdd.Click += (sender, e) => Dialogs.OpenFile("texture (*.*)|*.*", (fileName) => demo.Textures.AddUpdate(fileName));
-			this.menuSave.Click += (sender, e) => Dialogs.SaveFile(demoFilter, (fileName) =>
+			menuSound.Click += (sender, e) => Dialogs.OpenFile("sound (*.*)|*.*", (fileName) => demo.TimeSource.Load(DemoTimeSource.FromMediaFile(fileName)));
+			MenuShaderAdd.Click += (sender, e) => Dialogs.OpenFile("glsl (*.glsl)|*.glsl", (fileName) => AddShader(fileName));
+			MenuTextureAdd.Click += (sender, e) => Dialogs.OpenFile("texture (*.*)|*.*", (fileName) => demo.Textures.AddUpdate(fileName));
+			menuSave.Click += (sender, e) => Dialogs.SaveFile(demoFilter, (fileName) =>
 				{
 					try
 					{
@@ -47,16 +47,18 @@ namespace ShaderForm
 						log.Append(ex.Message);
 					}
 				});
-			this.menuScreenshot.Click += (sender, e) => Dialogs.SaveFile("png (*.png)|*.png", (fileName) => { glControl.Invalidate(); demo.SaveBuffer(fileName); });
+			menuScreenshot.Click += (sender, e) => Dialogs.SaveFile("png (*.png)|*.png", (fileName) => { glControl.Invalidate(); demo.SaveBuffer(fileName); });
 
-			this.KeyDown += (sender, e) => { camera.KeyChange(e.KeyCode, true); glControl.Invalidate(); };
-			this.KeyUp += (sender, e) => { camera.KeyChange(e.KeyCode, false); glControl.Invalidate(); };
+			KeyDown += (sender, e) => { camera.KeyChange(e.KeyCode, true); glControl.Invalidate(); };
+			KeyUp += (sender, e) => { camera.KeyChange(e.KeyCode, false); glControl.Invalidate(); };
 		}
 
 		private void AddShader(string fileName)
 		{
 			demo.Shaders.AddUpdateShader(fileName);
-			demo.ShaderKeyframes.AddUpdate(soundPlayerBar1.Length - 0.1f, fileName);
+			//put new shader at cursor position
+			float time = demo.TimeSource.Position;
+			demo.ShaderKeyframes.AddUpdate(time, fileName);
 		}
 
 		private void LoadDemo(string fileName)
@@ -64,7 +66,7 @@ namespace ShaderForm
 			try
 			{
 				camera.Reset();
-				DemoLoader.LoadFromFile(demo, fileName);
+				DemoLoader.LoadFromFile(demo, fileName, (obj, args) => log.Append(args.Message) );
 			}
 			catch { };
 		}
@@ -83,7 +85,12 @@ namespace ShaderForm
 				if (!demo.Textures.AddUpdate(file))
 				{
 					//check if sound file
-					if (!demo.TimeSource.Load(file))
+					var sound = DemoTimeSource.FromMediaFile(file);
+					if (null != sound)
+					{
+						demo.TimeSource.Load(sound);
+					}
+					else
 					{
 						//try shader
 						AddShader(file);
@@ -151,6 +158,8 @@ namespace ShaderForm
 			try
 			{
 				demo = DemoModelFactory.Create(this);
+				//make for valid time source even if no new demo is loaded afterwards (when starting with shader cmd line argument)
+				Demo_OnTimeSourceLoaded(null, EventArgs.Empty);
 				demo.OnSetCustomUniforms += Demo_OnSetCustomUniforms;
 				demo.TimeSource.OnLoaded += Demo_OnTimeSourceLoaded;
 				demo.Uniforms.OnAdd += Uniforms_OnAdd;
@@ -163,8 +172,6 @@ namespace ShaderForm
 				demo.Shaders.OnChange += Shaders_OnChange;
 				demo.ShaderKeyframes.OnChange += ShaderKeframes_OnChange;
 				demo.Textures.OnChange += Textures_OnChange;
-				//make for valid time source even if no new demo is loaded afterwards (when starting with shader cmd line argument)
-				Demo_OnTimeSourceLoaded(null, EventArgs.Empty);
 			}
 			catch (Exception e)
 			{
@@ -394,7 +401,7 @@ namespace ShaderForm
 			switch (e.Button)
 			{
 				case MouseButtons.Left:
-					demo.ShaderKeyframes.AddUpdate(soundPlayerBar1.Length - 0.1f, menu.Text);
+					AddShader(menu.Text);
 					break;
 				case MouseButtons.Right:
 					demo.Shaders.RemoveShader(menu.Text);
@@ -417,7 +424,7 @@ namespace ShaderForm
 		private void MenuSound_MouseDown(object sender, MouseEventArgs e)
 		{
 			if (MouseButtons.Right != e.Button) return;
-			demo.TimeSource.Load(string.Empty);
+			demo.TimeSource.Clear();
 		}
 
 		private void ShowUniformGraph(string uniformName)

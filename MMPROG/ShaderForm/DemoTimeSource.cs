@@ -63,53 +63,66 @@ namespace ShaderForm
 			timeSource.OnTimeFinished += CallOnTimeFinished;
 		}
 
-		public bool Load(string fileName)
+		public static ITimeSource FromMediaFile(string fileName)
 		{
-			Debug.Assert(null != timeSource);
 			try
 			{
-				bool isLooping = timeSource.IsLooping;
 				if (File.Exists(fileName))
 				{
 					var absoluteFileName = Path.GetFullPath(fileName);
-					var sound = new MediaFacade(absoluteFileName);
-					SoundFileName = absoluteFileName;
-					timeSource.Dispose();
-					timeSource = sound;
+					return new MediaFacade(absoluteFileName);
 				}
-				else
-				{
-					timeSource.Dispose();
-					timeSource = new TimeSource(100.0f);
-					SoundFileName = string.Empty;
-				}
-				timeSource.IsLooping = isLooping;
-				timeSource.OnTimeFinished += CallOnTimeFinished;
-				OnLoaded?.Invoke(this, EventArgs.Empty);
-				return true;
+				return null;
 			}
-			catch (Exception)
+			catch
 			{
+				return null;
+			}
+		}
+
+		public void Load(ITimeSource newTimeSource)
+		{
+			Debug.Assert(null != timeSource);
+			if (null == newTimeSource)
+			{
+				Clear();
+			}
+			else
+			{
+				newTimeSource.IsLooping = IsLooping;
+				newTimeSource.OnTimeFinished += CallOnTimeFinished;
+				timeSource.Dispose();
+				timeSource = newTimeSource;
 				OnLoaded?.Invoke(this, EventArgs.Empty);
-				return false;
 			}
 		}
 
 		public void Clear()
 		{
-			Load(string.Empty);
+			Debug.Assert(null != timeSource);
+			//keep looping state
+			bool isLooping = timeSource.IsLooping;
+			//remove old
+			timeSource.Dispose();
+			//create new
+			timeSource = new TimeSource(100.0f);
+			SoundFileName = string.Empty;
+			timeSource.IsLooping = isLooping;
+			timeSource.OnTimeFinished += CallOnTimeFinished;
+			OnLoaded?.Invoke(this, EventArgs.Empty);
 		}
 
 		public void Dispose()
 		{
-			throw new NotImplementedException();
+			Debug.Assert(null != timeSource);
+			timeSource.Dispose();
 		}
 
 		private ITimeSource timeSource;
 
 		private void CallOnTimeFinished()
 		{
-			if (null != OnTimeFinished) OnTimeFinished();
+			OnTimeFinished?.Invoke();
 		}
 	}
 }
