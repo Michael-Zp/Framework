@@ -1,6 +1,4 @@
-﻿using ControlClassLibrary;
-using Framework;
-using MediaPlayer;
+﻿using MediaPlayer;
 using System;
 using System.Diagnostics;
 using System.IO;

@@ -1,6 +1,6 @@
 ﻿using OpenTK;
 
-namespace Framework
+namespace Geometry
 {
 	public class CameraOrbit
 	{

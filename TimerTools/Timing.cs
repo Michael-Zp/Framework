@@ -1,6 +1,6 @@
 ﻿using System.Diagnostics;
 
-namespace ShaderForm
+namespace TimerTools
 {
 	public class Timing
 	{

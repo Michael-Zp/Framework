@@ -2,6 +2,7 @@
 using OpenTK.Graphics.OpenGL;
 using System.Text;
 using OpenTK;
+using Geometry;
 
 namespace Example
 {

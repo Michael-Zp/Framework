@@ -1,4 +1,6 @@
-﻿namespace Framework
+﻿using Geometry;
+
+namespace Framework
 {
 	public class SpriteSheet
 	{

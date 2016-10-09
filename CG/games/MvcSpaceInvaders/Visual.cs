@@ -1,6 +1,6 @@
 ﻿using Framework;
+using Geometry;
 using OpenTK.Graphics.OpenGL;
-using System;
 using System.Collections.Generic;
 using System.Drawing;
 

@@ -4,9 +4,9 @@
 	{
 		public Timer(float interval)
 		{
-			this.Interval = interval;
-			this.Count = 0;
-			this.Enabled = false;
+			Interval = interval;
+			Count = 0;
+			Enabled = false;
 		}
 
 		public uint Count { get; private set; }

@@ -1,7 +1,7 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio 14
-VisualStudioVersion = 14.0.25123.0
+VisualStudioVersion = 14.0.25420.1
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ShaderVBOExample", "Examples\ShaderVBOExample\ShaderVBOExample.csproj", "{C9043719-1776-48D3-9515-5370F1508C48}"
 EndProject
@@ -35,6 +35,8 @@ EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Framework", "..\Framework\Framework.csproj", "{C660F6AF-C100-4169-A9FB-61E1EBE87F34}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SSBOExample", "Examples\SSBOExample\SSBOExample.csproj", "{B477FA61-3ABE-43EC-B785-2306975C65B1}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Geometry", "..\Geometry\Geometry.csproj", "{B37B7DDE-435B-4F27-9A9B-9B6DF8744EBE}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -94,6 +96,10 @@ Global
 		{B477FA61-3ABE-43EC-B785-2306975C65B1}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{B477FA61-3ABE-43EC-B785-2306975C65B1}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{B477FA61-3ABE-43EC-B785-2306975C65B1}.Release|Any CPU.Build.0 = Release|Any CPU
+		{B37B7DDE-435B-4F27-9A9B-9B6DF8744EBE}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{B37B7DDE-435B-4F27-9A9B-9B6DF8744EBE}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{B37B7DDE-435B-4F27-9A9B-9B6DF8744EBE}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{B37B7DDE-435B-4F27-9A9B-9B6DF8744EBE}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

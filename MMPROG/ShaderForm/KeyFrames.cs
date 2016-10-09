@@ -2,6 +2,7 @@
 using System;
 using System.Collections;
 using Framework;
+using Geometry;
 
 namespace ShaderForm
 {
@@ -46,6 +47,6 @@ namespace ShaderForm
 			OnChange?.Invoke(this, EventArgs.Empty);
 		}
 
-		private Framework.ControlPoints<float> keyframes = new Framework.ControlPoints<float>();
+		private ControlPoints<float> keyframes = new ControlPoints<float>();
 	}
 }

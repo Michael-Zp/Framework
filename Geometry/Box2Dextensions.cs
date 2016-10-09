@@ -1,7 +1,7 @@
 ﻿using OpenTK;
 using System.Linq;
 
-namespace Framework
+namespace Geometry
 {
 	public static class Box2dExtensions
 	{

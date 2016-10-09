@@ -1,4 +1,4 @@
-﻿namespace Framework
+﻿namespace Geometry
 {
 	/// <summary>
 	/// Represents an axis aligned bounding box

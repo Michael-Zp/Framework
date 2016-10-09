@@ -1,7 +1,7 @@
 ﻿using OpenTK;
 using System.Collections.Generic;
 
-namespace Framework
+namespace Geometry
 {
 	public class Mesh
 	{

@@ -12,6 +12,7 @@
     <TargetFrameworkVersion>v4.5</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
     <CodeContractsAssemblyMode>0</CodeContractsAssemblyMode>
+    <TargetFrameworkProfile />
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
     <DebugSymbols>true</DebugSymbols>
@@ -87,23 +88,14 @@
     <Folder Include="Properties\" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Box.cs" />
-    <Compile Include="Box2D.cs" />
-    <Compile Include="Box2dExtensions.cs" />
     <Compile Include="AnimationTextures.cs" />
     <Compile Include="OpenGL\BufferObject.cs" />
-    <Compile Include="CameraOrbit.cs" />
     <Compile Include="IAnimation.cs" />
     <Compile Include="OpenGL\DrawTools.cs" />
     <Compile Include="ShaderException.cs" />
     <Compile Include="SpriteSheetAnimation.cs" />
-    <Compile Include="ControlPoints.cs" />
     <Compile Include="ITimedUpdate.cs" />
-    <Compile Include="Meshes.cs" />
     <Compile Include="OpenGL\FBO.cs" />
-    <Compile Include="Mesh.cs" />
-    <Compile Include="Obj2Mesh.cs" />
-    <Compile Include="ObjParser.cs" />
     <Compile Include="PathTools.cs" />
     <Compile Include="Serialize.cs" />
     <Compile Include="OpenGL\Shader.cs" />
@@ -113,11 +105,16 @@
     <Compile Include="OpenGL\Texture.cs" />
     <Compile Include="OpenGL\TextureLoader.cs" />
     <Compile Include="Timer.cs" />
-    <Compile Include="Transform2D.cs" />
     <Compile Include="OpenGL\VAO.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="readme.md" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\Geometry\Geometry.csproj">
+      <Project>{b37b7dde-435b-4f27-9a9b-9b6df8744ebe}</Project>
+      <Name>Geometry</Name>
+    </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

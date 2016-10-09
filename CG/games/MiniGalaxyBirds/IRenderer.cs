@@ -1,5 +1,4 @@
-﻿using Framework;
-using System;
+﻿using Geometry;
 namespace MiniGalaxyBirds
 {
 	public interface IRenderer

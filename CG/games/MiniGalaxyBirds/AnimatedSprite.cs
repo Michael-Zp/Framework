@@ -1,7 +1,5 @@
 ﻿using Framework;
-using OpenTK.Graphics.OpenGL;
-using System;
-using System.Drawing;
+using Geometry;
 
 namespace MiniGalaxyBirds
 {

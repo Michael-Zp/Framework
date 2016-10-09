@@ -1,4 +1,4 @@
-﻿using Framework;
+﻿using Geometry;
 using OpenTK;
 
 namespace Example
