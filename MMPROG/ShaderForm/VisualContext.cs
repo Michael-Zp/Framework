@@ -147,7 +147,6 @@ namespace ShaderForm
 						//readd
 						textures[index].Dispose();
 						textures[index] = tex;
-						return false;
 					}
 					textureNames.Add(fileName);
 					textures.Add(tex);
@@ -156,6 +155,11 @@ namespace ShaderForm
 				catch {	}
 			}
 			return false;
+		}
+
+		public IEnumerable<string> GetTextureNames()
+		{
+			return textureNames;
 		}
 
         public bool RemoveTexture(string fileName)

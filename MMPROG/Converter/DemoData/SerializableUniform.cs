@@ -11,7 +11,7 @@ namespace ShaderForm.DemoData
 
 		public SerializableUniform(string uniformName)
 		{
-			this.UniformName = uniformName;
+			UniformName = uniformName;
 		}
 
 		public SerializableUniform(string uniformName, IEnumerable<KeyValuePair<float, float>> uniformKeyFrames) : this(uniformName)

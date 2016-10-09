@@ -68,7 +68,10 @@ namespace ShaderForm
 				camera.Reset();
 				DemoLoader.LoadFromFile(demo, fileName, (obj, args) => log.Append(args.Message) );
 			}
-			catch { };
+			catch(Exception e)
+			{
+				log.Append("No valid demo file found with exception '" + e.Message + "'");
+			};
 		}
 
 		private void GlControl_DragEnter(object sender, DragEventArgs e)

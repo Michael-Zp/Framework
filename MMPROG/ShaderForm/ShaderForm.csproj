@@ -52,10 +52,10 @@
   </PropertyGroup>
   <ItemGroup>
     <Reference Include="OpenTK">
-      <HintPath>..\Externals\OpenTK\OpenTK.dll</HintPath>
+      <HintPath>..\..\Externals\OpenTK\OpenTK.dll</HintPath>
     </Reference>
     <Reference Include="OpenTK.GLControl">
-      <HintPath>..\Externals\OpenTK\OpenTK.GLControl.dll</HintPath>
+      <HintPath>..\..\Externals\OpenTK\OpenTK.GLControl.dll</HintPath>
     </Reference>
     <Reference Include="System" />
     <Reference Include="System.Data" />
@@ -75,7 +75,6 @@
     <Compile Include="DemoData2\ShaderKeyframe.cs" />
     <Compile Include="DemoData2\Track.cs" />
     <Compile Include="DemoData2\Uniform.cs" />
-    <Compile Include="DemoData\DemoData.cs" />
     <Compile Include="DemoLoader.cs" />
     <Compile Include="DemoModel.cs" />
     <Compile Include="FacadeKeyframesVisualisation.cs" />
@@ -125,9 +124,6 @@
       <DesignTime>True</DesignTime>
       <DependentUpon>Resources.resx</DependentUpon>
     </Compile>
-    <Compile Include="DemoData\Keyframe.cs" />
-    <Compile Include="DemoData\SerializableUniform.cs" />
-    <Compile Include="DemoData\ShaderPathRatio.cs" />
     <Compile Include="ShaderKeyframes.cs" />
     <Compile Include="Shaders.cs" />
     <Compile Include="Textures.cs" />
@@ -200,6 +196,10 @@
     <ProjectReference Include="..\MediaPlayer\MediaPlayer.csproj">
       <Project>{78a88806-ad96-4821-b9ad-8fc060f6feb6}</Project>
       <Name>MediaPlayer</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\TimerTools\TimerTools.csproj">
+      <Project>{54156018-0f41-4eef-aeb4-f1c99cf7a2ab}</Project>
+      <Name>TimerTools</Name>
     </ProjectReference>
   </ItemGroup>
   <ItemGroup />

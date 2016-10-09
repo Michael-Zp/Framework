@@ -1,5 +1,6 @@
 ﻿using ControlClassLibrary;
 using System;
+using TimeTools;
 using WMPLib;
 
 namespace MediaPlayer

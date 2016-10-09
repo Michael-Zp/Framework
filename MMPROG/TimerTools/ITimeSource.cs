@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace ControlClassLibrary
+namespace TimeTools
 {
 	public delegate void TimeFinishedHandler();
 

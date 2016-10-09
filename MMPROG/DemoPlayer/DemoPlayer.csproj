@@ -100,7 +100,7 @@
   </ItemGroup>
   <ItemGroup>
     <Reference Include="OpenTK">
-      <HintPath>..\Externals\OpenTK\OpenTK.dll</HintPath>
+      <HintPath>..\..\Externals\OpenTK\OpenTK.dll</HintPath>
     </Reference>
     <Reference Include="System" />
     <Reference Include="System.Drawing" />
@@ -127,13 +127,13 @@
     </BootstrapperPackage>
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\ControlClassLibrary\ControlClassLibrary.csproj">
-      <Project>{1e28b48e-ded7-4184-a449-b1d8c8c489ea}</Project>
-      <Name>ControlClassLibrary</Name>
-    </ProjectReference>
     <ProjectReference Include="..\ShaderForm\ShaderForm.csproj">
       <Project>{38149468-a074-4408-8684-b06f7176b3f6}</Project>
       <Name>ShaderForm</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\TimerTools\TimerTools.csproj">
+      <Project>{54156018-0f41-4eef-aeb4-f1c99cf7a2ab}</Project>
+      <Name>TimerTools</Name>
     </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

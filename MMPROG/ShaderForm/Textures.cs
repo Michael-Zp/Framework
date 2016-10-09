@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections;
 using System.Collections.Generic;
+using System.Linq;
 
 namespace ShaderForm
 {
@@ -17,7 +18,6 @@ namespace ShaderForm
 		{
 			if (visual.AddUpdateTexture(fileName))
 			{
-				textures.Add(fileName);
 				CallOnChange();
 				return true;
 			}
@@ -27,8 +27,7 @@ namespace ShaderForm
 
 		public void Clear()
 		{
-			foreach (var tex in textures) visual.RemoveTexture(tex);
-			textures.Clear();
+			foreach (var tex in visual.GetTextureNames().ToList()) visual.RemoveTexture(tex);
 			CallOnChange();
 		}
 
@@ -40,26 +39,24 @@ namespace ShaderForm
 		public void Remove(string fileName)
 		{
 			visual.RemoveTexture(fileName);
-			textures.Remove(fileName);
 			CallOnChange();
 		}
 
 		public IEnumerator<string> GetEnumerator()
 		{
-			return textures.GetEnumerator();
+			return visual.GetTextureNames().GetEnumerator();
 		}
 
 		IEnumerator IEnumerable.GetEnumerator()
 		{
-			return textures.GetEnumerator();
+			return visual.GetTextureNames().GetEnumerator();
 		}
 
 		protected void CallOnChange()
 		{
-			if (null != OnChange) OnChange(this, EventArgs.Empty);
+			OnChange?.Invoke(this, EventArgs.Empty);
 		}
 
-		private List<string> textures = new List<string>();
 		private VisualContext visual;
 	}
 }
