@@ -15,6 +15,7 @@ namespace ShaderForm
 			{
 				this.LoadLayout();
 				fontSize = (float)Convert.ToDouble(RegistryLoader.LoadValue(Name, "fontSize", 12.0f));
+				FontSize = fontSize;
 			}
 			catch (Exception e)
 			{
