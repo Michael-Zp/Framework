@@ -4,6 +4,7 @@
 	{
 		public void Append(string message)
 		{
+			//todo: different kind of log messages with different color (Richtextbox)
 			formLog.Append(message);
 		}
 
