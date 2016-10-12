@@ -6,17 +6,24 @@ float quad(float a)
 	return a * a;
 }
 
-float sphere(vec3 M, vec3 O, vec3 d)
+//M = center of sphere
+//r = radius of sphere
+//O = origin of ray
+//D = direction of ray
+float sphere(vec3 M, float r, vec3 O, vec3 D)
 {
-	float r = 0.1;
 	vec3 MO = O - M;
-	float root = quad(dot(d, MO))- quad(length(d)) * (quad(length(MO)) - quad(r));
+	float root = quad(dot(D, MO))- quad(length(D)) * (quad(length(MO)) - quad(r));
+	//does ray miss the sphere?
 	if(root < 0.001)
 	{
+		//return something negative
 		return -1000.0;
 	}
-	float p = -dot(d, MO);
+	//ray hits the sphere -> calc t of hit point(s)
+	float p = -dot(D, MO);
 	float q = sqrt(root);
+	//return t of smaller hit point
     return (p - q) > 0.0 ? p - q : p + q;
 }
 
@@ -29,7 +36,7 @@ void main()
 	vec3 camP = vec3(0.0, 0.0, 0.0);
 	vec3 camDir = normalize(vec3(p.x, p.y, 1.0));
 
-	float t = sphere(vec3(0, 0, 1), camP, camDir);
+	float t = sphere(vec3(0, 0, 1), 0.4, camP, camDir);
 
 	vec3 color;
 	if(t < 0)
