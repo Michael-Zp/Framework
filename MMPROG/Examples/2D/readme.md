@@ -7,3 +7,5 @@
   1. Do not look at the source code, just try to recreate a similar circle with fall-off
   1. Try to rotate it over time
   1. try to create three circles: one red, one blue, one green all three rotating
+1. [dots.glsl](dots.glsl)
+  1. Try to understand how this code creates many points
