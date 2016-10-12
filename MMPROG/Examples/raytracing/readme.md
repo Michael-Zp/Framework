@@ -3,4 +3,6 @@
 	1. Give each sphere a different color
 	1. Make further spheres dimmer
 	1. Implement diffuse lighting
+	1. Implement shadow rays
+	1. Implement reflected rays
 
