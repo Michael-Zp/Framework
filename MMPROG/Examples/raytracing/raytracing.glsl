@@ -74,6 +74,7 @@ struct Intersection
 	vec3 color;
 	vec3 intersectP;
 };
+
 Intersection rayCastScene(vec3 O, vec3 d)
 {
 	float t = bigNumber;
