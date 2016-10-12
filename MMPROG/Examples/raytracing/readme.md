@@ -6,5 +6,5 @@
 	1. Create a ground plane
 	1. Implement shadow rays
 	1. Implement reflected rays
-1. (raytracing.glsl) implementation of the points above (do not look before implementation)
+1. [raytracing.glsl](raytracing.glsl) implementation of the points above (do not look before implementation)
 
