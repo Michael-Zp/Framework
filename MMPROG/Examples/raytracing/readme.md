@@ -5,4 +5,5 @@
 	1. Implement diffuse lighting
 	1. Implement shadow rays
 	1. Implement reflected rays
+1. [raytracing.glsl]
 
