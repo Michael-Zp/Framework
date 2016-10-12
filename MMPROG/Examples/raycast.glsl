@@ -29,24 +29,18 @@ void main()
 	vec3 camP = vec3(0.0, 0.0, 0.0);
 	vec3 camDir = normalize(vec3(p.x, p.y, 1.0));
 
-	float t = 10000.0;
-	for(float x = -2.0; x <= 2.0; ++x)
+	float t = sphere(vec3(0, 0, 1), camP, camDir);
+
+	vec3 color;
+	if(t < 0)
 	{
-		for(float y = -2.0; y <= 2.0; ++y)
-		{
-			for(float z = 1.0; z <= 5.0; ++z)
-			{	
-				float newT = sphere(vec3(x, y, z), camP, camDir);
-				if (0.0 < newT && newT < t)
-				{	
-					t = newT;
-				}
-			}
-		}
+		color = vec3(0);
 	}
-	float a = t < 10000.0 ? 1.0 : 0.0;
-	a *= 1.0 - t * 0.1;
-	gl_FragColor = vec4(a, a, a, 1.0);
+	else
+	{
+		color = vec3(1);
+	}
+	gl_FragColor = vec4(color, 1.0);
 }
 
 

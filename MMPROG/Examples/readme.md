@@ -1,3 +1,8 @@
+# Setup
++ About syntax highlighting in Visual Studio http://www.horsedrawngames.com/shader-syntax-highlighting-in-visual-studio-2013/
+
+#Exercises
+
 ##2D
 1. [Hello world.glsl](https://github.com/danielscherzer/Framework/blob/master/MMPROG/GLSL%20pixel%20shader/2D/Hello%20world.glsl)
   1. Invert the colors
