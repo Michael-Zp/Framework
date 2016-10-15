@@ -21,23 +21,23 @@ namespace Example
 		{
 			//registers a callback for drawing a frame
 			gameWindow.RenderFrame += GameWindow_RenderFrame;
-			//registers another callback for drawing a frame, which is executed after the previous
-			//this second one does the buffer swap of double buffering (http://gameprogrammingpatterns.com/double-buffer.html)
-			gameWindow.RenderFrame += (s, a) => gameWindow.SwapBuffers();
 		}
 
 		private void GameWindow_RenderFrame(object sender, FrameEventArgs e)
 		{
-			//clear screen
+			//clear screen - what happens without?
 			GL.Clear(ClearBufferMask.ColorBufferBit);
-			//draw a triangle
-			GL.Begin(PrimitiveType.Triangles);
+			//draw a primitive
+			GL.Begin(PrimitiveType.Quads);
 			//set color color is active as long as no other color is set
 			GL.Color3(Color.White);
-			GL.Vertex2(0.0, 0.0);
-			GL.Vertex2(0.5, 0.0);
-			GL.Vertex2(0.5, 0.5);
+			GL.Vertex2(0.0f, 0.0f);
+			GL.Vertex2(0.5f, 0.0f);
+			GL.Vertex2(0.5f, 0.5f);
+			GL.Vertex2(0.0f, 0.5f);
 			GL.End();
+			//buffer swap of double buffering (http://gameprogrammingpatterns.com/double-buffer.html)
+			gameWindow.SwapBuffers();
 		}
 	}
 }

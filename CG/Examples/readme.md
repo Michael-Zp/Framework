@@ -1,10 +1,13 @@
 1. [Minimal](MinimalExample)
     1. change to color per vertex - note OpenGL is a state machine
-    1. keyboard player movement
     1. moving enemy
     1. many enemies
+    1. keyboard player movement
+	1. use Box2D
     1. collision with window bounds
     1. collision with enemy
+	1. resize window handling / aspect ratio
+	1. coordinates
 1. [Texture](TextureExample) introducing textures
     1. change quad coordinates to be irregular
     1. play around with the texture coordinates
