@@ -15,7 +15,7 @@ namespace ShaderForm
 		private bool mouseDown = false;
 		private Point mousePos;
 		//private int painting = 0;
-		private Timing timing = new Timing(0.5f);
+		private FPSCounter timing = new FPSCounter(0.5f);
 		private MultiGraph multiGraph = new MultiGraph();
 		private FacadeFormMessages log = new FacadeFormMessages();
 		private FacadeCamera camera = new FacadeCamera();

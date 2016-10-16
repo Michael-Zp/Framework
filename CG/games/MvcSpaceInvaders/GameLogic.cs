@@ -14,12 +14,12 @@ namespace MvcSpaceInvaders
 		private Box2D player = new Box2D(0.0f, -1.0f, 0.0789f, 0.15f);
 		private List<Box2D> enemies = new List<Box2D>();
 		private List<Box2D> bullets = new List<Box2D>();
-		private Timer shootCoolDown = new Timer(0.1f);
+		private PeriodicUpdate shootCoolDown = new PeriodicUpdate(0.1f);
 		private float enemySpeed = 0.05f;
 
 		public GameLogic()
 		{
-			shootCoolDown.OnTimerElapsed += (t) => shootCoolDown.Enabled = false;
+			shootCoolDown.OnPeriodElapsed += (s, t) => shootCoolDown.Stop();
 			CreateEnemies();
 		}
 
@@ -40,7 +40,7 @@ namespace MvcSpaceInvaders
 
 			var timeDelta = absoluteTime - lastUpdateTime;
 			lastUpdateTime = absoluteTime;
-			UpdatePlayer(timeDelta, axisUpDown, shoot);
+			UpdatePlayer(absoluteTime, timeDelta, axisUpDown, shoot);
 			MoveEnemies(timeDelta);
 			MoveBullets(timeDelta);
 
@@ -74,19 +74,19 @@ namespace MvcSpaceInvaders
 			}
 		}
 		
-		private void UpdatePlayer(float timeDelta, float axisUpDown, bool shoot)
+		private void UpdatePlayer(float absoluteTime, float timeDelta, float axisUpDown, bool shoot)
 		{
 			player.X += timeDelta * axisUpDown;
+			//limit player position [left, right]
+			player.X = Math.Min(1.0f - player.SizeX, Math.Max(-1.0f, player.X));
 
 			if (shoot && !shootCoolDown.Enabled)
 			{
-				if (null != OnShoot) OnShoot(this, null);
+				OnShoot?.Invoke(this, null);
 				bullets.Add(new Box2D(player.X, player.Y, 0.02f, 0.04f));
 				bullets.Add(new Box2D(player.MaxX, player.Y, 0.02f, 0.04f));
-				shootCoolDown.Enabled = true;
+				shootCoolDown.Start(absoluteTime);
 			}
-			//limit player position [left, right]
-			player.X = Math.Min(1.0f - player.SizeX, Math.Max(-1.0f, player.X));
 		}
 
 		private void HandleCollisions()

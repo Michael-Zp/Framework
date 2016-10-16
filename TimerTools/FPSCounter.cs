@@ -2,14 +2,14 @@
 
 namespace TimerTools
 {
-	public class Timing
+	public class FPSCounter
 	{
 		private Stopwatch sw = new Stopwatch();
 		private float smoothingInterval;
 		private uint frames = 0;
 		private long lastTime = 0;
 
-		public Timing(float smoothingInterval)
+		public FPSCounter(float smoothingInterval)
 		{
 			this.smoothingInterval = smoothingInterval;
 			sw.Start();

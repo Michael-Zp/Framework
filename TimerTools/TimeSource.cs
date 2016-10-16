@@ -24,7 +24,7 @@ namespace TimeTools
 
 		private void TimeFinished(object sender, ElapsedEventArgs e)
 		{
-			if (null != OnTimeFinished) OnTimeFinished();
+			OnTimeFinished?.Invoke();
 			if (IsLooping)
 			{
 				Position = 0.0f;

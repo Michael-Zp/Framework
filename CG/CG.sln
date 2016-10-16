@@ -51,6 +51,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Framework", "..\Framework\F
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Geometry", "..\Geometry\Geometry.csproj", "{B37B7DDE-435B-4F27-9A9B-9B6DF8744EBE}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CollisionExample", "Examples\CollisionExample\CollisionExample.csproj", "{79E142ED-CDA0-4AB7-AE97-000775E82ED5}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -129,6 +131,10 @@ Global
 		{B37B7DDE-435B-4F27-9A9B-9B6DF8744EBE}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{B37B7DDE-435B-4F27-9A9B-9B6DF8744EBE}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{B37B7DDE-435B-4F27-9A9B-9B6DF8744EBE}.Release|Any CPU.Build.0 = Release|Any CPU
+		{79E142ED-CDA0-4AB7-AE97-000775E82ED5}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{79E142ED-CDA0-4AB7-AE97-000775E82ED5}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{79E142ED-CDA0-4AB7-AE97-000775E82ED5}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{79E142ED-CDA0-4AB7-AE97-000775E82ED5}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -150,5 +156,6 @@ Global
 		{47D435BB-0619-4CDE-93A2-7ACE1FDF47FC} = {7784E3B6-CA36-4515-BC9D-7BEC5556D51E}
 		{97D9BF95-9CB1-47FC-8F8E-E6FA05351133} = {7784E3B6-CA36-4515-BC9D-7BEC5556D51E}
 		{87EF004B-71CC-4747-8943-D1C7AB667550} = {7784E3B6-CA36-4515-BC9D-7BEC5556D51E}
+		{79E142ED-CDA0-4AB7-AE97-000775E82ED5} = {7784E3B6-CA36-4515-BC9D-7BEC5556D51E}
 	EndGlobalSection
 EndGlobal

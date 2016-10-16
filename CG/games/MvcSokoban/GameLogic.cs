@@ -1,5 +1,4 @@
 ﻿using System.Drawing;
-using System.Timers;
 
 namespace MvcSokoban
 {

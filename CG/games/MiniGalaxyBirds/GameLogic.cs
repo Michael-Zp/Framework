@@ -163,13 +163,13 @@ namespace MiniGalaxyBirds
 			registry.RegisterComponentTo(container, compFrame);
 			var enemy = new Enemy(compFrame, absoluteTime, - 0.3f);
 			registry.RegisterComponentTo(container, enemy);
-			var timerEnemyBullet = new ComponentTimer(absoluteTime, 1.5f);
-			timerEnemyBullet.OnTimerElapsed += (time) =>
+			var periodicEnemyBullet = new ComponentPeriodicUpdate(absoluteTime, 1.5f);
+			periodicEnemyBullet.OnPeriodElapsed += (s, time) =>
 			{
 				CreateEnemyBullet(time, frame.X, frame.Y);
 				CreateEnemyBullet(time, frame.MaxX, frame.Y);
 			};
-			registry.RegisterComponentTo(container, timerEnemyBullet);
+			registry.RegisterComponentTo(container, periodicEnemyBullet);
 			registry.RegisterComponentTo(container, new ComponentClipper(visibleFrame, frame, () => Remove(container)));
 			registry.RegisterComponentTo(container, new Collidable(frame));
 			registry.RegisterComponentTo(container, new Component<IDrawable>(renderer.CreateDrawable("enemy", frame)));
@@ -190,9 +190,9 @@ namespace MiniGalaxyBirds
 		private void CreateEnemySource(float absoluteTime)
 		{
 			var containerEnemySource = registry.CreateComponentContainer();
-			var timer = new ComponentTimer(absoluteTime, 0.5f);
-			timer.OnTimerElapsed += (time) => { CreateEnemy(time); };
-			registry.RegisterComponentTo(containerEnemySource, timer);
+			var periodicUpdate = new ComponentPeriodicUpdate(absoluteTime, 0.5f);
+			periodicUpdate.OnPeriodElapsed += (s, time) => { CreateEnemy(time); };
+			registry.RegisterComponentTo(containerEnemySource, periodicUpdate);
 		}
 
 		private void CreatePlayerBullet(float time, float x, float y)
@@ -213,7 +213,7 @@ namespace MiniGalaxyBirds
 			var container = registry.CreateComponentContainer();
 			var compFrame = new Component<Box2D>(new Box2D(frame));
 			var compAnim = new ComponentAnimated(absoluteTime, 1.0f);
-			compAnim.OnTimerElapsed += (t) => Remove(container);
+			compAnim.OnPeriodElapsed += (s, t) => Remove(container);
 			registry.RegisterComponentTo(container, compFrame);
 			registry.RegisterComponentTo(container, compAnim);
 			registry.RegisterComponentTo(container, new Component<IDrawable>(renderer.CreateDrawable("explosion", compFrame.Value, compAnim)));

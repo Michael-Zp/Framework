@@ -2,12 +2,11 @@
 
 namespace MiniGalaxyBirds
 {
-	public class ComponentTimer : Timer, IComponent
+	public class ComponentPeriodicUpdate : PeriodicUpdate, IComponent
 	{
-		public ComponentTimer(float startTime, float interval) : base(interval)
+		public ComponentPeriodicUpdate(float startTime, float interval) : base(interval)
 		{
-			Update(startTime);
-			Enabled = true;
+			Start(startTime);
 		}
 	}
 }
