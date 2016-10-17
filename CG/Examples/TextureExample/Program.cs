@@ -48,11 +48,11 @@ namespace Example
 			//draw background
 			DrawTexturedRect(new Box2D(-1, -1, 2, 2), texBackground);
 			// for transparency in textures we use blending
-			//GL.Enable(EnableCap.Blend);
+			GL.Enable(EnableCap.Blend);
 			//draw ship
 			DrawTexturedRect(new Box2D(-.25f, -.25f, .5f, .5f), texShip);
 			// for transparency in textures we use blending
-			//GL.Disable(EnableCap.Blend);
+			GL.Disable(EnableCap.Blend);
 		}
 
 		private static void DrawTexturedRect(Box2D Rect, Texture tex)
