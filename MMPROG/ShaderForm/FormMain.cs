@@ -75,9 +75,13 @@ namespace ShaderForm
 			};
 		}
 
-		private void GlControl_DragEnter(object sender, DragEventArgs e)
+		private void GlControl_DragOver(object sender, DragEventArgs e)
 		{
-			if (e.Data.GetDataPresent(DataFormats.FileDrop)) e.Effect = DragDropEffects.Link;
+			if (e.Data.GetDataPresent(DataFormats.FileDrop))
+			{
+				//test if control key was pressed -> add stuff
+				e.Effect = (8 == (e.KeyState & 8)) ? DragDropEffects.Copy : DragDropEffects.Move;
+			}
 		}
 
 		private void GlControl_DragDrop(object sender, DragEventArgs e)
@@ -96,8 +100,18 @@ namespace ShaderForm
 					}
 					else
 					{
-						//try shader
-						AddShader(file);
+						//test if control key was pressed
+						if (8 == (e.KeyState & 8))
+						{
+							//add stuff
+							AddShader(file);
+						}
+						else
+						{
+							//replace stuff
+							demo.Shaders.Clear();
+							AddShader(file);
+						}
 					}
 				}
 			}

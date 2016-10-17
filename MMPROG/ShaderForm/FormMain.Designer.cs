@@ -71,7 +71,7 @@ namespace ShaderForm
             this.glControl.VSync = false;
             this.glControl.Load += new System.EventHandler(this.GlControl_Load);
             this.glControl.DragDrop += new System.Windows.Forms.DragEventHandler(this.GlControl_DragDrop);
-            this.glControl.DragEnter += new System.Windows.Forms.DragEventHandler(this.GlControl_DragEnter);
+            this.glControl.DragOver += new System.Windows.Forms.DragEventHandler(this.GlControl_DragOver);
             this.glControl.Paint += new System.Windows.Forms.PaintEventHandler(this.GlControl_Paint);
             this.glControl.MouseDown += new System.Windows.Forms.MouseEventHandler(this.GlControl_MouseDown);
             this.glControl.MouseMove += new System.Windows.Forms.MouseEventHandler(this.GlControl_MouseMove);
