@@ -4,13 +4,33 @@ uniform vec2 iResolution;
 const float epsilon = 0.0001;
 const int maxSteps = 128;
 
+//repeat the given coordinate point every interval c[direction]
+vec3 coordinateRep(vec3 point, vec3 c)
+{
+    return mod(point, c) - 0.5 * c;
+}
+
+//M = center of sphere
+//P = some point in space
+// return normal of sphere when looking from point P
+vec3 sphereNormal(vec3 M, vec3 P)
+{
+	return normalize(P - M);
+}
+
 float sphere(vec3 point, vec3 center, float radius) 
 {
     return length(point - center) - radius;
 }
 
 float distFunc(vec3 point){
-	return sphere(mod(point , 4), vec3(0, 0, 1), 0.3);
+	vec3 coordSphere = coordinateRep(point, vec3(10, 20, 20));
+	return sphere(coordSphere, vec3(0, 0, 1), 0.3);
+}
+
+vec3 normalFunc(vec3 point){
+	vec3 coordSphere = coordinateRep(point, vec3(10, 20, 20));
+	return sphereNormal(coordSphere, vec3(0, 0, 1));
 }
 
 void main(){
@@ -38,7 +58,10 @@ void main(){
 
 	if(objectHit)
 	{
-		gl_FragColor = vec4(0, 0, 1, 1);
+		vec3 normal = normalFunc(point);
+		vec3 lightPos = vec3(0);
+		float diffuse = max(0, dot(normalize(point - lightPos), normal));
+		gl_FragColor = vec4(diffuse * vec3(1), 1);
 	}
 	else
 	{
