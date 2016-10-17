@@ -149,7 +149,7 @@ namespace ShaderForm
 			demo.Draw(glControl.Width, glControl.Height);
 			glControl.SwapBuffers();
 			timing.NewFrame();
-			menuFps.Text = String.Format("{0:0.00}FPS", timing.FPS);
+			menuFps.Text = String.Format("{0:0.00}FPS ", timing.FPS) + String.Format("{0:0.0}MSec ", 1000 / timing.FPS);
 			//System.Threading.Interlocked.Exchange(ref painting, 0);
 			if (camera.IsActive)
 			{

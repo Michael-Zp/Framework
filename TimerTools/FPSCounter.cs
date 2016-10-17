@@ -11,11 +11,12 @@ namespace TimerTools
 
 		public FPSCounter(float smoothingInterval)
 		{
+			FPS = 1;
 			this.smoothingInterval = smoothingInterval;
 			sw.Start();
 		}
 
-		public float FPS { get; internal set; }
+		public float FPS { get; private set; }
 
 		public void NewFrame()
 		{

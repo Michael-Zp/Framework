@@ -46,16 +46,6 @@ namespace ShaderForm
 			}
 		}
 
-		public void Append(string message, Color color)
-		{
-			if (!string.IsNullOrWhiteSpace(message))
-			{
-				string newEntry = DateTime.Now.ToString("HH:mm:ss.fff") + ' ' + message + Environment.NewLine;
-				errorLog.Text = newEntry + errorLog.Text;
-				Visible = true;
-			}
-		}
-
 		public void Clear()
 		{
 			errorLog.Clear();

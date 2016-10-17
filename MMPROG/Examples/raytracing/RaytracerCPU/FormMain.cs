@@ -23,8 +23,6 @@ namespace Raytracer
 				{
 					return;
 				}
-				menuItemParallel.Checked = Convert.ToBoolean(keyApp.GetValue("parallel", false));
-				//editIdleTime.Text = Convert.ToString(keyApp.GetValue("idleTime", "01000"));
 				WindowState = (FormWindowState)Convert.ToInt32(keyApp.GetValue("windowState", (int)WindowState));
 				Width = Convert.ToInt32(keyApp.GetValue("width", Width));
 				Height = Convert.ToInt32(keyApp.GetValue("height", Height));
@@ -46,8 +44,6 @@ namespace Raytracer
 				{
 					return;
 				}
-				keyApp.SetValue("parallel", menuItemParallel.Checked);
-				//keyApp.SetValue("idleTime", editIdleTime.Text);
 				keyApp.SetValue("windowState", (int)WindowState);
 				keyApp.SetValue("width", Width);
 				keyApp.SetValue("height", Height);
@@ -116,8 +112,7 @@ namespace Raytracer
 				multi = 1;
 			}
 			return new Visual { 
-				m_bRenderParallel = menuItemParallel.Checked
-				, m_iMultiSamples = multi 
+				m_iMultiSamples = multi 
 			};
 		}
 

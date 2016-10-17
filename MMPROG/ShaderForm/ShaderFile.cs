@@ -47,7 +47,8 @@ namespace ShaderForm
 			}
 			catch (ShaderLoadException e)
 			{
-				CallOnChange("Error while compiling shader '" + fileName + "'" + Environment.NewLine + e.Message);
+				var correctedLineEndings = e.Message.Replace("\n", "\r\n");
+				CallOnChange("Error while compiling shader '" + fileName + "'" + Environment.NewLine + correctedLineEndings);
 			}
 			catch (FileNotFoundException e)
 			{
@@ -71,7 +72,7 @@ namespace ShaderForm
 
 		private void CallOnChange(string message)
 		{
-			if (null != OnChange) OnChange(this, message);
+			OnChange?.Invoke(this, message);
 		}
 	}
 }

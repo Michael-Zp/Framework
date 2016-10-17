@@ -9,3 +9,5 @@
   1. try to create three circles: one red, one blue, one green all three rotating
 1. [dots.glsl](dots.glsl)
   1. Try to understand how this code creates many points
+  1. Try to apply this to your own shader
+1. [rings.glsl](rings.glsl)

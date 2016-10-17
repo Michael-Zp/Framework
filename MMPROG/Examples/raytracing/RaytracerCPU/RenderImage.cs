@@ -6,7 +6,6 @@ namespace Raytracer
 {
 	class Visual
 	{
-		public bool m_bRenderParallel = false;
 		public int m_iMultiSamples = 1;
 
 		public Color renderPixel(Scene scene, Camera cam, float x_, float y_)
@@ -16,12 +15,6 @@ namespace Raytracer
 				return RayTracer.TraceRay(cam.Pos, cam.PerspectiveRayDir(x_, y_), scene, 0);
 			}
 			Color color = Color.Black();
-			//for (int i = 0; i < m_iMultiSamples; ++i)
-			//{
-			//    double x = x_ + m_rnd.NextDouble() - 0.5;
-			//    double y = y_ + m_rnd.NextDouble() - 0.5;
-			//    color += RayTracer.TraceRay(cam.Pos, cam.PerspectiveRayDir(x, y), scene, 0);
-			//}
 			float delta = 1.0f / ((float)Math.Sqrt(m_iMultiSamples));
 			int count = 0;
 			for (float x = x_ - 0.5f; x < x_ + 0.5f; x += delta)
@@ -39,23 +32,10 @@ namespace Raytracer
 		{
 			PointF[] pixels = createPoints(cam.ViewportWidth, cam.ViewportHeight);
 			pixels.Shuffle();
-			if (m_bRenderParallel)
+			foreach (PointF pixel in pixels)
 			{
-				Parallel.ForEach(pixels, pixel =>
-				{
-					Color color = renderPixel(scene, cam, pixel.X, pixel.Y);
-					setPixel(Convert.ToInt32(pixel.X), Convert.ToInt32(pixel.Y), color);
-				}
-				);
-			}
-			else
-			{
-				foreach (PointF pixel in pixels)
-				{
-					Color color = renderPixel(scene, cam, pixel.X, pixel.Y);
-					setPixel(Convert.ToInt32(pixel.X), Convert.ToInt32(pixel.Y), color);
-				}
-
+				Color color = renderPixel(scene, cam, pixel.X, pixel.Y);
+				setPixel(Convert.ToInt32(pixel.X), Convert.ToInt32(pixel.Y), color);
 			}
 		}
 

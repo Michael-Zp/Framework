@@ -38,7 +38,6 @@
 			this.menuItemNext = new System.Windows.Forms.ToolStripMenuItem();
 			this.menuStrip = new System.Windows.Forms.MenuStrip();
 			this.menuItemOptions = new System.Windows.Forms.ToolStripMenuItem();
-			this.menuItemParallel = new System.Windows.Forms.ToolStripMenuItem();
 			this.comboBoxMulti = new System.Windows.Forms.ToolStripComboBox();
 			((System.ComponentModel.ISupportInitialize)(this.pictureBox)).BeginInit();
 			this.menuStrip.SuspendLayout();
@@ -47,9 +46,10 @@
 			// pictureBox
 			// 
 			this.pictureBox.Dock = System.Windows.Forms.DockStyle.Fill;
-			this.pictureBox.Location = new System.Drawing.Point(0, 24);
+			this.pictureBox.Location = new System.Drawing.Point(0, 25);
+			this.pictureBox.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
 			this.pictureBox.Name = "pictureBox";
-			this.pictureBox.Size = new System.Drawing.Size(358, 324);
+			this.pictureBox.Size = new System.Drawing.Size(537, 510);
 			this.pictureBox.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
 			this.pictureBox.TabIndex = 0;
 			this.pictureBox.TabStop = false;
@@ -65,9 +65,10 @@
 			// progressBar
 			// 
 			this.progressBar.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-			this.progressBar.Location = new System.Drawing.Point(221, 5);
+			this.progressBar.Location = new System.Drawing.Point(332, 8);
+			this.progressBar.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
 			this.progressBar.Name = "progressBar";
-			this.progressBar.Size = new System.Drawing.Size(125, 13);
+			this.progressBar.Size = new System.Drawing.Size(188, 20);
 			this.progressBar.TabIndex = 2;
 			// 
 			// saveFileDialog
@@ -80,14 +81,14 @@
 			// 
 			this.menuItemTrace.Name = "menuItemTrace";
 			this.menuItemTrace.ShortcutKeys = System.Windows.Forms.Keys.F9;
-			this.menuItemTrace.Size = new System.Drawing.Size(48, 20);
+			this.menuItemTrace.Size = new System.Drawing.Size(47, 19);
 			this.menuItemTrace.Text = "Trace";
 			this.menuItemTrace.Click += new System.EventHandler(this.menuItemTrace_Click);
 			// 
 			// menuItemSave
 			// 
 			this.menuItemSave.Name = "menuItemSave";
-			this.menuItemSave.Size = new System.Drawing.Size(43, 20);
+			this.menuItemSave.Size = new System.Drawing.Size(43, 19);
 			this.menuItemSave.Text = "Save";
 			this.menuItemSave.Click += new System.EventHandler(this.menuItemSave_Click);
 			// 
@@ -95,7 +96,7 @@
 			// 
 			this.menuItemPrevious.Name = "menuItemPrevious";
 			this.menuItemPrevious.ShortcutKeys = System.Windows.Forms.Keys.F7;
-			this.menuItemPrevious.Size = new System.Drawing.Size(27, 20);
+			this.menuItemPrevious.Size = new System.Drawing.Size(27, 19);
 			this.menuItemPrevious.Text = "<";
 			this.menuItemPrevious.Click += new System.EventHandler(this.menuItemPrevious_Click);
 			// 
@@ -103,7 +104,7 @@
 			// 
 			this.menuItemNext.Name = "menuItemNext";
 			this.menuItemNext.ShortcutKeys = System.Windows.Forms.Keys.F8;
-			this.menuItemNext.Size = new System.Drawing.Size(27, 20);
+			this.menuItemNext.Size = new System.Drawing.Size(27, 19);
 			this.menuItemNext.Text = ">";
 			this.menuItemNext.Click += new System.EventHandler(this.menuItemNext_Click);
 			// 
@@ -117,25 +118,18 @@
             this.menuItemNext});
 			this.menuStrip.Location = new System.Drawing.Point(0, 0);
 			this.menuStrip.Name = "menuStrip";
-			this.menuStrip.Size = new System.Drawing.Size(358, 24);
+			this.menuStrip.Padding = new System.Windows.Forms.Padding(9, 3, 0, 3);
+			this.menuStrip.Size = new System.Drawing.Size(537, 25);
 			this.menuStrip.TabIndex = 1;
 			this.menuStrip.Text = "menuStrip1";
 			// 
 			// menuItemOptions
 			// 
 			this.menuItemOptions.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.menuItemParallel,
             this.comboBoxMulti});
 			this.menuItemOptions.Name = "menuItemOptions";
-			this.menuItemOptions.Size = new System.Drawing.Size(61, 20);
+			this.menuItemOptions.Size = new System.Drawing.Size(61, 19);
 			this.menuItemOptions.Text = "Options";
-			// 
-			// menuItemParallel
-			// 
-			this.menuItemParallel.CheckOnClick = true;
-			this.menuItemParallel.Name = "menuItemParallel";
-			this.menuItemParallel.Size = new System.Drawing.Size(181, 22);
-			this.menuItemParallel.Text = "Parallel";
 			// 
 			// comboBoxMulti
 			// 
@@ -157,13 +151,14 @@
 			// 
 			// FormMain
 			// 
-			this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
+			this.AutoScaleDimensions = new System.Drawing.SizeF(9F, 20F);
 			this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-			this.ClientSize = new System.Drawing.Size(358, 348);
+			this.ClientSize = new System.Drawing.Size(537, 535);
 			this.Controls.Add(this.progressBar);
 			this.Controls.Add(this.pictureBox);
 			this.Controls.Add(this.menuStrip);
 			this.MainMenuStrip = this.menuStrip;
+			this.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
 			this.Name = "FormMain";
 			this.Text = "Ray Tracer";
 			this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.FormMain_FormClosing);
@@ -189,7 +184,6 @@
 		private System.Windows.Forms.ToolStripMenuItem menuItemNext;
 		private System.Windows.Forms.MenuStrip menuStrip;
 		private System.Windows.Forms.ToolStripMenuItem menuItemOptions;
-		private System.Windows.Forms.ToolStripMenuItem menuItemParallel;
 		private System.Windows.Forms.ToolStripComboBox comboBoxMulti;
 	}
 }

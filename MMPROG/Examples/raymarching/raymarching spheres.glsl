@@ -10,7 +10,7 @@ float sphere(vec3 point, vec3 center, float radius)
 }
 
 float distFunc(vec3 point){
-	return sphere(point, vec3(0, 0, 1), 0.3);
+	return sphere(mod(point , 4), vec3(0, 0, 1), 0.3);
 }
 
 void main(){
