@@ -1,11 +1,8 @@
-﻿using Framework;
-using Geometry;
+﻿using Geometry;
 using OpenTK;
 using OpenTK.Graphics.OpenGL;
 using OpenTK.Input;
 using System;
-using System.Collections.Generic;
-using System.Diagnostics;
 using System.Drawing;
 
 namespace Example
@@ -16,7 +13,6 @@ namespace Example
 		private Box2D obstacle = new Box2D(0, 1, 0.1f, 0.1f);
 		private Box2D player = new Box2D(0.0f, -0.95f, 0.1f, 0.05f);
 		private Box2D windowBorders = new Box2D(-1.0f, -1.0f, 2.0f, 2.0f);
-		private Stopwatch timeSource = new Stopwatch();
 
 		[STAThread]
 		public static void Main()
@@ -34,8 +30,6 @@ namespace Example
 			//register a callback for updating the game logic
 			gameWindow.UpdateFrame += GameWindow_UpdateFrame;
 			gameWindow.KeyDown += GameWindow_KeyDown;
-			//start the game time
-			timeSource.Start();
 		}
 
 		private void GameWindow_KeyDown(object sender, KeyboardKeyEventArgs e)
@@ -55,11 +49,10 @@ namespace Example
 			//player movement
 			float axisLeftRight = Keyboard.GetState()[Key.Left] ? -1.0f : Keyboard.GetState()[Key.Right] ? 1.0f : 0.0f;
 			player.X += updatePeriod * axisLeftRight;
-			//limit player position [left, right]
-			player.PushXRangeInside(windowBorders);
+			//todo: limit player position [left, right]
 
-			//check if obstacle intersects player
-			if (obstacle.Intersects(player))
+			//todo: check if obstacle intersects player
+			if(false)
 			{
 				//stop updates
 				gameWindow.UpdateFrame -= GameWindow_UpdateFrame;
