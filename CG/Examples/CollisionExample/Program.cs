@@ -51,8 +51,8 @@ namespace Example
 			player.X += updatePeriod * axisLeftRight;
 			//todo: limit player position [left, right]
 
-			//todo: check if obstacle intersects player
-			if(false)
+			//check if obstacle intersects player
+			if(obstacle.Intersects(player))
 			{
 				//stop updates
 				gameWindow.UpdateFrame -= GameWindow_UpdateFrame;
