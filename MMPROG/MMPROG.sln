@@ -26,6 +26,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TimerTools", "..\TimerTools
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Geometry", "..\Geometry\Geometry.csproj", "{B37B7DDE-435B-4F27-9A9B-9B6DF8744EBE}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ShaderDebugging", "..\ShaderDebugging\ShaderDebugging.csproj", "{3C8BCF2C-1019-4A8D-B986-AFD6BB80E917}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -68,6 +70,10 @@ Global
 		{B37B7DDE-435B-4F27-9A9B-9B6DF8744EBE}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{B37B7DDE-435B-4F27-9A9B-9B6DF8744EBE}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{B37B7DDE-435B-4F27-9A9B-9B6DF8744EBE}.Release|Any CPU.Build.0 = Release|Any CPU
+		{3C8BCF2C-1019-4A8D-B986-AFD6BB80E917}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{3C8BCF2C-1019-4A8D-B986-AFD6BB80E917}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{3C8BCF2C-1019-4A8D-B986-AFD6BB80E917}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{3C8BCF2C-1019-4A8D-B986-AFD6BB80E917}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

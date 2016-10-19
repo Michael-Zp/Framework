@@ -12,17 +12,22 @@ float dist2sphere(vec3 point, vec3 center, float radius)
     return length(point - center) - radius;
 }
 
-float distFunc(vec3 point){
+float distFunc(vec3 point)
+{
 	return dist2sphere(point, vec3(0, 0, 1), 0.3);
 }
 
-void main(){
-	float fov = 80.0;
+vec3 calcCamDir(float fov) 
+{
 	float tanFov = tan(fov / 2.0 * 3.14159 / 180.0) / iResolution.x;
 	vec2 p = tanFov * (gl_FragCoord.xy * 2.0 - iResolution.xy);
+	return normalize(vec3(p.x, p.y, 1.0));
+}
 
+void main()
+{
 	vec3 camP = vec3(iCamPosX, iCamPosY, iCamPosZ);
-	vec3 camDir = normalize(vec3(p.x, p.y, 1.0));
+	vec3 camDir = calcCamDir(80.0);
 	
 	vec3 point = camP; 	
 	bool objectHit = false;
