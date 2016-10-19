@@ -1,9 +1,9 @@
-###Setup
+### Setup
 + [notepad++ GLSL syntax highlighting and intelisense](https://github.com/danielscherzer/MMPROG/tree/master/notepad%2B%2B%20glsl%20extension)
 + [visual studio (incl. 2015) shader highlighting](http://www.horsedrawngames.com/shader-syntax-highlighting-in-visual-studio-2013/)
 
 
-###Exercises
+### Exercises
 1. **MinimalShaderExample**: compile/run/tweak shader
 1. **ShaderVBOExample**: get points to follow mouse cursor
 1. **InstancingExample**: add instance attribute speed (an individual speed for each sphere) and move spheres in vertex shader
@@ -30,11 +30,11 @@
     1. add cel shading
     1. implement Gooch lighting
 
-###[Links and further reading](https://github.com/danielscherzer/Framework/blob/master/readme.md)
+### [Links and further reading](https://github.com/danielscherzer/Framework/blob/master/readme.md)
 
 
-###Best Practices
-####Automatic conversion of the data type of a uniform
+## Best Practices
+#### Automatic conversion of the data type of a uniform
 **Example:**
 app code: `GL.Uniform1(shader.GetUniformLocation("time"), timeSource.Elapsed.TotalSeconds);`
 shader code: `uniform float time;`

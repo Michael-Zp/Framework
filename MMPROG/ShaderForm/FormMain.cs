@@ -110,6 +110,7 @@ namespace ShaderForm
 						{
 							//replace stuff
 							demo.Shaders.Clear();
+							demo.ShaderKeyframes.Clear();
 							AddShader(file);
 						}
 					}
