@@ -42,12 +42,13 @@ namespace ShaderForm
 		{
 			try
 			{
-				visualContext.AddUpdateFragmentShader(fileName);
-				CallOnChange("Loading '+" + fileName + "' with success!");
+				var log = visualContext.AddUpdateFragmentShader(fileName);
+				var correctedLineEndings = log.Replace("\n", Environment.NewLine);
+				CallOnChange("Loading '+" + fileName + "' with success!" + Environment.NewLine + correctedLineEndings + Environment.NewLine);
 			}
 			catch (ShaderLoadException e)
 			{
-				var correctedLineEndings = e.Message.Replace("\n", "\r\n");
+				var correctedLineEndings = e.Message.Replace("\n", Environment.NewLine);
 				CallOnChange("Error while compiling shader '" + fileName + "'" + Environment.NewLine + correctedLineEndings);
 			}
 			catch (FileNotFoundException e)

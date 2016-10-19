@@ -175,7 +175,7 @@ namespace ShaderForm
 			return false;
 		}
 
-		public void AddUpdateFragmentShader(string fileName)
+		public string AddUpdateFragmentShader(string fileName)
 		{
 			string sVertexShader = @"
 				#version 130				
@@ -199,7 +199,9 @@ namespace ShaderForm
 					}
 				}
 				var sFragmentShd = ShaderLoader.ShaderStringFromFileWithIncludes(fileName);
-				shaders[fileName] = ShaderLoader.FromStrings(sVertexShader, sFragmentShd);
+				var shader = ShaderLoader.FromStrings(sVertexShader, sFragmentShd);
+				shaders[fileName] = shader;
+				return shader.LastLog;
 			}
 			catch (ShaderException e)
 			{

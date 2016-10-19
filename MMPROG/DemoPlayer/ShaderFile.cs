@@ -22,7 +22,7 @@ namespace DemoPlayer
 		{
 			if (!File.Exists(shaderFileName)) throw new ShaderLoadException("Non existent shader file '" + shaderFileName + "'!");
 			visualContext.AddUpdateFragmentShader(shaderFileName);
-			if(null != OnChange) OnChange(this, "Loading '+" + shaderFileName + "' with success!");
+			OnChange?.Invoke(this, "Loading '+" + shaderFileName + "' with success!");
 		}
 
 		private VisualContext visualContext;

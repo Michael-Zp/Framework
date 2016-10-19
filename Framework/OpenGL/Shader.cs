@@ -37,9 +37,10 @@ namespace Framework
 			GL.CompileShader(shaderObject);
 			int status_code;
 			GL.GetShader(shaderObject, ShaderParameter.CompileStatus, out status_code);
+			LastLog = GL.GetShaderInfoLog(shaderObject);
 			if (1 != status_code)
 			{
-				throw new ShaderException(type.ToString(), "Error compiling shader", GL.GetShaderInfoLog(shaderObject), sShader);
+				throw new ShaderException(type.ToString(), "Error compiling shader", LastLog, sShader);
 			}
 			GL.AttachShader(m_ProgramID, shaderObject);
 			//shaderIDs.Add(shaderObject);
@@ -82,6 +83,8 @@ namespace Framework
 		}
 
 		public bool IsLinked { get { return isLinked; } }
+
+		public string LastLog { get; private set; }
 
 		public void Link()
 		{

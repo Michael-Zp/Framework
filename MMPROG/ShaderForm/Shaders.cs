@@ -74,7 +74,7 @@ namespace ShaderForm
 
 		protected void CallOnChange(string message)
 		{
-			if (null != OnChange) OnChange(this, message);
+			OnChange?.Invoke(this, message);
 		}
 
 		private Dictionary<string, IShaderFile> shaders = new Dictionary<string, IShaderFile>();
