@@ -1,17 +1,30 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Text;
 
 namespace ShaderDebugging
 {
 	public class ShaderLogLine
 	{
-		public string Type;
-		public int FileNumber;
-		public int LineNumber;
-		public string Message;
+		public string Type = string.Empty;
+		public int FileNumber = -1;
+		public int LineNumber = -1;
+		public string Message = string.Empty;
 		public override string ToString()
 		{
-			return "Line " + LineNumber + " : " + Message;
+			StringBuilder sb = new StringBuilder();
+			if (string.Empty != Type)
+			{
+				sb.Append(Type + ": ");
+			}
+			if (-1 != LineNumber)
+			{
+				sb.Append("Line ");
+				sb.Append(LineNumber.ToString());
+				sb.Append(" : ");
+			}
+			sb.Append(Message);
+			return sb.ToString();
 		}
 	}
 
@@ -21,19 +34,31 @@ namespace ShaderDebugging
 		{
 			//parse error log
 			char[] splitChars = new char[] { '\n' };
+			var errorLines = new List<ShaderLogLine>();
+			var otherLines = new List<ShaderLogLine>();
 			foreach (var line in log.Split(splitChars, StringSplitOptions.RemoveEmptyEntries))
 			{
+				ShaderLogLine logLine;
 				try
 				{
-					var logLine = ParseLogLineNVIDIA(line);
-					lines.Add(logLine);
+					logLine = ParseLogLineNVIDIA(line);
 				}
 				catch
 				{
-					var logLine = ParseLogLine(line);
-					lines.Add(logLine);
+					logLine = ParseLogLine(line);
+				}
+				if (logLine.Type.StartsWith("ERROR"))
+				{
+					errorLines.Add(logLine);
+				}
+				else
+				{
+					otherLines.Add(logLine);
 				}
 			}
+			//first error messages, then all others
+			lines = errorLines;
+			lines.AddRange(otherLines);
 		}
 
 		public IList<ShaderLogLine> Lines { get { return lines; } }

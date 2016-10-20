@@ -3,7 +3,6 @@ using OpenTK;
 using OpenTK.Graphics.OpenGL;
 using ShaderDebugging;
 using System;
-using System.Collections.Generic;
 
 namespace Example
 {
