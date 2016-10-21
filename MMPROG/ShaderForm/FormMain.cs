@@ -164,7 +164,8 @@ namespace ShaderForm
 			demo.Draw(glControl.Width, glControl.Height);
 			glControl.SwapBuffers();
 			timing.NewFrame();
-			menuFps.Text = String.Format("{0:0.00}FPS ", timing.FPS) + String.Format("{0:0.0}MSec ", 1000 / timing.FPS);
+			
+			menuFps.Text = menuFps.Checked ? string.Format("{0:0.00}FPS ", timing.FPS) : string.Format("{0:0.0}MSec ", 1000 / timing.FPS);
 			//System.Threading.Interlocked.Exchange(ref painting, 0);
 			if (camera.IsActive)
 			{
@@ -292,12 +293,11 @@ namespace ShaderForm
 		{
 			try
 			{
-				Microsoft.Win32.RegistryKey keyApp = Application.UserAppDataRegistry;
-				if (null == keyApp) return;
 				this.LoadLayout();
-
-				string granularity = Convert.ToString(keyApp.GetValue("granularity", menuSizeSetting.Text));
+				string granularity = Convert.ToString(RegistryLoader.LoadValue(Name, "granularity", menuSizeSetting.Text));
 				menuSizeSetting.SelectedIndex = menuSizeSetting.FindString(granularity);
+				menuFps.Checked = Convert.ToBoolean(RegistryLoader.LoadValue(Name, "showFPS", false));
+
 
 				String[] arguments = Environment.GetCommandLineArgs();
 				if (arguments.Length > 1)
@@ -308,9 +308,9 @@ namespace ShaderForm
 				{
 					//no cmd arguments
 					LoadDemo(DefaultFiles.GetAutoSaveDemoFilePath());
-					soundPlayerBar1.Position = (float)Convert.ToDouble(keyApp.GetValue("time", 0.0));
+					soundPlayerBar1.Position = (float)Convert.ToDouble(RegistryLoader.LoadValue(Name, "time", 0.0));
 				}
-				soundPlayerBar1.Playing = Convert.ToBoolean(keyApp.GetValue("play", false));
+				soundPlayerBar1.Playing = Convert.ToBoolean(RegistryLoader.LoadValue(Name, "play", false));
 			}
 			catch (Exception ex)
 			{
@@ -322,17 +322,13 @@ namespace ShaderForm
 		{
 			try
 			{
-				Microsoft.Win32.RegistryKey keyApp = Application.UserAppDataRegistry;
-				if (null == keyApp)
-				{
-					return;
-				}
 				this.SaveLayout();
+				RegistryLoader.SaveValue(Name, "play", soundPlayerBar1.Playing);
+				RegistryLoader.SaveValue(Name, "granularity", menuSizeSetting.Text);
+				RegistryLoader.SaveValue(Name, "time", soundPlayerBar1.Position);
+				RegistryLoader.SaveValue(Name, "showFPS", menuFps.Checked);
 				multiGraph.SaveLayout();
 				log.SaveLayout();
-				keyApp.SetValue("play", soundPlayerBar1.Playing);
-				keyApp.SetValue("granularity", this.menuSizeSetting.Text);
-				keyApp.SetValue("time", this.soundPlayerBar1.Position);
 				// rename old
 				DefaultFiles.RenameAutoSaveDemoFile();
 				// save new
