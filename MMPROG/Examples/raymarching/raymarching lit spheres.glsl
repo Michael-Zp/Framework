@@ -1,10 +1,12 @@
 #version 330
+#include "libs/camera.glsl"
+
 uniform vec2 iResolution;
 
 const float epsilon = 0.0001;
 const int maxSteps = 128;
 
-//repeat the given coordinate point every interval c[direction]
+//repeat the given coordinate point every interval c[axis]
 vec3 coordinateRep(vec3 point, vec3 c)
 {
     return mod(point, c) - 0.5 * c;
@@ -18,41 +20,45 @@ vec3 sphereNormal(vec3 M, vec3 P)
 	return normalize(P - M);
 }
 
-float sphere(vec3 point, vec3 center, float radius) 
+vec3 normalFunc(vec3 point){
+	point = coordinateRep(point, vec3(3, 3, 3));
+	return sphereNormal(point, vec3(0, 0, 1));
+}
+
+float dist2sphere(vec3 point, vec3 center, float radius) 
 {
     return length(point - center) - radius;
 }
 
-float distFunc(vec3 point){
-	vec3 coordSphere = coordinateRep(point, vec3(10, 20, 20));
-	return sphere(coordSphere, vec3(0, 0, 1), 0.3);
+float distFunc(vec3 point)
+{
+	point = coordinateRep(point, vec3(3, 3, 3));
+	return dist2sphere(point, vec3(0, 0, 1), 0.3);
 }
 
-vec3 normalFunc(vec3 point){
-	vec3 coordSphere = coordinateRep(point, vec3(10, 20, 20));
-	return sphereNormal(coordSphere, vec3(0, 0, 1));
-}
+void main()
+{
+	vec3 camP = calcCameraPos();
+	vec3 camDir = calcCameraRayDir(80.0, gl_FragCoord.xy, iResolution);
 
-void main(){
-	float fov = 80.0;
-	float tanFov = tan(fov / 2.0 * 3.14159 / 180.0) / iResolution.x;
-	vec2 p = tanFov * (gl_FragCoord.xy * 2.0 - iResolution.xy);
-
-	vec3 camP = vec3(0, 0, 0);
-	vec3 camDir = normalize(vec3(p.x, p.y, 1.0));
-	
+	//start point is the camera position
 	vec3 point = camP; 	
 	bool objectHit = false;
 	float t = 0.0;
+	//step along the ray 
     for(int steps = 0; steps < maxSteps; ++steps)
     {
+		//check how far the point is from the nearest surface
         float dist = distFunc(point);
+		//if we are very close
         if(epsilon > dist)
         {
 			objectHit = true;
             break;
         }
+		//not so close -> we can step at least dist without hitting anything
         t += dist;
+		//calculate new point
         point = camP + t * camDir;
     }
 
@@ -61,7 +67,9 @@ void main(){
 		vec3 normal = normalFunc(point);
 		vec3 lightPos = vec3(0);
 		float diffuse = max(0, dot(normalize(point - lightPos), normal));
-		gl_FragColor = vec4(diffuse * vec3(1), 1);
+		vec3 color = vec3(1); //white
+		vec3 ambient = vec3(0.1);
+		gl_FragColor = vec4(ambient + diffuse * color, 1);
 	}
 	else
 	{

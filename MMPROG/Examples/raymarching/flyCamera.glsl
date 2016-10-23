@@ -1,13 +1,7 @@
-#include "libs/hg_sdf.glsl"
+#include "libs/camera.glsl"
 
 uniform vec2 iResolution;
 uniform float iGlobalTime;
-uniform float iCamPosX;
-uniform float iCamPosY;
-uniform float iCamPosZ;
-uniform float iCamRotX;
-uniform float iCamRotY;
-uniform float iCamRotZ;
 
 const float epsilon = 0.0001;
 const int maxSteps = 128;
@@ -52,19 +46,10 @@ vec3 getNormal(vec3 point)
 	return normalize(gradient);
 }
 
-vec3 calcRayDir(vec2 coord, float fov, vec2 resolution)
-{
-	float tanFov = tan(fov / 2.0 * 3.14159 / 180.0) / resolution.x;
-	vec2 p = tanFov * (coord * 2.0 - resolution);
-	return normalize(vec3(p.x, p.y, 1.0));
-}
-
 void main()
 {
-	vec3 camP = vec3(iCamPosX, iCamPosY, iCamPosZ);
-	vec3 rayDir = calcRayDir(gl_FragCoord.xy, 80.0, iResolution.xy);
-	pR(rayDir.yz, iCamRotX);
-	pR(rayDir.xz, iCamRotY);
+	vec3 camP = calcCameraPos();
+	vec3 rayDir = calcCameraRayDir(80.0, gl_FragCoord.xy, iResolution.xy);
 
 	vec3 point = camP;
 	bool objectHit = false;

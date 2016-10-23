@@ -21,6 +21,18 @@ namespace ShaderForm
 		{
 			this.SaveLayout();
 		}
+
+		private void btnClear_Click(object sender, System.EventArgs e)
+		{
+			var cam = propertyGrid1.SelectedObject as AdapterCam;
+			if (null == cam) return;
+			cam.PositionX = 0.0f;
+			cam.PositionY = 0.0f;
+			cam.PositionZ = 0.0f;
+			cam.RotationX = 0.0f;
+			cam.RotationY = 0.0f;
+			cam.RotationZ = 0.0f;
+		}
 	}
 
 	class AdapterCam

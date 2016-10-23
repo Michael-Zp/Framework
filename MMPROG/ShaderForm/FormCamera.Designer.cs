@@ -29,6 +29,7 @@
 		private void InitializeComponent()
 		{
 			this.propertyGrid1 = new System.Windows.Forms.PropertyGrid();
+			this.btnClear = new System.Windows.Forms.Button();
 			this.SuspendLayout();
 			// 
 			// propertyGrid1
@@ -36,14 +37,26 @@
 			this.propertyGrid1.Dock = System.Windows.Forms.DockStyle.Fill;
 			this.propertyGrid1.Location = new System.Drawing.Point(0, 0);
 			this.propertyGrid1.Name = "propertyGrid1";
-			this.propertyGrid1.Size = new System.Drawing.Size(284, 262);
+			this.propertyGrid1.Size = new System.Drawing.Size(249, 320);
 			this.propertyGrid1.TabIndex = 0;
+			// 
+			// btnClear
+			// 
+			this.btnClear.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+			this.btnClear.Location = new System.Drawing.Point(174, 0);
+			this.btnClear.Name = "btnClear";
+			this.btnClear.Size = new System.Drawing.Size(75, 23);
+			this.btnClear.TabIndex = 1;
+			this.btnClear.Text = "Clear";
+			this.btnClear.UseVisualStyleBackColor = true;
+			this.btnClear.Click += new System.EventHandler(this.btnClear_Click);
 			// 
 			// FormCamera
 			// 
 			this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
 			this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-			this.ClientSize = new System.Drawing.Size(284, 262);
+			this.ClientSize = new System.Drawing.Size(249, 320);
+			this.Controls.Add(this.btnClear);
 			this.Controls.Add(this.propertyGrid1);
 			this.Name = "FormCamera";
 			this.Text = "FormCamera";
@@ -54,5 +67,6 @@
 		#endregion
 
 		private System.Windows.Forms.PropertyGrid propertyGrid1;
+		private System.Windows.Forms.Button btnClear;
 	}
 }

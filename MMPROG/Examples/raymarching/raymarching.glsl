@@ -1,8 +1,7 @@
 #version 330
+#include "libs/camera.glsl"
+
 uniform vec2 iResolution;
-uniform float iCamPosX;
-uniform float iCamPosY;
-uniform float iCamPosZ;
 
 const float epsilon = 0.0001;
 const int maxSteps = 128;
@@ -17,18 +16,12 @@ float distFunc(vec3 point)
 	return dist2sphere(point, vec3(0, 0, 1), 0.3);
 }
 
-vec3 calcCamDir(float fov) 
-{
-	float tanFov = tan(fov / 2.0 * 3.14159 / 180.0) / iResolution.x;
-	vec2 p = tanFov * (gl_FragCoord.xy * 2.0 - iResolution.xy);
-	return normalize(vec3(p.x, p.y, 1.0));
-}
-
 void main()
 {
-	vec3 camP = vec3(iCamPosX, iCamPosY, iCamPosZ);
-	vec3 camDir = calcCamDir(80.0);
-	
+	vec3 camP = calcCameraPos();
+	vec3 camDir = calcCameraRayDir(80.0, gl_FragCoord.xy, iResolution);
+
+	//start point is the camera position
 	vec3 point = camP; 	
 	bool objectHit = false;
 	float t = 0.0;
