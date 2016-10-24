@@ -205,7 +205,11 @@
       <Name>MediaPlayer</Name>
     </ProjectReference>
   </ItemGroup>
-  <ItemGroup />
+  <ItemGroup>
+    <Content Include="Resources\eventlog.ico" />
+    <Content Include="Resources\personalization.ico" />
+    <Content Include="Resources\ShowPerformanceSession_7015.ico" />
+  </ItemGroup>
   <ItemGroup>
     <None Include="readme.md" />
     <None Include="Resources\Restart_6322.png" />

@@ -7,40 +7,16 @@ uniform vec2 iResolution;
 uniform float iGlobalTime;
 
 const float epsilon = 0.0001;
-const int maxSteps = 128;
+const int maxSteps = 228;
 
-
-float uBox(vec3 point, vec3 center, vec3 b )
-{
-  return length(max(abs(point - center) - b, vec3(0.0)));
-}
-
-float sBox(vec3 point, vec3 center, vec3 b) {
-	vec3 d = abs(point - center) - b;
+float sBox(vec3 point, vec3 b) {
+	vec3 d = abs(point) - b;
 	return length(max(d, vec3(0))) + vmax(min(d, vec3(0)));
-}
-
-float sSphere(vec3 point, vec3 center, float radius) {
-    return length(point - center) - radius;
-}
-
-float uSphere(vec3 point, vec3 center, float radius) {
-    return max(0.0, sSphere(point, center, radius));
 }
 
 float opUnion(float dist1, float dist2)
 {
 	return min(dist1, dist2);
-}
-
-float opIntersection(float dist1, float dist2)
-{
-	return max(dist1, dist2);
-}
-
-float opDifference(float dist1, float dist2)
-{
-	return max(dist1, -dist2);
 }
 
 vec3 opRepeat(vec3 point, vec3 interval) {
@@ -51,8 +27,10 @@ vec3 opRepeat(vec3 point, vec3 interval) {
 float distField(vec3 point)
 {
 	float distPlane = fPlane(point, vec3(0, 1, 0), 1);
-	float distX = sBox(opRepeat(point - vec3(0,.5,0), vec3(0, 0, 1)), vec3(0, 0, 0), vec3(10, 0.05, 0.05));
-	float distZ = sBox(opRepeat(point - vec3(0,.5,0), vec3(1, 0, 0)), vec3(0, 0, 0), vec3(0.05, 0.05, 10));
+
+	point.y += sin(point.z - iGlobalTime * 6.0) * cos(point.x - iGlobalTime) * .25; //waves!
+	float distX = sBox(opRepeat(point - vec3(0,.5,0), vec3(0, 0, 1)), vec3(1000, 0.05, 0.05));
+	float distZ = sBox(opRepeat(point - vec3(0,.5,0), vec3(1, 0, 0)), vec3(0.05, 0.05, 1000));
 	return opUnion(distPlane, opUnion(distX, distZ));
 }
 
@@ -73,7 +51,10 @@ vec3 getNormal(vec3 point, float delta)
 	return normalize(gradient);
 }
 
-float softshadow( in vec3 origin, in vec3 dir, float mint, float maxt, float k )
+//shadow feeler from origin into direction, 
+//starting with parameter t = mint until t == maxt
+//k gives the softness of the shadow; smaller is softer
+float softshadow(vec3 origin, vec3 dir, float mint, float maxt, float k )
 {
     float res = 1.0;
     for( float t = mint; t < maxt; )
