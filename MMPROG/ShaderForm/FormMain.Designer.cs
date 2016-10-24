@@ -31,6 +31,7 @@ namespace ShaderForm
 		/// </summary>
 		private void InitializeComponent()
 		{
+			System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(FormMain));
 			this.glControl = new OpenTK.GLControl();
 			this.menuStrip = new System.Windows.Forms.MenuStrip();
 			this.menuHelp = new System.Windows.Forms.ToolStripMenuItem();
@@ -306,6 +307,7 @@ namespace ShaderForm
 			this.Controls.Add(this.soundPlayerBar1);
 			this.Controls.Add(this.menuStrip);
 			this.DoubleBuffered = true;
+			this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
 			this.KeyPreview = true;
 			this.MainMenuStrip = this.menuStrip;
 			this.Margin = new System.Windows.Forms.Padding(2);

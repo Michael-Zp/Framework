@@ -1,20 +1,33 @@
+#version 330
+
+#include "libs/camera.glsl"
+
 uniform vec2 iResolution;
 uniform float iGlobalTime;
-uniform float cameraZ;
 
 const float epsilon = 0.0001;
 const int maxSteps = 128;
 
-#include "libs/distanceFields.glsl"
+float sPlane(vec3 point, vec3 normal, float d) {
+    return dot(point, normal) - d;
+}
+
+float sSphere(vec3 point, vec3 center, float radius) {
+    return length(point - center) - radius;
+}
+
+vec3 opCoordinateRepetition(vec3 point, vec3 c)
+{
+    return mod(point, c) - 0.5 * c;
+}
+
 
 float distScene(vec3 point)
 {
 	point.y += sin(point.z - iGlobalTime * 6.0) * cos(point.x - iGlobalTime) * .25; //waves!
-	float distPlane = plane(point, vec3(0.0, 1.0, 0.0), -0.5);
-	float distBox = box(point, vec3(0.0, -1.4, 0.0), vec3(0.6, 0.1, 0.3));
-	point = coordinateRep(point, vec3(1.0, 1.0, 1.0));
-	float distTorus = torus(point, vec2(0.3, 0.06));
-	float distSphere = sphere(point, vec3(0.0, 0.0, 0.0), 0.2);
+	float distPlane = sPlane(point, vec3(0.0, 1.0, 0.0), -0.5);
+	point = opCoordinateRepetition(point, vec3(1.0, 1.0, 1.0));
+	float distSphere = sSphere(point, vec3(0.0, 0.0, 0.0), 0.2);
 	return min(distPlane, distSphere);
 }
 
@@ -38,12 +51,8 @@ vec3 getNormal(vec3 point)
 
 void main()
 {
-	float fov = 80.0;
-	float tanFov = tan(fov / 2.0 * 3.14159 / 180.0) / iResolution.x;
-	vec2 p = tanFov * (gl_FragCoord.xy * 2.0 - iResolution.xy);
-
-	vec3 camP = vec3(0.0, 0.0, cameraZ);
-	vec3 camDir = normalize(vec3(p.x, p.y, 1.0));
+	vec3 camP = calcCameraPos();
+	vec3 camDir = calcCameraRayDir(80.0, gl_FragCoord.xy, iResolution);
 	
 	vec3 point = camP; 	
 	bool objectHit = false;

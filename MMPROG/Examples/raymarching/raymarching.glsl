@@ -4,7 +4,7 @@
 uniform vec2 iResolution;
 
 const float epsilon = 0.0001;
-const int maxSteps = 128;
+const int maxSteps = 32;
 
 float dist2sphere(vec3 point, vec3 center, float radius) 
 {

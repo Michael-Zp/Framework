@@ -48,12 +48,11 @@
 			this.chart1.ChartAreas.Add(chartArea1);
 			this.chart1.Dock = System.Windows.Forms.DockStyle.Fill;
 			this.chart1.Location = new System.Drawing.Point(0, 28);
-			this.chart1.Margin = new System.Windows.Forms.Padding(4);
 			this.chart1.Name = "chart1";
 			series1.ChartArea = "ChartArea1";
 			series1.Name = "Series1";
 			this.chart1.Series.Add(series1);
-			this.chart1.Size = new System.Drawing.Size(559, 548);
+			this.chart1.Size = new System.Drawing.Size(419, 440);
 			this.chart1.TabIndex = 0;
 			this.chart1.Text = "chart1";
 			this.chart1.MouseHover += new System.EventHandler(this.chart1_MouseHover);
@@ -70,9 +69,8 @@
 			this.menuStrip1.LayoutStyle = System.Windows.Forms.ToolStripLayoutStyle.HorizontalStackWithOverflow;
 			this.menuStrip1.Location = new System.Drawing.Point(0, 0);
 			this.menuStrip1.Name = "menuStrip1";
-			this.menuStrip1.Padding = new System.Windows.Forms.Padding(8, 2, 0, 2);
 			this.menuStrip1.ShowItemToolTips = true;
-			this.menuStrip1.Size = new System.Drawing.Size(559, 28);
+			this.menuStrip1.Size = new System.Drawing.Size(419, 28);
 			this.menuStrip1.TabIndex = 1;
 			this.menuStrip1.Text = "menuStrip1";
 			// 
@@ -81,7 +79,7 @@
 			this.copyToolStripMenuItem.AutoToolTip = true;
 			this.copyToolStripMenuItem.Name = "copyToolStripMenuItem";
 			this.copyToolStripMenuItem.ShortcutKeys = ((System.Windows.Forms.Keys)((System.Windows.Forms.Keys.Control | System.Windows.Forms.Keys.C)));
-			this.copyToolStripMenuItem.Size = new System.Drawing.Size(55, 24);
+			this.copyToolStripMenuItem.Size = new System.Drawing.Size(47, 24);
 			this.copyToolStripMenuItem.Text = "Copy";
 			this.copyToolStripMenuItem.Click += new System.EventHandler(this.copyToolStripMenuItem_Click);
 			// 
@@ -90,14 +88,14 @@
 			this.pasteToolStripMenuItem.AutoToolTip = true;
 			this.pasteToolStripMenuItem.Name = "pasteToolStripMenuItem";
 			this.pasteToolStripMenuItem.ShortcutKeys = ((System.Windows.Forms.Keys)((System.Windows.Forms.Keys.Control | System.Windows.Forms.Keys.P)));
-			this.pasteToolStripMenuItem.Size = new System.Drawing.Size(56, 24);
+			this.pasteToolStripMenuItem.Size = new System.Drawing.Size(47, 24);
 			this.pasteToolStripMenuItem.Text = "Paste";
 			this.pasteToolStripMenuItem.Click += new System.EventHandler(this.pasteToolStripMenuItem_Click);
 			// 
 			// roundToolStripMenuItem
 			// 
 			this.roundToolStripMenuItem.Name = "roundToolStripMenuItem";
-			this.roundToolStripMenuItem.Size = new System.Drawing.Size(64, 24);
+			this.roundToolStripMenuItem.Size = new System.Drawing.Size(54, 24);
 			this.roundToolStripMenuItem.Text = "Round";
 			this.roundToolStripMenuItem.Click += new System.EventHandler(this.roundToolStripMenuItem_Click);
 			// 
@@ -107,7 +105,7 @@
 			this.moveAxisYToolStripMenuItem.CheckOnClick = true;
 			this.moveAxisYToolStripMenuItem.CheckState = System.Windows.Forms.CheckState.Checked;
 			this.moveAxisYToolStripMenuItem.Name = "moveAxisYToolStripMenuItem";
-			this.moveAxisYToolStripMenuItem.Size = new System.Drawing.Size(70, 24);
+			this.moveAxisYToolStripMenuItem.Size = new System.Drawing.Size(59, 24);
 			this.moveAxisYToolStripMenuItem.Text = "Move Y";
 			this.moveAxisYToolStripMenuItem.CheckedChanged += new System.EventHandler(this.moveAxisToolStripMenuItem_CheckedChanged);
 			// 
@@ -120,15 +118,14 @@
 			// 
 			// FormGraph
 			// 
-			this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
+			this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
 			this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-			this.ClientSize = new System.Drawing.Size(559, 576);
+			this.ClientSize = new System.Drawing.Size(419, 468);
 			this.Controls.Add(this.chart1);
 			this.Controls.Add(this.menuStrip1);
 			this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
 			this.KeyPreview = true;
 			this.MainMenuStrip = this.menuStrip1;
-			this.Margin = new System.Windows.Forms.Padding(4);
 			this.MinimizeBox = false;
 			this.Name = "FormGraph";
 			this.Text = "FormGraph";
