@@ -51,11 +51,11 @@ vec3 opRepeat(vec3 point, vec3 interval) {
 
 float distFunc(vec3 point)
 {
-	float dist1 = sBox(point, vec3(0, 0, 0), vec3(1, 1, 1));
-	vec3 repXY = opRepeat(point, vec3(.05, .05, 1));
-	float dist2 = sBox(repXY, vec3(0, 0, 0), vec3(0.01, 0.01, 1));
-	vec3 repYZ = opRepeat(point, vec3(1, .05, .05));
-	float dist3 = sBox(repYZ, vec3(0, 0, 0), vec3(1, 0.01, 0.01));
+	float dist1 = sBox(point, vec3(0, 0, 0), vec3(10, 10, 10));
+	vec3 repXY = opRepeat(point, vec3(.5, .5, 1));
+	float dist2 = sBox(repXY, vec3(0, 0, 0), vec3(0.1, 0.1, 10));
+	vec3 repYZ = opRepeat(point, vec3(1, .5, .5));
+	float dist3 = sBox(repYZ, vec3(0, 0, 0), vec3(10, 0.1, 0.1));
 	return opDifference(dist1, opUnion(dist2, dist3));
 }
 

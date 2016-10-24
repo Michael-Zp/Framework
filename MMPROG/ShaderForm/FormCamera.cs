@@ -22,7 +22,7 @@ namespace ShaderForm
 			this.SaveLayout();
 		}
 
-		private void btnClear_Click(object sender, System.EventArgs e)
+		private void btnReset_Click(object sender, System.EventArgs e)
 		{
 			var cam = propertyGrid1.SelectedObject as AdapterCam;
 			if (null == cam) return;

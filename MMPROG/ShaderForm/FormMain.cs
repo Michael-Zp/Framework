@@ -109,6 +109,7 @@ namespace ShaderForm
 						else
 						{
 							//replace stuff
+							camera.Reset();
 							demo.Shaders.Clear();
 							demo.ShaderKeyframes.Clear();
 							AddShader(file);
