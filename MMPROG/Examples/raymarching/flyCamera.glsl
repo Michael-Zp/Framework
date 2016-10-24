@@ -15,7 +15,7 @@ float sphere(vec3 point, vec3 center, float radius) {
     return length(point - center) - radius;
 }
 
-vec3 coordinateRep(vec3 point, vec3 c)
+vec3 opRepeat(vec3 point, vec3 c)
 {
     return mod(point, c) - 0.5 * c;
 }
@@ -23,7 +23,7 @@ vec3 coordinateRep(vec3 point, vec3 c)
 float distScene(vec3 point)
 {
 	float distPlane = plane(point, vec3(0.0, 1.0, 0.0), -0.5);
-	point = coordinateRep(point, vec3(1.0, 1.0, 1.0));
+	point = opRepeat(point, vec3(1.0, 1.0, 1.0));
 	float distSphere = sphere(point, vec3(0.0, 0.0, 0.0), 0.2);
 	return min(distPlane, distSphere);
 }

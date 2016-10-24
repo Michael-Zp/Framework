@@ -44,9 +44,9 @@ float opDifference(float dist1, float dist2)
 	return max(dist1, -dist2);
 }
 
-vec3 opRepeat(vec3 point, vec3 inteval) {
-	vec3 c = floor((point + inteval*0.5)/inteval);
-	return mod(point + inteval*0.5, inteval) - inteval*0.5;
+vec3 opRepeat(vec3 point, vec3 interval) {
+	vec3 c = floor((point + interval*0.5)/interval);
+	return mod(point + interval*0.5, interval) - interval*0.5;
 }
 
 float distFunc(vec3 point)

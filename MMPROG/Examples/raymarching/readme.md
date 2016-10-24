@@ -8,5 +8,6 @@
 	1. Add color falloff with distance
 	1. Add some lighting
 1. [raymarching lit spheres.glsl](raymarching lit spheres.glsl)
-	1. Look at performance hit
-	
+	1. Look at the two ways for calculation of normal
+1. [raymarching building.glsl](raymarching building.glsl)
+	1. Look at use of operators
