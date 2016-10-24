@@ -6,7 +6,7 @@ varying vec2 uv;
 
 #define TIME_MULT 1.
 
-#define MAXSTEPS 30
+#define MAXSTEPS 300
 #define MINSTEP 0.0005
 #define MAXDIST 100.0
 #define NORMALSTEP MINSTEP

@@ -11,4 +11,7 @@
 	1. Look at the two ways for calculation of normal
 1. Look at operator use
 	1. [raymarching building.glsl](raymarching building.glsl)
+	1. [raymarching wavy.glsl](raymarching wavy.glsl)
+	1. [shadertoy/sphere repetition.glsl](shadertoy/sphere repetition.glsl)
+	1. [shadertoy/mystery box 3.glsl](shadertoy/mystery box 3.glsl)
 	1. [shadertoy/The road to Hell.glsl](shadertoy/The road to Hell.glsl)
