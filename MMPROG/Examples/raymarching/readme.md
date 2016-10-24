@@ -9,5 +9,6 @@
 	1. Add some lighting
 1. [raymarching lit spheres.glsl](raymarching lit spheres.glsl)
 	1. Look at the two ways for calculation of normal
-1. [raymarching building.glsl](raymarching building.glsl)
-	1. Look at use of operators
+1. Look at operator use
+	1. [raymarching building.glsl](raymarching building.glsl)
+	1. [shadertoy/The road to Hell.glsl](shadertoy/The road to Hell.glsl)
