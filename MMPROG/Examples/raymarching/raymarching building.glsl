@@ -53,9 +53,9 @@ float distFunc(vec3 point)
 {
 	float dist1 = sBox(point, vec3(0, 0, 0), vec3(1, 1, 1));
 	vec3 repXY = opRepeat(point, vec3(.05, .05, 1));
-	float dist2 = sBox(repXY, vec3(0, 0, 0), vec3(0.01, 0.01, 0.4));
+	float dist2 = sBox(repXY, vec3(0, 0, 0), vec3(0.01, 0.01, 1));
 	vec3 repYZ = opRepeat(point, vec3(1, .05, .05));
-	float dist3 = sBox(repYZ, vec3(0, 0, 0), vec3(0.4, 0.01, 0.01));
+	float dist3 = sBox(repYZ, vec3(0, 0, 0), vec3(1, 0.01, 0.01));
 	return opDifference(dist1, opUnion(dist2, dist3));
 }
 
