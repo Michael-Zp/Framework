@@ -2,7 +2,6 @@
 using Geometry;
 using OpenTK;
 using OpenTK.Graphics.OpenGL;
-using OpenTK.Input;
 using System;
 using System.Drawing;
 

@@ -3,12 +3,10 @@
     1. moving enemy
     1. many enemies
     1. keyboard player movement
-
+1. [Collision](CollisionExample)
 	1. use Box2D
     1. collision with window bounds
     1. collision with enemy
-	1. resize window handling / aspect ratio
-	1. Changing coordinates
 1. [Texture](TextureExample) introducing textures
     1. change quad coordinates to be irregular
     1. play around with the texture coordinates
@@ -21,3 +19,5 @@
 1. [Texture Animation](TextureAnimExample) draw animated sprites
     1. manipulate animation parameters
     1. load your own animations
+1. resize window handling / aspect ratio
+1. Changing coordinates
