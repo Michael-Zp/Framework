@@ -95,7 +95,7 @@ namespace ControlClassLibrary
 
 		private void MarkerBarPosition_ValueChanged(object sender, EventArgs e)
 		{
-			if (null != OnPositionChanged) OnPositionChanged(Position);
+			OnPositionChanged?.Invoke(Position);
 			if (timerChange) return;
 			timeSource.Position = Position;
 		}
