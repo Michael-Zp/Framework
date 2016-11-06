@@ -67,7 +67,8 @@
     <Compile Include="SeekBar.Designer.cs">
       <DependentUpon>SeekBar.cs</DependentUpon>
     </Compile>
-    <Compile Include="TrackItem.cs">
+    <Compile Include="TrackItem.cs" />
+    <Compile Include="TrackItemVisual.cs">
       <SubType>Component</SubType>
     </Compile>
     <Compile Include="TrackView.cs">

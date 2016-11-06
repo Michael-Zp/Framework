@@ -60,6 +60,7 @@
 			this.Controls.Add(this.propertyGrid1);
 			this.Name = "FormCamera";
 			this.Text = "FormCamera";
+			this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.FormCamera_FormClosing);
 			this.ResumeLayout(false);
 
 		}

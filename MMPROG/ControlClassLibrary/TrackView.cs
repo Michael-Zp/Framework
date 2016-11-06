@@ -13,11 +13,16 @@ namespace ControlClassLibrary
 			Length = 100f;
 			for (int i = 0; i < 10; ++i)
 			{
-				AddItem("test" + i.ToString(), (float)i * 10, 10f, i % 5);
+				AddItem("t" + i.ToString(), (float)i * 10, 10f, i % 5);
 			}
 		}
 
 		public float Length { get; set; }
+
+		public int GetTrackHeight()
+		{
+			return Height / trackCount;
+		}
 
 		public const int trackCount = 5;
 
@@ -32,7 +37,7 @@ namespace ControlClassLibrary
 		
 		private void AddItem(string label, float start, float length, int track)
 		{
-			trackItems.Add(new TrackItem(this, label, start, length, track));
+			trackItems.Add(new TrackItemVisual(this, new TrackItem(label, start, length, track)));
 		}
 
 		public Color NewColor()
@@ -40,7 +45,7 @@ namespace ControlClassLibrary
 			return Color.FromArgb(130 + rnd.Next(125), 130 + rnd.Next(125), 130 + rnd.Next(125));
 		}
 
-		private List<TrackItem> trackItems = new List<TrackItem>();
+		private List<TrackItemVisual> trackItems = new List<TrackItemVisual>();
 
 		private void TrackView_Resize(object sender, EventArgs e)
 		{

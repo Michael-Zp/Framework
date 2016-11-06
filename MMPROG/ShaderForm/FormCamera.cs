@@ -32,6 +32,13 @@ namespace ShaderForm
 			cam.RotationX = 0.0f;
 			cam.RotationY = 0.0f;
 			cam.RotationZ = 0.0f;
+			propertyGrid1.SelectedObject = cam;
+		}
+
+		private void FormCamera_FormClosing(object sender, FormClosingEventArgs e)
+		{
+			e.Cancel = true;
+			Visible = false;
 		}
 	}
 

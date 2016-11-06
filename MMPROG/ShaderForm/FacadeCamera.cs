@@ -24,7 +24,7 @@ namespace ShaderForm
 			camera.KeyChange(keyCode, pressed);
 			if (IsActive)
 			{
-				var focused = FormCamera.ActiveForm;
+				var focused = Form.ActiveForm;
 				formCamera.Visible = true;
 				formCamera.Set(camera);
 				focused.Activate();
