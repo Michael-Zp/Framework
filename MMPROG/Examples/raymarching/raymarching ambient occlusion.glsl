@@ -133,6 +133,7 @@ void main()
 
 		color = ambient + diffuse * material;
 		color = ambientOcclusion(point, 0.01, 10) * material;
+		// color = material;
 	}
 	//fog
 	float tmax = 10.0;
