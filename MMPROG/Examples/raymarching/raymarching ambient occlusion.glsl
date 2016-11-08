@@ -7,8 +7,8 @@
 uniform vec2 iResolution;
 uniform float iGlobalTime;
 
-const float epsilon = 0.01;
-const int maxSteps = 128;
+const float epsilon = 0.001;
+const int maxSteps = 512;
 
 
 float distTentacle(vec3 point)
@@ -33,7 +33,7 @@ float distMonster(vec3 point)
 	float tentacle = distTentacle(point);
 	point.y -= 0.1;
 	float sphere = fSphere(point, 0.35);
-	// return min(sphere, tentacle);
+	// return min(tentacle, sphere);
 	return smin(tentacle, sphere, 0.1 );
  }
 
@@ -60,7 +60,7 @@ float ambientOcclusion(vec3 point, float delta, int samples)
 	float occ = 0;
 	for(int i = 1; i < samples; ++i)
 	{
-		occ += (1.0/i) * (i * delta - distField(point + i * delta * normal));
+		occ += (2.0/i) * (i * delta - distField(point + i * delta * normal));
 	}
 	// occ = clamp(occ, 0, 1);
 	return 1 - occ;
@@ -99,13 +99,13 @@ void main()
 	{
 		vec3 material = vec3(1); //white
 		//the usual lighting is boring
-		// vec3 normal = getNormal(point, 0.01);
-		// vec3 lightDir = normalize(vec3(0, -1.0, 1));
-		// vec3 toLight = -lightDir;
-		// float diffuse = max(0, dot(toLight, normal));
-		// vec3 ambient = vec3(0.1);
+		vec3 normal = getNormal(point, 0.01);
+		vec3 lightDir = normalize(vec3(0, -1.0, 1));
+		vec3 toLight = -lightDir;
+		float diffuse = max(0, dot(toLight, normal));
+		vec3 ambient = vec3(0.1);
 
-		// color = ambient + diffuse * material;
+		color = ambient + diffuse * material;
 		color = ambientOcclusion(point, 0.01, 10) * material;
 	}
 	//fog
