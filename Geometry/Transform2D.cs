@@ -4,6 +4,11 @@ namespace Geometry
 {
 	public static class Transform2D
 	{
+		/// <summary>
+		/// create a rotation matrix that rotates arounf a given rotation center (pivot point)
+		/// </summary>
+		/// <param name="angle">radiant</param>
+		/// <returns></returns>
 		public static Matrix3 RotateAroundOrigin(float angle)
 		{
 			//Matrix3 does the rotation for row vectors 
@@ -11,6 +16,13 @@ namespace Geometry
 			return Matrix3.CreateRotationZ(-angle);
 		}
 
+		/// <summary>
+		/// create a rotation matrix that rotates arounf a given rotation center (pivot point)
+		/// </summary>
+		/// <param name="pivotX">rotation center x</param>
+		/// <param name="pivotY">rotation center y</param>
+		/// <param name="angle">radiant</param>
+		/// <returns></returns>
 		public static Matrix3 RotateAround(float pivotX, float pivotY, float angle)
 		{
 			var Cinv = Transform2D.Translate(-pivotX, -pivotY);
