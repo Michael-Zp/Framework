@@ -18,29 +18,50 @@ vec2 map(vec2 coord01, vec2 lowerLeft, vec2 upperRight)
 	return lowerLeft + coord01 * extents;
 }
 
+float distToInt(float coord)
+{
+	float dist = fract(coord);
+	return dist > 0.5 ? 1 - dist : dist;
+}
+
 //draw function line		
 float plotFunction(float coordY, float funcResult)
 {
-	const float lineTickness = 0.04; 
-	return smoothstep( funcResult - lineTickness, funcResult, coordY) - 
-			smoothstep( funcResult, funcResult + lineTickness, coordY);
+	const float lineThickness = 0.04; 
+	return smoothstep( funcResult - lineThickness, funcResult, coordY) - 
+			smoothstep( funcResult, funcResult + lineThickness, coordY);
 }
 
-//draw graph and color representation of values
-//positive function results are red, negative are blue
-vec3 colorPlot(float coordY, float funcResult)
+float grid(vec2 coord, vec2 resolution, vec2 lowerLeft, vec2 upperRight)
 {
-	const vec3 green = vec3(0.0, 1.0, 0.0);
-    vec3 color = vec3(funcResult, 0.0, -funcResult);
-    float graph = plotFunction(coordY, funcResult);
-    return (1.0 - graph)*color + graph * green;
+	vec2 delta = 1 * (upperRight - lowerLeft) / resolution;
+	float distX = distToInt(coord.x);
+	float distY = distToInt(coord.y);
+	return (distX < distY) ?smoothstep(0, delta.x, distX) : smoothstep(0, delta.y, distY);
+}
+
+float onAxis(vec2 coord, vec2 resolution, vec2 lowerLeft, vec2 upperRight)
+{
+	vec2 absCoord = abs(coord);
+	vec2 delta = (upperRight - lowerLeft) / resolution;
+	vec2 distAxis = smoothstep(vec2(0), 2 * delta, absCoord);
+	float onAxis = distAxis.x * distAxis.y;
+	return onAxis;
 }
 
 void main() {
 	//coordinates in range [0,1]
     vec2 coord01 = gl_FragCoord.xy/iResolution;
-	vec2 coord = map(coord01, vec2(-10, -1), vec2(10, 1));
+	vec2 lowerLeft = vec2(-10, -10);
+	vec2 upperRight = vec2(10, 10);
+	// float lineThickness = (upperRight-lowerLeft);
+	vec2 coord = map(coord01, lowerLeft, upperRight);
 	
+
+	vec3 color = vec3(onAxis(coord, iResolution, lowerLeft, upperRight));
+	vec3 gridColor = vec3(grid(coord, iResolution, lowerLeft, upperRight) * 0.5);
+	color += gridColor;
+
 	float x = coord.x;
     float y = x;
 	// y = sin(x);
@@ -58,8 +79,14 @@ void main() {
 	// y = max(0.0,x);   // return the greater of x and 0.0 
 	// y = abs(sin(x));
 	// y = fract(sin(x));
-	y = ceil(sin(x)) + floor(sin(x));
-	// y = exp(-0.4 * abs(x)) * cos(2 * x);
+	// y = ceil(sin(x)) + floor(sin(x));
+	y = exp(-0.4 * abs(x)) * cos(2 * x);
 	
-    gl_FragColor = vec4(colorPlot(coord.y, y), 1.0);
+
+    float graph = plotFunction(coord.y, y);
+    //combine
+	const vec3 green = vec3(0.0, 1.0, 0.0);
+	color = (1.0 - graph) * color + graph * green;
+
+    gl_FragColor = vec4(color, 1.0);
 }
