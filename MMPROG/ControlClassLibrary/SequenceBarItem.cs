@@ -1,7 +1,4 @@
-﻿using System;
-using System.Windows.Forms;
-
-namespace ControlClassLibrary
+﻿namespace ControlClassLibrary
 {
 	public class SequenceBarItem : ISequenceBarItem
 	{

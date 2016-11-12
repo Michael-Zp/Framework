@@ -10,11 +10,19 @@ namespace ControlClassLibrary
 		public TrackView()
 		{
 			InitializeComponent();
+			Clear();
 			Length = 100f;
 			for (int i = 0; i < 10; ++i)
 			{
 				AddItem("t" + i.ToString(), (float)i * 10, 10f, i % 5);
 			}
+		}
+
+		public void Clear()
+		{
+			Controls.Clear();
+			rnd = new Random(12);
+			trackItems.Clear();
 		}
 
 		public float Length { get; set; }
@@ -33,7 +41,7 @@ namespace ControlClassLibrary
 			}
 		}
 
-		private Random rnd = new Random(12);
+		private Random rnd;
 		
 		private void AddItem(string label, float start, float length, int track)
 		{

@@ -89,7 +89,7 @@ void main() {
     // Step will return 0.0 unless the value is over 0.5,
     // in that case it will return 1.0
 	// y = step(0.5, x);
-	// y = mod(x, 0.5); // return x modulo of 0.5
+	// y = mod(x, 1.0); // return x modulo of 0.5
 	// y = fract(x); // return only the fraction part of a number
 	// y = ceil(x);  // nearest integer that is greater than or equal to x
 	// y = floor(x); // nearest integer less than or equal to x
@@ -101,10 +101,11 @@ void main() {
 	// y = abs(sin(x));
 	// y = fract(sin(x));
 	// y = ceil(sin(x)) + floor(sin(x));
-	y = exp(-0.4 * abs(x)) * 20 * cos(2 * x);
-	
+	// y = exp(-0.4 * abs(x)) * 20 * cos(2 * x);
+	// y = abs(mod(x, 2.0) - 1); // repeated tent
+	y = abs(mod(x, 2.0) - 1) * step(2, mod(x + 1.0, 4.0)); 
 
-    float graph = plotFunction(coord.y, y, 8 * max(screenDelta.x, screenDelta.y));
+    float graph = plotFunction(coord.y, y, 4 * max(screenDelta.x, screenDelta.y));
     // combine
 	const vec3 green = vec3(0.0, 1.0, 0.0);
 	color = (1.0 - graph) * color + graph * green;
