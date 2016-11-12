@@ -1,6 +1,6 @@
-#version 330
+﻿#version 330
 /// motivation : https://www.shadertoy.com/view/XsXXDn
-/// this code is modified from https://thebookofshaders.com/05/ nice explanation + links to function tools
+/// idea from https://thebookofshaders.com/05/ nice explanation + links to function tools
 /// look at http://www.cdglabs.org/Shadershop/ for visual function composing
 
 uniform vec3 iMouse;
@@ -18,50 +18,71 @@ vec2 map(vec2 coord01, vec2 lowerLeft, vec2 upperRight)
 	return lowerLeft + coord01 * extents;
 }
 
+//calculate the smallest just visible width/height for objects
+vec2 screenDelta(vec2 resolution, vec2 lowerLeft, vec2 upperRight)
+{
+	return (upperRight - lowerLeft) / resolution;
+}
+
+//distance to nearest integer
 float distToInt(float coord)
 {
 	float dist = fract(coord);
 	return dist > 0.5 ? 1 - dist : dist;
 }
 
-//draw function line		
-float plotFunction(float coordY, float funcResult)
+vec2 distToInt(vec2 coord)
 {
-	const float lineThickness = 0.04; 
-	return smoothstep( funcResult - lineThickness, funcResult, coordY) - 
-			smoothstep( funcResult, funcResult + lineThickness, coordY);
+	vec2 dist = fract(coord);
+	dist.x = dist.x > 0.5 ? 1 - dist.x : dist.x;
+	dist.y = dist.y > 0.5 ? 1 - dist.y : dist.y;
+	return dist;
 }
 
-float grid(vec2 coord, vec2 resolution, vec2 lowerLeft, vec2 upperRight)
+float grid(vec2 coord, vec2 screenDelta)
 {
-	vec2 delta = 1 * (upperRight - lowerLeft) / resolution;
-	float distX = distToInt(coord.x);
-	float distY = distToInt(coord.y);
-	return (distX < distY) ?smoothstep(0, delta.x, distX) : smoothstep(0, delta.y, distY);
+	vec2 dist = vec2(distToInt(coord));
+	vec2 smoothGrid = smoothstep(vec2(0), screenDelta, dist);
+	return smoothGrid.x * smoothGrid.y;
 }
 
-float onAxis(vec2 coord, vec2 resolution, vec2 lowerLeft, vec2 upperRight)
+float onAxis(vec2 coord, vec2 screenDelta)
 {
 	vec2 absCoord = abs(coord);
-	vec2 delta = (upperRight - lowerLeft) / resolution;
-	vec2 distAxis = smoothstep(vec2(0), 2 * delta, absCoord);
+	vec2 distAxis = smoothstep(vec2(0), 2 * screenDelta, absCoord);
 	float onAxis = distAxis.x * distAxis.y;
 	return onAxis;
 }
 
+//draw function line		
+float plotFunction(float coordY, float funcResult, float thickness)
+{
+	return smoothstep( funcResult - thickness, funcResult, coordY) - 
+			smoothstep( funcResult, funcResult + thickness, coordY);
+}
+
 void main() {
-	//coordinates in range [0,1]
+	//map coordinates in range [0,1]
     vec2 coord01 = gl_FragCoord.xy/iResolution;
-	vec2 lowerLeft = vec2(-10, -10);
-	vec2 upperRight = vec2(10, 10);
-	// float lineThickness = (upperRight-lowerLeft);
+	//screen aspect
+	float aspect = iResolution.x / iResolution.y;
+	//coordinate system corners
+	vec2 lowerLeft = vec2(-10 * aspect, -10);
+	vec2 upperRight = vec2(10 * aspect, 10);
+	//setup coordinate system
 	vec2 coord = map(coord01, lowerLeft, upperRight);
+	//calculate just visible screen deltas
+	vec2 screenDelta = screenDelta(iResolution, lowerLeft, upperRight);
+
+	//axis
+	vec3 color = vec3(onAxis(coord, screenDelta));
+	//grid
+	vec3 gridColor = vec3(1 - (1 - grid(coord, screenDelta)) * 0.1);
+	//combine
+	color *= gridColor;
 	
-
-	vec3 color = vec3(onAxis(coord, iResolution, lowerLeft, upperRight));
-	vec3 gridColor = vec3(grid(coord, iResolution, lowerLeft, upperRight) * 0.5);
-	color += gridColor;
-
+	
+	//function
 	float x = coord.x;
     float y = x;
 	// y = sin(x);
@@ -80,11 +101,11 @@ void main() {
 	// y = abs(sin(x));
 	// y = fract(sin(x));
 	// y = ceil(sin(x)) + floor(sin(x));
-	y = exp(-0.4 * abs(x)) * cos(2 * x);
+	y = exp(-0.4 * abs(x)) * 20 * cos(2 * x);
 	
 
-    float graph = plotFunction(coord.y, y);
-    //combine
+    float graph = plotFunction(coord.y, y, 8 * max(screenDelta.x, screenDelta.y));
+    // combine
 	const vec3 green = vec3(0.0, 1.0, 0.0);
 	color = (1.0 - graph) * color + graph * green;
 
