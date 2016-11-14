@@ -130,8 +130,8 @@ void main() {
     float graph = plotFunction(coord, 4.0 * screenDelta);
 
     // combine
-	const vec3 green = vec3(0.0, 1.0, 0.0);
-	color = (1.0 - graph) * color + graph * green;
+	// const vec3 green = vec3(0.0, 1.0, 0.0);
+	// color = (1.0 - graph) * color + graph * green;
 
     gl_FragColor = vec4(color, 1.0);
 }

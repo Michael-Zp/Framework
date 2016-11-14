@@ -1,20 +1,20 @@
 #version 330
+
+#include "libs/camera.glsl"
 uniform vec3 iMouse;
 uniform float iGlobalTime;
-uniform float cameraX;
-uniform float cameraZ;
 uniform vec2 iResolution;
 uniform sampler2D tex0;
 uniform sampler2D tex1;
 
-const float epsilon = 0.1;
+const float epsilon = 0.01;
 
 float f(float px, float py)
 {
 	vec2 p = vec2(px, py);
 	p *= 0.03;
-	p -= 0.4;
-	return texture(tex0, p).x * 1.0;
+	p -= 0.04;
+	return texture(tex0, p).x * 2.0;
 }
 
 vec3 colorF(float px, float py)
@@ -107,15 +107,11 @@ vec3 terrainColor(vec3 ro, vec3 rd, float t)
 
 void main()
 {
-	float fov = 80.0;
-	float tanFov = tan(fov / 2.0 * 3.14159 / 180.0) / iResolution.x;
-	vec2 p = tanFov * (gl_FragCoord.xy * 2.0 - iResolution.xy);
+	vec3 camP = calcCameraPos();
+	vec3 camDir = calcCameraRayDir(80.0, gl_FragCoord.xy, iResolution);
 
-	vec2 pos = iMouse.xy * 0.025 + vec2( 0.8, 10.);
-	vec3 camP = vec3(cameraX, 3.0, cameraZ);
-	vec3 camDir = normalize(vec3(p.x, p.y, 1.0));
 
-	float maxT = 60.0;
+	float maxT = 20.0;
 	float t = rayMarching(camP, camDir, 1.0, maxT);
 	// float t = rayMarchingBisection(camP, camDir, 1.0, maxT, 100);
 	vec3 color = t < maxT ? terrainColor(camP, camDir, t): vec3(0.0);
