@@ -9,6 +9,7 @@ uniform float iGlobalTime;
 varying vec2 uv;
 
 const float PI = 3.14159265359;
+const float EPSILON = 10e-4;
 
 /// maps normalized [0..1] coordinates 
 /// into range [lowerLeft, upperRight]
@@ -54,11 +55,54 @@ float onAxis(vec2 coord, vec2 screenDelta)
 	return onAxis;
 }
 
-//draw function line		
-float plotFunction(float coordY, float funcResult, float thickness)
+float function(float x)
 {
-	return smoothstep( funcResult - thickness, funcResult, coordY) - 
-			smoothstep( funcResult, funcResult + thickness, coordY);
+    float y = x;
+	// y = sin(x);
+    // Step will return 0.0 unless the value is over 0.5,
+    // in that case it will return 1.0
+	// y = step(0.5, x);
+	// y = mod(x, 0.5); // return x modulo of 0.5
+	// y = fract(x); // return only the fraction part of a number
+	// y = ceil(x);  // nearest integer that is greater than or equal to x
+	// y = floor(x); // nearest integer less than or equal to x
+	// y = sign(x);  // extract the sign of x
+	// y = abs(x);   // return the absolute value of x
+	// y = clamp(x,0.0,1.0); // constrain x to lie between 0.0 and 1.0
+	// y = min(0.0,x);   // return the lesser of x and 0.0
+	// y = max(0.0,x);   // return the greater of x and 0.0 
+	// y = abs(sin(x));
+	// y = fract(sin(x));
+	// y = ceil(sin(x)) + floor(sin(x));
+	// y = exp(-0.4 * abs(x)) * 30 * cos(2 * x);
+	// y = abs(mod(x + 1, 2.0) - 1); // repeated tent
+	// y = step(2, mod(x, 4.0)); // repeat step
+	return y;
+}
+
+//draw function line		
+float plotFunction(vec2 coord, vec2 screenDelta)
+{
+	float dist = abs(function(coord.x) - coord.y);
+	return 1 - smoothstep(0, screenDelta.y, dist);
+}
+
+float distPointLine(vec2 point, vec2 a, vec2 b)
+{
+	vec2 ab = b - a;
+	float numerator = abs(ab.y * point.x - ab.x * point.y + b.x * a.y - b.y * a.x);
+	float denominator = length(ab);
+	return numerator / denominator;
+}
+
+float plotDifferentiableFunction(vec2 coord, vec2 screenDelta)
+{
+	float ax = coord.x - EPSILON;
+	float bx = coord.x + EPSILON;
+	vec2 a = vec2(ax, function(ax));
+	vec2 b = vec2(bx, function(bx));
+	float dist = distPointLine(coord, a, b);
+	return 1 - smoothstep(0, screenDelta.y, dist);
 }
 
 void main() {
@@ -81,31 +125,10 @@ void main() {
 	//combine
 	color *= gridColor;
 	
-	
 	//function
-	float x = coord.x;
-    float y = x;
-	// y = sin(x);
-    // Step will return 0.0 unless the value is over 0.5,
-    // in that case it will return 1.0
-	// y = step(0.5, x);
-	// y = mod(x, 1.0); // return x modulo of 0.5
-	// y = fract(x); // return only the fraction part of a number
-	// y = ceil(x);  // nearest integer that is greater than or equal to x
-	// y = floor(x); // nearest integer less than or equal to x
-	// y = sign(x);  // extract the sign of x
-	// y = abs(x);   // return the absolute value of x
-	// y = clamp(x,0.0,1.0); // constrain x to lie between 0.0 and 1.0
-	// y = min(0.0,x);   // return the lesser of x and 0.0
-	// y = max(0.0,x);   // return the greater of x and 0.0 
-	// y = abs(sin(x));
-	// y = fract(sin(x));
-	// y = ceil(sin(x)) + floor(sin(x));
-	// y = exp(-0.4 * abs(x)) * 20 * cos(2 * x);
-	// y = abs(mod(x, 2.0) - 1); // repeated tent
-	y = abs(mod(x, 2.0) - 1) * step(2, mod(x + 1.0, 4.0)); 
+    // float graph = plotDifferentiableFunction(coord, 4.0 * screenDelta);
+    float graph = plotFunction(coord, 4.0 * screenDelta);
 
-    float graph = plotFunction(coord.y, y, 4 * max(screenDelta.x, screenDelta.y));
     // combine
 	const vec3 green = vec3(0.0, 1.0, 0.0);
 	color = (1.0 - graph) * color + graph * green;

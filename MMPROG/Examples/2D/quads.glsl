@@ -28,18 +28,25 @@ float move(float t)
 void main() {
 	//coordinates in range [0,1]
     vec2 coord01 = gl_FragCoord.xy/iResolution;
+	vec2 coordAspect = coord01;
+	coordAspect.x *= iResolution.x/iResolution.y;
 	
-	vec2 coordA = coord01;
-	coordA.y -= move(iGlobalTime + 2);
-	coordA = mod(coordA, vec2(0.2, 0.2));
-	float a = quad( coordA, vec2(0.0, 0.0), vec2(0.1, 0.1));
-	vec2 coordB = coord01;
-	coordB.x -= move(iGlobalTime + 4);
-	coordB = mod(coordB, vec2(0.2, 0.2));
-	float b = quad(coordB, vec2(0.0, 0.1), vec2(0.1, 0.1));
-    float result = a+b;
+	vec2 coordRed = coordAspect;
+	coordRed.y -= move(iGlobalTime + 2);
+	coordRed = mod(coordRed, vec2(0.2, 0.2));
+	float red = quad( coordRed, vec2(0.0, 0.0), vec2(0.1, 0.1));
+	
+	vec2 coordGreen = coordAspect;
+	coordGreen.x -= move(0.25 * iGlobalTime + 4);
+	coordGreen = mod(coordGreen, vec2(0.2, 0.2));
+	float green = quad(coordGreen, vec2(0.0, 0.1), vec2(0.1, 0.1));
 
-    vec3 color = vec3(result);
+	vec2 coordBlue = coordAspect;
+	coordBlue.x -= move(0.5 * iGlobalTime);
+	coordBlue = mod(coordBlue, vec2(0.2, 0.2));
+	float blue = quad(coordBlue, vec2(0.0, 0.1), vec2(0.1, 0.1));
+
+    vec3 color = vec3(red, green, blue);
 	
     gl_FragColor = vec4(color, 1.0);
 }
