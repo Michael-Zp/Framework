@@ -13,7 +13,7 @@ float f(float px, float py)
 {
 	vec2 p = vec2(px, py);
 	p *= 0.03;
-	p -= 0.04;
+	p -= 0.4;
 	return texture(tex0, p).x * 2.0;
 }
 
@@ -111,7 +111,7 @@ void main()
 	vec3 camDir = calcCameraRayDir(80.0, gl_FragCoord.xy, iResolution);
 
 
-	float maxT = 20.0;
+	float maxT = 60.0;
 	float t = rayMarching(camP, camDir, 1.0, maxT);
 	// float t = rayMarchingBisection(camP, camDir, 1.0, maxT, 100);
 	vec3 color = t < maxT ? terrainColor(camP, camDir, t): vec3(0.0);
