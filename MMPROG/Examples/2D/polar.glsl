@@ -24,7 +24,7 @@ void main(){
     // f = abs(cos(a*12.)*sin(a*3.))*.8+.1;
     // f = smoothstep(-.5,1., cos(a*10.))*0.2+0.5;
     color = vec3(f);
-    // color = vec3( 1. - smoothstep(f, f + 0.02, r) );
+    color = vec3( 1. - smoothstep(f, f + 0.02, r) );
 
     gl_FragColor = vec4(color, 1.0);
 	// a /= 2*3.1415;

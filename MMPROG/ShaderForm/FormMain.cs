@@ -296,7 +296,7 @@ namespace ShaderForm
 				string granularity = Convert.ToString(RegistryLoader.LoadValue(Name, "granularity", menuSizeSetting.Text));
 				menuSizeSetting.SelectedIndex = menuSizeSetting.FindString(granularity);
 				menuFps.Checked = Convert.ToBoolean(RegistryLoader.LoadValue(Name, "showFPS", false));
-
+				menuOnTop.Checked = TopMost;
 
 				String[] arguments = Environment.GetCommandLineArgs();
 				if (arguments.Length > 1)
@@ -516,6 +516,11 @@ namespace ShaderForm
 		private void addCameraUniformsToolStripMenuItem_Click(object sender, EventArgs e)
 		{
 			camera.AddKeyFrames(demo.TimeSource.Position, demo.Uniforms);
+		}
+
+		private void menuOnTop_CheckedChanged(object sender, EventArgs e)
+		{
+			TopMost = menuOnTop.Checked;
 		}
 	}
 }

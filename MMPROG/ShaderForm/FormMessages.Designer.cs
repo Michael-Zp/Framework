@@ -34,6 +34,7 @@
 			this.clearToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
 			this.fontBiggerToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
 			this.fontSmallerToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+			this.menuOnTop = new System.Windows.Forms.ToolStripMenuItem();
 			this.menuStrip1.SuspendLayout();
 			this.SuspendLayout();
 			// 
@@ -56,7 +57,8 @@
 			this.menuStrip1.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.clearToolStripMenuItem,
             this.fontBiggerToolStripMenuItem,
-            this.fontSmallerToolStripMenuItem});
+            this.fontSmallerToolStripMenuItem,
+            this.menuOnTop});
 			this.menuStrip1.Location = new System.Drawing.Point(0, 0);
 			this.menuStrip1.Name = "menuStrip1";
 			this.menuStrip1.ShowItemToolTips = true;
@@ -89,6 +91,15 @@
 			this.fontSmallerToolStripMenuItem.ToolTipText = "CTRL+WHEEL_UP";
 			this.fontSmallerToolStripMenuItem.Click += new System.EventHandler(this.fontSmallerToolStripMenuItem_Click);
 			// 
+			// menuOnTop
+			// 
+			this.menuOnTop.CheckOnClick = true;
+			this.menuOnTop.Name = "menuOnTop";
+			this.menuOnTop.ShortcutKeys = ((System.Windows.Forms.Keys)((System.Windows.Forms.Keys.Control | System.Windows.Forms.Keys.T)));
+			this.menuOnTop.Size = new System.Drawing.Size(55, 20);
+			this.menuOnTop.Text = "OnTop";
+			this.menuOnTop.CheckedChanged += new System.EventHandler(this.menuOnTop_CheckedChanged);
+			// 
 			// FormMessages
 			// 
 			this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -115,5 +126,6 @@
 		private System.Windows.Forms.ToolStripMenuItem clearToolStripMenuItem;
 		private System.Windows.Forms.ToolStripMenuItem fontBiggerToolStripMenuItem;
 		private System.Windows.Forms.ToolStripMenuItem fontSmallerToolStripMenuItem;
+		private System.Windows.Forms.ToolStripMenuItem menuOnTop;
 	}
 }

@@ -14,6 +14,7 @@ namespace ShaderForm
 			try
 			{
 				this.LoadLayout();
+				menuOnTop.Checked = TopMost;
 				fontSize = (float)Convert.ToDouble(RegistryLoader.LoadValue(Name, "fontSize", 12.0f));
 				FontSize = fontSize;
 			}
@@ -87,6 +88,11 @@ namespace ShaderForm
 		{
 			Visible = false;
 			e.Cancel = true;
+		}
+
+		private void menuOnTop_CheckedChanged(object sender, EventArgs e)
+		{
+			TopMost = menuOnTop.Checked;
 		}
 	}
 }

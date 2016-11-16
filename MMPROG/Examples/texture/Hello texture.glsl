@@ -1,10 +1,8 @@
 #version 330
 
-//uniform vec3 iMouse;
 uniform vec2 iResolution;
 uniform float iGlobalTime;
 uniform sampler2D tex;
-// in vec2 uv;
 		
 void mainImage( out vec4 fragColor, in vec2 fragCoord )
 {
