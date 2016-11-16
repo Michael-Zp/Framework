@@ -18,6 +18,7 @@ namespace ControlClassLibrary
 			form.Height = Convert.ToInt32(key.GetValue("Height", form.Height));
 			form.Top = Convert.ToInt32(key.GetValue("Top", form.Top));
 			form.Left = Convert.ToInt32(key.GetValue("Left", form.Left));
+			form.TopMost = Convert.ToBoolean(key.GetValue("TopMost", form.TopMost));
 		}
 
 		public static void SaveLayout(this Form form)
@@ -32,6 +33,7 @@ namespace ControlClassLibrary
 			key.SetValue("Height", form.Height);
 			key.SetValue("Top", form.Top);
 			key.SetValue("Left", form.Left);
+			key.SetValue("TopMost", form.TopMost);
 		}
 
 		public static object LoadValue(string keyName, string name, object defaultValue)

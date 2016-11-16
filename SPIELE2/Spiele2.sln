@@ -38,6 +38,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SSBOExample", "Examples\SSB
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Geometry", "..\Geometry\Geometry.csproj", "{B37B7DDE-435B-4F27-9A9B-9B6DF8744EBE}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "OcclusionQueryExample", "Examples\OcclusionQueryExample\OcclusionQueryExample.csproj", "{FC0DCE57-DE47-494B-9CA8-FE2756C300D9}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -100,6 +102,10 @@ Global
 		{B37B7DDE-435B-4F27-9A9B-9B6DF8744EBE}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{B37B7DDE-435B-4F27-9A9B-9B6DF8744EBE}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{B37B7DDE-435B-4F27-9A9B-9B6DF8744EBE}.Release|Any CPU.Build.0 = Release|Any CPU
+		{FC0DCE57-DE47-494B-9CA8-FE2756C300D9}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{FC0DCE57-DE47-494B-9CA8-FE2756C300D9}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{FC0DCE57-DE47-494B-9CA8-FE2756C300D9}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{FC0DCE57-DE47-494B-9CA8-FE2756C300D9}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -116,5 +122,6 @@ Global
 		{71732F14-6930-4F72-9922-DB76298C1979} = {E6454C74-3D02-49DC-BF69-CCBD7CE40E25}
 		{0D198482-14CC-4FBA-BDF5-8B1633D4E5A4} = {E6454C74-3D02-49DC-BF69-CCBD7CE40E25}
 		{B477FA61-3ABE-43EC-B785-2306975C65B1} = {E6454C74-3D02-49DC-BF69-CCBD7CE40E25}
+		{FC0DCE57-DE47-494B-9CA8-FE2756C300D9} = {E6454C74-3D02-49DC-BF69-CCBD7CE40E25}
 	EndGlobalSection
 EndGlobal

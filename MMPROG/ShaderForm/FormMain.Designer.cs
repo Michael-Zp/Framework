@@ -313,6 +313,7 @@ namespace ShaderForm
 			this.Margin = new System.Windows.Forms.Padding(2);
 			this.Name = "FormMain";
 			this.Text = "ShaderForm";
+			this.TopMost = true;
 			this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.FormMain_FormClosing);
 			this.Load += new System.EventHandler(this.FormMain_Load);
 			this.KeyDown += new System.Windows.Forms.KeyEventHandler(this.FormMain_KeyDown);

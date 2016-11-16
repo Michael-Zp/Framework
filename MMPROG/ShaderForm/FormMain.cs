@@ -27,6 +27,7 @@ namespace ShaderForm
 			menuSizeSetting.SelectedIndexChanged += (sender, e) => glControl.Invalidate();
 			multiGraph.OnChangePosition += (pos) => soundPlayerBar1.Position = pos;
 			multiGraph.OnKeyDown += FormMain_KeyDown;
+			camera.OnRedraw += (position) => glControl.Invalidate();
 			soundPlayerBar1.OnPositionChanged += (position) => glControl.Invalidate();
 			soundPlayerBar1.OnPositionChanged += (position) => multiGraph.UpdatePosition(position);
 			soundPlayerBar1.OnPositionChanged += (position) => camera.UpdateFromUniforms(demo.Uniforms, position);
@@ -50,8 +51,8 @@ namespace ShaderForm
 				});
 			menuScreenshot.Click += (sender, e) => Dialogs.SaveFile("png (*.png)|*.png", (fileName) => { glControl.Invalidate(); demo.SaveBuffer(fileName); });
 
-			KeyDown += (sender, e) => { camera.KeyChange(e.KeyCode, true); glControl.Invalidate(); };
-			KeyUp += (sender, e) => { camera.KeyChange(e.KeyCode, false); glControl.Invalidate(); };
+			KeyDown += (sender, e) => { camera.KeyChange(e.KeyCode, true); };
+			KeyUp += (sender, e) => { camera.KeyChange(e.KeyCode, false); };
 		}
 
 		private void AddShader(string fileName)
@@ -204,12 +205,9 @@ namespace ShaderForm
 		{
 			if (demo.TimeSource.IsRunning)
 			{
-				camera.UpdateFromUniforms(demo.Uniforms, demo.TimeSource.Position);
+				if (camera.UpdateFromUniforms(demo.Uniforms, demo.TimeSource.Position)) return;
 			}
-			else
-			{
-				camera.SetUniforms(visualContext);
-			}
+			camera.SetUniforms(visualContext);
 		}
 
 		private void Demo_OnTimeSourceLoaded(object sender, EventArgs e)
@@ -330,6 +328,7 @@ namespace ShaderForm
 				RegistryLoader.SaveValue(Name, "showFPS", menuFps.Checked);
 				multiGraph.SaveLayout();
 				log.SaveLayout();
+				camera.SaveLayout();
 				// rename old
 				DefaultFiles.RenameAutoSaveDemoFile();
 				// save new

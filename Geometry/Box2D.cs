@@ -6,7 +6,7 @@
 	public class Box2D
 	{
 		/// <summary>
-		/// creates an AABR
+		/// creates an AABR, an 2D axis aligned bounding box
 		/// </summary>
 		/// <param name="x">left side x coordinate</param>
 		/// <param name="y">bottom side y coordinate</param>

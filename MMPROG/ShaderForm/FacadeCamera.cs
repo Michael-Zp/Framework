@@ -5,6 +5,11 @@ namespace ShaderForm
 {
 	public class FacadeCamera
 	{
+		public FacadeCamera()
+		{
+			formCamera.Set(camera);
+		}
+
 		public void AddKeyFrames(float time, IUniforms uniforms)
 		{
 			for (int i = 0; i < 3; ++i)
@@ -19,6 +24,11 @@ namespace ShaderForm
 			}
 		}
 
+		public void SaveLayout()
+		{
+			formCamera.SaveData();
+		}
+
 		public void KeyChange(Keys keyCode, bool pressed)
 		{
 			camera.KeyChange(keyCode, pressed);
@@ -29,9 +39,13 @@ namespace ShaderForm
 				formCamera.Set(camera);
 				focused.Activate();
 			}
+			OnRedraw?.Invoke(this);
 		}
 
 		public bool IsActive { get { return camera.IsActive; } }
+
+		public delegate void ChangeHandler(FacadeCamera camera);
+		public event ChangeHandler OnRedraw;
 
 		public void Reset()
 		{
@@ -43,20 +57,21 @@ namespace ShaderForm
 			camera.Update(mouseX, mouseY, mouseDown);
 		}
 
-		public void UpdateFromUniforms(IUniforms uniforms, float time)
+		public bool UpdateFromUniforms(IUniforms uniforms, float time)
 		{
 			for (int i = 0; i < 3; ++i)
 			{
 				var kfsPos = uniforms.GetKeyFrames(posUniformNames[i]);
-				if (null == kfsPos) return;
+				if (null == kfsPos) return false;
 				var value = kfsPos.Interpolate(time);
 				camera.Position[i] = value;
 
 				var kfsRot = uniforms.GetKeyFrames(rotUniformNames[i]);
-				if (null == kfsRot) return;
+				if (null == kfsRot) return false;
 				var valueRot = kfsRot.Interpolate(time);
 				camera.Rotation[i] = valueRot;
 			}
+			return true;
 		}
 
 		public void SetUniforms(ISetUniform visualContext)

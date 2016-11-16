@@ -92,6 +92,7 @@
     <Compile Include="OpenGL\BufferObject.cs" />
     <Compile Include="IAnimation.cs" />
     <Compile Include="OpenGL\DrawTools.cs" />
+    <Compile Include="OpenGL\QueryObject.cs" />
     <Compile Include="ShaderException.cs" />
     <Compile Include="SpriteSheetAnimation.cs" />
     <Compile Include="ITimedUpdate.cs" />

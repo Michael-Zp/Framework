@@ -1,6 +1,7 @@
 ﻿using ControlClassLibrary;
-using OpenTK;
+using System.ComponentModel;
 using System.Windows.Forms;
+using System;
 
 namespace ShaderForm
 {
@@ -10,6 +11,7 @@ namespace ShaderForm
 		{
 			InitializeComponent();
 			this.LoadLayout();
+			checkBoxOnTop.Checked = TopMost;
 		}
 
 		public void Set(FlyCamera cam)
@@ -40,11 +42,22 @@ namespace ShaderForm
 			e.Cancel = true;
 			Visible = false;
 		}
+
+		private void checkBoxOnTop_CheckedChanged(object sender, System.EventArgs e)
+		{
+			TopMost = checkBoxOnTop.Checked;
+		}
 	}
 
-	class AdapterCam
+	class AdapterCam : INotifyPropertyChanged
 	{
-		public float PositionX { get { return cam.Position.X; } set { cam.Position.X = value; } }
+		public float PositionX { get { return cam.Position.X; } set { cam.Position.X = value; Update(); } }
+
+		private void Update()
+		{
+			PropertyChanged?.Invoke(this, null);
+		}
+
 		public float PositionY { get { return cam.Position.Y; } set { cam.Position.Y = value; } }
 		public float PositionZ { get { return cam.Position.Z; } set { cam.Position.Z = value; } }
 		public float RotationX { get { return cam.Rotation.X; } set { cam.Rotation.X = value; } }
@@ -56,5 +69,7 @@ namespace ShaderForm
 		}
 
 		private FlyCamera cam;
+
+		public event PropertyChangedEventHandler PropertyChanged;
 	}
 }
