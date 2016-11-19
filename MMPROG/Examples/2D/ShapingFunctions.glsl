@@ -44,15 +44,14 @@ float grid(vec2 coord, vec2 screenDelta)
 {
 	vec2 dist = vec2(distToInt(coord));
 	vec2 smoothGrid = smoothstep(vec2(0), screenDelta, dist);
-	return smoothGrid.x * smoothGrid.y;
+	return min(smoothGrid.x, smoothGrid.y);
 }
 
 float onAxis(vec2 coord, vec2 screenDelta)
 {
 	vec2 absCoord = abs(coord);
-	vec2 distAxis = smoothstep(vec2(0), 2 * screenDelta, absCoord);
-	float onAxis = distAxis.x * distAxis.y;
-	return onAxis;
+	vec2 distAxis = smoothstep(vec2(0), screenDelta, absCoord);
+	return min(distAxis.x, distAxis.y);
 }
 
 float function(float x)
@@ -61,8 +60,9 @@ float function(float x)
 	// y = sin(x);
     // Step will return 0.0 unless the value is over 0.5,
     // in that case it will return 1.0
-	// y = step(0.5, x);
-	// y = mod(x, 0.5); // return x modulo of 0.5
+	// y = step(1, x);
+	// y = smoothstep(-3, 3, x);
+	// y = mod(x, 2); // return x modulo of 0.5
 	// y = fract(x); // return only the fraction part of a number
 	// y = ceil(x);  // nearest integer that is greater than or equal to x
 	// y = floor(x); // nearest integer less than or equal to x
@@ -75,7 +75,7 @@ float function(float x)
 	// y = fract(sin(x));
 	// y = ceil(sin(x)) + floor(sin(x));
 	// y = exp(-0.4 * abs(x)) * 30 * cos(2 * x);
-	y = abs(mod(x + 1, 2.0) - 1); // repeated tent
+	// y = abs(mod(x + 1, 2.0) - 1); // repeated tent
 	// y = step(2, mod(x, 4.0)); // repeat step
 	return y;
 }
@@ -97,6 +97,7 @@ float distPointLine(vec2 point, vec2 a, vec2 b)
 
 float plotDifferentiableFunction(vec2 coord, vec2 screenDelta)
 {
+	//use central difference to make a line approximation
 	float ax = coord.x - EPSILON;
 	float bx = coord.x + EPSILON;
 	vec2 a = vec2(ax, function(ax));
@@ -119,7 +120,7 @@ void main() {
 	vec2 screenDelta = screenDelta(iResolution, lowerLeft, upperRight);
 
 	//axis
-	vec3 color = vec3(onAxis(coord, screenDelta));
+	vec3 color = vec3(onAxis(coord, 2 * screenDelta));
 	//grid
 	vec3 gridColor = vec3(1 - (1 - grid(coord, screenDelta)) * 0.1);
 	//combine
