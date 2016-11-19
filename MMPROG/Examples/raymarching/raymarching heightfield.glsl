@@ -9,7 +9,7 @@ uniform sampler2D tex1;
 
 const float epsilon = 0.01;
 const vec3 terrainCenter = vec3(0, 0, 0);
-const vec3 terrainExtents = vec3(400, 20, 200);
+const vec3 terrainExtents = vec3(400, 10, 200);
 
 //dot(n, O +t*d)= -k
 //dot(n,O) + dot(n, t*d) = -k
@@ -116,8 +116,8 @@ vec3 getNormal(vec3 p, float delta)
 vec3 getShading(vec3 p, vec3 n)
 {
 	vec3 color = colorF(p.xz);
-	vec3 lightPosition = vec3(0.0, 15.0, 0.0);
-	vec3 l = normalize(lightPosition - p);
+	vec3 lightDir = vec3(0.0, -1.0, 1.0);
+	vec3 l = normalize(-lightDir);
 	return dot(l, n) * color;
 }
 
@@ -135,7 +135,7 @@ void main()
 	vec3 camDir = calcCameraRayDir(80.0, gl_FragCoord.xy, iResolution);
 
 	vec3 color = vec3(0,0,0.5);
-	if(hitTerrainTop(camP, camDir)) 
+	// if(hitTerrainTop(camP, camDir)) 
 	{
 		float maxT = 200.0;
 		float t = rayMarching(camP, camDir, 0.1, maxT);

@@ -1,15 +1,16 @@
-//uniform vec3 iMouse;
+#version 330
+
 uniform vec2 iResolution;
 uniform float iGlobalTime;
-//in vec2 uv;
-		
-void mainImage( out vec4 fragColor, in vec2 fragCoord )
-{
-	vec2 uv = fragCoord / iResolution;
-	fragColor = vec4(uv, 0.5 + 0.5*sin(iGlobalTime), 1.0);
-}
-
+	
 void main()
 {
-	mainImage(gl_FragColor, gl_FragCoord.xy);
+	//create uv to be in the range [0..1]x[0..1]
+	vec2 uv = gl_FragCoord.xy / iResolution;
+	//4 component color red, green, blue, alpha
+	vec4 color =  vec4(0.7, 0.5, 0.3, 1); //line i
+	// color.rgb = vec3(uv, 0.5 + 0.5 * sin(iGlobalTime)); //line ii
+	// color.rgb = vec3(step(0.5, uv.x)); //line iii
+	// color.rgb = vec3(smoothstep(0.45, 0.55, uv.x)); //line iv
+	gl_FragColor = color;
 }

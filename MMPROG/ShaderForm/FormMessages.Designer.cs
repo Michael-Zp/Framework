@@ -34,7 +34,7 @@
 			this.clearToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
 			this.fontBiggerToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
 			this.fontSmallerToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-			this.menuOnTop = new System.Windows.Forms.ToolStripMenuItem();
+			this.checkBoxOnTop = new System.Windows.Forms.CheckBox();
 			this.menuStrip1.SuspendLayout();
 			this.SuspendLayout();
 			// 
@@ -49,7 +49,7 @@
 			this.errorLog.Name = "errorLog";
 			this.errorLog.ReadOnly = true;
 			this.errorLog.ScrollBars = System.Windows.Forms.ScrollBars.Both;
-			this.errorLog.Size = new System.Drawing.Size(503, 288);
+			this.errorLog.Size = new System.Drawing.Size(411, 288);
 			this.errorLog.TabIndex = 2;
 			// 
 			// menuStrip1
@@ -57,12 +57,11 @@
 			this.menuStrip1.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.clearToolStripMenuItem,
             this.fontBiggerToolStripMenuItem,
-            this.fontSmallerToolStripMenuItem,
-            this.menuOnTop});
+            this.fontSmallerToolStripMenuItem});
 			this.menuStrip1.Location = new System.Drawing.Point(0, 0);
 			this.menuStrip1.Name = "menuStrip1";
 			this.menuStrip1.ShowItemToolTips = true;
-			this.menuStrip1.Size = new System.Drawing.Size(503, 24);
+			this.menuStrip1.Size = new System.Drawing.Size(411, 24);
 			this.menuStrip1.TabIndex = 4;
 			this.menuStrip1.Text = "menuStrip1";
 			// 
@@ -91,20 +90,24 @@
 			this.fontSmallerToolStripMenuItem.ToolTipText = "CTRL+WHEEL_UP";
 			this.fontSmallerToolStripMenuItem.Click += new System.EventHandler(this.fontSmallerToolStripMenuItem_Click);
 			// 
-			// menuOnTop
+			// checkBoxOnTop
 			// 
-			this.menuOnTop.CheckOnClick = true;
-			this.menuOnTop.Name = "menuOnTop";
-			this.menuOnTop.ShortcutKeys = ((System.Windows.Forms.Keys)((System.Windows.Forms.Keys.Control | System.Windows.Forms.Keys.T)));
-			this.menuOnTop.Size = new System.Drawing.Size(55, 20);
-			this.menuOnTop.Text = "OnTop";
-			this.menuOnTop.CheckedChanged += new System.EventHandler(this.menuOnTop_CheckedChanged);
+			this.checkBoxOnTop.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+			this.checkBoxOnTop.AutoSize = true;
+			this.checkBoxOnTop.Location = new System.Drawing.Point(354, 2);
+			this.checkBoxOnTop.Name = "checkBoxOnTop";
+			this.checkBoxOnTop.Size = new System.Drawing.Size(57, 17);
+			this.checkBoxOnTop.TabIndex = 5;
+			this.checkBoxOnTop.Text = "onTop";
+			this.checkBoxOnTop.UseVisualStyleBackColor = true;
+			this.checkBoxOnTop.CheckedChanged += new System.EventHandler(this.checkBoxOnTop_CheckedChanged);
 			// 
 			// FormMessages
 			// 
 			this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
 			this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-			this.ClientSize = new System.Drawing.Size(503, 312);
+			this.ClientSize = new System.Drawing.Size(411, 312);
+			this.Controls.Add(this.checkBoxOnTop);
 			this.Controls.Add(this.errorLog);
 			this.Controls.Add(this.menuStrip1);
 			this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
@@ -126,6 +129,6 @@
 		private System.Windows.Forms.ToolStripMenuItem clearToolStripMenuItem;
 		private System.Windows.Forms.ToolStripMenuItem fontBiggerToolStripMenuItem;
 		private System.Windows.Forms.ToolStripMenuItem fontSmallerToolStripMenuItem;
-		private System.Windows.Forms.ToolStripMenuItem menuOnTop;
+		private System.Windows.Forms.CheckBox checkBoxOnTop;
 	}
 }

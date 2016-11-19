@@ -75,7 +75,7 @@ float function(float x)
 	// y = fract(sin(x));
 	// y = ceil(sin(x)) + floor(sin(x));
 	// y = exp(-0.4 * abs(x)) * 30 * cos(2 * x);
-	// y = abs(mod(x + 1, 2.0) - 1); // repeated tent
+	y = abs(mod(x + 1, 2.0) - 1); // repeated tent
 	// y = step(2, mod(x, 4.0)); // repeat step
 	return y;
 }
@@ -126,7 +126,7 @@ void main() {
 	color *= gridColor;
 	
 	//function
-    // float graph = plotDifferentiableFunction(coord, 4.0 * screenDelta);
+    // float graph = plotDifferentiableFunction(coord, 2.0 * screenDelta);
     float graph = plotFunction(coord, 4.0 * screenDelta);
 
     // combine

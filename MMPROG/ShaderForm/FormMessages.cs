@@ -14,7 +14,7 @@ namespace ShaderForm
 			try
 			{
 				this.LoadLayout();
-				menuOnTop.Checked = TopMost;
+				checkBoxOnTop.Checked = TopMost;
 				fontSize = (float)Convert.ToDouble(RegistryLoader.LoadValue(Name, "fontSize", 12.0f));
 				FontSize = fontSize;
 			}
@@ -90,9 +90,9 @@ namespace ShaderForm
 			e.Cancel = true;
 		}
 
-		private void menuOnTop_CheckedChanged(object sender, EventArgs e)
+		private void checkBoxOnTop_CheckedChanged(object sender, EventArgs e)
 		{
-			TopMost = menuOnTop.Checked;
+			TopMost = checkBoxOnTop.Checked;
 		}
 	}
 }

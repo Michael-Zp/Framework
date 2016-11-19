@@ -52,11 +52,11 @@ namespace ShaderForm
 			this.menuSound = new System.Windows.Forms.ToolStripMenuItem();
 			this.menuWindow = new System.Windows.Forms.ToolStripMenuItem();
 			this.menuFullscreen = new System.Windows.Forms.ToolStripMenuItem();
+			this.menuOnTop = new System.Windows.Forms.ToolStripMenuItem();
 			this.panelSequence = new System.Windows.Forms.Panel();
 			this.button1 = new System.Windows.Forms.Button();
 			this.sequenceBar1 = new ControlClassLibrary.SequenceBar();
 			this.soundPlayerBar1 = new ControlClassLibrary.SeekBar();
-			this.menuOnTop = new System.Windows.Forms.ToolStripMenuItem();
 			this.menuStrip.SuspendLayout();
 			this.panelSequence.SuspendLayout();
 			this.SuspendLayout();
@@ -64,7 +64,7 @@ namespace ShaderForm
 			// glControl
 			// 
 			this.glControl.AllowDrop = true;
-			this.glControl.BackColor = System.Drawing.Color.Black;
+			this.glControl.BackColor = System.Drawing.Color.Gold;
 			this.glControl.Dock = System.Windows.Forms.DockStyle.Fill;
 			this.glControl.Location = new System.Drawing.Point(0, 27);
 			this.glControl.Margin = new System.Windows.Forms.Padding(4);
@@ -262,6 +262,15 @@ namespace ShaderForm
 			this.menuFullscreen.ToolTipText = "F11";
 			this.menuFullscreen.CheckedChanged += new System.EventHandler(this.MenuFullscreen_CheckedChanged);
 			// 
+			// menuOnTop
+			// 
+			this.menuOnTop.CheckOnClick = true;
+			this.menuOnTop.Name = "menuOnTop";
+			this.menuOnTop.ShortcutKeys = ((System.Windows.Forms.Keys)((System.Windows.Forms.Keys.Control | System.Windows.Forms.Keys.T)));
+			this.menuOnTop.Size = new System.Drawing.Size(153, 22);
+			this.menuOnTop.Text = "OnTop";
+			this.menuOnTop.CheckedChanged += new System.EventHandler(this.menuOnTop_CheckedChanged);
+			// 
 			// panelSequence
 			// 
 			this.panelSequence.Controls.Add(this.button1);
@@ -307,15 +316,6 @@ namespace ShaderForm
 			this.soundPlayerBar1.Size = new System.Drawing.Size(688, 29);
 			this.soundPlayerBar1.TabIndex = 3;
 			this.soundPlayerBar1.TabStop = false;
-			// 
-			// menuOnTop
-			// 
-			this.menuOnTop.CheckOnClick = true;
-			this.menuOnTop.Name = "menuOnTop";
-			this.menuOnTop.ShortcutKeys = ((System.Windows.Forms.Keys)((System.Windows.Forms.Keys.Control | System.Windows.Forms.Keys.T)));
-			this.menuOnTop.Size = new System.Drawing.Size(153, 22);
-			this.menuOnTop.Text = "OnTop";
-			this.menuOnTop.CheckedChanged += new System.EventHandler(this.menuOnTop_CheckedChanged);
 			// 
 			// FormMain
 			// 
