@@ -24,7 +24,9 @@ void main()
 	
 	//two circle distance fields
 	float distCircle1 = distance(uv, vec2(x, y));
+	// distCircle1 = fract(distCircle1 * 5);
 	float distCircle2 = distance(uv, vec2(y, x));
+	// distCircle2 = fract(distCircle2 * 5);
 
 	color.rgb = vec3(distCircle1); // draw one circular distance field
 

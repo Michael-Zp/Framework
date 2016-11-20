@@ -9,6 +9,7 @@ uniform float iGlobalTime;
 varying vec2 uv;
 
 const float PI = 3.14159265359;
+const float TWOPI = 2 * PI;
 const float EPSILON = 10e-4;
 
 /// maps normalized [0..1] coordinates 
@@ -58,11 +59,9 @@ float function(float x)
 {
     float y = x;
 	// y = sin(x);
-    // Step will return 0.0 unless the value is over 0.5,
-    // in that case it will return 1.0
-	// y = step(1, x);
+	// y = step(2, x);
 	// y = smoothstep(-3, 3, x);
-	// y = mod(x, 2); // return x modulo of 0.5
+	// y = mod(x, 4);
 	// y = fract(x); // return only the fraction part of a number
 	// y = ceil(x);  // nearest integer that is greater than or equal to x
 	// y = floor(x); // nearest integer less than or equal to x
@@ -75,8 +74,15 @@ float function(float x)
 	// y = fract(sin(x));
 	// y = ceil(sin(x)) + floor(sin(x));
 	// y = exp(-0.4 * abs(x)) * 30 * cos(2 * x);
+	// y = mod(x + 1, 2.0) - 1;
 	// y = abs(mod(x + 1, 2.0) - 1); // repeated tent
 	// y = step(2, mod(x, 4.0)); // repeat step
+	// y = smoothstep(-0.5, 1, cos(x)) * 2;
+	// float fact = 6; 
+	// y = floor(0.5 + x / fact);
+	// y = floor(0.5 + x / fact) * fact;
+	// y = x - floor(0.5 + x / fact) * fact;
+	// y = cos(x - floor(0.5 + x / fact) * fact);
 	return y;
 }
 

@@ -13,13 +13,18 @@
 1. [CircleDistanceField.glsl](CircleDistanceField.glsl)
 	1. We look at code together
 	1. Uncomment from top to bottom
+	1. Create your own moving distance fields
 1. [ShapingFunctions.glsl](ShapingFunctions.glsl)
 	1. Uncomment the different functions
 	1. How can we map coordinates to a bigger range than [0..1]²?
 	1. How are verticel/horizontal lines that keep their thickness realized?
 	1. Choose a function with very steep parts. What happens?
 	1. How can we control the thickness of general functions?
-	
+	1. Create your own fucntion using sin, smoothstep, mod, ...
+1. [Polar.glsl](Polar.glsl)
+	1. We look at code together
+	1. Uncomment from top to bottom
+	1. Make your own flowers, snowflakes, gears
 1. [Sinus.glsl](Sinus.glsl)
 	1. Change amplitude, phase, frequency
 	1. Time (line ii)
