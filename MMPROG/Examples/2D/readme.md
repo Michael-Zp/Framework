@@ -7,13 +7,8 @@
 		1. How can you rotate the result by 90°?
 		1. Combine results from multiple step functions like in line iv
 		1. Use the step function to draw a quad
-		1. How could you draw soft edged quads?
-		1. Draw a number of quads with different colors
+		1. USe smoothstep to draw soft edged quads
 		1. Can you do something that resembles a Piet Mondrian painting? ![Mondrian painting](mondrian.jpg "Mondrian painting")
-1. [CircleDistanceField.glsl](CircleDistanceField.glsl)
-	1. We look at code together
-	1. Uncomment from top to bottom
-	1. Create your own moving distance fields
 1. [ShapingFunctions.glsl](ShapingFunctions.glsl)
 	1. Uncomment the different functions
 	1. How can we map coordinates to a bigger range than [0..1]²?
@@ -21,6 +16,10 @@
 	1. Choose a function with very steep parts. What happens?
 	1. How can we control the thickness of general functions?
 	1. Create your own fucntion using sin, smoothstep, mod, ...
+1. [CircleDistanceField.glsl](CircleDistanceField.glsl)
+	1. We look at code together
+	1. Uncomment from top to bottom
+	1. Create your own moving distance fields
 1. [Polar.glsl](Polar.glsl)
 	1. We look at code together
 	1. Uncomment from top to bottom

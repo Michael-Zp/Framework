@@ -77,7 +77,7 @@ namespace ShaderForm
 			GL.Uniform3(shaderCurrent.GetUniformLocation(uniformName), valueX, valueY, valueZ);
 		}
 
-		public void SetShader(string shaderFileName)
+		public bool SetShader(string shaderFileName)
 		{
 			if (!shaders.TryGetValue(shaderFileName, out shaderCurrent))
 			{
@@ -89,6 +89,7 @@ namespace ShaderForm
 				shaderCurrent = shaderDefault;
 			}
 			shaderCurrent.Begin();
+			return shaderCurrent != shaderDefault;
 		}
 
 		public void Update()

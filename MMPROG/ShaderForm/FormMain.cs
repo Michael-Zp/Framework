@@ -19,6 +19,7 @@ namespace ShaderForm
 		private MultiGraph multiGraph = new MultiGraph();
 		private FacadeFormMessages log = new FacadeFormMessages();
 		private FacadeCamera camera = new FacadeCamera();
+		private string lastMessage;
 
 		public FormMain()
 		{
@@ -157,7 +158,15 @@ namespace ShaderForm
 			camera.Update(mouseX * width, mouseY * height, mouseDown);
 			try
 			{
-				demo.UpdateBuffer((int)Math.Round(mouseX * width), (int)Math.Round(mouseY * height), mouseDown, width, height);
+				if (!demo.UpdateBuffer((int)Math.Round(mouseX * width), (int)Math.Round(mouseY * height), mouseDown, width, height))
+				{
+					textBoxLastMessage.Text = lastMessage;
+					textBoxLastMessage.Visible = true;
+				}
+				else
+				{
+					textBoxLastMessage.Visible = false;
+				}
 			}
 			catch { /* We do not care about errors at this level */ }
 			//	glControl.Context.MakeCurrent(null);
@@ -232,6 +241,7 @@ namespace ShaderForm
 
 			//todo: if errors disappear we would like to clear the log....
 			log.Append(message);
+			lastMessage = message;
 			glControl.Invalidate();
 		}
 
