@@ -78,11 +78,12 @@ float function(float x)
 	// y = abs(mod(x + 1, 2.0) - 1); // repeated tent
 	// y = step(2, mod(x, 4.0)); // repeat step
 	// y = smoothstep(-0.5, 1, cos(x)) * 2;
-	// float fact = 6; 
-	// y = floor(0.5 + x / fact);
+	// float fact = 1; 
+	// y = floor(x / fact);
 	// y = floor(0.5 + x / fact) * fact;
 	// y = x - floor(0.5 + x / fact) * fact;
 	// y = cos(x - floor(0.5 + x / fact) * fact);
+	// y = distToInt(x);
 	return y;
 }
 
@@ -116,7 +117,7 @@ void main() {
 	//map coordinates in range [0,1]
     vec2 coord01 = gl_FragCoord.xy/iResolution;
 	//screen aspect
-	float aspect = iResolution.x / iResolution.y;
+	float aspect = 1;//iResolution.x / iResolution.y;
 	//coordinate system corners
 	vec2 lowerLeft = vec2(-10 * aspect, -10);
 	vec2 upperRight = vec2(10 * aspect, 10);
@@ -133,8 +134,8 @@ void main() {
 	color *= gridColor;
 	
 	//function
-    // float graph = plotDifferentiableFunction(coord, 2.0 * screenDelta);
-    float graph = plotFunction(coord, 4.0 * screenDelta);
+    float graph = plotDifferentiableFunction(coord, 4.0 * screenDelta);
+    // float graph = plotFunction(coord, 4 * screenDelta);
 
     // combine
 	const vec3 green = vec3(0.0, 1.0, 0.0);

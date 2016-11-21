@@ -11,6 +11,7 @@
 		1. Can you do something that resembles a Piet Mondrian painting? ![Mondrian painting](mondrian.jpg "Mondrian painting")
 1. [ShapingFunctions.glsl](ShapingFunctions.glsl)
 	1. Uncomment the different functions
+	1. How to draw the green line? Create such a function plotter!
 	1. How can we map coordinates to a bigger range than [0..1]²?
 	1. How are verticel/horizontal lines that keep their thickness realized?
 	1. Choose a function with very steep parts. What happens?
