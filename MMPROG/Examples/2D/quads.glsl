@@ -30,7 +30,7 @@ void main() {
     vec2 coord01 = gl_FragCoord.xy/iResolution;
 	vec2 coordAspect = coord01;
 	coordAspect.x *= iResolution.x/iResolution.y;
-	
+
 	vec2 coordRed = coordAspect;
 	coordRed.y -= move(iGlobalTime + 2);
 	coordRed = mod(coordRed, vec2(0.2, 0.2));

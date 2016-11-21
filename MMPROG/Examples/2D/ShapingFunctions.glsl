@@ -59,7 +59,7 @@ float function(float x)
 {
     float y = x;
 	// y = sin(x);
-	// y = step(2, x);
+	// y = step(-2, x) ;
 	// y = smoothstep(-3, 3, x);
 	// y = mod(x, 4);
 	// y = fract(x); // return only the fraction part of a number

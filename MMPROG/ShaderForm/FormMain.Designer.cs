@@ -67,10 +67,10 @@ namespace ShaderForm
 			this.glControl.AllowDrop = true;
 			this.glControl.BackColor = System.Drawing.Color.Gold;
 			this.glControl.Dock = System.Windows.Forms.DockStyle.Fill;
-			this.glControl.Location = new System.Drawing.Point(0, 0);
+			this.glControl.Location = new System.Drawing.Point(0, 27);
 			this.glControl.Margin = new System.Windows.Forms.Padding(4);
 			this.glControl.Name = "glControl";
-			this.glControl.Size = new System.Drawing.Size(688, 452);
+			this.glControl.Size = new System.Drawing.Size(688, 362);
 			this.glControl.TabIndex = 0;
 			this.glControl.VSync = false;
 			this.glControl.Load += new System.EventHandler(this.GlControl_Load);
@@ -320,17 +320,15 @@ namespace ShaderForm
 			// 
 			// textBoxLastMessage
 			// 
-			this.textBoxLastMessage.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
-            | System.Windows.Forms.AnchorStyles.Left) 
-            | System.Windows.Forms.AnchorStyles.Right)));
 			this.textBoxLastMessage.BackColor = System.Drawing.SystemColors.Control;
 			this.textBoxLastMessage.BorderStyle = System.Windows.Forms.BorderStyle.None;
+			this.textBoxLastMessage.Dock = System.Windows.Forms.DockStyle.Fill;
 			this.textBoxLastMessage.Font = new System.Drawing.Font("Lucida Console", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-			this.textBoxLastMessage.Location = new System.Drawing.Point(12, 41);
+			this.textBoxLastMessage.Location = new System.Drawing.Point(0, 27);
 			this.textBoxLastMessage.Multiline = true;
 			this.textBoxLastMessage.Name = "textBoxLastMessage";
 			this.textBoxLastMessage.ReadOnly = true;
-			this.textBoxLastMessage.Size = new System.Drawing.Size(664, 342);
+			this.textBoxLastMessage.Size = new System.Drawing.Size(688, 362);
 			this.textBoxLastMessage.TabIndex = 6;
 			// 
 			// FormMain
@@ -338,11 +336,11 @@ namespace ShaderForm
 			this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
 			this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
 			this.ClientSize = new System.Drawing.Size(688, 452);
+			this.Controls.Add(this.textBoxLastMessage);
+			this.Controls.Add(this.glControl);
 			this.Controls.Add(this.panelSequence);
 			this.Controls.Add(this.soundPlayerBar1);
 			this.Controls.Add(this.menuStrip);
-			this.Controls.Add(this.textBoxLastMessage);
-			this.Controls.Add(this.glControl);
 			this.DoubleBuffered = true;
 			this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
 			this.KeyPreview = true;
