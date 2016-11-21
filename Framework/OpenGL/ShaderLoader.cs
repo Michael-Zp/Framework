@@ -38,10 +38,16 @@ namespace Framework
 		/// <returns>a new instance</returns>
 		public static Shader FromFiles(string sVertexShdFile_, string sFragmentShdFile_)
 		{
-
-			string sVertexShd = ShaderStringFromFileWithIncludes(sVertexShdFile_);
-			string sFragmentShd = ShaderStringFromFileWithIncludes(sFragmentShdFile_);
-			return FromStrings(sVertexShd, sFragmentShd);
+			string sVertexShd = ShaderStringFromFileWithIncludes(sVertexShdFile_, false);
+			string sFragmentShd = ShaderStringFromFileWithIncludes(sFragmentShdFile_, false);
+			var shader = FromStrings(sVertexShd, sFragmentShd);
+			if (!shader.IsLinked)
+			{
+				sVertexShd = ShaderStringFromFileWithIncludes(sVertexShdFile_, true);
+				sFragmentShd = ShaderStringFromFileWithIncludes(sFragmentShdFile_, true);
+				return FromStrings(sVertexShd, sFragmentShd);
+			}
+			return shader;
 		}
 
 		/// <summary>
@@ -49,7 +55,7 @@ namespace Framework
 		/// </summary>
 		/// <param name="shaderFile">path to the shader file</param>
 		/// <returns>string with contents of shaderFile</returns>
-		public static string ShaderStringFromFileWithIncludes(string shaderFile)
+		public static string ShaderStringFromFileWithIncludes(string shaderFile, bool compileInclude)
 		{
 			string sShader = null;
 			if (!File.Exists(shaderFile))
@@ -79,17 +85,20 @@ namespace Framework
 						throw new FileNotFoundException("Could not find include-file '" + sIncludeFileName + "' for shader '" + shaderFile + "'.");
 					}
 					string sIncludeShd = File.ReadAllText(sIncludePath); // read include as string
-					using (var shader = new Shader())
+					if (compileInclude)
 					{
-						try
+						using (var shader = new Shader())
 						{
-							shader.Compile(sIncludeShd, ShaderType.FragmentShader); //test compile include shader
-						}
-						catch (ShaderException e)
-						{
-							throw new ShaderException(e.Type,
-								"include compile '" + sIncludePath + "'", 
-								e.Log, sIncludeShd);
+							try
+							{
+								shader.Compile(sIncludeShd, ShaderType.FragmentShader); //test compile include shader
+							}
+							catch (ShaderException e)
+							{
+								throw new ShaderException(e.Type,
+									"include compile '" + sIncludePath + "'",
+									e.Log, sIncludeShd);
+							}
 						}
 					}
 					sIncludeShd += Environment.NewLine + "#line " + lineNr.ToString() + Environment.NewLine;

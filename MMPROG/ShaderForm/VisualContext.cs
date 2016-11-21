@@ -198,14 +198,24 @@ namespace ShaderForm
 						shaders[fileName] = shaderDefault;
 					}
 				}
-				var sFragmentShd = ShaderLoader.ShaderStringFromFileWithIncludes(fileName);
+				var sFragmentShd = ShaderLoader.ShaderStringFromFileWithIncludes(fileName, false);
 				var shader = ShaderLoader.FromStrings(sVertexShader, sFragmentShd);
 				shaders[fileName] = shader;
 				return shader.LastLog;
 			}
-			catch (ShaderException e)
+			catch
 			{
-				throw new ShaderLoadException(e.Type + " failed!" + Environment.NewLine + e.Log);
+				try
+				{
+					var sFragmentShd = ShaderLoader.ShaderStringFromFileWithIncludes(fileName, true);
+					var shader = ShaderLoader.FromStrings(sVertexShader, sFragmentShd);
+					shaders[fileName] = shader;
+					return shader.LastLog;
+				}
+				catch (ShaderException e)
+				{
+					throw new ShaderLoadException(e.Type + " failed!" + Environment.NewLine + e.Log);
+				}
 			}
 		}
 
