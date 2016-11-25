@@ -34,10 +34,7 @@ namespace ShaderForm
 			camera.KeyChange(keyCode, pressed);
 			if (IsActive)
 			{
-				var focused = Form.ActiveForm;
-				formCamera.Visible = true;
 				formCamera.Set(camera);
-				focused.Activate();
 			}
 			OnRedraw?.Invoke(this);
 		}
@@ -50,6 +47,11 @@ namespace ShaderForm
 		public void Reset()
 		{
 			camera = new FlyCamera();
+		}
+
+		public void Show()
+		{
+			formCamera.Visible = true;
 		}
 
 		public void Update(float mouseX, float mouseY, bool mouseDown)

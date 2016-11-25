@@ -34,7 +34,7 @@ namespace ControlClassLibrary
 		public SeekBar()
 		{
 			InitializeComponent();
-			defaultTimeSource =	new TimeSource(100.0f);
+			defaultTimeSource =	new TimeSource(10.0f);
 			timeSource = defaultTimeSource;
 			timeSource.IsLooping = true;
 			timeSource.OnTimeFinished += CallOnFinished;
@@ -51,11 +51,11 @@ namespace ControlClassLibrary
 				playing.Checked = value;
 				if (value)
 				{
-					playing.Image = global::ControlClassLibrary.Properties.Resources.PauseHS;
+					playing.Image = Properties.Resources.PauseHS;
 				}
 				else
 				{
-					playing.Image = global::ControlClassLibrary.Properties.Resources.PlayHS;
+					playing.Image = Properties.Resources.PlayHS;
 				}
 				timeSource.IsRunning = value;
 				timerUpdateMarkerBar.Enabled = value;
@@ -77,7 +77,7 @@ namespace ControlClassLibrary
 
 		private void CallOnFinished()
 		{
-			if (null != OnFinished) OnFinished();
+			OnFinished?.Invoke();
 		}
 
 		private void Playing_CheckedChanged(object sender, EventArgs e)

@@ -84,6 +84,7 @@ float function(float x)
 	// y = x - floor(0.5 + x / fact) * fact;
 	// y = cos(x - floor(0.5 + x / fact) * fact);
 	// y = distToInt(x);
+	// y = step(7, x) - step(8, x);
 	return y;
 }
 

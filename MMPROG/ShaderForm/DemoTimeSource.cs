@@ -10,7 +10,11 @@ namespace ShaderForm
 	{
 		public string SoundFileName { get; private set; }
 
-		public float Length { get { return timeSource.Length; } }
+		public float Length
+		{
+			get { return timeSource.Length; }
+			set { timeSource.Length = value; }
+		}
 
 		public bool IsLooping
 		{
@@ -57,7 +61,7 @@ namespace ShaderForm
 		public DemoTimeSource(bool isLooping)
 		{
 			SoundFileName = string.Empty;
-			timeSource = new TimeSource(100.0f);
+			timeSource = new TimeSource(10.0f);
 			timeSource.IsLooping = isLooping;
 			timeSource.OnTimeFinished += CallOnTimeFinished;
 		}
@@ -104,7 +108,7 @@ namespace ShaderForm
 			//remove old
 			timeSource.Dispose();
 			//create new
-			timeSource = new TimeSource(100.0f);
+			timeSource = new TimeSource(10.0f);
 			SoundFileName = string.Empty;
 			timeSource.IsLooping = isLooping;
 			timeSource.OnTimeFinished += CallOnTimeFinished;

@@ -58,9 +58,9 @@
 			// 
 			// markerBarPosition
 			// 
-			this.markerBarPosition.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
-            | System.Windows.Forms.AnchorStyles.Left) 
-            | System.Windows.Forms.AnchorStyles.Right)));
+			this.markerBarPosition.Anchor = (((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom)
+			| System.Windows.Forms.AnchorStyles.Left)
+			| System.Windows.Forms.AnchorStyles.Right);
 			this.markerBarPosition.BackColor = System.Drawing.Color.Gray;
 			this.markerBarPosition.BarColor = System.Drawing.Color.Green;
 			this.markerBarPosition.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
@@ -69,7 +69,7 @@
 			this.markerBarPosition.ForeColor = System.Drawing.Color.White;
 			this.markerBarPosition.Location = new System.Drawing.Point(37, 0);
 			this.markerBarPosition.Margin = new System.Windows.Forms.Padding(5, 5, 5, 5);
-			this.markerBarPosition.Max = 100F;
+			this.markerBarPosition.Max = 10F;
 			this.markerBarPosition.Min = 0F;
 			this.markerBarPosition.Name = "markerBarPosition";
 			this.markerBarPosition.ShowText = false;

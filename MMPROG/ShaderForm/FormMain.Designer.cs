@@ -58,6 +58,8 @@ namespace ShaderForm
 			this.sequenceBar1 = new ControlClassLibrary.SequenceBar();
 			this.soundPlayerBar1 = new ControlClassLibrary.SeekBar();
 			this.textBoxLastMessage = new System.Windows.Forms.TextBox();
+			this.logToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+			this.cameraWindowToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
 			this.menuStrip.SuspendLayout();
 			this.panelSequence.SuspendLayout();
 			this.SuspendLayout();
@@ -247,7 +249,9 @@ namespace ShaderForm
 			// 
 			this.menuWindow.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.menuFullscreen,
-            this.menuOnTop});
+            this.menuOnTop,
+            this.logToolStripMenuItem,
+            this.cameraWindowToolStripMenuItem});
 			this.menuWindow.Name = "menuWindow";
 			this.menuWindow.Size = new System.Drawing.Size(63, 23);
 			this.menuWindow.Text = "Window";
@@ -258,7 +262,7 @@ namespace ShaderForm
 			this.menuFullscreen.CheckOnClick = true;
 			this.menuFullscreen.Name = "menuFullscreen";
 			this.menuFullscreen.ShortcutKeys = System.Windows.Forms.Keys.F11;
-			this.menuFullscreen.Size = new System.Drawing.Size(153, 22);
+			this.menuFullscreen.Size = new System.Drawing.Size(162, 22);
 			this.menuFullscreen.Text = "Fullscreen";
 			this.menuFullscreen.ToolTipText = "F11";
 			this.menuFullscreen.CheckedChanged += new System.EventHandler(this.MenuFullscreen_CheckedChanged);
@@ -268,7 +272,7 @@ namespace ShaderForm
 			this.menuOnTop.CheckOnClick = true;
 			this.menuOnTop.Name = "menuOnTop";
 			this.menuOnTop.ShortcutKeys = ((System.Windows.Forms.Keys)((System.Windows.Forms.Keys.Control | System.Windows.Forms.Keys.T)));
-			this.menuOnTop.Size = new System.Drawing.Size(153, 22);
+			this.menuOnTop.Size = new System.Drawing.Size(162, 22);
 			this.menuOnTop.Text = "OnTop";
 			this.menuOnTop.CheckedChanged += new System.EventHandler(this.menuOnTop_CheckedChanged);
 			// 
@@ -331,6 +335,20 @@ namespace ShaderForm
 			this.textBoxLastMessage.Size = new System.Drawing.Size(688, 362);
 			this.textBoxLastMessage.TabIndex = 6;
 			// 
+			// logToolStripMenuItem
+			// 
+			this.logToolStripMenuItem.Name = "logToolStripMenuItem";
+			this.logToolStripMenuItem.Size = new System.Drawing.Size(162, 22);
+			this.logToolStripMenuItem.Text = "Log Window";
+			this.logToolStripMenuItem.Click += new System.EventHandler(this.logToolStripMenuItem_Click);
+			// 
+			// cameraWindowToolStripMenuItem
+			// 
+			this.cameraWindowToolStripMenuItem.Name = "cameraWindowToolStripMenuItem";
+			this.cameraWindowToolStripMenuItem.Size = new System.Drawing.Size(162, 22);
+			this.cameraWindowToolStripMenuItem.Text = "Camera Window";
+			this.cameraWindowToolStripMenuItem.Click += new System.EventHandler(this.cameraWindowToolStripMenuItem_Click);
+			// 
 			// FormMain
 			// 
 			this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -388,6 +406,8 @@ namespace ShaderForm
 		private Button button1;
 		private ToolStripMenuItem menuOnTop;
 		private TextBox textBoxLastMessage;
+		private ToolStripMenuItem logToolStripMenuItem;
+		private ToolStripMenuItem cameraWindowToolStripMenuItem;
 	}
 }
 

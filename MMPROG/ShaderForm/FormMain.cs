@@ -532,5 +532,15 @@ namespace ShaderForm
 		{
 			TopMost = menuOnTop.Checked;
 		}
+
+		private void logToolStripMenuItem_Click(object sender, EventArgs e)
+		{
+			log.Show();
+		}
+
+		private void cameraWindowToolStripMenuItem_Click(object sender, EventArgs e)
+		{
+			camera.Show();
+		}
 	}
 }

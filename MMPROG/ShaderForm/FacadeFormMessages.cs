@@ -18,6 +18,11 @@
 			formLog.SaveData();
 		}
 
+		public void Show()
+		{
+			formLog.Visible = true;
+		}
+
 		private FormMessages formLog = new FormMessages();
 	}
 }

@@ -18,7 +18,7 @@ namespace MediaPlayer
 			wmp.PlayStateChange += Wmp_PlayStateChange;
 			var media = wmp.newMedia(fileName);
 			if (0.0 == media.duration) throw new Exception("Could not load file '" + fileName + "'");
-			Length = (float)media.duration;
+			length = (float)media.duration;
 			wmp.URL = fileName;
 		}
 
@@ -29,7 +29,12 @@ namespace MediaPlayer
 
 		public string FileName { get { return wmp.URL; } }
 
-		public float Length { get; private set; }
+		public float Length
+		{
+			get { return length; }
+			set { throw new ArgumentException("MediaFacade cannot change Length"); }
+		}
+
 		public bool IsLooping
 		{
 			get { return wmp.settings.getMode("loop"); }
@@ -49,13 +54,14 @@ namespace MediaPlayer
 			{
 				if (Length < value)
 				{
-					if (null != OnTimeFinished) OnTimeFinished();
+					OnTimeFinished?.Invoke();
 				}
 				wmp.controls.currentPosition = value;
 			}
 		}
 
 		private bool playing = false;
+		private float length = 10.0f;
 		private WindowsMediaPlayer wmp;
 
 		private void Wmp_PlayStateChange(int NewState)

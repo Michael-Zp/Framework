@@ -7,18 +7,18 @@ namespace TimeTools
 	{
 		public TimeSource(float length)
 		{
-			Length = length;
+			this.length = length;
 			IsLooping = false;
 			IsRunning = false;
 			timer.Elapsed += TimeFinished;
 			InitTimer(length);
 		}
 
-		private void InitTimer(float length)
+		private void InitTimer(float interval)
 		{
 			var isRunning = IsRunning;
 			timer.Stop();
-			timer.Interval = length * 1000.0f;
+			timer.Interval = interval * 1000.0f;
 			if(isRunning) timer.Start();
 		}
 
@@ -29,9 +29,15 @@ namespace TimeTools
 			{
 				Position = 0.0f;
 			}
+			//if the position was changed during the last run the interval is screwed up
+			timer.Interval = Length * 1000.0f;
 		}
 
-		public float Length { get; private set; }
+		public float Length
+		{
+			get { return length; }
+			set { length = value; timer.Interval = value * 1000.0f; } 
+		}
 
 		public bool IsLooping { get; set; }
 
@@ -52,7 +58,7 @@ namespace TimeTools
 				}
 				if (startPosition >= Length)
 				{
-					if (null != OnTimeFinished) OnTimeFinished();
+					OnTimeFinished?.Invoke();
 					InitTimer(Length);
 					startPosition = 0.0f;
 				}
@@ -78,6 +84,7 @@ namespace TimeTools
 
 		private Stopwatch sw = new Stopwatch();
 		private float startPosition = 0.0f;
+		private float length = 10.0f;
 		private Timer timer = new Timer();
 	}
 }

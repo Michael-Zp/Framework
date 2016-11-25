@@ -43,7 +43,6 @@ namespace ShaderForm
 			{
 				string newEntry = DateTime.Now.ToString("HH:mm:ss.fff") + ' ' + message + Environment.NewLine;
 				errorLog.Text = newEntry + errorLog.Text;
-				Visible = true;
 			}
 		}
 

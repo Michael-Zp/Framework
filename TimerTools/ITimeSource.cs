@@ -6,7 +6,7 @@ namespace TimeTools
 
 	public interface ITimeSource : IDisposable
 	{
-		float Length { get; }
+		float Length { get; set; }
 		bool IsLooping { get; set; }
 		bool IsRunning { get; set; }
 		float Position { get; set; }
