@@ -28,10 +28,14 @@
 1. [Pattern.glsl](Pattern.glsl)
 	1. Do not look at the code
 	1. Start the example without animation
-	1. Make a brick pattern yourself
+	1. Code this brick pattern yourself
 	1. Start the animation
-	1. Do something similar yourself
+	1. Code this animation yourself
 	1. Look at the solution in the code
+1. [PatternCircle.glsl](PatternCircle.glsl)
+	1. Do not look at the code
+	1. Start the animation
+	1. Code this animation yourself
 1. [Sinus.glsl](Sinus.glsl)
 	1. Change amplitude, phase, frequency
 	1. Time (line ii)
