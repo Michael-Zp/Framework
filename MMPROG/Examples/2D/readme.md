@@ -48,8 +48,10 @@
 1. [Random.glsl](Random.glsl)
 	1. Play around with the magic numbers
 	1. Try out random(vec2)
+	1. Hook it to mouse movement
+	1. Hook it to iGlobalTime
 	1. Apply it to Truchet patterns
-	1. Try to animate something with randomness
+	1. Create your own effect [some examples](http://thebookofshaders.com/10/)
 1. [Sinus.glsl](Sinus.glsl)
 	1. Change amplitude, phase, frequency
 	1. Time (line ii)
