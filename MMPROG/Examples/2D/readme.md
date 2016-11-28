@@ -32,10 +32,24 @@
 	1. Start the animation
 	1. Code this animation yourself
 	1. Look at the solution in the code
+1. Combine [Pattern.glsl](Pattern.glsl) with [Polar.glsl](Polar.glsl)
+	1. Code a hexagrid
+	1. Code your own pattern
 1. [PatternCircle.glsl](PatternCircle.glsl)
 	1. Do not look at the code
 	1. Start the animation
 	1. Code this animation yourself
+1. [PatternTruchet.glsl](PatternTruchet.glsl)
+	1. Look at code together
+1. Creating randomness [ShapingFunctions.glsl](ShapingFunctions.glsl)
+	1. Look at function y = fract(sin(x) * 1.0);
+	1. Add zeros to factor
+	1. One way of creating pseudo random numbers
+1. [Random.glsl](Random.glsl)
+	1. Play around with the magic numbers
+	1. Try out random(vec2)
+	1. Apply it to Truchet patterns
+	1. Try to animate something with randomness
 1. [Sinus.glsl](Sinus.glsl)
 	1. Change amplitude, phase, frequency
 	1. Time (line ii)

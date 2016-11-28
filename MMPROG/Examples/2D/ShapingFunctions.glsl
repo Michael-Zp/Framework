@@ -70,8 +70,9 @@ float function(float x)
 	// y = clamp(x,0.0,1.0); // constrain x to lie between 0.0 and 1.0
 	// y = min(0.0,x);   // return the lesser of x and 0.0
 	// y = max(0.0,x);   // return the greater of x and 0.0 
+	// y = trunc(x);
 	// y = abs(sin(x));
-	// y = fract(sin(x));
+	y = fract(sin(x) * 1.0);
 	// y = ceil(sin(x)) + floor(sin(x));
 	// y = exp(-0.4 * abs(x)) * 30 * cos(2 * x);
 	// y = mod(x + 1, 2.0) - 1;
@@ -121,8 +122,8 @@ void main() {
 	//screen aspect
 	float aspect = 1;//iResolution.x / iResolution.y;
 	//coordinate system corners
-	vec2 lowerLeft = vec2(-10 * aspect, -10);
-	vec2 upperRight = vec2(10 * aspect, 10);
+	vec2 lowerLeft = vec2(-10 * aspect, -1);
+	vec2 upperRight = vec2(10 * aspect, 2);
 	//setup coordinate system
 	vec2 coord = map(coord01, lowerLeft, upperRight);
 	//calculate just visible screen deltas
@@ -136,8 +137,8 @@ void main() {
 	color *= gridColor;
 	
 	//function
-    float graph = plotDifferentiableFunction(coord, 4.0 * screenDelta);
-    // float graph = plotFunction(coord, 4 * screenDelta);
+    // float graph = plotDifferentiableFunction(coord, 4.0 * screenDelta);
+    float graph = plotFunction(coord, 1 * screenDelta);
 
     // combine
 	const vec3 green = vec3(0.0, 1.0, 0.0);

@@ -471,7 +471,7 @@ namespace ShaderForm
 			}
 			else
 			{
-				this.TopMost = false;
+				this.TopMost = this.menuOnTop.Checked;
 				this.FormBorderStyle = FormBorderStyle.Sizable;
 				this.WindowState = FormWindowState.Normal;
 				this.menuStrip.Visible = true;

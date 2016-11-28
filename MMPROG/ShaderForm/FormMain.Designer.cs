@@ -1,5 +1,4 @@
-﻿using System;
-using System.Windows.Forms;
+﻿using System.Windows.Forms;
 
 namespace ShaderForm
 {
@@ -33,28 +32,28 @@ namespace ShaderForm
 		{
 			System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(FormMain));
 			this.glControl = new OpenTK.GLControl();
-			this.menuStrip = new System.Windows.Forms.MenuStrip();
-			this.menuHelp = new System.Windows.Forms.ToolStripMenuItem();
-			this.menuFps = new System.Windows.Forms.ToolStripMenuItem();
-			this.menuScreenshot = new System.Windows.Forms.ToolStripMenuItem();
-			this.menuSizeSetting = new System.Windows.Forms.ToolStripComboBox();
-			this.menuDemo = new System.Windows.Forms.ToolStripMenuItem();
-			this.clearToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-			this.menuLoad = new System.Windows.Forms.ToolStripMenuItem();
-			this.menuSave = new System.Windows.Forms.ToolStripMenuItem();
-			this.menuShaders = new System.Windows.Forms.ToolStripMenuItem();
-			this.MenuShaderAdd = new System.Windows.Forms.ToolStripMenuItem();
-			this.menuTextures = new System.Windows.Forms.ToolStripMenuItem();
-			this.MenuTextureAdd = new System.Windows.Forms.ToolStripMenuItem();
+			this.menuStrip = new MenuStrip();
+			this.menuHelp = new ToolStripMenuItem();
+			this.menuFps = new ToolStripMenuItem();
+			this.menuScreenshot = new ToolStripMenuItem();
+			this.menuSizeSetting = new ToolStripComboBox();
+			this.menuDemo = new ToolStripMenuItem();
+			this.clearToolStripMenuItem = new ToolStripMenuItem();
+			this.menuLoad = new ToolStripMenuItem();
+			this.menuSave = new ToolStripMenuItem();
+			this.menuShaders = new ToolStripMenuItem();
+			this.MenuShaderAdd = new ToolStripMenuItem();
+			this.menuTextures = new ToolStripMenuItem();
+			this.MenuTextureAdd = new ToolStripMenuItem();
 			this.menuUniforms = new System.Windows.Forms.ToolStripMenuItem();
 			this.addCameraUniformsToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
 			this.TextUniformAdd = new System.Windows.Forms.ToolStripTextBox();
-			this.menuSound = new System.Windows.Forms.ToolStripMenuItem();
+			this.menuSound = new ToolStripMenuItem();
 			this.menuWindow = new System.Windows.Forms.ToolStripMenuItem();
 			this.menuFullscreen = new System.Windows.Forms.ToolStripMenuItem();
 			this.menuOnTop = new System.Windows.Forms.ToolStripMenuItem();
 			this.panelSequence = new System.Windows.Forms.Panel();
-			this.button1 = new System.Windows.Forms.Button();
+			button1 = new Button();
 			this.sequenceBar1 = new ControlClassLibrary.SequenceBar();
 			this.soundPlayerBar1 = new ControlClassLibrary.SeekBar();
 			this.textBoxLastMessage = new System.Windows.Forms.TextBox();
@@ -89,7 +88,6 @@ namespace ShaderForm
 			this.menuStrip.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.menuHelp,
             this.menuFps,
-            this.menuScreenshot,
             this.menuSizeSetting,
             this.menuDemo,
             this.menuShaders,
@@ -234,21 +232,22 @@ namespace ShaderForm
 			this.TextUniformAdd.Name = "TextUniformAdd";
 			this.TextUniformAdd.Size = new System.Drawing.Size(100, 23);
 			this.TextUniformAdd.ToolTipText = "Enter uniform name";
-			this.TextUniformAdd.KeyDown += new System.Windows.Forms.KeyEventHandler(this.TextUniformAdd_KeyDown);
+			this.TextUniformAdd.KeyDown += new KeyEventHandler(this.TextUniformAdd_KeyDown);
 			this.TextUniformAdd.TextChanged += new System.EventHandler(this.TextUniformAdd_TextChanged);
 			// 
 			// menuSound
 			// 
 			this.menuSound.Name = "menuSound";
-			this.menuSound.ShortcutKeys = ((System.Windows.Forms.Keys)((System.Windows.Forms.Keys.Control | System.Windows.Forms.Keys.D)));
+			this.menuSound.ShortcutKeys = (Keys.Control | Keys.D);
 			this.menuSound.Size = new System.Drawing.Size(53, 23);
 			this.menuSound.Text = "Sound";
-			this.menuSound.MouseDown += new System.Windows.Forms.MouseEventHandler(this.MenuSound_MouseDown);
+			this.menuSound.MouseDown += new MouseEventHandler(this.MenuSound_MouseDown);
 			// 
 			// menuWindow
 			// 
-			this.menuWindow.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.menuFullscreen,
+			this.menuWindow.DropDownItems.AddRange(new ToolStripItem[] {
+			this.menuScreenshot,
+			this.menuFullscreen,
             this.menuOnTop,
             this.logToolStripMenuItem,
             this.cameraWindowToolStripMenuItem});
@@ -261,7 +260,7 @@ namespace ShaderForm
 			this.menuFullscreen.AutoToolTip = true;
 			this.menuFullscreen.CheckOnClick = true;
 			this.menuFullscreen.Name = "menuFullscreen";
-			this.menuFullscreen.ShortcutKeys = System.Windows.Forms.Keys.F11;
+			this.menuFullscreen.ShortcutKeys = Keys.F11;
 			this.menuFullscreen.Size = new System.Drawing.Size(162, 22);
 			this.menuFullscreen.Text = "Fullscreen";
 			this.menuFullscreen.ToolTipText = "F11";
