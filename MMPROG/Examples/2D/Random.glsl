@@ -8,9 +8,16 @@ const float PI = 3.1415926535897932384626433832795;
 const float TWOPI = 2 * PI;
 const float EPSILON = 10e-4;
 
-float random(float u)
+float quad(vec2 coord, vec2 lowerLeft, vec2 size)
 {
-	return fract(sin(u) * 1231534.9);
+	vec2 a = step(lowerLeft, coord);
+	vec2 b = 1 - step(lowerLeft + size, coord);
+	return a.x * b.x * a.y * b.y;
+}
+
+float random(float seed)
+{
+	return fract(sin(seed) * 1231534.9);
 }
 
 float random(vec2 coord) { 
@@ -24,8 +31,11 @@ void main() {
 	float value = random(coord.x);
 	// value = random(coord);
 
+	// vec2 lowerLeft = vec2(0.2, 0.2) + 0.01 * vec2(random(coord.y), random(coord.x));
+	// value = quad(coord, lowerLeft, vec2(0.5, 0.5));
+
 	const vec3 white = vec3(1);
-	vec3 color = (1 - value) * white;
+	vec3 color = value * white;
 		
     gl_FragColor = vec4(color, 1.0);
 }

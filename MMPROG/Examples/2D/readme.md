@@ -41,6 +41,10 @@
 	1. Code this animation yourself
 1. [PatternTruchet.glsl](PatternTruchet.glsl)
 	1. Look at code together
+	1. Other tiling systems 
+		1. (Girih tiles)[https://en.wikipedia.org/wiki/Girih_tiles]
+		1. (Penrose tiling)[https://en.wikipedia.org/wiki/Penrose_tiling]
+		1. (Aperiodic tiling)[https://en.wikipedia.org/wiki/Aperiodic_tiling]
 1. Creating randomness [ShapingFunctions.glsl](ShapingFunctions.glsl)
 	1. Look at function y = fract(sin(x) * 1.0);
 	1. Add zeros to factor
