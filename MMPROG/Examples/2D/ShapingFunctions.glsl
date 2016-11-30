@@ -72,9 +72,10 @@ float function(float x)
 	// y = max(0.0,x);   // return the greater of x and 0.0 
 	// y = trunc(x);
 	// y = abs(sin(x));
-	y = fract(sin(x) * 1.0);
+	// y = fract(sin(x) * 1.0);
 	// y = ceil(sin(x)) + floor(sin(x));
-	// y = exp(-0.4 * abs(x)) * 30 * cos(2 * x);
+	// y = sign(sin(x)) * pow(sin(x), 9.0);
+	// y = exp(-0.4 * abs(x)) * 1 * cos(2 * x);
 	// y = mod(x + 1, 2.0) - 1;
 	// y = abs(mod(x + 1, 2.0) - 1); // repeated tent
 	// y = step(2, mod(x, 4.0)); // repeat step
@@ -138,7 +139,7 @@ void main() {
 	
 	//function
     // float graph = plotDifferentiableFunction(coord, 4.0 * screenDelta);
-    float graph = plotFunction(coord, 1 * screenDelta);
+    float graph = plotFunction(coord, 4 * screenDelta);
 
     // combine
 	const vec3 green = vec3(0.0, 1.0, 0.0);

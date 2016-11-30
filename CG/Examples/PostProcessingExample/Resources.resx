@@ -139,4 +139,10 @@
   <data name="Sepia" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>Resources\Sepia.glsl;System.Byte[], mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </data>
+  <data name="ChromaticAberration" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>Resources\ChromaticAberration.glsl;System.Byte[], mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="Swirl" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>Resources\Swirl.glsl;System.Byte[], mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
 </root>

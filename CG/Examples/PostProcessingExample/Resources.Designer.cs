@@ -83,6 +83,16 @@ namespace Example {
         /// <summary>
         ///   Sucht eine lokalisierte Ressource vom Typ System.Byte[].
         /// </summary>
+        internal static byte[] ChromaticAberration {
+            get {
+                object obj = ResourceManager.GetObject("ChromaticAberration", resourceCulture);
+                return ((byte[])(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Sucht eine lokalisierte Ressource vom Typ System.Byte[].
+        /// </summary>
         internal static byte[] Grayscale {
             get {
                 object obj = ResourceManager.GetObject("Grayscale", resourceCulture);
@@ -116,6 +126,16 @@ namespace Example {
         internal static byte[] Sepia {
             get {
                 object obj = ResourceManager.GetObject("Sepia", resourceCulture);
+                return ((byte[])(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Sucht eine lokalisierte Ressource vom Typ System.Byte[].
+        /// </summary>
+        internal static byte[] Swirl {
+            get {
+                object obj = ResourceManager.GetObject("Swirl", resourceCulture);
                 return ((byte[])(obj));
             }
         }
