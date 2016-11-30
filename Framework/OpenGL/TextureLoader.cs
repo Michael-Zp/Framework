@@ -11,8 +11,8 @@ namespace Framework
 		public static Texture FromBitmap(Bitmap bitmap)
 		{
 			Texture texture = new Texture();
-			texture.BeginUse();
 			texture.FilterTrilinear();
+			texture.BeginUse();
 			//todo: 16bit channels
 			using (Bitmap bmp = new Bitmap(bitmap))
 			{

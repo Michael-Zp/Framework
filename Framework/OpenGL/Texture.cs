@@ -8,6 +8,8 @@ namespace Framework
 	/// </summary>
 	public class Texture : IDisposable
 	{
+		public enum FilterMode { NEAREST, BILINEAR, TRILINEAR };
+
 		/// <summary>
 		/// Initializes a new instance of the <see cref="Texture"/> class.
 		/// </summary>
@@ -32,9 +34,6 @@ namespace Framework
 			GL.DeleteTexture(m_uTextureID);
 		}
 
-		/// <summary>
-		/// Filters the texture with a point filter.
-		/// </summary>
 		public void FilterBilinear()
 		{
 			BeginUse();
@@ -42,6 +41,7 @@ namespace Framework
 			GL.TexParameter(TextureTarget.Texture2D, TextureParameterName.TextureMinFilter, (float)TextureMinFilter.Linear);
 			GL.TexParameter(TextureTarget.Texture2D, TextureParameterName.GenerateMipmap, 0);
 			EndUse();
+			filterMode = FilterMode.BILINEAR;
 		}
 
 		public void FilterNearest()
@@ -51,11 +51,9 @@ namespace Framework
 			GL.TexParameter(TextureTarget.Texture2D, TextureParameterName.TextureMinFilter, (float)TextureMinFilter.Nearest);
 			GL.TexParameter(TextureTarget.Texture2D, TextureParameterName.GenerateMipmap, 0);
 			EndUse();
+			filterMode = FilterMode.NEAREST;
 		}
 
-		/// <summary>
-		/// Filters the texture with a tent filter.
-		/// </summary>
 		public void FilterTrilinear()
 		{
 			BeginUse();
@@ -63,6 +61,7 @@ namespace Framework
 			GL.TexParameter(TextureTarget.Texture2D, TextureParameterName.TextureMinFilter, (float)TextureMinFilter.LinearMipmapLinear);
 			GL.TexParameter(TextureTarget.Texture2D, TextureParameterName.GenerateMipmap, 1);
 			EndUse();
+			filterMode = FilterMode.TRILINEAR;
 		}
 
 		public void BeginUse()
@@ -77,6 +76,20 @@ namespace Framework
 			GL.Disable(EnableCap.Texture2D);
 		}
 
+		public FilterMode Filter
+		{
+			get { return filterMode; }
+			set
+			{
+				switch (value)
+				{
+					case FilterMode.NEAREST: FilterNearest(); break;
+					case FilterMode.BILINEAR: FilterBilinear(); break;
+					case FilterMode.TRILINEAR: FilterTrilinear(); break;
+				}
+				filterMode = value;
+			}
+		}
 		public void LoadPixels(IntPtr pixels, int width, int height, PixelInternalFormat internalFormat, PixelFormat inputPixelFormat, PixelType type)
 		{
 			BeginUse();
@@ -102,8 +115,9 @@ namespace Framework
 
 		public int Height { get; private set; }
 
-		public uint ID { get { return this.m_uTextureID; } }
+		public uint ID { get { return m_uTextureID; } }
 	
 		private readonly uint m_uTextureID = 0;
+		private FilterMode filterMode;
 	}
 }

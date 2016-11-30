@@ -17,28 +17,6 @@ namespace ShaderForm
 	{
 		public VisualContext()
 		{
-			// Vertex positions
-			float[] positions =
-			{
-				1.0f, -1.0f,
-				1.0f, 1.0f,
-				-1.0f, -1.0f,
-				-1.0f, 1.0f
-			};
-			// Reserve a name for the buffer object.
-			bufferQuad = GL.GenBuffer();
-			// Bind it to the GL_ARRAY_BUFFER target.
-			GL.BindBuffer(BufferTarget.ArrayBuffer, bufferQuad);
-			// Allocate space for it (sizeof(positions)
-			GL.BufferData(BufferTarget.ArrayBuffer
-				, (IntPtr)(sizeof(float) * positions.Length), positions, BufferUsageHint.StaticDraw);
-
-			GL.BindVertexArray(bufferQuad);
-			GL.EnableClientState(ArrayCap.VertexArray);
-			GL.VertexPointer(2, VertexPointerType.Float, 0, 0);
-			GL.BindVertexArray(0);
-			GL.BindBuffer(BufferTarget.ArrayBuffer, 0);
-
 			GL.Disable(EnableCap.DepthTest);
 			GL.ClearColor(1, 0, 0, 0);
 
@@ -108,10 +86,7 @@ namespace ShaderForm
 			GL.Viewport(0, 0, textureSurface.Width, textureSurface.Height);
 
 			//Drawing
-			GL.Clear(ClearBufferMask.ColorBufferBit);
-			GL.BindVertexArray(bufferQuad);
-			GL.DrawArrays(PrimitiveType.TriangleStrip, 0, 4);
-			GL.BindVertexArray(0);
+			GL.DrawArrays(PrimitiveType.Quads, 0, 4);
 
 			surface.EndUse();
 
@@ -184,9 +159,14 @@ namespace ShaderForm
 				varying vec2 uv;
 				out vec2 fragCoord;
 				void main() {
-					gl_Position = gl_Vertex;
-					uv = gl_Vertex.xy * 0.5f + 0.5f;
+					const vec2 vertices[4] = vec2[4](vec2(-1.0, -1.0),
+                                    vec2( 1.0, -1.0),
+                                    vec2( 1.0,  1.0),
+                                    vec2(-1.0,  1.0));
+					vec2 pos = vertices[gl_VertexID];
+					uv = pos * 0.5 + 0.5;
 					fragCoord = uv * iResolution;
+					gl_Position = vec4(pos, 0.0, 1.0);
 				}";
 
 			try
@@ -235,9 +215,7 @@ namespace ShaderForm
 			GL.Viewport(0, 0, width, height);
 			textureSurface.BeginUse();
 			shaderCopyToScreen.Begin();
-			GL.BindVertexArray(bufferQuad);
-			GL.DrawArrays(PrimitiveType.TriangleStrip, 0, 4);
-			GL.BindVertexArray(0);
+			GL.DrawArrays(PrimitiveType.Quads, 0, 4);
 			shaderCopyToScreen.End();
 			textureSurface.EndUse();
 		}
@@ -250,7 +228,6 @@ namespace ShaderForm
 		//public IEnumerable<string> ShaderList { get { return shaders.Keys; } }
 		//public IEnumerable<string> TextureList { get { return textureNames; } }
 
-		private int bufferQuad;
 		private List<string> textureNames = new List<string>();
 		private List<Texture> textures = new List<Texture>();
 		private Dictionary<string, Shader> shaders = new Dictionary<string, Shader>();
@@ -268,9 +245,14 @@ namespace ShaderForm
 				varying vec2 uv;
 				out vec2 fragCoord;
 				void main() {
-					gl_Position = gl_Vertex;
-					uv = gl_Vertex.xy * 0.5f + 0.5f;
+					const vec2 vertices[4] = vec2[4](vec2(-1.0, -1.0),
+                                    vec2( 1.0, -1.0),
+                                    vec2( 1.0,  1.0),
+                                    vec2(-1.0,  1.0));
+					vec2 pos = vertices[gl_VertexID];
+					uv = pos * 0.5 + 0.5;
 					fragCoord = uv * iResolution;
+					gl_Position = vec4(pos, 0.0, 1.0);
 				}";
 			string sFragmentShd = @"
 			varying vec2 uv;
@@ -286,10 +268,16 @@ namespace ShaderForm
 		private Shader InitShaderCopyToScreen()
 		{
 			string sVertexShader = @"
-				varying vec2 uv;
+				#version 430 core				
+				out vec2 uv; 
 				void main() {
-					gl_Position = gl_Vertex;
-					uv = gl_Vertex.xy * 0.5f + 0.5f;
+					const vec2 vertices[4] = vec2[4](vec2(-1.0, -1.0),
+                                    vec2( 1.0, -1.0),
+                                    vec2( 1.0,  1.0),
+                                    vec2(-1.0,  1.0));
+					vec2 pos = vertices[gl_VertexID];
+					uv = pos * 0.5 + 0.5;
+					gl_Position = vec4(vertices[gl_VertexID], 1.0, 1.0);
 				}";
 			string sFragmentShd = @"
 			varying vec2 uv;
