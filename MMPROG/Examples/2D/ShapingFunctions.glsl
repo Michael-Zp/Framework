@@ -92,7 +92,7 @@ float gnoise(float u)
 	float weight = f; // linear interpolation
 	weight = smoothstep(0, 1, f); // cubic interpolation
 
-	return mix(v0, v1, weight) + 0.5;
+	return mix(v0, v1, weight);
 }
 
 float function(float x)
@@ -129,8 +129,8 @@ float function(float x)
 	// y = step(7, x) - step(8, x);
 	// y = step(1, mod(x, 2));
 	y = rand(x);
-	y = noise(x + iMouse.x  * 0.5);
-	y = gnoise(x + iMouse.x  * 0.5);
+	y = noise(x);
+	y = gnoise(x);
 	return y;
 }
 
@@ -182,7 +182,7 @@ void main() {
 	
 	//function
     // float graph = plotDifferentiableFunction(coord, 4 * screenDelta);
-    float graph = plotFunction(coord, 4 * screenDelta);
+    float graph = plotFunction(coord, 16 * screenDelta);
 
     // combine
 	const vec3 green = vec3(0.0, 1.0, 0.0);

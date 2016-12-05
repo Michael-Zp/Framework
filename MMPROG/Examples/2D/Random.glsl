@@ -29,7 +29,7 @@ void main() {
     vec2 coord = gl_FragCoord.xy/iResolution;
 	
 	float value = random(coord.x);
-	// value = random(coord);
+	value = random(coord);
 
 	// vec2 lowerLeft = vec2(0.2, 0.2) + 0.01 * vec2(random(coord.y), random(coord.x));
 	// value = quad(coord, lowerLeft, vec2(0.5, 0.5));

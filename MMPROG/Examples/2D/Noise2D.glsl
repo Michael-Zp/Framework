@@ -38,7 +38,7 @@ float noise(vec2 coord)
 	
 	vec2 f = fract(coord);
 	vec2 weight = f; // linear interpolation
-	// weight = smoothstep(0, 1, f); // cubic interpolation
+	weight = smoothstep(0, 1, f); // cubic interpolation
 
 	float x1 = mix(v00, v10, weight.x);
 	float x2 = mix(v01, v11, weight.x);
@@ -63,7 +63,7 @@ float gnoise(vec2 coord)
 	float v11 = dot(g11, f - vec2(1, 1));
 
 	vec2 weight = f; // linear interpolation
-	// weight = smoothstep(0, 1, f); // cubic interpolation
+	weight = smoothstep(0, 1, f); // cubic interpolation
 
 	float x1 = mix(v00, v10, weight.x);
 	float x2 = mix(v01, v11, weight.x);
@@ -75,8 +75,8 @@ void main() {
     vec2 coord = gl_FragCoord.xy/iResolution;
 	
 	float value = rand(coord);
-	// value = noise(coord * 30);
-	// value = gnoise(coord * 30);
+	value = noise(coord * 30);
+	value = gnoise(coord * 30);
 
 	
 	const vec3 white = vec3(1);
