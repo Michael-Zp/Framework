@@ -51,6 +51,7 @@ namespace ShaderForm
 			this.menuWindow = new System.Windows.Forms.ToolStripMenuItem();
 			this.menuScreenshot = new System.Windows.Forms.ToolStripMenuItem();
 			this.menuFullscreen = new System.Windows.Forms.ToolStripMenuItem();
+			this.menuCompact = new System.Windows.Forms.ToolStripMenuItem();
 			this.menuOnTop = new System.Windows.Forms.ToolStripMenuItem();
 			this.logToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
 			this.cameraWindowToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
@@ -196,8 +197,7 @@ namespace ShaderForm
 			// MenuTextureAdd
 			// 
 			this.MenuTextureAdd.Name = "MenuTextureAdd";
-			this.MenuTextureAdd.ShortcutKeys = ((System.Windows.Forms.Keys)((System.Windows.Forms.Keys.Control | System.Windows.Forms.Keys.T)));
-			this.MenuTextureAdd.Size = new System.Drawing.Size(148, 22);
+			this.MenuTextureAdd.Size = new System.Drawing.Size(152, 22);
 			this.MenuTextureAdd.Text = "Add...";
 			// 
 			// menuUniforms
@@ -239,6 +239,7 @@ namespace ShaderForm
 			this.menuWindow.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.menuScreenshot,
             this.menuFullscreen,
+            this.menuCompact,
             this.menuOnTop,
             this.logToolStripMenuItem,
             this.cameraWindowToolStripMenuItem});
@@ -265,6 +266,15 @@ namespace ShaderForm
 			this.menuFullscreen.Text = "Fullscreen";
 			this.menuFullscreen.ToolTipText = "F11";
 			this.menuFullscreen.CheckedChanged += new System.EventHandler(this.MenuFullscreen_CheckedChanged);
+			// 
+			// menuCompact
+			// 
+			this.menuCompact.CheckOnClick = true;
+			this.menuCompact.Name = "menuCompact";
+			this.menuCompact.ShortcutKeys = System.Windows.Forms.Keys.F12;
+			this.menuCompact.Size = new System.Drawing.Size(223, 22);
+			this.menuCompact.Text = "Compact";
+			this.menuCompact.CheckStateChanged += new System.EventHandler(this.menuCompact_CheckStateChanged);
 			// 
 			// menuOnTop
 			// 
@@ -410,6 +420,7 @@ namespace ShaderForm
 		private TextBox textBoxLastMessage;
 		private ToolStripMenuItem logToolStripMenuItem;
 		private ToolStripMenuItem cameraWindowToolStripMenuItem;
+		private ToolStripMenuItem menuCompact;
 	}
 }
 

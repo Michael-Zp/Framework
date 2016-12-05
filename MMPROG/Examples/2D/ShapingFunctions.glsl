@@ -55,6 +55,46 @@ float onAxis(vec2 coord, vec2 screenDelta)
 	return min(distAxis.x, distAxis.y);
 }
 
+float rand(float seed)
+{
+	return fract(sin(seed) * 1231534.9);
+}
+
+//value noise: random values at integer positions with interpolation inbetween
+float noise(float u)
+{
+	float i = floor(u); // integer position
+
+	//random value at nearest integer positions
+	float v0 = rand(i);
+	float v1 = rand(i + 1);
+
+	float f = fract(u);
+	float weight = f; // linear interpolation
+	// weight = smoothstep(0, 1, f); // cubic interpolation
+
+	return mix(v0, v1, weight);
+}
+
+//gradient noise: random gradient at integer positions with interpolation inbetween
+float gnoise(float u)
+{
+	float i = floor(u); // integer position
+	
+	//random gradient at nearest integer positions
+	float g0 = 2 * rand(i) - 1; // gradient_0
+	float g1 = 2 * rand(i + 1) - 1; // gradient_1
+
+	float f = fract(u);
+	float v0 = dot(g0, f);
+	float v1 = dot(g1, f - 1);
+	
+	float weight = f; // linear interpolation
+	weight = smoothstep(0, 1, f); // cubic interpolation
+
+	return mix(v0, v1, weight) + 0.5;
+}
+
 float function(float x)
 {
     float y = x;
@@ -88,6 +128,9 @@ float function(float x)
 	// y = distToInt(x);
 	// y = step(7, x) - step(8, x);
 	// y = step(1, mod(x, 2));
+	y = rand(x);
+	y = noise(x + iMouse.x  * 0.5);
+	y = gnoise(x + iMouse.x  * 0.5);
 	return y;
 }
 
@@ -138,12 +181,12 @@ void main() {
 	color *= gridColor;
 	
 	//function
-    // float graph = plotDifferentiableFunction(coord, 4.0 * screenDelta);
+    // float graph = plotDifferentiableFunction(coord, 4 * screenDelta);
     float graph = plotFunction(coord, 4 * screenDelta);
 
     // combine
 	const vec3 green = vec3(0.0, 1.0, 0.0);
-	color = (1.0 - graph) * color + graph * green;
+	color = mix(color, green, graph);
 
     gl_FragColor = vec4(color, 1.0);
 }

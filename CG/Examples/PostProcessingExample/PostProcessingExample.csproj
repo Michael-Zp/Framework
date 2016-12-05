@@ -72,6 +72,7 @@
     <None Include="Resources\ChromaticAberration.glsl" />
     <None Include="Resources\postProcessing.glsl" />
     <None Include="Resources\quickBlur.glsl" />
+    <None Include="Resources\Ripple.glsl" />
     <None Include="Resources\Sepia.glsl" />
     <None Include="Resources\Swirl.glsl" />
     <None Include="Resources\Vignetting.glsl" />
@@ -82,9 +83,6 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="Resources\bird1.png" />
-  </ItemGroup>
-  <ItemGroup>
-    <None Include="Resources\GlowWithoutHdrAdjusted.png" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

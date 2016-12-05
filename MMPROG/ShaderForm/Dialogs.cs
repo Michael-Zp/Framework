@@ -45,10 +45,11 @@ namespace ShaderForm
 				+ "\nActive main form\n"
 				+ "F1 \t\t help\n"
 				+ "F11 \t\t toggle fullscreen\n"
+				+ "F12 \t\t toggle compact view\n"
+				+ "Ctrl+T \t\t Toggle on top\n"
 				+ "Ctrl+O \t\t load demo\n"
 				+ "Ctrl+S \t\t save demo\n"
 				+ "Ctrl+H \t\t add shader\n"
-				+ "Ctrl+T \t\t add texture\n"
 				+ "Ctrl+Shift+S \t save screenshot\n"
 				+ "w|a|s|d \t\t camera movement\n"
 				+ "q|e \t\t camera up|down movement\n"
@@ -58,6 +59,7 @@ namespace ShaderForm
 				+ "Ctrl+K \t\t add keyframe to this graph\n"
 				+ "Ctrl+C \t\t copy Keyframes\n"
 				+ "Ctrl+P \t\t paste Keyframes\n"
+				, "ShaderForm " + typeof(FormMain).Assembly.GetName().Version.ToString()
 				);
 		}
 	}

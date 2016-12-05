@@ -24,6 +24,7 @@ namespace ShaderForm
 		public FormMain()
 		{
 			InitializeComponent();
+
 			string demoFilter = DefaultFiles.GetDemoExtension() + " (*" + DefaultFiles.GetDemoExtension() + ")|*" + DefaultFiles.GetDemoExtension();
 			menuSizeSetting.SelectedIndexChanged += (sender, e) => glControl.Invalidate();
 			multiGraph.OnChangePosition += (pos) => soundPlayerBar1.Position = pos;
@@ -222,14 +223,13 @@ namespace ShaderForm
 		private void Demo_OnTimeSourceLoaded(object sender, EventArgs e)
 		{
 			soundPlayerBar1.TimeSource = demo.TimeSource;
-			var version = typeof(FormMain).Assembly.GetName().Version;
-			Text = Path.GetFileNameWithoutExtension(demo.TimeSource.SoundFileName) + " ShaderForm: " + version.ToString();
+			Text = Path.GetFileNameWithoutExtension(demo.TimeSource.SoundFileName) + " ShaderForm";
 		}
 
 		private void Shaders_OnChange(object sender, string message)
 		{
-			//recreate shader menus
-			while (menuShaders.DropDownItems.Count > 1) menuShaders.DropDownItems.RemoveAt(1);
+			Text = "ShaderForm"; //initial window caption
+			while (menuShaders.DropDownItems.Count > 1) menuShaders.DropDownItems.RemoveAt(1); //recreate shader menus
 			foreach (var shaderPath in demo.Shaders)
 			{
 				var menu = new ToolStripMenuItem();
@@ -237,6 +237,7 @@ namespace ShaderForm
 				menu.ToolTipText = "Right click removes shader";
 				menu.MouseDown += MenuShader_MouseDown;
 				menuShaders.DropDownItems.Add(menu);
+				Text = Path.GetFileNameWithoutExtension(shaderPath); //set name of last loaded shader as window caption
 			}
 
 			//todo: if errors disappear we would like to clear the log....
@@ -306,6 +307,7 @@ namespace ShaderForm
 				string granularity = Convert.ToString(RegistryLoader.LoadValue(Name, "granularity", menuSizeSetting.Text));
 				menuSizeSetting.SelectedIndex = menuSizeSetting.FindString(granularity);
 				menuFps.Checked = Convert.ToBoolean(RegistryLoader.LoadValue(Name, "showFPS", false));
+				menuCompact.Checked = Convert.ToBoolean(RegistryLoader.LoadValue(Name, "compact", false));
 				menuOnTop.Checked = TopMost;
 
 				String[] arguments = Environment.GetCommandLineArgs();
@@ -336,6 +338,8 @@ namespace ShaderForm
 				RegistryLoader.SaveValue(Name, "granularity", menuSizeSetting.Text);
 				RegistryLoader.SaveValue(Name, "time", soundPlayerBar1.Position);
 				RegistryLoader.SaveValue(Name, "showFPS", menuFps.Checked);
+				RegistryLoader.SaveValue(Name, "compact", menuCompact.Checked);
+
 				multiGraph.SaveLayout();
 				log.SaveLayout();
 				camera.SaveLayout();
@@ -541,6 +545,25 @@ namespace ShaderForm
 		private void cameraWindowToolStripMenuItem_Click(object sender, EventArgs e)
 		{
 			camera.Show();
+		}
+
+		private void menuCompact_CheckStateChanged(object sender, EventArgs e)
+		{
+			if (menuCompact.Checked)
+			{
+				//ordering important
+				this.FormBorderStyle = FormBorderStyle.None;
+				this.menuStrip.Visible = false;
+				this.panelSequence.Visible = false;
+				this.soundPlayerBar1.Visible = false;
+			}
+			else
+			{
+				this.FormBorderStyle = FormBorderStyle.Sizable;
+				this.menuStrip.Visible = true;
+				this.panelSequence.Visible = true;
+				this.soundPlayerBar1.Visible = true;
+			}
 		}
 	}
 }
