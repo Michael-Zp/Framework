@@ -56,16 +56,9 @@
 	1. Hook it to iGlobalTime
 	1. Apply it to Truchet patterns
 	1. Create your own effect [some examples](http://thebookofshaders.com/10/)
-1. [Noise.glsl](Noise.glsl)
+1. [Noise.glsl](Noise.glsl)[Noise2D.glsl](Noise2D.glsl)
 	1. Analyse differences of rand() and noise() in [ShapingFunctions.glsl](ShapingFunctions.glsl)
 	1. Look at code together
 	1. When do rand() and noise() look the same?
+	1. Try out different interpolations
 	1. Look at quad manipulation code
-1. [Sinus.glsl](Sinus.glsl)
-	1. Change amplitude, phase, frequency
-	1. Time (line ii)
-	1. Make it change faster, slower
-1. [dots.glsl](dots.glsl)
-	1. Try to understand how this code creates many points
-	1. Try to apply this to your own shader
-1. [rings.glsl](rings.glsl)

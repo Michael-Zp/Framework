@@ -43,8 +43,8 @@ namespace Example
 			postProcessing = new PostProcessing(gameWindow.Width, gameWindow.Height);
 			try
 			{
-				//postProcessing.SetShader(Encoding.UTF8.GetString(Resources.PostProcessing)); postProcessing.GenerateMipMap = true;
-				postProcessing.SetShader(Encoding.UTF8.GetString(Resources.Vignetting));
+				postProcessing.SetShader(Encoding.UTF8.GetString(Resources.PostProcessing)); postProcessing.GenerateMipMap = true;
+				//postProcessing.SetShader(Encoding.UTF8.GetString(Resources.Vignetting));
 			}
 			catch (ShaderException e)
 			{

@@ -1,14 +1,3 @@
-///idea from http://thebookofshaders.com/edit.php#09/marching_dots.frag
-#version 330
-
-uniform vec2 iResolution;
-uniform float iGlobalTime;
-uniform vec3 iMouse;
-
-const float PI = 3.1415926535897932384626433832795;
-const float TWOPI = 2 * PI;
-const float EPSILON = 10e-4;
-
 float rand(float seed)
 {
 	return fract(sin(seed) * 1231534.9);
@@ -21,8 +10,26 @@ float rand(vec2 seed) {
 //random vector with length 1
 vec2 rand2(vec2 seed)
 {
+	const float PI = 3.1415926535897932384626433832795;
+	const float TWOPI = 2 * PI;
 	float r = rand(seed) * TWOPI;
 	return vec2(cos(r), sin(r));
+}
+
+//value noise: random values at integer positions with interpolation inbetween
+float noise(float u)
+{
+	float i = floor(u); // integer position
+
+	//random value at nearest integer positions
+	float v0 = rand(i);
+	float v1 = rand(i + 1);
+
+	float f = fract(u);
+	float weight = f; // linear interpolation
+	// weight = smoothstep(0, 1, f); // cubic interpolation
+
+	return mix(v0, v1, weight);
 }
 
 //value noise: random values at integer positions with interpolation inbetween
@@ -43,6 +50,25 @@ float noise(vec2 coord)
 	float x1 = mix(v00, v10, weight.x);
 	float x2 = mix(v01, v11, weight.x);
 	return mix(x1, x2, weight.y);
+}
+
+//gradient noise: random gradient at integer positions with interpolation inbetween
+float gnoise(float u)
+{
+	float i = floor(u); // integer position
+	
+	//random gradient at nearest integer positions
+	float g0 = 2 * rand(i) - 1; // gradient_0
+	float g1 = 2 * rand(i + 1) - 1; // gradient_1
+
+	float f = fract(u);
+	float v0 = dot(g0, f);
+	float v1 = dot(g1, f - 1);
+	
+	float weight = f; // linear interpolation
+	// weight = smoothstep(0, 1, f); // cubic interpolation
+
+	return mix(v0, v1, weight) + 0.5;
 }
 
 //gradient noise: random gradient at integer positions with interpolation inbetween
@@ -68,17 +94,4 @@ float gnoise(vec2 coord)
 	float x1 = mix(v00, v10, weight.x);
 	float x2 = mix(v01, v11, weight.x);
 	return mix(x1, x2, weight.y) + 0.5;
-}
-
-void main() {
-	//coordinates in range [0,1]
-    vec2 coord = gl_FragCoord.xy/iResolution;
-	
-	float value = rand(coord);
-	value = noise(coord * 30);
-	value = gnoise(coord * 30);
-	
-	vec3 color = vec3(1) * value;
-		
-    gl_FragColor = vec4(color, 1.0);
 }

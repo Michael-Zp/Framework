@@ -24,6 +24,25 @@ void main () {
     gl_FragColor = vec4(color, 1.0);
 }
 
+//void main () {
+//	// range [-1..1]²
+//    vec2 range11 = 2 * uv - 1;
+
+//	//cartesian to polar coordinates
+//    float radius = length(range11); // radius of current pixel
+//    float angle = atan(range11.y, range11.x); //angel of current pixel [-PI..PI] 
+
+//	float newAngle = angle + 0.3 * radius * sin(radius * 3 + iGlobalTime);
+
+//	float x = radius * cos(newAngle);
+//	float y = radius * sin(newAngle);
+
+//	vec2 newUv = (vec2(x, y) + 1) * 0.5;
+//    vec3 color = texture(image, newUv).rgb;  
+//    // Combine the offset colors.
+//    gl_FragColor = vec4(color, 1.0);
+//}
+
 
 //void main() {
 //	vec3 colorCenter = texture(image, uv).rgb;

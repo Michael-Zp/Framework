@@ -551,19 +551,43 @@ namespace ShaderForm
 		{
 			if (menuCompact.Checked)
 			{
-				//ordering important
-				this.FormBorderStyle = FormBorderStyle.None;
-				this.menuStrip.Visible = false;
-				this.panelSequence.Visible = false;
-				this.soundPlayerBar1.Visible = false;
+				CompactView();
 			}
 			else
 			{
-				this.FormBorderStyle = FormBorderStyle.Sizable;
-				this.menuStrip.Visible = true;
-				this.panelSequence.Visible = true;
-				this.soundPlayerBar1.Visible = true;
+				NormalView();
 			}
+		}
+
+		private void NormalView()
+		{
+			FormBorderStyle = FormBorderStyle.Sizable;
+			this.menuStrip.Visible = true;
+			this.panelSequence.Visible = true;
+			this.soundPlayerBar1.Visible = true;
+		}
+
+		private void CompactView()
+		{
+			//ordering important
+			this.FormBorderStyle = FormBorderStyle.None;
+			this.menuStrip.Visible = false;
+			this.panelSequence.Visible = false;
+			this.soundPlayerBar1.Visible = false;
+		}
+
+		private void glControl_MouseEnter(object sender, EventArgs e)
+		{
+			if (menuCompact.Checked)
+			{
+				NormalView();
+				Activate();
+			}
+		}
+
+		private void FormMain_Deactivate(object sender, EventArgs e)
+		{
+			if (menuCompact.Checked) CompactView();
 		}
 	}
 }

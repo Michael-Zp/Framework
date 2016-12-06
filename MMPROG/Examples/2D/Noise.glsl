@@ -32,7 +32,7 @@ float noise(float u)
 
 	float f = fract(u);
 	float weight = f; // linear interpolation
-	weight = smoothstep(0, 1, f); // cubic interpolation
+	// weight = smoothstep(0, 1, f); // cubic interpolation
 
 	return mix(v0, v1, weight);
 }
@@ -61,7 +61,7 @@ void main() {
     vec2 coord = gl_FragCoord.xy/iResolution;
 	
 	float value = rand(coord.x); //cannot control frequency
-	value = noise(coord.x * 10); //can control frequency
+	// value = noise(coord.x * 10); //can control frequency
 	// value = gnoise(coord.x * 10);
 	
 	// vec2 mouse = iMouse.xy / iResolution * 100;

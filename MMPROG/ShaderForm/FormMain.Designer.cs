@@ -80,6 +80,7 @@ namespace ShaderForm
 			this.glControl.DragOver += new System.Windows.Forms.DragEventHandler(this.GlControl_DragOver);
 			this.glControl.Paint += new System.Windows.Forms.PaintEventHandler(this.GlControl_Paint);
 			this.glControl.MouseDown += new System.Windows.Forms.MouseEventHandler(this.GlControl_MouseDown);
+			this.glControl.MouseEnter += new System.EventHandler(this.glControl_MouseEnter);
 			this.glControl.MouseMove += new System.Windows.Forms.MouseEventHandler(this.GlControl_MouseMove);
 			this.glControl.MouseUp += new System.Windows.Forms.MouseEventHandler(this.GlControl_MouseUp);
 			// 
@@ -197,7 +198,7 @@ namespace ShaderForm
 			// MenuTextureAdd
 			// 
 			this.MenuTextureAdd.Name = "MenuTextureAdd";
-			this.MenuTextureAdd.Size = new System.Drawing.Size(152, 22);
+			this.MenuTextureAdd.Size = new System.Drawing.Size(105, 22);
 			this.MenuTextureAdd.Text = "Add...";
 			// 
 			// menuUniforms
@@ -379,6 +380,7 @@ namespace ShaderForm
 			this.Name = "FormMain";
 			this.Text = "ShaderForm";
 			this.TopMost = true;
+			this.Deactivate += new System.EventHandler(this.FormMain_Deactivate);
 			this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.FormMain_FormClosing);
 			this.Load += new System.EventHandler(this.FormMain_Load);
 			this.KeyDown += new System.Windows.Forms.KeyEventHandler(this.FormMain_KeyDown);
