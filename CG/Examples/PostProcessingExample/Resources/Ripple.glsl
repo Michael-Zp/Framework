@@ -1,5 +1,8 @@
 uniform sampler2D image;
 uniform float iGlobalTime;
+uniform float amplitude = 0.01;
+uniform float frequency = 15;
+uniform float speed = 10;
 
 in vec2 uv;
 
@@ -13,16 +16,9 @@ void main () {
     vec2 range11 = 2 * uv - 1;
 
     float radius = length(range11); // distance to center
+	float ripple = abs(sin(radius * frequency - speed * iGlobalTime));
 
-	//distort angle
-	float amplitude = 7.5;
-	float frequency = 0.05;
-	float startOffset = 0.5;
-	range11 /= radius;
-	range11 *= func(radius);
-
-	//range [-1..1]² -> [0..1]²
-	vec2 newUv = (range11 + 1) * 0.5;
+	vec2 newUv = uv + ripple * amplitude; //distort uv by ripple
 	
 	vec3 color = texture(image, newUv).rgb;  
     gl_FragColor = vec4(color, 1.0);

@@ -5,74 +5,37 @@ uniform float iGlobalTime;
 
 in vec2 uv;
 
-void main () {
-	// range [-1..1]²
-    vec2 range11 = 2 * uv - 1;
+mat3 sx = mat3( 
+	1.0, 2.0, 1.0, 
+	0.0, 0.0, 0.0, 
+	-1.0, -2.0, -1.0 
+	);
 
-	//cartesian to polar coordinates
-    float radius = length(range11); // radius of current pixel
-    float angle = atan(range11.y, range11.x); //angel of current pixel [-PI..PI] 
+mat3 sy = mat3( 
+	1.0, 0.0, -1.0, 
+	2.0, 0.0, -2.0, 
+	1.0, 0.0, -1.0 
+	);
 
-	float newAngle = angle + 0.3 * radius * sin(radius * 3 + iGlobalTime);
-
-	float x = radius * cos(newAngle);
-	float y = radius * sin(newAngle);
-
-	vec2 newUv = (vec2(x, y) + 1) * 0.5;
-    vec3 color = texture(image, newUv).rgb;  
-    // Combine the offset colors.
-    gl_FragColor = vec4(color, 1.0);
+float grayScale(vec3 color)
+{
+	return 0.2126 * color.r + 0.7152 * color.g + 0.0722 * color.b;
 }
 
-//void main () {
-//	// range [-1..1]²
-//    vec2 range11 = 2 * uv - 1;
+void main()
+{
+	mat3 I;
+	for (int i = 0; i < 3; ++i) 
+	{
+		for (int j=0; j<3; ++j) 
+		{
+			vec3 sample  = texelFetch(image, ivec2(gl_FragCoord) + ivec2(i-1,j-1), 0 ).rgb;
+			I[i][j] = grayScale(sample);
+		}
+	}
 
-//	//cartesian to polar coordinates
-//    float radius = length(range11); // radius of current pixel
-//    float angle = atan(range11.y, range11.x); //angel of current pixel [-PI..PI] 
-
-//	float newAngle = angle + 0.3 * radius * sin(radius * 3 + iGlobalTime);
-
-//	float x = radius * cos(newAngle);
-//	float y = radius * sin(newAngle);
-
-//	vec2 newUv = (vec2(x, y) + 1) * 0.5;
-//    vec3 color = texture(image, newUv).rgb;  
-//    // Combine the offset colors.
-//    gl_FragColor = vec4(color, 1.0);
-//}
-
-
-//void main() {
-//	vec3 colorCenter = texture(image, uv).rgb;
-
-////	if(brightness > 0.9)
-//	//{
-//		int kernelSize = 9;
-//		int lodLevel = 0;
-//		int kernelSize2 = (kernelSize - 1) / 2;
-//		vec2 size = textureSize(image, lodLevel);
-//		vec2 delta = uv / size;
-
-//		vec3 colorSum = vec3(0);
-//		int count = 0;
-//		for(int x = -kernelSize2; x <= kernelSize2; ++x)
-//		{
-//			for(int y = -kernelSize2; y <= kernelSize2; ++y)
-//			{
-//				vec3 color = textureLod(image, uv + vec2(x, y) * delta, lodLevel).rgb;
-//				float brightness = (color.r + color.g + color.b) / 3;
-//				if(brightness > 0.9)
-//				{
-//					colorSum += color;
-//					++count;
-//				}
-//			}
-//		}
-//		colorSum /= count;
-//		//colorSum = mix(colorCenter, colorSum, brightness);
-//		//color = blurColor;
-//	//}
-//    gl_FragColor = vec4(colorSum, 1.0);
-//}
+	float gx = dot(sx[0], I[0]) + dot(sx[1], I[1]) + dot(sx[2], I[2]);
+	float gy = dot(sy[0], I[0]) + dot(sy[1], I[1]) + dot(sy[2], I[2]);
+	float g = sqrt(pow(gx, 2.0)+pow(gy, 2.0));
+	gl_FragColor = vec4(vec3(g), 1.0);
+}

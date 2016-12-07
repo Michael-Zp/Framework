@@ -75,8 +75,8 @@ void main() {
     vec2 coord = gl_FragCoord.xy/iResolution;
 	
 	float value = rand(coord);
-	value = noise(coord * 30);
-	value = gnoise(coord * 30);
+	// value = noise(coord * 30);
+	// value = gnoise(coord * 30);
 	
 	vec3 color = vec3(1) * value;
 		

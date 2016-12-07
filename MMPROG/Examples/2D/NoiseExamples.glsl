@@ -63,7 +63,7 @@ void main() {
     vec2 coord = gl_FragCoord.xy/iResolution;
 		
 	vec3 color = wood(0.5 + coord.yx * vec2(10.,5.));
-	color = paint(coord * 10, iGlobalTime * 30);
+	// color = paint(coord * 10, iGlobalTime * 30);
 	// color = lavaLamp(coord * 5, iGlobalTime * 3);
 		
     gl_FragColor = vec4(color, 1.0);

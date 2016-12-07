@@ -44,7 +44,6 @@ namespace Example
 			try
 			{
 				postProcessing.SetShader(Encoding.UTF8.GetString(Resources.PostProcessing)); postProcessing.GenerateMipMap = true;
-				//postProcessing.SetShader(Encoding.UTF8.GetString(Resources.Vignetting));
 			}
 			catch (ShaderException e)
 			{

@@ -46,6 +46,7 @@ namespace Example
 			shader.Begin();
 			GL.Uniform2(shader.GetUniformLocation("iResolution"), (float)width, (float)height);
 			GL.Uniform1(shader.GetUniformLocation("iGlobalTime"), time);
+			GL.Uniform1(shader.GetUniformLocation("amplitude"), 0.01f);
 			GL.DrawArrays(PrimitiveType.Quads, 0, 4);
 			shader.End();
 			texImage.EndUse();
