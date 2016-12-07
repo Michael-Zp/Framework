@@ -93,6 +93,16 @@ namespace Example {
         /// <summary>
         ///   Sucht eine lokalisierte Ressource vom Typ System.Byte[].
         /// </summary>
+        internal static byte[] EdgeDetect {
+            get {
+                object obj = ResourceManager.GetObject("EdgeDetect", resourceCulture);
+                return ((byte[])(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Sucht eine lokalisierte Ressource vom Typ System.Byte[].
+        /// </summary>
         internal static byte[] Grayscale {
             get {
                 object obj = ResourceManager.GetObject("Grayscale", resourceCulture);
