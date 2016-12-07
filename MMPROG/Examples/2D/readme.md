@@ -62,3 +62,4 @@
 	1. When do rand() and noise() look the same?
 	1. Try out different interpolations
 	1. Look at quad manipulation code
+1. []

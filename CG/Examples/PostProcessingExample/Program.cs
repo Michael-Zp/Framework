@@ -43,7 +43,7 @@ namespace Example
 			postProcessing = new PostProcessing(gameWindow.Width, gameWindow.Height);
 			try
 			{
-				postProcessing.SetShader(Encoding.UTF8.GetString(Resources.PostProcessing));
+				postProcessing.SetShader(Encoding.UTF8.GetString(Resources.convolution));
 			}
 			catch (ShaderException e)
 			{

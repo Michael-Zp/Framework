@@ -93,6 +93,16 @@ namespace Example {
         /// <summary>
         ///   Sucht eine lokalisierte Ressource vom Typ System.Byte[].
         /// </summary>
+        internal static byte[] convolution {
+            get {
+                object obj = ResourceManager.GetObject("convolution", resourceCulture);
+                return ((byte[])(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Sucht eine lokalisierte Ressource vom Typ System.Byte[].
+        /// </summary>
         internal static byte[] EdgeDetect {
             get {
                 object obj = ResourceManager.GetObject("EdgeDetect", resourceCulture);
@@ -106,16 +116,6 @@ namespace Example {
         internal static byte[] Grayscale {
             get {
                 object obj = ResourceManager.GetObject("Grayscale", resourceCulture);
-                return ((byte[])(obj));
-            }
-        }
-        
-        /// <summary>
-        ///   Sucht eine lokalisierte Ressource vom Typ System.Byte[].
-        /// </summary>
-        internal static byte[] PostProcessing {
-            get {
-                object obj = ResourceManager.GetObject("PostProcessing", resourceCulture);
                 return ((byte[])(obj));
             }
         }

@@ -70,8 +70,8 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="Resources\ChromaticAberration.glsl" />
+    <None Include="Resources\convolution.glsl" />
     <None Include="Resources\EdgeDetect.glsl" />
-    <None Include="Resources\postProcessing.glsl" />
     <None Include="Resources\quickBlur.glsl" />
     <None Include="Resources\Ripple.glsl" />
     <None Include="Resources\Sepia.glsl" />
