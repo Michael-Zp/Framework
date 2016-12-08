@@ -1,4 +1,4 @@
-﻿using OpenTK;
+﻿using System.Numerics;
 
 namespace Geometry
 {
@@ -202,7 +202,7 @@ namespace Geometry
 			//todo: could detect if edge already calculated and reuse....
 			uint i12 = (uint)m.positions.Count;
 			Vector3 v12 = m.positions[(int)id1] + m.positions[(int)id2];
-			v12.Normalize();
+			v12 /= v12.Length();
 			m.normals.Add(v12);
 			m.positions.Add(v12);
 			return i12;

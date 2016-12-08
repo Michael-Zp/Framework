@@ -1,5 +1,4 @@
-﻿using System;
-using OpenTK;
+﻿using System.Numerics;
 
 namespace Geometry
 {
@@ -29,19 +28,20 @@ namespace Geometry
 
 		private Vector2 center;
 
-		private Matrix2 basis;
+		//private Vector2 basisX;
+		//private Vector2 basisY;
 		private Vector2[] corner = new Vector2[4];
 
 		private void CalcHelpers()
 		{
-			Matrix2.CreateRotation(Angle, out basis);
-			var S = Matrix2.CreateScale(Radii);
-			var axis = S * basis;
+			//basisX = Matrix3x2.CreateRotation(Angle);
+			//var S = Matrix3x2.CreateScale(Radii);
+			//var axis = S * basis;
 
-			corner[0] = center - axis.Column0 - axis.Column1;
-			corner[1] = center + axis.Column0 - axis.Column1;
-			corner[2] = center + axis.Column0 + axis.Column1;
-			corner[3] = center - axis.Column0 + axis.Column1;
+			//corner[0] = center - axis.Column0 - axis.Column1;
+			//corner[1] = center + axis.Column0 - axis.Column1;
+			//corner[2] = center + axis.Column0 + axis.Column1;
+			//corner[3] = center - axis.Column0 + axis.Column1;
 		}
 
 		//private bool Overlaps1Way(OrientedBox2D other)

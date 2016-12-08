@@ -1,8 +1,7 @@
-﻿using OpenTK;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Globalization;
 using System.IO;
-using System.Text;
+using System.Numerics;
 
 namespace Geometry
 {
