@@ -1,4 +1,5 @@
-﻿using Geometry;
+﻿using Framework;
+using Geometry;
 using OpenTK;
 using OpenTK.Graphics.OpenGL;
 
@@ -34,7 +35,7 @@ namespace Example
 		{
 			GL.Clear(ClearBufferMask.ColorBufferBit | ClearBufferMask.DepthBufferBit);
 
-			var cam = camera.CalcMatrix();
+			var cam = camera.CalcMatrix().ToOpenTK();
 			plane.Draw(cam);
 			visualSmoke.Render(cam);
 			visualWaterfall.Render(cam);

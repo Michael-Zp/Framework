@@ -1,4 +1,5 @@
-﻿using OpenTK;
+﻿using System;
+using System.Numerics;
 
 namespace Geometry
 {
@@ -25,25 +26,25 @@ namespace Geometry
 		public Vector3 Target { get; set; }
 		public float Tilt { get; set; }
 
-		public Matrix4 CalcViewMatrix()
+		public Matrix4x4 CalcViewMatrix()
 		{
 			Distance = MathHelper.Clamp(Distance, NearClip, FarClip);
-			var mtxDistance = Matrix4.Transpose(Matrix4.CreateTranslation(0, 0, -Distance));
-			var mtxTilt = Matrix4.Transpose(Matrix4.CreateRotationX(MathHelper.DegreesToRadians(Tilt)));
-			var mtxHeading = Matrix4.Transpose(Matrix4.CreateRotationY(MathHelper.DegreesToRadians(Heading)));
-			var mtxTarget = Matrix4.Transpose(Matrix4.CreateTranslation(-Target));
+			var mtxDistance = Matrix4x4.Transpose(Matrix4x4.CreateTranslation(0, 0, -Distance));
+			var mtxTilt = Matrix4x4.Transpose(Matrix4x4.CreateRotationX(MathHelper.DegreesToRadians(Tilt)));
+			var mtxHeading = Matrix4x4.Transpose(Matrix4x4.CreateRotationY(MathHelper.DegreesToRadians(Heading)));
+			var mtxTarget = Matrix4x4.Transpose(Matrix4x4.CreateTranslation(-Target));
 			return mtxDistance * mtxTilt * mtxHeading * mtxTarget;
 		}
 
-		public Matrix4 CalcProjectionMatrix()
+		public Matrix4x4 CalcProjectionMatrix()
 		{
 			FovY = MathHelper.Clamp(FovY, 0.1f, 180);
-			return Matrix4.Transpose(Matrix4.CreatePerspectiveFieldOfView(
+			return Matrix4x4.Transpose(Matrix4x4.CreatePerspectiveFieldOfView(
 				MathHelper.DegreesToRadians(FovY),
 				Aspect, NearClip, FarClip));
 		}
 
-		public Matrix4 CalcMatrix()
+		public Matrix4x4 CalcMatrix()
 		{
 			return CalcProjectionMatrix() * CalcViewMatrix();
 		}
@@ -51,8 +52,9 @@ namespace Geometry
 		public Vector3 CalcPosition()
 		{
 			var view = CalcViewMatrix();
-			view.Invert();
-			return view.Column3.Xyz;
+			Matrix4x4 inverse;
+			if (!Matrix4x4.Invert(view, out inverse)) throw new ArithmeticException("Could not invert matrix");
+			return new Vector3(inverse.M14, inverse.M24, inverse.M34);
 		}
 	}
 }

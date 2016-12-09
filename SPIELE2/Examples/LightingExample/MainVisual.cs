@@ -43,13 +43,13 @@ namespace Example
 			GL.Uniform4(shader.GetUniformLocation("light2Color"), new Color4(1f, .1f, .1f, 1f));
 			GL.Uniform3(shader.GetUniformLocation("light3Position"), new Vector3(-2, 2, 2));
 			GL.Uniform3(shader.GetUniformLocation("light3Direction"), new Vector3(1, -1, -1).Normalized());
-			GL.Uniform1(shader.GetUniformLocation("light3Angle"), MathHelper.DegreesToRadians(10f));
+			GL.Uniform1(shader.GetUniformLocation("light3Angle"), Geometry.MathHelper.DegreesToRadians(10f));
 			GL.Uniform4(shader.GetUniformLocation("light3Color"), new Color4(0, 0, 1f, 1f));
 			GL.Uniform4(shader.GetUniformLocation("ambientLightColor"), new Color4(.1f, .1f, .1f, 1f));
 			GL.Uniform4(shader.GetUniformLocation("materialColor"), new Color4(.7f, .9f, .7f, 1f));
-			Matrix4 cam = camera.CalcMatrix();
+			var cam = camera.CalcMatrix().ToOpenTK();
 			GL.UniformMatrix4(shader.GetUniformLocation("camera"), true, ref cam);
-			GL.Uniform3(shader.GetUniformLocation("cameraPosition"), camera.CalcPosition());
+			GL.Uniform3(shader.GetUniformLocation("cameraPosition"), camera.CalcPosition().ToOpenTK());
 			geometry.Draw();
 			shader.End();
 		}

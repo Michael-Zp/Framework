@@ -21,7 +21,7 @@ namespace Example
 		private MyApplication()
 		{
 			gameWindow = new GameWindow();
-			gameWindow.WindowState = WindowState.Fullscreen;
+			//gameWindow.WindowState = WindowState.Fullscreen;
 			gameWindow.MouseMove += GameWindow_MouseMove;
 			gameWindow.MouseWheel += GameWindow_MouseWheel;
 			gameWindow.KeyDown += (s, arg) => gameWindow.Close();

@@ -1,4 +1,5 @@
 ﻿using Geometry;
+using OpenTK;
 using OpenTK.Graphics.OpenGL;
 
 namespace Framework
@@ -13,6 +14,17 @@ namespace Framework
 			GL.TexCoord2(texCoords.MaxX, texCoords.MaxY); GL.Vertex2(rect.MaxX, rect.MaxY);
 			GL.TexCoord2(texCoords.X, texCoords.MaxY); GL.Vertex2(rect.X, rect.MaxY);
 			GL.End();
+		}
+		public static Vector3 ToOpenTK(this System.Numerics.Vector3 v)
+		{
+			return new Vector3(v.X, v.Y, v.Z);
+		}
+		public static Matrix4 ToOpenTK(this System.Numerics.Matrix4x4 m)
+		{
+			return new Matrix4(m.M11, m.M12, m.M13, m.M14,
+				m.M21, m.M22, m.M23, m.M24,
+				m.M31, m.M32, m.M33, m.M34,
+				m.M41, m.M42, m.M43, m.M44);
 		}
 	}
 }

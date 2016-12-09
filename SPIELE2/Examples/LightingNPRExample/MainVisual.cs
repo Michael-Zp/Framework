@@ -42,9 +42,9 @@ namespace Example
 			GL.Uniform3(shader.GetUniformLocation("lightPosition"), new Vector3(1, 1, 4));
 			GL.Uniform4(shader.GetUniformLocation("ambientLightColor"), new Color4(.2f, .2f, .2f, 1f));
 			GL.Uniform4(shader.GetUniformLocation("materialColor"), new Color4(1f, .5f, .5f, 1f));
-			Matrix4 cam = camera.CalcMatrix();
+			Matrix4 cam = camera.CalcMatrix().ToOpenTK();
 			GL.UniformMatrix4(shader.GetUniformLocation("camera"), true, ref cam);
-			GL.Uniform3(shader.GetUniformLocation("cameraPosition"), camera.CalcPosition());
+			GL.Uniform3(shader.GetUniformLocation("cameraPosition"), camera.CalcPosition().ToOpenTK());
 
 			geometry.Draw();
 			shader.End();

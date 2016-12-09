@@ -44,7 +44,7 @@ namespace Example
 			GL.Clear(ClearBufferMask.ColorBufferBit | ClearBufferMask.DepthBufferBit);
 			shader.Begin();
 			GL.Uniform1(shader.GetUniformLocation("time"), time);
-			Matrix4 cam = camera.CalcMatrix();
+			Matrix4 cam = camera.CalcMatrix().ToOpenTK();
 			GL.UniformMatrix4(shader.GetUniformLocation("camera"), true, ref cam);
 			geometry.Draw(instancePositions.Count);
 			shader.End();

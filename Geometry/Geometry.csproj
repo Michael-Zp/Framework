@@ -47,6 +47,7 @@
     <Compile Include="CameraOrbit.cs" />
     <Compile Include="Circle.cs" />
     <Compile Include="ControlPoints.cs" />
+    <Compile Include="MathHelper.cs" />
     <Compile Include="Mesh.cs" />
     <Compile Include="Meshes.cs" />
     <Compile Include="Obj2Mesh.cs" />
