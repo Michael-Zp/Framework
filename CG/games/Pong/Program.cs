@@ -53,13 +53,13 @@ namespace Pong
 			{
 				paddleY += 0.03f;
 			}
-			return MathHelper.Clamp(paddleY, -1.0f, 0.6f);
+			return OpenTK.MathHelper.Clamp(paddleY, -1.0f, 0.6f);
 		}
 
 		private static float paddleBallResponse(Box2D paddle, Box2D ball)
 		{
 			float vY = (paddle.CenterY - ball.CenterY) / (0.5f * paddle.SizeY);
-			vY = MathHelper.Clamp(vY, -2.0f, 2.0f);
+			vY = OpenTK.MathHelper.Clamp(vY, -2.0f, 2.0f);
 			Console.WriteLine(vY);
 			return vY;
 		}
