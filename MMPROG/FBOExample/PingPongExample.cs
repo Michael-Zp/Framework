@@ -23,7 +23,7 @@ namespace Example
 
 		public void Draw(int width, int height, float mouseX, float mouseY)
 		{
-			var last = (active == textureA) ? textureA : textureB;
+			var last = (active == textureA) ? textureB : textureA;
 
 			fbo.BeginUse(active); //start drawing into texture
 			GL.Viewport(0, 0, active.Width, active.Height);
@@ -31,7 +31,7 @@ namespace Example
 			last.BeginUse();
 			GL.Uniform2(shaderGameOfLife.GetUniformLocation("iResolution"), (float)width, (float)height);
 			GL.Uniform2(shaderGameOfLife.GetUniformLocation("iMouse"), mouseX, mouseY);
-			GL.Uniform1(shaderGameOfLife.GetUniformLocation("iSeedRadius"), 0.1f);
+			GL.Uniform1(shaderGameOfLife.GetUniformLocation("iSeedRadius"), 0.05f);
 			GL.DrawArrays(PrimitiveType.Quads, 0, 4); //draw staff
 			last.EndUse();
 			shaderGameOfLife.End();

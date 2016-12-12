@@ -17,7 +17,7 @@ int countNeighbors(vec2 p, bool isLive)
 	{
 		for (int x = -KERNEL_R; x <= KERNEL_R; ++x) 
 		{
-			vec2 delta = uvUnit*vec2(float(x), float(y));
+			vec2 delta = uvUnit * vec2(float(x), float(y));
 			if (0.0 < texture2D(buffer, uv + delta).a )
 				++count;
 		}
