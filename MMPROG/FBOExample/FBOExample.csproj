@@ -33,6 +33,7 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
+    <Compile Include="PingPongExample.cs" />
     <Compile Include="PixelShader.cs" />
     <Compile Include="PostProcessingExample.cs" />
     <Compile Include="Program.cs" />
@@ -73,6 +74,7 @@
     <None Include="Resources\ChromaticAberration.glsl" />
     <None Include="Resources\convolution.glsl" />
     <None Include="Resources\EdgeDetect.glsl" />
+    <None Include="Resources\GameOfLife.glsl" />
     <None Include="Resources\PatternCircle.glsl" />
     <None Include="Resources\Ripple.glsl" />
     <None Include="Resources\Sepia.glsl" />

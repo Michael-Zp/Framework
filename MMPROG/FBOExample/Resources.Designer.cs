@@ -93,6 +93,16 @@ namespace Example {
         /// <summary>
         ///   Sucht eine lokalisierte Ressource vom Typ System.Byte[].
         /// </summary>
+        internal static byte[] GameOfLife {
+            get {
+                object obj = ResourceManager.GetObject("GameOfLife", resourceCulture);
+                return ((byte[])(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Sucht eine lokalisierte Ressource vom Typ System.Byte[].
+        /// </summary>
         internal static byte[] Grayscale {
             get {
                 object obj = ResourceManager.GetObject("Grayscale", resourceCulture);

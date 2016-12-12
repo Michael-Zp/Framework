@@ -11,6 +11,7 @@ namespace Example
 		private GameWindow gameWindow = new GameWindow(1024, 1024);
 		private Stopwatch globalTime = new Stopwatch();
 		private PostProcessingExample postProcessingExample;
+		private PingPongExample pingPongExample;
 
 		[STAThread]
 		public static void Main()
@@ -30,6 +31,7 @@ namespace Example
 			try
 			{
 				postProcessingExample = new PostProcessingExample(gameWindow.Width, gameWindow.Height);
+				pingPongExample = new PingPongExample(gameWindow.Width, gameWindow.Height);
 			}
 			catch (ShaderException e)
 			{
@@ -53,8 +55,11 @@ namespace Example
 			float time = (float)globalTime.Elapsed.TotalSeconds;
 			int width = gameWindow.Width;
 			int height = gameWindow.Height;
+			float mouseX = gameWindow.Mouse.X / (float)width;
+			float mouseY = (height - gameWindow.Mouse.Y) / (float)height;
 
-			postProcessingExample.Draw(doPostProcessing, width, height, time);
+			//postProcessingExample.Draw(doPostProcessing, width, height, time);
+			pingPongExample.Draw(width, height, mouseX, mouseY);
 		}
 	}
 }

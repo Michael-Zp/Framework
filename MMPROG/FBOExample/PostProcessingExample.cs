@@ -15,7 +15,7 @@ namespace Example
 		{
 			fbo = new FBO();
 			textureForRendering = Texture.Create(width, height);
-			shaderPostProcess = PixelShader.Create(Encoding.UTF8.GetString(Resources.ChromaticAberration));
+			shaderPostProcess = PixelShader.Create(Encoding.UTF8.GetString(Resources.Ripple));
 			shaderSource = PixelShader.Create(Encoding.UTF8.GetString(Resources.PatternCircle));
 		}
 
