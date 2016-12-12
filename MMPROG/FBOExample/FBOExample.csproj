@@ -70,7 +70,6 @@
     </EmbeddedResource>
   </ItemGroup>
   <ItemGroup>
-    <None Include="app.config" />
     <None Include="Resources\ChromaticAberration.glsl" />
     <None Include="Resources\convolution.glsl" />
     <None Include="Resources\EdgeDetect.glsl" />
