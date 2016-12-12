@@ -30,6 +30,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ShaderDebugging", "..\Shade
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ControlTest", "ControlTest\ControlTest.csproj", "{820C2DB6-1D61-41CF-B420-A748ADA009DC}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "FBOExample", "FBOExample\FBOExample.csproj", "{C03AB561-606A-4815-B90A-78BCA1D48B64}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -80,6 +82,10 @@ Global
 		{820C2DB6-1D61-41CF-B420-A748ADA009DC}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{820C2DB6-1D61-41CF-B420-A748ADA009DC}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{820C2DB6-1D61-41CF-B420-A748ADA009DC}.Release|Any CPU.Build.0 = Release|Any CPU
+		{C03AB561-606A-4815-B90A-78BCA1D48B64}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{C03AB561-606A-4815-B90A-78BCA1D48B64}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{C03AB561-606A-4815-B90A-78BCA1D48B64}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{C03AB561-606A-4815-B90A-78BCA1D48B64}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
