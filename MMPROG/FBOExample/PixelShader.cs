@@ -2,7 +2,7 @@
 
 namespace Example
 {
-	public class PostProcessingShader
+	public class PixelShader
 	{
 		public const string Copy = @"
 			#version 430 core

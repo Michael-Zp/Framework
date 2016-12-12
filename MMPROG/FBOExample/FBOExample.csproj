@@ -32,7 +32,8 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
-    <Compile Include="PostProcessingShader.cs" />
+    <Compile Include="PixelShader.cs" />
+    <Compile Include="PostProcessingExample.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Resources.Designer.cs">
       <AutoGen>True</AutoGen>
