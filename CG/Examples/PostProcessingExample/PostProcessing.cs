@@ -19,10 +19,7 @@ namespace Example
 			fbo = new FBO();
 			texImage = Texture.Create(width, height);
 			SetShader(ShaderCopy);
-			GenerateMipMap = false;
 		}
-
-		public bool GenerateMipMap { get; set; }
 
 		public void Start()
 		{
@@ -35,18 +32,10 @@ namespace Example
 			fbo.EndUse(); //stop drawing into texture
 			GL.Viewport(0, 0, width, height);
 			texImage.BeginUse();
-			if (GenerateMipMap)
-			{
-				if (Texture.FilterMode.TRILINEAR != texImage.Filter)
-				{
-					texImage.Filter = Texture.FilterMode.TRILINEAR;
-				}
-				GL.GenerateMipmap(GenerateMipmapTarget.Texture2D);
-			}
 			shader.Begin();
 			GL.Uniform2(shader.GetUniformLocation("iResolution"), (float)width, (float)height);
 			GL.Uniform1(shader.GetUniformLocation("iGlobalTime"), time);
-			GL.Uniform1(shader.GetUniformLocation("amplitude"), 0.01f);
+			//GL.Uniform1(shader.GetUniformLocation("amplitude"), 0.01f);
 			GL.DrawArrays(PrimitiveType.Quads, 0, 4);
 			shader.End();
 			texImage.EndUse();

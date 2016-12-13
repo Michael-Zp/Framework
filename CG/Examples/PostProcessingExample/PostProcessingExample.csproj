@@ -73,7 +73,6 @@
     <None Include="Resources\ChromaticAberration.glsl" />
     <None Include="Resources\convolution.glsl" />
     <None Include="Resources\EdgeDetect.glsl" />
-    <None Include="Resources\quickBlur.glsl" />
     <None Include="Resources\Ripple.glsl" />
     <None Include="Resources\Sepia.glsl" />
     <None Include="Resources\Swirl.glsl" />

@@ -58,8 +58,8 @@ namespace Example
 			float mouseX = gameWindow.Mouse.X / (float)width;
 			float mouseY = (height - gameWindow.Mouse.Y) / (float)height;
 
-			//postProcessingExample.Draw(doPostProcessing, width, height, time);
-			pingPongExample.Draw(width, height, mouseX, mouseY);
+			postProcessingExample.Draw(doPostProcessing, width, height, time);
+			//pingPongExample.Draw(width, height, mouseX, mouseY);
 		}
 	}
 }

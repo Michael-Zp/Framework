@@ -43,7 +43,7 @@ namespace Example
 			postProcessing = new PostProcessing(gameWindow.Width, gameWindow.Height);
 			try
 			{
-				postProcessing.SetShader(Encoding.UTF8.GetString(Resources.convolution));
+				postProcessing.SetShader(Encoding.UTF8.GetString(Resources.ChromaticAberration));
 			}
 			catch (ShaderException e)
 			{
@@ -91,6 +91,8 @@ namespace Example
 			texBird.EndUse();
 
 			if (doPostProcessing) postProcessing.EndAndApply(gameWindow.Width, gameWindow.Height, (float)globalTime.Elapsed.TotalSeconds);
+
+
 		}
 	}
 }

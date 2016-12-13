@@ -123,16 +123,6 @@ namespace Example {
         /// <summary>
         ///   Sucht eine lokalisierte Ressource vom Typ System.Byte[].
         /// </summary>
-        internal static byte[] quickBlur {
-            get {
-                object obj = ResourceManager.GetObject("quickBlur", resourceCulture);
-                return ((byte[])(obj));
-            }
-        }
-        
-        /// <summary>
-        ///   Sucht eine lokalisierte Ressource vom Typ System.Byte[].
-        /// </summary>
         internal static byte[] Ripple {
             get {
                 object obj = ResourceManager.GetObject("Ripple", resourceCulture);
