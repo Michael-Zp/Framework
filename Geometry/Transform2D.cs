@@ -16,6 +16,11 @@ namespace Geometry
 			return Matrix3.CreateRotationZ(-angle);
 		}
 
+		//public static Matrix3x2 RotateAroundOrigin(float angle)
+		//{
+		//	return Matrix3x2.CreateRotation(angle);
+		//}
+
 		/// <summary>
 		/// create a rotation matrix that rotates arounf a given rotation center (pivot point)
 		/// </summary>

@@ -128,9 +128,9 @@ float function(float x)
 	// y = distToInt(x);
 	// y = step(7, x) - step(8, x);
 	// y = step(1, mod(x, 2));
-	y = rand(x);
-	y = noise(x);
-	y = gnoise(x);
+	// y = rand(x);
+	// y = noise(x);
+	// y = gnoise(x);
 	return y;
 }
 
@@ -166,8 +166,8 @@ void main() {
 	//screen aspect
 	float aspect = 1;//iResolution.x / iResolution.y;
 	//coordinate system corners
-	vec2 lowerLeft = vec2(-10 * aspect, -1);
-	vec2 upperRight = vec2(10 * aspect, 2);
+	vec2 lowerLeft = vec2(-10 * aspect, -1.5);
+	vec2 upperRight = vec2(10 * aspect, 1.5);
 	//setup coordinate system
 	vec2 coord = map(coord01, lowerLeft, upperRight);
 	//calculate just visible screen deltas
