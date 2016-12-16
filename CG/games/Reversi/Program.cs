@@ -41,13 +41,6 @@ namespace Reversi
 			texWhite = TextureLoader.FromBitmap(Resourcen.white);
 			texBlack = TextureLoader.FromBitmap(Resourcen.black);
 			texTable = TextureLoader.FromBitmap(Resourcen.pool_table);
-			//bitmapFont.Initialize(basePath + "bitmap_fonts/exampleFont.xml");
-			//textConfig = new TextConfiguration
-			//{
-			//	SizeInPixels = 1,
-			//	MaximalWidth = 8.0f,
-			//	Alignment = TextAlignment.Centered
-			//};
 		}
 
 		private enum FieldType { EMPTY, BLACK, WHITE };
@@ -56,12 +49,10 @@ namespace Reversi
 		private Matrix4 toClipSpace = new Matrix4();
 		private bool whiteMoves = true;
 		private TextureFont font = new TextureFont(TextureLoader.FromBitmap(Resourcen.Fire_2), 10, 32, 1.0f, 0.9f, 0.5f);
-		//private readonly IBitmapFont bitmapFont = new BitmapFontStandAlone();
 		private Texture texWhite;
 		private Texture texBlack;
 		private Texture texTable;
 		private Point lastMove;
-		//private readonly TextConfiguration textConfig;
 
 		private void GameWindow_Closing(object sender, System.ComponentModel.CancelEventArgs e)
 		{
@@ -200,7 +191,6 @@ namespace Reversi
 				string winner = countWhite > countBlack ? "White" : "Black";
 				winner = countWhite == countBlack ? "Draw" : winner + " wins";
 				font.Print(4.0f - 0.5f * font.Width(score, 1.0f), 3.0f, 0.0f, 1.0f, winner);
-				//bitmapFont.Draw("OpenGL Applications", 4.0f, 4.0f, 0.0f, textConfig);
 				GL.Disable(EnableCap.Blend);
 			}
 		}
