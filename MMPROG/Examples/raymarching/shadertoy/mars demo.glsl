@@ -15,7 +15,7 @@ float time = iGlobalTime;
 const mat2 mr = mat2 (0.84147,  0.54030,
 					  0.54030, -0.84147 );
 					  
-float hash( in float n ) 
+float rand( in float n ) 
 {
 	return fract(sin(n)*43758.5453);
 
@@ -28,8 +28,8 @@ float noise(in vec2 x)
 	f = f*f*(3.0-2.0*f);	
 	float n = p.x + p.y*57.0;
 	
-	float res = mix(mix( hash(n+  0.0), hash(n+  1.0),f.x),
-					mix( hash(n+ 57.0), hash(n+ 58.0),f.x),f.y);
+	float res = mix(mix( rand(n+  0.0), rand(n+  1.0),f.x),
+					mix( rand(n+ 57.0), rand(n+ 58.0),f.x),f.y);
 	return res;
 }
 

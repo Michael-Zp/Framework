@@ -27,35 +27,22 @@ float lines(in vec2 pos, float b){
 
 vec3 wood(vec2 coord)
 {
-	coord = rotate2D(coord, gnoise(coord)); // rotate the space
+	// coord = rotate2D(coord, gnoise(coord)); // rotate the space
     float weight = lines(coord, 0.5); // draw lines
 	return 	mix(vec3(0.4, 0.2, 0), vec3(0.8, 0.8, 0), weight);
-
-}
-
-vec3 paint(vec2 coord, float time)
-{
-    // Uncomment to animate
-    float t = abs(1.0-sin(time*.1))*5.;
-    // Comment and uncomment the following lines:
-    coord += noise(coord*2.)*t; // Animate the coordinate space
-    vec3 color = vec3(1.) * smoothstep(.18,.2,noise(coord)); // Big black drops
-    color += smoothstep(.15,.2,noise(coord*10.)); // Black splatter
-    color -= smoothstep(.35,.4,noise(coord*10.)); // Holes on splatter
-	return color;
 }
 
 vec3 lavaLamp(vec2 coord, float time)
 {
-    // move noise lookup coordinate with time
-    float DF = gnoise(coord + vec2(time * 0.1));
+    float trnNoise = gnoise(coord + vec2(time * 0.1)); // noise that is translated over time
 
+	vec2 rotCoord = coord * vec2(cos(time * 0.15), sin(time * 0.091)); //rotate coordinate over time
+    float rotNoise = gnoise(rotCoord * 0.1) * PI; //rotating noise, low frequency
 	
-    float a = gnoise(coord * vec2(cos(time * 0.15), sin(time * 0.1)) * 0.1) * PI;
-    DF += gnoise(coord + vec2(cos(a), sin(a)));
+    // trnNoise += gnoise(coord + vec2(cos(rotNoise), sin(rotNoise))); //add noise that is translated by rotating noise
 
-	DF = smoothstep(0.8, 1, DF);
-	return mix(vec3(0, 0, 1), vec3(1, 0, 0), 1 - DF);
+	// trnNoise = smoothstep(0.8, 1, trnNoise); // sharper borders
+	return mix(vec3(0, 0, 1), vec3(1, 0, 0), 1 - trnNoise);
 }
 
 void main() {
@@ -63,7 +50,6 @@ void main() {
     vec2 coord = gl_FragCoord.xy/iResolution;
 		
 	vec3 color = wood(0.5 + coord.yx * vec2(10.,5.));
-	// color = paint(coord * 10, iGlobalTime * 30);
 	// color = lavaLamp(coord * 5, iGlobalTime * 3);
 		
     gl_FragColor = vec4(color, 1.0);

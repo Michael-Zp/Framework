@@ -62,4 +62,13 @@
 	1. When do rand() and noise() look the same?
 	1. Try out different interpolations
 	1. Look at quad manipulation code
-1. []
+1. [NoiseExamples.glsl](NoiseExamples.glsl)
+	1. Uncomment and analyse
+1. [ShapingFunctions.glsl](ShapingFunctions.glsl)
+	1. Look at amplitude * sin(x * frequency + phase)
+	1. Hook phase to iMouse.x * 0.1
+	1. Add second sin() with much higher frequency and small amplitude
+	1. Do the same with noise()
+1. [fBm.glsl](fBm.glsl)
+	1. Increase the number of octaves
+	1. Change the other parameters

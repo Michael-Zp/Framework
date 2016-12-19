@@ -27,7 +27,7 @@ float noise(float u)
 
 	float f = fract(u);
 	float weight = f; // linear interpolation
-	// weight = smoothstep(0, 1, f); // cubic interpolation
+	weight = smoothstep(0, 1, f); // cubic interpolation
 
 	return mix(v0, v1, weight);
 }
@@ -66,7 +66,7 @@ float gnoise(float u)
 	float v1 = dot(g1, f - 1);
 	
 	float weight = f; // linear interpolation
-	// weight = smoothstep(0, 1, f); // cubic interpolation
+	weight = smoothstep(0, 1, f); // cubic interpolation
 
 	return mix(v0, v1, weight) + 0.5;
 }
