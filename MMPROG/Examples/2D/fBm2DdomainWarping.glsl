@@ -7,7 +7,8 @@ uniform vec2 iResolution;
 uniform float iGlobalTime;
 
 //fractal Brownian motion
-float fBm(vec2 coord) {
+float fBm(vec2 coord) 
+{
 	int octaves = 6;
     float value = 0;
     float amplitude = 0.5;
@@ -18,14 +19,15 @@ float fBm(vec2 coord) {
     mat2 rot = mat2(cos(0.5), sin(0.5), 
                     -sin(0.5), cos(0.5));
     for (int i = 0; i < octaves; ++i) {
-        value += amplitude * noise(coord);
+        value += amplitude * gnoise(coord);
         coord = rot * coord * lacunarity + shift;
         amplitude *= gain;
     }
     return value;
 }
 
-void main() {
+void main() 
+{
     vec2 st = gl_FragCoord.xy/iResolution;
 	st *= 10;
 

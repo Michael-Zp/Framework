@@ -16,7 +16,7 @@ float noise( in vec3 x )
 
 vec3 rotate(vec3 r, float v){ return vec3(r.x*cos(v)+r.z*sin(v),r.y,r.z*cos(v)-r.x*sin(v));}
 
-float noises( in vec3 p){
+float fBm( in vec3 p){
 	float a = 0.0;
 	for(float i=1.0;i<6.0;i++){
 		a += noise(p)/i;
@@ -30,13 +30,13 @@ float base( in vec3 p){
 }
 
 float ground( in vec3 p){
-	return base(p)+noises(p.zxy*0.00005+10.0)*40.0*(0.0-p.y*0.01)+p.y;
+	return base(p)+fBm(p.zxy*0.00005+10.0)*40.0*(0.0-p.y*0.01)+p.y;
 }
 
 float clouds( in vec3 p){
 	float b = base(p);
 	p.y += b*0.5/abs(p.y) + 100.0;
-	return noises(vec3(p.x*0.3+(iGlobalTime*300.0),p.y,p.z)*0.00002)-max(p.y,0.0)*0.00009;
+	return fBm(vec3(p.x*0.3+(iGlobalTime*300.0),p.y,p.z)*0.00002)-max(p.y,0.0)*0.00009;
 }
 
 

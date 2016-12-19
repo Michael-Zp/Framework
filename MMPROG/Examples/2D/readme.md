@@ -56,7 +56,7 @@
 	1. Hook it to iGlobalTime
 	1. Apply it to Truchet patterns
 	1. Create your own effect [some examples](http://thebookofshaders.com/10/)
-1. [Noise.glsl](Noise.glsl)[Noise2D.glsl](Noise2D.glsl)
+1. [Noise.glsl](Noise.glsl) [Noise2D.glsl](Noise2D.glsl)
 	1. Analyse differences of rand() and noise() in [ShapingFunctions.glsl](ShapingFunctions.glsl)
 	1. Look at code together
 	1. When do rand() and noise() look the same?
