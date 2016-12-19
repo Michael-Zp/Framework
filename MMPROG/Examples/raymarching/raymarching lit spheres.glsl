@@ -1,5 +1,5 @@
 #version 330
-#include "libs/camera.glsl"
+#include "../libs/camera.glsl"
 
 uniform vec2 iResolution;
 

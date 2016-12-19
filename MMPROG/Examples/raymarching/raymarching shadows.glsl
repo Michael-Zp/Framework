@@ -1,7 +1,7 @@
 #version 330
 
-#include "libs/camera.glsl"
-#include "libs/hg_sdf.glsl"
+#include "../libs/camera.glsl"
+#include "../libs/hg_sdf.glsl"
 
 uniform vec2 iResolution;
 uniform float iGlobalTime;

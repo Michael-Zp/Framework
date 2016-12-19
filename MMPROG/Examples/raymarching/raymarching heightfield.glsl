@@ -1,6 +1,6 @@
 #version 330
 
-#include "libs/camera.glsl"
+#include "../libs/camera.glsl"
 
 uniform float iGlobalTime;
 uniform vec2 iResolution;
@@ -132,6 +132,7 @@ vec3 terrainColor(vec3 ro, vec3 rd, float t)
 void main()
 {
 	vec3 camP = calcCameraPos();
+	camP.y += 6;
 	vec3 camDir = calcCameraRayDir(80.0, gl_FragCoord.xy, iResolution);
 
 	vec3 color = vec3(0,0,0.5);

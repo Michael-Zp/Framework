@@ -1,6 +1,6 @@
 #version 330
 
-#include "../../libs/Noise2D.glsl"
+#include "../libs/Noise2D.glsl"
 
 uniform vec3 iMouse;
 uniform float iGlobalTime;
