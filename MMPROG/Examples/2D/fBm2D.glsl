@@ -16,6 +16,7 @@ float ridgeNoise(vec2 coord)
 	float a = absNoise(coord);
 	a = 1 - a;
 	a *= a;
+	a *= a;
 	return a;
 }
 
