@@ -13,11 +13,8 @@ float absNoise(vec2 coord)
 
 float ridgeNoise(vec2 coord)
 {
-	float a = absNoise(coord);
-	a = 1 - a;
-	a *= a;
-	a *= a;
-	return a;
+	float a = 1 - absNoise(coord);
+	return pow(a, 4);
 }
 
 //fractal Brownian motion

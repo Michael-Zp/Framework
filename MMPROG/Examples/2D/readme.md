@@ -70,5 +70,9 @@
 	1. Add second sin() with much higher frequency and small amplitude
 	1. Do the same with noise()
 1. [fBm.glsl](fBm.glsl)
+	1. Look at code together
 	1. Increase the number of octaves
 	1. Change the other parameters
+1. [fBm2D.glsl](fBm2D.glsl)
+	1. Look at code together
+	1. Uncomment different types

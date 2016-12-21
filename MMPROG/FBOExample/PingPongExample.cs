@@ -7,23 +7,23 @@ namespace Example
 	public class PingPongExample
 	{
 		private FBO fbo;
-		private Texture textureA, textureB, active;
+		private Texture textureBufferA, textureBufferB, active;
 		private Shader shaderCopy;
 		private Shader shaderGameOfLife;
 
 		public PingPongExample(int width, int height)
 		{
 			fbo = new FBO();
-			textureA = Texture.Create(width, height);
-			textureB = Texture.Create(width, height);
-			active = textureA;
+			textureBufferA = Texture.Create(width, height);
+			textureBufferB = Texture.Create(width, height);
+			active = textureBufferA;
 			shaderCopy = PixelShader.Create(PixelShader.Copy);
 			shaderGameOfLife = PixelShader.Create(Encoding.UTF8.GetString(Resources.GameOfLife));
 		}
 
 		public void Draw(int width, int height, float mouseX, float mouseY)
 		{
-			var last = (active == textureA) ? textureB : textureA;
+			var last = (active == textureBufferA) ? textureBufferB : textureBufferA;
 
 			fbo.BeginUse(active); //start drawing into texture
 			GL.Viewport(0, 0, active.Width, active.Height);
