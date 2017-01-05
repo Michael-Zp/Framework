@@ -31,7 +31,7 @@
 
 		private void RaiseOnTypeChange(int x, int y, ElementType newType)
 		{
-			if (null != OnTypeChange)
+			if (!ReferenceEquals(null,  OnTypeChange))
 			{
 				OnTypeChange(x, y, newType);
 			}

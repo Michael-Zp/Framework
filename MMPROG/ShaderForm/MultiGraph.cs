@@ -59,11 +59,11 @@ namespace ShaderForm
 		{
 			if (string.IsNullOrEmpty(uniformName)) return;
 			var uniforms = sender as IUniforms;
-			if (null == uniforms) return;
+			if (ReferenceEquals(null,  uniforms)) return;
 			var kfs = uniforms.GetKeyFrames(uniformName);
 			var visualisation = new FacadeKeyframesVisualisation(uniformName, kfs);
-			visualisation.OnChangePosition += (position) => { if (null != OnChangePosition) OnChangePosition(position); };
-			visualisation.OnKeyDown += (s, a) => { if (null != OnKeyDown) OnKeyDown(s, a); };
+			visualisation.OnChangePosition += (position) => OnChangePosition?.Invoke(position);
+			visualisation.OnKeyDown += (s, a) => { OnKeyDown?.Invoke(s, a); };
 			graphs.Add(uniformName, visualisation);
 		}
 

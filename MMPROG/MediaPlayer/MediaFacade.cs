@@ -66,7 +66,7 @@ namespace MediaPlayer
 
 		private void Wmp_PlayStateChange(int NewState)
 		{
-			if (8 == NewState && null != OnTimeFinished) OnTimeFinished();
+			if (8 == NewState) OnTimeFinished?.Invoke();
 		}
 	}
 }

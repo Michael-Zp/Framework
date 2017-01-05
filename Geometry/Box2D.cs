@@ -1,9 +1,11 @@
-﻿namespace Geometry
+﻿using System;
+
+namespace Geometry
 {
 	/// <summary>
 	/// Represents an 2D axis aligned bounding box
 	/// </summary>
-	public class Box2D
+	public class Box2D : IEquatable<Box2D>
 	{
 		/// <summary>
 		/// creates an AABR, an 2D axis aligned bounding box
@@ -50,11 +52,37 @@
 			return rectangle;
 		}
 
+		public static bool operator==(Box2D a, Box2D b)
+		{
+			return a.Equals(b);
+		}
+
+		public static bool operator !=(Box2D a, Box2D b)
+		{
+			return !a.Equals(b);
+		}
+
+		public bool Equals(Box2D other)
+		{
+			if (ReferenceEquals(null, other)) return false;
+			return X == other.X && Y == other.Y && SizeX == other.SizeX && SizeY == other.SizeY;
+		}
+
+		public override bool Equals(object other)
+		{
+			return Equals(other as Box2D);
+		}
+
+		public override int GetHashCode()
+		{
+			return base.GetHashCode();
+		}
+
 		public bool Intersects(Box2D rectangle)
 		{
-			if (null == rectangle) return false;
-			bool noXintersect = (MaxX < rectangle.X) || (X > rectangle.MaxX);
-			bool noYintersect = (MaxY < rectangle.Y) || (Y > rectangle.MaxY);
+			if (ReferenceEquals(null, rectangle)) return false;
+			bool noXintersect = (MaxX <= rectangle.X) || (X >= rectangle.MaxX);
+			bool noYintersect = (MaxY <= rectangle.Y) || (Y >= rectangle.MaxY);
 			return !(noXintersect || noYintersect);
 		}
 
@@ -75,6 +103,5 @@
 		{
 			return '(' + X.ToString() + ';' + Y.ToString() + ';' + SizeX.ToString() + ';' + SizeY.ToString() + ')';
 		}
-
 	}
 }

@@ -88,7 +88,7 @@ namespace MiniGalaxyBirds
 
 		public void RegisterComponentTo(IComponentContainer cont, IComponent component)
 		{
-			if (null == component || null == cont) return;
+			if (ReferenceEquals(null,  component) || ReferenceEquals(null,  cont)) return;
 			ComponentContainer container = (ComponentContainer)cont;
 			container.Add(component);
 			component2Owner.Add(component, container);

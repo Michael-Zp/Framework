@@ -64,12 +64,12 @@ namespace ShaderForm
 			for (int i = 0; i < 3; ++i)
 			{
 				var kfsPos = uniforms.GetKeyFrames(posUniformNames[i]);
-				if (null == kfsPos) return false;
+				if (ReferenceEquals(null,  kfsPos)) return false;
 				var value = kfsPos.Interpolate(time);
 				camera.Position[i] = value;
 
 				var kfsRot = uniforms.GetKeyFrames(rotUniformNames[i]);
-				if (null == kfsRot) return false;
+				if (ReferenceEquals(null,  kfsRot)) return false;
 				var valueRot = kfsRot.Interpolate(time);
 				camera.Rotation[i] = valueRot;
 			}

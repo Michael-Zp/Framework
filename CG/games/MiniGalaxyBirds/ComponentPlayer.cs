@@ -7,7 +7,7 @@ namespace MiniGalaxyBirds
 	{
 		public ComponentPlayer(Box2D frame, Box2D clipFrame)
 		{
-			if (null == frame)
+			if (ReferenceEquals(null, frame))
 			{
 				throw new Exception("Valid frame needed");
 			}
@@ -27,7 +27,7 @@ namespace MiniGalaxyBirds
 			frame.PushXRangeInside(clipFrame);
 			frame.PushYRangeInside(clipFrame);
 
-			if (Shoot && shootCoolDown < 0.0f && null != OnCreateBullet)
+			if (Shoot && shootCoolDown < 0.0f && !ReferenceEquals(null, OnCreateBullet))
 			{
 				OnCreateBullet(absoluteTime, frame.X, frame.Y);
 				OnCreateBullet(absoluteTime, frame.MaxX, frame.Y);

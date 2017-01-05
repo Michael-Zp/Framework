@@ -75,7 +75,7 @@ namespace Framework
 
 		private void PrintRawQuads(byte[] text)
 		{
-			if (null == text) return;
+			if (ReferenceEquals(null,  text)) return;
 			GL.PushAttrib(AttribMask.ListBit);
 			GL.PushMatrix();
 			GL.ListBase(this.baseList);

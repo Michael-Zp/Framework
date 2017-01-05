@@ -70,20 +70,20 @@ namespace ControlClassLibrary
 		private void UpdateRatioFromWidth(ToolStripMenuItem menu)
 		{
 			var item = menu.Tag as SequenceBarItem;
-			if (null == item) throw new Exception("menu.tag is no SequenceBarItem");
+			if (ReferenceEquals(null,  item)) throw new Exception("menu.tag is no SequenceBarItem");
 			item.Ratio = menu.Width / (float)menuStrip.Width;
 		}
 
 		private void UpdateWidthFromRatio(ToolStripMenuItem menu)
 		{
 			var item = menu.Tag as SequenceBarItem;
-			if (null == item) throw new Exception("menu.tag is no SequenceBarItem");
+			if (ReferenceEquals(null,  item)) throw new Exception("menu.tag is no SequenceBarItem");
 			menu.Width = (int)Math.Round(menuStrip.Width * item.Ratio);
 		}
 
 		private void MenuItem_MouseUp(object sender, MouseEventArgs e)
 		{
-			if (MouseButtons.Right == e.Button && null != resizingMenu)
+			if (MouseButtons.Right == e.Button && !ReferenceEquals(null,  resizingMenu))
 			{
 				menuStrip.Items.Remove(resizingMenu);
 				CorrectSizes();
@@ -93,7 +93,7 @@ namespace ControlClassLibrary
 
 		private void MenuItem_MouseMove(object sender, MouseEventArgs e)
 		{
-			if (null != resizingMenu)
+			if (!ReferenceEquals(null,  resizingMenu))
 			{
 				int x = menuStrip.PointToClient(MousePosition).X;
 				resizingMenu.Width = Math.Max(10, x - resizingMenu.Bounds.Left);
@@ -110,10 +110,10 @@ namespace ControlClassLibrary
 		{
 			if (0 == menuStrip.Items.Count) return;
 			var menu = menuStrip.Items[menuStrip.Items.Count - 1] as ToolStripMenuItem;
-			if (null == menu) return;
+			if (ReferenceEquals(null,  menu)) return;
 			menu.Width = menuStrip.Width - menu.Bounds.X;
 			UpdateRatioFromWidth(menu);
-			if (null != OnChanged) OnChanged(this, new EventArgs());
+			OnChanged?.Invoke(this, new EventArgs());
 		}
 
 		private void menuStrip_Resize(object sender, EventArgs e)

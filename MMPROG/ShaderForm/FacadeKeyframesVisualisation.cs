@@ -17,8 +17,8 @@ namespace ShaderForm
 			formGraph.OnChangePoints += FormGraph_OnChangePoints;
 			formGraph.OnChangePosition += (pos) => { OnChangePosition?.Invoke((float)pos); };
 			formGraph.KeyDown += (sender, args) => { OnKeyDown?.Invoke(sender, args); };
-			formGraph.OnCopyCommand += (sender, args) => { if (null != kfs) kfs.CopyKeyframesToClipboard(); };
-			formGraph.OnPasteCommand += (sender, args) => { if (null != kfs) kfs.PasteKeyframesFromClipboard(); };
+			formGraph.OnCopyCommand += (sender, args) => { if (!ReferenceEquals(null,  kfs)) kfs.CopyKeyframesToClipboard(); };
+			formGraph.OnPasteCommand += (sender, args) => { if (!ReferenceEquals(null,  kfs)) kfs.PasteKeyframesFromClipboard(); };
 			currentUniform = uniformName;
 			this.kfs = kfs;
 			Update();
@@ -31,7 +31,7 @@ namespace ShaderForm
 
 		public void AddInterpolatedKeyframe(float position)
 		{
-			if (null == kfs) return;
+			if (ReferenceEquals(null,  kfs)) return;
 			var value = kfs.Interpolate(position);
 			kfs.AddUpdate(position, value);
 		}
@@ -75,7 +75,7 @@ namespace ShaderForm
 
 		private void FormGraph_OnChangePoints(IEnumerable<KeyValuePair<float, float>> points)
 		{
-			if (null == kfs) return;
+			if (ReferenceEquals(null,  kfs)) return;
 			updating = true;
 			kfs.Clear();
 			foreach (var p in points)

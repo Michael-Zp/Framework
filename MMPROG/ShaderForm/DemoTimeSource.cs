@@ -85,8 +85,8 @@ namespace ShaderForm
 
 		public void Load(ITimeSource newTimeSource)
 		{
-			Debug.Assert(null != timeSource);
-			if (null == newTimeSource)
+			Debug.Assert(!object.ReferenceEquals(null,  timeSource));
+			if (ReferenceEquals(null,  newTimeSource))
 			{
 				Clear();
 			}
@@ -102,7 +102,7 @@ namespace ShaderForm
 
 		public void Clear()
 		{
-			Debug.Assert(null != timeSource);
+			Debug.Assert(!ReferenceEquals(null,  timeSource));
 			//keep looping state
 			bool isLooping = timeSource.IsLooping;
 			//remove old
@@ -117,7 +117,7 @@ namespace ShaderForm
 
 		public void Dispose()
 		{
-			Debug.Assert(null != timeSource);
+			Debug.Assert(!object.ReferenceEquals(null,  timeSource));
 			timeSource.Dispose();
 		}
 

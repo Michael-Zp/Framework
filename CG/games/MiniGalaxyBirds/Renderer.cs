@@ -65,7 +65,7 @@ namespace MiniGalaxyBirds
 			GL.LoadIdentity();
 			GL.Enable(EnableCap.Blend);
 			GL.BlendFunc(BlendingFactorSrc.SrcAlpha, BlendingFactorDest.OneMinusSrcAlpha);
-			if (null != clipFrame)
+			if (!ReferenceEquals(null,  clipFrame))
 			{
 				foreach (IDrawable drawable in drawables)
 				{
@@ -88,7 +88,7 @@ namespace MiniGalaxyBirds
 
 		public void Print(float x, float y, float z, float size, string text)
 		{
-			if (null == font)
+			if (ReferenceEquals(null,  font))
 			{
 				throw new Exception("No font registered!");
 			}

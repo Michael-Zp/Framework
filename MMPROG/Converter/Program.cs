@@ -28,7 +28,7 @@ namespace Converter
 				if (!string.IsNullOrWhiteSpace(soundFileName))
 				{
 					var sound = DemoTimeSource.FromMediaFile(soundFileName);
-					if (null == sound)
+					if (ReferenceEquals(null,  sound))
 					{
 						Console.WriteLine("Could not load sound file '" + soundFileName + "'");
 						return;

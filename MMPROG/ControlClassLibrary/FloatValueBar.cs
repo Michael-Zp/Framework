@@ -27,7 +27,7 @@ namespace ControlClassLibrary
 			{
 				if (value == this.m_fValue) return;
 				this.m_fValue = Math.Min(Math.Max(value, this.m_fMin), this.m_fMax);
-				if (null != OnValueChanged) OnValueChanged(this, null);
+				OnValueChanged?.Invoke(this, null);
 				Invalidate();
 			} 
 		}
@@ -141,7 +141,7 @@ namespace ControlClassLibrary
 		private void MarkerBar_MouseUp(object sender, MouseEventArgs e)
 		{
 			m_bMarking = false;
-			if (null != OnValueChanged) OnValueChanged(this, null);
+			OnValueChanged?.Invoke(this, null);
 		}
 		public Point Clip(Point point_, Rectangle rect_)
 		{

@@ -17,7 +17,7 @@ namespace Framework
 		/// <param name="fileName_">The file name_.</param>
 		public static void ObjIntoSoapFile(this object value_, string fileName_)
 		{
-			if (null == value_) new ArgumentNullException("Null object given!");
+			if (ReferenceEquals(null,  value_)) new ArgumentNullException("Null object given!");
 			SoapFormatter formatter = new SoapFormatter();
 			using (FileStream fs = new FileStream(fileName_, FileMode.Create))
 			{
@@ -32,7 +32,7 @@ namespace Framework
 		/// <param name="fileName_">The file name_.</param>
 		public static void ObjIntoXMLFile(this object value_, string fileName_)
 		{
-			if (null == value_) new ArgumentNullException("Null object given!");
+			if (ReferenceEquals(null,  value_)) new ArgumentNullException("Null object given!");
 			XmlSerializer formatter = new XmlSerializer(value_.GetType());
 			using (StreamWriter outfile = new StreamWriter(fileName_))
 			{
@@ -47,7 +47,7 @@ namespace Framework
 		/// <param name="fileName_">The file name_.</param>
 		public static string ObjIntoXmlString(this object value_)
 		{
-			if (null == value_) new ArgumentNullException("Null object given!");
+			if (ReferenceEquals(null,  value_)) new ArgumentNullException("Null object given!");
 			XmlSerializer formatter = new XmlSerializer(value_.GetType());
 			StringBuilder builder = new StringBuilder();
 			XmlWriterSettings settings = new XmlWriterSettings();
@@ -70,7 +70,7 @@ namespace Framework
 		/// <param name="fileName_">The file name_.</param>
 		public static void ObjIntoBinFile(this object value_, string fileName_)
 		{
-			if (null == value_) new ArgumentNullException("Null object given!");
+			if (ReferenceEquals(null,  value_)) new ArgumentNullException("Null object given!");
 			BinaryFormatter formatter = new BinaryFormatter();
 			using (FileStream outfile = new FileStream(fileName_, FileMode.Create, FileAccess.Write))
 			{

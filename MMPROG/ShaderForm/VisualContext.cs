@@ -43,19 +43,19 @@ namespace ShaderForm
 
 		public void SetUniform(string uniformName, float value)
 		{
-			Debug.Assert(null != shaderCurrent);
+			Debug.Assert(!ReferenceEquals(null,  shaderCurrent));
 			GL.Uniform1(shaderCurrent.GetUniformLocation(uniformName), value);
 		}
 
 		public void SetUniform(string uniformName, float valueX, float valueY)
 		{
-			Debug.Assert(null != shaderCurrent);
+			Debug.Assert(!ReferenceEquals(null,  shaderCurrent));
 			GL.Uniform2(shaderCurrent.GetUniformLocation(uniformName), valueX, valueY);
 		}
 
 		public void SetUniform(string uniformName, float valueX, float valueY, float valueZ)
 		{
-			Debug.Assert(null != shaderCurrent);
+			Debug.Assert(!ReferenceEquals(null,  shaderCurrent));
 			GL.Uniform3(shaderCurrent.GetUniformLocation(uniformName), valueX, valueY, valueZ);
 		}
 
@@ -65,7 +65,7 @@ namespace ShaderForm
 			{
 				shaderCurrent = shaderDefault;
 			}
-			Debug.Assert(null != shaderCurrent);
+			Debug.Assert(!ReferenceEquals(null,  shaderCurrent));
 			if (!shaderCurrent.IsLinked)
 			{
 				shaderCurrent = shaderDefault;
@@ -76,7 +76,7 @@ namespace ShaderForm
 
 		public void Update()
 		{
-			Debug.Assert(null != shaderCurrent);
+			Debug.Assert(!ReferenceEquals(null,  shaderCurrent));
 
 			//texture binding
 			int id = 0;

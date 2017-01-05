@@ -14,7 +14,7 @@ namespace MiniGalaxyBirds
 
 		public void Update(float absoluteTime)
 		{
-			if (null != OnClip && !this.ClipFrame.Intersects(this.Frame))
+			if (!ReferenceEquals(null, OnClip) && !this.ClipFrame.Intersects(this.Frame))
 			{
 				OnClip();
 			}

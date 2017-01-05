@@ -33,7 +33,7 @@ namespace Geometry
 			string line;
 			using (TextReader reader = new StreamReader((new MemoryStream(data))))
 			{
-				while ((line = reader.ReadLine()) != null)
+				while (!ReferenceEquals(null, (line = reader.ReadLine())))
 				{
 					line = line.Trim(splitCharacters);
 					line = line.Replace("  ", " ");

@@ -27,7 +27,7 @@ namespace ShaderForm
 		private void btnReset_Click(object sender, System.EventArgs e)
 		{
 			var cam = propertyGrid1.SelectedObject as AdapterCam;
-			if (null == cam) return;
+			if (ReferenceEquals(null,  cam)) return;
 			cam.PositionX = 0.0f;
 			cam.PositionY = 0.0f;
 			cam.PositionZ = 0.0f;

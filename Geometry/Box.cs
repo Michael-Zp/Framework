@@ -44,7 +44,7 @@
 
 		public bool Intersects(Box box)
 		{
-			if (null == box) return false;
+			if (ReferenceEquals(null,  box)) return false;
 			bool noXintersect = (MaxX < box.X) || (X > box.MaxX);
 			bool noYintersect = (MaxY < box.Y) || (Y > box.MaxY);
 			bool noZintersect = (MaxZ < box.Z) || (Z > box.MaxZ);

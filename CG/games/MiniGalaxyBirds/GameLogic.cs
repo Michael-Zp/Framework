@@ -14,9 +14,9 @@ namespace MiniGalaxyBirds
 		{
 			Lost = false;
 			Points = 0;
-			if (null == renderer)
+			if (ReferenceEquals(null,  renderer))
 			{
-				throw new Exception("Renderer required!");
+				throw new ArgumentNullException("Renderer required!");
 			}
 			this.renderer = renderer;
 
@@ -148,7 +148,7 @@ namespace MiniGalaxyBirds
 		private void Remove(IComponentContainer container)
 		{
 			var drawable = container.GetComponent<Component<IDrawable>>();
-			if (null != drawable)
+			if (!ReferenceEquals(null, drawable))
 			{
 				renderer.DeleteDrawable(drawable.Value);
 			}

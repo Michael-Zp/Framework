@@ -32,7 +32,7 @@ namespace MvcSokoban
 
 		public void Update(float updatePeriod)
 		{
-			if (null != destination)
+			if (!ReferenceEquals(null,  destination))
 			{
 				Vector2 pos = new Vector2(Rect.X, Rect.Y);
 				Vector2 dir = destination.Value - pos;

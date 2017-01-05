@@ -69,14 +69,14 @@ namespace ShaderForm
 			if (!string.IsNullOrWhiteSpace(soundFileName))
 			{
 				var sound = DemoTimeSource.FromMediaFile(soundFileName);
-				if (null == sound && null != progressHandler)
+				if (ReferenceEquals(null,  sound) && !ReferenceEquals(null,  progressHandler))
 				{
 					var args = new ProgressEventArgs("Could not load sound file '" + soundFileName + "'");
 					progressHandler(demo, args);
 					if (args.Cancel) return false;
 				}
 				demo.TimeSource.Load(sound);
-				if (null != sound && null != progressHandler)
+				if (!ReferenceEquals(null,  sound) && !ReferenceEquals(null,  progressHandler))
 				{
 					var args = new ProgressEventArgs("Sound file '" + soundFileName + "' loaded");
 					progressHandler(demo, args);
@@ -91,7 +91,7 @@ namespace ShaderForm
 			foreach (var tex in textures)
 			{
 				bool success = demo.Textures.AddUpdate(tex);
-				if(null != progressHandler)
+				if(!ReferenceEquals(null,  progressHandler))
 				{
 					var msg = success ? "Texture file '" + tex + "' loaded" : "Could not load texture file '" + tex + "'";
 					var args = new ProgressEventArgs(msg);

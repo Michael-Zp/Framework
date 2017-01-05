@@ -28,7 +28,7 @@ namespace ShaderDebugging
 
 		public void Show(ShaderException e)
 		{
-			if (null == lastException || e.Log != lastException.Log)
+			if (ReferenceEquals(null, lastException) || e.Log != lastException.Log)
 			{
 				Clear(); //clears last log too -> need to store lastLog afterwards
 				lastException = e;

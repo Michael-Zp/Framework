@@ -1,5 +1,4 @@
 ﻿using OpenTK;
-using System.Linq;
 
 namespace Geometry
 {
@@ -70,21 +69,29 @@ namespace Geometry
 		/// <param name="rectangleB">The AABR to check for intersect</param>
 		public static void UndoOverlap(this Box2D rectangleA, Box2D rectangleB)
 		{
-			if (rectangleA.Intersects(rectangleB))
+			if (!rectangleA.Intersects(rectangleB)) return;
+
+			Vector2[] directions = new Vector2[]
 			{
-				Vector2[] directions = new Vector2[]
-				{
-					new Vector2(rectangleB.MaxX - rectangleA.X, 0),
-					new Vector2(rectangleB.X - rectangleA.MaxX, 0),
-					new Vector2(0, rectangleB.MaxY - rectangleA.Y),
-					new Vector2(0, rectangleB.Y - rectangleA.MaxY)
-				};
-
-				Vector2 minimum = directions.Aggregate((curMin, x) => (curMin == null || (x.Length) < curMin.Length) ? x : curMin);
-
-				rectangleA.X += minimum.X;
-				rectangleA.Y += minimum.Y;
+				new Vector2(rectangleB.MaxX - rectangleA.X, 0), // push distance A in positive X-direction
+				new Vector2(rectangleB.X - rectangleA.MaxX, 0), // push distance A in negative X-direction
+				new Vector2(0, rectangleB.MaxY - rectangleA.Y), // push distance A in positive Y-direction
+				new Vector2(0, rectangleB.Y - rectangleA.MaxY)  // push distance A in negative Y-direction
+			};
+			float[] pushDistSqrd = new float[4];
+			for (int i = 0; i < 4; ++i)
+			{
+				pushDistSqrd[i] = directions[i].LengthSquared;
 			}
+			//find minimal positive overlap amount
+			int minId = 0;
+			for (int i = 1; i < 4; ++i)
+			{
+				minId = (pushDistSqrd[i] > 0 && pushDistSqrd[i] < pushDistSqrd[minId]) ? i : minId;
+			}
+
+			rectangleA.X += directions[minId].X;
+			rectangleA.Y += directions[minId].Y;
 		}
 	}
 }

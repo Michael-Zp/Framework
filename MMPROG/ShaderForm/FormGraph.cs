@@ -65,7 +65,7 @@ namespace ShaderForm
 		{
 			var series = chart1.Series.First();
 			series.Points.Clear();
-			if (null == points) return;
+			if (ReferenceEquals(null,  points)) return;
 			foreach (var p in points)
 			{
 				series.Points.AddXY(p.Key, p.Value);
@@ -198,7 +198,7 @@ namespace ShaderForm
 
 		private void CallOnChangePoint(DataPointCollection points)
 		{
-			if (null != OnChangePoints)
+			if (!ReferenceEquals(null,  OnChangePoints))
 			{
 				var lst = new List<KeyValuePair<float, float>>();
 				foreach (var point in points)

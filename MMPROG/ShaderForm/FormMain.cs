@@ -97,7 +97,7 @@ namespace ShaderForm
 				{
 					//check if sound file
 					var sound = DemoTimeSource.FromMediaFile(file);
-					if (null != sound)
+					if (!ReferenceEquals(null,  sound))
 					{
 						demo.TimeSource.Load(sound);
 					}
@@ -419,14 +419,14 @@ namespace ShaderForm
 		{
 			if (MouseButtons.Right != e.Button) return;
 			var menu = sender as ToolStripMenuItem;
-			if (null == menu) return;
+			if (ReferenceEquals(null,  menu)) return;
 			demo.Textures.Remove(menu.Text);
 		}
 
 		private void MenuShader_MouseDown(object sender, MouseEventArgs e)
 		{
 			var menu = sender as ToolStripMenuItem;
-			if (null == menu) return;
+			if (ReferenceEquals(null,  menu)) return;
 			switch (e.Button)
 			{
 				case MouseButtons.Left:
@@ -442,7 +442,7 @@ namespace ShaderForm
 		private void MenuUniform_MouseDown(object sender, MouseEventArgs e)
 		{
 			var menu = sender as ToolStripMenuItem;
-			if (null == menu) return;
+			if (ReferenceEquals(null,  menu)) return;
 			switch (e.Button)
 			{
 				case MouseButtons.Left: ShowUniformGraph(menu.Text); break;
@@ -508,7 +508,7 @@ namespace ShaderForm
 				{
 					var kfs = demo.Uniforms.GetKeyFrames(text);
 					TextUniformAdd.Text = string.Empty;
-					if (null == kfs) return;
+					if (ReferenceEquals(null,  kfs)) return;
 					kfs.AddUpdate(0.0f, 0.0f);
 					kfs.AddUpdate(soundPlayerBar1.Length, soundPlayerBar1.Length);
 					ShowUniformGraph(text);

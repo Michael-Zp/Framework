@@ -10,7 +10,7 @@ namespace ShaderForm
 			OpenFileDialog dlg = new OpenFileDialog();
 			dlg.CheckPathExists = false;
 			dlg.Filter = filter;
-			if (DialogResult.OK == dlg.ShowDialog() && null != action)
+			if (DialogResult.OK == dlg.ShowDialog() && !ReferenceEquals(null,  action))
 			{
 				action.Invoke(dlg.FileName);
 			}
@@ -21,7 +21,7 @@ namespace ShaderForm
 			SaveFileDialog dlg = new SaveFileDialog();
 			dlg.Filter = filter;
 			dlg.AddExtension = true;
-			if (DialogResult.OK == dlg.ShowDialog() && null != action)
+			if (DialogResult.OK == dlg.ShowDialog() && !ReferenceEquals(null,  action))
 			{
 				action.Invoke(dlg.FileName);
 			}

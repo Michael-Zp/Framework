@@ -9,9 +9,9 @@ namespace ControlClassLibrary
 		public static void LoadLayout(this Form form)
 		{
 			RegistryKey keyApp = Application.UserAppDataRegistry;
-			if (null == keyApp) return;
+			if (ReferenceEquals(null,  keyApp)) return;
 			var key = keyApp.CreateSubKey(form.Name);
-			if (null == key) return;
+			if (ReferenceEquals(null,  key)) return;
 			form.WindowState = (FormWindowState)Convert.ToInt32(key.GetValue("WindowState", (int)form.WindowState));
 			form.Visible = Convert.ToBoolean(key.GetValue("visible", form.Visible));
 			form.Width = Convert.ToInt32(key.GetValue("Width", form.Width));
@@ -24,9 +24,9 @@ namespace ControlClassLibrary
 		public static void SaveLayout(this Form form)
 		{
 			RegistryKey keyApp = Application.UserAppDataRegistry;
-			if (null == keyApp) return;
+			if (ReferenceEquals(null,  keyApp)) return;
 			var key = keyApp.CreateSubKey(form.Name);
-			if (null == key) return;
+			if (ReferenceEquals(null,  key)) return;
 			key.SetValue("WindowState", (int)form.WindowState);
 			key.SetValue("visible", form.Visible);
 			key.SetValue("Width", form.Width);
@@ -39,18 +39,18 @@ namespace ControlClassLibrary
 		public static object LoadValue(string keyName, string name, object defaultValue)
 		{
 			RegistryKey keyApp = Application.UserAppDataRegistry;
-			if (null == keyApp) return null;
+			if (ReferenceEquals(null,  keyApp)) return null;
 			var key = keyApp.CreateSubKey(keyName);
-			if (null == key) return null;
+			if (ReferenceEquals(null,  key)) return null;
 			return key.GetValue(name, defaultValue);
 		}
 
 		public static void SaveValue(string keyName, string name, object value)
 		{
 			RegistryKey keyApp = Application.UserAppDataRegistry;
-			if (null == keyApp) return;
+			if (ReferenceEquals(null,  keyApp)) return;
 			var key = keyApp.CreateSubKey(keyName);
-			if (null == key) return;
+			if (ReferenceEquals(null,  key)) return;
 			key.SetValue(name, value);
 		}
 	}

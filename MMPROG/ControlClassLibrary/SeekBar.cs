@@ -17,7 +17,7 @@ namespace ControlClassLibrary
 			get { return timeSource; }
 			set
 			{
-				if (null == value) throw new Exception("Property TimeSource is forbidden to become null!");
+				if (ReferenceEquals(null,  value)) throw new Exception("Property TimeSource is forbidden to become null!");
 				timeSource.OnTimeFinished -= CallOnFinished;
 				if (value != defaultTimeSource)
 				{
@@ -59,7 +59,7 @@ namespace ControlClassLibrary
 				}
 				timeSource.IsRunning = value;
 				timerUpdateMarkerBar.Enabled = value;
-				if (value != old && null != OnPlayingStateChanged) OnPlayingStateChanged(value);
+				if (value != old) OnPlayingStateChanged?.Invoke(value);
 			}
 		}
 

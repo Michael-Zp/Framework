@@ -98,14 +98,14 @@ namespace MvcSpaceInvaders
 				{
 					//game lost
 					Lost = true;
-					if (null != OnLost) OnLost(this, null);
+					if (!ReferenceEquals(null, OnLost)) OnLost(this, null);
 				}
 				foreach (Box2D bullet in bullets)
 				{
 					if (bullet.Intersects(enemy))
 					{
 						//delete bullet and enemy
-						if (null != OnEnemyDestroy) OnEnemyDestroy(this, null);
+						OnEnemyDestroy?.Invoke(this, null);
 						bullets.Remove(bullet);
 						enemies.Remove(enemy);
 						return;

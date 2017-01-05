@@ -14,9 +14,9 @@ namespace ShaderDebugging
 		public static void LoadLayout(this Form form)
 		{
 			RegistryKey keyApp = GetAppKey();
-			if (null == keyApp) return;
+			if (ReferenceEquals(null, keyApp)) return;
 			var key = keyApp.CreateSubKey(form.Name);
-			if (null == key) return;
+			if (ReferenceEquals(null, key)) return;
 			form.WindowState = (FormWindowState)Convert.ToInt32(key.GetValue("WindowState", (int)form.WindowState));
 			form.Visible = Convert.ToBoolean(key.GetValue("visible", form.Visible));
 			form.Width = Convert.ToInt32(key.GetValue("Width", form.Width));
@@ -28,9 +28,9 @@ namespace ShaderDebugging
 		public static void SaveLayout(this Form form)
 		{
 			RegistryKey keyApp = GetAppKey();
-			if (null == keyApp) return;
+			if (ReferenceEquals(null, keyApp)) return;
 			var key = keyApp.CreateSubKey(form.Name);
-			if (null == key) return;
+			if (ReferenceEquals(null, key)) return;
 			key.SetValue("WindowState", (int)form.WindowState);
 			key.SetValue("visible", form.Visible);
 			key.SetValue("Width", form.Width);

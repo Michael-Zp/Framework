@@ -19,7 +19,7 @@ namespace ControlClassLibrary
 			get
 			{
 				var menu = enumerator.Current as ToolStripMenuItem;
-				if (null == menu) return null;
+				if (ReferenceEquals(null,  menu)) return null;
 				var item = menu.Tag as SequenceBarItem;
 				return item;
 			}

@@ -18,7 +18,7 @@
 
 		public bool Intersects(Circle circle)
 		{
-			if (null == circle) return false;
+			if (ReferenceEquals(null,  circle)) return false;
 			var rr = circle.Radius + Radius;
 			rr *= rr;
 			var xx = circle.CenterX - CenterX;

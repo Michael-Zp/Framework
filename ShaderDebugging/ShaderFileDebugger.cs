@@ -13,7 +13,7 @@ namespace ShaderDebugging
 				shaderWatcherVertex = new FileWatcher(vertexFile);
 				shaderWatcherFragment = new FileWatcher(fragmentFile);
 				CheckForShaderChange();
-				while(null != LastException)
+				while(!ReferenceEquals(null, LastException))
 				{
 					form.Hide();
 					FormShaderExceptionFacade.ShowModal(LastException);
@@ -31,7 +31,7 @@ namespace ShaderDebugging
 		public bool CheckForShaderChange()
 		{
 			//test if we even have file -> no files nothing to be done
-			if (null == shaderWatcherVertex || null == shaderWatcherFragment) return false;
+			if (ReferenceEquals(null, shaderWatcherVertex) || ReferenceEquals(null, shaderWatcherFragment)) return false;
 			//test if any file is dirty
 			if (!shaderWatcherVertex.Dirty && !shaderWatcherFragment.Dirty) return false;
 			try

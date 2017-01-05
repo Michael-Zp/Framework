@@ -16,9 +16,9 @@ namespace ShaderForm
 			try
 			{
 				var kf = new KeyFrames();
-				kf.OnChange += (sender, arg) => { if (null != OnChangeKeyframes) OnChangeKeyframes(sender, uniformName); };
+				kf.OnChange += (sender, arg) => OnChangeKeyframes?.Invoke(sender, uniformName);
 				uniforms.Add(uniformName, kf);
-				if (null != OnAdd) OnAdd(this, uniformName);
+				OnAdd?.Invoke(this, uniformName);
 				return true;
 			}
 			catch
@@ -29,7 +29,7 @@ namespace ShaderForm
 
 		public void Clear()
 		{
-			if (null != OnRemove)
+			if (!ReferenceEquals(null,  OnRemove))
 			{
 				foreach (var uniformName in uniforms.Keys)
 				{
@@ -42,7 +42,7 @@ namespace ShaderForm
 		public delegate void UniformCommand(string name, float value);
 		public void Interpolate(float currentTime, UniformCommand command)
 		{
-			if (null == command) return;
+			if (ReferenceEquals(null,  command)) return;
 			foreach (KeyValuePair<string, KeyFrames> item in uniforms)
 			{
 				var value = item.Value.Interpolate(currentTime);
@@ -62,7 +62,7 @@ namespace ShaderForm
 		public void Remove(string uniformName)
 		{
 			uniforms.Remove(uniformName);
-			if (null != OnRemove) OnRemove(this, uniformName);
+			OnRemove?.Invoke(this, uniformName);
 		}
 
 		private Dictionary<string, KeyFrames> uniforms = new Dictionary<string, KeyFrames>();

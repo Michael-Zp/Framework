@@ -31,28 +31,14 @@ void main()
     vec2 st = gl_FragCoord.xy/iResolution;
 	st *= 10;
 
-    vec3 color = vec3(0.0);
-    vec2 q = vec2(0.);
-    q.x = fBm( st + 0.00*iGlobalTime);
-    q.y = fBm( st + vec2(1.0));
+    float fBmCoord = fBm(st);
+	float fBmfBm = fBm(fBmCoord + st + 0.15 * iGlobalTime);
+    float f = fBm(st + fBmfBm); // form is fBm(coord + fBm(fBm(coord) + coord + t))
 
-    vec2 r = vec2(0.);
-    r.x = fBm( st + 1.0*q + vec2(1.7,9.2)+ 0.15*iGlobalTime );
-    r.y = fBm( st + 1.0*q + vec2(8.3,2.8)+ 0.126*iGlobalTime);
+    vec3 color = vec3(1.0);
+    // color = mix(vec3(0.1, 0.62, 0.67), vec3(0.67, 0.67, 0.5), clamp(f, 0, 1));
+    // color = mix(color, vec3(0 , 0 , 0.16), clamp(fBmCoord, 0.0, 1.0));
+    // color = mix(color, vec3(0.67, 1, 1), clamp(fBmfBm,0.0,1.0));
 
-    float f = fBm(st+r);
-
-    color = mix(vec3(0.101961,0.619608,0.666667),
-                vec3(0.666667,0.666667,0.498039),
-                clamp((f*f)*4.0,0.0,1.0));
-
-    color = mix(color,
-                vec3(0,0,0.164706),
-                clamp(length(q),0.0,1.0));
-
-    color = mix(color,
-                vec3(0.666667,1,1),
-                clamp(length(r.x),0.0,1.0));
-
-    gl_FragColor = vec4((f*f*f+.6*f*f+.5*f)*color,1.);
+    gl_FragColor = vec4((f * f * f + 0.2 * f * f + 0.5 * f) * color, 1);
 }
