@@ -1,72 +1,48 @@
-﻿using OpenTK;
+﻿using System.Numerics;
 
 namespace Geometry
 {
+	/// <summary>
+	/// Some ROW vector transformation operations, to get the column vector version transpose
+	/// </summary>
 	public static class Transform2D
 	{
 		/// <summary>
-		/// create a rotation matrix that rotates arounf a given rotation center (pivot point)
+		/// create a rotation matrix that rotates around a given rotation center (pivot point)
 		/// </summary>
-		/// <param name="angle">radiant</param>
+		/// <param name="angle">in radiants</param>
 		/// <returns></returns>
-		public static Matrix3 RotateAroundOrigin(float angle)
+		public static Matrix3x2 CreateRotationAroundOrigin(float angle)
 		{
-			//Matrix3 does the rotation for row vectors 
-			//-> for column vectors we need the transpose = the inverse for orthonormal
-			return Matrix3.CreateRotationZ(-angle);
+			return Matrix3x2.CreateRotation(angle);
 		}
 
-		//public static Matrix3x2 RotateAroundOrigin(float angle)
-		//{
-		//	return Matrix3x2.CreateRotation(angle);
-		//}
-
-		/// <summary>
-		/// create a rotation matrix that rotates arounf a given rotation center (pivot point)
-		/// </summary>
-		/// <param name="pivotX">rotation center x</param>
-		/// <param name="pivotY">rotation center y</param>
-		/// <param name="angle">radiant</param>
-		/// <returns></returns>
-		public static Matrix3 RotateAround(float pivotX, float pivotY, float angle)
+	/// <summary>
+	/// create a rotation matrix that rotates around a given rotation center (pivot point)
+	/// </summary>
+	/// <param name="pivotX">rotation center x</param>
+	/// <param name="pivotY">rotation center y</param>
+	/// <param name="angle">radiant</param>
+	/// <returns></returns>
+	public static Matrix3x2 CreateRotationAround(float pivotX, float pivotY, float angle)
 		{
-			var Cinv = Transform2D.Translate(-pivotX, -pivotY);
-			var R = Transform2D.RotateAroundOrigin(angle);
-			var C = Transform2D.Translate(pivotX, pivotY);
-			return C * R * Cinv;
+			var Cinv = Matrix3x2.CreateTranslation(-pivotX, -pivotY);
+			var R = CreateRotationAroundOrigin(angle);
+			var C = Matrix3x2.CreateTranslation(pivotX, pivotY);
+			return Cinv * R * C;
 		}
 
-		public static Matrix3 ScaleAroundOrigin(float scaleX, float scaleY)
+		public static Matrix3x2 CreateScaleAroundOrigin(float scaleX, float scaleY)
 		{
-			return new Matrix3(scaleX, 0, 0,
-								  0, scaleY, 0,
-								  0, 0, 1);
+			return Matrix3x2.CreateScale(scaleX, scaleY);
 		}
 
-		public static Matrix3 ScaleAround(float pivotX, float pivotY, float scaleX, float scaleY)
+		public static Matrix3x2 CreateScaleAround(float pivotX, float pivotY, float scaleX, float scaleY)
 		{
-			var Cinv = Transform2D.Translate(-pivotX, -pivotY);
-			var S = Transform2D.ScaleAroundOrigin(scaleX, scaleY);
-			var C = Transform2D.Translate(pivotX, pivotY);
-			return C * S * Cinv;
-		}
-
-		public static Matrix3 Translate(float tx, float ty)
-		{
-			return new Matrix3( 1, 0, tx,
-								0, 1, ty,
-								0, 0, 1);
-		}
-
-		public static Vector2 Transform(this Matrix3 M, float x, float y)
-		{
-			var pos = new Vector3(x, y, 1);
-			return new Vector2(Vector3.Dot(pos, M.Row0), Vector3.Dot(pos, M.Row1));
-		}
-		public static Vector2 Transform(this Matrix3 M, Vector2 pos)
-		{
-			var pos3 = new Vector3(pos.X, pos.Y, 1);
-			return new Vector2(Vector3.Dot(pos3, M.Row0), Vector3.Dot(pos3, M.Row1));
+			var Cinv = Matrix3x2.CreateTranslation(-pivotX, -pivotY);
+			var S = CreateScaleAroundOrigin(scaleX, scaleY);
+			var C = Matrix3x2.CreateTranslation(pivotX, pivotY);
+			return Cinv * S * C;
 		}
 	}
 }

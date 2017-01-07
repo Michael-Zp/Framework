@@ -69,7 +69,7 @@ namespace Example
 		{
 			float updatePeriod = (float)gameWindow.UpdatePeriod;
 
-			var R = Transform2D.RotateAround(0.0f, 0.0f, 2.0f * updatePeriod);
+			var R = Transform2D.CreateRotationAroundOrigin(2.0f * updatePeriod);
 			bird.TransformCenter(R);
 		}
 

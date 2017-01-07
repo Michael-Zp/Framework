@@ -9,21 +9,21 @@ namespace Geometry.Tests
 		public void IntersectsTestNull()
 		{
 			var a = new Box2D(0, 0, 1, 1);
-			var oldA = new Box2D(a);
+			var expectedA = new Box2D(a);
 			Assert.IsFalse(a.Intersects(null));
-			Assert.AreEqual(a, oldA);
+			Assert.AreEqual(a, expectedA);
 		}
 
 		[TestMethod()]
 		public void IntersectsTestNone()
 		{
 			var a = new Box2D(0, 0, 1, 1);
-			var oldA = new Box2D(a);
+			var expectedA = new Box2D(a);
 			var b = new Box2D(5, 5, 1, 1);
-			var oldB = new Box2D(b);
+			var expectedB = new Box2D(b);
 			Assert.IsFalse(a.Intersects(b));
-			Assert.AreEqual(a, oldA);
-			Assert.AreEqual(b, oldB);
+			Assert.AreEqual(a, expectedA);
+			Assert.AreEqual(b, expectedB);
 		}
 
 		[TestMethod()]

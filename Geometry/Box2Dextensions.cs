@@ -1,4 +1,4 @@
-﻿using OpenTK;
+﻿using System.Numerics;
 
 namespace Geometry
 {
@@ -56,11 +56,12 @@ namespace Geometry
 			return overlap;
 		}
 
-		public static void TransformCenter(this Box2D rectangle, Matrix3 M)
+		public static void TransformCenter(this Box2D rectangle, Matrix3x2 M)
 		{
-			var newPos = M.Transform(rectangle.CenterX, rectangle.CenterY);
-			rectangle.CenterX = newPos.X;
-			rectangle.CenterY = newPos.Y;
+			Vector2 center = new Vector2(rectangle.CenterX, rectangle.CenterY);
+			var newCenter = Vector2.Transform(center, M);
+			rectangle.CenterX = newCenter.X;
+			rectangle.CenterY = newCenter.Y;
 		}
 
 		/// <summary>
@@ -81,7 +82,7 @@ namespace Geometry
 			float[] pushDistSqrd = new float[4];
 			for (int i = 0; i < 4; ++i)
 			{
-				pushDistSqrd[i] = directions[i].LengthSquared;
+				pushDistSqrd[i] = directions[i].LengthSquared();
 			}
 			//find minimal positive overlap amount
 			int minId = 0;
