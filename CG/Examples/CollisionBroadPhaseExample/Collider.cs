@@ -13,7 +13,7 @@ namespace Example
 			var rndData = new byte[3];
 			rnd.NextBytes(rndData);
 			Color = Color.FromArgb(rndData[0], rndData[1], rndData[2]);
-			Velocity = RndVelocity();
+			Velocity = Vector2.Zero;
 		}
 
 		public Box2D Box { get; set; }
@@ -34,13 +34,7 @@ namespace Example
 			rnd.NextBytes(rndData);
 			var velocity = new Vector2(rndData[0], rndData[1]);
 			velocity -= new Vector2(128, 128);
-			var len = velocity.Length();
-			if (float.Epsilon < len)
-			{
-				velocity /= len;
-				velocity *= 0.05f;
-				//velocity /= 4000.0f;
-			}
+			velocity *= 0.001f;
 			return velocity;
 		}
 

@@ -7,6 +7,8 @@ namespace Example
 {
 	public class CollisionGrid
 	{
+		public delegate void CollisionHandler(IBox2DCollider a, IBox2DCollider b);
+
 		public Box2D Bounds { get; private set; }
 		public Vector2 CellSize { get; private set; }
 
@@ -54,6 +56,30 @@ namespace Example
 			foreach(var cell in cells)
 			{
 				cell.Clear();
+			}
+		}
+
+		public void FindAllCollisions(IEnumerable<IBox2DCollider> colliders, CollisionHandler Handler)
+		{
+			if (ReferenceEquals(null, Handler)) return;
+			Clear();
+			foreach (var collider in colliders)
+			{
+				Insert(collider);
+			}
+			for (int y = 0; y < CellCountY; ++y)
+			{
+				for (int x = 0; x < CellCountX; ++x)
+				{
+					var cell = cells[x, y];
+					for(int i = 0; i < cell.Count; ++i)
+					{
+						for (int j = i + 1; j < cell.Count; ++j)
+						{
+							Handler(cell[i], cell[j]);
+						}
+					}
+				}
 			}
 		}
 

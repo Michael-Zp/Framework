@@ -46,7 +46,6 @@
     <Compile Include="Meshes.cs" />
     <Compile Include="Obj2Mesh.cs" />
     <Compile Include="ObjParser.cs" />
-    <Compile Include="OrientedBox2D.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Transform2D.cs" />
   </ItemGroup>

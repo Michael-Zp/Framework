@@ -53,8 +53,6 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Geometry", "..\Geometry\Geo
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CollisionExample", "Examples\CollisionExample\CollisionExample.csproj", "{79E142ED-CDA0-4AB7-AE97-000775E82ED5}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "OrientedBoxCollisionExample", "Examples\OrientedBoxCollisionExample\OrientedBoxCollisionExample.csproj", "{40484021-EE14-4EE7-B3F4-2B00DB654A1F}"
-EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "PostProcessingExample", "Examples\PostProcessingExample\PostProcessingExample.csproj", "{C03AB561-606A-4815-B90A-78BCA1D48B64}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "PersistenceExample", "Examples\PersistenceExample\PersistenceExample.csproj", "{A5A5F2D5-E05C-43CF-9F9D-4B5B9FFDCF13}"
@@ -62,6 +60,8 @@ EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CollisionBroadPhaseExample", "Examples\CollisionBroadPhaseExample\CollisionBroadPhaseExample.csproj", "{F059451F-42CF-44E2-88D8-1DBE869D8256}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Geometry.Tests", "..\Geometry.Tests\Geometry.Tests.csproj", "{DF096E15-AA81-4FFD-B360-2B12E812BF26}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TimerTools", "..\TimerTools\TimerTools.csproj", "{54156018-0F41-4EEF-AEB4-F1C99CF7A2AB}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -145,10 +145,6 @@ Global
 		{79E142ED-CDA0-4AB7-AE97-000775E82ED5}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{79E142ED-CDA0-4AB7-AE97-000775E82ED5}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{79E142ED-CDA0-4AB7-AE97-000775E82ED5}.Release|Any CPU.Build.0 = Release|Any CPU
-		{40484021-EE14-4EE7-B3F4-2B00DB654A1F}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{40484021-EE14-4EE7-B3F4-2B00DB654A1F}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{40484021-EE14-4EE7-B3F4-2B00DB654A1F}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{40484021-EE14-4EE7-B3F4-2B00DB654A1F}.Release|Any CPU.Build.0 = Release|Any CPU
 		{C03AB561-606A-4815-B90A-78BCA1D48B64}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{C03AB561-606A-4815-B90A-78BCA1D48B64}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{C03AB561-606A-4815-B90A-78BCA1D48B64}.Release|Any CPU.ActiveCfg = Release|Any CPU
@@ -165,6 +161,10 @@ Global
 		{DF096E15-AA81-4FFD-B360-2B12E812BF26}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{DF096E15-AA81-4FFD-B360-2B12E812BF26}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{DF096E15-AA81-4FFD-B360-2B12E812BF26}.Release|Any CPU.Build.0 = Release|Any CPU
+		{54156018-0F41-4EEF-AEB4-F1C99CF7A2AB}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{54156018-0F41-4EEF-AEB4-F1C99CF7A2AB}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{54156018-0F41-4EEF-AEB4-F1C99CF7A2AB}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{54156018-0F41-4EEF-AEB4-F1C99CF7A2AB}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -187,7 +187,6 @@ Global
 		{97D9BF95-9CB1-47FC-8F8E-E6FA05351133} = {7784E3B6-CA36-4515-BC9D-7BEC5556D51E}
 		{87EF004B-71CC-4747-8943-D1C7AB667550} = {7784E3B6-CA36-4515-BC9D-7BEC5556D51E}
 		{79E142ED-CDA0-4AB7-AE97-000775E82ED5} = {7784E3B6-CA36-4515-BC9D-7BEC5556D51E}
-		{40484021-EE14-4EE7-B3F4-2B00DB654A1F} = {7784E3B6-CA36-4515-BC9D-7BEC5556D51E}
 		{C03AB561-606A-4815-B90A-78BCA1D48B64} = {7784E3B6-CA36-4515-BC9D-7BEC5556D51E}
 		{A5A5F2D5-E05C-43CF-9F9D-4B5B9FFDCF13} = {7784E3B6-CA36-4515-BC9D-7BEC5556D51E}
 		{F059451F-42CF-44E2-88D8-1DBE869D8256} = {7784E3B6-CA36-4515-BC9D-7BEC5556D51E}

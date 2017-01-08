@@ -4,6 +4,7 @@ using OpenTK.Graphics.OpenGL;
 using OpenTK.Input;
 using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.Linq;
 
 namespace Example
@@ -14,6 +15,8 @@ namespace Example
 		private List<Collider> colliders = new List<Collider>();
 		private Box2D windowBorders = new Box2D(-1.0f, -1.0f, 2.0f, 2.0f);
 		private CollisionGrid collisionGrid;
+		private Stopwatch stopWatch = new Stopwatch();
+		private double smoothedBenchmark = 0;
 
 		[STAThread]
 		public static void Main()
@@ -25,7 +28,7 @@ namespace Example
 
 		private MyApplication()
 		{
-			gameWindow.WindowState = WindowState.Fullscreen;
+			//gameWindow.WindowState = WindowState.Fullscreen;
 			GL.Viewport(0, 0, gameWindow.Width, gameWindow.Height);
 			SetupColliders();
 			//registers a callback for drawing a frame
@@ -43,11 +46,19 @@ namespace Example
 			float space = 0.02f;
 			float distance2 = space / 2;
 			float size = delta - space;
+			int i = 0;
 			for (float x =  -0.8f; x < 0.8f; x += delta)
 			{
 				for (float y = -0.8f; y < 0.8f; y += delta)
 				{
-					colliders.Add(new Collider(x, y, size, size));
+					var collider = new Collider(x, y, size, size);
+					var vel = Collider.RndVelocity();
+					if(0.1f < vel.Length())
+					{
+						collider.Velocity = vel;
+					}
+					colliders.Add(collider);
+					++i;
 				}
 			}
 			float scale = 2f;
@@ -78,6 +89,7 @@ namespace Example
 				}
 			}
 
+			stopWatch.Restart();
 			//handle collisions
 			if(Keyboard.GetState().IsKeyDown(Key.Space))
 			{
@@ -87,48 +99,51 @@ namespace Example
 			{
 				GridCollision();
 			}
-			Console.WriteLine(gameWindow.UpdateTime);
+			stopWatch.Stop();
+			smoothedBenchmark = Geometry.MathHelper.Lerp(stopWatch.Elapsed.TotalMilliseconds, smoothedBenchmark, 0.9);
+			Console.WriteLine(smoothedBenchmark);
 		}
 
 		private void BruteForceCollision()
 		{
-			foreach (var collider in colliders)
+			for (int i = 0; i < colliders.Count; ++i)
 			{
-				foreach (var collider2 in colliders)
+				for (int j = i + 1; j < colliders.Count; ++j)
 				{
-					if (collider == collider2) continue;
-					HandleNarrowPhaseCollision(collider, collider2);
-				}
-			}
-		}
-		private void GridCollision()
-		{
-			collisionGrid.Clear();
-			foreach (var collider in colliders)
-			{
-				collisionGrid.Insert(collider);
-			}
-			for (int y = 0; y < collisionGrid.CellCountY; ++y)
-			{
-				for (int x = 0; x < collisionGrid.CellCountX; ++x)
-				{
-					var cell = collisionGrid[x, y];
-					foreach (var collider1 in cell)
-					{
-						foreach (var collider2 in cell)
-						{
-							if (ReferenceEquals(collider1, collider2)) continue;
-							var coll1 = collider1 as Collider;
-							var coll2 = collider2 as Collider;
-							HandleNarrowPhaseCollision(coll1, coll2);
-						}
-					}
+					HandleNarrowPhaseCollisionOrdering(colliders[i], colliders[j]);
 				}
 			}
 		}
 
+		private void GridCollision()
+		{
+			collisionGrid.FindAllCollisions(colliders, (c1, c2) => HandleNarrowPhaseCollisionOrdering(c1 as Collider, c2 as Collider));
+		}
+
+		private void HandleNarrowPhaseCollisionOrdering(Collider collider1, Collider collider2)
+		{
+			if (System.Numerics.Vector2.Zero == collider1.Velocity)
+			{
+				if (System.Numerics.Vector2.Zero != collider2.Velocity)
+				{
+					HandleNarrowPhaseCollision(collider2, collider1);
+				}
+			}
+			else
+			{
+				HandleNarrowPhaseCollision(collider1, collider2);
+			}
+		}
 		private void HandleNarrowPhaseCollision(Collider collider1, Collider collider2)
 		{
+			if (System.Numerics.Vector2.Zero == collider1.Velocity)
+			{
+				if (System.Numerics.Vector2.Zero == collider2.Velocity)
+				{
+					return;
+				}
+				HandleNarrowPhaseCollision(collider2, collider1);
+			}
 			var box1 = collider1.Box;
 			var box2 = collider2.Box;
 			if (box1.Intersects(box2))
@@ -139,10 +154,7 @@ namespace Example
 				//collider2.Box.X -= collider2.Velocity.X * updatePeriod;
 				//collider2.Box.Y -= collider2.Velocity.Y * updatePeriod;
 				box1.UndoOverlap(box2);
-				var vel = collider1.Velocity;
-				collider1.Velocity = -collider2.Velocity;
-				collider2.Velocity = -vel;
-				//collider2.Velocity = System.Numerics.Vector2.Zero;
+				collider1.Velocity = Collider.RndVelocity();
 			}
 		}
 

@@ -18,6 +18,30 @@ namespace Geometry
 		}
 
 		/// <summary>
+		/// Linear interpolation of arguments a and b according to weight
+		/// </summary>
+		/// <param name="a"></param>
+		/// <param name="b"></param>
+		/// <param name="weight"></param>
+		/// <returns></returns>
+		public static float Lerp(float a, float b, float weight)
+		{
+			return a * (1 - weight) + b * weight;
+		}
+
+		/// <summary>
+		/// Linear interpolation of arguments a and b according to weight
+		/// </summary>
+		/// <param name="a"></param>
+		/// <param name="b"></param>
+		/// <param name="weight"></param>
+		/// <returns></returns>
+		public static double Lerp(double a, double b, double weight)
+		{
+			return a * (1 - weight) + b * weight;
+		}
+
+		/// <summary>
 		/// Copy matrix elements into array in column major style
 		/// </summary>
 		/// <param name="input">matrix to convert</param>

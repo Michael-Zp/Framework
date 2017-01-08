@@ -59,6 +59,10 @@
       <Project>{B37B7DDE-435B-4F27-9A9B-9B6DF8744EBE}</Project>
       <Name>Geometry</Name>
     </ProjectReference>
+    <ProjectReference Include="..\..\..\TimerTools\TimerTools.csproj">
+      <Project>{54156018-0F41-4EEF-AEB4-F1C99CF7A2AB}</Project>
+      <Name>TimerTools</Name>
+    </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
