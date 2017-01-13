@@ -8,7 +8,7 @@ uniform sampler2D texLastFrame;
 
 in vec2 uv;
 
-int countNeighbors(vec2 p, bool isLive) 
+int countNeighbors(vec2 uv, bool isLive) 
 {
 	vec2 uvUnit = 1.0 / iResolution.xy;
 	int count = 0;
@@ -63,5 +63,6 @@ void main()
 	//ghosting
 	color += 0.99 * texture2D(texLastFrame, uv).rgb;
 	color -= 1.0 / 256.0; //dim ove r time to avoid leftovers
+	color = clamp(color, vec3(0), vec3(1));
 	gl_FragColor = vec4(color, live);
 }

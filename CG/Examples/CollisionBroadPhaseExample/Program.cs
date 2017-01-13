@@ -1,22 +1,22 @@
 ﻿using Geometry;
-using OpenTK;
 using OpenTK.Graphics.OpenGL;
 using OpenTK.Input;
 using System;
 using System.Collections.Generic;
 using System.Diagnostics;
-using System.Linq;
+using System.Numerics;
 
 namespace Example
 {
 	class MyApplication
 	{
-		private GameWindow gameWindow = new GameWindow();
+		private OpenTK.GameWindow gameWindow = new OpenTK.GameWindow();
 		private List<Collider> colliders = new List<Collider>();
 		private Box2D windowBorders = new Box2D(-1.0f, -1.0f, 2.0f, 2.0f);
 		private CollisionGrid collisionGrid;
 		private Stopwatch stopWatch = new Stopwatch();
 		private double smoothedBenchmark = 0;
+		private static Random rnd = new Random(12);
 
 		[STAThread]
 		public static void Main()
@@ -28,7 +28,7 @@ namespace Example
 
 		private MyApplication()
 		{
-			//gameWindow.WindowState = WindowState.Fullscreen;
+			gameWindow.WindowState = OpenTK.WindowState.Fullscreen;
 			GL.Viewport(0, 0, gameWindow.Width, gameWindow.Height);
 			SetupColliders();
 			//registers a callback for drawing a frame
@@ -42,27 +42,23 @@ namespace Example
 
 		private void SetupColliders()
 		{
-			float delta = 0.05f;
-			float space = 0.02f;
+			float delta = 0.03f;
+			float space = 0.01f;
 			float distance2 = space / 2;
 			float size = delta - space;
 			int i = 0;
-			for (float x =  -0.8f; x < 0.8f; x += delta)
+			for (float x =  -0.9f; x < 0.9f; x += delta)
 			{
-				for (float y = -0.8f; y < 0.8f; y += delta)
+				for (float y = -0.9f; y < 0.9f; y += delta)
 				{
 					var collider = new Collider(x, y, size, size);
-					var vel = Collider.RndVelocity();
-					if(0.1f < vel.Length())
-					{
-						collider.Velocity = vel;
-					}
+					collider.Velocity = RndVelocity();
 					colliders.Add(collider);
 					++i;
 				}
 			}
 			float scale = 2f;
-			collisionGrid = new CollisionGrid(windowBorders, colliders.First().Box.SizeX * scale, colliders.First().Box.SizeY * scale);
+			collisionGrid = new CollisionGrid(windowBorders, size * scale, size * scale);
 		}
 
 		private void GameWindow_KeyDown(object sender, KeyboardKeyEventArgs e)
@@ -73,12 +69,13 @@ namespace Example
 			}
 		}
 
-		private void GameWindow_UpdateFrame(object sender, FrameEventArgs e)
+		private void GameWindow_UpdateFrame(object sender, OpenTK.FrameEventArgs e)
 		{
 			float updatePeriod = (float)gameWindow.TargetUpdatePeriod;
 			//movement
 			foreach (var collider in colliders)
 			{
+				collider.SaveBox();
 				collider.Box.X += collider.Velocity.X * updatePeriod;
 				collider.Box.Y += collider.Velocity.Y * updatePeriod;
 				if (!collider.Box.Inside(windowBorders))
@@ -89,7 +86,7 @@ namespace Example
 				}
 			}
 
-			stopWatch.Restart();
+			stopWatch.Restart(); //measure time spend on collision detection
 			//handle collisions
 			if(Keyboard.GetState().IsKeyDown(Key.Space))
 			{
@@ -100,8 +97,10 @@ namespace Example
 				GridCollision();
 			}
 			stopWatch.Stop();
-			smoothedBenchmark = Geometry.MathHelper.Lerp(stopWatch.Elapsed.TotalMilliseconds, smoothedBenchmark, 0.9);
-			Console.WriteLine(smoothedBenchmark);
+
+			var inertness = MathHelper.Clamp(gameWindow.UpdatePeriod, 0.001, 1.0);
+			smoothedBenchmark = MathHelper.Lerp(smoothedBenchmark, stopWatch.Elapsed.TotalMilliseconds, inertness);
+			Console.WriteLine(smoothedBenchmark.ToString());
 		}
 
 		private void BruteForceCollision()
@@ -110,55 +109,32 @@ namespace Example
 			{
 				for (int j = i + 1; j < colliders.Count; ++j)
 				{
-					HandleNarrowPhaseCollisionOrdering(colliders[i], colliders[j]);
+					HandleNarrowPhaseCollision(colliders[i], colliders[j]);
 				}
 			}
 		}
 
 		private void GridCollision()
 		{
-			collisionGrid.FindAllCollisions(colliders, (c1, c2) => HandleNarrowPhaseCollisionOrdering(c1 as Collider, c2 as Collider));
+			collisionGrid.FindAllCollisions(colliders, (c1, c2) => HandleNarrowPhaseCollision(c1 as Collider, c2 as Collider));
 		}
 
-		private void HandleNarrowPhaseCollisionOrdering(Collider collider1, Collider collider2)
-		{
-			if (System.Numerics.Vector2.Zero == collider1.Velocity)
-			{
-				if (System.Numerics.Vector2.Zero != collider2.Velocity)
-				{
-					HandleNarrowPhaseCollision(collider2, collider1);
-				}
-			}
-			else
-			{
-				HandleNarrowPhaseCollision(collider1, collider2);
-			}
-		}
 		private void HandleNarrowPhaseCollision(Collider collider1, Collider collider2)
 		{
-			if (System.Numerics.Vector2.Zero == collider1.Velocity)
-			{
-				if (System.Numerics.Vector2.Zero == collider2.Velocity)
-				{
-					return;
-				}
-				HandleNarrowPhaseCollision(collider2, collider1);
-			}
 			var box1 = collider1.Box;
 			var box2 = collider2.Box;
 			if (box1.Intersects(box2))
 			{
-				//float updatePeriod = (float)gameWindow.TargetUpdatePeriod;
-				//collider1.Box.X -= collider1.Velocity.X * updatePeriod;
-				//collider1.Box.Y -= collider1.Velocity.Y * updatePeriod;
-				//collider2.Box.X -= collider2.Velocity.X * updatePeriod;
-				//collider2.Box.Y -= collider2.Velocity.Y * updatePeriod;
-				box1.UndoOverlap(box2);
-				collider1.Velocity = Collider.RndVelocity();
+				//undo movement
+				collider1.RestoreSavedBox();
+				collider2.RestoreSavedBox();
+				////set random velocity
+				collider1.Velocity = RndVelocity();
+				collider2.Velocity = RndVelocity();
 			}
 		}
 
-		private void GameWindow_RenderFrame(object sender, FrameEventArgs e)
+		private void GameWindow_RenderFrame(object sender, OpenTK.FrameEventArgs e)
 		{
 			GL.Clear(ClearBufferMask.ColorBufferBit);
 			foreach (var collider in colliders)
@@ -176,6 +152,15 @@ namespace Example
 			GL.Vertex2(rect.MaxX, rect.MaxY);
 			GL.Vertex2(rect.X, rect.MaxY);
 			GL.End();
+		}
+
+		private Vector2 RndVelocity()
+		{
+			var rndData = new byte[2];
+			rnd.NextBytes(rndData);
+			var velocity = new Vector2(rndData[0] - 128, rndData[1] - 128);
+			velocity *= 0.0005f;
+			return velocity;
 		}
 	}
 }

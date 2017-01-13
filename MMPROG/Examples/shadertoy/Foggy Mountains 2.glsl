@@ -58,7 +58,7 @@ void mainImage( out vec4 fragColor, in vec2 fragCoord )
 	vec3  p1 = pos;	
 	for(float i=1.0;i<50.0;i++){
         test  = ground(p1); 
-		// fog  += max(test*clouds(p1),fog*0.02);
+		fog  += max(test*clouds(p1),fog*0.02);
 		p1   += ray*min(test,i*i*0.5);
 		dist += test;
 		if(abs(test)<10.0||dist>40000.0) break;

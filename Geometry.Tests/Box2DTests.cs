@@ -6,12 +6,12 @@ namespace Geometry.Tests
 	public class Box2DTests
 	{
 		[TestMethod()]
+		[ExpectedException(typeof(System.NullReferenceException), "A Box2D of null was inappropriately allowed.")]
 		public void IntersectsTestNull()
 		{
 			var a = new Box2D(0, 0, 1, 1);
 			var expectedA = new Box2D(a);
-			Assert.IsFalse(a.Intersects(null));
-			Assert.AreEqual(a, expectedA);
+			a.Intersects(null);
 		}
 
 		[TestMethod()]

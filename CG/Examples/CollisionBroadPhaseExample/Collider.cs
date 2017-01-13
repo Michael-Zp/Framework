@@ -1,5 +1,5 @@
-﻿using Geometry;
-using System;
+﻿using Framework;
+using Geometry;
 using System.Drawing;
 using System.Numerics;
 
@@ -10,9 +10,10 @@ namespace Example
 		public Collider(float x, float y, float sizeX, float sizeY)
 		{
 			Box = new Box2D(x, y, sizeX, sizeY);
-			var rndData = new byte[3];
-			rnd.NextBytes(rndData);
-			Color = Color.FromArgb(rndData[0], rndData[1], rndData[2]);
+			//make a hsb color sweep in polar coordinates
+			var polar = MathHelper.ToPolar(new Vector2(x, y));
+			var rgb = ColorSystems.Hsb2rgb(polar.X / MathHelper.TWO_PI + 0.5f, polar.Y, 1);
+			Color = ColorSystems.ToSystemColor(rgb);
 			Velocity = Vector2.Zero;
 		}
 
@@ -28,16 +29,17 @@ namespace Example
 
 		public float MaxY { get { return Box.MaxY; } }
 
-		public static Vector2 RndVelocity()
+		public void SaveBox()
 		{
-			var rndData = new byte[2];
-			rnd.NextBytes(rndData);
-			var velocity = new Vector2(rndData[0], rndData[1]);
-			velocity -= new Vector2(128, 128);
-			velocity *= 0.001f;
-			return velocity;
+			savedBox = new Box2D(Box);
 		}
 
-		private static Random rnd = new Random(12);
+		public void RestoreSavedBox()
+		{
+			if (ReferenceEquals(null, savedBox)) return;
+			Box = savedBox;
+		}
+
+		private Box2D savedBox = null;
 	}
 }

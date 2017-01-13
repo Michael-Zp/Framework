@@ -80,7 +80,6 @@ namespace Geometry
 
 		public bool Intersects(Box2D rectangle)
 		{
-			if (ReferenceEquals(null, rectangle)) return false;
 			bool noXintersect = (MaxX <= rectangle.X) || (X >= rectangle.MaxX);
 			bool noYintersect = (MaxY <= rectangle.Y) || (Y >= rectangle.MaxY);
 			return !(noXintersect || noYintersect);

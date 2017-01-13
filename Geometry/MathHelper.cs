@@ -5,9 +5,15 @@ namespace Geometry
 {
 	public static class MathHelper
 	{
-		public static float TWO_PI = (float)Math.PI * 2.0f;
+		public static float PI = (float)Math.PI;
+		public static float TWO_PI = (float)(Math.PI * 2.0);
 
 		public static float Clamp(float x, float min, float max)
+		{
+			return Math.Min(max, Math.Max(min, x));
+		}
+
+		public static double Clamp(double x, double min, double max)
 		{
 			return Math.Min(max, Math.Max(min, x));
 		}
@@ -41,6 +47,27 @@ namespace Geometry
 			return a * (1 - weight) + b * weight;
 		}
 
+		public static float Floor(this float x)
+		{
+			return (float)Math.Floor(x);
+		}
+
+		public static Vector3 Clamp(this Vector3 v, float min, float max)
+		{
+			return new Vector3(Clamp(v.X, min, max), Clamp(v.Y, min, max), Clamp(v.Z, min, max));
+		}
+
+		public static Vector3 Floor(this Vector3 v)
+		{
+			return new Vector3(Floor(v.X), Floor(v.Y), Floor(v.Z));
+		}
+
+		public static Vector3 Mod(this Vector3 x, float y)
+		{
+			var div = x / y;
+			return x - y * Floor(div);
+		}
+
 		/// <summary>
 		/// Copy matrix elements into array in column major style
 		/// </summary>
@@ -72,6 +99,18 @@ namespace Geometry
 			a[i++] = input.M44;
 
 			return a;
+		}
+
+		/// <summary>
+		/// Converts given cartesian coordinates into plar coordinates
+		/// </summary>
+		/// <param name="cartesian">cartesian coordinates</param>
+		/// <returns>a vector with x component beeing the angle [-PI, PI] and y component the radius</returns>
+		public static Vector2 ToPolar(this Vector2 cartesian)
+		{
+			float angle = (float)Math.Atan2(cartesian.Y, cartesian.X);
+			float radius = cartesian.Length();
+			return new Vector2(angle, radius);
 		}
 	}
 }

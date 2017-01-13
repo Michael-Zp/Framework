@@ -12,7 +12,7 @@ namespace ShaderForm
 	public partial class FormMain : Form
 	{
 		private DemoModel demo;
-		private bool mouseDown = false;
+		private int mouseButton = 0;
 		private Point mousePos;
 		//private int painting = 0;
 		private FPSCounter timing = new FPSCounter();
@@ -156,10 +156,10 @@ namespace ShaderForm
 			//await Task.Run(() =>
 			//{
 			//	glControl.MakeCurrent();
-			camera.Update(mouseX * width, mouseY * height, mouseDown);
+			camera.Update(mouseX * width, mouseY * height, 1 == mouseButton);
 			try
 			{
-				if (!demo.UpdateBuffer((int)Math.Round(mouseX * width), (int)Math.Round(mouseY * height), mouseDown, width, height))
+				if (!demo.UpdateBuffer((int)Math.Round(mouseX * width), (int)Math.Round(mouseY * height), mouseButton, width, height))
 				{
 					textBoxLastMessage.Text = lastMessage;
 					textBoxLastMessage.Visible = true;
@@ -387,26 +387,25 @@ namespace ShaderForm
 
 		private void GlControl_MouseDown(object sender, MouseEventArgs e)
 		{
-			if (MouseButtons.Left == e.Button)
+			switch(e.Button)
 			{
-				mouseDown = true;
-				glControl.Invalidate();
+				case MouseButtons.Left: mouseButton = 1; break;
+				case MouseButtons.Middle: mouseButton = 2; break;
+				case MouseButtons.Right: mouseButton = 3; break;
 			}
+			glControl.Invalidate();
 		}
 
 		private void GlControl_MouseMove(object sender, MouseEventArgs e)
 		{
 			mousePos = e.Location;
-			if (!soundPlayerBar1.Playing) glControl.Invalidate(); //otherwise time stops during update?!
+			if (!soundPlayerBar1.Playing) glControl.Invalidate(); //todo: otherwise time stops during update?!
 		}
 
 		private void GlControl_MouseUp(object sender, MouseEventArgs e)
 		{
-			if (MouseButtons.Left == e.Button)
-			{
-				mouseDown = false;
-				glControl.Invalidate();
-			}
+			mouseButton = 0;
+			glControl.Invalidate();
 		}
 
 		private void Reload_Click(object sender, EventArgs e)

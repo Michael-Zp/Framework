@@ -49,7 +49,7 @@ namespace ShaderForm
 			visualContext.Save(fileName);
 		}
 
-		public bool UpdateBuffer(int mouseX, int mouseY, bool leftButton, int bufferWidth, int bufferHeight)
+		public bool UpdateBuffer(int mouseX, int mouseY, int mouseButton, int bufferWidth, int bufferHeight)
 		{
 			visualContext.UpdateSurfaceSize(bufferWidth, bufferHeight);
 
@@ -57,7 +57,7 @@ namespace ShaderForm
 			var shaderLinked = visualContext.SetShader(currentShader);
 			visualContext.SetUniform("iGlobalTime", TimeSource.Position);
 			visualContext.SetUniform("iResolution", bufferWidth, bufferHeight);
-			visualContext.SetUniform("iMouse", mouseX, mouseY, leftButton ? 1.0f : 0.0f);
+			visualContext.SetUniform("iMouse", mouseX, mouseY, mouseButton);
 
 			uniforms.Interpolate(TimeSource.Position, (name, value) => visualContext.SetUniform(name, value));
 

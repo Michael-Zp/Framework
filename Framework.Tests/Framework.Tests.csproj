@@ -3,11 +3,11 @@
   <PropertyGroup>
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
-    <ProjectGuid>{DF096E15-AA81-4FFD-B360-2B12E812BF26}</ProjectGuid>
+    <ProjectGuid>{87F3A725-6AF4-41F7-AA58-CACD9E23D6D9}</ProjectGuid>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>Geometry.Tests</RootNamespace>
-    <AssemblyName>Geometry.Tests</AssemblyName>
+    <RootNamespace>Framework.Tests</RootNamespace>
+    <AssemblyName>Framework.Tests</AssemblyName>
     <TargetFrameworkVersion>v4.6</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
     <ProjectTypeGuids>{3AC096D0-A1C2-E12C-1390-A8335801FDAB};{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}</ProjectTypeGuids>
@@ -52,12 +52,13 @@
     </Otherwise>
   </Choose>
   <ItemGroup>
-    <Compile Include="Box2dExtensionsTests.cs" />
-    <Compile Include="Box2DTests.cs" />
-    <Compile Include="MathHelperTests.cs" />
-    <Compile Include="Transform2DTests.cs" />
+    <Compile Include="ColorSystemsTests.cs" />
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\Framework\Framework.csproj">
+      <Project>{C660F6AF-C100-4169-A9FB-61E1EBE87F34}</Project>
+      <Name>Framework</Name>
+    </ProjectReference>
     <ProjectReference Include="..\Geometry\Geometry.csproj">
       <Project>{B37B7DDE-435B-4F27-9A9B-9B6DF8744EBE}</Project>
       <Name>Geometry</Name>

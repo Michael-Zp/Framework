@@ -21,8 +21,8 @@ namespace ShaderForm
 			GL.ClearColor(1, 0, 0, 0);
 
 			surface = new FBO();
-			textureBufferA = Texture.Create(1, 1);
-			textureBufferB = Texture.Create(1, 1);
+			textureBufferA = CreateTexture(1, 1);
+			textureBufferB = CreateTexture(1, 1);
 			active = textureBufferA;
 
 			shaderCopyToScreen = InitShaderCopyToScreen();
@@ -122,8 +122,8 @@ namespace ShaderForm
 				var isTexAactive = active == textureBufferA;
 				textureBufferB.Dispose();
 				textureBufferA.Dispose();
-				textureBufferA = Texture.Create(width, height);
-				textureBufferB = Texture.Create(width, height);
+				textureBufferA = CreateTexture(width, height);
+				textureBufferB = CreateTexture(width, height);
 				active = isTexAactive ? textureBufferA : textureBufferB;
 			}
 		}
@@ -256,6 +256,13 @@ namespace ShaderForm
 		private Shader shaderCopyToScreen;
 		private Shader shaderCurrent;
 		private Shader shaderDefault;
+
+		private Texture CreateTexture(int width, int height)
+		{
+			//return Texture.Create(width, height);
+			//return Texture.Create(width, height, PixelInternalFormat.Rgba16f, PixelFormat.Rgba, PixelType.HalfFloat);
+			return Texture.Create(width, height, PixelInternalFormat.Rgba32f, PixelFormat.Rgba, PixelType.Float);
+		}
 
 		private Shader InitShaderDefault()
 		{

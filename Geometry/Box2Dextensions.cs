@@ -88,7 +88,7 @@ namespace Geometry
 			int minId = 0;
 			for (int i = 1; i < 4; ++i)
 			{
-				minId = (pushDistSqrd[i] > 0 && pushDistSqrd[i] < pushDistSqrd[minId]) ? i : minId;
+				minId = pushDistSqrd[i] < pushDistSqrd[minId] ? i : minId;
 			}
 
 			rectangleA.X += directions[minId].X;
