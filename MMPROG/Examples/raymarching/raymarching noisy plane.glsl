@@ -2,7 +2,7 @@
 
 #include "../libs/camera.glsl"
 #include "../libs/operators.glsl"
-#include "../libs/noise3D.glsl"
+#include "../libs/Noise2D.glsl"
 
 uniform vec2 iResolution;
 uniform float iGlobalTime;
@@ -10,39 +10,11 @@ uniform float iGlobalTime;
 const float epsilon = 0.0001;
 const int maxSteps = 128;
 
-//fractal Brownian motion
-float fBm(vec3 coord) 
-{
-	int octaves = 2;
-    float value = 0;
-    float amplitude = 0.5;
-	float lacunarity = 2;
-	float gain = 0.3;
-    for (int i = 0; i < octaves; ++i) {
-        value += amplitude * abs(snoise(coord)) * 0.5;
-        coord = coord * lacunarity;
-        amplitude *= gain;
-    }
-    return value;
-}
-
-			
-					
-float displacement( vec3 p )
-{
-	return fBm(p);
-}
-
-float mapTerrain( in vec3 pos )
-{
-	// pos.y += sin(pos.z - iGlobalTime * 6.0) * cos(pos.x - iGlobalTime) * .15; //waves!
-	return pos.y * 0.1 + displacement(pos);// * cos(iGlobalTime);
-}
-
-
 float distField(vec3 point)
 {
-	return mapTerrain(point);
+	point.y += snoise(point.xz * 0.1) * 2;
+	float distPlane = sPlane(point, vec3(0.0, 1.0, 0.0), -0.5);
+	return distPlane;
 }
 
 void main()
@@ -57,7 +29,7 @@ void main()
 	float t = 0.0;
 	//step along the ray 
 	int steps = 0;
-    for(; (steps < maxSteps) && (t < 10); ++steps)
+    for(; (steps < maxSteps) && (t < 100); ++steps)
     {
 		//check how far the point is from the nearest surface
         float dist = distField(point);
@@ -87,7 +59,7 @@ void main()
 		vec3 lightDir = normalize(vec3(1, -1.0, 1));
 		vec3 toLight = -lightDir;
 		float diffuse = max(0, dot(toLight, normal));
-		vec3 material = vec3(abs(sin(point * 3))); //some location based color
+		vec3 material = vec3(1);
 		vec3 ambient = vec3(0);
 
 		color = ambient + diffuse * material;	

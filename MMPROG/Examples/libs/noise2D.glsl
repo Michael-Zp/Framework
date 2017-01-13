@@ -9,16 +9,16 @@
 //               https://github.com/stegu/webgl-noise
 // 
 
-vec3 mod289(vec3 x) {
+vec3 mod289_2D(vec3 x) {
   return x - floor(x * (1.0 / 289.0)) * 289.0;
 }
 
-vec2 mod289(vec2 x) {
+vec2 mod289_2D(vec2 x) {
   return x - floor(x * (1.0 / 289.0)) * 289.0;
 }
 
 vec3 permute(vec3 x) {
-  return mod289(((x*34.0)+1.0)*x);
+  return mod289_2D(((x*34.0)+1.0)*x);
 }
 
 float snoise(vec2 v)
@@ -43,7 +43,7 @@ float snoise(vec2 v)
   x12.xy -= i1;
 
 // Permutations
-  i = mod289(i); // Avoid truncation effects in permutation
+  i = mod289_2D(i); // Avoid truncation effects in permutation
   vec3 p = permute( permute( i.y + vec3(0.0, i1.y, 1.0 ))
 		+ i.x + vec3(0.0, i1.x, 1.0 ));
 
