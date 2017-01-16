@@ -29,8 +29,12 @@ float distTree(vec3 point)
 
 float distTerrain(vec3 point)
 {
-	float y = snoise(point.xz * 0.1) * 1.2 + snoise(point.xz * 0.3) * 0.15;
-	point.y += y; //creates an incorrect distance field -> keep gradient low
+	float displacement = snoise(point.xz * 0.1) * 1.2;
+	displacement += snoise(point.xz * 0.3) * 0.15;
+	
+	displacement += smoothstep(0.7, 0, point.y) * snoise(point * 3) * 0.005;
+	
+	point.y += displacement; //creates an incorrect distance field -> keep gradient low
 	return sPlane(point, vec3(0.0, 1.0, 0.0), 1);
 }
 
