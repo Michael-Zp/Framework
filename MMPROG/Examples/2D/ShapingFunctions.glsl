@@ -4,6 +4,7 @@
 /// look at http://www.cdglabs.org/Shadershop/ for visual function composing
 
 #include "../libs/Noise.glsl"
+#include "../libs/operators.glsl"
 
 uniform vec3 iMouse;
 uniform vec2 iResolution;
@@ -91,7 +92,8 @@ float function(float x)
 	// y = step(7, x) - step(8, x);
 	// y = step(1, mod(x, 2));
 	// y = rand(x);
-	y = noise(x);
+	// y = rand(ceil(x + 0.5)) * 10;
+	// y = opRepeat(vec3(x), vec3(2)).x;
 	// y = gnoise(x);
 	// y = sin(x) + 0.1 * sin(16*x + iMouse.x * 0.1);
 	// y = noise(x) + 0.1 * noise(16*x + iMouse.x * 0.1);
@@ -130,8 +132,8 @@ void main() {
 	//screen aspect
 	float aspect = 1;//iResolution.x / iResolution.y;
 	//coordinate system corners
-	vec2 lowerLeft = vec2(-10 * aspect, -1.5);
-	vec2 upperRight = vec2(10 * aspect, 1.5);
+	vec2 lowerLeft = vec2(-10 * aspect, -1);
+	vec2 upperRight = vec2(10 * aspect, 10);
 	//setup coordinate system
 	vec2 coord = map(coord01, lowerLeft, upperRight);
 	//calculate just visible screen deltas
@@ -145,8 +147,8 @@ void main() {
 	color *= gridColor;
 	
 	//function
-    float graph = plotDifferentiableFunction(coord, 4 * screenDelta);
-    // float graph = plotFunction(coord, 4 * screenDelta);
+    // float graph = plotDifferentiableFunction(coord, 4 * screenDelta);
+    float graph = plotFunction(coord, 4 * screenDelta);
 
     // combine
 	const vec3 green = vec3(0.0, 1.0, 0.0);

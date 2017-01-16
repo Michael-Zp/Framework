@@ -1,5 +1,4 @@
-﻿using System;
-using System.Windows.Forms;
+﻿using System.Windows.Forms;
 
 namespace ShaderForm
 {
@@ -7,7 +6,8 @@ namespace ShaderForm
 	{
 		public FacadeCamera()
 		{
-			formCamera.Set(camera);
+			adapter = new AdapterCamera(camera);
+			formCamera.Set(adapter);
 		}
 
 		public void AddKeyFrames(float time, IUniforms uniforms)
@@ -34,7 +34,7 @@ namespace ShaderForm
 			camera.KeyChange(keyCode, pressed);
 			if (IsActive)
 			{
-				formCamera.Set(camera);
+				formCamera.Set(new AdapterCamera(camera));
 			}
 			OnRedraw?.Invoke(this);
 		}
@@ -86,6 +86,7 @@ namespace ShaderForm
 		}
 
 		private FlyCamera camera = new FlyCamera();
+		private AdapterCamera adapter;
 		private FormCamera formCamera = new FormCamera();
 		private string[] posUniformNames = { "iCamPosX", "iCamPosY", "iCamPosZ" };
 		private string[] rotUniformNames = { "iCamRotX", "iCamRotY", "iCamRotZ" };

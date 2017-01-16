@@ -372,6 +372,12 @@ namespace ShaderForm
 						multiGraph.AddInterpolatedKeyframeToVisible(soundPlayerBar1.Position);
 					}
 					break;
+				case Keys.R:
+					if (e.Control)
+					{
+						camera.Reset();
+					}
+					break;
 				case Keys.Space:
 					soundPlayerBar1.Playing = !soundPlayerBar1.Playing;
 					e.Handled = true;

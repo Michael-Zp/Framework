@@ -6,10 +6,23 @@ namespace ShaderForm
 {
 	public class FlyCamera
 	{
-		public Vector3 Position = new Vector3(0);
-		public Vector3 Rotation = new Vector3(0);
+		public FlyCamera()
+		{
+			Reset();
+		}
+
+		public Vector3 Position;
+		public Vector3 Rotation;
+		public float Speed;
 
 		public bool IsActive { get { return fwd || left || right || back || up || down; } }
+
+		public void Reset()
+		{
+			Position = new Vector3(0);
+			Rotation = new Vector3(0);
+			Speed = 0.05f;
+		}
 
 		public void Update(float mouseX, float mouseY, bool leftPressed)
 		{
@@ -37,14 +50,12 @@ namespace ShaderForm
 
 			var camUpTemp = -Vector3.Cross(camFwdTmp, camLeft);
 
-			float speed = FlyCamera.speed + ((fast) ? FlyCamera.speed * 2 : 0);
-
-			if (fwd) Position += camFwdTmp * speed;
-			if (back) Position -= camFwdTmp * speed;
-			if (left) Position += camLeft * speed;
-			if (right) Position -= camLeft * speed;
-			if (up) Position += camUpTemp * speed;
-			if (down) Position -= camUpTemp * speed;
+			if (fwd) Position += camFwdTmp * Speed;
+			if (back) Position -= camFwdTmp * Speed;
+			if (left) Position += camLeft * Speed;
+			if (right) Position -= camLeft * Speed;
+			if (up) Position += camUpTemp * Speed;
+			if (down) Position -= camUpTemp * Speed;
 
 			camFwd = camFwdTmp;
 		}
@@ -59,13 +70,15 @@ namespace ShaderForm
 				case Keys.D: right = pressed; break;
 				case Keys.Q: up = pressed; break;
 				case Keys.E: down = pressed; break;
-				case Keys.ShiftKey: fast = pressed; break;
+				case Keys.Oemplus:
+				case Keys.Add: if(pressed) Speed *= 2.0f; break;
+				case Keys.OemMinus:
+				case Keys.Subtract: if (pressed) Speed /= 2.0f; break;
 			}
 		}
 
-		private const float speed = 0.05f; //todo1: Has to be adapted for every shader.. scene size matters..
 		private Vector3 camFwd = new Vector3(0, 0, 1);
-		private bool fwd, back, left, right, up, down, fast = false;
+		private bool fwd, back, left, right, up, down;
 		private float lastMouseX = 0;
 		private float lastMouseY = 0;
 

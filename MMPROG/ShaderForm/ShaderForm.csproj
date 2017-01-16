@@ -68,6 +68,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="AdapterCamera.cs" />
     <Compile Include="DefaultFiles.cs" />
     <Compile Include="DemoModelFactory.cs" />
     <Compile Include="FacadeCamera.cs" />

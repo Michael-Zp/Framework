@@ -43,10 +43,10 @@ namespace Framework
 		public static void SaveToFile(Texture texture, string fileName)
 		{
 			var format = System.Drawing.Imaging.PixelFormat.Format32bppArgb;
-            texture.BeginUse();
 			using (Bitmap bmp = new Bitmap(texture.Width, texture.Height))
 			{
-				BitmapData data = bmp.LockBits(new Rectangle(0, 0, bmp.Width, bmp.Height), System.Drawing.Imaging.ImageLockMode.WriteOnly, format);
+				texture.BeginUse();
+				BitmapData data = bmp.LockBits(new Rectangle(0, 0, bmp.Width, bmp.Height), ImageLockMode.WriteOnly, format);
 				GL.GetTexImage(TextureTarget.Texture2D, 0, selectInputPixelFormat(format), PixelType.UnsignedByte, data.Scan0);
 				bmp.UnlockBits(data);
 				texture.EndUse();
