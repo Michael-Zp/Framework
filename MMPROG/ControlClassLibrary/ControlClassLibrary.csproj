@@ -39,7 +39,14 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="MovableControlsLayoutPanel.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="MovableControlsLayoutPanel.Designer.cs">
+      <DependentUpon>MovableControlsLayoutPanel.cs</DependentUpon>
+    </Compile>
     <Compile Include="ITrackItem.cs" />
+    <Compile Include="NewControlBoundsArgs.cs" />
     <Compile Include="RegistryLoader.cs" />
     <Compile Include="ISequenceBarItem.cs" />
     <Compile Include="FloatValueBar.cs">

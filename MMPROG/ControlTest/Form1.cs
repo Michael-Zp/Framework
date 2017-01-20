@@ -16,5 +16,13 @@ namespace ControlTest
 		{
 			InitializeComponent();
 		}
+
+		private void draggableLayoutPanel1_ControlBoundsChanging(object sender, ControlClassLibrary.NewControlBoundsArgs e)
+		{
+			var delta = draggableLayoutPanel1.Height / 5.0;
+			var bounds = e.NewBounds;
+			bounds.Y = (int)Math.Round(Math.Round(bounds.Y / delta) * delta);
+			e.NewBounds = bounds;
+		}
 	}
 }

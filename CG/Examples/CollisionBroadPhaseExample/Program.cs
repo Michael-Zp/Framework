@@ -28,7 +28,7 @@ namespace Example
 
 		private MyApplication()
 		{
-			gameWindow.WindowState = OpenTK.WindowState.Fullscreen;
+			//gameWindow.WindowState = OpenTK.WindowState.Fullscreen;
 			GL.Viewport(0, 0, gameWindow.Width, gameWindow.Height);
 			SetupColliders();
 			//registers a callback for drawing a frame
@@ -109,7 +109,7 @@ namespace Example
 			{
 				for (int j = i + 1; j < colliders.Count; ++j)
 				{
-					HandleNarrowPhaseCollision(colliders[i], colliders[j]);
+					 HandleNarrowPhaseCollision(colliders[i], colliders[j]);
 				}
 			}
 		}

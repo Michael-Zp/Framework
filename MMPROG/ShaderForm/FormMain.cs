@@ -576,18 +576,20 @@ namespace ShaderForm
 		{
 			//ordering important
 			this.FormBorderStyle = FormBorderStyle.None;
+			var bounds = Bounds;
 			this.menuStrip.Visible = false;
 			this.panelSequence.Visible = false;
 			this.soundPlayerBar1.Visible = false;
+			this.Bounds = bounds;
 		}
 
 		private void glControl_MouseEnter(object sender, EventArgs e)
 		{
-			if (menuCompact.Checked)
-			{
-				NormalView();
-				Activate();
-			}
+			//if (menuCompact.Checked)
+			//{
+			//	NormalView();
+			//	Activate();
+			//}
 		}
 
 		private void FormMain_Deactivate(object sender, EventArgs e)
