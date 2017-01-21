@@ -9,19 +9,22 @@ namespace ControlClassLibrary
 	{
 		public MovableControlsLayoutPanel()
 		{
-			ControlAdded += DraggableLayoutPanel_ControlAdded;
+			ControlAdded += MovableControlsLayoutPanel_ControlAdded;
 			AllowDrop = true;
 			AllowOverlap = false;
 			RestrictToPanel = true;
+			DoubleBuffered = true;
 		}
 
 		public bool AllowOverlap { get; set; }
 		public bool RestrictToPanel { get; set; }
+		public Control SelectedControl { get; private set; }
 
 		public event EventHandler<NewControlBoundsArgs> ControlBoundsChanging;
 
-		private void DraggableLayoutPanel_ControlAdded(object sender, ControlEventArgs e)
+		private void MovableControlsLayoutPanel_ControlAdded(object sender, ControlEventArgs e)
 		{
+			e.Control.Parent = this;
 			AddDragDropHandler(e.Control);
 		}
 
@@ -34,6 +37,8 @@ namespace ControlClassLibrary
 			control.MouseDown += delegate (object sender, MouseEventArgs e)
 			{
 				Dragging = true;
+				SelectedControl = control;
+				control.Select();
 				DragStart = e.Location;
 				control.Capture = true;
 				Cursor = Cursors.Hand;
@@ -80,6 +85,7 @@ namespace ControlClassLibrary
 					Cursor = Cursors.Hand;
 					control.Left = args.NewBounds.Left;
 					control.Top = args.NewBounds.Top;
+					Invalidate(false);
 				}
 			};
 		}

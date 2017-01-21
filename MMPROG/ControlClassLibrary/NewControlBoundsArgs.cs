@@ -1,18 +1,15 @@
-﻿using System;
-using System.Drawing;
+﻿using System.Drawing;
 using System.Windows.Forms;
 
 namespace ControlClassLibrary
 {
-	public class NewControlBoundsArgs : EventArgs
+	public class NewControlBoundsArgs : ControlEventArgs
 	{
-		public NewControlBoundsArgs(Control control, Rectangle newBounds)
+		public NewControlBoundsArgs(Control control, Rectangle newBounds): base(control)
 		{
-			Control = control;
 			NewBounds = newBounds;
 		}
 
 		public Rectangle NewBounds { get; set; }
-		public Control Control { get; private set; }
 	}
 }

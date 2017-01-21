@@ -75,6 +75,12 @@
     <Compile Include="SeekBar.Designer.cs">
       <DependentUpon>SeekBar.cs</DependentUpon>
     </Compile>
+    <Compile Include="ShaderNodeControl.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="ShaderNodeControl.Designer.cs">
+      <DependentUpon>ShaderNodeControl.cs</DependentUpon>
+    </Compile>
     <Compile Include="TrackItem.cs" />
     <Compile Include="TrackItemVisual.cs">
       <SubType>Component</SubType>
@@ -97,6 +103,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="SeekBar.resx">
       <DependentUpon>SeekBar.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="ShaderNodeControl.resx">
+      <DependentUpon>ShaderNodeControl.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="TrackView.resx">
       <DependentUpon>TrackView.cs</DependentUpon>
