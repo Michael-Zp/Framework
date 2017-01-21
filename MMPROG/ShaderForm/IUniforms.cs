@@ -7,9 +7,9 @@ namespace ShaderForm
 	{
 		IEnumerable<string> Names { get; }
 
-		event EventHandler<string> OnAdd;
-		event EventHandler<string> OnRemove;
-		event EventHandler<string> OnChangeKeyframes;
+		event EventHandler<string> UniformAdded;
+		event EventHandler<string> UniformRemoved;
+		event EventHandler<string> ChangedKeyframes;
 
 		bool Add(string uniformName);
 		IKeyFrames GetKeyFrames(string uniformName);

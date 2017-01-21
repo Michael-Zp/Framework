@@ -10,7 +10,7 @@ namespace TimeTools
 			this.length = length;
 			IsLooping = false;
 			IsRunning = false;
-			timer.Elapsed += TimeFinished;
+			timer.Elapsed += OnTimeFinished;
 			InitTimer(length);
 		}
 
@@ -22,9 +22,9 @@ namespace TimeTools
 			if(isRunning) timer.Start();
 		}
 
-		private void TimeFinished(object sender, ElapsedEventArgs e)
+		private void OnTimeFinished(object sender, ElapsedEventArgs e)
 		{
-			OnTimeFinished?.Invoke();
+			TimeFinished?.Invoke();
 			if (IsLooping)
 			{
 				Position = 0.0f;
@@ -58,7 +58,7 @@ namespace TimeTools
 				}
 				if (startPosition >= Length)
 				{
-					OnTimeFinished?.Invoke();
+					TimeFinished?.Invoke();
 					InitTimer(Length);
 					startPosition = 0.0f;
 				}
@@ -75,7 +75,7 @@ namespace TimeTools
 			set	{ if (value) sw.Start(); else sw.Stop(); }
 		}
 
-		public event TimeFinishedHandler OnTimeFinished;
+		public event TimeFinishedHandler TimeFinished;
 
 		public void Dispose()
 		{

@@ -7,7 +7,7 @@ namespace ShaderForm
 {
 	public class ShaderFile : IShaderFile
 	{
-		public event EventHandler<string> OnChange;
+		public event EventHandler<string> Changed;
 
 		public ShaderFile(VisualContext visualContext, ISynchronizeInvoke syncObject)
 		{
@@ -73,7 +73,7 @@ namespace ShaderForm
 
 		private void CallOnChange(string message)
 		{
-			OnChange?.Invoke(this, message);
+			Changed?.Invoke(this, message);
 		}
 	}
 }

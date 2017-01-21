@@ -6,7 +6,7 @@ namespace ShaderForm
 {
 	public class ShaderKeyframes
 	{
-		public event EventHandler<EventArgs> OnChange;
+		public event EventHandler<EventArgs> Changed;
 		public IEnumerable<KeyValuePair<float, string>> Items { get { return keyframes; } }
 
 		public void AddUpdate(float time, string shaderPath)
@@ -89,7 +89,7 @@ namespace ShaderForm
 
 		protected void CallOnChange()
 		{
-			OnChange?.Invoke(this, EventArgs.Empty);
+			Changed?.Invoke(this, EventArgs.Empty);
 		}
 
 		private SortedDictionary<float, string> keyframes = new SortedDictionary<float, string>();

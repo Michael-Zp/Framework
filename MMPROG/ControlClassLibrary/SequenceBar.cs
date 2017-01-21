@@ -56,7 +56,7 @@ namespace ControlClassLibrary
 			menuStrip_Paint(null, null);
 		}
 
-		public event EventHandler OnChanged; 
+		public event EventHandler Changed; 
 		public IEnumerable<SequenceBarItem> Items { get { return new SequenceBarItemEnumerator(menuStrip.Items.GetEnumerator()); } }
 
 		private Random rnd;
@@ -113,7 +113,7 @@ namespace ControlClassLibrary
 			if (ReferenceEquals(null,  menu)) return;
 			menu.Width = menuStrip.Width - menu.Bounds.X;
 			UpdateRatioFromWidth(menu);
-			OnChanged?.Invoke(this, new EventArgs());
+			Changed?.Invoke(this, new EventArgs());
 		}
 
 		private void menuStrip_Resize(object sender, EventArgs e)

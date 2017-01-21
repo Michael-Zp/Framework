@@ -16,8 +16,8 @@
 		public uint PeriodElapsedCount { get; private set; }
 		public float PeriodRelativeTime { get; private set; }
 		public bool Enabled { get; private set; }
-		public delegate void PeriodElapsed(PeriodicUpdate sender, float absoluteTime);
-		public event PeriodElapsed OnPeriodElapsed;
+		public delegate void PeriodElapsedHandler(PeriodicUpdate sender, float absoluteTime);
+		public event PeriodElapsedHandler PeriodElapsed;
 		public float Interval { get; set; }
 
 		public void Start(float startTime)
@@ -42,7 +42,7 @@
 			PeriodRelativeTime = absoluteTime - this.absoluteTime;
 			if (PeriodRelativeTime > Interval)
 			{
-				OnPeriodElapsed?.Invoke(this, absoluteTime);
+				PeriodElapsed?.Invoke(this, absoluteTime);
 				this.absoluteTime = absoluteTime;
 				PeriodRelativeTime = 0.0f;
 				++PeriodElapsedCount;

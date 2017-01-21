@@ -7,7 +7,7 @@ namespace ShaderForm
 {
 	public class Textures : IEnumerable<string>, IDisposable, ITextures
 	{
-		public event EventHandler<EventArgs> OnChange;
+		public event EventHandler<EventArgs> Changed;
 
 		public Textures(VisualContext visual)
 		{
@@ -54,7 +54,7 @@ namespace ShaderForm
 
 		protected void CallOnChange()
 		{
-			OnChange?.Invoke(this, EventArgs.Empty);
+			Changed?.Invoke(this, EventArgs.Empty);
 		}
 
 		private VisualContext visual;

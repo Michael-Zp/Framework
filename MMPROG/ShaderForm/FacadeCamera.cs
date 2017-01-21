@@ -36,13 +36,13 @@ namespace ShaderForm
 			{
 				formCamera.Set(new AdapterCamera(camera));
 			}
-			OnRedraw?.Invoke(this);
+			Redraw?.Invoke(this);
 		}
 
 		public bool IsActive { get { return camera.IsActive; } }
 
-		public delegate void ChangeHandler(FacadeCamera camera);
-		public event ChangeHandler OnRedraw;
+		public delegate void ChangedHandler(FacadeCamera camera);
+		public event ChangedHandler Redraw;
 
 		public void Reset()
 		{

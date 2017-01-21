@@ -6,7 +6,7 @@ namespace ShaderForm
 	public class DemoModel : IDisposable
 	{
 		public delegate void SetUniformsHandler(ISetUniform visualContext);
-		public event SetUniformsHandler OnSetCustomUniforms;
+		public event SetUniformsHandler SetCustomUniforms;
 		public ShaderKeyframes ShaderKeyframes { get; private set; }
 		public IShaders Shaders { get; private set; }
 		public ITextures Textures { get; private set; }
@@ -62,7 +62,7 @@ namespace ShaderForm
 			uniforms.Interpolate(TimeSource.Position, (name, value) => visualContext.SetUniform(name, value));
 
 			//override with custom uniforms
-			OnSetCustomUniforms?.Invoke(visualContext);
+			SetCustomUniforms?.Invoke(visualContext);
 
 			visualContext.Update();
 			return shaderLinked;

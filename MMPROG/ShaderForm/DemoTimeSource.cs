@@ -55,15 +55,15 @@ namespace ShaderForm
 			}
 		}
 
-		public event EventHandler OnLoaded;
-		public event TimeFinishedHandler OnTimeFinished;
+		public event EventHandler Loaded;
+		public event TimeFinishedHandler TimeFinished;
 
 		public DemoTimeSource(bool isLooping)
 		{
 			SoundFileName = string.Empty;
 			timeSource = new TimeSource(10.0f);
 			timeSource.IsLooping = isLooping;
-			timeSource.OnTimeFinished += CallOnTimeFinished;
+			timeSource.TimeFinished += CallOnTimeFinished;
 		}
 
 		public static ITimeSource FromMediaFile(string fileName)
@@ -93,10 +93,10 @@ namespace ShaderForm
 			else
 			{
 				newTimeSource.IsLooping = IsLooping;
-				newTimeSource.OnTimeFinished += CallOnTimeFinished;
+				newTimeSource.TimeFinished += CallOnTimeFinished;
 				timeSource.Dispose();
 				timeSource = newTimeSource;
-				OnLoaded?.Invoke(this, EventArgs.Empty);
+				Loaded?.Invoke(this, EventArgs.Empty);
 			}
 		}
 
@@ -111,8 +111,8 @@ namespace ShaderForm
 			timeSource = new TimeSource(10.0f);
 			SoundFileName = string.Empty;
 			timeSource.IsLooping = isLooping;
-			timeSource.OnTimeFinished += CallOnTimeFinished;
-			OnLoaded?.Invoke(this, EventArgs.Empty);
+			timeSource.TimeFinished += CallOnTimeFinished;
+			Loaded?.Invoke(this, EventArgs.Empty);
 		}
 
 		public void Dispose()
@@ -125,7 +125,7 @@ namespace ShaderForm
 
 		private void CallOnTimeFinished()
 		{
-			OnTimeFinished?.Invoke();
+			TimeFinished?.Invoke();
 		}
 	}
 }

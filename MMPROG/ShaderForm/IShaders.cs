@@ -5,7 +5,7 @@ namespace ShaderForm
 {
 	public interface IShaders : IEnumerable<string>
 	{
-		event EventHandler<string> OnChange;
+		event EventHandler<string> Changed;
 
 		void AddUpdateShader(string shaderFileName);
 		void Clear();

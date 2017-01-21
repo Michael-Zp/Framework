@@ -7,18 +7,18 @@ namespace ShaderForm
 {
 	public class FacadeKeyframesVisualisation
 	{
-		public delegate void OnChangePositionHandler(float position);
-		public event OnChangePositionHandler OnChangePosition;
-		public event KeyEventHandler OnKeyDown;
+		public delegate void ChangedPositionHandler(float position);
+		public event ChangedPositionHandler ChangedPosition;
+		public event KeyEventHandler KeyDown;
 
 		public FacadeKeyframesVisualisation(string uniformName, IKeyFrames kfs)
 		{
 			formGraph = new FormGraph(uniformName);
-			formGraph.OnChangePoints += FormGraph_OnChangePoints;
-			formGraph.OnChangePosition += (pos) => { OnChangePosition?.Invoke((float)pos); };
-			formGraph.KeyDown += (sender, args) => { OnKeyDown?.Invoke(sender, args); };
-			formGraph.OnCopyCommand += (sender, args) => { if (!ReferenceEquals(null,  kfs)) kfs.CopyKeyframesToClipboard(); };
-			formGraph.OnPasteCommand += (sender, args) => { if (!ReferenceEquals(null,  kfs)) kfs.PasteKeyframesFromClipboard(); };
+			formGraph.ChangedPoints += FormGraph_OnChangePoints;
+			formGraph.ChangedPosition += (pos) => { ChangedPosition?.Invoke((float)pos); };
+			formGraph.KeyDown += (sender, args) => { KeyDown?.Invoke(sender, args); };
+			formGraph.CopyCommand += (sender, args) => { if (!ReferenceEquals(null,  kfs)) kfs.CopyKeyframesToClipboard(); };
+			formGraph.PasteCommand += (sender, args) => { if (!ReferenceEquals(null,  kfs)) kfs.PasteKeyframesFromClipboard(); };
 			currentUniform = uniformName;
 			this.kfs = kfs;
 			Update();

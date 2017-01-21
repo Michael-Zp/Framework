@@ -11,6 +11,6 @@ namespace TimeTools
 		bool IsRunning { get; set; }
 		float Position { get; set; }
 
-		event TimeFinishedHandler OnTimeFinished;
+		event TimeFinishedHandler TimeFinished;
 	}
 }

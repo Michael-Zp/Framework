@@ -10,6 +10,7 @@ namespace ControlClassLibrary
 		public MovableControlsLayoutPanel()
 		{
 			ControlAdded += DraggableLayoutPanel_ControlAdded;
+			AllowDrop = true;
 			AllowOverlap = false;
 			RestrictToPanel = true;
 		}
@@ -28,16 +29,20 @@ namespace ControlClassLibrary
 		{
 			bool Dragging = false;
 			Point DragStart = Point.Empty;
+			control.MouseEnter += (s, e) => Cursor = Cursors.SizeAll;
+			control.MouseLeave += (s, e) => Cursor = Cursors.Default;
 			control.MouseDown += delegate (object sender, MouseEventArgs e)
 			{
 				Dragging = true;
 				DragStart = e.Location;
 				control.Capture = true;
+				Cursor = Cursors.Hand;
 			};
 			control.MouseUp += delegate (object sender, MouseEventArgs e)
 			{
 				Dragging = false;
 				control.Capture = false;
+				Cursor = Cursors.Default;
 			};
 			control.MouseMove += delegate (object sender, MouseEventArgs e)
 			{
@@ -65,10 +70,14 @@ namespace ControlClassLibrary
 						foreach (var ctrl in Controls.OfType<Control>())
 						{
 							if (ReferenceEquals(ctrl, control)) continue;
-							if (ctrl.Bounds.IntersectsWith(args.NewBounds)) return;
+							if (ctrl.Bounds.IntersectsWith(args.NewBounds))
+							{
+								Cursor = Cursors.No;
+								return;
+							}
 						}
 					}
-
+					Cursor = Cursors.Hand;
 					control.Left = args.NewBounds.Left;
 					control.Top = args.NewBounds.Top;
 				}

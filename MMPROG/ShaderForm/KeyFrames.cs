@@ -8,7 +8,7 @@ namespace ShaderForm
 {
 	public class KeyFrames: IKeyFrames
 	{
-		public event EventHandler<EventArgs> OnChange;
+		public event EventHandler<EventArgs> Changed;
 
 		public void AddUpdate(float time, float value)
 		{
@@ -44,7 +44,7 @@ namespace ShaderForm
 
 		protected void CallOnChange()
 		{
-			OnChange?.Invoke(this, EventArgs.Empty);
+			Changed?.Invoke(this, EventArgs.Empty);
 		}
 
 		private ControlPoints<float> keyframes = new ControlPoints<float>();

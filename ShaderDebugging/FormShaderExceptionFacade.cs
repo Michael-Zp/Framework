@@ -6,12 +6,12 @@ namespace ShaderDebugging
 {
 	public class FormShaderExceptionFacade
 	{
-		public event EventHandler<EventArgs> OnSave;
+		public event EventHandler<EventArgs> Save;
 
 		public FormShaderExceptionFacade()
 		{
 			form = new FormShaderException();
-			form.OnSave += (s, a) => OnSave?.Invoke(s, a);
+			form.Save += (s, a) => Save?.Invoke(s, a);
 		}
 
 		public void Clear()

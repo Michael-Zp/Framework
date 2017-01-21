@@ -7,7 +7,7 @@ namespace MediaPlayer
 {
 	public class MediaFacade : IDisposable, ITimeSource
 	{
-		public event TimeFinishedHandler OnTimeFinished;
+		public event TimeFinishedHandler TimeFinished;
 
 		public MediaFacade(string fileName)
 		{
@@ -54,7 +54,7 @@ namespace MediaPlayer
 			{
 				if (Length < value)
 				{
-					OnTimeFinished?.Invoke();
+					TimeFinished?.Invoke();
 				}
 				wmp.controls.currentPosition = value;
 			}
@@ -66,7 +66,7 @@ namespace MediaPlayer
 
 		private void Wmp_PlayStateChange(int NewState)
 		{
-			if (8 == NewState) OnTimeFinished?.Invoke();
+			if (8 == NewState) TimeFinished?.Invoke();
 		}
 	}
 }

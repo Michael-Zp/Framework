@@ -77,7 +77,7 @@
 			this.markerBarPosition.TabIndex = 0;
 			this.markerBarPosition.Text = "markerBar1";
 			this.markerBarPosition.Value = 0F;
-			this.markerBarPosition.OnValueChanged += new System.EventHandler(this.MarkerBarPosition_ValueChanged);
+			this.markerBarPosition.ValueChanged += new System.EventHandler(this.MarkerBarPosition_ValueChanged);
 			// 
 			// SeekBar
 			// 

@@ -13,12 +13,12 @@ namespace ShaderForm
 	/// </summary>
 	public partial class FormGraph : Form
 	{
-		public delegate void OnChangePointsHandler(IEnumerable<KeyValuePair<float, float>> points);
-		public event OnChangePointsHandler OnChangePoints;
-		public delegate void OnChangePositionHandler(double position);
-		public event OnChangePositionHandler OnChangePosition;
-		public event EventHandler OnCopyCommand;
-		public event EventHandler OnPasteCommand;
+		public delegate void ChangedPointsHandler(IEnumerable<KeyValuePair<float, float>> points);
+		public event ChangedPointsHandler ChangedPoints;
+		public delegate void ChangedPositionHandler(double position);
+		public event ChangedPositionHandler ChangedPosition;
+		public event EventHandler CopyCommand;
+		public event EventHandler PasteCommand;
 
 		public FormGraph(string name)
 		{
@@ -166,7 +166,7 @@ namespace ShaderForm
 			double x = ConvertX(mouseX);
 			var area = chart1.ChartAreas.First();
 			area.CursorX.Position = x;
-			OnChangePosition?.Invoke(x);
+			ChangedPosition?.Invoke(x);
 		}
 
 		private void chart1_MouseMove(object sender, MouseEventArgs e)
@@ -198,14 +198,14 @@ namespace ShaderForm
 
 		private void CallOnChangePoint(DataPointCollection points)
 		{
-			if (!ReferenceEquals(null,  OnChangePoints))
+			if (!ReferenceEquals(null,  ChangedPoints))
 			{
 				var lst = new List<KeyValuePair<float, float>>();
 				foreach (var point in points)
 				{
 					lst.Add(new KeyValuePair<float, float>((float)point.XValue, (float)point.YValues[0]));
 				}
-				OnChangePoints(lst);
+				ChangedPoints(lst);
 			}
 		}
 
@@ -255,12 +255,12 @@ namespace ShaderForm
 
 		private void copyToolStripMenuItem_Click(object sender, EventArgs e)
 		{
-			OnCopyCommand?.Invoke(sender, e);
+			CopyCommand?.Invoke(sender, e);
 		}
 
 		private void pasteToolStripMenuItem_Click(object sender, EventArgs e)
 		{
-			OnPasteCommand?.Invoke(sender, e);
+			PasteCommand?.Invoke(sender, e);
 		}
 
 		private void roundToolStripMenuItem_Click(object sender, EventArgs e)

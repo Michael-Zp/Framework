@@ -34,7 +34,7 @@ namespace DemoRecorder
 			var textures = new Textures(visualContext);
 			var shaders = new Shaders(visualContext, NewShaderFile);
 			demo = new DemoModel(visualContext, shaders, textures, false);
-			demo.TimeSource.OnTimeFinished += () => gameWindow.Close();
+			demo.TimeSource.TimeFinished += () => gameWindow.Close();
 
 			var arguments = Environment.GetCommandLineArgs();
 			if (3 > arguments.Length)

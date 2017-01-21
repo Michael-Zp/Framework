@@ -27,12 +27,12 @@ namespace ShaderForm
 
 			string demoFilter = DefaultFiles.GetDemoExtension() + " (*" + DefaultFiles.GetDemoExtension() + ")|*" + DefaultFiles.GetDemoExtension();
 			menuSizeSetting.SelectedIndexChanged += (sender, e) => glControl.Invalidate();
-			multiGraph.OnChangePosition += (pos) => soundPlayerBar1.Position = pos;
-			multiGraph.OnKeyDown += FormMain_KeyDown;
-			camera.OnRedraw += (position) => glControl.Invalidate();
-			soundPlayerBar1.OnPositionChanged += (position) => glControl.Invalidate();
-			soundPlayerBar1.OnPositionChanged += (position) => multiGraph.UpdatePosition(position);
-			soundPlayerBar1.OnPositionChanged += (position) => camera.UpdateFromUniforms(demo.Uniforms, position);
+			multiGraph.ChangedPosition += (pos) => soundPlayerBar1.Position = pos;
+			multiGraph.KeyDown += FormMain_KeyDown;
+			camera.Redraw += (position) => glControl.Invalidate();
+			soundPlayerBar1.PositionChanged += (position) => glControl.Invalidate();
+			soundPlayerBar1.PositionChanged += (position) => multiGraph.UpdatePosition(position);
+			soundPlayerBar1.PositionChanged += (position) => camera.UpdateFromUniforms(demo.Uniforms, position);
 
 			menuHelp.Click += (sender, e) => Dialogs.Help();
 			menuLoad.Click += (sender, e) => Dialogs.OpenFile(demoFilter
@@ -192,18 +192,18 @@ namespace ShaderForm
 				demo = DemoModelFactory.Create(this);
 				//make for valid time source even if no new demo is loaded afterwards (when starting with shader cmd line argument)
 				Demo_OnTimeSourceLoaded(null, EventArgs.Empty);
-				demo.OnSetCustomUniforms += Demo_OnSetCustomUniforms;
-				demo.TimeSource.OnLoaded += Demo_OnTimeSourceLoaded;
-				demo.Uniforms.OnAdd += Uniforms_OnAdd;
-				demo.Uniforms.OnRemove += Uniforms_OnRemove;
-				demo.Uniforms.OnAdd += multiGraph.Uniforms_OnAdd;
-				demo.Uniforms.OnRemove += multiGraph.Uniforms_OnRemove;
-				demo.Uniforms.OnChangeKeyframes += multiGraph.Uniforms_OnChange;
-				demo.Uniforms.OnChangeKeyframes += (s, a) => camera.UpdateFromUniforms(demo.Uniforms, demo.TimeSource.Position);
-				demo.Uniforms.OnChangeKeyframes += (s, a) => glControl.Invalidate();
-				demo.Shaders.OnChange += Shaders_OnChange;
-				demo.ShaderKeyframes.OnChange += ShaderKeframes_OnChange;
-				demo.Textures.OnChange += Textures_OnChange;
+				demo.SetCustomUniforms += Demo_OnSetCustomUniforms;
+				demo.TimeSource.Loaded += Demo_OnTimeSourceLoaded;
+				demo.Uniforms.UniformAdded += Uniforms_OnAdd;
+				demo.Uniforms.UniformRemoved += Uniforms_OnRemove;
+				demo.Uniforms.UniformAdded += multiGraph.Uniforms_OnAdd;
+				demo.Uniforms.UniformRemoved += multiGraph.Uniforms_OnRemove;
+				demo.Uniforms.ChangedKeyframes += multiGraph.Uniforms_OnChange;
+				demo.Uniforms.ChangedKeyframes += (s, a) => camera.UpdateFromUniforms(demo.Uniforms, demo.TimeSource.Position);
+				demo.Uniforms.ChangedKeyframes += (s, a) => glControl.Invalidate();
+				demo.Shaders.Changed += Shaders_OnChange;
+				demo.ShaderKeyframes.Changed += ShaderKeframes_OnChange;
+				demo.Textures.Changed += Textures_OnChange;
 			}
 			catch (Exception e)
 			{
@@ -492,7 +492,7 @@ namespace ShaderForm
 		private void sequenceBar1_OnChanged(object sender, EventArgs e)
 		{
 			//no udpate events during loading
-			demo.ShaderKeyframes.OnChange -= ShaderKeframes_OnChange;
+			demo.ShaderKeyframes.Changed -= ShaderKeframes_OnChange;
 			demo.ShaderKeyframes.Clear();
 			var ratios = sequenceBar1.Items.Select((item) => new Tuple<float, string>(item.Ratio, item.Data as string));
 			var keyframes = ShaderKeyframes.CalculatePosFromRatios(ratios, soundPlayerBar1.Length);
@@ -500,7 +500,7 @@ namespace ShaderForm
 			{
 				demo.ShaderKeyframes.AddUpdate(kf.Item1, kf.Item2);
 			}
-			demo.ShaderKeyframes.OnChange += ShaderKeframes_OnChange;
+			demo.ShaderKeyframes.Changed += ShaderKeframes_OnChange;
 			glControl.Invalidate();
 		}
 

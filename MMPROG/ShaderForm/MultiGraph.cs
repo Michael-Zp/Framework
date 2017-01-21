@@ -6,9 +6,9 @@ namespace ShaderForm
 {
 	public class MultiGraph
 	{
-		public delegate void OnChangePositionHandler(float position);
-		public event OnChangePositionHandler OnChangePosition;
-		public event KeyEventHandler OnKeyDown;
+		public delegate void ChangedPositionHandler(float position);
+		public event ChangedPositionHandler ChangedPosition;
+		public event KeyEventHandler KeyDown;
 
 		public void AddInterpolatedKeyframeTo(object sender, float position)
 		{
@@ -62,8 +62,8 @@ namespace ShaderForm
 			if (ReferenceEquals(null,  uniforms)) return;
 			var kfs = uniforms.GetKeyFrames(uniformName);
 			var visualisation = new FacadeKeyframesVisualisation(uniformName, kfs);
-			visualisation.OnChangePosition += (position) => OnChangePosition?.Invoke(position);
-			visualisation.OnKeyDown += (s, a) => { OnKeyDown?.Invoke(s, a); };
+			visualisation.ChangedPosition += (position) => ChangedPosition?.Invoke(position);
+			visualisation.KeyDown += (s, a) => { KeyDown?.Invoke(s, a); };
 			graphs.Add(uniformName, visualisation);
 		}
 

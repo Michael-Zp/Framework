@@ -8,7 +8,7 @@ namespace ShaderForm
 {
 	public class Shaders : IDisposable, IShaders
 	{
-		public event EventHandler<string> OnChange;
+		public event EventHandler<string> Changed;
 
 		public delegate IShaderFile ShaderFileCreator();
 		public Shaders(VisualContext visual, ShaderFileCreator shaderCreator)
@@ -26,7 +26,7 @@ namespace ShaderForm
 			}
 			if (shaders.ContainsKey(shaderFileName)) return;
 			var shader = shaderCreator();
-			shader.OnChange += (sender, message) => CallOnChange(message);
+			shader.Changed += (sender, message) => CallOnChange(message);
 			shaders[shaderFileName] = shader;
 			shader.Load(shaderFileName);
 		}
@@ -74,7 +74,7 @@ namespace ShaderForm
 
 		protected void CallOnChange(string message)
 		{
-			OnChange?.Invoke(this, message);
+			Changed?.Invoke(this, message);
 		}
 
 		private Dictionary<string, IShaderFile> shaders = new Dictionary<string, IShaderFile>();

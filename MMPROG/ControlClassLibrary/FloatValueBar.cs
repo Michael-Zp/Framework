@@ -10,7 +10,7 @@ namespace ControlClassLibrary
 	public partial class FloatValueBar : UserControl
 	{
 		[Description("Called after Value has changed.")]
-		public event EventHandler OnValueChanged;
+		public event EventHandler ValueChanged;
 
 		public FloatValueBar()
 		{
@@ -27,7 +27,7 @@ namespace ControlClassLibrary
 			{
 				if (value == this.m_fValue) return;
 				this.m_fValue = Math.Min(Math.Max(value, this.m_fMin), this.m_fMax);
-				OnValueChanged?.Invoke(this, null);
+				ValueChanged?.Invoke(this, null);
 				Invalidate();
 			} 
 		}
@@ -141,7 +141,7 @@ namespace ControlClassLibrary
 		private void MarkerBar_MouseUp(object sender, MouseEventArgs e)
 		{
 			m_bMarking = false;
-			OnValueChanged?.Invoke(this, null);
+			ValueChanged?.Invoke(this, null);
 		}
 		public Point Clip(Point point_, Rectangle rect_)
 		{

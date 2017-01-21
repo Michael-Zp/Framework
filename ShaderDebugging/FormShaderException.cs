@@ -7,7 +7,7 @@ namespace ShaderDebugging
 {
 	public partial class FormShaderException : Form
 	{
-		public event EventHandler<EventArgs> OnSave;
+		public event EventHandler<EventArgs> Save;
 
 		public FormShaderException()
 		{
@@ -45,7 +45,7 @@ namespace ShaderDebugging
 		{
 			switch (e.KeyCode)
 			{
-				case Keys.S: if (Keys.Control == ModifierKeys) OnSave(sender, EventArgs.Empty); break;
+				case Keys.S: if (Keys.Control == ModifierKeys) Save(sender, EventArgs.Empty); break;
 				case Keys.Escape: Close(); break;
 			}
 		}

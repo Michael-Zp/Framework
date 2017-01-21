@@ -11,7 +11,7 @@ namespace DemoPlayer
 			this.visualContext = visualContext;
 		}
 
-		public event EventHandler<string> OnChange;
+		public event EventHandler<string> Changed;
 
 		public void Dispose()
 		{
@@ -22,7 +22,7 @@ namespace DemoPlayer
 		{
 			if (!File.Exists(shaderFileName)) throw new ShaderLoadException("Non existent shader file '" + shaderFileName + "'!");
 			visualContext.AddUpdateFragmentShader(shaderFileName);
-			OnChange?.Invoke(this, "Loading '+" + shaderFileName + "' with success!");
+			Changed?.Invoke(this, "Loading '+" + shaderFileName + "' with success!");
 		}
 
 		private VisualContext visualContext;

@@ -331,7 +331,7 @@ namespace ShaderForm
 			this.sequenceBar1.Name = "sequenceBar1";
 			this.sequenceBar1.Size = new System.Drawing.Size(658, 32);
 			this.sequenceBar1.TabIndex = 5;
-			this.sequenceBar1.OnChanged += new System.EventHandler(this.sequenceBar1_OnChanged);
+			this.sequenceBar1.Changed += new System.EventHandler(this.sequenceBar1_OnChanged);
 			// 
 			// soundPlayerBar1
 			// 

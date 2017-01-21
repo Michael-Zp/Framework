@@ -5,9 +5,9 @@ namespace ShaderForm
 {
 	public class Uniforms : IUniforms
 	{
-		public event EventHandler<string> OnChangeKeyframes;
-		public event EventHandler<string> OnAdd;
-		public event EventHandler<string> OnRemove;
+		public event EventHandler<string> ChangedKeyframes;
+		public event EventHandler<string> UniformAdded;
+		public event EventHandler<string> UniformRemoved;
 
 		public bool Add(string uniformName)
 		{
@@ -16,9 +16,9 @@ namespace ShaderForm
 			try
 			{
 				var kf = new KeyFrames();
-				kf.OnChange += (sender, arg) => OnChangeKeyframes?.Invoke(sender, uniformName);
+				kf.Changed += (sender, arg) => ChangedKeyframes?.Invoke(sender, uniformName);
 				uniforms.Add(uniformName, kf);
-				OnAdd?.Invoke(this, uniformName);
+				UniformAdded?.Invoke(this, uniformName);
 				return true;
 			}
 			catch
@@ -29,11 +29,11 @@ namespace ShaderForm
 
 		public void Clear()
 		{
-			if (!ReferenceEquals(null,  OnRemove))
+			if (!ReferenceEquals(null,  UniformRemoved))
 			{
 				foreach (var uniformName in uniforms.Keys)
 				{
-					OnRemove(this, uniformName);
+					UniformRemoved(this, uniformName);
 				}
 			}
 			uniforms.Clear();
@@ -62,7 +62,7 @@ namespace ShaderForm
 		public void Remove(string uniformName)
 		{
 			uniforms.Remove(uniformName);
-			OnRemove?.Invoke(this, uniformName);
+			UniformRemoved?.Invoke(this, uniformName);
 		}
 
 		private Dictionary<string, KeyFrames> uniforms = new Dictionary<string, KeyFrames>();

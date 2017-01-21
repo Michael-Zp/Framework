@@ -8,9 +8,9 @@ namespace ControlClassLibrary
 	{
 		public delegate void PositionHandler(float position);
 		public delegate void PlayingStateHandler(bool playing);
-		public event TimeFinishedHandler OnFinished;
-		public event PlayingStateHandler OnPlayingStateChanged;
-		public event PositionHandler OnPositionChanged;
+		public event TimeFinishedHandler Finished;
+		public event PlayingStateHandler PlayingStateChanged;
+		public event PositionHandler PositionChanged;
 
 		public ITimeSource TimeSource
 		{
@@ -18,13 +18,13 @@ namespace ControlClassLibrary
 			set
 			{
 				if (ReferenceEquals(null,  value)) throw new Exception("Property TimeSource is forbidden to become null!");
-				timeSource.OnTimeFinished -= CallOnFinished;
+				timeSource.TimeFinished -= CallOnFinished;
 				if (value != defaultTimeSource)
 				{
 					defaultTimeSource.IsRunning = false;
 				}
 				timeSource = value;
-				timeSource.OnTimeFinished += CallOnFinished;
+				timeSource.TimeFinished += CallOnFinished;
 				markerBarPosition.Max = timeSource.Length;
 				markerBarPosition.Value = 0.0f;
 				Playing = Playing;
@@ -37,7 +37,7 @@ namespace ControlClassLibrary
 			defaultTimeSource =	new TimeSource(10.0f);
 			timeSource = defaultTimeSource;
 			timeSource.IsLooping = true;
-			timeSource.OnTimeFinished += CallOnFinished;
+			timeSource.TimeFinished += CallOnFinished;
 			markerBarPosition.Max = timeSource.Length;
 			Playing = false;
 		}
@@ -59,7 +59,7 @@ namespace ControlClassLibrary
 				}
 				timeSource.IsRunning = value;
 				timerUpdateMarkerBar.Enabled = value;
-				if (value != old) OnPlayingStateChanged?.Invoke(value);
+				if (value != old) PlayingStateChanged?.Invoke(value);
 			}
 		}
 
@@ -77,7 +77,7 @@ namespace ControlClassLibrary
 
 		private void CallOnFinished()
 		{
-			OnFinished?.Invoke();
+			Finished?.Invoke();
 		}
 
 		private void Playing_CheckedChanged(object sender, EventArgs e)
@@ -95,7 +95,7 @@ namespace ControlClassLibrary
 
 		private void MarkerBarPosition_ValueChanged(object sender, EventArgs e)
 		{
-			OnPositionChanged?.Invoke(Position);
+			PositionChanged?.Invoke(Position);
 			if (timerChange) return;
 			timeSource.Position = Position;
 		}

@@ -5,7 +5,7 @@ namespace ShaderForm
 {
 	public interface ITextures : IEnumerable<string>
 	{
-		event EventHandler<EventArgs> OnChange;
+		event EventHandler<EventArgs> Changed;
 
 		bool AddUpdate(string fileName);
 		void Clear();
