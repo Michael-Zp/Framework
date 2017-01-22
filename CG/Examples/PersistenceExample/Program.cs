@@ -76,7 +76,7 @@ namespace Example
 		void GameWindow_RenderFrame(object sender, FrameEventArgs e)
 		{
 			Visual.DrawScreen(gameState);
-			//VisualConsole.DrawScreen(gameState);
+			VisualConsole.DrawScreen(gameState);
 		}
 
 		private static string GetGameStateFilePath()

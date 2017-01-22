@@ -24,7 +24,7 @@ namespace SpaceInvaders
 
 		public MyApplication()
 		{
-			shootCoolDown.OnPeriodElapsed += (s, t) => shootCoolDown.Stop();
+			shootCoolDown.PeriodElapsed += (s, t) => shootCoolDown.Stop();
 
 			gameWindow = new GameWindow();
 			gameWindow.WindowState = WindowState.Fullscreen;

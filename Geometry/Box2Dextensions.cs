@@ -13,7 +13,7 @@ namespace Geometry
 			}
 			if (rectangleA.MaxX > rectangleB.MaxX)
 			{
-				rectangleA.MaxX = rectangleB.MaxX;
+				rectangleA.X = rectangleB.MaxX - rectangleA.SizeX;
 			}
 			return true;
 		}
@@ -27,7 +27,7 @@ namespace Geometry
 			}
 			if (rectangleA.MaxY > rectangleB.MaxY)
 			{
-				rectangleA.MaxY = rectangleB.MaxY;
+				rectangleA.Y = rectangleB.MaxY - rectangleA.SizeY;
 			}
 			return true;
 		}

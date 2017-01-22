@@ -164,7 +164,7 @@ namespace MiniGalaxyBirds
 			var enemy = new Enemy(compFrame, absoluteTime, - 0.3f);
 			registry.RegisterComponentTo(container, enemy);
 			var periodicEnemyBullet = new ComponentPeriodicUpdate(absoluteTime, 1.5f);
-			periodicEnemyBullet.OnPeriodElapsed += (s, time) =>
+			periodicEnemyBullet.PeriodElapsed += (s, time) =>
 			{
 				CreateEnemyBullet(time, frame.X, frame.Y);
 				CreateEnemyBullet(time, frame.MaxX, frame.Y);
@@ -191,7 +191,7 @@ namespace MiniGalaxyBirds
 		{
 			var containerEnemySource = registry.CreateComponentContainer();
 			var periodicUpdate = new ComponentPeriodicUpdate(absoluteTime, 0.5f);
-			periodicUpdate.OnPeriodElapsed += (s, time) => { CreateEnemy(time); };
+			periodicUpdate.PeriodElapsed += (s, time) => { CreateEnemy(time); };
 			registry.RegisterComponentTo(containerEnemySource, periodicUpdate);
 		}
 
@@ -213,7 +213,7 @@ namespace MiniGalaxyBirds
 			var container = registry.CreateComponentContainer();
 			var compFrame = new Component<Box2D>(new Box2D(frame));
 			var compAnim = new ComponentAnimated(absoluteTime, 1.0f);
-			compAnim.OnPeriodElapsed += (s, t) => Remove(container);
+			compAnim.PeriodElapsed += (s, t) => Remove(container);
 			registry.RegisterComponentTo(container, compFrame);
 			registry.RegisterComponentTo(container, compAnim);
 			registry.RegisterComponentTo(container, new Component<IDrawable>(renderer.CreateDrawable("explosion", compFrame.Value, compAnim)));

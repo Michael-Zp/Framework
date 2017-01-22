@@ -19,7 +19,7 @@ namespace MvcSpaceInvaders
 
 		public GameLogic()
 		{
-			shootCoolDown.OnPeriodElapsed += (s, t) => shootCoolDown.Stop();
+			shootCoolDown.PeriodElapsed += (s, t) => shootCoolDown.Stop();
 			CreateEnemies();
 		}
 

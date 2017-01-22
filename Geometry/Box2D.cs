@@ -30,7 +30,7 @@ namespace Geometry
 			this.SizeY = rectangle.SizeY;
 		}
 
-		public static Box2D BOX01 = new Box2D(0, 0, 1, 1);
+		public static readonly Box2D BOX01 = new Box2D(0, 0, 1, 1);
 
 		public float SizeX { get; set; }
 
@@ -39,6 +39,10 @@ namespace Geometry
 		public float X { get; set; }
 
 		public float Y { get; set; }
+
+		public float MaxX { get { return X + SizeX; } set { SizeX = value - X; } }
+
+		public float MaxY { get { return Y + SizeY; } set { SizeY = value - Y; } }
 
 		public float CenterX { get { return X + 0.5f * SizeX; } set { X = value - 0.5f * SizeX; } }
 
@@ -93,10 +97,6 @@ namespace Geometry
 			if (MaxY > rectangle.MaxY) return false;
 			return true;
 		}
-
-		public float MaxX { get { return X + SizeX; } set { X = value - SizeX; } }
-
-		public float MaxY { get { return Y + SizeY; } set { Y = value - SizeY; } }
 
 		public override string ToString()
 		{

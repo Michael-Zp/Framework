@@ -1,4 +1,5 @@
-﻿using Microsoft.VisualStudio.TestTools.UnitTesting;
+﻿using Geometry;
+using Microsoft.VisualStudio.TestTools.UnitTesting;
 using System.Numerics;
 
 namespace Geometry.Tests
@@ -149,6 +150,54 @@ namespace Geometry.Tests
 			a.UndoOverlap(b);
 			Assert.AreEqual(expectedA, a);
 			Assert.IsFalse(a.Intersects(b));
+		}
+
+		[TestMethod()]
+		public void PushXRangeInsideTest()
+		{
+			var a = new Box2D(-0.1f, 0, 0.5f, 0.5f);
+			var b = new Box2D(0, 0, 2, 2);
+			var expectedA = new Box2D(a);
+			expectedA.X = 0;
+			a.PushXRangeInside(b);
+			Assert.AreEqual(expectedA, a);
+			Assert.IsTrue(a.Intersects(b));
+		}
+
+		[TestMethod()]
+		public void PushXRangeInsideTest2()
+		{
+			var a = new Box2D(1.6f, 0, 0.5f, 0.5f);
+			var b = new Box2D(0, 0, 2, 2);
+			var expectedA = new Box2D(a);
+			expectedA.X = 1.5f;
+			a.PushXRangeInside(b);
+			Assert.AreEqual(expectedA, a);
+			Assert.IsTrue(a.Intersects(b));
+		}
+
+		[TestMethod()]
+		public void PushYRangeInsideTest()
+		{
+			var a = new Box2D(0, -0.1f, 0.5f, 0.5f);
+			var b = new Box2D(0, 0, 2, 2);
+			var expectedA = new Box2D(a);
+			expectedA.Y = 0;
+			a.PushYRangeInside(b);
+			Assert.AreEqual(expectedA, a);
+			Assert.IsTrue(a.Intersects(b));
+		}
+
+		[TestMethod()]
+		public void PushYRangeInsideTest2()
+		{
+			var a = new Box2D(0, 1.6f, 0.5f, 0.5f);
+			var b = new Box2D(0, 0, 2, 2);
+			var expectedA = new Box2D(a);
+			expectedA.Y = 1.5f;
+			a.PushYRangeInside(b);
+			Assert.AreEqual(expectedA, a);
+			Assert.IsTrue(a.Intersects(b));
 		}
 	}
 }
