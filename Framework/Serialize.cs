@@ -115,5 +115,16 @@ namespace Framework
 				return formatter.Deserialize(inFile);
 			}
 		}
+
+		/// <summary>
+		/// Deserializes an new obj instance from a binary stream.
+		/// </summary>
+		/// <param name="binData">The stream</param>
+		/// <returns>object if successfull</returns>
+		public static object ObjFromBinStream(Stream binData)
+		{
+			BinaryFormatter formatter = new BinaryFormatter();
+			return formatter.Deserialize(binData);
+		}
 	}
 }

@@ -5,6 +5,7 @@ namespace Geometry
 	/// <summary>
 	/// Represents an 2D axis aligned bounding box
 	/// </summary>
+	[Serializable]
 	public class Box2D : IEquatable<Box2D>
 	{
 		/// <summary>
@@ -48,6 +49,11 @@ namespace Geometry
 
 		public float CenterY { get { return Y + 0.5f * SizeY; } set { Y = value - 0.5f * SizeY; } }
 
+		public static Box2D CreateFromMinMax(float minX, float minY, float maxX, float maxY)
+		{
+			var rectangle = new Box2D(minX, minY, maxX - minX, maxY - minY);
+			return rectangle;
+		}
 		public static Box2D CreateFromCenterSize(float centerX, float centerY, float sizeX, float sizeY)
 		{
 			var rectangle = new Box2D(0, 0, sizeX, sizeY);
