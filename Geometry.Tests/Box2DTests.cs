@@ -47,7 +47,7 @@ namespace Geometry.Tests
 		}
 
 		[TestMethod()]
-		public void IntersectsTest()
+		public void IntersectsBoxTest()
 		{
 			var a = new Box2D(-4, -7, 1, 2);
 			var b = new Box2D(a);
@@ -57,7 +57,7 @@ namespace Geometry.Tests
 		}
 
 		[TestMethod()]
-		public void IntersectsTest2()
+		public void IntersectsBoxTest2()
 		{
 			var a = new Box2D(-4, -7, 1, 2);
 			var b = new Box2D(a);
@@ -68,7 +68,7 @@ namespace Geometry.Tests
 		}
 
 		[TestMethod()]
-		public void IntersectsTest3()
+		public void IntersectsBoxTest3()
 		{
 			var a = new Box2D(-4, -7, 1, 2);
 			var b = new Box2D(a);

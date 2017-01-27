@@ -2,6 +2,9 @@
 using System.Windows.Controls;
 using Framework;
 using System.IO;
+using System;
+using System.Windows.Shapes;
+using Geometry;
 
 namespace LevelEditor
 {
@@ -21,7 +24,11 @@ namespace LevelEditor
 		{
 			TraverseLogicalTree(canvas);
 			levelData.ObjIntoBinFile(@"..\..\level.data");
-			Close();
+			string[] args = Environment.GetCommandLineArgs();
+			if(args.Length > 1)
+			{
+				if("close" == args[1].ToLower()) Close();
+			}
 		}
 
 		private void TraverseLogicalTree(DependencyObject dependencyObject)
@@ -36,9 +43,21 @@ namespace LevelEditor
 					var image = child as Image;
 					Convert(image);
 				}
+				else if (typeof(Ellipse) == type)
+				{
+					var collider = child as Ellipse;
+					Convert(collider);
+				}
 				var logicalChild = child as DependencyObject;
 				TraverseLogicalTree(logicalChild);
 			}
+		}
+
+		private void Convert(Ellipse collider)
+		{
+			var bounds = ConvertBounds(collider);
+			var circle = CircleExtensions.CreateFromBox(bounds);
+			levelData.Add(new ColliderCircle(circle));
 		}
 
 		/// <summary>
@@ -48,22 +67,30 @@ namespace LevelEditor
 		/// <param name="image">Input Image UIElement to convert</param>
 		private void Convert(Image image)
 		{
-			var leftTop = (Vector)image.TranslatePoint(new Point(0, 0), canvas);
-			var rightBottom = leftTop + (Vector)image.RenderSize;
-			//normalize
-			leftTop /= canvas.ActualWidth;
-			rightBottom /= canvas.ActualHeight;
-			//flip y coordinate
-			var sprite = new Sprite((float)leftTop.X, (float)rightBottom.X, (float)(1 - rightBottom.Y), (float)(1 - leftTop.Y));
+			var bounds = ConvertBounds(image);
+			var sprite = new Sprite(bounds);
 			var Layer = Canvas.GetZIndex(image);
 			sprite.Name = image.Name;
 			var source = image.Source?.ToString();
 			if (!ReferenceEquals(null, source))
 			{
 				//sprite.TextureName = source.Substring(source.LastIndexOf(',') + 1);
-				sprite.TextureName = Path.GetFileName(source);
+				sprite.TextureName = System.IO.Path.GetFileName(source);
 			}
 			levelData.Add(Layer, sprite);
+		}
+
+		private Box2D ConvertBounds(UIElement element)
+		{
+			var leftTop = (Vector)element.TranslatePoint(new Point(0, 0), canvas);
+			var rightBottom = leftTop + (Vector)element.RenderSize;
+			//normalize
+			leftTop /= canvas.ActualWidth;
+			rightBottom /= canvas.ActualHeight;
+			//flip y coordinate
+			return Box2dExtensions.CreateFromMinMax(
+				(float)leftTop.X, (float)(1 - rightBottom.Y),
+				(float)rightBottom.X, (float)(1 - leftTop.Y));
 		}
 
 		private double Convert(double value)

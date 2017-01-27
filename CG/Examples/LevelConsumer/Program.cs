@@ -78,7 +78,7 @@ namespace Example
 			{
 				foreach (var sprite in layer)
 				{
-					renderer.Draw(sprite, sprite.Bounds);
+					renderer.Draw(sprite, sprite.RenderBounds);
 				}
 			}
 		}

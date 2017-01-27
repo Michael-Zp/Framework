@@ -54,6 +54,8 @@
   <ItemGroup>
     <Compile Include="Box2dExtensionsTests.cs" />
     <Compile Include="Box2DTests.cs" />
+    <Compile Include="CircleExtensionsTests.cs" />
+    <Compile Include="CircleTests.cs" />
     <Compile Include="MathHelperTests.cs" />
     <Compile Include="Transform2DTests.cs" />
   </ItemGroup>

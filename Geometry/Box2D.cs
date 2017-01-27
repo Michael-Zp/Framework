@@ -49,19 +49,6 @@ namespace Geometry
 
 		public float CenterY { get { return Y + 0.5f * SizeY; } set { Y = value - 0.5f * SizeY; } }
 
-		public static Box2D CreateFromMinMax(float minX, float minY, float maxX, float maxY)
-		{
-			var rectangle = new Box2D(minX, minY, maxX - minX, maxY - minY);
-			return rectangle;
-		}
-		public static Box2D CreateFromCenterSize(float centerX, float centerY, float sizeX, float sizeY)
-		{
-			var rectangle = new Box2D(0, 0, sizeX, sizeY);
-			rectangle.CenterX = centerX;
-			rectangle.CenterY = centerY;
-			return rectangle;
-		}
-
 		public static bool operator==(Box2D a, Box2D b)
 		{
 			return a.Equals(b);

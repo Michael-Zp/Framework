@@ -15,7 +15,7 @@ namespace Example
 		private GameWindow gameWindow = new GameWindow(1024, 1024);
 		private PostProcessing postProcessing;
 		private Stopwatch globalTime = new Stopwatch();
-		private Box2D bird = Box2D.CreateFromCenterSize(0.0f, -0.8f, 0.3f, 0.3f);
+		private Box2D bird = Box2dExtensions.CreateFromCenterSize(0.0f, -0.8f, 0.3f, 0.3f);
 		private Texture texBird;
 		private Box2D background = new Box2D(-1.0f, -1.0f, 2.0f, 2.0f);
 		private Texture texBackground;

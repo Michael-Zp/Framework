@@ -40,10 +40,10 @@ namespace Example
 			//generate birds
 			for(float delta = .1f; delta < .5f; delta += .1f)
 			{
-				birds.Add(Box2D.CreateFromCenterSize(rotCenter.X - delta, rotCenter.Y - delta, .1f, .1f));
-				birds.Add(Box2D.CreateFromCenterSize(rotCenter.X - delta, rotCenter.Y + delta, .1f, .1f));
-				birds.Add(Box2D.CreateFromCenterSize(rotCenter.X + delta, rotCenter.Y - delta, .1f, .1f));
-				birds.Add(Box2D.CreateFromCenterSize(rotCenter.X + delta, rotCenter.Y + delta, .1f, .1f));
+				birds.Add(Box2dExtensions.CreateFromCenterSize(rotCenter.X - delta, rotCenter.Y - delta, .1f, .1f));
+				birds.Add(Box2dExtensions.CreateFromCenterSize(rotCenter.X - delta, rotCenter.Y + delta, .1f, .1f));
+				birds.Add(Box2dExtensions.CreateFromCenterSize(rotCenter.X + delta, rotCenter.Y - delta, .1f, .1f));
+				birds.Add(Box2dExtensions.CreateFromCenterSize(rotCenter.X + delta, rotCenter.Y + delta, .1f, .1f));
 			}
 		}
 
