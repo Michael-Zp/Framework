@@ -2,6 +2,7 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Numerics;
 
 namespace LevelEditor
 {
@@ -37,6 +38,8 @@ namespace LevelEditor
 	[Serializable]
 	public class Level
 	{
+		public Box2D Bounds = new Box2D(Box2D.BOX01);
+
 		public void Add(int layer, Sprite sprite)
 		{
 			if(!layers.ContainsKey(layer))
@@ -75,17 +78,15 @@ namespace LevelEditor
 				player.RenderBounds.X -= deltaX;
 				player.RenderBounds.Y -= deltaY;
 			}
-			if (1 == collisions.Count)
+			else if (1 == collisions.Count)
 			{
 				//try handling collision
 				circlePlayer.UndoOverlap(collisions.First());
 				player.RenderBounds.CenterX = circlePlayer.CenterX;
 				player.RenderBounds.CenterY = circlePlayer.CenterY;
 			}
-			player.RenderBounds.PushXRangeInside(windowBorders);
-			player.RenderBounds.PushYRangeInside(windowBorders);
+			player.RenderBounds.PushXRangeInside(Bounds);
+			player.RenderBounds.PushYRangeInside(Bounds);
 		}
-
-		private Box2D windowBorders = Box2D.BOX01;
 	}
 }

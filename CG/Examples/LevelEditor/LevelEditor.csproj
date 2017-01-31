@@ -37,6 +37,7 @@
   </PropertyGroup>
   <ItemGroup>
     <Reference Include="System" />
+    <Reference Include="System.Numerics" />
     <Reference Include="System.Xaml">
       <RequiredTargetFramework>4.0</RequiredTargetFramework>
     </Reference>
@@ -103,6 +104,12 @@
   </ItemGroup>
   <ItemGroup>
     <Resource Include="Wizard.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="boar.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="chest.png" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <PropertyGroup>

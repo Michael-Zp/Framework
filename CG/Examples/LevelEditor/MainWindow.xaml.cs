@@ -22,6 +22,9 @@ namespace LevelEditor
 
 		private void Window_Loaded(object sender, RoutedEventArgs e)
 		{
+			//do not use autosize for canvas -> set a fixed size
+			levelData.Bounds.SizeX = (float)canvas.ActualWidth;
+			levelData.Bounds.SizeY = (float)canvas.ActualHeight;
 			TraverseLogicalTree(canvas);
 			levelData.ObjIntoBinFile(@"..\..\level.data");
 			string[] args = Environment.GetCommandLineArgs();
@@ -84,13 +87,14 @@ namespace LevelEditor
 		{
 			var leftTop = (Vector)element.TranslatePoint(new Point(0, 0), canvas);
 			var rightBottom = leftTop + (Vector)element.RenderSize;
-			//normalize
-			leftTop /= canvas.ActualWidth;
-			rightBottom /= canvas.ActualHeight;
+			//var size = (Vector)canvas.RenderSize;
+			////normalize
+			//leftTop /= size;
+			//rightBottom /= size;
 			//flip y coordinate
 			return Box2dExtensions.CreateFromMinMax(
-				(float)leftTop.X, (float)(1 - rightBottom.Y),
-				(float)rightBottom.X, (float)(1 - leftTop.Y));
+				(float)leftTop.X, (float)(canvas.ActualHeight - rightBottom.Y),
+				(float)rightBottom.X, (float)(canvas.ActualHeight - leftTop.Y));
 		}
 
 		private double Convert(double value)

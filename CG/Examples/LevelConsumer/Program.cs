@@ -26,6 +26,7 @@ namespace Example
 		private MyApplication()
 		{
 			LoadLevel();
+			var aspect = gameWindow.Width / (float)gameWindow.Height;
 			gameWindow.WindowState = WindowState.Fullscreen;
 			GL.Viewport(0, 0, gameWindow.Width, gameWindow.Height);
 			//registers a callback for drawing a frame
@@ -35,7 +36,9 @@ namespace Example
 			gameWindow.UpdateFrame += GameWindow_UpdateFrame;
 			gameWindow.KeyDown += GameWindow_KeyDown;
 			GL.MatrixMode(MatrixMode.Projection);
-			GL.Ortho(0, 1, 0, 1, 0, 1);
+			var size = Math.Max(level.Bounds.SizeX, level.Bounds.SizeY);
+			GL.Ortho(0, size * aspect
+				, 0, size, 0, 1);
 			GL.MatrixMode(MatrixMode.Modelview);
 			//for transparency in textures we use blending
 			GL.BlendFunc(BlendingFactorSrc.SrcAlpha, BlendingFactorDest.OneMinusSrcAlpha);
@@ -64,7 +67,7 @@ namespace Example
 
 		private void GameWindow_UpdateFrame(object sender, FrameEventArgs e)
 		{
-			float delta = (float)gameWindow.UpdatePeriod * 0.3f;
+			float delta = (float)gameWindow.UpdatePeriod * 100;
 			//player movement
 			float axisLeftRight = Keyboard.GetState()[Key.Left] ? -1.0f : Keyboard.GetState()[Key.Right] ? 1.0f : 0.0f;
 			float axisUpDown = Keyboard.GetState()[Key.Down] ? -1.0f : Keyboard.GetState()[Key.Up] ? 1.0f : 0.0f;
