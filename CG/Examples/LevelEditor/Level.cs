@@ -1,6 +1,7 @@
 ﻿using Geometry;
 using System;
 using System.Collections.Generic;
+using System.Drawing;
 using System.Linq;
 using System.Numerics;
 
@@ -33,6 +34,7 @@ namespace LevelEditor
 
 		public Box2D RenderBounds { get; set; }
 		public string TextureName { get; set; }
+		public Bitmap Texture { get; set; }
 	}
 
 	[Serializable]

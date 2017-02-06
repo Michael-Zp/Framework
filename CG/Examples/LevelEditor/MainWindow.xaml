@@ -6,77 +6,226 @@
         xmlns:local="clr-namespace:LevelEditor"
         mc:Ignorable="d"
         Title="LevelSpace" WindowStartupLocation="CenterScreen" Loaded="Window_Loaded" Width="508.333" Height="532">
+	<Window.Resources>
+		<Style TargetType="Ellipse">
+			<Setter Property="Stretch" Value="Uniform"/>
+			<Setter Property="Stroke" Value="GhostWhite"/>
+		</Style>
+	</Window.Resources>
 	<Canvas x:Name="canvas" Width="500" Height="500">
-		<Image x:Name="grass" Source="grass.png" Stretch="Fill" Height="500" Width="500" Panel.ZIndex="-1" d:IsLocked="True"/>
-		<Image x:Name="player" Height="14" Canvas.Left="35" Source="Wizard.png" Stretch="Fill" Canvas.Top="21" Width="12" Panel.ZIndex="2"/>
-		<Image x:Name="tree_02_png" Height="42" Source="tree_02.png" Stretch="Fill" Width="44" Panel.ZIndex="1" Canvas.Top="77" Canvas.Left="299"/>
-		<Image x:Name="tree_46" Height="68" Source="tree_46.png" Stretch="Fill" Width="57" Panel.ZIndex="1" Canvas.Top="101" Canvas.Left="286" />
-		<Image x:Name="tree_02_png_Copy" Height="42" Source="tree_02.png" Stretch="Fill" Width="44" Panel.ZIndex="1" Canvas.Top="95" Canvas.Left="323"/>
-		<Image x:Name="tree_17_png" Height="58" Source="tree_17.png" Stretch="Fill" Width="54" Panel.ZIndex="1" Canvas.Top="329" Canvas.Left="167"/>
-		<Image x:Name="tree_17_png_Copy" Height="58" Source="tree_17.png" Stretch="Fill" Width="54" Panel.ZIndex="1" Canvas.Top="349" Canvas.Left="198"/>
-		<Image x:Name="tree_17_png_Copy1" Height="58" Source="tree_17.png" Stretch="Fill" Width="54" Panel.ZIndex="1" Canvas.Top="387" Canvas.Left="198"/>
-		<Image x:Name="tree_17_png_Copy2" Height="58" Source="tree_17.png" Stretch="Fill" Width="54" Panel.ZIndex="1" Canvas.Top="412" Canvas.Left="216"/>
-		<Image x:Name="tree_17_png_Copy3" Height="58" Source="tree_17.png" Stretch="Fill" Width="54" Panel.ZIndex="1" Canvas.Top="445" Canvas.Left="235"/>
-		<Image x:Name="tree_17_png_Copy4" Height="58" Source="tree_17.png" Stretch="Fill" Width="54" Panel.ZIndex="1" Canvas.Left="401" Canvas.Top="310"/>
-		<Image x:Name="tree_17_png_Copy5" Height="58" Source="tree_17.png" Stretch="Fill" Width="54" Panel.ZIndex="1" Canvas.Top="329" Canvas.Left="235"/>
-		<Image x:Name="tree_17_png_Copy6" Height="58" Source="tree_17.png" Stretch="Fill" Width="54" Panel.ZIndex="1" Canvas.Top="320" Canvas.Left="273"/>
-		<Image x:Name="tree_17_png_Copy7" Height="58" Source="tree_17.png" Stretch="Fill" Width="54" Panel.ZIndex="1" Canvas.Top="329" Canvas.Left="313"/>
-		<Image x:Name="tree_17_png_Copy8" Height="58" Canvas.Left="342" Source="tree_17.png" Stretch="Fill" Canvas.Top="340" Width="54" Panel.ZIndex="1"/>
-		<Image x:Name="tree_17_png_Copy9" Height="58" Canvas.Left="374" Source="tree_17.png" Stretch="Fill" Canvas.Top="329" Width="54" Panel.ZIndex="1"/>
-		<Image x:Name="tree_02_png_Copy1" Height="42" Canvas.Left="352" Source="tree_02.png" Stretch="Fill" Canvas.Top="102" Width="44" Panel.ZIndex="1"/>
-		<Image x:Name="tree_02_png_Copy2" Height="42" Canvas.Left="384" Source="tree_02.png" Stretch="Fill" Canvas.Top="95" Width="44" Panel.ZIndex="1"/>
-		<Image x:Name="tree_46_png_Copy" Height="68" Canvas.Left="401" Source="tree_46.png" Stretch="Fill" Canvas.Top="113" Width="57" Panel.ZIndex="1"/>
-		<Image x:Name="tree_02_png_Copy3" Height="42" Canvas.Left="433" Source="tree_02.png" Stretch="Fill" Canvas.Top="104" Width="44" Panel.ZIndex="1"/>
-		<Image x:Name="tree_02_png_Copy4" Height="42" Canvas.Left="456" Source="tree_02.png" Stretch="Fill" Canvas.Top="130" Width="44" Panel.ZIndex="1"/>
-		<Image x:Name="deadtree1_0_png" Height="48" Canvas.Left="414" Source="deadtree1_0.png" Stretch="Fill" Canvas.Top="422" Width="63" Panel.ZIndex="1"/>
-		<Image x:Name="tree_22_png" Height="60" Source="tree_22.png" Stretch="Fill" Width="54" Panel.ZIndex="1" Canvas.Left="226" Canvas.Top="-6"/>
-		<Image x:Name="tree_22_png_Copy" Height="60" Source="tree_22.png" Stretch="Fill" Width="54" Panel.ZIndex="1" Canvas.Top="27" Canvas.Left="198"/>
-		<Image x:Name="tree_22_png_Copy1" Height="60" Source="tree_22.png" Stretch="Fill" Width="54" Panel.ZIndex="1" Canvas.Top="50" Canvas.Left="167"/>
-		<Image x:Name="tree_22_png_Copy2" Height="60" Source="tree_22.png" Stretch="Fill" Width="54" Panel.ZIndex="1" Canvas.Top="77" Canvas.Left="139"/>
-		<Image x:Name="tree_22_png_Copy3" Height="60" Source="tree_22.png" Stretch="Fill" Width="54" Panel.ZIndex="1" Canvas.Top="104" Canvas.Left="148"/>
-		<Image x:Name="tree_22_png_Copy4" Height="60" Source="tree_22.png" Stretch="Fill" Width="54" Panel.ZIndex="1" Canvas.Top="129" Canvas.Left="141"/>
-		<Image x:Name="tree_46_png_Copy1" Height="68" Canvas.Left="178" Source="tree_46.png" Stretch="Fill" Canvas.Top="219" Width="57" Panel.ZIndex="1"/>
-		<Image x:Name="tree_46_png_Copy2" Height="68" Canvas.Left="206" Source="tree_46.png" Stretch="Fill" Canvas.Top="219" Width="57" Panel.ZIndex="1"/>
-		<Image x:Name="tree_46_png_Copy3" Height="68" Canvas.Left="145" Source="tree_46.png" Stretch="Fill" Canvas.Top="233" Width="57" Panel.ZIndex="1"/>
-		<Image x:Name="tree_46_png_Copy4" Height="68" Source="tree_46.png" Stretch="Fill" Canvas.Top="249" Width="57" Panel.ZIndex="1" Canvas.Left="116"/>
-		<Ellipse x:Name="collider" Height="37" Stroke="Blue" Width="37" Panel.ZIndex="10" Canvas.Top="142" Canvas.Left="149"/>
-		<Ellipse x:Name="collider8" Height="14" Stroke="Blue" Width="14" Panel.ZIndex="10" Canvas.Top="244" Canvas.Left="227"/>
-		<Ellipse x:Name="collider8_Copy" Height="14" Stroke="Blue" Width="14" Panel.ZIndex="10" Canvas.Top="244" Canvas.Left="198"/>
-		<Ellipse x:Name="collider8_Copy1" Height="14" Stroke="Blue" Width="14" Panel.ZIndex="10" Canvas.Top="258" Canvas.Left="165"/>
-		<Ellipse x:Name="collider8_Copy2" Height="14" Stroke="Blue" Width="14" Panel.ZIndex="10" Canvas.Top="274" Canvas.Left="136"/>
-		<Ellipse x:Name="collider8_Copy3" Height="14" Stroke="Blue" Width="14" Panel.ZIndex="10" Canvas.Top="126" Canvas.Left="307"/>
-		<Ellipse x:Name="collider8_Copy4" Height="14" Stroke="Blue" Width="14" Panel.ZIndex="10" Canvas.Top="138" Canvas.Left="422"/>
-		<Ellipse x:Name="collider8_Copy5" Height="14" Stroke="Blue" Width="14" Panel.ZIndex="10" Canvas.Top="142" Canvas.Left="471"/>
-		<Ellipse x:Name="collider8_Copy6" Height="14" Stroke="Blue" Width="14" Panel.ZIndex="10" Canvas.Top="114" Canvas.Left="447"/>
-		<Ellipse x:Name="collider8_Copy7" Height="14" Stroke="Blue" Width="14" Panel.ZIndex="10" Canvas.Top="106" Canvas.Left="398"/>
-		<Ellipse x:Name="collider8_Copy8" Height="14" Stroke="Blue" Width="14" Panel.ZIndex="10" Canvas.Top="113" Canvas.Left="365"/>
-		<Ellipse x:Name="collider8_Copy9" Height="14" Stroke="Blue" Width="14" Panel.ZIndex="10" Canvas.Top="107" Canvas.Left="336"/>
-		<Ellipse x:Name="collider8_Copy10" Height="14" Stroke="Blue" Width="14" Panel.ZIndex="10" Canvas.Top="88" Canvas.Left="313"/>
-		<Ellipse x:Name="collider_Copy" Height="38" Stroke="Blue" Width="37" Panel.ZIndex="10" Canvas.Top="112" Canvas.Left="156"/>
-		<Ellipse x:Name="collider_Copy1" Height="38" Stroke="Blue" Width="37" Panel.ZIndex="10" Canvas.Top="83" Canvas.Left="148"/>
-		<Ellipse x:Name="collider_Copy2" Height="38" Stroke="Blue" Width="37" Panel.ZIndex="10" Canvas.Top="61" Canvas.Left="173"/>
-		<Ellipse x:Name="collider_Copy3" Height="38" Stroke="Blue" Width="37" Panel.ZIndex="10" Canvas.Top="43" Canvas.Left="198"/>
-		<Ellipse x:Name="collider_Copy4" Height="38" Stroke="Blue" Width="37" Panel.ZIndex="10" Canvas.Top="20" Canvas.Left="223"/>
-		<Ellipse x:Name="collider_Copy5" Height="38" Stroke="Blue" Width="38" Panel.ZIndex="10" Canvas.Left="234" Canvas.Top="1"/>
-		<Ellipse x:Name="collider_Copy6" Height="37" Stroke="Blue" Width="37" Panel.ZIndex="10" Canvas.Top="340" Canvas.Left="174"/>
-		<Ellipse x:Name="collider_Copy7" Height="37" Stroke="Blue" Width="37" Panel.ZIndex="10" Canvas.Top="359" Canvas.Left="206"/>
-		<Ellipse x:Name="collider_Copy8" Height="37" Stroke="Blue" Width="38" Panel.ZIndex="10" Canvas.Top="342" Canvas.Left="242"/>
-		<Ellipse x:Name="collider_Copy9" Height="37" Stroke="Blue" Width="38" Panel.ZIndex="10" Canvas.Top="332" Canvas.Left="282"/>
-		<Ellipse x:Name="collider_Copy10" Height="37" Stroke="Blue" Width="38" Panel.ZIndex="10" Canvas.Top="340" Canvas.Left="321"/>
-		<Ellipse x:Name="collider_Copy11" Height="37" Stroke="Blue" Width="38" Panel.ZIndex="10" Canvas.Top="321" Canvas.Left="408"/>
-		<Ellipse x:Name="collider_Copy12" Height="37" Stroke="Blue" Width="38" Panel.ZIndex="10" Canvas.Top="340" Canvas.Left="382"/>
-		<Ellipse x:Name="collider_Copy13" Height="37" Stroke="Blue" Width="38" Panel.ZIndex="10" Canvas.Top="351" Canvas.Left="348"/>
-		<Ellipse x:Name="collider8_Copy11" Height="14" Stroke="Blue" Width="14" Panel.ZIndex="10" Canvas.Top="442" Canvas.Left="445"/>
-		<Ellipse x:Name="collider_Copy14" Height="37" Stroke="Blue" Width="37" Panel.ZIndex="10" Canvas.Top="459" Canvas.Left="242"/>
-		<Ellipse x:Name="collider_Copy15" Height="37" Stroke="Blue" Width="37" Panel.ZIndex="10" Canvas.Top="427" Canvas.Left="224"/>
-		<Ellipse x:Name="collider_Copy16" Height="37" Stroke="Blue" Width="37" Panel.ZIndex="10" Canvas.Top="396" Canvas.Left="206"/>
-		<Image x:Name="tree_46_png_Copy5" Height="68" Canvas.Left="234" Source="tree_46.png" Stretch="Fill" Canvas.Top="196" Width="57" Panel.ZIndex="1"/>
-		<Ellipse x:Name="collider8_Copy12" Height="14" Stroke="Blue" Width="14" Panel.ZIndex="10" Canvas.Top="221" Canvas.Left="255"/>
-		<Image x:Name="tree_46_png_Copy6" Height="68" Canvas.Left="43" Source="tree_46.png" Stretch="Fill" Canvas.Top="53" Width="57" Panel.ZIndex="1"/>
-		<Ellipse x:Name="collider8_Copy13" Height="14" Stroke="Blue" Width="14" Panel.ZIndex="10" Canvas.Top="78" Canvas.Left="64"/>
-		<Image x:Name="tree_46_png_Copy7" Height="68" Canvas.Left="42" Source="tree_46.png" Stretch="Fill" Canvas.Top="166" Width="58" Panel.ZIndex="1"/>
-		<Ellipse x:Name="collider8_Copy14" Height="14" Stroke="Blue" Width="14" Panel.ZIndex="10" Canvas.Top="191" Canvas.Left="64"/>
-		<Image x:Name="boar_png" Height="36" Canvas.Left="63" Source="boar.png" Stretch="Fill" Canvas.Top="346" Width="47"/>
-		<Image x:Name="chest_png" Height="19" Canvas.Left="466" Source="chest.png" Stretch="Fill" Canvas.Top="468" Width="20" RenderTransformOrigin="0.514,0.41"/>
+		<Image Source="grass.png" Stretch="Fill" Height="500" Width="500" Panel.ZIndex="-1" d:IsLocked="True"/>
+		<Image x:Name="player" Height="14" Canvas.Left="35" Source="Wizard.png" Stretch="Fill" Canvas.Top="21" Width="12" Panel.ZIndex="2" RenderTransformOrigin="0.5,0.5"/>
+		<Viewbox x:Name="boar" Canvas.Left="40" Canvas.Top="147" Stretch="Fill" Height="38" Width="50">
+			<Canvas Height="54" Width="70" d:IsLocked="True">
+				<Image Height="53" Source="boar.png" Stretch="Fill" Width="69"/>
+				<Ellipse Height="50" Width="52" Canvas.Left="12" Canvas.Top="4"/>
+			</Canvas>
+		</Viewbox>
+		<Viewbox x:Name="chest" Height="20" Canvas.Left="460" Canvas.Top="466" Width="20" Stretch="Fill">
+			<Canvas Height="20" Width="20" d:IsLocked="True">
+				<Image Height="19" Source="chest.png" Stretch="Fill" Canvas.Top="1" Width="20" RenderTransformOrigin="0.514,0.41"/>
+				<Ellipse Height="20" Width="20" Panel.ZIndex="10"/>
+			</Canvas>
+		</Viewbox>
+		<Canvas Height="513" Canvas.Left="71" Canvas.Top="-6" Width="425">
+			<Viewbox x:Name="deadtree" Height="48" Canvas.Left="343" Canvas.Top="428" Width="63" Stretch="Fill">
+				<Canvas Height="48" Width="63" d:IsLocked="True">
+					<Image Height="48" Source="deadtree1_0.png" Stretch="Fill" Width="63" Panel.ZIndex="1"/>
+					<Ellipse Height="14" Width="14" Panel.ZIndex="10" Canvas.Top="20" Canvas.Left="31"/>
+				</Canvas>
+			</Viewbox>
+			<Viewbox x:Name="deadtree_Copy" Height="48" Canvas.Left="355" Canvas.Top="389" Width="62" Stretch="Fill">
+				<Canvas Height="48" Width="63" d:IsLocked="True">
+					<Image Height="48" Source="deadtree1_0.png" Stretch="Fill" Width="63" Panel.ZIndex="1"/>
+					<Ellipse Height="14" Width="14" Panel.ZIndex="10" Canvas.Top="20" Canvas.Left="31"/>
+				</Canvas>
+			</Viewbox>
+			<Viewbox x:Name="tree46" Height="68" Canvas.Left="111" Canvas.Top="223" Width="58" Stretch="Fill">
+				<Canvas Height="68" Width="57" d:IsLocked="True">
+					<Image Height="68" Source="tree_46.png" Stretch="Fill" Width="57" Panel.ZIndex="1"/>
+					<Ellipse Height="14" Width="14" Panel.ZIndex="10" Canvas.Top="25" Canvas.Left="21"/>
+				</Canvas>
+			</Viewbox>
+			<Viewbox x:Name="tree46_Copy" Height="68" Canvas.Left="144" Canvas.Top="222" Width="58" Stretch="Fill">
+				<Canvas Height="68" Width="57" d:IsLocked="True">
+					<Image Height="68" Source="tree_46.png" Stretch="Fill" Width="57" Panel.ZIndex="1"/>
+					<Ellipse Height="14" Width="14" Panel.ZIndex="10" Canvas.Top="25" Canvas.Left="21"/>
+				</Canvas>
+			</Viewbox>
+			<Viewbox x:Name="tree46_Copy1" Height="68" Canvas.Left="81" Canvas.Top="240" Width="58" Stretch="Fill">
+				<Canvas Height="68" Width="57" d:IsLocked="True">
+					<Image Height="68" Source="tree_46.png" Stretch="Fill" Width="57" Panel.ZIndex="1"/>
+					<Ellipse Height="14" Width="14" Panel.ZIndex="10" Canvas.Top="25" Canvas.Left="21"/>
+				</Canvas>
+			</Viewbox>
+			<Viewbox x:Name="tree46_Copy2" Height="68" Canvas.Left="43" Canvas.Top="234" Width="58" Stretch="Fill">
+				<Canvas Height="68" Width="57" d:IsLocked="True">
+					<Image Height="68" Source="tree_46.png" Stretch="Fill" Width="57" Panel.ZIndex="1"/>
+					<Ellipse Height="14" Width="14" Panel.ZIndex="10" Canvas.Top="25" Canvas.Left="21"/>
+				</Canvas>
+			</Viewbox>
+			<Viewbox x:Name="tree46_Copy3" Height="68" Canvas.Left="181" Canvas.Top="220" Width="58" Stretch="Fill">
+				<Canvas Height="68" Width="57" d:IsLocked="True">
+					<Image Height="68" Source="tree_46.png" Stretch="Fill" Width="57" Panel.ZIndex="1"/>
+					<Ellipse Height="14" Width="14" Panel.ZIndex="10" Canvas.Top="25" Canvas.Left="21"/>
+				</Canvas>
+			</Viewbox>
+			<Viewbox x:Name="tree_02" Height="42" Canvas.Left="228" Canvas.Top="83" Width="44" Stretch="Fill">
+				<Canvas Height="42" Width="44" d:IsLocked="True">
+					<Image Height="42" Source="tree_02.png" Stretch="Fill" Width="44" Panel.ZIndex="1"/>
+					<Ellipse Height="14" Width="14" Panel.ZIndex="10" Canvas.Top="11" Canvas.Left="14"/>
+				</Canvas>
+			</Viewbox>
+			<Viewbox x:Name="tree_02_Copy" Height="42" Canvas.Left="295" Canvas.Top="119" Width="44" Stretch="Fill">
+				<Canvas Height="42" Width="44" d:IsLocked="True">
+					<Image Height="42" Source="tree_02.png" Stretch="Fill" Width="44" Panel.ZIndex="1"/>
+					<Ellipse Height="14" Width="14" Panel.ZIndex="10" Canvas.Top="11" Canvas.Left="14"/>
+				</Canvas>
+			</Viewbox>
+			<Viewbox x:Name="tree_02_Copy1" Height="42" Canvas.Left="258" Canvas.Top="108" Width="44" Stretch="Fill">
+				<Canvas Height="42" Width="44" d:IsLocked="True">
+					<Image Height="42" Source="tree_02.png" Stretch="Fill" Width="44" Panel.ZIndex="1"/>
+					<Ellipse Height="14" Width="14" Panel.ZIndex="10" Canvas.Top="11" Canvas.Left="14"/>
+				</Canvas>
+			</Viewbox>
+			<Viewbox x:Name="tree_02_Copy2" Height="42" Canvas.Left="339" Canvas.Top="128" Width="44" Stretch="Fill">
+				<Canvas Height="42" Width="44" d:IsLocked="True">
+					<Image Height="42" Source="tree_02.png" Stretch="Fill" Width="44" Panel.ZIndex="1"/>
+					<Ellipse Height="14" Width="14" Panel.ZIndex="10" Canvas.Top="11" Canvas.Left="14"/>
+				</Canvas>
+			</Viewbox>
+			<Viewbox x:Name="tree_02_Copy3" Height="42" Canvas.Left="381" Canvas.Top="137" Width="44" Stretch="Fill">
+				<Canvas Height="42" Width="44" d:IsLocked="True">
+					<Image Height="42" Source="tree_02.png" Stretch="Fill" Width="44" Panel.ZIndex="1"/>
+					<Ellipse Height="14" Width="14" Panel.ZIndex="10" Canvas.Top="11" Canvas.Left="14"/>
+				</Canvas>
+			</Viewbox>
+			<Viewbox x:Name="tree_02_Copy4" Height="42" Canvas.Left="225" Canvas.Top="118" Width="44" Stretch="Fill">
+				<Canvas Height="42" Width="44" d:IsLocked="True">
+					<Image Height="42" Source="tree_02.png" Stretch="Fill" Width="44" Panel.ZIndex="1"/>
+					<Ellipse Height="14" Width="14" Panel.ZIndex="10" Canvas.Top="11" Canvas.Left="14"/>
+				</Canvas>
+			</Viewbox>
+			<Viewbox x:Name="tree_02_Copy5" Height="42" Canvas.Left="355" Canvas.Top="150" Width="44" Stretch="Fill">
+				<Canvas Height="42" Width="44" d:IsLocked="True">
+					<Image Height="42" Source="tree_02.png" Stretch="Fill" Width="44" Panel.ZIndex="1"/>
+					<Ellipse Height="14" Width="14" Panel.ZIndex="10" Canvas.Top="11" Canvas.Left="14"/>
+				</Canvas>
+			</Viewbox>
+			<Viewbox x:Name="tree_22" Height="60" Canvas.Left="155" Width="54" Stretch="Fill">
+				<Canvas Height="60" Width="54" d:IsLocked="True">
+					<Image Height="60" Source="tree_22.png" Stretch="Fill" Width="54" Panel.ZIndex="1"/>
+					<Ellipse Height="38" Width="38" Panel.ZIndex="10" Canvas.Left="8" Canvas.Top="7"/>
+				</Canvas>
+			</Viewbox>
+			<Viewbox x:Name="tree_22_Copy" Height="60" Canvas.Left="131" Canvas.Top="32" Width="54" Stretch="Fill">
+				<Canvas Height="60" Width="54" d:IsLocked="True">
+					<Image Height="60" Source="tree_22.png" Stretch="Fill" Width="54" Panel.ZIndex="1"/>
+					<Ellipse Height="38" Width="38" Panel.ZIndex="10" Canvas.Left="8" Canvas.Top="7"/>
+				</Canvas>
+			</Viewbox>
+			<Viewbox x:Name="tree_22_Copy1" Height="60" Canvas.Left="109" Canvas.Top="68" Width="54" Stretch="Fill">
+				<Canvas Height="60" Width="54" d:IsLocked="True">
+					<Image Height="60" Source="tree_22.png" Stretch="Fill" Width="54" Panel.ZIndex="1"/>
+					<Ellipse Height="38" Width="38" Panel.ZIndex="10" Canvas.Left="8" Canvas.Top="7"/>
+				</Canvas>
+			</Viewbox>
+			<Viewbox x:Name="tree_22_Copy2" Height="60" Canvas.Left="85" Canvas.Top="104" Width="54" Stretch="Fill">
+				<Canvas Height="60" Width="54" d:IsLocked="True">
+					<Image Height="60" Source="tree_22.png" Stretch="Fill" Width="54" Panel.ZIndex="1"/>
+					<Ellipse Height="38" Width="38" Panel.ZIndex="10" Canvas.Left="8" Canvas.Top="7"/>
+				</Canvas>
+			</Viewbox>
+			<Viewbox x:Name="tree_22_Copy3" Height="60" Canvas.Left="43" Canvas.Top="105" Width="54" Stretch="Fill">
+				<Canvas Height="60" Width="54" d:IsLocked="True">
+					<Image Height="60" Source="tree_22.png" Stretch="Fill" Width="54" Panel.ZIndex="1"/>
+					<Ellipse Height="38" Width="38" Panel.ZIndex="10" Canvas.Left="8" Canvas.Top="7"/>
+				</Canvas>
+			</Viewbox>
+			<Viewbox x:Name="tree_22_Copy4" Height="60" Canvas.Top="105" Width="54" Stretch="Fill">
+				<Canvas Height="60" Width="54" d:IsLocked="True">
+					<Image Height="60" Source="tree_22.png" Stretch="Fill" Width="54" Panel.ZIndex="1"/>
+					<Ellipse Height="38" Width="38" Panel.ZIndex="10" Canvas.Left="8" Canvas.Top="7"/>
+				</Canvas>
+			</Viewbox>
+			<Viewbox x:Name="tree_17" Height="58" Canvas.Left="176" Canvas.Top="354" Width="54" Stretch="Fill">
+				<Canvas Height="58" Width="54" d:IsLocked="True">
+					<Image Height="58" Source="tree_17.png" Stretch="Fill" Width="54" Panel.ZIndex="1"/>
+					<Ellipse Height="37" Width="37" Panel.ZIndex="10" Canvas.Top="11" Canvas.Left="7"/>
+				</Canvas>
+			</Viewbox>
+			<Viewbox x:Name="tree_17_Copy" Height="58" Canvas.Left="134" Canvas.Top="347" Width="54" Stretch="Fill">
+				<Canvas Height="58" Width="54" d:IsLocked="True">
+					<Image Height="58" Source="tree_17.png" Stretch="Fill" Width="54" Panel.ZIndex="1"/>
+					<Ellipse Height="37" Width="37" Panel.ZIndex="10" Canvas.Top="11" Canvas.Left="7"/>
+				</Canvas>
+			</Viewbox>
+			<Viewbox x:Name="tree_17_Copy1" Height="58" Canvas.Left="119" Canvas.Top="455" Width="54" Stretch="Fill">
+				<Canvas Height="58" Width="54" d:IsLocked="True">
+					<Image Height="58" Source="tree_17.png" Stretch="Fill" Width="54" Panel.ZIndex="1"/>
+					<Ellipse Height="37" Width="37" Panel.ZIndex="10" Canvas.Top="11" Canvas.Left="7"/>
+				</Canvas>
+			</Viewbox>
+			<Viewbox x:Name="tree_17_Copy2" Height="58" Canvas.Left="117" Canvas.Top="415" Width="54" Stretch="Fill">
+				<Canvas Height="58" Width="54" d:IsLocked="True">
+					<Image Height="58" Source="tree_17.png" Stretch="Fill" Width="54" Panel.ZIndex="1"/>
+					<Ellipse Height="37" Width="37" Panel.ZIndex="10" Canvas.Top="11" Canvas.Left="7"/>
+				</Canvas>
+			</Viewbox>
+			<Viewbox x:Name="tree_17_Copy3" Height="58" Canvas.Left="107" Canvas.Top="375" Width="54" Stretch="Fill">
+				<Canvas Height="58" Width="54" d:IsLocked="True">
+					<Image Height="58" Source="tree_17.png" Stretch="Fill" Width="54" Panel.ZIndex="1"/>
+					<Ellipse Height="37" Width="37" Panel.ZIndex="10" Canvas.Top="11" Canvas.Left="7"/>
+				</Canvas>
+			</Viewbox>
+			<Viewbox x:Name="tree_17_Copy4" Height="58" Canvas.Left="292" Canvas.Top="317" Width="54" Stretch="Fill">
+				<Canvas Height="58" Width="54" d:IsLocked="True">
+					<Image Height="58" Source="tree_17.png" Stretch="Fill" Width="54" Panel.ZIndex="1"/>
+					<Ellipse Height="37" Width="37" Panel.ZIndex="10" Canvas.Top="11" Canvas.Left="7"/>
+				</Canvas>
+			</Viewbox>
+			<Viewbox x:Name="tree_17_Copy5" Height="58" Canvas.Left="255" Canvas.Top="332" Width="54" Stretch="Fill">
+				<Canvas Height="58" Width="54" d:IsLocked="True">
+					<Image Height="58" Source="tree_17.png" Stretch="Fill" Width="54" Panel.ZIndex="1"/>
+					<Ellipse Height="37" Width="37" Panel.ZIndex="10" Canvas.Top="11" Canvas.Left="7"/>
+				</Canvas>
+			</Viewbox>
+			<Viewbox x:Name="tree_17_Copy6" Height="58" Canvas.Left="217" Canvas.Top="346" Width="54" Stretch="Fill">
+				<Canvas Height="58" Width="54" d:IsLocked="True">
+					<Image Height="58" Source="tree_17.png" Stretch="Fill" Width="54" Panel.ZIndex="1"/>
+					<Ellipse Height="37" Width="37" Panel.ZIndex="10" Canvas.Top="11" Canvas.Left="7"/>
+				</Canvas>
+			</Viewbox>
+			<Viewbox x:Name="tree_17_Copy7" Height="58" Canvas.Left="333" Canvas.Top="322" Width="54" Stretch="Fill">
+				<Canvas Height="58" Width="54" d:IsLocked="True">
+					<Image Height="58" Source="tree_17.png" Stretch="Fill" Width="54" Panel.ZIndex="1"/>
+					<Ellipse Height="37" Width="37" Panel.ZIndex="10" Canvas.Top="11" Canvas.Left="7"/>
+				</Canvas>
+			</Viewbox>
+			<Viewbox x:Name="tree_17_Copy8" Height="58" Canvas.Left="192" Canvas.Top="320" Width="54" Stretch="Fill">
+				<Canvas Height="58" Width="54" d:IsLocked="True">
+					<Image Height="58" Source="tree_17.png" Stretch="Fill" Width="54" Panel.ZIndex="1"/>
+					<Ellipse Height="37" Width="37" Panel.ZIndex="10" Canvas.Top="11" Canvas.Left="7"/>
+				</Canvas>
+			</Viewbox>
+			<Viewbox x:Name="tree_17_Copy9" Height="58" Canvas.Left="96" Canvas.Top="335" Width="54" Stretch="Fill">
+				<Canvas Height="58" Width="54" d:IsLocked="True">
+					<Image Height="58" Source="tree_17.png" Stretch="Fill" Width="54" Panel.ZIndex="1"/>
+					<Ellipse Height="37" Width="37" Panel.ZIndex="10" Canvas.Top="11" Canvas.Left="7"/>
+				</Canvas>
+			</Viewbox>
+			<Viewbox x:Name="tree_02_Copy6" Height="42" Canvas.Left="314" Canvas.Top="140" Width="44" Stretch="Fill">
+				<Canvas Height="42" Width="44" d:IsLocked="True">
+					<Image Height="42" Source="tree_02.png" Stretch="Fill" Width="44" Panel.ZIndex="1"/>
+					<Ellipse Height="14" Width="14" Panel.ZIndex="10" Canvas.Top="11" Canvas.Left="14"/>
+				</Canvas>
+			</Viewbox>
+			<Viewbox x:Name="tree_02_Copy7" Height="42" Canvas.Left="265" Canvas.Top="140" Width="44" Stretch="Fill">
+				<Canvas Height="42" Width="44" d:IsLocked="True">
+					<Image Height="42" Source="tree_02.png" Stretch="Fill" Width="44" Panel.ZIndex="1"/>
+					<Ellipse Height="14" Width="14" Panel.ZIndex="10" Canvas.Top="11" Canvas.Left="14"/>
+				</Canvas>
+			</Viewbox>
+		</Canvas>
 	</Canvas>
 </Window>

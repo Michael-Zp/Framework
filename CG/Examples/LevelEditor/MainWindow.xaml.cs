@@ -79,28 +79,22 @@ namespace LevelEditor
 			{
 				//sprite.TextureName = source.Substring(source.LastIndexOf(',') + 1);
 				sprite.TextureName = System.IO.Path.GetFileName(source);
+				//todo1: register bitmap list
+				sprite.Texture = new System.Drawing.Bitmap(@"..\..\" + sprite.TextureName);
 			}
 			levelData.Add(Layer, sprite);
 		}
 
 		private Box2D ConvertBounds(UIElement element)
 		{
-			var leftTop = (Vector)element.TranslatePoint(new Point(0, 0), canvas);
-			var rightBottom = leftTop + (Vector)element.RenderSize;
-			//var size = (Vector)canvas.RenderSize;
-			////normalize
-			//leftTop /= size;
-			//rightBottom /= size;
+			var p00 = new Point(0, 0);
+			var p11 = p00 + (Vector)element.RenderSize;
+			var leftTop = (Vector)element.TranslatePoint(p00, canvas);
+			var rightBottom = (Vector)element.TranslatePoint(p11, canvas);
 			//flip y coordinate
 			return Box2dExtensions.CreateFromMinMax(
 				(float)leftTop.X, (float)(canvas.ActualHeight - rightBottom.Y),
 				(float)rightBottom.X, (float)(canvas.ActualHeight - leftTop.Y));
-		}
-
-		private double Convert(double value)
-		{
-			if (double.IsNaN(value)) return 0; //throw new ArgumentException("Do not use automatic values!");
-			return value;
 		}
 	}
 }

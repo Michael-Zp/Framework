@@ -51,6 +51,11 @@ namespace Geometry
 			return Equals(other as Circle);
 		}
 
+		public override int GetHashCode()
+		{
+			return base.GetHashCode();
+		}
+
 		public override string ToString()
 		{
 			return '(' + CenterX.ToString() + ',' + CenterY.ToString() + ';' + Radius.ToString() + ')';
