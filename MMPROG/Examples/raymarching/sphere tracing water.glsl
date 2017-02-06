@@ -47,13 +47,13 @@ float distWater(vec3 point)
 	return sPlane(point, vec3(0.0, 1.0, 0.0), 1);
 }
 
-bool traceWater = true;
+bool enableWater = true;
 float distField(vec3 point)
 {
 	float terrain = distTerrain(point);
 	float trees = distTree(point);
 	float land = smin(terrain, trees, 0.9); //let tree and terrain overlap, otherwise problems on water rendering
-	if(traceWater)
+	if(enableWater)
 	{
 		float water = distWater(point);
 		return min(water, land);
@@ -109,7 +109,7 @@ int idField(vec3 point)
 	float weight = (land - terrain) / (trees - terrain);
 	weight = clamp(weight, 0, 1);
 
-	if(traceWater)
+	if(enableWater)
 	{
 		float water = distWater(point);
 		float dist = min(water, land);
@@ -129,9 +129,8 @@ vec3 ambientDiffuse(vec3 material, vec3 normal)
 	return ambient + diffuse * material;
 }
 
-vec3 localShade(int id, vec3 point)
+vec3 localShade(int id, vec3 normal)
 {
-	vec3 normal = getNormal(point, 0.01);
 	switch(id)
 	{
 		case idTerrain: return ambientDiffuse(vec3(1, 0.8, 0.4), normal);
@@ -140,21 +139,22 @@ vec3 localShade(int id, vec3 point)
 	}
 }
 
-vec3 shade(int id, vec3 point, vec3 camDir)
+vec3 shade(int id, vec3 point, vec3 incidentDir, vec3 normal)
 {
-	vec3 color = localShade(id, point);
-	// if(idWater == id)
-	// {
-		// vec3 normal = getNormal(point, 0.01);
-		// vec3 r = reflect(camDir, normal);
+	vec3 color = localShade(id, normal);
+	if(idWater == id) //reflections, but long compilation times
+	{
+		// vec3 r = reflect(incidentDir, normal);
+		// enableWater = false;
 		// float t = sphereTracing(point, r, 0, 100, 100);
 		// if(0 < t)
 		// {
-			// vec3 point = point + t * camDir;
-			// vec3 reflection = localShade(idField(point), point);
+			// vec3 point = point + t * r;
+			// vec3 reflection = localShade(idField(point), normal);
 			// color += reflection;
 		// }
-	// }
+		// enableWater = true;
+	}
 	return color;
 }
 
@@ -174,16 +174,19 @@ void main()
 	{
 		vec3 point = camP + t * camDir;
 		int id = idField(point);
-		color = shade(id, point, camDir);
+		vec3 normal = getNormal(point, 0.01);
+		color = shade(id, point, camDir, normal);
 
 		if(idWater == id)
 		{
-			traceWater = false;
-			float nextT = sphereTracing(camP, camDir, t, maxT, maxSteps);
-			float waterDepth = nextT - t;
-			float weight = clamp(waterDepth * 0.3, 0, 1);
-			vec3 nextPoint = camP + nextT * camDir;
-			vec3 ground = shade(idField(nextPoint), nextPoint, camDir);
+			enableWater = false;
+			vec3 r = refract(camDir, normal, 1 / 1.33);
+			float nextT = sphereTracing(point, r, 0, maxT, maxSteps);
+			float rayLengthInWater = nextT;
+			float weight = clamp(rayLengthInWater * rayLengthInWater, 0, 1);
+			vec3 nextPoint = point + nextT * r;
+			vec3 nextNormal = getNormal(nextPoint, 0.01);
+			vec3 ground = shade(idField(nextPoint), nextPoint, camDir, nextNormal);
 			color = mix(ground, color, weight);
 		}
 		float weight = t / maxT;
