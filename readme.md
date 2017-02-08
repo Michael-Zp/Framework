@@ -10,11 +10,11 @@
     1. compile and run
 	
 ### Understanding versioning with git
-	+ Intro to [git](https://rogerdudler.github.io/git-guide/index.de.html)
++ Intro to [git](https://rogerdudler.github.io/git-guide/index.de.html)
 	
 
 ### Structure of framework
-Subfolders for specific lectures
+Subfolders for specific lectures are
 + [Computer graphics (folder CG)](CG)
 + [Game development (folder GAMES)](GAMES)
 + [Advanced computer graphics (folder ACG)](ACG)
