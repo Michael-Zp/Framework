@@ -9,6 +9,7 @@
 + [A game about games](http://www.kongregate.com/de/games/pixelate/understanding-games-episode-1)
 + [gamedev.net](https://www.gamedev.net)
 + [gamasutra.com](https://www.gamasutra.com)
++ [spieleprogrammierer.de](https://www.spieleprogrammierer.de/) "Möchtest du Spiele programmieren? Hast du vielleicht schon ein eigenes Spiel programmiert und möchtest es präsentieren? Hast du eine Frage über 3D-Grafik oder Programmiersprachen? Oder möchtest du dich vielleicht einfach nur über neue Spielideen austauschen? In jedem Fall bist du hier richtig."
 + [videogametourism.at](https://videogametourism.at)
 + [gamelab.zhdk.ch](http://gamelab.zhdk.ch/)
 + [Evoke](https://www.evoke.eu) Demo party usually in Köln
