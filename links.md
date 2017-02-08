@@ -4,12 +4,14 @@
 + [realtimerendering.com](http://www.realtimerendering.com/) Link repository to many real-time rendering related cites
 + [iquilezles.org](http://www.iquilezles.org/) Advanced topics in computer graphics and shader implementations
 
-##Games
+##Games and demos
 + [21 Free Learning Resources for Game Developers](http://www.gamecareerguide.com/features/1455/21_free_learning_resources_for_.php)
 + [A game about games](http://www.kongregate.com/de/games/pixelate/understanding-games-episode-1)
 + [gamedev.net](https://www.gamedev.net)
 + [gamasutra.com](https://www.gamasutra.com)
 + [videogametourism.at](https://videogametourism.at)
++ [gamelab.zhdk.ch](http://gamelab.zhdk.ch/)
++ [Evoke](https://www.evoke.eu) Demo party usually in Köln
 
 ##Programming
 + [Data-oriented design](http://www.dataorienteddesign.com/dodmain/dodmain.html) In computing, data-oriented design (not to be confused with data-driven design) is a program optimization approach motivated by cache coherency, used in video game development. The approach is to focus on the data layout, separating and sorting fields according to when they are needed, and to think about transformations of data.
