@@ -85,13 +85,13 @@ namespace ShaderForm
 		private Vector3 RotateX(Vector3 vec, float angle)
 		{
 
-			var rotateXM = Matrix3.CreateRotationX(angle);
+			var rotateXM = Matrix4.CreateRotationX(angle);
 			return Vector3.Transform(vec, rotateXM);
 		}
 
 		private Vector3 RotateY(Vector3 vec, float angle)
 		{
-			var rotateZM = Matrix3.CreateRotationY(angle);
+			var rotateZM = Matrix4.CreateRotationY(angle);
 			return Vector3.Transform(vec, rotateZM);
 		}
 	}
