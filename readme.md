@@ -10,7 +10,8 @@
     1. compile and run
 	
 ### Understanding versioning with git
-+ Intro to [git](https://rogerdudler.github.io/git-guide/index.de.html)
++ [Quick introduction](https://rogerdudler.github.io/git-guide/index.de.html)
++ [Detailed tutorials](https://de.atlassian.com/git/tutorials/)
 	
 
 ### Structure of framework
