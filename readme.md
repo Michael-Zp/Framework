@@ -20,3 +20,5 @@ Subfolders for specific lectures are
 + [Game development (folder GAMES)](GAMES)
 + [Advanced computer graphics (folder ACG)](ACG)
 + [Shader programming (folder SHADER)](SHADER)
+
+### [Links](Links.md)
