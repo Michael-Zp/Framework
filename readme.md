@@ -8,8 +8,14 @@
     1. change to empty directory
     1. git clone https://github.com/danielscherzer/Framework
     1. compile and run
-+ Intro to [git](https://rogerdudler.github.io/git-guide/index.de.html) versioning
+	
+### Understanding versioning with git
+	+ Intro to [git](https://rogerdudler.github.io/git-guide/index.de.html)
+	
 
 ### Structure of framework
 Subfolders for specific lectures
-+ [Computer graphics](CG)
++ [Computer graphics (folder CG)](CG)
++ [Game development (folder GAMES)](GAMES)
++ [Advanced computer graphics (folder ACG)](ACG)
++ [Shader programming (folder SHADER)](SHADER)
