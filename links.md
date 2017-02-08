@@ -7,8 +7,8 @@
 ##Games and demos
 + [21 Free Learning Resources for Game Developers](http://www.gamecareerguide.com/features/1455/21_free_learning_resources_for_.php)
 + [A game about games](http://www.kongregate.com/de/games/pixelate/understanding-games-episode-1)
-+ [gamedev.net](https://www.gamedev.net)
-+ [gamasutra.com](https://www.gamasutra.com)
++ [gamedev.net](https://www.gamedev.net) Large online community page with articles covering all areas of games
++ [gamasutra.com](https://www.gamasutra.com) Large online community page with articles covering all areas of games
 + [spieleprogrammierer.de](https://www.spieleprogrammierer.de/) "Möchtest du Spiele programmieren? Hast du vielleicht schon ein eigenes Spiel programmiert und möchtest es präsentieren? Hast du eine Frage über 3D-Grafik oder Programmiersprachen? Oder möchtest du dich vielleicht einfach nur über neue Spielideen austauschen? In jedem Fall bist du hier richtig."
 + [makinggames](http://www.makinggames.biz/) "Das Making Games Magazin befasst sich mit allen Bereichen der Computer- und Videospiele-Entwicklung und dem Business Development. Es richtet sich vornehmlich an Spieleentwickler und an Menschen, die sich für diesen Bereich interessieren."
 + [videogametourism.at](https://videogametourism.at)
@@ -21,5 +21,6 @@
 ##APIs
 + [dotnetperls](https://www.dotnetperls.com/) Many small tutorials for C# and .Net
 + [The Open Toolkit Library | OpenTK](https://opentk.github.io/) The Open Toolkit is set of fast, low-level C# bindings for OpenGL, OpenGL ES and OpenAL. It runs on all major platforms and powers hundreds of apps, games and scientific research.
++ [nehe.gamedev.net](http://nehe.gamedev.net/) Many OpenGL tutorials
 + [OpenGL tutorials for game programming in C++](http://in2gpu.com/category/game-development/)
 + [A glsl library for building signed distance functions](http://mercury.sexy/hg_sdf/)
