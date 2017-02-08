@@ -2,7 +2,7 @@
 + [www.scratchapixel.com](https://www.scratchapixel.com) "Learn Computer Graphics From Scratch!" Foundations of computer graphics with an emphasis on the relationship between mathematical background and practice
 + [The Nature of Code](https://natureofcode.com) "This class focuses on understanding, simulating, and incorporating motion-based elements of our physical world into the digital worlds that we create."
 + [realtimerendering.com](http://www.realtimerendering.com/) Link repository to many real-time rendering related cites
-+ (iquilezles.org)[http://www.iquilezles.org/] Advanced topics in computer graphics and shader implementations
++ [iquilezles.org](http://www.iquilezles.org/) Advanced topics in computer graphics and shader implementations
 
 ##Games
 + [21 Free Learning Resources for Game Developers](http://www.gamecareerguide.com/features/1455/21_free_learning_resources_for_.php)
