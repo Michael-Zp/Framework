@@ -1,2 +1,5 @@
 @echo off
-TortoiseGitProc.exe /command:commit /logmsg:"-"
+rem TortoiseGitProc.exe /command:commit /logmsg:"-"
+git commit -a -m "quick-commit"
+git push origin master
+pause
