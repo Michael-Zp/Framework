@@ -9,6 +9,7 @@
 + [A game about games](http://www.kongregate.com/de/games/pixelate/understanding-games-episode-1)
 + [gamedev.net](https://www.gamedev.net) Large online community page with articles covering all areas of games
 + [gamasutra.com](https://www.gamasutra.com) Large online community page with articles covering all areas of games
++ [Tiled map editor](http://www.mapeditor.org/) Open source map editor for 2d maps (tile-based, isometric, hexagonal)
 + [spieleprogrammierer.de](https://www.spieleprogrammierer.de/) "Möchtest du Spiele programmieren? Hast du vielleicht schon ein eigenes Spiel programmiert und möchtest es präsentieren? Hast du eine Frage über 3D-Grafik oder Programmiersprachen? Oder möchtest du dich vielleicht einfach nur über neue Spielideen austauschen? In jedem Fall bist du hier richtig."
 + [makinggames](http://www.makinggames.biz/) "Das Making Games Magazin befasst sich mit allen Bereichen der Computer- und Videospiele-Entwicklung und dem Business Development. Es richtet sich vornehmlich an Spieleentwickler und an Menschen, die sich für diesen Bereich interessieren."
 + [videogametourism.at](https://videogametourism.at)
