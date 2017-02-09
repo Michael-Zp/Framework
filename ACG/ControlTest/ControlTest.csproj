@@ -82,9 +82,6 @@
     </Compile>
   </ItemGroup>
   <ItemGroup>
-    <None Include="App.config" />
-  </ItemGroup>
-  <ItemGroup>
     <ProjectReference Include="..\ControlClassLibrary\ControlClassLibrary.csproj">
       <Project>{1E28B48E-DED7-4184-A449-B1D8C8C489EA}</Project>
       <Name>ControlClassLibrary</Name>
