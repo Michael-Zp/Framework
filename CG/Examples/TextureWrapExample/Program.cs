@@ -57,9 +57,9 @@ namespace Example
 
 		private static void DrawTexturedRect(Box2D rect, Texture tex, Box2D texCoords)
 		{
-			tex.BeginUse();
+			tex.Activate();
 			rect.DrawTexturedRect(texCoords);
-			tex.EndUse();
+			tex.Deactivate();
 		}
 	}
 }

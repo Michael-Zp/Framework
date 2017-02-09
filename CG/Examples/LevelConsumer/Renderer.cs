@@ -23,9 +23,9 @@ namespace Example
 
 		public void Draw(object reference, Box2D bounds)
 		{
-			references[reference].BeginUse();
+			references[reference].Activate();
 			bounds.DrawTexturedRect(Box2D.BOX01);
-			references[reference].EndUse();
+			references[reference].Deactivate();
 		}
 
 		private Dictionary<object, Texture> references = new Dictionary<object, Texture>();

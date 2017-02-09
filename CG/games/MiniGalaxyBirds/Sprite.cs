@@ -15,7 +15,7 @@ namespace MiniGalaxyBirds
 
 		public void Draw()
 		{
-			tex.BeginUse();
+			tex.Activate();
 			GL.Begin(PrimitiveType.Quads);
 			GL.Color3(Color.White);
 			GL.TexCoord2(0.0f, 0.0f); GL.Vertex2(Rect.X, Rect.Y);
@@ -23,7 +23,7 @@ namespace MiniGalaxyBirds
 			GL.TexCoord2(1.0f, 1.0f); GL.Vertex2(Rect.MaxX, Rect.MaxY);
 			GL.TexCoord2(0.0f, 1.0f); GL.Vertex2(Rect.X, Rect.MaxY);
 			GL.End();
-			tex.EndUse();
+			tex.Deactivate();
 		}
 
 		public Box2D Rect { get; private set; }

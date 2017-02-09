@@ -73,14 +73,14 @@ namespace Example
 		private void DrawTexturedRect(Box2D Rectangle, Texture tex)
 		{
 			GL.Color3(Color.White);
-			tex.BeginUse();
+			tex.Activate();
 			GL.Begin(PrimitiveType.Quads);
 			GL.TexCoord2(0.0f, 0.0f); GL.Vertex2(Rectangle.X, Rectangle.Y);
 			GL.TexCoord2(1.0f, 0.0f); GL.Vertex2(Rectangle.MaxX, Rectangle.Y);
 			GL.TexCoord2(1.0f, 1.0f); GL.Vertex2(Rectangle.MaxX, Rectangle.MaxY);
 			GL.TexCoord2(0.0f, 1.0f); GL.Vertex2(Rectangle.X, Rectangle.MaxY);
 			GL.End();
-			tex.EndUse();
+			tex.Deactivate();
 		}
 	}
 }

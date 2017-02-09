@@ -67,9 +67,9 @@ namespace Example
 		private void game_RenderFrame(object sender, FrameEventArgs e)
 		{
 			GL.Clear(ClearBufferMask.ColorBufferBit);
-			shader.BeginUse();
+			shader.Activate();
 			GL.DrawArrays(PrimitiveType.Quads, 0, 4);
-			shader.EndUse();
+			shader.Deactivate();
 			gameWindow.SwapBuffers();
 		}
 	}

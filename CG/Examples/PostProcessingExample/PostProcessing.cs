@@ -31,14 +31,14 @@ namespace Example
 		{
 			fbo.EndUse(); //stop drawing into texture
 			GL.Viewport(0, 0, width, height);
-			texImage.BeginUse();
-			shader.BeginUse();
+			texImage.Activate();
+			shader.Activate();
 			GL.Uniform2(shader.GetUniformLocation("iResolution"), (float)width, (float)height);
 			GL.Uniform1(shader.GetUniformLocation("iGlobalTime"), time);
 			//GL.Uniform1(shader.GetUniformLocation("amplitude"), 0.01f);
 			GL.DrawArrays(PrimitiveType.Quads, 0, 4);
-			shader.EndUse();
-			texImage.EndUse();
+			shader.Deactivate();
+			texImage.Deactivate();
 		}
 
 		public void SetShader(string fragmentShaderText)

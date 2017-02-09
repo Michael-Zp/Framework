@@ -81,14 +81,14 @@ namespace Example
 
 			GL.Color3(Color.White);
 			//draw background
-			texBackground.BeginUse();
+			texBackground.Activate();
 			background.DrawTexturedRect(Box2D.BOX01);
-			texBackground.EndUse();
+			texBackground.Deactivate();
 
 			//draw player
-			texBird.BeginUse();
+			texBird.Activate();
 			bird.DrawTexturedRect(Box2D.BOX01);
-			texBird.EndUse();
+			texBird.Deactivate();
 
 			if (doPostProcessing) postProcessing.EndAndApply(gameWindow.Width, gameWindow.Height, (float)globalTime.Elapsed.TotalSeconds);
 

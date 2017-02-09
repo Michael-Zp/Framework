@@ -23,10 +23,10 @@ namespace Framework
 
 		public void WrapMode(TextureWrapMode mode)
 		{
-			BeginUse();
+			Activate();
 			GL.TexParameter(TextureTarget.Texture2D, TextureParameterName.TextureWrapS, (int)mode);
 			GL.TexParameter(TextureTarget.Texture2D, TextureParameterName.TextureWrapT, (int)mode);
-			EndUse();
+			Deactivate();
 		}
 
 		public void Dispose()
@@ -36,41 +36,41 @@ namespace Framework
 
 		public void FilterBilinear()
 		{
-			BeginUse();
+			Activate();
 			GL.TexParameter(TextureTarget.Texture2D, TextureParameterName.TextureMagFilter, (float)TextureMagFilter.Linear);
 			GL.TexParameter(TextureTarget.Texture2D, TextureParameterName.TextureMinFilter, (float)TextureMinFilter.Linear);
 			GL.TexParameter(TextureTarget.Texture2D, TextureParameterName.GenerateMipmap, 0);
-			EndUse();
+			Deactivate();
 			filterMode = FilterMode.BILINEAR;
 		}
 
 		public void FilterNearest()
 		{
-			BeginUse();
+			Activate();
 			GL.TexParameter(TextureTarget.Texture2D, TextureParameterName.TextureMagFilter, (float)TextureMagFilter.Nearest);
 			GL.TexParameter(TextureTarget.Texture2D, TextureParameterName.TextureMinFilter, (float)TextureMinFilter.Nearest);
 			GL.TexParameter(TextureTarget.Texture2D, TextureParameterName.GenerateMipmap, 0);
-			EndUse();
+			Deactivate();
 			filterMode = FilterMode.NEAREST;
 		}
 
 		public void FilterTrilinear()
 		{
-			BeginUse();
+			Activate();
 			GL.TexParameter(TextureTarget.Texture2D, TextureParameterName.TextureMagFilter, (float)TextureMagFilter.Linear);
 			GL.TexParameter(TextureTarget.Texture2D, TextureParameterName.TextureMinFilter, (float)TextureMinFilter.LinearMipmapLinear);
 			GL.TexParameter(TextureTarget.Texture2D, TextureParameterName.GenerateMipmap, 1);
-			EndUse();
+			Deactivate();
 			filterMode = FilterMode.TRILINEAR;
 		}
 
-		public void BeginUse()
+		public void Activate()
 		{
 			GL.Enable(EnableCap.Texture2D);
 			GL.BindTexture(TextureTarget.Texture2D, m_uTextureID);
 		}
 
-		public void EndUse()
+		public void Deactivate()
 		{
 			GL.BindTexture(TextureTarget.Texture2D, 0);
 			GL.Disable(EnableCap.Texture2D);
@@ -92,11 +92,11 @@ namespace Framework
 		}
 		public void LoadPixels(IntPtr pixels, int width, int height, PixelInternalFormat internalFormat, PixelFormat inputPixelFormat, PixelType type)
 		{
-			BeginUse();
+			Activate();
 			GL.TexImage2D(TextureTarget.Texture2D, 0, internalFormat, width, height, 0,	inputPixelFormat, type, pixels);
 			this.Width = width;
 			this.Height = height;
-			EndUse();
+			Deactivate();
 		}
 
 		public static Texture Create(int width, int height, PixelInternalFormat internalFormat = PixelInternalFormat.Rgba8

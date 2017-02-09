@@ -21,11 +21,11 @@ namespace Example
 		public void Draw(Matrix4 cam)
 		{
 			GL.Disable(EnableCap.CullFace);
-			shdPlane.BeginUse();
+			shdPlane.Activate();
 			GL.UniformMatrix4(shdPlane.GetUniformLocation("camera"), true, ref cam);
 
 			plane.Draw();
-			shdPlane.EndUse();
+			shdPlane.Deactivate();
 			GL.Enable(EnableCap.CullFace);
 		}
 

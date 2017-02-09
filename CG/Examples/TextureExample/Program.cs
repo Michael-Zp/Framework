@@ -58,7 +58,7 @@ namespace Example
 		private static void DrawTexturedRect(Box2D Rect, Texture tex)
 		{
 			//the texture has to be enabled before use
-			tex.BeginUse();
+			tex.Activate();
 			GL.Begin(PrimitiveType.Quads);
 				//when using textures we have to set a texture coordinate for each vertex
 				//by using the TexCoord command BEFORE the Vertex command
@@ -68,7 +68,7 @@ namespace Example
 				GL.TexCoord2(0.0f, 1.0f); GL.Vertex2(Rect.X, Rect.MaxY);
 			GL.End();
 			//the texture is disabled, so no other draw calls use this texture
-			tex.EndUse();
+			tex.Deactivate();
 		}
 	}
 }

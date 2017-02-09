@@ -32,12 +32,12 @@ namespace Example
 			GL.PointSize(2.0f);
 			GL.Clear(ClearBufferMask.ColorBufferBit);
 			var shader = shaderWatcher.Shader;
-			shader.BeginUse();
+			shader.Activate();
 			var bindingIndex = shader.GetShaderStorageBufferBindingIndex("BufferParticle");
 			bufferParticles.ActivateBind(bindingIndex);
 			GL.DrawArrays(PrimitiveType.Points, 0, particelCount);
 			bufferParticles.Deactive();
-			shader.EndUse();
+			shader.Deactivate();
 		}
 
 		private ShaderFileDebugger shaderWatcher;

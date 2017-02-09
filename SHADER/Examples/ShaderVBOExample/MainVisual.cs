@@ -24,13 +24,13 @@ namespace Example
 		{
 			GL.Clear(ClearBufferMask.ColorBufferBit);
 			GL.PointSize(1.0f);
-			shader.BeginUse();
+			shader.Activate();
 			//ATTENTION: always giver the time as a float if the uniform in the shader is a float
 			GL.Uniform1(shader.GetUniformLocation("time"), (float)timeSource.Elapsed.TotalSeconds);
 			GL.BindVertexArray(VAO);
 			GL.DrawArrays(PrimitiveType.Points, 0, particelCount);
 			GL.BindVertexArray(0);
-			shader.EndUse();
+			shader.Deactivate();
 		}
 
 		private const int particelCount = 100000;

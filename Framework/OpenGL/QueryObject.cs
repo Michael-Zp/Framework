@@ -10,13 +10,13 @@ namespace Framework
 			GL.GenQueries(1, out id);
 		}
 
-		public void Begin(QueryTarget target)
+		public void Activate(QueryTarget target)
 		{
 			Target = target;
 			GL.BeginQuery(target, id);
 		}
 
-		public void End()
+		public void Deactivate()
 		{
 			GL.EndQuery(Target);
 		}

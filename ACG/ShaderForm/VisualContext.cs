@@ -70,7 +70,7 @@ namespace ShaderForm
 			{
 				shaderCurrent = shaderDefault;
 			}
-			shaderCurrent.BeginUse();
+			shaderCurrent.Activate();
 			return shaderCurrent != shaderDefault;
 		}
 
@@ -83,14 +83,14 @@ namespace ShaderForm
 			foreach (var tex in textures)
 			{
 				GL.ActiveTexture(TextureUnit.Texture0 + id);
-				tex.BeginUse();
+				tex.Activate();
 				GL.Uniform1(shaderCurrent.GetUniformLocation("tex" + id.ToString()), id);
 				++id;
 			}
 			//bind last frame as texture
 			var last = (active == textureBufferA) ? textureBufferB : textureBufferA;
 			GL.ActiveTexture(TextureUnit.Texture0 + id);
-			last.BeginUse();
+			last.Activate();
 			GL.Uniform1(shaderCurrent.GetUniformLocation("texLastFrame"), id);
 
 			surface.BeginUse(active);
@@ -105,12 +105,12 @@ namespace ShaderForm
 			foreach (var tex in textures)
 			{
 				GL.ActiveTexture(TextureUnit.Texture0 + id);
-				tex.EndUse();
+				tex.Deactivate();
 				++id;
 			}
 			//unbind last frame as texture
 			GL.ActiveTexture(TextureUnit.Texture0 + id);
-			last.EndUse();
+			last.Deactivate();
 			GL.ActiveTexture(TextureUnit.Texture0);
 		}
 
@@ -231,11 +231,11 @@ namespace ShaderForm
 		public void Draw(int width, int height)
 		{
 			GL.Viewport(0, 0, width, height);
-			active.BeginUse();
-			shaderCopyToScreen.BeginUse();
+			active.Activate();
+			shaderCopyToScreen.Activate();
 			GL.DrawArrays(PrimitiveType.Quads, 0, 4);
-			shaderCopyToScreen.EndUse();
-			active.EndUse();
+			shaderCopyToScreen.Deactivate();
+			active.Deactivate();
 			var last = (active == textureBufferA) ? textureBufferB : textureBufferA;
 			active = last;
 		}

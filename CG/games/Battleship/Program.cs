@@ -124,7 +124,7 @@ namespace Reversi
 
 		static void DrawSprite(float x, float y, Texture tex, float radius = 0.5f, float repeat = 1.0f)
 		{
-			tex.BeginUse();
+			tex.Activate();
 			GL.Color3(Color.White);
 			GL.Begin(PrimitiveType.Quads);
 			GL.TexCoord2(0.0f, 0.0f); GL.Vertex2(x - radius, y - radius);
@@ -132,7 +132,7 @@ namespace Reversi
 			GL.TexCoord2(repeat, repeat); GL.Vertex2(x + radius, y + radius);
 			GL.TexCoord2(0.0f, repeat); GL.Vertex2(x - radius, y + radius);
 			GL.End();
-			tex.EndUse();
+			tex.Deactivate();
 		}
 	}
 }

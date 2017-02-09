@@ -42,12 +42,12 @@ namespace Example
 			var time = (float)timeSource.Elapsed.TotalSeconds;
 
 			GL.Clear(ClearBufferMask.ColorBufferBit | ClearBufferMask.DepthBufferBit);
-			shader.BeginUse();
+			shader.Activate();
 			GL.Uniform1(shader.GetUniformLocation("time"), time);
 			Matrix4 cam = camera.CalcMatrix().ToOpenTK();
 			GL.UniformMatrix4(shader.GetUniformLocation("camera"), true, ref cam);
 			geometry.Draw(instancePositions.Count);
-			shader.EndUse();
+			shader.Deactivate();
 		}
 
 		private Shader shader;

@@ -34,12 +34,12 @@ namespace Framework
 
 		public void BeginUse()
 		{
-			tex.BeginUse();
+			tex.Activate();
 		}
 
 		public void EndUse()
 		{
-			tex.EndUse();
+			tex.Deactivate();
 		}
 
 		public void Draw(uint spriteID, Box2D rectangle)

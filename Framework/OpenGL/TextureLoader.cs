@@ -12,7 +12,7 @@ namespace Framework
 		{
 			Texture texture = new Texture();
 			texture.FilterTrilinear();
-			texture.BeginUse();
+			texture.Activate();
 			//todo: 16bit channels
 			using (Bitmap bmp = new Bitmap(bitmap))
 			{
@@ -23,7 +23,7 @@ namespace Framework
 				texture.LoadPixels(bmpData.Scan0, bmpData.Width, bmpData.Height, internalFormat, inputPixelFormat, PixelType.UnsignedByte);
 				bmp.UnlockBits(bmpData);
 			}
-			texture.EndUse();
+			texture.Deactivate();
 			return texture;
 		}
 
@@ -45,11 +45,11 @@ namespace Framework
 			var format = System.Drawing.Imaging.PixelFormat.Format32bppArgb;
 			using (Bitmap bmp = new Bitmap(texture.Width, texture.Height))
 			{
-				texture.BeginUse();
+				texture.Activate();
 				BitmapData data = bmp.LockBits(new Rectangle(0, 0, bmp.Width, bmp.Height), ImageLockMode.WriteOnly, format);
 				GL.GetTexImage(TextureTarget.Texture2D, 0, selectInputPixelFormat(format), PixelType.UnsignedByte, data.Scan0);
 				bmp.UnlockBits(data);
-				texture.EndUse();
+				texture.Deactivate();
 				bmp.RotateFlip(RotateFlipType.RotateNoneFlipY);
 				bmp.Save(fileName);
 			}

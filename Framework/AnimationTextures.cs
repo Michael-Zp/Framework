@@ -47,9 +47,9 @@ namespace Framework
 		public void Draw(Box2D rectangle, float totalSeconds)
 		{
 			var id = (int)CalcAnimationFrame(totalSeconds);
-			textures[id].BeginUse();
+			textures[id].Activate();
 			rectangle.DrawTexturedRect(Box2D.BOX01);
-			textures[id].EndUse();
+			textures[id].Deactivate();
 		}
 
 		private List<Texture> textures = new List<Texture>();

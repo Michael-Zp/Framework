@@ -27,21 +27,21 @@ namespace MvcSpaceInvaders
 			GL.Enable(EnableCap.Blend);
 			GL.BlendFunc(BlendingFactorSrc.SrcAlpha, BlendingFactorDest.OneMinusSrcAlpha);
 
-			texEnemy.BeginUse();
+			texEnemy.Activate();
 			foreach (Box2D enemy in enemies)
 			{
 				Draw(enemy);
 			}
-			texEnemy.EndUse();
-			texBullet.BeginUse();
+			texEnemy.Deactivate();
+			texBullet.Activate();
 			foreach (Box2D bullet in bullets)
 			{
 				Draw(bullet);
 			}
-			texBullet.EndUse();
-			texPlayer.BeginUse();
+			texBullet.Deactivate();
+			texPlayer.Activate();
 			Draw(player);
-			texPlayer.EndUse();
+			texPlayer.Deactivate();
 			GL.Disable(EnableCap.Blend);
 		}
 

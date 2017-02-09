@@ -25,9 +25,9 @@ namespace Example
 		public void Render()
 		{
 			GL.Clear(ClearBufferMask.ColorBufferBit | ClearBufferMask.DepthBufferBit);
-			shader.BeginUse();
+			shader.Activate();
 			geometry.Draw(particelCount);
-			shader.EndUse();
+			shader.Deactivate();
 		}
 
 		private const int particelCount = 10000;

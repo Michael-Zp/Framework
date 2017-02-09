@@ -55,14 +55,14 @@ namespace Example
 			GL.Clear(ClearBufferMask.ColorBufferBit | ClearBufferMask.DepthBufferBit);
 
 			GL.Color3(Color.White);
-			queryA.Begin(QueryTarget.SamplesPassed);
+			queryA.Activate(QueryTarget.SamplesPassed);
 			DrawBox(boxA, 0.0f);
-			queryA.End();
+			queryA.Deactivate();
 
 			GL.Color3(Color.Red);
-			queryB.Begin(QueryTarget.SamplesPassed);
+			queryB.Activate(QueryTarget.SamplesPassed);
 			DrawBox(boxB, 0.5f);
-			queryB.End();
+			queryB.Deactivate();
 
 			Console.WriteLine(queryA.Result);
 			Console.WriteLine(queryB.Result);

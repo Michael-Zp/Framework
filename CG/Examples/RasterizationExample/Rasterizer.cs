@@ -52,11 +52,11 @@ namespace Example
 			drawHandler();
 			renderToTexture.EndUse();
 			GL.Viewport(0, 0, gameWindow.Width, gameWindow.Height);
-			texRenderSurface.BeginUse();
-			shader.BeginUse();
+			texRenderSurface.Activate();
+			shader.Activate();
 			GL.DrawArrays(PrimitiveType.Quads, 0, 4);
-			shader.EndUse();
-			texRenderSurface.EndUse();
+			shader.Deactivate();
+			texRenderSurface.Deactivate();
 		}
 
 		private void LoadCopyShader()

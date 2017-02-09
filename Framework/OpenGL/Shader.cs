@@ -49,7 +49,7 @@ namespace Framework
 		/// <summary>
 		/// Begins this shader use.
 		/// </summary>
-		public void BeginUse()
+		public void Activate()
 		{
 			GL.UseProgram(m_ProgramID);
 		}
@@ -57,7 +57,7 @@ namespace Framework
 		/// <summary>
 		/// Ends this shader use.
 		/// </summary>
-		public void EndUse()
+		public void Deactivate()
 		{
 			GL.UseProgram(0);
 		}
