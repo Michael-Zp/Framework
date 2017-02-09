@@ -1,11 +1,9 @@
 ﻿using Framework;
-using Geometry;
 using LevelEditor;
 using OpenTK;
 using OpenTK.Graphics.OpenGL;
 using OpenTK.Input;
 using System;
-using System.Drawing;
 
 namespace Example
 {

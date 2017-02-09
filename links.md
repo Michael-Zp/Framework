@@ -13,7 +13,7 @@
 + [spieleprogrammierer.de](https://www.spieleprogrammierer.de/) "Möchtest du Spiele programmieren? Hast du vielleicht schon ein eigenes Spiel programmiert und möchtest es präsentieren? Hast du eine Frage über 3D-Grafik oder Programmiersprachen? Oder möchtest du dich vielleicht einfach nur über neue Spielideen austauschen? In jedem Fall bist du hier richtig."
 + [makinggames](http://www.makinggames.biz/) "Das Making Games Magazin befasst sich mit allen Bereichen der Computer- und Videospiele-Entwicklung und dem Business Development. Es richtet sich vornehmlich an Spieleentwickler und an Menschen, die sich für diesen Bereich interessieren."
 + [videogametourism.at](https://videogametourism.at)
-+ [gamelab.zhdk.ch](http://gamelab.zhdk.ch/)
++ [gamelab.zhdk.ch](http://gamelab.zhdk.ch/) "Gamelab is part of the University of the Arts Zurich (ZHdK) and associated with the subject Game Design ZHDK. Gamelab encourages experimental game design and research in game development and game studies. We do research in Game Mechanics, Artgames, Interface Design, Game Studies and Virtual Worlds."
 + [Evoke](https://www.evoke.eu) Demo party usually in Köln
 
 ##Programming
