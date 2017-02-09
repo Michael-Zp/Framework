@@ -27,23 +27,23 @@ namespace Example
 
 			fbo.BeginUse(active); //start drawing into texture
 			GL.Viewport(0, 0, active.Width, active.Height);
-			shaderGameOfLife.Begin();
+			shaderGameOfLife.BeginUse();
 			last.BeginUse();
 			GL.Uniform2(shaderGameOfLife.GetUniformLocation("iResolution"), (float)width, (float)height);
 			GL.Uniform2(shaderGameOfLife.GetUniformLocation("iMouse"), mouseX, mouseY);
 			GL.Uniform1(shaderGameOfLife.GetUniformLocation("iSeedRadius"), 0.05f);
 			GL.DrawArrays(PrimitiveType.Quads, 0, 4); //draw staff
 			last.EndUse();
-			shaderGameOfLife.End();
+			shaderGameOfLife.EndUse();
 			fbo.EndUse(); //stop drawing into texture
 
 
 			GL.Viewport(0, 0, width, height);
 			active.BeginUse();
-			shaderCopy.Begin();
+			shaderCopy.BeginUse();
 			GL.Uniform2(shaderCopy.GetUniformLocation("iResolution"), (float)width, (float)height);
 			GL.DrawArrays(PrimitiveType.Quads, 0, 4);
-			shaderCopy.End();
+			shaderCopy.EndUse();
 			active.EndUse();
 
 			active = last;

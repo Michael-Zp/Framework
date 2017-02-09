@@ -28,22 +28,22 @@ namespace Example
 			}
 
 			//draw staff
-			shaderSource.Begin();
+			shaderSource.BeginUse();
 			GL.Uniform2(shaderSource.GetUniformLocation("iResolution"), (float)width, (float)height);
 			GL.Uniform1(shaderSource.GetUniformLocation("iGlobalTime"), time);
 			GL.DrawArrays(PrimitiveType.Quads, 0, 4);
-			shaderSource.End();
+			shaderSource.EndUse();
 
 			if (doPostProcessing)
 			{
 				fbo.EndUse(); //stop drawing into texture
 				GL.Viewport(0, 0, width, height);
 				textureForRendering.BeginUse();
-				shaderPostProcess.Begin();
+				shaderPostProcess.BeginUse();
 				GL.Uniform2(shaderPostProcess.GetUniformLocation("iResolution"), (float)width, (float)height);
 				GL.Uniform1(shaderPostProcess.GetUniformLocation("iGlobalTime"), time);
 				GL.DrawArrays(PrimitiveType.Quads, 0, 4);
-				shaderPostProcess.End();
+				shaderPostProcess.EndUse();
 				textureForRendering.EndUse();
 			}
 		}

@@ -29,11 +29,11 @@ namespace Example
 		public void Render()
 		{
 			GL.Clear(ClearBufferMask.ColorBufferBit | ClearBufferMask.DepthBufferBit);
-			shader.Begin();
+			shader.BeginUse();
 			//texDiffuse.BeginUse();
 			geometry.Draw();
 			//texDiffuse.EndUse();
-			shader.End();
+			shader.EndUse();
 		}
 
 		private Shader shader;

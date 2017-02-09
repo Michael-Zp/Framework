@@ -70,7 +70,7 @@ namespace ShaderForm
 			{
 				shaderCurrent = shaderDefault;
 			}
-			shaderCurrent.Begin();
+			shaderCurrent.BeginUse();
 			return shaderCurrent != shaderDefault;
 		}
 
@@ -232,9 +232,9 @@ namespace ShaderForm
 		{
 			GL.Viewport(0, 0, width, height);
 			active.BeginUse();
-			shaderCopyToScreen.Begin();
+			shaderCopyToScreen.BeginUse();
 			GL.DrawArrays(PrimitiveType.Quads, 0, 4);
-			shaderCopyToScreen.End();
+			shaderCopyToScreen.EndUse();
 			active.EndUse();
 			var last = (active == textureBufferA) ? textureBufferB : textureBufferA;
 			active = last;

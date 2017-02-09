@@ -53,9 +53,9 @@ namespace Example
 			renderToTexture.EndUse();
 			GL.Viewport(0, 0, gameWindow.Width, gameWindow.Height);
 			texRenderSurface.BeginUse();
-			shader.Begin();
+			shader.BeginUse();
 			GL.DrawArrays(PrimitiveType.Quads, 0, 4);
-			shader.End();
+			shader.EndUse();
 			texRenderSurface.EndUse();
 		}
 

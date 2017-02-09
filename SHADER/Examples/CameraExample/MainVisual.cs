@@ -33,12 +33,12 @@ namespace Example
 		{
 			var time = (float)timeSource.Elapsed.TotalSeconds;
 			GL.Clear(ClearBufferMask.ColorBufferBit | ClearBufferMask.DepthBufferBit);
-			shader.Begin();
+			shader.BeginUse();
 			GL.Uniform1(shader.GetUniformLocation("time"), time);
 			float[] cam = camera.CalcMatrix().ToArray();
 			GL.UniformMatrix4(shader.GetUniformLocation("camera"), 1, false, cam);
 			geometry.Draw(particelCount);
-			shader.End();
+			shader.EndUse();
 		}
 
 		private CameraOrbit camera = new CameraOrbit();

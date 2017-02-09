@@ -29,12 +29,12 @@ namespace Example
 		{
 			var time = (float)timeSource.Elapsed.TotalSeconds;
 			GL.Clear(ClearBufferMask.ColorBufferBit | ClearBufferMask.DepthBufferBit);
-			shader.Begin();
+			shader.BeginUse();
 			GL.Uniform1(shader.GetUniformLocation("time"), time);
 			Matrix4 camera = CalculateCameraMatrixColVectorStyle(time);
 			GL.UniformMatrix4(shader.GetUniformLocation("camera"), true, ref camera);
 			geometry.Draw(particelCount);
-			shader.End();
+			shader.EndUse();
 		}
 
 		private static Matrix4 CalculateCameraMatrix(float time)

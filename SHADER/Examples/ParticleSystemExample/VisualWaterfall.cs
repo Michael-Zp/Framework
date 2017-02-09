@@ -86,13 +86,13 @@ namespace Example
 			GL.Enable(EnableCap.VertexProgramPointSize);
 
 			var shader = shaderWatcher.Shader;
-			shader.Begin();
+			shader.BeginUse();
 			GL.UniformMatrix4(shader.GetUniformLocation("camera"), true, ref camera);
 			//GL.Uniform1(shader.GetUniformLocation("texParticle"), 0);
 			texStar.BeginUse();
 			particles.DrawArrays(PrimitiveType.Points, particleSystem.ParticleCount);
 			texStar.EndUse();
-			shader.End();
+			shader.EndUse();
 
 			GL.Disable(EnableCap.VertexProgramPointSize);
 			GL.Disable(EnableCap.PointSprite);

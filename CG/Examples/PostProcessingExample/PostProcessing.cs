@@ -32,12 +32,12 @@ namespace Example
 			fbo.EndUse(); //stop drawing into texture
 			GL.Viewport(0, 0, width, height);
 			texImage.BeginUse();
-			shader.Begin();
+			shader.BeginUse();
 			GL.Uniform2(shader.GetUniformLocation("iResolution"), (float)width, (float)height);
 			GL.Uniform1(shader.GetUniformLocation("iGlobalTime"), time);
 			//GL.Uniform1(shader.GetUniformLocation("amplitude"), 0.01f);
 			GL.DrawArrays(PrimitiveType.Quads, 0, 4);
-			shader.End();
+			shader.EndUse();
 			texImage.EndUse();
 		}
 

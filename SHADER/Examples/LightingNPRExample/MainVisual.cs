@@ -37,7 +37,7 @@ namespace Example
 			}
 			GL.Clear(ClearBufferMask.ColorBufferBit | ClearBufferMask.DepthBufferBit);
 			var shader = shaderWatcher.Shader;
-			shader.Begin();
+			shader.BeginUse();
 			GL.Uniform4(shader.GetUniformLocation("lightColor"), new Color4(1f, 1f, 1f, 1f));
 			GL.Uniform3(shader.GetUniformLocation("lightPosition"), new Vector3(1, 1, 4));
 			GL.Uniform4(shader.GetUniformLocation("ambientLightColor"), new Color4(.2f, .2f, .2f, 1f));
@@ -47,7 +47,7 @@ namespace Example
 			GL.Uniform3(shader.GetUniformLocation("cameraPosition"), camera.CalcPosition().ToOpenTK());
 
 			geometry.Draw();
-			shader.End();
+			shader.EndUse();
 		}
 
 		private CameraOrbit camera = new CameraOrbit();
