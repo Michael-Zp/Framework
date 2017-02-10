@@ -1,4 +1,4 @@
-﻿using DMSOpenGL;
+﻿using DMS.System;
 using ShaderForm;
 using ShaderForm.DemoData;
 using ShaderForm.DemoData2;

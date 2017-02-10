@@ -1,7 +1,7 @@
 ﻿using OpenTK.Graphics.OpenGL;
 using System;
 
-namespace DMSOpenGL
+namespace DMS.OpenGL
 {
 	[Serializable]
 	public class FBOException : Exception

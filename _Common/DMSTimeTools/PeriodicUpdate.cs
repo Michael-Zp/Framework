@@ -1,4 +1,4 @@
-﻿namespace DMSOpenGL
+﻿namespace DMS.TimeTools
 {
 	/// <summary>
 	/// Invokes a registered callback in regular intervalls

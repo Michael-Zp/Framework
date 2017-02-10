@@ -1,6 +1,6 @@
-﻿using System;
+﻿using DMS.TimeTools;
+using System;
 using System.Windows.Forms;
-using TimeTools;
 
 namespace ControlClassLibrary
 {

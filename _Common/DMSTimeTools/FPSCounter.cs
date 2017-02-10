@@ -1,6 +1,6 @@
 ﻿using System.Diagnostics;
 
-namespace TimeTools
+namespace DMS.TimeTools
 {
 	public class FPSCounter
 	{

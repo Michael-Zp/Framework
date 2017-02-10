@@ -1,8 +1,7 @@
-﻿using Geometry;
-using Microsoft.VisualStudio.TestTools.UnitTesting;
+﻿using Microsoft.VisualStudio.TestTools.UnitTesting;
 using System.Numerics;
 
-namespace Geometry.Tests
+namespace DMS.Geometry.Tests
 {
 	[TestClass()]
 	public class Box2dExtensionsTests

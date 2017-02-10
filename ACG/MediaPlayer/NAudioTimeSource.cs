@@ -1,6 +1,6 @@
-﻿using NAudio.Wave;
+﻿using DMS.TimeTools;
+using NAudio.Wave;
 using System;
-using TimeTools;
 
 namespace MediaPlayer
 {

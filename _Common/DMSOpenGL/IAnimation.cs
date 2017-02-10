@@ -1,6 +1,6 @@
-﻿using Geometry;
+﻿using DMS.Geometry;
 
-namespace DMSOpenGL
+namespace DMS.OpenGL
 {
 	public interface IAnimation
 	{

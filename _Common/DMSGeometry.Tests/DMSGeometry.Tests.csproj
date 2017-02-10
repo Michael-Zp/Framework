@@ -6,7 +6,7 @@
     <ProjectGuid>{DF096E15-AA81-4FFD-B360-2B12E812BF26}</ProjectGuid>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>DMSGeometry.Tests</RootNamespace>
+    <RootNamespace>DMS.Geometry.Tests</RootNamespace>
     <AssemblyName>DMSGeometry.Tests</AssemblyName>
     <TargetFrameworkVersion>v4.6</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>

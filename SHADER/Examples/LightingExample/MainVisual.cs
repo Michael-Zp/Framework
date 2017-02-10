@@ -1,10 +1,9 @@
-﻿using DMSOpenGL;
-using Geometry;
+﻿using DMS.OpenGL;
+using DMS.Geometry;
 using OpenTK;
 using OpenTK.Graphics;
 using OpenTK.Graphics.OpenGL;
-using ShaderDebugging;
-using System.Drawing;
+using DMS.ShaderDebugging;
 
 namespace Example
 {
@@ -43,7 +42,7 @@ namespace Example
 			GL.Uniform4(shader.GetUniformLocation("light2Color"), new Color4(1f, .1f, .1f, 1f));
 			GL.Uniform3(shader.GetUniformLocation("light3Position"), new Vector3(-2, 2, 2));
 			GL.Uniform3(shader.GetUniformLocation("light3Direction"), new Vector3(1, -1, -1).Normalized());
-			GL.Uniform1(shader.GetUniformLocation("light3Angle"), Geometry.MathHelper.DegreesToRadians(10f));
+			GL.Uniform1(shader.GetUniformLocation("light3Angle"), DMS.Geometry.MathHelper.DegreesToRadians(10f));
 			GL.Uniform4(shader.GetUniformLocation("light3Color"), new Color4(0, 0, 1f, 1f));
 			GL.Uniform4(shader.GetUniformLocation("ambientLightColor"), new Color4(.1f, .1f, .1f, 1f));
 			GL.Uniform4(shader.GetUniformLocation("materialColor"), new Color4(.7f, .9f, .7f, 1f));

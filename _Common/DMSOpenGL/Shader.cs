@@ -1,7 +1,7 @@
 ﻿using System;
 using OpenTK.Graphics.OpenGL;
 
-namespace DMSOpenGL
+namespace DMS.OpenGL
 {
 	/// <summary>
 	/// Shader class

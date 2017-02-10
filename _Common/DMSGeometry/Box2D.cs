@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace Geometry
+namespace DMS.Geometry
 {
 	/// <summary>
 	/// Represents an 2D axis aligned bounding box

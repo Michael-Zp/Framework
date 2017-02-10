@@ -1,6 +1,6 @@
 ﻿using System.Numerics;
 
-namespace Geometry
+namespace DMS.Geometry
 {
 	/// <summary>
 	/// Some ROW vector transformation operations, to get the column vector version transpose

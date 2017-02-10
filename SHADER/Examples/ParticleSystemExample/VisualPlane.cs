@@ -1,8 +1,8 @@
-﻿using DMSOpenGL;
+﻿using DMS.OpenGL;
 using OpenTK.Graphics.OpenGL;
 using System.Text;
 using OpenTK;
-using Geometry;
+using DMS.Geometry;
 
 namespace Example
 {

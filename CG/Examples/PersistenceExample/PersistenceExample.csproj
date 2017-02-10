@@ -57,6 +57,10 @@
       <Project>{B37B7DDE-435B-4F27-9A9B-9B6DF8744EBE}</Project>
       <Name>DMSGeometry</Name>
     </ProjectReference>
+    <ProjectReference Include="..\..\..\_Common\DMSSystem\DMSSystem.csproj">
+      <Project>{e5ff60a4-46fb-42d2-9430-bc523315c2e0}</Project>
+      <Name>DMSSystem</Name>
+    </ProjectReference>
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />

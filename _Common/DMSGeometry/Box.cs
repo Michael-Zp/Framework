@@ -1,4 +1,4 @@
-﻿namespace Geometry
+﻿namespace DMS.Geometry
 {
 	/// <summary>
 	/// Represents an axis aligned bounding box

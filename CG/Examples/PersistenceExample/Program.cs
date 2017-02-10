@@ -1,4 +1,4 @@
-﻿using DMSOpenGL;
+﻿using DMS.System;
 using OpenTK;
 using OpenTK.Input;
 using System;

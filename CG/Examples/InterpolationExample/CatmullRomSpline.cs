@@ -2,7 +2,7 @@
 using System;
 using System.Collections.Generic;
 
-namespace DMSOpenGL
+namespace DMS.OpenGL
 {
 	public class CatmullRomSpline
 	{

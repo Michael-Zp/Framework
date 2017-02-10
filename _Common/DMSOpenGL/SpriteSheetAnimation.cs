@@ -1,7 +1,7 @@
-﻿using Geometry;
+﻿using DMS.Geometry;
 using System;
 
-namespace DMSOpenGL
+namespace DMS.OpenGL
 {
 	public class SpriteSheetAnimation : IAnimation
 	{

@@ -1,8 +1,8 @@
-﻿using Geometry;
+﻿using DMS.Geometry;
 using OpenTK.Graphics.OpenGL;
 using System;
 
-namespace DMSOpenGL
+namespace DMS.OpenGL
 {
 	/// <summary>
 	/// allows to print text were the individual characters come all from a single texture 

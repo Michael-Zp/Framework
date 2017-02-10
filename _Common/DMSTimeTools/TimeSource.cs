@@ -1,7 +1,7 @@
 ﻿using System.Diagnostics;
 using System.Timers;
 
-namespace TimeTools
+namespace DMS.TimeTools
 {
 	public class TimeSource : ITimeSource
 	{

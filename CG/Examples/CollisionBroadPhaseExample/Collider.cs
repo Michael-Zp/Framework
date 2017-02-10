@@ -1,5 +1,5 @@
-﻿using DMSOpenGL;
-using Geometry;
+﻿using DMS.OpenGL;
+using DMS.Geometry;
 using System.Drawing;
 using System.Numerics;
 

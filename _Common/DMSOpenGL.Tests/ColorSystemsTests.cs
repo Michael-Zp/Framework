@@ -1,8 +1,7 @@
-﻿using Geometry;
-using Microsoft.VisualStudio.TestTools.UnitTesting;
+﻿using Microsoft.VisualStudio.TestTools.UnitTesting;
 using System.Numerics;
 
-namespace DMSOpenGL.Tests
+namespace DMS.OpenGL.Tests
 {
 	[TestClass()]
 	public class ColorSystemsTests

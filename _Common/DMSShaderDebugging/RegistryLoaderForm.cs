@@ -2,7 +2,7 @@
 using System;
 using System.Windows.Forms;
 
-namespace ShaderDebugging
+namespace DMS.ShaderDebugging
 {
 	public static class RegistryLoaderForm
 	{

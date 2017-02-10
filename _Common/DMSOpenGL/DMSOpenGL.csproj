@@ -7,7 +7,7 @@
     <ProjectGuid>{C660F6AF-C100-4169-A9FB-61E1EBE87F34}</ProjectGuid>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>DMSOpenGL</RootNamespace>
+    <RootNamespace>DMS.OpenGL</RootNamespace>
     <AssemblyName>DMSOpenGL</AssemblyName>
     <TargetFrameworkVersion>v4.6</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
@@ -39,9 +39,6 @@
     <Reference Include="System" />
     <Reference Include="System.Drawing" />
     <Reference Include="System.Numerics" />
-    <Reference Include="System.Runtime.Serialization.Formatters.Soap" />
-    <Reference Include="System.XML" />
-    <Reference Include="System.Xml.Serialization" />
   </ItemGroup>
   <ItemGroup>
     <Compile Include="AnimationTextures.cs" />
@@ -52,17 +49,13 @@
     <Compile Include="QueryObject.cs" />
     <Compile Include="ShaderException.cs" />
     <Compile Include="SpriteSheetAnimation.cs" />
-    <Compile Include="ITimedUpdate.cs" />
     <Compile Include="FBO.cs" />
-    <Compile Include="PathTools.cs" />
-    <Compile Include="Serialize.cs" />
     <Compile Include="Shader.cs" />
     <Compile Include="ShaderLoader.cs" />
     <Compile Include="SpriteSheet.cs" />
     <Compile Include="TextureFont.cs" />
     <Compile Include="Texture.cs" />
     <Compile Include="TextureLoader.cs" />
-    <Compile Include="PeriodicUpdate.cs" />
     <Compile Include="VAO.cs" />
   </ItemGroup>
   <ItemGroup>

@@ -1,7 +1,6 @@
 ﻿using OpenTK;
 using OpenTK.Graphics.OpenGL;
 using OpenTK.Input;
-using ShaderDebugging;
 using System;
 using System.Diagnostics;
 

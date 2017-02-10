@@ -1,4 +1,4 @@
-﻿using DMSOpenGL;
+﻿using DMS.OpenGL;
 
 namespace Example
 {

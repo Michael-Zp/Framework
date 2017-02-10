@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using System.Text;
 
-namespace ShaderDebugging
+namespace DMS.ShaderDebugging
 {
 	public class ShaderLogLine
 	{

@@ -1,8 +1,8 @@
-﻿using DMSOpenGL;
+﻿using DMS.OpenGL;
 using System.IO;
 using System.Text;
 
-namespace ShaderDebugging
+namespace DMS.ShaderDebugging
 {
 	public class ShaderFileDebugger
 	{

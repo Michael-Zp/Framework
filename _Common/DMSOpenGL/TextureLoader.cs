@@ -4,7 +4,7 @@ using System.Drawing;
 using System.Drawing.Imaging;
 using System.IO;
 
-namespace DMSOpenGL
+namespace DMS.OpenGL
 {
 	public static class TextureLoader
 	{

@@ -1,8 +1,8 @@
 ﻿using System.Collections.Generic;
 using System;
 using System.Collections;
-using DMSOpenGL;
-using Geometry;
+using DMS.OpenGL;
+using DMS.Geometry;
 
 namespace ShaderForm
 {

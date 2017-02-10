@@ -1,8 +1,8 @@
-﻿using Geometry;
+﻿using DMS.Geometry;
 using OpenTK;
 using OpenTK.Graphics.OpenGL;
 
-namespace DMSOpenGL
+namespace DMS.OpenGL
 {
 	public static class DrawTools
 	{

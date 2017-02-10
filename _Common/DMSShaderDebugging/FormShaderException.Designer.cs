@@ -1,4 +1,4 @@
-﻿namespace ShaderDebugging
+﻿namespace DMS.ShaderDebugging
 {
 	partial class FormShaderException
 	{

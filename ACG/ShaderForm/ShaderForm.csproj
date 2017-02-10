@@ -183,6 +183,10 @@
       <Project>{c660f6af-c100-4169-a9fb-61e1ebe87f34}</Project>
       <Name>DMSOpenGL</Name>
     </ProjectReference>
+    <ProjectReference Include="..\..\_Common\DMSSystem\DMSSystem.csproj">
+      <Project>{e5ff60a4-46fb-42d2-9430-bc523315c2e0}</Project>
+      <Name>DMSSystem</Name>
+    </ProjectReference>
     <ProjectReference Include="..\..\_Common\DMSTimeTools\DMSTimeTools.csproj">
       <Project>{54156018-0f41-4eef-aeb4-f1c99cf7a2ab}</Project>
       <Name>DMSTimeTools</Name>

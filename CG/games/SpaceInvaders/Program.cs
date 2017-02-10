@@ -1,5 +1,5 @@
-﻿using DMSOpenGL;
-using Geometry;
+﻿using DMS.TimeTools;
+using DMS.Geometry;
 using OpenTK;
 using OpenTK.Graphics.OpenGL;
 using OpenTK.Input;

@@ -1,9 +1,9 @@
 ﻿using System.IO;
 using System.Linq;
 using ShaderForm.DemoData2;
-using DMSOpenGL;
 using System;
 using System.Collections.Generic;
+using DMS.System;
 
 namespace ShaderForm
 {

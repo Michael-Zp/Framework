@@ -1,5 +1,4 @@
-﻿using DMSOpenGL;
-using Geometry;
+﻿using DMS.Geometry;
 using OpenTK;
 using OpenTK.Graphics;
 using OpenTK.Graphics.OpenGL;

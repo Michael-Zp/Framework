@@ -1,6 +1,6 @@
 ﻿using System.IO;
 
-namespace ShaderDebugging
+namespace DMS.ShaderDebugging
 {
 	public class FileWatcher
 	{

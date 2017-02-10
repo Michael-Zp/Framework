@@ -2,7 +2,7 @@
 using OpenTK;
 using System;
 
-namespace ShaderDebugging
+namespace DMS.ShaderDebugging
 {
 	public static class RegistryLoader
 	{

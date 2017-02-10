@@ -7,7 +7,7 @@
     <ProjectGuid>{B37B7DDE-435B-4F27-9A9B-9B6DF8744EBE}</ProjectGuid>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>DMSGeometry</RootNamespace>
+    <RootNamespace>DMS.Geometry</RootNamespace>
     <AssemblyName>DMSGeometry</AssemblyName>
     <TargetFrameworkVersion>v4.6</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>

@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace TimeTools
+namespace DMS.TimeTools
 {
 	public delegate void TimeFinishedHandler();
 

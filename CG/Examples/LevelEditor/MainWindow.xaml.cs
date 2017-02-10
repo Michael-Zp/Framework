@@ -1,10 +1,9 @@
 ﻿using System.Windows;
 using System.Windows.Controls;
-using DMSOpenGL;
-using System.IO;
 using System;
 using System.Windows.Shapes;
-using Geometry;
+using DMS.Geometry;
+using DMS.System;
 
 namespace LevelEditor
 {

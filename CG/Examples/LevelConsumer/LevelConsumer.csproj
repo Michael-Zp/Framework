@@ -53,6 +53,10 @@
       <Project>{B37B7DDE-435B-4F27-9A9B-9B6DF8744EBE}</Project>
       <Name>DMSGeometry</Name>
     </ProjectReference>
+    <ProjectReference Include="..\..\..\_Common\DMSSystem\DMSSystem.csproj">
+      <Project>{e5ff60a4-46fb-42d2-9430-bc523315c2e0}</Project>
+      <Name>DMSSystem</Name>
+    </ProjectReference>
     <ProjectReference Include="..\LevelEditor\LevelEditor.csproj">
       <Project>{942a82b6-c939-4c63-903c-4e55c73dfa63}</Project>
       <Name>LevelEditor</Name>

@@ -1,9 +1,9 @@
-﻿using DMSOpenGL;
-using Geometry;
+﻿using DMS.OpenGL;
+using DMS.Geometry;
 using OpenTK;
 using OpenTK.Graphics;
 using OpenTK.Graphics.OpenGL;
-using ShaderDebugging;
+using DMS.ShaderDebugging;
 using System.Drawing;
 
 namespace Example

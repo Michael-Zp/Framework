@@ -1,5 +1,5 @@
-﻿using DMSOpenGL;
-using Geometry;
+﻿using DMS.TimeTools;
+using DMS.Geometry;
 using System;
 using System.Collections.Generic;
 using System.Linq;

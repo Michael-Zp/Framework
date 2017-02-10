@@ -6,7 +6,7 @@
     <ProjectGuid>{87F3A725-6AF4-41F7-AA58-CACD9E23D6D9}</ProjectGuid>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>DMSOpenGL.Tests</RootNamespace>
+    <RootNamespace>DMS.OpenGL.Tests</RootNamespace>
     <AssemblyName>DMSOpenGL.Tests</AssemblyName>
     <TargetFrameworkVersion>v4.6</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>

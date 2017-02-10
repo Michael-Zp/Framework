@@ -1,8 +1,8 @@
-﻿using Geometry;
+﻿using DMS.Geometry;
 using System;
 using System.Collections.Generic;
 
-namespace DMSOpenGL
+namespace DMS.OpenGL
 {
 	public class AnimationTextures : IAnimation
 	{

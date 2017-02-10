@@ -1,7 +1,7 @@
-﻿using Geometry;
+﻿using DMS.Geometry;
 using System.Numerics;
 
-namespace DMSOpenGL
+namespace DMS.OpenGL
 {
 	public static class ColorSystems
 	{

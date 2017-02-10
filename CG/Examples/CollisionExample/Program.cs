@@ -1,4 +1,4 @@
-﻿using Geometry;
+﻿using DMS.Geometry;
 using OpenTK;
 using OpenTK.Graphics.OpenGL;
 using OpenTK.Input;

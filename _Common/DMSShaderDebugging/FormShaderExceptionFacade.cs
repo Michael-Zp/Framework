@@ -1,8 +1,8 @@
-﻿using DMSOpenGL;
+﻿using DMS.OpenGL;
 using System;
 using System.Drawing;
 
-namespace ShaderDebugging
+namespace DMS.ShaderDebugging
 {
 	public class FormShaderExceptionFacade
 	{

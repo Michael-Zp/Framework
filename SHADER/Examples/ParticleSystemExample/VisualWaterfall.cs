@@ -1,7 +1,7 @@
-﻿using DMSOpenGL;
+﻿using DMS.OpenGL;
 using OpenTK;
 using OpenTK.Graphics.OpenGL;
-using ShaderDebugging;
+using DMS.ShaderDebugging;
 using System;
 
 namespace Example

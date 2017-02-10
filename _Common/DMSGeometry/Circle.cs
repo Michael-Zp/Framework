@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace Geometry
+namespace DMS.Geometry
 {
 	/// <summary>
 	/// Represents a circle

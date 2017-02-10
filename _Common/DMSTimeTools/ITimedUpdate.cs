@@ -1,4 +1,4 @@
-﻿namespace DMSOpenGL
+﻿namespace DMS.TimeTools
 {
 	public interface ITimedUpdate
 	{
