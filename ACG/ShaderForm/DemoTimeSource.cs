@@ -73,7 +73,7 @@ namespace ShaderForm
 				if (File.Exists(fileName))
 				{
 					var absoluteFileName = Path.GetFullPath(fileName);
-					return new MediaFacade(absoluteFileName);
+					return new NAudioFacade(absoluteFileName);
 				}
 				return null;
 			}
@@ -83,9 +83,9 @@ namespace ShaderForm
 			}
 		}
 
-		public void Load(ITimeSource newTimeSource)
+		public void Load(ITimeSource newTimeSource, string soundFileName)
 		{
-			Debug.Assert(!object.ReferenceEquals(null,  timeSource));
+			Debug.Assert(!ReferenceEquals(null,  timeSource));
 			if (ReferenceEquals(null,  newTimeSource))
 			{
 				Clear();
@@ -96,6 +96,7 @@ namespace ShaderForm
 				newTimeSource.TimeFinished += CallOnTimeFinished;
 				timeSource.Dispose();
 				timeSource = newTimeSource;
+				SoundFileName = soundFileName;
 				Loaded?.Invoke(this, EventArgs.Empty);
 			}
 		}
@@ -117,7 +118,7 @@ namespace ShaderForm
 
 		public void Dispose()
 		{
-			Debug.Assert(!object.ReferenceEquals(null,  timeSource));
+			Debug.Assert(!ReferenceEquals(null, timeSource));
 			timeSource.Dispose();
 		}
 

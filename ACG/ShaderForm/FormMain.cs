@@ -38,7 +38,7 @@ namespace ShaderForm
 			menuHelp.Click += (sender, e) => Dialogs.Help();
 			menuLoad.Click += (sender, e) => Dialogs.OpenFile(demoFilter
 				, (fileName) => LoadDemo(fileName));
-			menuSound.Click += (sender, e) => Dialogs.OpenFile("sound (*.*)|*.*", (fileName) => demo.TimeSource.Load(DemoTimeSource.FromMediaFile(fileName)));
+			menuSound.Click += (sender, e) => Dialogs.OpenFile("sound (*.*)|*.*", (fileName) => demo.TimeSource.Load(DemoTimeSource.FromMediaFile(fileName), fileName));
 			MenuShaderAdd.Click += (sender, e) => Dialogs.OpenFile("glsl (*.glsl)|*.glsl", (fileName) => AddShader(fileName));
 			MenuTextureAdd.Click += (sender, e) => Dialogs.OpenFile("texture (*.*)|*.*", (fileName) => demo.Textures.AddUpdate(fileName));
 			menuSave.Click += (sender, e) => Dialogs.SaveFile(demoFilter, (fileName) =>
@@ -100,7 +100,7 @@ namespace ShaderForm
 					var sound = DemoTimeSource.FromMediaFile(file);
 					if (!ReferenceEquals(null,  sound))
 					{
-						demo.TimeSource.Load(sound);
+						demo.TimeSource.Load(sound, file);
 					}
 					else
 					{

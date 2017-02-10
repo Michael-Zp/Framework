@@ -75,7 +75,7 @@ namespace ShaderForm
 					progressHandler(demo, args);
 					if (args.Cancel) return false;
 				}
-				demo.TimeSource.Load(sound);
+				demo.TimeSource.Load(sound, soundFileName);
 				if (!ReferenceEquals(null,  sound) && !ReferenceEquals(null,  progressHandler))
 				{
 					var args = new ProgressEventArgs("Sound file '" + soundFileName + "' loaded");
