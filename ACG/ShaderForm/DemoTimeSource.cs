@@ -1,5 +1,5 @@
 ﻿using DMS.TimeTools;
-using MediaPlayer;
+using DMS.Sound;
 using System;
 using System.Diagnostics;
 using System.IO;

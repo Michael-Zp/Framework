@@ -2,7 +2,7 @@
 using NAudio.Wave;
 using System;
 
-namespace MediaPlayer
+namespace DMS.Sound
 {
 	public class NAudioTimeSource : IDisposable, ITimeSource
 	{

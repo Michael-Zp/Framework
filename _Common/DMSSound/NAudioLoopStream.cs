@@ -1,6 +1,6 @@
 ﻿using NAudio.Wave;
 
-namespace MediaPlayer
+namespace DMS.Sound
 {
 	public class NAudioLoopStream : WaveStream
 	{
