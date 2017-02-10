@@ -1,17 +1,16 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
-<Project ToolsVersion="12.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+<Project ToolsVersion="14.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
   <PropertyGroup>
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
-    <ProjectGuid>{C660F6AF-C100-4169-A9FB-61E1EBE87F34}</ProjectGuid>
+    <ProjectGuid>{3C8BCF2C-1019-4A8D-B986-AFD6BB80E917}</ProjectGuid>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>DMS.OpenGL</RootNamespace>
-    <AssemblyName>DMSOpenGL</AssemblyName>
+    <RootNamespace>DMS.ShaderDebugging</RootNamespace>
+    <AssemblyName>DMS.ShaderDebugging</AssemblyName>
     <TargetFrameworkVersion>v4.6</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
-    <CodeContractsAssemblyMode>0</CodeContractsAssemblyMode>
     <TargetFrameworkProfile />
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
@@ -33,39 +32,40 @@
   </PropertyGroup>
   <ItemGroup>
     <Reference Include="OpenTK, Version=2.0.0.0, Culture=neutral, PublicKeyToken=bad199fe84eb3df4, processorArchitecture=MSIL">
-      <HintPath>..\..\packages\OpenTK.2.0.0\lib\net20\OpenTK.dll</HintPath>
+      <HintPath>..\packages\OpenTK.2.0.0\lib\net20\OpenTK.dll</HintPath>
       <Private>True</Private>
     </Reference>
     <Reference Include="System" />
     <Reference Include="System.Drawing" />
-    <Reference Include="System.Numerics" />
+    <Reference Include="System.Windows.Forms" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="AnimationTextures.cs" />
-    <Compile Include="ColorSystems.cs" />
-    <Compile Include="BufferObject.cs" />
-    <Compile Include="IAnimation.cs" />
-    <Compile Include="DrawTools.cs" />
-    <Compile Include="QueryObject.cs" />
-    <Compile Include="ShaderException.cs" />
-    <Compile Include="SpriteSheetAnimation.cs" />
-    <Compile Include="FBO.cs" />
-    <Compile Include="Shader.cs" />
-    <Compile Include="ShaderLoader.cs" />
-    <Compile Include="SpriteSheet.cs" />
-    <Compile Include="TextureFont.cs" />
-    <Compile Include="Texture.cs" />
-    <Compile Include="TextureLoader.cs" />
-    <Compile Include="VAO.cs" />
+    <Compile Include="FormShaderExceptionFacade.cs" />
+    <Compile Include="FormShaderException.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="FormShaderException.Designer.cs">
+      <DependentUpon>FormShaderException.cs</DependentUpon>
+    </Compile>
+    <Compile Include="FileWatcher.cs" />
+    <Compile Include="RegistryLoader.cs" />
+    <Compile Include="RegistryLoaderForm.cs" />
+    <Compile Include="ShaderFileDebugger.cs" />
+    <Compile Include="ShaderLog.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="FormShaderException.resx">
+      <DependentUpon>FormShaderException.cs</DependentUpon>
+    </EmbeddedResource>
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\DMSOpenGL\DMSOpenGL.csproj">
+      <Project>{c660f6af-c100-4169-a9fb-61e1ebe87f34}</Project>
+      <Name>DMSOpenGL</Name>
+    </ProjectReference>
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />
-  </ItemGroup>
-  <ItemGroup>
-    <ProjectReference Include="..\DMSGeometry\DMSGeometry.csproj">
-      <Project>{b37b7dde-435b-4f27-9a9b-9b6df8744ebe}</Project>
-      <Name>DMSGeometry</Name>
-    </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

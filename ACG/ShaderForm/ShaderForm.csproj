@@ -179,29 +179,29 @@
     </BootstrapperPackage>
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\..\_Common\DMSOpenGL\DMSOpenGL.csproj">
+    <ProjectReference Include="..\..\_Common\DMS.OpenGL\DMS.OpenGL.csproj">
       <Project>{c660f6af-c100-4169-a9fb-61e1ebe87f34}</Project>
-      <Name>DMSOpenGL</Name>
+      <Name>DMS.OpenGL</Name>
     </ProjectReference>
-    <ProjectReference Include="..\..\_Common\DMSSystem\DMSSystem.csproj">
+    <ProjectReference Include="..\..\_Common\DMS.System\DMS.System.csproj">
       <Project>{e5ff60a4-46fb-42d2-9430-bc523315c2e0}</Project>
-      <Name>DMSSystem</Name>
+      <Name>DMS.System</Name>
     </ProjectReference>
-    <ProjectReference Include="..\..\_Common\DMSTimeTools\DMSTimeTools.csproj">
+    <ProjectReference Include="..\..\_Common\DMS.TimeTools\DMS.TimeTools.csproj">
       <Project>{54156018-0f41-4eef-aeb4-f1c99cf7a2ab}</Project>
-      <Name>DMSTimeTools</Name>
+      <Name>DMS.TimeTools</Name>
     </ProjectReference>
     <ProjectReference Include="..\ControlClassLibrary\ControlClassLibrary.csproj">
       <Project>{1E28B48E-DED7-4184-A449-B1D8C8C489EA}</Project>
       <Name>ControlClassLibrary</Name>
     </ProjectReference>
-    <ProjectReference Include="..\..\_Common\DMSGeometry\DMSGeometry.csproj">
+    <ProjectReference Include="..\..\_Common\DMS.Geometry\DMS.Geometry.csproj">
       <Project>{B37B7DDE-435B-4F27-9A9B-9B6DF8744EBE}</Project>
-      <Name>DMSGeometry</Name>
+      <Name>DMS.Geometry</Name>
     </ProjectReference>
-    <ProjectReference Include="..\..\_common\DMSSound\DMSSound.csproj">
+    <ProjectReference Include="..\..\_Common\DMS.Sound\DMS.Sound.csproj">
       <Project>{78a88806-ad96-4821-b9ad-8fc060f6feb6}</Project>
-      <Name>DMSSound</Name>
+      <Name>DMS.Sound</Name>
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>

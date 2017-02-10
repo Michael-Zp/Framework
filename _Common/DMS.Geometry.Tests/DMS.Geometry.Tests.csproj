@@ -7,7 +7,7 @@
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
     <RootNamespace>DMS.Geometry.Tests</RootNamespace>
-    <AssemblyName>DMSGeometry.Tests</AssemblyName>
+    <AssemblyName>DMS.Geometry.Tests</AssemblyName>
     <TargetFrameworkVersion>v4.6</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
     <ProjectTypeGuids>{3AC096D0-A1C2-E12C-1390-A8335801FDAB};{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}</ProjectTypeGuids>
@@ -60,9 +60,9 @@
     <Compile Include="Transform2DTests.cs" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\DMSGeometry\DMSGeometry.csproj">
+    <ProjectReference Include="..\DMS.Geometry\DMS.Geometry.csproj">
       <Project>{B37B7DDE-435B-4F27-9A9B-9B6DF8744EBE}</Project>
-      <Name>DMSGeometry</Name>
+      <Name>DMS.Geometry</Name>
     </ProjectReference>
   </ItemGroup>
   <Choose>

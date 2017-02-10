@@ -2,7 +2,7 @@
 
 namespace DMS.Sound
 {
-	public class NAudioLoopStream : WaveStream
+	public class SoundLoopStream : WaveStream
 	{
 		WaveStream sourceStream;
 
@@ -11,7 +11,7 @@ namespace DMS.Sound
 		/// </summary>
 		/// <param name="sourceStream">The stream to read from. Note: the Read method of this stream should return 0 when it reaches the end
 		/// or else we will not loop to the start again.</param>
-		public NAudioLoopStream(WaveStream sourceStream)
+		public SoundLoopStream(WaveStream sourceStream)
 		{
 			this.sourceStream = sourceStream;
 			this.EnableLooping = true;

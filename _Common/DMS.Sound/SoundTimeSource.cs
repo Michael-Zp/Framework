@@ -4,15 +4,15 @@ using System;
 
 namespace DMS.Sound
 {
-	public class NAudioTimeSource : IDisposable, ITimeSource
+	public class SoundTimeSource : IDisposable, ITimeSource
 	{
 		public event TimeFinishedHandler TimeFinished;
 
-		public NAudioTimeSource(string fileName)
+		public SoundTimeSource(string fileName)
 		{
 			waveOutDevice = new WaveOut();
 			audioFileReader = new AudioFileReader(fileName);
-			loopingWaveStream = new NAudioLoopStream(audioFileReader);
+			loopingWaveStream = new SoundLoopStream(audioFileReader);
 			loopingWaveStream.EnableLooping = false;
 			waveOutDevice.Init(loopingWaveStream);
 			waveOutDevice.PlaybackStopped += (s, a) => playing = false;
@@ -70,7 +70,7 @@ namespace DMS.Sound
 
 		private IWavePlayer waveOutDevice;
 		private AudioFileReader audioFileReader;
-		private NAudioLoopStream loopingWaveStream;
+		private SoundLoopStream loopingWaveStream;
 
 		private bool playing = false;
 		private float length = 10.0f;
