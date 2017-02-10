@@ -52,4 +52,4 @@
     + [gDEBugger - OpenGL and OpenCL Debugger, Profiler and Memory Analyzer](http://www.gremedy.com/)
 
 ##Content
-    + [MillionthVector: Free Sprites](http://millionthvector.blogspot.com/p/free-sprites.html)
++ [MillionthVector: Free Sprites](http://millionthvector.blogspot.com/p/free-sprites.html)
