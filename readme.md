@@ -22,4 +22,4 @@ Subfolders for specific lectures are
 + [Advanced computer graphics (folder ACG)](ACG)
 + [Shader programming (folder SHADER)](SHADER)
 
-### [Links](links.md)
+### [Links to relevant reading](links.md)
