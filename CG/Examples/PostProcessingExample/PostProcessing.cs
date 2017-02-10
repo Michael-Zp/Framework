@@ -1,4 +1,4 @@
-﻿using Framework;
+﻿using DMSOpenGL;
 using OpenTK.Graphics.OpenGL;
 
 namespace Example

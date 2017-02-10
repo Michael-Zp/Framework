@@ -60,9 +60,9 @@
     </EmbeddedResource>
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\Framework\Framework.csproj">
+    <ProjectReference Include="..\DMSOpenGL\DMSOpenGL.csproj">
       <Project>{c660f6af-c100-4169-a9fb-61e1ebe87f34}</Project>
-      <Name>Framework</Name>
+      <Name>DMSOpenGL</Name>
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>

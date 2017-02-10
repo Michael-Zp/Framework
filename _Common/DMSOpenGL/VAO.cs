@@ -4,7 +4,7 @@ using System.Collections.Generic;
 using System.Runtime.InteropServices;
 using OpenTK;
 
-namespace Framework
+namespace DMSOpenGL
 {
 	[Serializable]
 	public class VAOException : Exception

@@ -1,7 +1,7 @@
 ﻿using OpenTK.Graphics.OpenGL;
 using System;
 
-namespace Framework
+namespace DMSOpenGL
 {
 	/// <summary>
 	/// Gl Texture class that allows loading from a file.

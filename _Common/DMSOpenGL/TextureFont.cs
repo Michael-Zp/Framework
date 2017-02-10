@@ -2,7 +2,7 @@
 using OpenTK.Graphics.OpenGL;
 using System;
 
-namespace Framework
+namespace DMSOpenGL
 {
 	/// <summary>
 	/// allows to print text were the individual characters come all from a single texture 

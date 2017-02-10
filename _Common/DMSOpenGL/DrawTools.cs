@@ -2,7 +2,7 @@
 using OpenTK;
 using OpenTK.Graphics.OpenGL;
 
-namespace Framework
+namespace DMSOpenGL
 {
 	public static class DrawTools
 	{

@@ -2,7 +2,7 @@
 using System;
 using System.Collections.Generic;
 
-namespace Framework
+namespace DMSOpenGL
 {
 	public class AnimationTextures : IAnimation
 	{

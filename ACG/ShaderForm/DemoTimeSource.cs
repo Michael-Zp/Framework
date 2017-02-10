@@ -73,7 +73,7 @@ namespace ShaderForm
 				if (File.Exists(fileName))
 				{
 					var absoluteFileName = Path.GetFullPath(fileName);
-					return new NAudioFacade(absoluteFileName);
+					return new NAudioTimeSource(absoluteFileName);
 				}
 				return null;
 			}

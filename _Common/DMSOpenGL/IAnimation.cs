@@ -1,6 +1,6 @@
 ﻿using Geometry;
 
-namespace Framework
+namespace DMSOpenGL
 {
 	public interface IAnimation
 	{

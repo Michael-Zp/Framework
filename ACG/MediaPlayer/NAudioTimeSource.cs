@@ -1,18 +1,14 @@
 ﻿using NAudio.Wave;
 using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using TimeTools;
 
 namespace MediaPlayer
 {
-	public class NAudioFacade : IDisposable, ITimeSource
+	public class NAudioTimeSource : IDisposable, ITimeSource
 	{
 		public event TimeFinishedHandler TimeFinished;
 
-		public NAudioFacade(string fileName)
+		public NAudioTimeSource(string fileName)
 		{
 			waveOutDevice = new WaveOut();
 			audioFileReader = new AudioFileReader(fileName);

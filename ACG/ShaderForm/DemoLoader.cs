@@ -1,7 +1,7 @@
 ﻿using System.IO;
 using System.Linq;
 using ShaderForm.DemoData2;
-using Framework;
+using DMSOpenGL;
 using System;
 using System.Collections.Generic;
 

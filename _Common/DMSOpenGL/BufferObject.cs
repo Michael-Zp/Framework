@@ -2,7 +2,7 @@
 using System;
 using System.Runtime.InteropServices;
 
-namespace Framework
+namespace DMSOpenGL
 {
 	public class BufferObject : IDisposable
 	{

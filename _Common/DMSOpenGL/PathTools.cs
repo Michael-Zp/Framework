@@ -2,7 +2,7 @@
 using System.Runtime.InteropServices;
 using System.Text;
 
-namespace Framework
+namespace DMSOpenGL
 {
 	public static class PathTools
 	{

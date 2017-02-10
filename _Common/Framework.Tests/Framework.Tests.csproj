@@ -55,9 +55,9 @@
     <Compile Include="ColorSystemsTests.cs" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\Framework\Framework.csproj">
+    <ProjectReference Include="..\DMSOpenGL\DMSOpenGL.csproj">
       <Project>{C660F6AF-C100-4169-A9FB-61E1EBE87F34}</Project>
-      <Name>Framework</Name>
+      <Name>DMSOpenGL</Name>
     </ProjectReference>
     <ProjectReference Include="..\Geometry\Geometry.csproj">
       <Project>{B37B7DDE-435B-4F27-9A9B-9B6DF8744EBE}</Project>

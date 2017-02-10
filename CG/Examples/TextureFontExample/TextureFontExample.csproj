@@ -62,9 +62,9 @@
     <None Include="Resources\Blood Bath 2.png" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\..\..\Framework\Framework.csproj">
+    <ProjectReference Include="..\..\..\_Common\DMSOpenGL\DMSOpenGL.csproj">
       <Project>{c660f6af-c100-4169-a9fb-61e1ebe87f34}</Project>
-      <Name>Framework</Name>
+      <Name>DMSOpenGL</Name>
     </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

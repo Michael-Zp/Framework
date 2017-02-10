@@ -7,8 +7,8 @@
     <ProjectGuid>{C660F6AF-C100-4169-A9FB-61E1EBE87F34}</ProjectGuid>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>Framework</RootNamespace>
-    <AssemblyName>Framework</AssemblyName>
+    <RootNamespace>DMSOpenGL</RootNamespace>
+    <AssemblyName>DMSOpenGL</AssemblyName>
     <TargetFrameworkVersion>v4.6</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
     <CodeContractsAssemblyMode>0</CodeContractsAssemblyMode>
@@ -33,7 +33,7 @@
   </PropertyGroup>
   <ItemGroup>
     <Reference Include="OpenTK, Version=2.0.0.0, Culture=neutral, PublicKeyToken=bad199fe84eb3df4, processorArchitecture=MSIL">
-      <HintPath>..\packages\OpenTK.2.0.0\lib\net20\OpenTK.dll</HintPath>
+      <HintPath>..\..\packages\OpenTK.2.0.0\lib\net20\OpenTK.dll</HintPath>
       <Private>True</Private>
     </Reference>
     <Reference Include="System" />
@@ -46,28 +46,27 @@
   <ItemGroup>
     <Compile Include="AnimationTextures.cs" />
     <Compile Include="ColorSystems.cs" />
-    <Compile Include="OpenGL\BufferObject.cs" />
+    <Compile Include="BufferObject.cs" />
     <Compile Include="IAnimation.cs" />
-    <Compile Include="OpenGL\DrawTools.cs" />
-    <Compile Include="OpenGL\QueryObject.cs" />
+    <Compile Include="DrawTools.cs" />
+    <Compile Include="QueryObject.cs" />
     <Compile Include="ShaderException.cs" />
     <Compile Include="SpriteSheetAnimation.cs" />
     <Compile Include="ITimedUpdate.cs" />
-    <Compile Include="OpenGL\FBO.cs" />
+    <Compile Include="FBO.cs" />
     <Compile Include="PathTools.cs" />
     <Compile Include="Serialize.cs" />
-    <Compile Include="OpenGL\Shader.cs" />
-    <Compile Include="OpenGL\ShaderLoader.cs" />
+    <Compile Include="Shader.cs" />
+    <Compile Include="ShaderLoader.cs" />
     <Compile Include="SpriteSheet.cs" />
-    <Compile Include="OpenGL\TextureFont.cs" />
-    <Compile Include="OpenGL\Texture.cs" />
-    <Compile Include="OpenGL\TextureLoader.cs" />
+    <Compile Include="TextureFont.cs" />
+    <Compile Include="Texture.cs" />
+    <Compile Include="TextureLoader.cs" />
     <Compile Include="PeriodicUpdate.cs" />
-    <Compile Include="OpenGL\VAO.cs" />
+    <Compile Include="VAO.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />
-    <None Include="readme.md" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\Geometry\Geometry.csproj">

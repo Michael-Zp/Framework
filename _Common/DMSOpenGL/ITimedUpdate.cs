@@ -1,4 +1,4 @@
-﻿namespace Framework
+﻿namespace DMSOpenGL
 {
 	public interface ITimedUpdate
 	{

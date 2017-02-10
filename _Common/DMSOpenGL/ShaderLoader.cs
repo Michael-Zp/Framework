@@ -3,7 +3,7 @@ using OpenTK.Graphics.OpenGL;
 using System.Text.RegularExpressions;
 using System;
 
-namespace Framework
+namespace DMSOpenGL
 {
 	public static class ShaderLoader
 	{

@@ -179,11 +179,11 @@
     </BootstrapperPackage>
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\..\Framework\Framework.csproj">
+    <ProjectReference Include="..\..\_Common\DMSOpenGL\DMSOpenGL.csproj">
       <Project>{c660f6af-c100-4169-a9fb-61e1ebe87f34}</Project>
-      <Name>Framework</Name>
+      <Name>DMSOpenGL</Name>
     </ProjectReference>
-    <ProjectReference Include="..\..\TimerTools\TimerTools.csproj">
+    <ProjectReference Include="..\..\_Common\TimerTools\TimerTools.csproj">
       <Project>{54156018-0f41-4eef-aeb4-f1c99cf7a2ab}</Project>
       <Name>TimerTools</Name>
     </ProjectReference>
@@ -191,7 +191,7 @@
       <Project>{1E28B48E-DED7-4184-A449-B1D8C8C489EA}</Project>
       <Name>ControlClassLibrary</Name>
     </ProjectReference>
-    <ProjectReference Include="..\..\Geometry\Geometry.csproj">
+    <ProjectReference Include="..\..\_Common\Geometry\Geometry.csproj">
       <Project>{B37B7DDE-435B-4F27-9A9B-9B6DF8744EBE}</Project>
       <Name>Geometry</Name>
     </ProjectReference>

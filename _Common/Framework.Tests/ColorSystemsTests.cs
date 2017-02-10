@@ -2,7 +2,7 @@
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using System.Numerics;
 
-namespace Framework.Tests
+namespace DMSOpenGL.Tests
 {
 	[TestClass()]
 	public class ColorSystemsTests

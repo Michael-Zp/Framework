@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace Framework
+namespace DMSOpenGL
 {
 	public class ShaderException : Exception
 	{

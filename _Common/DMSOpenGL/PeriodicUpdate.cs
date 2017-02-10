@@ -1,4 +1,4 @@
-﻿namespace Framework
+﻿namespace DMSOpenGL
 {
 	/// <summary>
 	/// Invokes a registered callback in regular intervalls

@@ -1,7 +1,7 @@
 ﻿using OpenTK.Graphics.OpenGL;
 using System;
 
-namespace Framework
+namespace DMSOpenGL
 {
 	public class QueryObject : IDisposable
 	{

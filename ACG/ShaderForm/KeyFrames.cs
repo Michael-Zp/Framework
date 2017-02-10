@@ -1,7 +1,7 @@
 ﻿using System.Collections.Generic;
 using System;
 using System.Collections;
-using Framework;
+using DMSOpenGL;
 using Geometry;
 
 namespace ShaderForm

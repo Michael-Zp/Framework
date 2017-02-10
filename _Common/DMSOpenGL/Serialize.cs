@@ -6,7 +6,7 @@ using System.Text;
 using System.Xml;
 using System.Xml.Serialization;
 
-namespace Framework
+namespace DMSOpenGL
 {
 	public static class Serialize
 	{
