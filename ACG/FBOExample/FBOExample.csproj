@@ -44,14 +44,12 @@
     </Compile>
   </ItemGroup>
   <ItemGroup>
-    <Reference Include="OpenTK">
-      <HintPath>..\..\Externals\OpenTK\OpenTK.dll</HintPath>
+    <Reference Include="OpenTK, Version=2.0.0.0, Culture=neutral, PublicKeyToken=bad199fe84eb3df4, processorArchitecture=MSIL">
+      <HintPath>..\..\packages\OpenTK.2.0.0\lib\net20\OpenTK.dll</HintPath>
+      <Private>True</Private>
     </Reference>
     <Reference Include="System" />
     <Reference Include="System.Drawing" />
-  </ItemGroup>
-  <ItemGroup>
-    <Folder Include="Properties\" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\..\Framework\Framework.csproj">
@@ -71,6 +69,7 @@
     </EmbeddedResource>
   </ItemGroup>
   <ItemGroup>
+    <None Include="packages.config" />
     <None Include="Resources\ChromaticAberration.glsl" />
     <None Include="Resources\convolution.glsl" />
     <None Include="Resources\EdgeDetect.glsl" />

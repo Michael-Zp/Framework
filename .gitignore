@@ -4,3 +4,4 @@ obj
 *.user
 *.sdf
 level.data
+/packages
