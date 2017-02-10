@@ -126,9 +126,9 @@
     </BootstrapperPackage>
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\..\_Common\DMSTimerTools\DMSTimerTools.csproj">
+    <ProjectReference Include="..\..\_Common\DMSTimeTools\DMSTimeTools.csproj">
       <Project>{54156018-0f41-4eef-aeb4-f1c99cf7a2ab}</Project>
-      <Name>DMSTimerTools</Name>
+      <Name>DMSTimeTools</Name>
     </ProjectReference>
     <ProjectReference Include="..\ShaderForm\ShaderForm.csproj">
       <Project>{38149468-a074-4408-8684-b06f7176b3f6}</Project>

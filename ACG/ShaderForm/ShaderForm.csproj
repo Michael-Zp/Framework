@@ -183,9 +183,9 @@
       <Project>{c660f6af-c100-4169-a9fb-61e1ebe87f34}</Project>
       <Name>DMSOpenGL</Name>
     </ProjectReference>
-    <ProjectReference Include="..\..\_Common\DMSTimerTools\DMSTimerTools.csproj">
+    <ProjectReference Include="..\..\_Common\DMSTimeTools\DMSTimeTools.csproj">
       <Project>{54156018-0f41-4eef-aeb4-f1c99cf7a2ab}</Project>
-      <Name>DMSTimerTools</Name>
+      <Name>DMSTimeTools</Name>
     </ProjectReference>
     <ProjectReference Include="..\ControlClassLibrary\ControlClassLibrary.csproj">
       <Project>{1E28B48E-DED7-4184-A449-B1D8C8C489EA}</Project>

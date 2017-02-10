@@ -15,7 +15,7 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DMSGeometry", "_Common\DMSG
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DMSGeometry.Tests", "_Common\DMSGeometry.Tests\DMSGeometry.Tests.csproj", "{DF096E15-AA81-4FFD-B360-2B12E812BF26}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DMSTimerTools", "_Common\DMSTimerTools\DMSTimerTools.csproj", "{54156018-0F41-4EEF-AEB4-F1C99CF7A2AB}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DMSTimeTools", "_Common\DMSTimeTools\DMSTimeTools.csproj", "{54156018-0F41-4EEF-AEB4-F1C99CF7A2AB}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DMSOpenGL", "_Common\DMSOpenGL\DMSOpenGL.csproj", "{C660F6AF-C100-4169-A9FB-61E1EBE87F34}"
 EndProject
