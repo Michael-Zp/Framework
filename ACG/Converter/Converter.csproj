@@ -49,9 +49,9 @@
       <Project>{c660f6af-c100-4169-a9fb-61e1ebe87f34}</Project>
       <Name>DMSOpenGL</Name>
     </ProjectReference>
-    <ProjectReference Include="..\..\_Common\TimerTools\TimerTools.csproj">
+    <ProjectReference Include="..\..\_Common\DMSTimerTools\DMSTimerTools.csproj">
       <Project>{54156018-0f41-4eef-aeb4-f1c99cf7a2ab}</Project>
-      <Name>TimerTools</Name>
+      <Name>DMSTimerTools</Name>
     </ProjectReference>
     <ProjectReference Include="..\ShaderForm\ShaderForm.csproj">
       <Project>{38149468-a074-4408-8684-b06f7176b3f6}</Project>

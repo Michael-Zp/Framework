@@ -69,9 +69,9 @@
     <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\Geometry\Geometry.csproj">
+    <ProjectReference Include="..\DMSGeometry\DMSGeometry.csproj">
       <Project>{b37b7dde-435b-4f27-9a9b-9b6df8744ebe}</Project>
-      <Name>Geometry</Name>
+      <Name>DMSGeometry</Name>
     </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

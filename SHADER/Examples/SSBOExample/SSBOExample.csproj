@@ -91,9 +91,9 @@
       <Project>{c660f6af-c100-4169-a9fb-61e1ebe87f34}</Project>
       <Name>DMSOpenGL</Name>
     </ProjectReference>
-    <ProjectReference Include="..\..\..\_Common\ShaderDebugging\ShaderDebugging.csproj">
+    <ProjectReference Include="..\..\..\_Common\DMSShaderDebugging\DMSShaderDebugging.csproj">
       <Project>{3c8bcf2c-1019-4a8d-b986-afd6bb80e917}</Project>
-      <Name>ShaderDebugging</Name>
+      <Name>DMSShaderDebugging</Name>
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>

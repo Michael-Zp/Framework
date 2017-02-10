@@ -116,9 +116,9 @@
     <None Include="Resources\PlayHS.png" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\..\_Common\TimerTools\TimerTools.csproj">
+    <ProjectReference Include="..\..\_Common\DMSTimerTools\DMSTimerTools.csproj">
       <Project>{54156018-0f41-4eef-aeb4-f1c99cf7a2ab}</Project>
-      <Name>TimerTools</Name>
+      <Name>DMSTimerTools</Name>
     </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

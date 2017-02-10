@@ -6,8 +6,8 @@
     <ProjectGuid>{87F3A725-6AF4-41F7-AA58-CACD9E23D6D9}</ProjectGuid>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>Framework.Tests</RootNamespace>
-    <AssemblyName>Framework.Tests</AssemblyName>
+    <RootNamespace>DMSOpenGL.Tests</RootNamespace>
+    <AssemblyName>DMSOpenGL.Tests</AssemblyName>
     <TargetFrameworkVersion>v4.6</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
     <ProjectTypeGuids>{3AC096D0-A1C2-E12C-1390-A8335801FDAB};{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}</ProjectTypeGuids>
@@ -59,9 +59,9 @@
       <Project>{C660F6AF-C100-4169-A9FB-61E1EBE87F34}</Project>
       <Name>DMSOpenGL</Name>
     </ProjectReference>
-    <ProjectReference Include="..\Geometry\Geometry.csproj">
+    <ProjectReference Include="..\DMSGeometry\DMSGeometry.csproj">
       <Project>{B37B7DDE-435B-4F27-9A9B-9B6DF8744EBE}</Project>
-      <Name>Geometry</Name>
+      <Name>DMSGeometry</Name>
     </ProjectReference>
   </ItemGroup>
   <Choose>

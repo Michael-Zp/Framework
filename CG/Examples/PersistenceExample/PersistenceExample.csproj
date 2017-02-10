@@ -53,9 +53,9 @@
       <Project>{c660f6af-c100-4169-a9fb-61e1ebe87f34}</Project>
       <Name>DMSOpenGL</Name>
     </ProjectReference>
-    <ProjectReference Include="..\..\..\_Common\Geometry\Geometry.csproj">
+    <ProjectReference Include="..\..\..\_Common\DMSGeometry\DMSGeometry.csproj">
       <Project>{B37B7DDE-435B-4F27-9A9B-9B6DF8744EBE}</Project>
-      <Name>Geometry</Name>
+      <Name>DMSGeometry</Name>
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>
