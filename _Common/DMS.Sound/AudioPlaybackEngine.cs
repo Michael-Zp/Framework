@@ -4,7 +4,7 @@ using System;
 
 namespace DMS.Sound
 {
-	class AudioPlaybackEngine : IDisposable
+	public class AudioPlaybackEngine : IDisposable
 	{
 		private readonly IWavePlayer outputDevice;
 		private readonly MixingSampleProvider mixer;
@@ -18,12 +18,6 @@ namespace DMS.Sound
 			outputDevice.Play();
 		}
 
-		public void PlaySound(string fileName)
-		{
-			var input = new AudioFileReader(fileName);
-			AddMixerInput(new AutoDisposeFileReader(input));
-		}
-
 		private ISampleProvider ConvertToRightChannelCount(ISampleProvider input)
 		{
 			if (input.WaveFormat.Channels == mixer.WaveFormat.Channels)
@@ -35,6 +29,12 @@ namespace DMS.Sound
 				return new MonoToStereoSampleProvider(input);
 			}
 			throw new NotImplementedException("Not yet implemented this channel count conversion");
+		}
+
+		public void PlaySound(string fileName)
+		{
+			var input = new AudioFileReader(fileName);
+			AddMixerInput(new AutoDisposeFileReader(input));
 		}
 
 		public void PlaySound(CachedSound sound)
@@ -51,7 +51,5 @@ namespace DMS.Sound
 		{
 			outputDevice.Dispose();
 		}
-
-		public static readonly AudioPlaybackEngine Instance = new AudioPlaybackEngine(44100, 2);
 	}
 }
