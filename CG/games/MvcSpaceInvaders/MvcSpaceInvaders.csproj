@@ -41,13 +41,9 @@
       <DependentUpon>Resourcen.resx</DependentUpon>
     </Compile>
     <Compile Include="Sound.cs" />
-    <Compile Include="Sound2.cs" />
     <Compile Include="Visual.cs" />
   </ItemGroup>
   <ItemGroup>
-    <Reference Include="irrKlang.NET4">
-      <HintPath>..\..\..\Externals\irrKlang\irrKlang.NET4.dll</HintPath>
-    </Reference>
     <Reference Include="OpenTK, Version=2.0.0.0, Culture=neutral, PublicKeyToken=bad199fe84eb3df4, processorArchitecture=MSIL">
       <HintPath>..\..\..\packages\OpenTK.2.0.0\lib\net20\OpenTK.dll</HintPath>
       <Private>True</Private>
@@ -56,10 +52,6 @@
     <Reference Include="System.Drawing" />
   </ItemGroup>
   <ItemGroup>
-    <Content Include="..\..\..\Externals\irrKlang\ikpMP3.dll">
-      <Link>ikpMP3.dll</Link>
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </Content>
     <None Include="packages.config" />
     <None Include="Resources\laser.wav" />
     <None Include="Resources\redship4.png" />

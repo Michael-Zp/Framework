@@ -16,7 +16,7 @@ namespace MvcSpaceInvaders
 			Texture texEnemy = TextureLoader.FromBitmap(Resourcen.redship4);
 			Texture texBullet = TextureLoader.FromBitmap(Resourcen.blueLaserRay);
 			visual = new Visual(texEnemy, texBullet, texPlayer);
-			sound = new Sound2();
+			sound = new Sound();
 			logic.OnShoot += (sender, args) => { sound.Shoot(); };
 			logic.OnEnemyDestroy += (sender, args) => { sound.DestroyEnemy(); };
 			logic.OnLost += (sender, args) => { sound.Lost(); gameWindow.Exit(); };
@@ -71,7 +71,7 @@ namespace MvcSpaceInvaders
 		private GameWindow gameWindow;
 		private GameLogic logic;
 		private Visual visual;
-		private Sound2 sound;
+		private Sound sound;
 		private Stopwatch timeSource = new Stopwatch();
 	}
 }
