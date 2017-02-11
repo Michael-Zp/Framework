@@ -39,9 +39,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="AudioPlaybackEngine.cs" />
-    <Compile Include="AutoDisposeFileReader.cs" />
-    <Compile Include="CachedSound.cs" />
-    <Compile Include="CachedSoundSampleProvider.cs" />
+    <Compile Include="AutoDisposeSampleProvider.cs" />
     <Compile Include="SoundTimeSource.cs" />
     <Compile Include="SoundLoopStream.cs" />
   </ItemGroup>

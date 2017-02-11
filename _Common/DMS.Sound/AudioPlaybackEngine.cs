@@ -1,6 +1,7 @@
 ﻿using NAudio.Wave;
 using NAudio.Wave.SampleProviders;
 using System;
+using System.IO;
 
 namespace DMS.Sound
 {
@@ -31,15 +32,40 @@ namespace DMS.Sound
 			throw new NotImplementedException("Not yet implemented this channel count conversion");
 		}
 
-		public void PlaySound(string fileName)
+		public void PlaySound(string fileName, bool looped = false)
 		{
 			var input = new AudioFileReader(fileName);
-			AddMixerInput(new AutoDisposeFileReader(input));
+			if (looped)
+			{
+				var reader = new SoundLoopStream(input);
+				var sampleChannel = new SampleChannel(reader, false);
+				AddMixerInput(sampleChannel);
+			}
+			else
+			{
+				AddMixerInput(new AutoDisposeSampleProvider(input, input));
+			}
 		}
 
-		public void PlaySound(CachedSound sound)
+		/// <summary>
+		/// Plays sound from a stream; you get unbuffered access if you usse a file stream 
+		/// and buffered access if you use a memory stream
+		/// </summary>
+		/// <param name="stream"></param>
+		public void PlaySound(Stream stream, bool looped = false)
 		{
-			AddMixerInput(new CachedSoundSampleProvider(sound));
+			WaveStream reader = new WaveFileReader(stream);
+			if (looped)
+			{
+				reader = new SoundLoopStream(reader);
+				var sampleChannel = new SampleChannel(reader, false);
+				AddMixerInput(sampleChannel);
+			}
+			else
+			{
+				var sampleChannel = new SampleChannel(reader, false);
+				AddMixerInput(new AutoDisposeSampleProvider(sampleChannel, reader));
+			}
 		}
 
 		private void AddMixerInput(ISampleProvider input)

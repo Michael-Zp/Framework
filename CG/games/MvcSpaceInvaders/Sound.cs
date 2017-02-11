@@ -8,18 +8,6 @@ namespace MvcSpaceInvaders
 		public Sound()
 		{
 			soundEngine = new AudioPlaybackEngine();
-
-			//laser = engine.AddSoundSourceFromIOStream(Resourcen.laser, "laser");
-			// on startup:
-			//var zap = new CachedSound("zap.wav");
-			//var boom = new CachedSound("boom.wav");
-
-
-			//// later in the app...
-			//AudioPlaybackEngine.Instance.PlaySound(zap);
-			//AudioPlaybackEngine.Instance.PlaySound(boom);
-			//AudioPlaybackEngine.Instance.PlaySound("crash.wav");
-
 		}
 
 		public void Background()
@@ -42,8 +30,7 @@ namespace MvcSpaceInvaders
 
 		public void Shoot()
 		{
-			//engine.Play2D(laser, false, false, false);
-			soundEngine.PlaySound(@"D:\Daten\FH Ravensburg\Framework\CG\games\MvcSpaceInvaders\Resources\laser.wav");
+			soundEngine.PlaySound(Resourcen.laser);
 		}
 
 		private AudioPlaybackEngine soundEngine;
