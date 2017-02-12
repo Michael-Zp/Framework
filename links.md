@@ -51,7 +51,7 @@
     + [OpenGL ES Pixel Shaders Tutorial](http://www.raywenderlich.com/70208/opengl-es-pixel-shaders-tutorial)
     + [gDEBugger - OpenGL and OpenCL Debugger, Profiler and Memory Analyzer](http://www.gremedy.com/)
 + [NVidia forums](https://forums.geforce.com/index.php?act=idx): graphics cards issues (driver specifics, hardware limitations, ...)
-+ [NAudio](https://naudio.codeplex.com/documentation): The sound framework I use in the framework.
++ [NAudio](https://naudio.codeplex.com/documentation): The sound framework I use in the course framework.
 
 ##Content
 + [MillionthVector: Free Sprites](http://millionthvector.blogspot.com/p/free-sprites.html)
