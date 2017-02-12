@@ -50,6 +50,7 @@
 	+ [A glsl library for building signed distance functions](http://mercury.sexy/hg_sdf/)
     + [OpenGL ES Pixel Shaders Tutorial](http://www.raywenderlich.com/70208/opengl-es-pixel-shaders-tutorial)
     + [gDEBugger - OpenGL and OpenCL Debugger, Profiler and Memory Analyzer](http://www.gremedy.com/)
++ [NVidia forums](https://forums.geforce.com/index.php?act=idx)
 + [NAudio](https://naudio.codeplex.com/documentation): The sound framework I use in the framework.
 
 ##Content
