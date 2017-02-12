@@ -59,6 +59,6 @@
 
 ##Content
 + [opengameart.org](http://opengameart.org/)
-+ [General Textures](http://www.deviantart.com/)
-+ [General textures](http://mediamilitia.com/category/freebies/)
++ [deviantart](http://www.deviantart.com/)
++ [mediamilitia](http://mediamilitia.com/category/freebies/)
 + [MillionthVector: Free Sprites](http://millionthvector.blogspot.com/p/free-sprites.html)
