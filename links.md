@@ -21,6 +21,8 @@
 + [gamedev.net](https://www.gamedev.net) Large online community page with articles covering all areas of games
 + [gamasutra.com](https://www.gamasutra.com) Large online community page with articles covering all areas of games
 + [Tiled map editor](http://www.mapeditor.org/) Open source map editor for 2d maps (tile-based, isometric, hexagonal)
++ [Spritesheet splitter/unpacker](https://github.com/ForkandBeard/Alferd-Spritesheet-Unpacker)
++ [Spieleentwicklungstools für Visual Studio](https://www.visualstudio.com/de/vs/game-development/)
 + [spieleprogrammierer.de](https://www.spieleprogrammierer.de/) "Möchtest du Spiele programmieren? Hast du vielleicht schon ein eigenes Spiel programmiert und möchtest es präsentieren? Hast du eine Frage über 3D-Grafik oder Programmiersprachen? Oder möchtest du dich vielleicht einfach nur über neue Spielideen austauschen? In jedem Fall bist du hier richtig."
 + [makinggames](http://www.makinggames.biz/) "Das Making Games Magazin befasst sich mit allen Bereichen der Computer- und Videospiele-Entwicklung und dem Business Development. Es richtet sich vornehmlich an Spieleentwickler und an Menschen, die sich für diesen Bereich interessieren."
 + [videogametourism.at](https://videogametourism.at) Games-Feuilleton
@@ -33,6 +35,8 @@
 + [a list of demoparties](http://www.demoparty.net/)
 
 ##Software engineering
++ [game programming patterns](http://gameprogrammingpatterns.com/contents.html)
++ [The Benefits of MVC](http://blog.iandavis.com/2008/12/what-are-the-benefits-of-mvc/)
 + [Component based programing](http://cowboyprogramming.com/2007/01/05/evolve-your-heirachy/)
 + [Data-oriented design](http://www.dataorienteddesign.com/dodmain/dodmain.html) In computing, data-oriented design (not to be confused with data-driven design) is a program optimization approach motivated by cache coherency, used in video game development. The approach is to focus on the data layout, separating and sorting fields according to when they are needed, and to think about transformations of data.
 
@@ -54,4 +58,7 @@
 + [NAudio](https://naudio.codeplex.com/documentation): The sound framework I use in the course framework.
 
 ##Content
++ [opengameart.org](http://opengameart.org/)
++ [General Textures](http://www.deviantart.com/)
++ [General textures](http://mediamilitia.com/category/freebies/)
 + [MillionthVector: Free Sprites](http://millionthvector.blogspot.com/p/free-sprites.html)
