@@ -25,7 +25,7 @@
 + [makinggames](http://www.makinggames.biz/) "Das Making Games Magazin befasst sich mit allen Bereichen der Computer- und Videospiele-Entwicklung und dem Business Development. Es richtet sich vornehmlich an Spieleentwickler und an Menschen, die sich für diesen Bereich interessieren."
 + [videogametourism.at](https://videogametourism.at) Games-Feuilleton
 + [gamelab.zhdk.ch](http://gamelab.zhdk.ch/) "Gamelab is part of the University of the Arts Zurich (ZHdK) and associated with the subject Game Design ZHDK. Gamelab encourages experimental game design and research in game development and game studies. We do research in Game Mechanics, Artgames, Interface Design, Game Studies and Virtual Worlds."
-+ [Game Design Concepts](https://gamedesignconcepts.wordpress.com/)
++ [Game Design Concepts](https://gamedesignconcepts.wordpress.com/): A very detailed block describing a complete semester course on designing games 
 
 ##Demo culture
 + [Evoke](https://www.evoke.eu) Demo party usually in Köln

@@ -54,7 +54,7 @@ namespace DMS.Sound
 		/// <param name="stream"></param>
 		public void PlaySound(Stream stream, bool looped = false)
 		{
-			WaveStream reader = new WaveFileReader(stream);
+			WaveStream reader = FindCorrectWaveStream(stream);
 			if (looped)
 			{
 				reader = new SoundLoopStream(reader);
@@ -65,6 +65,33 @@ namespace DMS.Sound
 			{
 				var sampleChannel = new SampleChannel(reader, false);
 				AddMixerInput(new AutoDisposeSampleProvider(sampleChannel, reader));
+			}
+		}
+
+		private static WaveStream FindCorrectWaveStream(Stream stream)
+		{
+			try
+			{
+				WaveStream readerStream = new WaveFileReader(stream);
+				if (readerStream.WaveFormat.Encoding != WaveFormatEncoding.Pcm && readerStream.WaveFormat.Encoding != WaveFormatEncoding.IeeeFloat)
+				{
+					readerStream = WaveFormatConversionStream.CreatePcmStream(readerStream);
+					readerStream = new BlockAlignReductionStream(readerStream);
+				}
+				return readerStream;
+			} catch { }
+			try
+			{
+				return new Mp3FileReader(stream);
+			}
+			catch { }
+			try
+			{
+				return new AiffFileReader(stream);
+			}
+			catch
+			{
+				return null;
 			}
 		}
 

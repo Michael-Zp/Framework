@@ -1,5 +1,6 @@
 ﻿using DMS.Sound;
 using System;
+using System.IO;
 
 namespace MvcSpaceInvaders
 {
@@ -17,6 +18,8 @@ namespace MvcSpaceInvaders
 
 		public void DestroyEnemy()
 		{
+			//var memStream = new MemoryStream(Resourcen.EVAXDaughters);
+			//soundEngine.PlaySound(memStream);
 		}
 
 		public void Dispose()
