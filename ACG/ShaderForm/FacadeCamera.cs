@@ -12,15 +12,18 @@ namespace ShaderForm
 
 		public void AddKeyFrames(float time, IUniforms uniforms)
 		{
+			//todo1: event recursions handle all with mediator pattern or similar
+			var position = camera.Position;
+			var rotation = camera.Rotation;
 			for (int i = 0; i < 3; ++i)
 			{
 				uniforms.Add(posUniformNames[i]);
 				var kfsPos = uniforms.GetKeyFrames(posUniformNames[i]);
-				kfsPos.AddUpdate(time, camera.Position[i]);
+				kfsPos.AddUpdate(time, position[i]);
 
 				uniforms.Add(rotUniformNames[i]);
 				var kfsRot = uniforms.GetKeyFrames(rotUniformNames[i]);
-				kfsRot.AddUpdate(time, camera.Rotation[i]);
+				kfsRot.AddUpdate(time, rotation[i]);
 			}
 		}
 
@@ -64,12 +67,12 @@ namespace ShaderForm
 			for (int i = 0; i < 3; ++i)
 			{
 				var kfsPos = uniforms.GetKeyFrames(posUniformNames[i]);
-				if (ReferenceEquals(null,  kfsPos)) return false;
+				if (ReferenceEquals(null, kfsPos)) return false;
 				var value = kfsPos.Interpolate(time);
 				camera.Position[i] = value;
 
 				var kfsRot = uniforms.GetKeyFrames(rotUniformNames[i]);
-				if (ReferenceEquals(null,  kfsRot)) return false;
+				if (ReferenceEquals(null, kfsRot)) return false;
 				var valueRot = kfsRot.Interpolate(time);
 				camera.Rotation[i] = valueRot;
 			}
