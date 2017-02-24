@@ -43,6 +43,7 @@
 ##Software engineering
 + Erich Gamma, Richard Helm, Ralph Johnson and John Vlissides, Design Patterns: Elements of Reusable Object-Oriented Software, 1994, ISBN-13: 978-0201633610, Sprache: Englisch
 + [game programming patterns](http://gameprogrammingpatterns.com/contents.html) Very nice introduction to software engineering with a focus on patterns often used in games.
++ Julian Gold, Object-Oriented Game Development, Verlag: Addison Wesley, 2004, ISBN-13: 978-0321176608, Sprache: Englisch
 + [The Benefits of the Model-View-Controller architecture pattern](http://blog.iandavis.com/2008/12/what-are-the-benefits-of-mvc/)
 + [Component based programing](http://cowboyprogramming.com/2007/01/05/evolve-your-heirachy/) Shift from deep inheritance hierarchies to aggregations of components.
 + [Data-oriented design](http://www.dataorienteddesign.com/dodmain/dodmain.html) In computing, data-oriented design (not to be confused with data-driven design) is a program optimization approach motivated by cache coherency, used in video game development. The approach is to focus on the data layout, separating and sorting fields according to when they are needed, and to think about transformations of data.
