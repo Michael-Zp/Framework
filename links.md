@@ -1,7 +1,7 @@
 ##General computer graphics
-+ Mathematics for Computergraphics introduction: [www.scratchapixel.com](https://www.scratchapixel.com) "Learn Computer Graphics From Scratch!" Foundations of computer graphics with an emphasis on the relationship between mathematical background and practice
++ [www.scratchapixel.com](https://www.scratchapixel.com) an introduction to Mathematics for Computergraphics: "Learn Computer Graphics From Scratch!" Foundations of computer graphics with an emphasis on the relationship between mathematical background and practice
 + [realtimerendering.com](http://www.realtimerendering.com/) Link repository to many real-time rendering related cites. Page to the book: MÖLLER T., HAINES E.: Real-Time Rendering, Third Edition, Peters, Wellesley, 2008, ISBN-13: 978-1568814247
-+ [Software and libraries](http://www.dgp.toronto.edu/~rms/links.html)
++ [Computer Graphics Research Software and libraries](http://www.dgp.toronto.edu/~rms/links.html)
 + [Physically Based Camera Rendering](https://extremeistan.wordpress.com/2014/09/24/physically-based-camera-rendering)
 + [iquilezles.org](http://www.iquilezles.org/) Advanced topics in computer graphics and shader implementations (Raymarching tricks from the demo scene)
 + [9bit Science: Raymarching Distance Fields](http://9bitscience.blogspot.com/2013/07/raymarching-distance-fields_14.html)
@@ -11,7 +11,7 @@
 + [Shadertoy BETA](http://www.shadertoy.com/) Online fragment shader collection and execution
 + [GLSL Sandbox Gallery](http://glslsandbox.com/) Online fragment shader collection and execution
 + [Pixel Shader Examples](http://pixelshaders.com/examples/)
-+ [Geometric Tools Engine](https://www.geometrictools.com/index.html); Game engine described in the books 
++ [Geometric Tools Engine](https://www.geometrictools.com/index.html) a game engine described in the books 
 	+ 3D Game Engine Design (2nd Edition) by David H. Eberly, The Morgan Kaufmann Series in Interactive 3D Technology 
 	+ Game Physics (2nd Edition) by David H. Eberly 
 	+ GPGPU Programming for Games and Science by David H. Eberly 
@@ -19,7 +19,7 @@
 	
 	
 ##Physics
-+ Introduction from vectors, particle systems to neural networks: [The Nature of Code](https://natureofcode.com) "This class focuses on understanding, simulating, and incorporating motion-based elements of our physical world into the digital worlds that we create."
++ [The Nature of Code](https://natureofcode.com) an introduction from vectors, particle systems to neural networks: "This class focuses on understanding, simulating, and incorporating motion-based elements of our physical world into the digital worlds that we create."
 
 ##Games
 + [21 Free Learning Resources for Game Developers](http://www.gamecareerguide.com/features/1455/21_free_learning_resources_for_.php)
@@ -41,6 +41,7 @@
 + [a list of demoparties](http://www.demoparty.net/)
 
 ##Software engineering
++ Erich Gamma, Richard Helm, Ralph Johnson and John Vlissides, Design Patterns: Elements of Reusable Object-Oriented Software, 1994, ISBN-13: 978-0201633610, Sprache: Englisch
 + [game programming patterns](http://gameprogrammingpatterns.com/contents.html) Very nice introduction to software engineering with a focus on patterns often used in games.
 + [The Benefits of the Model-View-Controller architecture pattern](http://blog.iandavis.com/2008/12/what-are-the-benefits-of-mvc/)
 + [Component based programing](http://cowboyprogramming.com/2007/01/05/evolve-your-heirachy/) Shift from deep inheritance hierarchies to aggregations of components.
@@ -49,6 +50,7 @@
 ##APIs
 + C#
 	+ [dotnetperls](https://www.dotnetperls.com/) Many small tutorials for C# and .Net
+	+ [Design Patterns implemented in C#](http://www.dofactory.com/net/design-patterns)
 	+ [Parsing XML Files in .NET Using C#](http://www.drdobbs.com/windows/parsing-xml-files-in-net-using-c/184416669)
 	+ [Walkthrough: Persisting an Object](https://msdn.microsoft.com/en-us/library/et91as27.aspx)
 + OpenGL
