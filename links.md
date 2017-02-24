@@ -1,6 +1,6 @@
 ##General computer graphics
 + Mathematics for Computergraphics introduction: [www.scratchapixel.com](https://www.scratchapixel.com) "Learn Computer Graphics From Scratch!" Foundations of computer graphics with an emphasis on the relationship between mathematical background and practice
-+ [realtimerendering.com](http://www.realtimerendering.com/) Link repository to many real-time rendering related cites
++ [realtimerendering.com](http://www.realtimerendering.com/) Link repository to many real-time rendering related cites. Page to the book: MÖLLER T., HAINES E.: Real-Time Rendering, Third Edition, Peters, Wellesley, 2008, ISBN-13: 978-1568814247
 + [Software and libraries](http://www.dgp.toronto.edu/~rms/links.html)
 + [Physically Based Camera Rendering](https://extremeistan.wordpress.com/2014/09/24/physically-based-camera-rendering)
 + [iquilezles.org](http://www.iquilezles.org/) Advanced topics in computer graphics and shader implementations (Raymarching tricks from the demo scene)
