@@ -11,7 +11,13 @@
 + [Shadertoy BETA](http://www.shadertoy.com/) Online fragment shader collection and execution
 + [GLSL Sandbox Gallery](http://glslsandbox.com/) Online fragment shader collection and execution
 + [Pixel Shader Examples](http://pixelshaders.com/examples/)
-
++ [Geometric Tools Engine](https://www.geometrictools.com/index.html); Game engine described in the books 
+	+ 3D Game Engine Design (2nd Edition) by David H. Eberly, The Morgan Kaufmann Series in Interactive 3D Technology 
+	+ Game Physics (2nd Edition) by David H. Eberly 
+	+ GPGPU Programming for Games and Science by David H. Eberly 
+	+ Geometric Tools for Computer Graphics by Philip J. Schneider and David H. Eberly, The Morgan Kaufmann Series in Computer Graphics and Geometric Modeling 
+	
+	
 ##Physics
 + Introduction from vectors, particle systems to neural networks: [The Nature of Code](https://natureofcode.com) "This class focuses on understanding, simulating, and incorporating motion-based elements of our physical world into the digital worlds that we create."
 
@@ -46,7 +52,7 @@
 	+ [Parsing XML Files in .NET Using C#](http://www.drdobbs.com/windows/parsing-xml-files-in-net-using-c/184416669)
 	+ [Walkthrough: Persisting an Object](https://msdn.microsoft.com/en-us/library/et91as27.aspx)
 + OpenGL
-    + Introduction: [OpenGL Programming Guide PDF (8th edition)](https://www.ics.uci.edu/~gopi/CS211B/opengl_programming_guide_8th_edition.pdf)
+    + Introduction: [OpenGL Programming Guide PDF (8th edition)](https://www.ics.uci.edu/~gopi/CS211B/opengl_programming_guide_8th_edition.pdf); Book: Dave Shreiner, Bill Licea-Kane, Graham Sellers, John M. Kessenich: OpenGL Programming Guide: The Official Guide to Learning OpenGL, Version 4.3, Sprache: Englisch 
     + Reference: [OpenGL Wiki](https://www.opengl.org/wiki/Main_Page)
 	+ Framework we use to access OpenGL: [The Open Toolkit Library | OpenTK](https://opentk.github.io/) The Open Toolkit is set of fast, low-level C# bindings for OpenGL, OpenGL ES and OpenAL. It runs on all major platforms and powers hundreds of apps, games and scientific research.
 	+ [nehe.gamedev.net](http://nehe.gamedev.net/) Many OpenGL tutorials
