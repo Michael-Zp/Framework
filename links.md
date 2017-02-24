@@ -15,7 +15,7 @@
 ##Physics
 + Introduction from vectors, particle systems to neural networks: [The Nature of Code](https://natureofcode.com) "This class focuses on understanding, simulating, and incorporating motion-based elements of our physical world into the digital worlds that we create."
 
-##Games and demos
+##Games
 + [21 Free Learning Resources for Game Developers](http://www.gamecareerguide.com/features/1455/21_free_learning_resources_for_.php)
 + [A game about games](http://www.kongregate.com/de/games/pixelate/understanding-games-episode-1)
 + [gamedev.net](https://www.gamedev.net) Large online community page with articles covering all areas of games
@@ -31,13 +31,13 @@
 
 ##Demo culture
 + [Evoke](https://www.evoke.eu) Demo party usually in Köln
-+ [scene.org](http://www.scene.org/)
++ [scene.org](http://www.scene.org/) Official page of the demo scene
 + [a list of demoparties](http://www.demoparty.net/)
 
 ##Software engineering
-+ [game programming patterns](http://gameprogrammingpatterns.com/contents.html)
-+ [The Benefits of MVC](http://blog.iandavis.com/2008/12/what-are-the-benefits-of-mvc/)
-+ [Component based programing](http://cowboyprogramming.com/2007/01/05/evolve-your-heirachy/)
++ [game programming patterns](http://gameprogrammingpatterns.com/contents.html) Very nice introduction to software engineering with a focus on patterns often used in games.
++ [The Benefits of the Model-View-Controller architecture pattern](http://blog.iandavis.com/2008/12/what-are-the-benefits-of-mvc/)
++ [Component based programing](http://cowboyprogramming.com/2007/01/05/evolve-your-heirachy/) Shift from deep inheritance hierarchies to aggregations of components.
 + [Data-oriented design](http://www.dataorienteddesign.com/dodmain/dodmain.html) In computing, data-oriented design (not to be confused with data-driven design) is a program optimization approach motivated by cache coherency, used in video game development. The approach is to focus on the data layout, separating and sorting fields according to when they are needed, and to think about transformations of data.
 
 ##APIs
