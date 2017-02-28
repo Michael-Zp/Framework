@@ -16,8 +16,8 @@ namespace ShaderForm
 		private Point mousePos;
 		//private int painting = 0;
 		private FPSCounter timing = new FPSCounter();
+		private Mediator mediator = new Mediator();
 		private MultiGraph multiGraph = new MultiGraph();
-		private FacadeFormMessages log = new FacadeFormMessages();
 		private FacadeCamera camera = new FacadeCamera();
 		private string lastMessage;
 
@@ -25,6 +25,10 @@ namespace ShaderForm
 		{
 			OpenTK.Toolkit.Init(); //todo: check if newer version of glcontrol fixes this issue
 			InitializeComponent();
+
+			logToolStripMenuItem.Click += (sender, arg) => mediator.ShowLog();
+			menuOnTop.CheckedChanged += (sender, arg) => TopMost = menuOnTop.Checked;
+			cameraWindowToolStripMenuItem.Click += (sender, arg) => camera.Show();
 
 			string demoFilter = DefaultFiles.GetDemoExtension() + " (*" + DefaultFiles.GetDemoExtension() + ")|*" + DefaultFiles.GetDemoExtension();
 			menuSizeSetting.SelectedIndexChanged += (sender, e) => glControl.Invalidate();
@@ -49,7 +53,7 @@ namespace ShaderForm
 					}
 					catch (Exception ex)
 					{
-						log.Append(ex.Message);
+						mediator.Log(ex.Message);
 					}
 				});
 			menuScreenshot.Click += (sender, e) => Dialogs.SaveFile("png (*.png)|*.png", (fileName) => { glControl.Invalidate(); demo.SaveBuffer(fileName); });
@@ -71,11 +75,11 @@ namespace ShaderForm
 			try
 			{
 				camera.Reset();
-				DemoLoader.LoadFromFile(demo, fileName, (obj, args) => log.Append(args.Message) );
+				DemoLoader.LoadFromFile(demo, fileName, (obj, args) => mediator.Log(args.Message) );
 			}
 			catch(Exception e)
 			{
-				log.Append("No valid demo file found with exception '" + e.Message + "'");
+				mediator.Log("No valid demo file found with exception '" + e.Message + "'");
 			};
 		}
 
@@ -208,7 +212,7 @@ namespace ShaderForm
 			}
 			catch (Exception e)
 			{
-				log.Append(e.Message);
+				mediator.Log(e.Message);
 			}
 		}
 
@@ -242,7 +246,7 @@ namespace ShaderForm
 			}
 
 			//todo: if errors disappear we would like to clear the log....
-			log.Append(message);
+			mediator.Log(message);
 			lastMessage = message;
 			glControl.Invalidate();
 		}
@@ -326,7 +330,7 @@ namespace ShaderForm
 			}
 			catch (Exception ex)
 			{
-				log.Append(ex.Message);
+				mediator.Log(ex.Message);
 			}
 		}
 
@@ -341,8 +345,8 @@ namespace ShaderForm
 				RegistryLoader.SaveValue(Name, "showFPS", menuFps.Checked);
 				RegistryLoader.SaveValue(Name, "compact", menuCompact.Checked);
 
+				mediator.SaveLayout();
 				multiGraph.SaveLayout();
-				log.SaveLayout();
 				camera.SaveLayout();
 				// rename old
 				DefaultFiles.RenameAutoSaveDemoFile();
@@ -536,21 +540,6 @@ namespace ShaderForm
 		private void addCameraUniformsToolStripMenuItem_Click(object sender, EventArgs e)
 		{
 			camera.AddKeyFrames(demo.TimeSource.Position, demo.Uniforms);
-		}
-
-		private void menuOnTop_CheckedChanged(object sender, EventArgs e)
-		{
-			TopMost = menuOnTop.Checked;
-		}
-
-		private void logToolStripMenuItem_Click(object sender, EventArgs e)
-		{
-			log.Show();
-		}
-
-		private void cameraWindowToolStripMenuItem_Click(object sender, EventArgs e)
-		{
-			camera.Show();
 		}
 
 		private void menuCompact_CheckStateChanged(object sender, EventArgs e)

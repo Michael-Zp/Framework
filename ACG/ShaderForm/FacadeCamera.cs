@@ -12,7 +12,7 @@ namespace ShaderForm
 
 		public void AddKeyFrames(float time, IUniforms uniforms)
 		{
-			//todo1: event recursions handle all with mediator pattern or similar
+			//todo1: event recursions handle all with mediator pattern or event queue...
 			var position = camera.Position;
 			var rotation = camera.Rotation;
 			for (int i = 0; i < 3; ++i)

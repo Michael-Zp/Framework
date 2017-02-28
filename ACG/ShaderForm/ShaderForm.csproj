@@ -74,6 +74,7 @@
     <Compile Include="AdapterCamera.cs" />
     <Compile Include="DefaultFiles.cs" />
     <Compile Include="DemoModelFactory.cs" />
+    <Compile Include="EventQueue.cs" />
     <Compile Include="FacadeCamera.cs" />
     <Compile Include="FacadeFormMessages.cs" />
     <Compile Include="FlyCamera.cs" />
@@ -123,6 +124,7 @@
     <Compile Include="ITextures.cs" />
     <Compile Include="IUniforms.cs" />
     <Compile Include="KeyFramesHelper.cs" />
+    <Compile Include="Mediator.cs" />
     <Compile Include="MultiGraph.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
