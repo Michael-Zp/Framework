@@ -29,6 +29,10 @@
     1. implement Toon shading
     1. add cel shading
     1. implement Gooch lighting
+1. **SSBOExample**:
+	1. add individual particle color
+	1. add reflect at window borders
+
 
 ### [Links and further reading](https://github.com/danielscherzer/Framework/blob/master/readme.md)
 

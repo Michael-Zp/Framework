@@ -16,7 +16,7 @@ namespace Example
 				, "../../ParticleSystemExample/Resources/smoke.frag"
 				, Resourcen.smoke_vert, Resourcen.smoke_frag);
 
-			particleSystem.ReleaseInterval = 0.03f;
+			particleSystem.ReleaseInterval = 0.003f;
 			particleSystem.OnParticleCreate += Create;
 			particleSystem.OnAfterParticleUpdate += OnAfterParticleUpdate;
 		}
@@ -103,7 +103,7 @@ namespace Example
 		private ShaderFileDebugger shaderWatcher;
 		private Texture texStar;
 		private VAO particles = new VAO();
-		private ParticleSystem<Particle> particleSystem = new ParticleSystem<Particle>(1000);
+		private ParticleSystem<Particle> particleSystem = new ParticleSystem<Particle>(10000);
 		private Random random = new Random();
 		private readonly Vector3 emitterPos;
 	}

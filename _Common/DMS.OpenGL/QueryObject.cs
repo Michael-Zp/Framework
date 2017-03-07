@@ -45,9 +45,26 @@ namespace DMS.OpenGL
 			}
 		}
 
+		public long ResultLong
+		{
+			get
+			{
+				long result;
+				GL.GetQueryObject(id, GetQueryObjectParam.QueryResult, out result);
+				return result;
+			}
+		}
+
 		public QueryTarget Target { get; private set; }
 
 		public bool TryGetResult(out int result)
+		{
+			result = -1;
+			GL.GetQueryObject(id, GetQueryObjectParam.QueryResultNoWait, out result);
+			return -1 != result;
+		}
+
+		public bool TryGetResult(out long result)
 		{
 			result = -1;
 			GL.GetQueryObject(id, GetQueryObjectParam.QueryResultNoWait, out result);

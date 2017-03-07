@@ -1,8 +1,9 @@
 ﻿using DMS.OpenGL;
-using OpenTK;
 using OpenTK.Graphics.OpenGL;
 using DMS.ShaderDebugging;
 using System;
+using System.Numerics;
+using DMS.Geometry;
 
 namespace Example
 {
@@ -10,6 +11,7 @@ namespace Example
 	{
 		public Vector2 position;
 		public Vector2 velocity;
+		//public Vector4 color; //make it vec4  not vec3 because of alignment in std430
 	}
 
 	public class MainVisual
@@ -27,9 +29,9 @@ namespace Example
 		{
 			if (shaderWatcher.CheckForShaderChange())
 			{
-				//update geometry when shader changes
+				//should update geometry when shader changes -> attribute bindings may change
 			}
-			GL.PointSize(2.0f);
+			GL.PointSize(1.0f);
 			GL.Clear(ClearBufferMask.ColorBufferBit);
 			var shader = shaderWatcher.Shader;
 			shader.Activate();
@@ -42,7 +44,7 @@ namespace Example
 
 		private ShaderFileDebugger shaderWatcher;
 		private BufferObject bufferParticles;
-		private const int particelCount = 50000;
+		private const int particelCount = (int)1e5;
 
 		private void InitParticles()
 		{
@@ -58,6 +60,8 @@ namespace Example
 			{
 				data[i].position = new Vector2(RndCoord(), RndCoord());
 				data[i].velocity = new Vector2(RndSpeed(), RndSpeed());
+				//var polar = MathHelper.ToPolar(data[i].position);
+				//data[i].color = new Vector4(ColorSystems.Hsb2rgb(polar.X / MathHelper.TWO_PI + 0.5f, polar.Y, 1), 1);
 			}
 			bufferParticles.Set(data, BufferUsageHint.StaticCopy);
 		}
