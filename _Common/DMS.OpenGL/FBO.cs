@@ -21,20 +21,20 @@ namespace DMS.OpenGL
 			GL.GenFramebuffers(1, out m_FBOHandle);
 		}
 
-		public void BeginUse(Texture texture)
+		public void Activate(Texture texture)
 		{
 			GL.BindFramebuffer(FramebufferTarget.Framebuffer, this.m_FBOHandle);
 			GL.FramebufferTexture2D(FramebufferTarget.Framebuffer, FramebufferAttachment.ColorAttachment0, TextureTarget.Texture2D, texture.ID, 0);
 			string status = GetStatusMessage();
 			if (!string.IsNullOrEmpty(status))
 			{
-				EndUse();
+				Deactivate();
 				throw new FBOException(status);
 			}
 			GL.Viewport(0, 0, texture.Width, texture.Height);
 		}
 
-		public void EndUse()
+		public void Deactivate()
 		{
 			GL.BindFramebuffer(FramebufferTarget.FramebufferExt, 0);
 		}

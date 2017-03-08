@@ -18,7 +18,7 @@ namespace Example
 		{
 			var app = new MyApplication();
 			//run the update loop, which calls our registered callbacks
-			app.gameWindow.Run(60.0f);
+			app.gameWindow.Run(60.0f, 60.0f);
 		}
 
 		private MyApplication()

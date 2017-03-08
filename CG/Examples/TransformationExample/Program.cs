@@ -19,7 +19,7 @@ namespace Example
 		public static void Main()
 		{
 			var app = new MyApplication();
-			app.gameWindow.Run();
+			app.gameWindow.Run(60);
 		}
 
 		private MyApplication()
@@ -51,7 +51,7 @@ namespace Example
 		private void GameWindow_UpdateFrame(object sender, FrameEventArgs e)
 		{
 			rotCenter.X += 0.003f;
-			var R = Transform2D.CreateRotationAround(rotCenter.X, rotCenter.Y, (float)gameWindow.UpdatePeriod * 4);
+			var R = Transform2D.CreateRotationAround(rotCenter.X, rotCenter.Y, (float)gameWindow.TargetUpdatePeriod * 4);
 			foreach (var bird in birds)
 			{
 				bird.TransformCenter(R);

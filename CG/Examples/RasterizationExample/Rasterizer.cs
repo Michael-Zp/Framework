@@ -46,11 +46,11 @@ namespace Example
 		}
 		private void GameWindow_RenderFrame(object sender, FrameEventArgs e)
 		{
-			renderToTexture.BeginUse(texRenderSurface);
+			renderToTexture.Activate(texRenderSurface);
 			GL.Viewport(0, 0, texRenderSurface.Width, texRenderSurface.Height);
 			GL.Clear(ClearBufferMask.ColorBufferBit);
 			drawHandler();
-			renderToTexture.EndUse();
+			renderToTexture.Deactivate();
 			GL.Viewport(0, 0, gameWindow.Width, gameWindow.Height);
 			texRenderSurface.Activate();
 			shader.Activate();

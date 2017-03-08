@@ -59,9 +59,9 @@ namespace DMS.OpenGL
 			GL.Translate(xPos, yPos, zPos);
 			GL.Scale(size, size, size);
 			var bytes = ConvertString2Ascii(text);
-			texFont.BeginUse();
+			texFont.Activate();
 			PrintRawQuads(bytes);
-			texFont.EndUse();
+			texFont.Deactivate();
 			GL.PopMatrix();
 		}
 

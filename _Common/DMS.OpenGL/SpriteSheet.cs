@@ -32,12 +32,12 @@ namespace DMS.OpenGL
 			return new Box2D(centerX - 0.5f * width, centerY - 0.5f * height, width, height);
 		}
 
-		public void BeginUse()
+		public void Activate()
 		{
 			tex.Activate();
 		}
 
-		public void EndUse()
+		public void Deactivate()
 		{
 			tex.Deactivate();
 		}

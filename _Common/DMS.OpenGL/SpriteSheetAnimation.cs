@@ -40,10 +40,10 @@ namespace DMS.OpenGL
 		/// <param name="totalSeconds">animation position in seconds</param>
 		public void Draw(Box2D rectangle, float totalSeconds)
 		{
-			spriteSheet.BeginUse();
+			spriteSheet.Activate();
 			var id = CalcAnimationSpriteID(FromID, ToID, AnimationLength, totalSeconds);
 			spriteSheet.Draw(id, rectangle);
-			spriteSheet.EndUse();
+			spriteSheet.Deactivate();
 		}
 	}
 }

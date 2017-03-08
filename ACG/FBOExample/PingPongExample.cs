@@ -25,7 +25,7 @@ namespace Example
 		{
 			var last = (active == textureBufferA) ? textureBufferB : textureBufferA;
 
-			fbo.BeginUse(active); //start drawing into texture
+			fbo.Activate(active); //start drawing into texture
 			GL.Viewport(0, 0, active.Width, active.Height);
 			shaderGameOfLife.Activate();
 			last.Activate();
@@ -35,7 +35,7 @@ namespace Example
 			GL.DrawArrays(PrimitiveType.Quads, 0, 4); //draw staff
 			last.Deactivate();
 			shaderGameOfLife.Deactivate();
-			fbo.EndUse(); //stop drawing into texture
+			fbo.Deactivate(); //stop drawing into texture
 
 
 			GL.Viewport(0, 0, width, height);

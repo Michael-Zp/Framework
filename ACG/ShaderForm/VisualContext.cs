@@ -93,13 +93,13 @@ namespace ShaderForm
 			last.Activate();
 			GL.Uniform1(shaderCurrent.GetUniformLocation("texLastFrame"), id);
 
-			surface.BeginUse(active);
+			surface.Activate(active);
 			GL.Viewport(0, 0, active.Width, active.Height);
 
 			//Drawing
 			GL.DrawArrays(PrimitiveType.Quads, 0, 4);
 
-			surface.EndUse();
+			surface.Deactivate();
 
 			id = 0;
 			foreach (var tex in textures)

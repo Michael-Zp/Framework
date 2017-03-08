@@ -30,9 +30,9 @@ namespace Example
 		{
 			GL.Clear(ClearBufferMask.ColorBufferBit | ClearBufferMask.DepthBufferBit);
 			shader.Activate();
-			//texDiffuse.BeginUse();
+			//texDiffuse.Activate();
 			geometry.Draw();
-			//texDiffuse.EndUse();
+			//texDiffuse.Deactivate();
 			shader.Deactivate();
 		}
 

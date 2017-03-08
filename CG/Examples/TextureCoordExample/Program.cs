@@ -21,7 +21,7 @@ namespace Example
 		public static void Main()
 		{
 			var app = new MyApplication();
-			app.gameWindow.Run();
+			app.gameWindow.Run(60);
 		}
 
 		private MyApplication()

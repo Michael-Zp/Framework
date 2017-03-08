@@ -6,15 +6,13 @@ namespace Example
 {
 	public class PostProcessingExample
 	{
-		private FBO fbo;
-		private Texture textureForRendering;
+		private RenderToTexture rtt;
 		private Shader shaderPostProcess;
 		private Shader shaderSource;
 
 		public PostProcessingExample(int width, int height)
 		{
-			fbo = new FBO();
-			textureForRendering = Texture.Create(width, height);
+			rtt = new RenderToTexture(Texture.Create(width, height));
 			shaderPostProcess = PixelShader.Create(Encoding.UTF8.GetString(Resources.Swirl));
 			shaderSource = PixelShader.Create(Encoding.UTF8.GetString(Resources.PatternCircle));
 		}
@@ -23,8 +21,7 @@ namespace Example
 		{
 			if (doPostProcessing)
 			{
-				fbo.BeginUse(textureForRendering); //start drawing into texture
-				GL.Viewport(0, 0, textureForRendering.Width, textureForRendering.Height);
+				rtt.Activate(); //start drawing into texture
 			}
 
 			//draw staff
@@ -36,15 +33,14 @@ namespace Example
 
 			if (doPostProcessing)
 			{
-				fbo.EndUse(); //stop drawing into texture
-				GL.Viewport(0, 0, width, height);
-				textureForRendering.Activate();
+				rtt.Deactivate(); //stop drawing into texture
+				rtt.Texture.Activate();
 				shaderPostProcess.Activate();
 				GL.Uniform2(shaderPostProcess.GetUniformLocation("iResolution"), (float)width, (float)height);
 				GL.Uniform1(shaderPostProcess.GetUniformLocation("iGlobalTime"), time);
 				GL.DrawArrays(PrimitiveType.Quads, 0, 4);
 				shaderPostProcess.Deactivate();
-				textureForRendering.Deactivate();
+				rtt.Texture.Deactivate();
 			}
 		}
 	}
