@@ -4,7 +4,10 @@
 
 
 ### Exercises
-1. **MinimalShaderExample**: compile/run/tweak shader
+1. **MinimalShaderExample**: 
+	1. compile/run shader
+	1. Load shader from file
+	1. Set a fixed color
 1. **ShaderVBOExample**: get points to follow mouse cursor
 1. **InstancingExample**: add instance attribute speed (an individual speed for each sphere) and move spheres in vertex shader
 1. **MeshExample**: test [obj](http://www.scratchapixel.com/old/lessons/3d-advanced-lessons/obj-file-format/obj-file-format/) loading (only triangulated, single mesh models); load textured model; use instancing; 
