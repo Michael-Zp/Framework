@@ -17,11 +17,11 @@
 + [Detailed tutorials](https://de.atlassian.com/git/tutorials/)
 	
 
-### Structure of framework
+### Structure of this repository
 Subfolders for specific lectures are
 + [Computer graphics (folder CG)](CG)
 + [Game development (folder GAMES)](GAMES)
-+ [Advanced computer graphics (folder ACG)](ACG)
 + [Shader programming (folder SHADER)](SHADER)
++ [Advanced computer graphics (folder ACG)](ACG)
 
 ### [Links to relevant reading](links.md)
