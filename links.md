@@ -66,9 +66,11 @@
 + [NVidia forums](https://forums.geforce.com/index.php?act=idx): graphics cards issues (driver specifics, hardware limitations, ...)
 + [NAudio](https://naudio.codeplex.com/documentation): The sound framework I use in the course framework.
 
-##Content
+##Content (can besearched on google via „site:“ prefix)
 + [opengameart.org](http://opengameart.org/)
 + [deviantart](http://www.deviantart.com/)
 + [mediamilitia](http://mediamilitia.com/category/freebies/)
 + [MillionthVector: Free Sprites](http://millionthvector.blogspot.com/p/free-sprites.html)
 + [zapsplat.com: Free sound effects](http://www.zapsplat.com/)
++ [freesound.org](http://freesound.org/)
++ [gamesounds.xyz](https://gamesounds.xyz/)
