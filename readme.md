@@ -1,3 +1,5 @@
+[Game events calendar](https://goo.gl/SySLwF)
+
 ###Setup of framework
 + repository clone [TortoiseGit](https://tortoisegit.org/)
 	1. create empty dir
