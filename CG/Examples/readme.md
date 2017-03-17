@@ -1,3 +1,4 @@
+`All.sln` is opened in visual studio.
 1. [Minimal](MinimalExample)
     1. Open [MyWindow.cs](MinimalExample/MyWindow.cs)
 	1. change to color per vertex - note OpenGL is a state machine
