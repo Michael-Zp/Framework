@@ -1,5 +1,5 @@
 ﻿using DMS.Geometry;
-using OpenTK;
+using DMS.OpenGL;
 using OpenTK.Graphics.OpenGL;
 using OpenTK.Input;
 using System;
@@ -7,43 +7,20 @@ using System.Drawing;
 
 namespace Example
 {
-	class MyApplication
+	class MyWindow : IWindow
 	{
-		private GameWindow gameWindow = new GameWindow();
 		private Box2D obstacle = new Box2D(-0.2f, 1, 0.4f, 0.2f);
 		private Box2D player = new Box2D(0.0f, -0.95f, 0.2f, 0.2f);
 
 		[STAThread]
 		public static void Main()
 		{
-			var app = new MyApplication();
-			//run the update loop, which calls our registered callbacks
-			app.gameWindow.Run(60.0f, 60.0f);
+			var app = new ExampleApplication();
+			app.Run(new MyWindow());
 		}
 
-		private MyApplication()
+		public void Update(float updatePeriod)
 		{
-			//registers a callback for drawing a frame
-			gameWindow.RenderFrame += GameWindow_RenderFrame;
-			gameWindow.RenderFrame += (sender, e) => gameWindow.SwapBuffers();
-			//register a callback for updating the game logic
-			gameWindow.UpdateFrame += GameWindow_UpdateFrame;
-			gameWindow.KeyDown += GameWindow_KeyDown;
-			GL.LineWidth(3.0f);
-		}
-
-		private void GameWindow_KeyDown(object sender, KeyboardKeyEventArgs e)
-		{
-			if (Key.Escape == e.Key)
-			{
-				gameWindow.Exit();
-			}
-		}
-
-		private void GameWindow_UpdateFrame(object sender, FrameEventArgs e)
-		{
-			float updatePeriod = (float)gameWindow.TargetUpdatePeriod;
-
 			//player movement
 			if(Keyboard.GetState()[Key.Left])
 			{
@@ -69,15 +46,15 @@ namespace Example
 			}
 		}
 
-		private void GameWindow_RenderFrame(object sender, FrameEventArgs e)
+		public void Render()
 		{
-			//clear screen - what happens without?
 			GL.Clear(ClearBufferMask.ColorBufferBit);
 
 			GL.Color3(Color.CornflowerBlue);
 			DrawComplex(player);
 			DrawComplex(obstacle);
 
+			GL.LineWidth(3.0f);
 			GL.Color3(Color.YellowGreen);
 			DrawAABB(player);
 			DrawAABB(obstacle);

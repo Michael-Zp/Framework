@@ -1,7 +1,7 @@
-﻿using System;
-using OpenTK;
+﻿using OpenTK;
 using OpenTK.Graphics.OpenGL;
 using OpenTK.Input;
+using OpenTK.Platform;
 
 namespace DMS.OpenGL
 {
@@ -9,6 +9,7 @@ namespace DMS.OpenGL
 	{
 		public ExampleApplication()
 		{
+			gameWindow = new GameWindow();
 			gameWindow.VSync = VSyncMode.On;
 			//register callback for resizing of window
 			gameWindow.Resize += (s, arg) => GL.Viewport(0, 0, gameWindow.Width, gameWindow.Height);
@@ -28,6 +29,8 @@ namespace DMS.OpenGL
 			gameWindow.Run(60, 60);
 		}
 
-		private GameWindow gameWindow = new GameWindow();
+		public IGameWindow GameWindow {  get { return gameWindow; } }
+
+		private GameWindow gameWindow;
 	}
 }
