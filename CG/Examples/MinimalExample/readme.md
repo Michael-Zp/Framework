@@ -1,9 +1,11 @@
-1. We work with [MyWindow.cs](MyWindow.cs)
 1. Execute program
+1. We change code in [MyWindow.cs](MyWindow.cs)
 1. Give each vertex a different color
 1. Execute and compare
 	+ Note that OpenGL is a state machine. Color stays until other color is selected.
 1. Make the whole quad move to the right over time
-1. Put the render code for the quad into a function `void DrawBox(Box2D box)`
-1. Render a number of moving boxes
-1. keyboard player movement
+1. Move the render code for the quad into a function `void DrawBox(Box2D box)`
+1. Render a number of boxes that move into different directions
+1. We add one box that will be our player
+	1. This box moves to the left if `Keyboard.GetState().IsKeyDown(Key.Left)` is true
+	1. This box moves to the right if `Keyboard.GetState().IsKeyDown(Key.Right)` is true
