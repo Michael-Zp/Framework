@@ -1,5 +1,4 @@
 1. Execute program
-1. We change code in [Program.cs](Program.cs)
 1. Give each vertex a different color
 1. Execute and compare
 	+ Note that OpenGL is a state machine. Color stays until other color is selected.

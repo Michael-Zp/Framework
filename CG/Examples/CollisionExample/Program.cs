@@ -12,13 +12,6 @@ namespace Example
 		private Box2D obstacle = new Box2D(-0.2f, 1, 0.4f, 0.2f);
 		private Box2D player = new Box2D(0.0f, -0.95f, 0.2f, 0.2f);
 
-		[STAThread]
-		public static void Main()
-		{
-			var app = new ExampleApplication();
-			app.Run(new MyWindow());
-		}
-
 		public void Update(float updatePeriod)
 		{
 			//player movement
@@ -53,13 +46,13 @@ namespace Example
 			DrawComplex(player);
 			DrawComplex(obstacle);
 
-			GL.LineWidth(3.0f);
+			GL.LineWidth(2.0f);
 			GL.Color3(Color.YellowGreen);
-			DrawAABB(player);
-			DrawAABB(obstacle);
+			DrawBoxOutline(player);
+			DrawBoxOutline(obstacle);
 		}
 
-		private void DrawAABB(Box2D rect)
+		private void DrawBoxOutline(Box2D rect)
 		{
 			GL.Begin(PrimitiveType.LineLoop);
 			GL.Vertex2(rect.X, rect.Y);
@@ -87,6 +80,13 @@ namespace Example
 			GL.Vertex2(rect.X, rect.CenterY);
 			GL.Vertex2(xQuarter, y2Third);
 			GL.End();
+		}
+
+		[STAThread]
+		public static void Main()
+		{
+			var app = new ExampleApplication();
+			app.Run(new MyWindow());
 		}
 	}
 }
