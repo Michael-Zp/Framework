@@ -11,8 +11,13 @@
 1. Compile and run
 	1. Open solution file (all.sln)
 	1. Build solution
-	
+
 ### Understanding versioning with git
 + [What is version control?](https://de.atlassian.com/git/tutorials/what-is-version-control)
 + [Quick introduction](https://rogerdudler.github.io/git-guide/index.de.html)
 + [Detailed tutorials](https://de.atlassian.com/git/tutorials/)
+
+### GLSL syntax highlighting
++ [notepad++ GLSL syntax highlighting and intelisense](https://github.com/danielscherzer/MMPROG/tree/master/notepad%2B%2B%20glsl%20extension)
++ [visual studio (incl. 2015) shader highlighting](http://www.horsedrawngames.com/shader-syntax-highlighting-in-visual-studio-2013/)
+
