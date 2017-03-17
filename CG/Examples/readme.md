@@ -1,8 +1,5 @@
 1. [Minimal](MinimalExample)
 1. [Collision](CollisionExample)
-	1. use Box2D
-    1. collision with window bounds
-    1. collision with enemy
 1. [Texture](TextureExample) introducing textures
     1. change quad coordinates to be irregular
     1. play around with the texture coordinates
