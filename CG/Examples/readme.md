@@ -1,5 +1,6 @@
 1. [Minimal](MinimalExample)
-    1. change to color per vertex - note OpenGL is a state machine
+    1. Open [MyWindow.cs](MinimalExample/MyWindow.cs)
+	1. change to color per vertex - note OpenGL is a state machine
     1. moving enemy
     1. many enemies
     1. keyboard player movement
