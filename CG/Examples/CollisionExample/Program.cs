@@ -30,13 +30,12 @@ namespace Example
 			{
 				player.X += updatePeriod;
 			}
-			//todo: limit player position to visible coordinates
 			//todo: let the player also move up down
+			//todo:Limit player movements to window
 
 			//no intersection -> move obstacle
 			if (!obstacle.Intersects(player))
 			{
-				//todo: make the obstacle move toward the player 
 				obstacle.Y -= 0.5f * updatePeriod;
 			}
 
