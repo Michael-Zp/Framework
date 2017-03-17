@@ -5,7 +5,7 @@
 ### Structure of this repository
 Subfolders for specific lectures are
 + [Computer graphics (folder CG)](CG)
-+ [Game development (folder GAMES)](GAMES)
++ [Game development (folder GAMES)](GAMES/slides)
 + [Shader programming (folder SHADER)](SHADER)
 + [Advanced computer graphics (folder ACG)](ACG)
 
