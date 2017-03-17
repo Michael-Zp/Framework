@@ -6,6 +6,7 @@
 1. Make the whole quad move to the right over time
 1. Move the render code for the quad into a function `void DrawBox(Box2D box)`
 1. Render a number of boxes that move into different directions
+	+ These are our enemies
 1. We add one box that will be our player
 	1. This box moves to the left if `Keyboard.GetState().IsKeyDown(Key.Left)` is true
 	1. This box moves to the right if `Keyboard.GetState().IsKeyDown(Key.Right)` is true
