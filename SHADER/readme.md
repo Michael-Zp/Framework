@@ -1,4 +1,4 @@
-### Exercises
+## Exercises
 1. **MinimalShaderExample**: 
 	1. compile/run shader
 	1. Load shader from file
@@ -30,9 +30,6 @@
 1. **SSBOExample**:
 	1. add individual particle color
 	1. add reflect at window borders
-
-
-### [Links and further reading](https://github.com/danielscherzer/Framework/blob/master/readme.md)
 
 
 ## Best Practices
