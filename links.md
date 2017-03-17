@@ -1,4 +1,4 @@
-##General computer graphics
+## General computer graphics
 + [www.scratchapixel.com](https://www.scratchapixel.com) an introduction to Mathematics for Computergraphics: "Learn Computer Graphics From Scratch!" Foundations of computer graphics with an emphasis on the relationship between mathematical background and practice
 + [realtimerendering.com](http://www.realtimerendering.com/) Link repository to many real-time rendering related cites. Page to the book: MÖLLER T., HAINES E.: Real-Time Rendering, Third Edition, Peters, Wellesley, 2008, ISBN-13: 978-1568814247
 + [Computer Graphics Research Software and libraries](http://www.dgp.toronto.edu/~rms/links.html)
@@ -18,10 +18,10 @@
 	+ Geometric Tools for Computer Graphics by Philip J. Schneider and David H. Eberly, The Morgan Kaufmann Series in Computer Graphics and Geometric Modeling 
 	
 	
-##Physics
+## Physics
 + [The Nature of Code](https://natureofcode.com) an introduction from vectors, particle systems to neural networks: "This class focuses on understanding, simulating, and incorporating motion-based elements of our physical world into the digital worlds that we create."
 
-##Games
+## Games
 + [21 Free Learning Resources for Game Developers](http://www.gamecareerguide.com/features/1455/21_free_learning_resources_for_.php)
 + [A game about games](http://www.kongregate.com/de/games/pixelate/understanding-games-episode-1)
 + [gamedev.net](https://www.gamedev.net) Large online community page with articles covering all areas of games
@@ -35,12 +35,12 @@
 + [gamelab.zhdk.ch](http://gamelab.zhdk.ch/) "Gamelab is part of the University of the Arts Zurich (ZHdK) and associated with the subject Game Design ZHDK. Gamelab encourages experimental game design and research in game development and game studies. We do research in Game Mechanics, Artgames, Interface Design, Game Studies and Virtual Worlds."
 + [Game Design Concepts](https://gamedesignconcepts.wordpress.com/): A very detailed block describing a complete semester course on designing games 
 
-##Demo culture
+## Demo culture
 + [Evoke](https://www.evoke.eu) Demo party usually in Köln
 + [scene.org](http://www.scene.org/) Official page of the demo scene
 + [a list of demoparties](http://www.demoparty.net/)
 
-##Software engineering
+## Software engineering
 + Erich Gamma, Richard Helm, Ralph Johnson and John Vlissides, Design Patterns: Elements of Reusable Object-Oriented Software, 1994, ISBN-13: 978-0201633610, Sprache: Englisch
 + [game programming patterns](http://gameprogrammingpatterns.com/contents.html) Very nice introduction to software engineering with a focus on patterns often used in games.
 + Julian Gold, Object-Oriented Game Development, Verlag: Addison Wesley, 2004, ISBN-13: 978-0321176608, Sprache: Englisch
@@ -48,7 +48,7 @@
 + [Component based programing](http://cowboyprogramming.com/2007/01/05/evolve-your-heirachy/) Shift from deep inheritance hierarchies to aggregations of components.
 + [Data-oriented design](http://www.dataorienteddesign.com/dodmain/dodmain.html) In computing, data-oriented design (not to be confused with data-driven design) is a program optimization approach motivated by cache coherency, used in video game development. The approach is to focus on the data layout, separating and sorting fields according to when they are needed, and to think about transformations of data.
 
-##APIs
+## APIs
 + C#
 	+ [dotnetperls](https://www.dotnetperls.com/) Many small tutorials for C# and .Net
 	+ [Design Patterns implemented in C#](http://www.dofactory.com/net/design-patterns)
@@ -66,7 +66,7 @@
 + [NVidia forums](https://forums.geforce.com/index.php?act=idx): graphics cards issues (driver specifics, hardware limitations, ...)
 + [NAudio](https://naudio.codeplex.com/documentation): The sound framework I use in the course framework.
 
-##Content (can besearched on google via „site:“ prefix)
+## Content (can besearched on google via „site:“ prefix)
 + [opengameart.org](http://opengameart.org/)
 + [deviantart](http://www.deviantart.com/)
 + [mediamilitia](http://mediamilitia.com/category/freebies/)
