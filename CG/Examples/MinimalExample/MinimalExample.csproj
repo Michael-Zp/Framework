@@ -33,6 +33,7 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
+    <Compile Include="MyWindow.cs" />
     <Compile Include="Program.cs" />
   </ItemGroup>
   <ItemGroup>

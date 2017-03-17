@@ -1,43 +1,23 @@
 ﻿using OpenTK;
-using OpenTK.Graphics.OpenGL;
 using System;
-using System.Drawing;
 
 namespace Example
 {
-	class MyApplication
+	static class MyApplication
 	{
-		private GameWindow gameWindow = new GameWindow();
-
 		[STAThread]
 		public static void Main()
 		{
-			var app = new MyApplication();
-			//run the update loop, which calls our registered callbacks
-			app.gameWindow.Run();
-		}
-
-		private MyApplication()
-		{
+			GameWindow gameWindow = new GameWindow();
+			var window = new MyWindow();
+			//register a callback for updating the game logic
+			gameWindow.UpdateFrame += (sender, e) => window.Update((float)gameWindow.TargetUpdatePeriod);
 			//registers a callback for drawing a frame
-			gameWindow.RenderFrame += GameWindow_RenderFrame;
-		}
-
-		private void GameWindow_RenderFrame(object sender, FrameEventArgs e)
-		{
-			//clear screen - what happens without?
-			GL.Clear(ClearBufferMask.ColorBufferBit);
-			//draw a primitive
-			GL.Begin(PrimitiveType.Quads);
-			//set color color is active as long as no other color is set
-			GL.Color3(Color.White);
-			GL.Vertex2(0.0f, 0.0f);
-			GL.Vertex2(0.5f, 0.0f);
-			GL.Vertex2(0.5f, 0.5f);
-			GL.Vertex2(0.0f, 0.5f);
-			GL.End();
+			gameWindow.RenderFrame += (sender, e) => window.Render();
 			//buffer swap of double buffering (http://gameprogrammingpatterns.com/double-buffer.html)
-			gameWindow.SwapBuffers();
+			gameWindow.RenderFrame += (sender, e) => gameWindow.SwapBuffers();
+			//run the update loop, which calls our registered callbacks
+			gameWindow.Run(60, 60);
 		}
 	}
 }
