@@ -1,9 +1,5 @@
 ## Exercises
 1. [MinimalShaderExample](MinimalShaderExample) 
-	1. compile/run shader
-	1. Load shader from file
-	1. Set one fixed color
-	
 1. **ShaderVBOExample**: get points to follow mouse cursor
 1. **InstancingExample**: add instance attribute speed (an individual speed for each sphere) and move spheres in vertex shader
 1. **MeshExample**: test [obj](http://www.scratchapixel.com/old/lessons/3d-advanced-lessons/obj-file-format/obj-file-format/) loading (only triangulated, single mesh models); load textured model; use instancing; 
@@ -31,15 +27,3 @@
 1. **SSBOExample**:
 	1. add individual particle color
 	1. add reflect at window borders
-
-
-## Best Practices
-#### Automatic conversion of the data type of a uniform
-**Example:**
-app code: `GL.Uniform1(shader.GetUniformLocation("time"), timeSource.Elapsed.TotalSeconds);`
-shader code: `uniform float time;`
-
-**Problem:** `timeSource.Elapsed.TotalSeconds` returns a `double`. the shader expects a `float`. 
-does not work on for instance intel HW, `uniform float time` stays on `0`.
-
-**Solution:** explicit conversion: `GL.Uniform1(shader.GetUniformLocation("time"), (float)timeSource.Elapsed.TotalSeconds);`
