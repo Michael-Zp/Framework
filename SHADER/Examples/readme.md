@@ -1,4 +1,4 @@
-## Exercises
+## Examples
 1. [MinimalShaderExample](MinimalShaderExample) 
 1. [ShaderVBOExample](ShaderVBOExample)
 1. [InstancingExample](InstancingExample)
