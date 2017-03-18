@@ -1,4 +1,4 @@
-## Exercises
+## [Examples](Examples)
 1. [MinimalShaderExample](MinimalShaderExample) 
 	1. compile/run shader
 	1. Load shader from file
