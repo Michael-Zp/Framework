@@ -2,8 +2,8 @@
 
 uniform float time;
 
-layout(location = 0) in vec2 in_position;
-layout(location = 1) in vec2 in_speed;
+in vec2 in_position;
+in vec2 in_speed;
 
 void main() 
 {

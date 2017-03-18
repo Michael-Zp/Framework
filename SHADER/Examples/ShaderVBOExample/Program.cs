@@ -27,6 +27,7 @@ namespace Example
 
 		private void InitVBOs()
 		{
+			//todo: use VAO class
 			VAO = GL.GenVertexArray();
 			GL.BindVertexArray(VAO);
 			var rnd = new Random(12);
