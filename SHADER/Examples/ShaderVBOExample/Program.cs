@@ -13,7 +13,7 @@ namespace Example
 		private const int particelCount = 100000;
 		private Shader shader;
 		private Stopwatch timeSource = new Stopwatch();
-		private int VAO;
+		private VAO vao;
 
 		public MyWindow()
 		{
@@ -21,36 +21,35 @@ namespace Example
 			var sFragment = Encoding.UTF8.GetString(Resourcen.fragment);
 			shader = ShaderLoader.FromStrings(sVertex, sFragment);
 
-			InitVBOs();
+			//VAO = CreateParticles();
+			vao = CreateParticles(shader);
 			timeSource.Start();
 		}
 
-		private void InitVBOs()
+		private static VAO CreateParticles(Shader shader)
 		{
-			//todo: use VAO class
-			VAO = GL.GenVertexArray();
-			GL.BindVertexArray(VAO);
+			var vao = new VAO();
+			//generate position arrray on CPU
 			var rnd = new Random(12);
 			Func<float> Rnd01 = () => (float)rnd.NextDouble();
 			Func<float> RndCoord = () => (Rnd01() - 0.5f) * 2.0f;
-			Func<float> RndSpeed = () => (Rnd01() - 0.5f) * 0.1f;
-			var vertices = new List<VertexFormat>();
+			var positions = new Vector2[particelCount];
 			for (int i = 0; i < particelCount; ++i)
 			{
-				vertices.Add(new VertexFormat(
-					new Vector2(RndCoord(), RndCoord()),
-					new Vector2(RndSpeed(), RndSpeed())
-					));
+				positions[i] = new Vector2(RndCoord(), RndCoord());
 			}
-			uint bufferID; //our vbo handler
-			GL.GenBuffers(1, out bufferID);
-			GL.BindBuffer(BufferTarget.ArrayBuffer, bufferID);//bind to context
-			GL.BufferData(BufferTarget.ArrayBuffer, (IntPtr)(VertexFormat.size * vertices.Count), vertices.ToArray(), BufferUsageHint.StaticDraw);
-			VertexFormat.Activate();
-			//everything stored in VAO -> unbind everything
-			GL.BindVertexArray(0);
-			GL.BindBuffer(BufferTarget.ArrayBuffer, 0);
-			VertexFormat.Deactive();
+			//copy positions to GPU
+			vao.SetAttribute(shader.GetAttributeLocation("in_position"), positions, VertexAttribPointerType.Float, 2);
+			//generate velocity arrray on CPU
+			Func<float> RndSpeed = () => (Rnd01() - 0.5f) * 0.1f;
+			var velocities = new Vector2[particelCount];
+			for (int i = 0; i < particelCount; ++i)
+			{
+				velocities[i] = new Vector2(RndSpeed(), RndSpeed());
+			}
+			//copy velocities to GPU
+			vao.SetAttribute(shader.GetAttributeLocation("in_velocity"), velocities, VertexAttribPointerType.Float, 2);
+			return vao;
 		}
 
 		public void Update(float updatePeriod)
@@ -64,9 +63,9 @@ namespace Example
 			shader.Activate();
 			//ATTENTION: always give the time as a float if the uniform in the shader is a float
 			GL.Uniform1(shader.GetUniformLocation("time"), (float)timeSource.Elapsed.TotalSeconds);
-			GL.BindVertexArray(VAO);
+			vao.Activate();
 			GL.DrawArrays(PrimitiveType.Points, 0, particelCount);
-			GL.BindVertexArray(0);
+			vao.Deactive();
 			shader.Deactivate();
 		}
 
