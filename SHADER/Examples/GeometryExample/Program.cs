@@ -1,6 +1,4 @@
 ﻿using DMS.OpenGL;
-using DMS.ShaderDebugging;
-using DMS.System;
 using OpenTK;
 using OpenTK.Graphics.OpenGL;
 using System;
@@ -14,12 +12,13 @@ namespace Example
 		private const int pointCount = 100000;
 		//private ShaderFileDebugger shaderWatcher;
 		private Shader shader;
+		private QueryObject glTimerRender = new QueryObject();
 		private Stopwatch timeSource = new Stopwatch();
 		private VAO vao;
 
 		public MyWindow()
 		{
-			Console.WriteLine(PathTools.GetSourceFilePath());
+			//Console.WriteLine(PathTools.GetSourceFilePath());
 			var sVertex = Encoding.UTF8.GetString(Resourcen.vertex);
 			var sFragment = Encoding.UTF8.GetString(Resourcen.fragment);
 			shader = ShaderLoader.FromStrings(sVertex, sFragment);
@@ -60,15 +59,20 @@ namespace Example
 
 		public void Render()
 		{
+			glTimerRender.Activate(QueryTarget.TimeElapsed);
 			GL.Clear(ClearBufferMask.ColorBufferBit);
 			GL.PointSize(1.0f);
 			shader.Activate();
-			//ATTENTION: always give the time as a float if the uniform in the shader is a float
+			////ATTENTION: always give the time as a float if the uniform in the shader is a float
 			GL.Uniform1(shader.GetUniformLocation("time"), (float)timeSource.Elapsed.TotalSeconds);
 			vao.Activate();
 			GL.DrawArrays(PrimitiveType.Points, 0, pointCount);
 			vao.Deactive();
 			shader.Deactivate();
+			glTimerRender.Deactivate();
+			Console.Write("Rendertime:");
+			Console.Write(glTimerRender.ResultLong / 1e6);
+			Console.WriteLine("msec");
 		}
 
 		[STAThread]
