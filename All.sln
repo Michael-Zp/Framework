@@ -77,6 +77,9 @@ EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "LevelEditor", "CG\Examples\LevelEditor\LevelEditor.csproj", "{942A82B6-C939-4C63-903C-4E55C73DFA63}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "LevelConsumer", "CG\Examples\LevelConsumer\LevelConsumer.csproj", "{90FAED92-075D-48A0-BD9D-601F57637F45}"
+	ProjectSection(ProjectDependencies) = postProject
+		{942A82B6-C939-4C63-903C-4E55C73DFA63} = {942A82B6-C939-4C63-903C-4E55C73DFA63}
+	EndProjectSection
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "RasterizationExample", "CG\Examples\RasterizationExample\RasterizationExample.csproj", "{FF1AA9A2-D928-4F56-B49F-11FD1D632D22}"
 EndProject
