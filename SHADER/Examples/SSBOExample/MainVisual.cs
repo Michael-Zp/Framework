@@ -4,6 +4,8 @@ using DMS.ShaderDebugging;
 using System;
 using System.Numerics;
 using DMS.Geometry;
+using System.IO;
+using DMS.System;
 
 namespace Example
 {
@@ -18,10 +20,9 @@ namespace Example
 	{
 		public MainVisual()
 		{
-			shaderWatcher = new ShaderFileDebugger("../../SSBOExample/Resources/vertex.vert"
-				, "../../SSBOExample/Resources/fragment.frag"
+			var dir = Path.GetDirectoryName(PathTools.GetSourceFilePath()) + "/Resources/";
+			shaderWatcher = new ShaderFileDebugger(dir + "vertex.vert", dir + "fragment.frag"
 				, Resourcen.vertex, Resourcen.fragment);
-
 			InitParticles();
 		}
 

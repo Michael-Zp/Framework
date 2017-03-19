@@ -19,10 +19,10 @@ namespace MiniGalaxyBirds
 			gameWindow.RenderFrame += (sender, e) => { gameWindow.SwapBuffers(); };
 
 			renderer = new Renderer();
-			//private static TextureFont font = new TextureFont("../../media/bitmap_fonts/OpenTKTextureFont.png", 16, 0, 0.8f, 0.8f, 0.8f);
-			//private static TextureFont font = new TextureFont("../../media/bitmap_fonts/Orange with Shadow.png", 10, 32, 1.0f, 1.0f, 0.9f);
-			//private static TextureFont font = new TextureFont("../../media/bitmap_fonts/LED Green.png", 10, 32, 0.9f, 0.7f, 0.8f);
-			//private static TextureFont font = new TextureFont("../../media/bitmap_fonts/Bamboo.png", 10, 32, 0.8f, 0.7f, 1.0f);
+			//private static TextureFont font = new TextureFont("media/bitmap_fonts/OpenTKTextureFont.png", 16, 0, 0.8f, 0.8f, 0.8f);
+			//private static TextureFont font = new TextureFont("media/bitmap_fonts/Orange with Shadow.png", 10, 32, 1.0f, 1.0f, 0.9f);
+			//private static TextureFont font = new TextureFont("media/bitmap_fonts/LED Green.png", 10, 32, 0.9f, 0.7f, 0.8f);
+			//private static TextureFont font = new TextureFont("media/bitmap_fonts/Bamboo.png", 10, 32, 0.8f, 0.7f, 1.0f);
 			renderer.RegisterFont(new TextureFont(TextureLoader.FromBitmap(Resourcen.Video_Phreak), 10, 32));
 			renderer.Register("player", TextureLoader.FromBitmap(Resourcen.blueships1));
 			renderer.Register("enemy", TextureLoader.FromBitmap(Resourcen.redship4));

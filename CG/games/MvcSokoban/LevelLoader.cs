@@ -1,38 +1,21 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.IO;
+using System.Linq;
 
 namespace MvcSokoban
 {
 	public class LevelLoader
 	{
-		public static Level FromFile(string fileName)
+		public static Level FromString(string levelString)
 		{
-			if (!File.Exists(fileName))
-			{
-				throw new FileNotFoundException("Could not find level file '" + fileName + "'");
-			}
-			var sLevel = new List<string>();
-			using (StreamReader sr = new StreamReader(fileName))
-			{
-				while (sr.Peek() >= 0)
-				{
-					sLevel.Add(sr.ReadLine());
-				}
-			}
-			if (0 == sLevel.Count) return null;
-			int width = 0;
-			foreach (string sLine in sLevel)
-			{
-				//find longest line
-				if (sLine.Length > width)
-				{
-					width = sLine.Length;
-				}
-			}
-			//use line count and the longest line as level dimensions
-			Level level = new Level(width, sLevel.Count);
+			if (string.IsNullOrWhiteSpace(levelString)) return null;
+			var lines = levelString.Split(new string[] { Environment.NewLine, "\n" }, StringSplitOptions.RemoveEmptyEntries);
+			int longestLength = lines.Max(s => s.Length);
+			//use the longest line and line count as level dimensions
+			Level level = new Level(longestLength, lines.Length);
 			int y = level.Height - 1;
-			foreach (string sLine in sLevel)
+			foreach (string sLine in lines)
 			{
 				int x = 0;
 				//each character is a grid element
@@ -55,6 +38,20 @@ namespace MvcSokoban
 				--y;
 			}
 			return level;
+		}
+
+		public static Level FromFile(string fileName)
+		{
+			if (!File.Exists(fileName))
+			{
+				throw new FileNotFoundException("Could not find level file '" + fileName + "'");
+			}
+			using (StreamReader sr = new StreamReader(fileName))
+			{
+				var levelString = sr.ReadToEnd();
+				sr.Dispose();
+				return FromString(levelString);
+			}
 		}
 	}
 }

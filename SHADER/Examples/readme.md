@@ -1,6 +1,6 @@
 ## Examples
 1. [MinimalShaderExample](MinimalShaderExample) 
-1. [ShaderVBOExample](ShaderVBOExample)
+1. [GeometryExample](GeometryExample)
 1. [InstancingExample](InstancingExample)
 1. [MeshExample](MeshExample)
 1. [TransformationExample](TransformationExample)

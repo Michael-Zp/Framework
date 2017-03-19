@@ -3,6 +3,8 @@ using OpenTK;
 using OpenTK.Graphics.OpenGL;
 using DMS.ShaderDebugging;
 using System;
+using System.IO;
+using DMS.System;
 
 namespace Example
 {
@@ -16,8 +18,8 @@ namespace Example
 			Emitter = emitterPos;
 			Wind = wind;
 			texStar = TextureLoader.FromBitmap(Resourcen.smoke);
-			shaderWatcher = new ShaderFileDebugger("../../ParticleSystemExample/Resources/smoke.vert"
-				, "../../ParticleSystemExample/Resources/smoke.frag"
+			var dir = Path.GetDirectoryName(PathTools.GetSourceFilePath()) + "/Resources/";
+			shaderWatcher = new ShaderFileDebugger(dir + "smoke.vert", dir + "smoke.frag"
 				, Resourcen.smoke_vert, Resourcen.smoke_frag);
 
 			particleSystem.ReleaseInterval = 0.02f;

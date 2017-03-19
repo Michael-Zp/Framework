@@ -13,42 +13,42 @@ namespace DMS.System
 		/// <summary>
 		/// Serializes the obj into SOAP format file.
 		/// </summary>
-		/// <param name="value_">The object to be serialized.</param>
-		/// <param name="fileName_">The file name_.</param>
-		public static void ObjIntoSoapFile(this object value_, string fileName_)
+		/// <param name="serializableObject">The object to be serialized.</param>
+		/// <param name="fileName">The file name_.</param>
+		public static void ObjIntoSoapFile(this object serializableObject, string fileName)
 		{
-			if (ReferenceEquals(null,  value_)) new ArgumentNullException("Null object given!");
+			if (ReferenceEquals(null,  serializableObject)) new ArgumentNullException("Null object given!");
 			SoapFormatter formatter = new SoapFormatter();
-			using (FileStream fs = new FileStream(fileName_, FileMode.Create))
+			using (FileStream fs = new FileStream(fileName, FileMode.Create))
 			{
-				formatter.Serialize(fs, value_);
+				formatter.Serialize(fs, serializableObject);
 			}
 		}
 
 		/// <summary>
 		/// Serializes the obj into XML file.
 		/// </summary>
-		/// <param name="value_">The object to be serialized.</param>
-		/// <param name="fileName_">The file name_.</param>
-		public static void ObjIntoXMLFile(this object value_, string fileName_)
+		/// <param name="serializableObject">The object to be serialized.</param>
+		/// <param name="fileName">The file name_.</param>
+		public static void ObjIntoXMLFile(this object serializableObject, string fileName)
 		{
-			if (ReferenceEquals(null,  value_)) new ArgumentNullException("Null object given!");
-			XmlSerializer formatter = new XmlSerializer(value_.GetType());
-			using (StreamWriter outfile = new StreamWriter(fileName_))
+			if (ReferenceEquals(null,  serializableObject)) new ArgumentNullException("Null object given!");
+			XmlSerializer formatter = new XmlSerializer(serializableObject.GetType());
+			using (StreamWriter outfile = new StreamWriter(fileName))
 			{
-				formatter.Serialize(outfile, value_);
+				formatter.Serialize(outfile, serializableObject);
 			}
 		}
 
 		/// <summary>
 		/// Serializes the obj into XML string.
 		/// </summary>
-		/// <param name="value_">The object to be serialized.</param>
+		/// <param name="serializableObject">The object to be serialized.</param>
 		/// <param name="fileName_">The file name_.</param>
-		public static string ObjIntoXmlString(this object value_)
+		public static string ObjIntoXmlString(this object serializableObject)
 		{
-			if (ReferenceEquals(null,  value_)) new ArgumentNullException("Null object given!");
-			XmlSerializer formatter = new XmlSerializer(value_.GetType());
+			if (ReferenceEquals(null,  serializableObject)) new ArgumentNullException("Null object given!");
+			XmlSerializer formatter = new XmlSerializer(serializableObject.GetType());
 			StringBuilder builder = new StringBuilder();
 			XmlWriterSettings settings = new XmlWriterSettings();
 			settings.Encoding = Encoding.Default;
@@ -57,7 +57,7 @@ namespace DMS.System
 			settings.NamespaceHandling = NamespaceHandling.OmitDuplicates;
 			using (XmlWriter writer = XmlWriter.Create(builder, settings))
 			{
-				formatter.Serialize(writer, value_);
+				formatter.Serialize(writer, serializableObject);
 			}
 			string output = builder.ToString();
 			return output;
@@ -66,38 +66,48 @@ namespace DMS.System
 		/// <summary>
 		/// Serializes the obj into binary file.
 		/// </summary>
-		/// <param name="value_">The object to be serialized.</param>
-		/// <param name="fileName_">The file name_.</param>
-		public static void ObjIntoBinFile(this object value_, string fileName_)
+		/// <param name="serializableObject">The object to be serialized.</param>
+		/// <param name="fileName">File name of the file to serialize to.</param>
+		public static void ObjIntoBinFile(this object serializableObject, string fileName)
 		{
-			if (ReferenceEquals(null,  value_)) new ArgumentNullException("Null object given!");
-			BinaryFormatter formatter = new BinaryFormatter();
-			using (FileStream outfile = new FileStream(fileName_, FileMode.Create, FileAccess.Write))
+			using (FileStream outfile = new FileStream(fileName, FileMode.Create, FileAccess.Write))
 			{
-				formatter.Serialize(outfile, value_);
+				ObjIntoBinStream(serializableObject, outfile);
 			}
+		}
+
+		/// <summary>
+		/// 
+		/// </summary>
+		/// <param name="serializableObject">The object to be serialized.</param>
+		/// <param name="output">Stream to serialize to</param>
+		public static void ObjIntoBinStream(this object serializableObject, Stream output)
+		{
+			if (ReferenceEquals(null, serializableObject)) new ArgumentNullException("Null object given!");
+			BinaryFormatter formatter = new BinaryFormatter();
+			formatter.Serialize(output, serializableObject);
 		}
 
 		/// <summary>
 		/// Deserializes an new obj instance from XML file.
 		/// </summary>
-		/// <param name="fileName_">The file name.</param>
-		/// <param name="type_">The type of the class that will be deserialized.</param>
+		/// <param name="fileName">The file name.</param>
+		/// <param name="type">The type of the class that will be deserialized.</param>
 		/// <returns>object if successfull</returns>
-		public static object ObjFromXMLFile(string fileName_, Type type_)
+		public static object ObjFromXMLFile(string fileName, Type type)
 		{
-			using (StreamReader inFile = new StreamReader(fileName_))
+			using (StreamReader inFile = new StreamReader(fileName))
 			{
-				XmlSerializer formatter = new XmlSerializer(type_);
+				XmlSerializer formatter = new XmlSerializer(type);
 				return formatter.Deserialize(inFile);
 			}
 		}
 
-		public static object ObjFromXmlString(string xmlString_, Type type_)
+		public static object ObjFromXmlString(string xmlString, Type type)
 		{
-			using (StringReader input = new StringReader(xmlString_))
+			using (StringReader input = new StringReader(xmlString))
 			{
-				XmlSerializer formatter = new XmlSerializer(type_);
+				XmlSerializer formatter = new XmlSerializer(type);
 				return formatter.Deserialize(input);
 			}
 		}
@@ -105,14 +115,13 @@ namespace DMS.System
 		/// <summary>
 		/// Deserializes an new obj instance from a binary file.
 		/// </summary>
-		/// <param name="fileName_">The file name.</param>
+		/// <param name="fileName">The file name.</param>
 		/// <returns>object if successfull</returns>
-		public static object ObjFromBinFile(string fileName_)
+		public static object ObjFromBinFile(string fileName)
 		{
-			using (FileStream inFile = new FileStream(fileName_, FileMode.Open, FileAccess.Read))
+			using (FileStream inFile = new FileStream(fileName, FileMode.Open, FileAccess.Read))
 			{
-				BinaryFormatter formatter = new BinaryFormatter();
-				return formatter.Deserialize(inFile);
+				return ObjFromBinStream(inFile);
 			}
 		}
 

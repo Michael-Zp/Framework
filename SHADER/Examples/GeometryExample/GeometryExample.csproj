@@ -8,7 +8,7 @@
     <OutputType>Exe</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
     <RootNamespace>Example</RootNamespace>
-    <AssemblyName>ShaderVBOExample</AssemblyName>
+    <AssemblyName>GeometryExample</AssemblyName>
     <TargetFrameworkVersion>v4.6</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
     <PublishUrl>publish\</PublishUrl>
@@ -144,6 +144,14 @@
     <ProjectReference Include="..\..\..\_Common\DMS.OpenGL\DMS.OpenGL.csproj">
       <Project>{c660f6af-c100-4169-a9fb-61e1ebe87f34}</Project>
       <Name>DMS.OpenGL</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\..\_Common\DMS.ShaderDebugging\DMS.ShaderDebugging.csproj">
+      <Project>{3C8BCF2C-1019-4A8D-B986-AFD6BB80E917}</Project>
+      <Name>DMS.ShaderDebugging</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\..\_Common\DMS.System\DMS.System.csproj">
+      <Project>{E5FF60A4-46FB-42D2-9430-BC523315C2E0}</Project>
+      <Name>DMS.System</Name>
     </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

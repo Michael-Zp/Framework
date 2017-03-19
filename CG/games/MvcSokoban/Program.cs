@@ -15,8 +15,6 @@ namespace MvcSokoban
 		public MyApplication()
 		{
 			gameWindow = new GameWindow(800, 800);
-			string basePath = "../../media/";
-			levelFileNamePrefix = basePath + "level";
 			visual = new Visual();
 			gameWindow.Load += GameWindow_Load;
 			gameWindow.Resize += GameWindow_Resize;
@@ -28,12 +26,14 @@ namespace MvcSokoban
 			gameWindow.Run(60.0);
 		}
 
-		private string levelFileNamePrefix;
 		private uint levelNr = 1;
 
 		private void LoadLevel()
 		{
-			logic = new GameLogic(LevelLoader.FromFile(levelFileNamePrefix + levelNr.ToString() + ".txt"));
+			var levelString = Resourcen.ResourceManager.GetString("level" + levelNr.ToString());
+			var level = LevelLoader.FromString(levelString);
+			if (ReferenceEquals(null, level)) return;
+			logic = new GameLogic(level);
 		}
 
 		private void GameWindow_KeyDown(object sender, KeyboardKeyEventArgs e)
@@ -52,7 +52,6 @@ namespace MvcSokoban
 
 		private void GameWindow_Load(object sender, EventArgs e)
 		{
-			//gameWindow.WindowBorder = WindowBorder.Hidden;
 			//gameWindow.WindowState = WindowState.Fullscreen;
 			gameWindow.VSync = VSyncMode.On;
 		}

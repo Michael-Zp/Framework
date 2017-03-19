@@ -1,4 +1,5 @@
 ﻿using System.IO;
+using System.Runtime.CompilerServices;
 using System.Runtime.InteropServices;
 using System.Text;
 
@@ -43,6 +44,11 @@ namespace DMS.System
 			{
 				return toPath;
 			}
+		}
+
+		public static string GetSourceFilePath([CallerFilePath] string doNotAssignCallerFilePath = "")
+		{
+			return doNotAssignCallerFilePath;
 		}
 
 		private const int FILE_ATTRIBUTE_DIRECTORY = 0x10;

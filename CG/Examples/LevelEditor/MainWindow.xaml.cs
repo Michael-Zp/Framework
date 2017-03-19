@@ -2,10 +2,10 @@
 using System.Windows.Controls;
 using System;
 using System.Windows.Shapes;
-using DMS.Geometry;
 using DMS.System;
+using DMS.Geometry;
 
-namespace LevelEditor
+namespace LevelData
 {
 	/// <summary>
 	/// Interaktionslogik für MainWindow.xaml
@@ -25,7 +25,8 @@ namespace LevelEditor
 			levelData.Bounds.SizeX = (float)canvas.ActualWidth;
 			levelData.Bounds.SizeY = (float)canvas.ActualHeight;
 			TraverseLogicalTree(canvas);
-			levelData.ObjIntoBinFile(@"..\..\level.data");
+			var dir = System.IO.Path.GetDirectoryName(PathTools.GetSourceFilePath()) + "/../LevelConsumer/Resources/";
+			levelData.ObjIntoBinFile(dir + "level.data");
 			string[] args = Environment.GetCommandLineArgs();
 			if(args.Length > 1)
 			{

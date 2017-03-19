@@ -50,7 +50,7 @@ namespace Example
 				color = vec4(pos + 1.0, 1.0);
 			}";
 			//read shader from file
-			//string fileName = @"..\..\..\GLSL pixel shader\Hello world.glsl";
+			//string fileName = "Hello world.glsl";
 			//try
 			//{
 			//	using (StreamReader sr = new StreamReader(fileName))

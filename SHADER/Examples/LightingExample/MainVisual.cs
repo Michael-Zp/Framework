@@ -4,6 +4,8 @@ using OpenTK;
 using OpenTK.Graphics;
 using OpenTK.Graphics.OpenGL;
 using DMS.ShaderDebugging;
+using DMS.System;
+using System.IO;
 
 namespace Example
 {
@@ -13,8 +15,8 @@ namespace Example
 
 		public MainVisual()
 		{
-			shaderWatcher = new ShaderFileDebugger("../../LightingExample/Resources/vertex.vert"
-				, "../../LightingExample/Resources/fragment.frag"
+			var dir = Path.GetDirectoryName(PathTools.GetSourceFilePath()) + "/Resources/";
+			shaderWatcher = new ShaderFileDebugger(dir + "vertex.vert", dir + "fragment.frag"
 				, Resourcen.vertex, Resourcen.fragment);
 			geometry = CreateMesh(shaderWatcher.Shader);
 

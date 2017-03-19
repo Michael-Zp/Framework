@@ -1,9 +1,10 @@
 ﻿using DMS.System;
-using LevelEditor;
+using LevelData;
 using OpenTK;
 using OpenTK.Graphics.OpenGL;
 using OpenTK.Input;
 using System;
+using System.IO;
 
 namespace Example
 {
@@ -45,12 +46,15 @@ namespace Example
 
 		private void LoadLevel()
 		{
-			level = Serialize.ObjFromBinFile(@"..\..\LevelEditor\level.data") as Level;
-			foreach(var layer in level.layers.Values)
+			using (var stream = new MemoryStream(LevelData.level1))
 			{
-				foreach(var sprite in layer)
+				level = Serialize.ObjFromBinStream(stream) as Level;
+				foreach (var layer in level.layers.Values)
 				{
-					renderer.Register(sprite, sprite.TextureName);
+					foreach (var sprite in layer)
+					{
+						renderer.Register(sprite, sprite.TextureName);
+					}
 				}
 			}
 		}

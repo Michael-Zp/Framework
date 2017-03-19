@@ -1,4 +1,6 @@
 ﻿using DMS.OpenGL;
+using DMS.ShaderDebugging;
+using DMS.System;
 using OpenTK;
 using OpenTK.Graphics.OpenGL;
 using System;
@@ -9,18 +11,19 @@ namespace Example
 {
 	class MyWindow : IWindow
 	{
-		private const int particelCount = 100000;
+		private const int pointCount = 100000;
+		//private ShaderFileDebugger shaderWatcher;
 		private Shader shader;
 		private Stopwatch timeSource = new Stopwatch();
 		private VAO vao;
 
 		public MyWindow()
 		{
+			Console.WriteLine(PathTools.GetSourceFilePath());
 			var sVertex = Encoding.UTF8.GetString(Resourcen.vertex);
 			var sFragment = Encoding.UTF8.GetString(Resourcen.fragment);
 			shader = ShaderLoader.FromStrings(sVertex, sFragment);
 
-			//VAO = CreateParticles();
 			vao = CreateParticles(shader);
 			timeSource.Start();
 		}
@@ -32,8 +35,8 @@ namespace Example
 			var rnd = new Random(12);
 			Func<float> Rnd01 = () => (float)rnd.NextDouble();
 			Func<float> RndCoord = () => (Rnd01() - 0.5f) * 2.0f;
-			var positions = new Vector2[particelCount];
-			for (int i = 0; i < particelCount; ++i)
+			var positions = new Vector2[pointCount];
+			for (int i = 0; i < pointCount; ++i)
 			{
 				positions[i] = new Vector2(RndCoord(), RndCoord());
 			}
@@ -41,8 +44,8 @@ namespace Example
 			vao.SetAttribute(shader.GetAttributeLocation("in_position"), positions, VertexAttribPointerType.Float, 2);
 			//generate velocity arrray on CPU
 			Func<float> RndSpeed = () => (Rnd01() - 0.5f) * 0.1f;
-			var velocities = new Vector2[particelCount];
-			for (int i = 0; i < particelCount; ++i)
+			var velocities = new Vector2[pointCount];
+			for (int i = 0; i < pointCount; ++i)
 			{
 				velocities[i] = new Vector2(RndSpeed(), RndSpeed());
 			}
@@ -63,7 +66,7 @@ namespace Example
 			//ATTENTION: always give the time as a float if the uniform in the shader is a float
 			GL.Uniform1(shader.GetUniformLocation("time"), (float)timeSource.Elapsed.TotalSeconds);
 			vao.Activate();
-			GL.DrawArrays(PrimitiveType.Points, 0, particelCount);
+			GL.DrawArrays(PrimitiveType.Points, 0, pointCount);
 			vao.Deactive();
 			shader.Deactivate();
 		}
@@ -72,7 +75,7 @@ namespace Example
 		public static void Main()
 		{
 			var app = new ExampleApplication();
-			app.GameWindow.WindowState = WindowState.Fullscreen;
+			//app.GameWindow.WindowState = WindowState.Fullscreen;
 			app.Run(new MyWindow());
 		}
 	}

@@ -3,9 +3,8 @@ using System;
 using System.Collections.Generic;
 using System.Drawing;
 using System.Linq;
-using System.Numerics;
 
-namespace LevelEditor
+namespace LevelData
 {
 	[Serializable]
 	public class Element
