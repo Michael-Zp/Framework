@@ -1,29 +1,47 @@
 ﻿using DMS.OpenGL;
+using DMS.ShaderDebugging;
+using DMS.System;
 using OpenTK;
 using OpenTK.Graphics.OpenGL;
 using System;
 using System.Diagnostics;
+using System.IO;
 using System.Text;
 
 namespace Example
 {
 	class MyWindow : IWindow
 	{
-		private const int pointCount = 100000;
-		//private ShaderFileDebugger shaderWatcher;
-		private Shader shader;
+		private const int pointCount = 10000;
+		private ShaderFileDebugger shaderWatcher;
 		private QueryObject glTimerRender = new QueryObject();
 		private Stopwatch timeSource = new Stopwatch();
-		private VAO vao;
+		private VAO geometry;
 
 		public MyWindow()
 		{
-			//Console.WriteLine(PathTools.GetSourceFilePath());
+			var dir = Path.GetDirectoryName(PathTools.GetSourceFilePath()) + @"\Resources\";
+			shaderWatcher = new ShaderFileDebugger(dir + "vertex.glsl", dir + "fragment.glsl"
+				, Resourcen.vertex, Resourcen.fragment);
+
 			var sVertex = Encoding.UTF8.GetString(Resourcen.vertex);
 			var sFragment = Encoding.UTF8.GetString(Resourcen.fragment);
-			shader = ShaderLoader.FromStrings(sVertex, sFragment);
-
-			vao = CreateParticles(shader);
+			//try
+			//{
+			//	shader = ShaderLoader.FromStrings(sVertex, sFragment);
+			//}
+			//catch(ShaderException e)
+			//{
+			//	Console.Write(e.Type);
+			//	Console.Write(": ");
+			//	Console.WriteLine(e.Message);
+			//	Console.WriteLine(e.Log);
+			//}
+			geometry = CreateParticles(shaderWatcher.Shader);
+			GL.Enable(EnableCap.ProgramPointSize);
+			GL.Enable(EnableCap.PointSprite);
+			GL.Enable(EnableCap.Blend);
+			GL.BlendFunc(BlendingFactorSrc.SrcAlpha, BlendingFactorDest.One);
 			timeSource.Start();
 		}
 
@@ -59,15 +77,20 @@ namespace Example
 
 		public void Render()
 		{
+			if (shaderWatcher.CheckForShaderChange())
+			{
+				//update geometry when shader changes
+				geometry = CreateParticles(shaderWatcher.Shader);
+			}
+			var shader = shaderWatcher.Shader;
 			glTimerRender.Activate(QueryTarget.TimeElapsed);
 			GL.Clear(ClearBufferMask.ColorBufferBit);
-			GL.PointSize(1.0f);
 			shader.Activate();
 			////ATTENTION: always give the time as a float if the uniform in the shader is a float
 			GL.Uniform1(shader.GetUniformLocation("time"), (float)timeSource.Elapsed.TotalSeconds);
-			vao.Activate();
+			geometry.Activate();
 			GL.DrawArrays(PrimitiveType.Points, 0, pointCount);
-			vao.Deactive();
+			geometry.Deactive();
 			shader.Deactivate();
 			glTimerRender.Deactivate();
 			Console.Write("Rendertime:");
@@ -79,7 +102,7 @@ namespace Example
 		public static void Main()
 		{
 			var app = new ExampleApplication();
-			//app.GameWindow.WindowState = WindowState.Fullscreen;
+			app.GameWindow.WindowState = WindowState.Fullscreen;
 			app.Run(new MyWindow());
 		}
 	}
