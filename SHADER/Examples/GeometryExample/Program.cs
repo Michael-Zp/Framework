@@ -6,7 +6,6 @@ using OpenTK.Graphics.OpenGL;
 using System;
 using System.Diagnostics;
 using System.IO;
-using System.Text;
 
 namespace Example
 {
@@ -24,19 +23,6 @@ namespace Example
 			shaderWatcher = new ShaderFileDebugger(dir + "vertex.glsl", dir + "fragment.glsl"
 				, Resourcen.vertex, Resourcen.fragment);
 
-			var sVertex = Encoding.UTF8.GetString(Resourcen.vertex);
-			var sFragment = Encoding.UTF8.GetString(Resourcen.fragment);
-			//try
-			//{
-			//	shader = ShaderLoader.FromStrings(sVertex, sFragment);
-			//}
-			//catch(ShaderException e)
-			//{
-			//	Console.Write(e.Type);
-			//	Console.Write(": ");
-			//	Console.WriteLine(e.Message);
-			//	Console.WriteLine(e.Log);
-			//}
 			geometry = CreateParticles(shaderWatcher.Shader);
 			GL.Enable(EnableCap.ProgramPointSize);
 			GL.Enable(EnableCap.PointSprite);
