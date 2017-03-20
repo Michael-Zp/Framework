@@ -1,5 +1,6 @@
 ## Examples
 1. [MinimalShaderExample](MinimalShaderExample) 
+1. [ShaderDebugExample](ShaderDebugExample)
 1. [GeometryExample](GeometryExample)
 1. [InstancingExample](InstancingExample)
 1. [MeshExample](MeshExample)

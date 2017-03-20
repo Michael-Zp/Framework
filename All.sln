@@ -144,6 +144,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "GeometryExample", "SHADER\E
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "LevelData", "CG\Examples\LevelData\LevelData.csproj", "{94C18A12-1467-45DC-9F68-8F8C1C9FFCE5}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ShaderDebugExample", "SHADER\Examples\ShaderDebugExample\ShaderDebugExample.csproj", "{E57F526F-FBB2-4C28-8B78-AB1BAC86E26E}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -362,6 +364,10 @@ Global
 		{94C18A12-1467-45DC-9F68-8F8C1C9FFCE5}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{94C18A12-1467-45DC-9F68-8F8C1C9FFCE5}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{94C18A12-1467-45DC-9F68-8F8C1C9FFCE5}.Release|Any CPU.Build.0 = Release|Any CPU
+		{E57F526F-FBB2-4C28-8B78-AB1BAC86E26E}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{E57F526F-FBB2-4C28-8B78-AB1BAC86E26E}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{E57F526F-FBB2-4C28-8B78-AB1BAC86E26E}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{E57F526F-FBB2-4C28-8B78-AB1BAC86E26E}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -423,5 +429,6 @@ Global
 		{BB3EDC45-39BC-44EE-9DEF-B56B54D9572F} = {7784E3B6-CA36-4515-BC9D-7BEC5556D51E}
 		{C9043719-1776-48D3-9515-5370F1508C48} = {E6454C74-3D02-49DC-BF69-CCBD7CE40E25}
 		{94C18A12-1467-45DC-9F68-8F8C1C9FFCE5} = {7784E3B6-CA36-4515-BC9D-7BEC5556D51E}
+		{E57F526F-FBB2-4C28-8B78-AB1BAC86E26E} = {E6454C74-3D02-49DC-BF69-CCBD7CE40E25}
 	EndGlobalSection
 EndGlobal
