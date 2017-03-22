@@ -11,9 +11,8 @@ namespace Example
 {
 	class MyWindow : IWindow
 	{
-		private const int pointCount = 10000;
+		private const int pointCount = 500;
 		private ShaderFileDebugger shaderWatcher;
-		private QueryObject glTimerRender = new QueryObject();
 		private Stopwatch timeSource = new Stopwatch();
 		private VAO geometry;
 
@@ -69,7 +68,6 @@ namespace Example
 				geometry = CreateParticles(shaderWatcher.Shader);
 			}
 			var shader = shaderWatcher.Shader;
-			glTimerRender.Activate(QueryTarget.TimeElapsed);
 			GL.Clear(ClearBufferMask.ColorBufferBit);
 			shader.Activate();
 			////ATTENTION: always give the time as a float if the uniform in the shader is a float
@@ -78,10 +76,6 @@ namespace Example
 			GL.DrawArrays(PrimitiveType.Points, 0, pointCount);
 			geometry.Deactive();
 			shader.Deactivate();
-			glTimerRender.Deactivate();
-			Console.Write("Rendertime:");
-			Console.Write(glTimerRender.ResultLong / 1e6);
-			Console.WriteLine("msec");
 		}
 
 		[STAThread]

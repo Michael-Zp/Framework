@@ -7,6 +7,7 @@ in vec2 in_velocity;
 
 void main() 
 {
-	gl_PointSize = 50.0;
-	gl_Position = vec4(in_position + time * in_velocity, 0.0, 1.0);
+	gl_PointSize = 100.0;
+	vec2 newPos = in_position + time * in_velocity;
+	gl_Position = vec4(newPos, 0.0, 1.0);
 }
