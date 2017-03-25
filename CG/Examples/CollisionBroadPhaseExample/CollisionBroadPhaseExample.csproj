@@ -37,6 +37,7 @@
     <Compile Include="CollisionGrid.cs" />
     <Compile Include="IBox2DCollider.cs" />
     <Compile Include="Program.cs" />
+    <Compile Include="RandomVectors.cs" />
   </ItemGroup>
   <ItemGroup>
     <Reference Include="OpenTK, Version=2.0.0.0, Culture=neutral, PublicKeyToken=bad199fe84eb3df4, processorArchitecture=MSIL">
