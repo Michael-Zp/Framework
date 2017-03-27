@@ -34,8 +34,8 @@ namespace Example
 			if (shaderWatcher.CheckForShaderChange())
 			{
 				//update geometry when shader changes
-				geometry = CreateMesh(shaderWatcher.Shader);
-				CreatePerInstanceAttributes(geometry, shaderWatcher.Shader);
+				geometry = CreateMesh(shader);
+				CreatePerInstanceAttributes(geometry, shader);
 			}
 			GL.Clear(ClearBufferMask.ColorBufferBit | ClearBufferMask.DepthBufferBit);
 			shader.Activate();

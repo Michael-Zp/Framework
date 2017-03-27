@@ -135,6 +135,7 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />
+    <None Include="readme.md" />
     <None Include="Resources\fragment.glsl" />
     <None Include="Resources\suzanne.obj" />
     <None Include="Resources\vertex.glsl" />
