@@ -2,10 +2,11 @@
 using DMS.Geometry;
 using OpenTK.Graphics.OpenGL;
 using System.Text;
+using System;
 
 namespace Example
 {
-	public class MainVisual
+	public class MainVisual : IWindow
 	{
 		public MainVisual()
 		{
@@ -34,6 +35,10 @@ namespace Example
 			geometry.Draw();
 			//texDiffuse.Deactivate();
 			shader.Deactivate();
+		}
+
+		public void Update(float updatePeriod)
+		{
 		}
 
 		private Shader shader;

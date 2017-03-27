@@ -49,8 +49,7 @@ namespace Example
 
 		private static VAO CreateMesh(Shader shader)
 		{
-			//Mesh mesh = Meshes.CreateSphere(0.03f, 2);
-			Mesh mesh = Meshes.CreateCube(0.03f);
+			Mesh mesh = Meshes.CreateSphere(0.03f, 2);
 			var vao = new VAO();
 			vao.SetAttribute(shader.GetAttributeLocation("position"), mesh.positions.ToArray(), VertexAttribPointerType.Float, 3);
 			vao.SetAttribute(shader.GetAttributeLocation("normal"), mesh.normals.ToArray(), VertexAttribPointerType.Float, 3);
