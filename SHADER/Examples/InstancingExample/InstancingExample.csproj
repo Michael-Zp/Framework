@@ -95,7 +95,6 @@
     <StartupObject />
   </PropertyGroup>
   <ItemGroup>
-    <Compile Include="MainVisual.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Resourcen.Designer.cs">
       <DependentUpon>Resourcen.resx</DependentUpon>
@@ -148,6 +147,14 @@
     <ProjectReference Include="..\..\..\_Common\DMS.Geometry\DMS.Geometry.csproj">
       <Project>{B37B7DDE-435B-4F27-9A9B-9B6DF8744EBE}</Project>
       <Name>DMS.Geometry</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\..\_Common\DMS.ShaderDebugging\DMS.ShaderDebugging.csproj">
+      <Project>{3C8BCF2C-1019-4A8D-B986-AFD6BB80E917}</Project>
+      <Name>DMS.ShaderDebugging</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\..\_Common\DMS.System\DMS.System.csproj">
+      <Project>{E5FF60A4-46FB-42D2-9430-BC523315C2E0}</Project>
+      <Name>DMS.System</Name>
     </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

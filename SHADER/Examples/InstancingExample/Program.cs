@@ -1,47 +1,85 @@
-﻿using OpenTK;
-using OpenTK.Graphics;
+﻿using DMS.OpenGL;
+using DMS.Geometry;
+using OpenTK;
 using OpenTK.Graphics.OpenGL;
-using OpenTK.Input;
 using System;
+using DMS.ShaderDebugging;
+using System.IO;
+using DMS.System;
 
 namespace Example
 {
-	class MyApplication
+	public class MyWindow : IWindow
 	{
-		private GameWindow gameWindow;
-		private MainVisual visual;
+		public MyWindow()
+		{
+			var dir = Path.GetDirectoryName(PathTools.GetSourceFilePath()) + @"\Resources\";
+			shaderWatcher = new ShaderFileDebugger(dir + "vertex.glsl", dir + "fragment.glsl"
+				, Resourcen.vertex, Resourcen.fragment);
+
+			geometry = CreateMesh(shaderWatcher.Shader);
+
+			CreatePerInstanceAttributes(geometry, shaderWatcher.Shader);
+
+			GL.Enable(EnableCap.DepthTest);
+		}
+
+		public void Update(float updatePeriod)
+		{
+		}
+
+		public void Render()
+		{
+			var shader = shaderWatcher.Shader;
+			if (shaderWatcher.CheckForShaderChange())
+			{
+				//update geometry when shader changes
+				geometry = CreateMesh(shaderWatcher.Shader);
+				CreatePerInstanceAttributes(geometry, shaderWatcher.Shader);
+			}
+			GL.Clear(ClearBufferMask.ColorBufferBit | ClearBufferMask.DepthBufferBit);
+			shader.Activate();
+			geometry.Draw(particelCount);
+			shader.Deactivate();
+		}
+
+		private const int particelCount = 10000;
+		private ShaderFileDebugger shaderWatcher;
+		private VAO geometry;
+
+		private static VAO CreateMesh(Shader shader)
+		{
+			//Mesh mesh = Meshes.CreateSphere(0.03f, 2);
+			Mesh mesh = Meshes.CreateCube(0.03f);
+			var vao = new VAO();
+			vao.SetAttribute(shader.GetAttributeLocation("position"), mesh.positions.ToArray(), VertexAttribPointerType.Float, 3);
+			vao.SetAttribute(shader.GetAttributeLocation("normal"), mesh.normals.ToArray(), VertexAttribPointerType.Float, 3);
+			vao.SetID(mesh.ids.ToArray(), PrimitiveType.Triangles);
+			return vao;
+		}
+
+		private static void CreatePerInstanceAttributes(VAO vao, Shader shader)
+		{
+			//per instance attributes
+			var rnd = new Random(12);
+			Func<float> Rnd01 = () => (float)rnd.NextDouble();
+			Func<float> RndCoord = () => (Rnd01() - 0.5f) * 2.0f;
+			var instancePositions = new Vector3[particelCount];
+			for (int i = 0; i < particelCount; ++i)
+			{
+				instancePositions[i] = new Vector3(RndCoord(), RndCoord(), RndCoord());
+			}
+			vao.SetAttribute(shader.GetAttributeLocation("instancePosition"), instancePositions, VertexAttribPointerType.Float, 3, true);
+
+			//todo: students: add per instance attribute speed here
+			//var locInstSpeed = shader.GetAttributeLocation("instanceSpeed");
+		}
 
 		[STAThread]
 		public static void Main()
 		{
-			var app = new MyApplication();
-			app.Run();
-		}
-
-		private void Run()
-		{
-			gameWindow.Run(60.0);
-		}
-
-		private MyApplication()
-		{
-			var mode = new GraphicsMode(new ColorFormat(32), 24, 8, 0);
-			gameWindow = new GameWindow(800, 800, mode, "Example", GameWindowFlags.Default, DisplayDevice.Default, 4, 3, GraphicsContextFlags.ForwardCompatible);
-
-			//gameWindow.WindowState = WindowState.Fullscreen;
-			gameWindow.KeyDown += GameWindow_KeyDown;
-			gameWindow.Resize += (s, arg) => GL.Viewport(0, 0, gameWindow.Width, gameWindow.Height);
-			gameWindow.RenderFrame += (s, arg) => visual.Render();			
-			gameWindow.RenderFrame += (s, arg) => gameWindow.SwapBuffers();
-			visual = new MainVisual();
-		}
-
-		private void GameWindow_KeyDown(object sender, KeyboardKeyEventArgs e)
-		{
-			switch (e.Key)
-			{
-				case Key.Escape: gameWindow.Close(); break;
-			}
+			var app = new ExampleApplication();
+			app.Run(new MyWindow());
 		}
 	}
 }

@@ -62,12 +62,12 @@ namespace Example
 
 		public void Render()
 		{
+			var shader = shaderWatcher.Shader;
 			if (shaderWatcher.CheckForShaderChange())
 			{
 				//update geometry when shader changes
-				geometry = CreateParticles(shaderWatcher.Shader);
+				geometry = CreateParticles(shader);
 			}
-			var shader = shaderWatcher.Shader;
 			GL.Clear(ClearBufferMask.ColorBufferBit);
 			shader.Activate();
 			////ATTENTION: always give the time as a float if the uniform in the shader is a float
