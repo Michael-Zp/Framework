@@ -1,4 +1,5 @@
-﻿using OpenTK;
+﻿using DMS.System;
+using OpenTK;
 using OpenTK.Graphics.OpenGL;
 using OpenTK.Input;
 using OpenTK.Platform;
@@ -12,25 +13,66 @@ namespace DMS.OpenGL
 			gameWindow = new GameWindow();
 			gameWindow.VSync = VSyncMode.On;
 			//register callback for resizing of window
-			gameWindow.Resize += (s, arg) => GL.Viewport(0, 0, gameWindow.Width, gameWindow.Height);
+			gameWindow.Resize += GameWindow_Resize;
 			//register callback for keyboard
+			gameWindow.KeyDown += GameWindow_KeyDown;
 			gameWindow.KeyDown += (sender, e) => { if (Key.Escape == e.Key) gameWindow.Exit(); };
 		}
 
+		private void GameWindow_Resize(object sender, global::System.EventArgs e)
+		{
+			GL.Viewport(0, 0, gameWindow.Width, gameWindow.Height);
+			if (!ReferenceEquals(null, frameListCreator))
+			{
+				frameListCreator.Dispose();
+				frameListCreator = new FrameListCreator(gameWindow.Width, gameWindow.Height);
+			}
+		}
+
+		private void GameWindow_KeyDown(object sender, KeyboardKeyEventArgs e)
+		{
+			if (Key.Escape == e.Key)
+			{
+				if (!ReferenceEquals(null, frameListCreator)) frameListCreator.Frames.SaveToDefaultDir();
+				gameWindow.Exit();
+			}
+		}
+
+		public IGameWindow GameWindow { get { return gameWindow; } }
+
+		public bool IsRecording
+		{
+			get { return !ReferenceEquals(null, frameListCreator); }
+			set
+			{
+				if (!ReferenceEquals(null, frameListCreator)) return;
+				frameListCreator = value ? new FrameListCreator(gameWindow.Width, gameWindow.Height) : null;
+			}
+		}
 		public void Run(IWindow window)
 		{
 			//register a callback for updating the game logic
 			gameWindow.UpdateFrame += (sender, e) => window.Update((float)gameWindow.TargetUpdatePeriod);
 			//registers a callback for drawing a frame
-			gameWindow.RenderFrame += (sender, e) => window.Render();
-			//buffer swap of double buffering (http://gameprogrammingpatterns.com/double-buffer.html)
-			gameWindow.RenderFrame += (sender, e) => gameWindow.SwapBuffers();
+			gameWindow.RenderFrame += (sender, e) => render(window);
 			//run the update loop, which calls our registered callbacks
 			gameWindow.Run(60, 60);
 		}
 
-		public IGameWindow GameWindow {  get { return gameWindow; } }
-
 		private GameWindow gameWindow;
+		private FrameListCreator frameListCreator;
+
+		private void render(IWindow window)
+		{
+			//record frame
+			frameListCreator?.Activate();
+
+			window.Render();
+			//buffer swap of double buffering (http://gameprogrammingpatterns.com/double-buffer.html)
+			gameWindow.SwapBuffers();
+
+			//stop recording frame
+			frameListCreator?.Deactivate();
+		}
 	}
 }

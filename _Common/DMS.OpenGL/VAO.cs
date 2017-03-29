@@ -3,6 +3,7 @@ using OpenTK.Graphics.OpenGL;
 using System.Collections.Generic;
 using System.Runtime.InteropServices;
 using OpenTK;
+using DMS.System;
 
 namespace DMS.OpenGL
 {
@@ -16,22 +17,11 @@ namespace DMS.OpenGL
 		public VAOException(string msg) : base(msg) { }
 	}
 
-	public class VAO : IDisposable
+	public class VAO : Disposable
 	{
 		public VAO()
 		{
 			idVAO = GL.GenVertexArray();
-		}
-
-		public void Dispose()
-		{
-			foreach (var buffer in boundBuffers.Values)
-			{
-				buffer.Dispose();
-			}
-			boundBuffers.Clear();
-			GL.DeleteVertexArray(idVAO);
-			idVAO = 0;
 		}
 
 		public void SetID<Index>(Index[] data, PrimitiveType primitiveType) where Index : struct
@@ -168,6 +158,17 @@ namespace DMS.OpenGL
 				boundBuffers[bindingID] = buffer;
 			}
 			return buffer;
+		}
+
+		protected override void DisposeResources()
+		{
+			foreach (var buffer in boundBuffers.Values)
+			{
+				buffer.Dispose();
+			}
+			boundBuffers.Clear();
+			GL.DeleteVertexArray(idVAO);
+			idVAO = 0;
 		}
 	}
 }

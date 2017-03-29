@@ -1,11 +1,12 @@
-﻿using NAudio.Wave;
+﻿using DMS.System;
+using NAudio.Wave;
 using NAudio.Wave.SampleProviders;
 using System;
 using System.IO;
 
 namespace DMS.Sound
 {
-	public class AudioPlaybackEngine : IDisposable
+	public class AudioPlaybackEngine : Disposable
 	{
 		private readonly IWavePlayer outputDevice;
 		private readonly MixingSampleProvider mixer;
@@ -100,7 +101,7 @@ namespace DMS.Sound
 			mixer.AddMixerInput(ConvertToRightChannelCount(input));
 		}
 
-		public void Dispose()
+		protected override void DisposeResources()
 		{
 			outputDevice.Dispose();
 		}

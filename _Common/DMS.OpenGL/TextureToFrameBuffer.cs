@@ -1,8 +1,10 @@
-﻿using OpenTK.Graphics.OpenGL;
+﻿using System;
+using OpenTK.Graphics.OpenGL;
+using DMS.System;
 
 namespace DMS.OpenGL
 {
-	public class TextureToFrameBuffer
+	public class TextureToFrameBuffer : Disposable
 	{
 		public delegate void SetUniforms(Shader currentShader);
 
@@ -44,5 +46,10 @@ namespace DMS.OpenGL
 			}";
 
 		private Shader shader;
+
+		protected override void DisposeResources()
+		{
+			shader.Dispose();
+		}
 	}
 }

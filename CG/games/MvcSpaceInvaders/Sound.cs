@@ -1,10 +1,11 @@
 ﻿using DMS.Sound;
+using DMS.System;
 using System;
 using System.IO;
 
 namespace MvcSpaceInvaders
 {
-	public class Sound : IDisposable
+	public class Sound : Disposable
 	{
 		public Sound()
 		{
@@ -22,11 +23,6 @@ namespace MvcSpaceInvaders
 			//soundEngine.PlaySound(memStream);
 		}
 
-		public void Dispose()
-		{
-			soundEngine.Dispose();
-		}
-
 		public void Lost()
 		{
 		}
@@ -34,6 +30,11 @@ namespace MvcSpaceInvaders
 		public void Shoot()
 		{
 			soundEngine.PlaySound(Resourcen.laser);
+		}
+
+		protected override void DisposeResources()
+		{
+			soundEngine.Dispose();
 		}
 
 		private AudioPlaybackEngine soundEngine;

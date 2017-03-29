@@ -2,7 +2,7 @@
 {
 	public interface IWindow
 	{
-		void Update(float updatePeriod);
 		void Render();
+		void Update(float updatePeriod);
 	}
 }

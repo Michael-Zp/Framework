@@ -59,6 +59,10 @@
       <Project>{B37B7DDE-435B-4F27-9A9B-9B6DF8744EBE}</Project>
       <Name>DMS.Geometry</Name>
     </ProjectReference>
+    <ProjectReference Include="..\..\..\_Common\DMS.System\DMS.System.csproj">
+      <Project>{E5FF60A4-46FB-42D2-9430-BC523315C2E0}</Project>
+      <Name>DMS.System</Name>
+    </ProjectReference>
   </ItemGroup>
   <ItemGroup>
     <EmbeddedResource Include="Resources.resx">

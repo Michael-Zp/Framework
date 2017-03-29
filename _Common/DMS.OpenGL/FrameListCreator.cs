@@ -1,4 +1,6 @@
-﻿using System.Collections.Generic;
+﻿using DMS.System;
+using System;
+using System.Collections.Generic;
 using System.Drawing;
 using System.Drawing.Imaging;
 
@@ -7,7 +9,7 @@ namespace DMS.OpenGL
 	/// <summary>
 	/// Writes rendered data into bitmaps. Usefull for creation of videos
 	/// </summary>
-	public class FrameListCreator
+	public class FrameListCreator : Disposable
 	{
 		public FrameListCreator(int width, int height, PixelFormat format = PixelFormat.Format24bppRgb, bool drawToFrameBuffer = true)
 		{
@@ -29,6 +31,12 @@ namespace DMS.OpenGL
 			var bmp = TextureLoader.SaveToBitmap(render2tex.Texture, format);
 			frames.Add(bmp);
 			tex2fb?.Draw(render2tex.Texture);
+		}
+
+		protected override void DisposeResources()
+		{
+			render2tex.Dispose();
+			tex2fb.Dispose();
 		}
 
 		public IEnumerable<Bitmap> Frames { get { return frames; } }

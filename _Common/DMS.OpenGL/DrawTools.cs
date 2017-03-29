@@ -15,11 +15,11 @@ namespace DMS.OpenGL
 			GL.TexCoord2(texCoords.X, texCoords.MaxY); GL.Vertex2(rect.X, rect.MaxY);
 			GL.End();
 		}
-		public static Vector3 ToOpenTK(this System.Numerics.Vector3 v)
+		public static Vector3 ToOpenTK(this global::System.Numerics.Vector3 v)
 		{
 			return new Vector3(v.X, v.Y, v.Z);
 		}
-		public static Matrix4 ToOpenTK(this System.Numerics.Matrix4x4 m)
+		public static Matrix4 ToOpenTK(this global::System.Numerics.Matrix4x4 m)
 		{
 			return new Matrix4(m.M11, m.M12, m.M13, m.M14,
 				m.M21, m.M22, m.M23, m.M24,

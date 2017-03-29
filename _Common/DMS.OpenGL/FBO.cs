@@ -1,4 +1,5 @@
-﻿using OpenTK.Graphics.OpenGL;
+﻿using DMS.System;
+using OpenTK.Graphics.OpenGL;
 using System;
 
 namespace DMS.OpenGL
@@ -13,7 +14,7 @@ namespace DMS.OpenGL
 		public FBOException(string msg) : base(msg) { }
 	}
 
-	public class FBO : IDisposable
+	public class FBO : Disposable
 	{
 		public FBO()
 		{
@@ -23,7 +24,8 @@ namespace DMS.OpenGL
 
 		public void Activate(Texture texture)
 		{
-			GL.BindFramebuffer(FramebufferTarget.Framebuffer, this.m_FBOHandle);
+			lastFBO = currentFrameBufferHandle;
+			GL.BindFramebuffer(FramebufferTarget.Framebuffer, m_FBOHandle);
 			GL.FramebufferTexture2D(FramebufferTarget.Framebuffer, FramebufferAttachment.ColorAttachment0, TextureTarget.Texture2D, texture.ID, 0);
 			string status = GetStatusMessage();
 			if (!string.IsNullOrEmpty(status))
@@ -32,19 +34,18 @@ namespace DMS.OpenGL
 				throw new FBOException(status);
 			}
 			GL.Viewport(0, 0, texture.Width, texture.Height);
+			currentFrameBufferHandle = m_FBOHandle;
 		}
 
 		public void Deactivate()
 		{
-			GL.BindFramebuffer(FramebufferTarget.FramebufferExt, 0);
-		}
-
-		public void Dispose()
-		{
-			GL.DeleteFramebuffers(1, ref this.m_FBOHandle);
+			GL.BindFramebuffer(FramebufferTarget.FramebufferExt, lastFBO);
+			currentFrameBufferHandle = lastFBO;
 		}
 
 		private uint m_FBOHandle = 0;
+		private uint lastFBO = 0;
+		private static uint currentFrameBufferHandle = 0;
 
 		private string GetStatusMessage()
 		{
@@ -60,6 +61,11 @@ namespace DMS.OpenGL
 				case FramebufferErrorCode.FramebufferUnsupported: return "This particular FBO configuration is not supported by the implementation.";
 				default: return "Status unknown. (yes, this is really bad.)";
 			}
+		}
+
+		protected override void DisposeResources()
+		{
+			GL.DeleteFramebuffers(1, ref m_FBOHandle);
 		}
 	}
 }

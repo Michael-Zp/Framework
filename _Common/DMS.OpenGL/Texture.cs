@@ -1,4 +1,5 @@
-﻿using OpenTK.Graphics.OpenGL;
+﻿using DMS.System;
+using OpenTK.Graphics.OpenGL;
 using System;
 
 namespace DMS.OpenGL
@@ -6,7 +7,7 @@ namespace DMS.OpenGL
 	/// <summary>
 	/// Gl Texture class that allows loading from a file.
 	/// </summary>
-	public class Texture : IDisposable
+	public class Texture : Disposable
 	{
 		public enum FilterMode { NEAREST, BILINEAR, TRILINEAR };
 
@@ -27,11 +28,6 @@ namespace DMS.OpenGL
 			GL.TexParameter(TextureTarget.Texture2D, TextureParameterName.TextureWrapS, (int)mode);
 			GL.TexParameter(TextureTarget.Texture2D, TextureParameterName.TextureWrapT, (int)mode);
 			Deactivate();
-		}
-
-		public void Dispose()
-		{
-			GL.DeleteTexture(m_uTextureID);
 		}
 
 		public void FilterBilinear()
@@ -109,6 +105,11 @@ namespace DMS.OpenGL
 			texture.FilterBilinear();
 			texture.WrapMode(TextureWrapMode.Repeat);
 			return texture;
+		}
+
+		protected override void DisposeResources()
+		{
+			GL.DeleteTexture(m_uTextureID);
 		}
 
 		public int Width { get; private set; }

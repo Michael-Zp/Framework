@@ -1,12 +1,13 @@
 ﻿using System;
 using OpenTK.Graphics.OpenGL;
+using DMS.System;
 
 namespace DMS.OpenGL
 {
 	/// <summary>
 	/// Shader class
 	/// </summary>
-	public class Shader : IDisposable
+	public class Shader : Disposable
 	{
 		/// <summary>
 		/// Initializes a new instance of the <see cref="Shader"/> class.
@@ -14,17 +15,6 @@ namespace DMS.OpenGL
 		public Shader()
 		{
 			m_ProgramID = GL.CreateProgram();
-		}
-
-		/// <summary>
-		/// Performs application-defined tasks associated with freeing, releasing, or resetting unmanaged resources.
-		/// </summary>
-		public void Dispose()
-		{
-			if (0 != m_ProgramID)
-			{
-				GL.DeleteProgram(m_ProgramID);
-			}
 		}
 
 		public void Compile(string sShader, ShaderType type)
@@ -103,6 +93,14 @@ namespace DMS.OpenGL
 				throw new ShaderException("Link", "Error linking shader", GL.GetProgramInfoLog(m_ProgramID), string.Empty);
 			}
 			isLinked = true;
+		}
+
+		protected override void DisposeResources()
+		{
+			if (0 != m_ProgramID)
+			{
+				GL.DeleteProgram(m_ProgramID);
+			}
 		}
 
 		private int m_ProgramID = 0;

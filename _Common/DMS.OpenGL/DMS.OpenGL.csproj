@@ -71,6 +71,10 @@
       <Project>{b37b7dde-435b-4f27-9a9b-9b6df8744ebe}</Project>
       <Name>DMS.Geometry</Name>
     </ProjectReference>
+    <ProjectReference Include="..\DMS.System\DMS.System.csproj">
+      <Project>{e5ff60a4-46fb-42d2-9430-bc523315c2e0}</Project>
+      <Name>DMS.System</Name>
+    </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

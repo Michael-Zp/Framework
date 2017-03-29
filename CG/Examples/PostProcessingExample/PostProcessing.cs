@@ -27,6 +27,10 @@ namespace Example
 				}
 			);
 		}
+		public void EndAndApply(float time = 0.0f)
+		{
+			EndAndApply(rtt.Texture.Width, rtt.Texture.Height, time);
+		}
 
 		public void SetShader(string fragmentShaderText)
 		{

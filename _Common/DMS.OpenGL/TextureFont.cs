@@ -1,13 +1,13 @@
 ﻿using DMS.Geometry;
+using DMS.System;
 using OpenTK.Graphics.OpenGL;
-using System;
 
 namespace DMS.OpenGL
 {
 	/// <summary>
 	/// allows to print text were the individual characters come all from a single texture 
 	/// </summary>
-	public class TextureFont : IDisposable
+	public class TextureFont : Disposable
 	{
 		/// <summary>
 		/// Create a new font that can be printed in OpenGL
@@ -34,11 +34,6 @@ namespace DMS.OpenGL
 				GL.Translate(characterSpacing, 0, 0);	// Move To The next character
 				GL.EndList();
 			}
-		}
-
-		public void Dispose()
-		{
-			GL.DeleteLists(this.baseList, 256);	// Delete All 256 Display Lists
 		}
 
 		public byte[] ConvertString2Ascii(string text)
@@ -82,6 +77,11 @@ namespace DMS.OpenGL
 			GL.CallLists(text.Length, ListNameType.UnsignedByte, text); // Write The Text To The Screen
 			GL.PopMatrix();
 			GL.PopAttrib();
+		}
+
+		protected override void DisposeResources()
+		{
+			GL.DeleteLists(this.baseList, 256); // Delete All 256 Display Lists
 		}
 	}
 }

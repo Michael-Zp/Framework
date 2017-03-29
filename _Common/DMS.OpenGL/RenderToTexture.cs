@@ -1,8 +1,10 @@
-﻿using OpenTK.Graphics.OpenGL;
+﻿using System;
+using OpenTK.Graphics.OpenGL;
+using DMS.System;
 
 namespace DMS.OpenGL
 {
-	public class RenderToTexture
+	public class RenderToTexture : Disposable
 	{
 		public RenderToTexture(Texture texture)
 		{
@@ -20,6 +22,12 @@ namespace DMS.OpenGL
 		{
 			fbo.Deactivate();
 			GL.PopAttrib();
+		}
+
+		protected override void DisposeResources()
+		{
+			fbo.Dispose();
+			Texture.Dispose();
 		}
 
 		private FBO fbo = new FBO();

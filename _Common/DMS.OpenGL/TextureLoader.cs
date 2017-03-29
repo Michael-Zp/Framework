@@ -40,7 +40,7 @@ namespace DMS.OpenGL
 			return FromBitmap(new Bitmap(fileName));
 		}
 
-		public static void SaveToFile(Texture texture, string fileName, System.Drawing.Imaging.PixelFormat format = System.Drawing.Imaging.PixelFormat.Format32bppArgb)
+		public static void SaveToFile(Texture texture, string fileName, global::System.Drawing.Imaging.PixelFormat format = global::System.Drawing.Imaging.PixelFormat.Format32bppArgb)
 		{
 			using (Bitmap bmp = new Bitmap(texture.Width, texture.Height))
 			{
@@ -54,7 +54,7 @@ namespace DMS.OpenGL
 			}
 		}
 
-		public static Bitmap SaveToBitmap(Texture texture, System.Drawing.Imaging.PixelFormat format = System.Drawing.Imaging.PixelFormat.Format32bppArgb)
+		public static Bitmap SaveToBitmap(Texture texture, global::System.Drawing.Imaging.PixelFormat format = global::System.Drawing.Imaging.PixelFormat.Format32bppArgb)
 		{
 			try
 			{ 
@@ -74,24 +74,24 @@ namespace DMS.OpenGL
 			}
 		}
 
-		public static OpenTK.Graphics.OpenGL.PixelFormat SelectInputPixelFormat(System.Drawing.Imaging.PixelFormat pixelFormat)
+		public static OpenTK.Graphics.OpenGL.PixelFormat SelectInputPixelFormat(global::System.Drawing.Imaging.PixelFormat pixelFormat)
 		{
 			switch (pixelFormat)
 			{
-				case System.Drawing.Imaging.PixelFormat.Format8bppIndexed: return OpenTK.Graphics.OpenGL.PixelFormat.Red;
-				case System.Drawing.Imaging.PixelFormat.Format24bppRgb: return OpenTK.Graphics.OpenGL.PixelFormat.Bgr;
-				case System.Drawing.Imaging.PixelFormat.Format32bppArgb: return OpenTK.Graphics.OpenGL.PixelFormat.Bgra;
+				case global::System.Drawing.Imaging.PixelFormat.Format8bppIndexed: return OpenTK.Graphics.OpenGL.PixelFormat.Red;
+				case global::System.Drawing.Imaging.PixelFormat.Format24bppRgb: return OpenTK.Graphics.OpenGL.PixelFormat.Bgr;
+				case global::System.Drawing.Imaging.PixelFormat.Format32bppArgb: return OpenTK.Graphics.OpenGL.PixelFormat.Bgra;
 				default: throw new FileLoadException("Wrong pixel format " + pixelFormat.ToString());
 			}
 		}
 
-		public static PixelInternalFormat SelectInternalPixelFormat(System.Drawing.Imaging.PixelFormat pixelFormat)
+		public static PixelInternalFormat SelectInternalPixelFormat(global::System.Drawing.Imaging.PixelFormat pixelFormat)
 		{
 			switch (pixelFormat)
 			{
-				case System.Drawing.Imaging.PixelFormat.Format8bppIndexed: return PixelInternalFormat.Luminance;
-				case System.Drawing.Imaging.PixelFormat.Format24bppRgb: return PixelInternalFormat.Rgb;
-				case System.Drawing.Imaging.PixelFormat.Format32bppArgb: return PixelInternalFormat.Rgba;
+				case global::System.Drawing.Imaging.PixelFormat.Format8bppIndexed: return PixelInternalFormat.Luminance;
+				case global::System.Drawing.Imaging.PixelFormat.Format24bppRgb: return PixelInternalFormat.Rgb;
+				case global::System.Drawing.Imaging.PixelFormat.Format32bppArgb: return PixelInternalFormat.Rgba;
 				default: throw new FileLoadException("Wrong pixel format " + pixelFormat.ToString());
 			}
 		}
