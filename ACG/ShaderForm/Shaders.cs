@@ -1,4 +1,5 @@
-﻿using System;
+﻿using DMS.System;
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.IO;
@@ -6,7 +7,7 @@ using System.Linq;
 
 namespace ShaderForm
 {
-	public class Shaders : IDisposable, IShaders
+	public class Shaders : Disposable, IShaders
 	{
 		public event EventHandler<string> Changed;
 
@@ -44,12 +45,6 @@ namespace ShaderForm
 			}
 		}
 
-		public void Dispose()
-		{
-			visual = null;
-			shaderCreator = null;
-		}
-
 		public void RemoveShader(string shaderFileName)
 		{
 			IShaderFile shader;
@@ -75,6 +70,13 @@ namespace ShaderForm
 		protected void CallOnChange(string message)
 		{
 			Changed?.Invoke(this, message);
+		}
+
+		protected override void DisposeResources()
+		{
+			visual.Dispose();
+			visual = null;
+			shaderCreator = null;
 		}
 
 		private Dictionary<string, IShaderFile> shaders = new Dictionary<string, IShaderFile>();

@@ -1,4 +1,5 @@
 ﻿using DMS.OpenGL;
+using DMS.System;
 using OpenTK.Graphics.OpenGL;
 using System;
 using System.Collections.Generic;
@@ -13,7 +14,7 @@ namespace ShaderForm
 		public ShaderLoadException(string msg) : base(msg) { }
 	}
 
-	public class VisualContext : IDisposable, ISetUniform
+	public class VisualContext : Disposable, ISetUniform
 	{
 		public VisualContext()
 		{
@@ -25,20 +26,8 @@ namespace ShaderForm
 			textureBufferB = CreateTexture(1, 1);
 			active = textureBufferA;
 
-			shaderCopyToScreen = InitShaderCopyToScreen();
+			copyToScreen = new TextureToFrameBuffer();
 			shaderDefault = InitShaderDefault();
-		}
-
-		public void Dispose()
-		{
-			foreach (var shader in shaders.Values) shader.Dispose();
-			foreach (var tex in textures) tex.Dispose();
-			shaderDefault.Dispose();
-			shaderCopyToScreen.Dispose();
-			active = null;
-			textureBufferB.Dispose();
-			textureBufferA.Dispose();
-			surface.Dispose();
 		}
 
 		public void SetUniform(string uniformName, float value)
@@ -231,11 +220,7 @@ namespace ShaderForm
 		public void Draw(int width, int height)
 		{
 			GL.Viewport(0, 0, width, height);
-			active.Activate();
-			shaderCopyToScreen.Activate();
-			GL.DrawArrays(PrimitiveType.Quads, 0, 4);
-			shaderCopyToScreen.Deactivate();
-			active.Deactivate();
+			copyToScreen.Draw(active);
 			var last = (active == textureBufferA) ? textureBufferB : textureBufferA;
 			active = last;
 		}
@@ -253,7 +238,7 @@ namespace ShaderForm
 		private Dictionary<string, Shader> shaders = new Dictionary<string, Shader>();
 		private FBO surface;
 		private Texture textureBufferA, textureBufferB, active;
-		private Shader shaderCopyToScreen;
+		private TextureToFrameBuffer copyToScreen;
 		private Shader shaderCurrent;
 		private Shader shaderDefault;
 
@@ -270,7 +255,6 @@ namespace ShaderForm
 				#version 130				
 				uniform vec2 iResolution;
 				varying vec2 uv;
-				out vec2 fragCoord;
 				void main() {
 					const vec2 vertices[4] = vec2[4](vec2(-1.0, -1.0),
                                     vec2( 1.0, -1.0),
@@ -278,7 +262,6 @@ namespace ShaderForm
                                     vec2(-1.0,  1.0));
 					vec2 pos = vertices[gl_VertexID];
 					uv = pos * 0.5 + 0.5;
-					fragCoord = uv * iResolution;
 					gl_Position = vec4(pos, 0.0, 1.0);
 				}";
 			string sFragmentShd = @"
@@ -292,27 +275,16 @@ namespace ShaderForm
 			return ShaderLoader.FromStrings(sVertexShader, sFragmentShd);
 		}
 
-		private Shader InitShaderCopyToScreen()
+		protected override void DisposeResources()
 		{
-			string sVertexShader = @"
-				#version 430 core				
-				out vec2 uv; 
-				void main() {
-					const vec2 vertices[4] = vec2[4](vec2(-1.0, -1.0),
-                                    vec2( 1.0, -1.0),
-                                    vec2( 1.0,  1.0),
-                                    vec2(-1.0,  1.0));
-					vec2 pos = vertices[gl_VertexID];
-					uv = pos * 0.5 + 0.5;
-					gl_Position = vec4(vertices[gl_VertexID], 1.0, 1.0);
-				}";
-			string sFragmentShd = @"
-			varying vec2 uv;
-			uniform sampler2D tex;
-			void main() {
-				gl_FragColor = texture(tex, uv);
-			}";
-			return ShaderLoader.FromStrings(sVertexShader, sFragmentShd);
+			foreach (var shader in shaders.Values) shader.Dispose();
+			foreach (var tex in textures) tex.Dispose();
+			shaderDefault.Dispose();
+			copyToScreen.Dispose();
+			active = null;
+			textureBufferB.Dispose();
+			textureBufferA.Dispose();
+			surface.Dispose();
 		}
 	}
 }

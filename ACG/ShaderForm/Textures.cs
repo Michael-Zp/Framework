@@ -1,11 +1,12 @@
-﻿using System;
+﻿using DMS.System;
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 
 namespace ShaderForm
 {
-	public class Textures : IEnumerable<string>, IDisposable, ITextures
+	public class Textures : Disposable, IEnumerable<string>, ITextures
 	{
 		public event EventHandler<EventArgs> Changed;
 
@@ -31,11 +32,6 @@ namespace ShaderForm
 			CallOnChange();
 		}
 
-		public void Dispose()
-		{
-			Clear();
-		}
-
 		public void Remove(string fileName)
 		{
 			visual.RemoveTexture(fileName);
@@ -55,6 +51,11 @@ namespace ShaderForm
 		protected void CallOnChange()
 		{
 			Changed?.Invoke(this, EventArgs.Empty);
+		}
+
+		protected override void DisposeResources()
+		{
+			Clear();
 		}
 
 		private VisualContext visual;

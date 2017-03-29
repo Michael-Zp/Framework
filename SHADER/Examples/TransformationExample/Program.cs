@@ -88,7 +88,7 @@ namespace Example
 		{
 			var app = new ExampleApplication();
 			//app.GameWindow.WindowState = WindowState.Fullscreen;
-			app.IsRecording = true;
+			//app.IsRecording = true;
 			app.Run(new MyWindow());
 		}
 	}

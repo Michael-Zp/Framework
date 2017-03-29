@@ -1,10 +1,11 @@
-﻿using DMS.TimeTools;
+﻿using DMS.System;
+using DMS.TimeTools;
 using NAudio.Wave;
 using System;
 
 namespace DMS.Sound
 {
-	public class SoundTimeSource : IDisposable, ITimeSource
+	public class SoundTimeSource : Disposable, ITimeSource
 	{
 		public event TimeFinishedHandler TimeFinished;
 
@@ -17,24 +18,6 @@ namespace DMS.Sound
 			waveOutDevice.Init(loopingWaveStream);
 			waveOutDevice.PlaybackStopped += (s, a) => playing = false;
 			length = (float)audioFileReader.TotalTime.TotalSeconds;
-		}
-
-		public void Dispose()
-		{
-			if (waveOutDevice != null)
-			{
-				waveOutDevice.Stop();
-			}
-			if (audioFileReader != null)
-			{
-				audioFileReader.Dispose();
-				audioFileReader = null;
-			}
-			if (waveOutDevice != null)
-			{
-				waveOutDevice.Dispose();
-				waveOutDevice = null;
-			}
 		}
 
 		public float Length
@@ -74,5 +57,23 @@ namespace DMS.Sound
 
 		private bool playing = false;
 		private float length = 10.0f;
+
+		protected override void DisposeResources()
+		{
+			if (waveOutDevice != null)
+			{
+				waveOutDevice.Stop();
+			}
+			if (audioFileReader != null)
+			{
+				audioFileReader.Dispose();
+				audioFileReader = null;
+			}
+			if (waveOutDevice != null)
+			{
+				waveOutDevice.Dispose();
+				waveOutDevice = null;
+			}
+		}
 	}
 }

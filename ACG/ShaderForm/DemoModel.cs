@@ -1,9 +1,10 @@
-﻿using System;
+﻿using DMS.System;
+using System;
 
 namespace ShaderForm
 {
 	//todo: add tracks, sum
-	public class DemoModel : IDisposable
+	public class DemoModel : Disposable
 	{
 		public delegate void SetUniformsHandler(ISetUniform visualContext);
 		public event SetUniformsHandler SetCustomUniforms;
@@ -33,12 +34,6 @@ namespace ShaderForm
 			ShaderKeyframes.Clear();
 		}
 
-		public void Dispose()
-		{
-			Clear();
-			visualContext.Dispose();
-		}
-
 		public void Draw(int width, int height)
 		{
 			visualContext.Draw(width, height);
@@ -66,6 +61,12 @@ namespace ShaderForm
 
 			visualContext.Update();
 			return shaderLinked;
+		}
+
+		protected override void DisposeResources()
+		{
+			Clear();
+			visualContext.Dispose();
 		}
 
 		private readonly VisualContext visualContext;

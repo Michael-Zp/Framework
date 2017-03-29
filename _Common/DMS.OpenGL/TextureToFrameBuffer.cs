@@ -1,5 +1,4 @@
-﻿using System;
-using OpenTK.Graphics.OpenGL;
+﻿using OpenTK.Graphics.OpenGL;
 using DMS.System;
 
 namespace DMS.OpenGL
@@ -41,8 +40,7 @@ namespace DMS.OpenGL
 			uniform sampler2D image;
 			in vec2 uv;
 			void main() {
-				vec3 image = texture(image, uv).rgb;
-				gl_FragColor = vec4(image, 1.0);
+				gl_FragColor = texture(image, uv);
 			}";
 
 		private Shader shader;

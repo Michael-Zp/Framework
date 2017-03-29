@@ -130,6 +130,10 @@
       <Project>{c660f6af-c100-4169-a9fb-61e1ebe87f34}</Project>
       <Name>DMS.OpenGL</Name>
     </ProjectReference>
+    <ProjectReference Include="..\..\_Common\DMS.System\DMS.System.csproj">
+      <Project>{E5FF60A4-46FB-42D2-9430-BC523315C2E0}</Project>
+      <Name>DMS.System</Name>
+    </ProjectReference>
     <ProjectReference Include="..\..\_Common\DMS.TimeTools\DMS.TimeTools.csproj">
       <Project>{54156018-0f41-4eef-aeb4-f1c99cf7a2ab}</Project>
       <Name>DMS.TimeTools</Name>
