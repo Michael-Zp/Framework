@@ -7,16 +7,11 @@ namespace Example
 {
 	class MyWindow : IWindow
 	{
-		//private ShaderFileDebugger shaderWatcher;
 		private Shader shader;
 		private QueryObject glTimerRender = new QueryObject();
 
 		public MyWindow()
 		{
-			//var dir = Path.GetDirectoryName(PathTools.GetSourceFilePath()) + @"\Resources\";
-			//shaderWatcher = new ShaderFileDebugger(dir + "vertex.glsl", dir + "fragment.glsl"
-			//	, Resourcen.vertex, Resourcen.fragment);
-
 			var sVertex = Encoding.UTF8.GetString(Resourcen.vertex);
 			var sFragment = Encoding.UTF8.GetString(Resourcen.fragment);
 			try
@@ -38,11 +33,6 @@ namespace Example
 
 		public void Render()
 		{
-			//if (shaderWatcher.CheckForShaderChange())
-			//{
-			//	//update geometry when shader changes
-			//}
-			//var shader = shaderWatcher.Shader;
 			glTimerRender.Activate(QueryTarget.TimeElapsed);
 			GL.Clear(ClearBufferMask.ColorBufferBit);
 			shader.Activate();

@@ -1,5 +1,4 @@
 ﻿using DMS.System;
-using System;
 using System.Collections.Generic;
 using System.Drawing;
 using System.Drawing.Imaging;
@@ -30,7 +29,19 @@ namespace DMS.OpenGL
 			render2tex.Deactivate();
 			var bmp = TextureLoader.SaveToBitmap(render2tex.Texture, format);
 			frames.Add(bmp);
-			tex2fb?.Draw(render2tex.Texture);
+			if (!ReferenceEquals(null, tex2fb))
+			{
+				//if blending is used we have to clear the framebuffer
+				//if depth testing is used
+				OpenTK.Graphics.OpenGL.GL.PushAttrib(OpenTK.Graphics.OpenGL.AttribMask.ColorBufferBit);
+				OpenTK.Graphics.OpenGL.GL.PushAttrib(OpenTK.Graphics.OpenGL.AttribMask.DepthBufferBit);
+				OpenTK.Graphics.OpenGL.GL.Disable(OpenTK.Graphics.OpenGL.EnableCap.Blend);
+				OpenTK.Graphics.OpenGL.GL.Disable(OpenTK.Graphics.OpenGL.EnableCap.DepthTest);
+				//OpenTK.Graphics.OpenGL.GL.Clear(OpenTK.Graphics.OpenGL.ClearBufferMask.ColorBufferBit);
+				tex2fb.Draw(render2tex.Texture);
+				OpenTK.Graphics.OpenGL.GL.PopAttrib();
+				OpenTK.Graphics.OpenGL.GL.PopAttrib();
+			}
 		}
 
 		protected override void DisposeResources()

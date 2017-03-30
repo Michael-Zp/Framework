@@ -78,6 +78,7 @@ namespace Example
 		public static void Main()
 		{
 			var app = new ExampleApplication();
+			//app.IsRecording = true;
 			app.Run(new MyWindow());
 		}
 	}
