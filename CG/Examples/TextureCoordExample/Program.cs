@@ -1,61 +1,37 @@
 ﻿using DMS.OpenGL;
 using DMS.Geometry;
-using OpenTK;
 using OpenTK.Graphics.OpenGL;
-using System;
 using System.Drawing;
+using System;
+using OpenTK;
 
 namespace Example
 {
 	/// <summary>
 	/// shows side scrolling setup by manipulating texture coordinates
 	/// </summary>
-	class MyApplication
+	class MyWindow : IWindow
 	{
-		private GameWindow gameWindow;
 		private Texture texBackground;
 		private Texture texPlayer;
 		private Box2D texCoord = new Box2D(0, 0, 0.3f, 1);
 
-		[STAThread]
-		public static void Main()
+		private MyWindow()
 		{
-			var app = new MyApplication();
-			app.gameWindow.Run(60);
-		}
-
-		private MyApplication()
-		{
-			//setup
-			gameWindow = new GameWindow(700, 700);
-			gameWindow.KeyDown += (s, arg) => gameWindow.Close();
-			gameWindow.Resize += (s, arg) => GL.Viewport(0, 0, gameWindow.Width, gameWindow.Height);
-			//callback for updating http://gameprogrammingpatterns.com/game-loop.html
-			gameWindow.UpdateFrame += GameWindow_UpdateFrame;
-			gameWindow.RenderFrame += GameWindow_RenderFrame;			
-			gameWindow.RenderFrame += (s, arg) => gameWindow.SwapBuffers();
 			texPlayer = TextureLoader.FromBitmap(Resourcen.bird1);
 			//two landscape resources are available in the Resourcen.resx file
 			texBackground = TextureLoader.FromBitmap(Resourcen.forest);
 			//set how texture coordinates outside of [0..1] are handled
-			texBackground.WrapMode(TextureWrapMode.Repeat);
+			texBackground.WrapMode(TextureWrapMode.MirroredRepeat);
 			//background clear color
 			GL.ClearColor(Color.White);
 			//for transparency in textures
 			GL.BlendFunc(BlendingFactorSrc.SrcAlpha, BlendingFactorDest.OneMinusSrcAlpha);
 		}
 
-		private void GameWindow_UpdateFrame(object sender, FrameEventArgs e)
-		{
-			//this callback is guaranteed to be called as often as you specified with the gameWindow.Run(updateFrequency) call
-			//so you have a fixed number of calls per second e.x.: 60 times per second
-			texCoord.X += 0.001f;
-		}
-
-		private void GameWindow_RenderFrame(object sender, FrameEventArgs e)
+		public void Render()
 		{
 			GL.Clear(ClearBufferMask.ColorBufferBit);
-
 			//color is multiplied with texture color white == no change
 			GL.Color3(Color.White);
 			//draw background
@@ -65,6 +41,11 @@ namespace Example
 										//draw player
 			DrawTexturedRect(new Box2D(-.25f, -.1f, .2f, .2f), texPlayer, new Box2D(0, 0, 1, 1));
 			GL.Disable(EnableCap.Blend); // for transparency in textures
+		}
+
+		public void Update(float updatePeriod)
+		{
+			texCoord.X += updatePeriod * 0.1f;
 		}
 
 		private static void DrawTexturedRect(Box2D rect, Texture tex, Box2D texCoords)
@@ -77,6 +58,15 @@ namespace Example
 			GL.TexCoord2(texCoords.X, texCoords.MaxY); GL.Vertex2(rect.X, rect.MaxY);
 			GL.End();
 			tex.Deactivate();
+		}
+
+		[STAThread]
+		public static void Main()
+		{
+			var app = new ExampleApplication();
+			//app.GameWindow.WindowState = WindowState.Fullscreen;
+			//app.IsRecording = true;
+			app.Run(new MyWindow());
 		}
 	}
 }

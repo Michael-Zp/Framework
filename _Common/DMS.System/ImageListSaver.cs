@@ -18,7 +18,8 @@ namespace DMS.System
 			int fileNumber = 0;
 			foreach (var bmp in imageList)
 			{
-				bmp.Save(saveDirectory + fileNumber.ToString("00000") + ".png");
+				//todo: why null Images?
+				bmp?.Save(saveDirectory + fileNumber.ToString("00000") + ".png");
 				++fileNumber;
 			}
 
