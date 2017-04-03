@@ -1,6 +1,5 @@
 #version 430 core				
 
-uniform float time;
 uniform mat4 camera;
 
 in vec4 position;

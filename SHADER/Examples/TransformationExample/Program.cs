@@ -23,24 +23,31 @@ namespace Example
 			GL.ClearColor(1, 1, 1, 1);
 			GL.Enable(EnableCap.DepthTest);
 			GL.Enable(EnableCap.CullFace);
-			//GL.Enable(EnableCap.LineSmooth);
-			//GL.Enable(EnableCap.Blend);
-			////setup blending equation Color = Color_s · alpha + Color_d · (1 - alpha)
-			//GL.BlendFunc(BlendingFactorSrc.SrcAlpha, BlendingFactorDest.OneMinusSrcAlpha);
-			//GL.BlendEquation(BlendEquationMode.FuncAdd);
 			timeSource.Start();
 		}
 
 		public void Render()
 		{
-			var time = (float)timeSource.Elapsed.TotalSeconds;
 			var shader = shaderWatcher.Shader;
 			if (shaderWatcher.CheckForShaderChange())
 			{
 				//update geometry when shader changes
 				geometry = CreateMesh(shader);
 			}
-			//per instance attributes
+
+			GL.Clear(ClearBufferMask.ColorBufferBit | ClearBufferMask.DepthBufferBit);
+			shader.Activate();
+			Matrix4 camera = Matrix4.CreateScale(1, 1, -1);
+			GL.UniformMatrix4(shader.GetUniformLocation("camera"), true, ref camera);
+			geometry.Draw(instanceTransforms.Length);
+			shader.Deactivate();
+		}
+
+		public void Update(float updatePeriod)
+		{
+			var time = (float)timeSource.Elapsed.TotalSeconds;
+			//store matrices as per instance attributes
+			//Matrix4 transforms are row-major -> transforms are written v*T1*T2*...
 			for (int i = 0; i < instanceTransforms.Length; ++i)
 			{
 				instanceTransforms[i] = Matrix4.CreateScale(0.2f);
@@ -52,16 +59,9 @@ namespace Example
 			{
 				instanceTransforms[i] *= Matrix4.CreateTranslation((i - 1) * 0.65f, 0, 0);
 			}
-			//Matrix4 is stored row-major
+			var shader = shaderWatcher.Shader;
+			//Matrix4 is stored row-major -> implies a transpose so in shader matrix is column major
 			geometry.SetMatrixAttribute(shader.GetAttributeLocation("instanceTransform"), instanceTransforms, true);
-
-			GL.Clear(ClearBufferMask.ColorBufferBit | ClearBufferMask.DepthBufferBit);
-			shader.Activate();
-			GL.Uniform1(shader.GetUniformLocation("time"), time);
-			Matrix4 camera = Matrix4.CreateScale(1, 1, -1);
-			GL.UniformMatrix4(shader.GetUniformLocation("camera"), true, ref camera);
-			geometry.Draw(instanceTransforms.Length);
-			shader.Deactivate();
 		}
 
 		private Matrix4[] instanceTransforms = new Matrix4[3];
@@ -79,16 +79,10 @@ namespace Example
 			return vao;
 		}
 
-		public void Update(float updatePeriod)
-		{
-		}
-
 		[STAThread]
 		public static void Main()
 		{
 			var app = new ExampleApplication();
-			//app.GameWindow.WindowState = WindowState.Fullscreen;
-			//app.IsRecording = true;
 			app.Run(new MyWindow());
 		}
 	}

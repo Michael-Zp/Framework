@@ -6,6 +6,7 @@
 1. [MeshExample](MeshExample)
 1. [InstancingExample](InstancingExample)
 1. [TransformationExample](TransformationExample)
+1. [CameraTransformationExample](CameraTransformationExample)
 1. [CameraExample](CameraExample)
 1. [PhysicsExample](PhysicsExample)
 1. [LightingExample](LightingExample)
