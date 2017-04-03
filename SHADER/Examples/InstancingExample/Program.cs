@@ -24,10 +24,6 @@ namespace Example
 			GL.Enable(EnableCap.DepthTest);
 		}
 
-		public void Update(float updatePeriod)
-		{
-		}
-
 		public void Render()
 		{
 			var shader = shaderWatcher.Shader;
@@ -39,11 +35,15 @@ namespace Example
 			}
 			GL.Clear(ClearBufferMask.ColorBufferBit | ClearBufferMask.DepthBufferBit);
 			shader.Activate();
-			geometry.Draw(particelCount);
+			geometry.Draw(instanceCount);
 			shader.Deactivate();
 		}
 
-		private const int particelCount = 10000;
+		public void Update(float updatePeriod)
+		{
+		}
+
+		private const int instanceCount = 10000;
 		private ShaderFileDebugger shaderWatcher;
 		private VAO geometry;
 
@@ -63,22 +63,20 @@ namespace Example
 			var rnd = new Random(12);
 			Func<float> Rnd01 = () => (float)rnd.NextDouble();
 			Func<float> RndCoord = () => (Rnd01() - 0.5f) * 2.0f;
-			var instancePositions = new Vector3[particelCount];
-			for (int i = 0; i < particelCount; ++i)
+			var instancePositions = new Vector3[instanceCount];
+			for (int i = 0; i < instanceCount; ++i)
 			{
 				instancePositions[i] = new Vector3(RndCoord(), RndCoord(), RndCoord());
 			}
 			vao.SetAttribute(shader.GetAttributeLocation("instancePosition"), instancePositions, VertexAttribPointerType.Float, 3, true);
 
 			//todo: students: add per instance attribute speed here
-			//var locInstSpeed = shader.GetAttributeLocation("instanceSpeed");
 		}
 
 		[STAThread]
 		public static void Main()
 		{
 			var app = new ExampleApplication();
-			//app.IsRecording = true;
 			app.Run(new MyWindow());
 		}
 	}

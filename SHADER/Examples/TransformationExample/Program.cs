@@ -47,7 +47,7 @@ namespace Example
 		{
 			var time = (float)timeSource.Elapsed.TotalSeconds;
 			//store matrices as per instance attributes
-			//Matrix4 transforms are row-major -> transforms are written v*T1*T2*...
+			//Matrix4 transforms are row-major -> transforms are written T1*T2*...
 			for (int i = 0; i < instanceTransforms.Length; ++i)
 			{
 				instanceTransforms[i] = Matrix4.CreateScale(0.2f);

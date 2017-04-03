@@ -16,10 +16,9 @@ namespace Example
 			shaderWatcher = new ShaderFileDebugger(dir + "vertex.glsl", dir + "fragment.glsl"
 				, Resourcen.vertex, Resourcen.fragment);
 			CreateMesh(shaderWatcher.Shader);
-			GL.PolygonMode(MaterialFace.FrontAndBack, PolygonMode.Line); //draw wireframe
 
 			//GL.Enable(EnableCap.DepthTest);
-			//texDiffuse = TextureLoader.FromFile("diffuseTexture.jpg");
+			//texDiffuse = TextureLoader.FromBitmap(Resourcen.capsule0);
 		}
 
 		public void Render()

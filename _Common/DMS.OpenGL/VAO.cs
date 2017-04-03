@@ -64,9 +64,10 @@ namespace DMS.OpenGL
 
 		/// <summary>
 		/// sets or updates a vertex attribute of type Matrix4
+		/// Matrix4 is stored row-major, but OpenGL expects data to be column-major, so the Matrix4 inputs become transposed in the shader
 		/// </summary>
 		/// <param name="bindingID">shader binding location</param>
-		/// <param name="data">ATTENTION: here the matrices are assumed to be rowmajor. why i don't know</param>
+		/// <param name="data">array of Matrix4 inputs</param>
 		/// <param name="perInstance"></param>
 		public void SetMatrixAttribute(int bindingID, Matrix4[] data, bool perInstance = false)
 		{
