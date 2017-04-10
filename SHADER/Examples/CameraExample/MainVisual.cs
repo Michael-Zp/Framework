@@ -4,11 +4,13 @@ using OpenTK;
 using OpenTK.Graphics.OpenGL;
 using System;
 using System.Diagnostics;
-using System.Text;
+using DMS.ShaderDebugging;
+using System.IO;
+using DMS.System;
 
 namespace Example
 {
-	public class MainVisual
+	public class MainVisual : IWindow
 	{
 		public CameraOrbit OrbitCamera { get { return camera; } }
 
@@ -16,12 +18,13 @@ namespace Example
 		{
 			camera.FarClip = 500;
 			camera.Distance = 30;
-			var sVertex = Encoding.UTF8.GetString(Resourcen.vertex);
-			var sFragment = Encoding.UTF8.GetString(Resourcen.fragment);
-			shader = ShaderLoader.FromStrings(sVertex, sFragment);
+
+			var dir = Path.GetDirectoryName(PathTools.GetSourceFilePath()) + @"\Resources\";
+			shaderWatcher = new ShaderFileDebugger(dir + "vertex.glsl", dir + "fragment.glsl"
+				, Resourcen.vertex, Resourcen.fragment);
+			var shader = shaderWatcher.Shader;
 
 			geometry = CreateMesh(shader);
-
 			CreatePerInstanceAttributes(geometry, shader);
 
 			GL.Enable(EnableCap.DepthTest);
@@ -31,6 +34,14 @@ namespace Example
 
 		public void Render()
 		{
+			var shader = shaderWatcher.Shader;
+			if (shaderWatcher.CheckForShaderChange())
+			{
+				//update geometry when shader changes
+				geometry = CreateMesh(shader);
+				CreatePerInstanceAttributes(geometry, shader);
+			}
+
 			var time = (float)timeSource.Elapsed.TotalSeconds;
 			GL.Clear(ClearBufferMask.ColorBufferBit | ClearBufferMask.DepthBufferBit);
 			shader.Activate();
@@ -41,9 +52,13 @@ namespace Example
 			shader.Deactivate();
 		}
 
+		public void Update(float updatePeriod)
+		{
+		}
+
 		private CameraOrbit camera = new CameraOrbit();
 		private const int particelCount = 500;
-		private Shader shader;
+		private ShaderFileDebugger shaderWatcher;
 		private Stopwatch timeSource = new Stopwatch();
 		private VAO geometry;
 

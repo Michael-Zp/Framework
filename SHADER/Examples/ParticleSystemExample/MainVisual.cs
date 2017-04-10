@@ -21,7 +21,7 @@ namespace Example
 			camera.FarClip = 20;
 			camera.Distance = 2;
 			camera.FovY = 70;
-			camera.Tilt = 15;
+			camera.Elevation = 15;
 
 			GL.Enable(EnableCap.DepthTest);
 		}

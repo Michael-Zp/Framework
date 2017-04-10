@@ -45,8 +45,8 @@ namespace Example
 		{
 			if (ButtonState.Pressed == e.Mouse.LeftButton)
 			{
-				visual.Camera.Heading += 300 * e.XDelta / (float)gameWindow.Width;
-				visual.Camera.Tilt += 300 * e.YDelta / (float)gameWindow.Height;
+				visual.Camera.Azimuth += 300 * e.XDelta / (float)gameWindow.Width;
+				visual.Camera.Elevation += 300 * e.YDelta / (float)gameWindow.Height;
 			}
 		}
 

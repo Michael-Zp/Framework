@@ -1,5 +1,4 @@
 ﻿using DMS.System;
-using System;
 
 namespace ShaderForm
 {
@@ -62,6 +61,8 @@ namespace ShaderForm
 			visualContext.Update();
 			return shaderLinked;
 		}
+
+		public float UpdateTime { get { return visualContext.UpdateTime; } }
 
 		protected override void DisposeResources()
 		{

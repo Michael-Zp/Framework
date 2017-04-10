@@ -23,8 +23,8 @@ namespace Example
 			{
 				player.X += updatePeriod;
 			}
-			//todo: let the player also move up and down
-			//todo:Limit player movements to window
+			//todo student: let the player also move up and down
+			//todo student:Limit player movements to window
 
 			//no intersection -> move obstacle
 			if (!obstacle.Intersects(player))

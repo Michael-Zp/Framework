@@ -48,8 +48,8 @@ namespace Example
 		{
 			if (ButtonState.Pressed == e.Mouse.LeftButton)
 			{
-				visual.OrbitCamera.Heading += 300 * e.XDelta / (float)gameWindow.Width;
-				visual.OrbitCamera.Tilt += 300 * e.YDelta / (float)gameWindow.Height;
+				visual.OrbitCamera.Azimuth += 300 * e.XDelta / (float)gameWindow.Width;
+				visual.OrbitCamera.Elevation += 300 * e.YDelta / (float)gameWindow.Height;
 			}
 		}
 	}

@@ -70,7 +70,7 @@ namespace Example
 			}
 			vao.SetAttribute(shader.GetAttributeLocation("instancePosition"), instancePositions, VertexAttribPointerType.Float, 3, true);
 
-			//todo: students: add per instance attribute speed here
+			//todo students: add per instance attribute speed here
 		}
 
 		[STAThread]

@@ -67,6 +67,7 @@ namespace ShaderForm
 		{
 			Debug.Assert(!ReferenceEquals(null,  shaderCurrent));
 
+			glTimer.Activate(QueryTarget.TimeElapsed);
 			//texture binding
 			int id = 0;
 			foreach (var tex in textures)
@@ -101,6 +102,7 @@ namespace ShaderForm
 			GL.ActiveTexture(TextureUnit.Texture0 + id);
 			last.Deactivate();
 			GL.ActiveTexture(TextureUnit.Texture0);
+			glTimer.Deactivate();
 		}
 
 		public void UpdateSurfaceSize(int width, int height)
@@ -230,6 +232,7 @@ namespace ShaderForm
 			TextureLoader.SaveToFile(active, fileName);
 		}
 
+		public float UpdateTime { get { return (float)(glTimer.ResultLong * 1e-9); } }
 		//public IEnumerable<string> ShaderList { get { return shaders.Keys; } }
 		//public IEnumerable<string> TextureList { get { return textureNames; } }
 
@@ -241,6 +244,7 @@ namespace ShaderForm
 		private TextureToFrameBuffer copyToScreen;
 		private Shader shaderCurrent;
 		private Shader shaderDefault;
+		private QueryObject glTimer = new QueryObject();
 
 		private Texture CreateTexture(int width, int height)
 		{

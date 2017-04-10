@@ -1,5 +1,4 @@
 ﻿using ControlClassLibrary;
-using DMS.TimeTools;
 using System;
 using System.Drawing;
 using System.Globalization;
@@ -15,7 +14,6 @@ namespace ShaderForm
 		private int mouseButton = 0;
 		private Point mousePos;
 		//private int painting = 0;
-		private FPSCounter timing = new FPSCounter();
 		private MultiGraph multiGraph = new MultiGraph();
 		private FacadeFormMessages log = new FacadeFormMessages();
 		private FacadeCamera camera = new FacadeCamera();
@@ -176,9 +174,8 @@ namespace ShaderForm
 			//glControl.MakeCurrent();
 			demo.Draw(glControl.Width, glControl.Height);
 			glControl.SwapBuffers();
-			timing.NewFrame();
-			
-			menuFps.Text = menuFps.Checked ? string.Format("{0:0.00}FPS ", timing.FPS) : string.Format("{0:0.0}MSec ", 1000 / timing.FPS);
+
+			menuFps.Text = menuFps.Checked ? string.Format("{0:0.00}FPS ", 1 / demo.UpdateTime) : string.Format("{0:0.0}MSec ", demo.UpdateTime * 1e3f);
 			//System.Threading.Interlocked.Exchange(ref painting, 0);
 			if (camera.IsActive)
 			{

@@ -11,27 +11,27 @@ namespace DMS.Geometry
 			Distance = 1;
 			FarClip = 1;
 			FovY = 90;
-			Heading = 0;
+			Azimuth = 0;
 			NearClip = 0.1f;
 			Target = Vector3.Zero;
-			Tilt = 0;
+			Elevation = 0;
 		}
 
 		public float Aspect { get; set; }
+		public float Azimuth { get; set; }
 		public float Distance { get; set; }
+		public float Elevation { get; set; }
 		public float FarClip { get; set; }
 		public float FovY { get; set; }
-		public float Heading { get; set; }
 		public float NearClip { get; set; }
 		public Vector3 Target { get; set; }
-		public float Tilt { get; set; }
 
 		public Matrix4x4 CalcViewMatrix()
 		{
 			Distance = MathHelper.Clamp(Distance, NearClip, FarClip);
 			var mtxDistance = Matrix4x4.Transpose(Matrix4x4.CreateTranslation(0, 0, -Distance));
-			var mtxTilt = Matrix4x4.Transpose(Matrix4x4.CreateRotationX(MathHelper.DegreesToRadians(Tilt)));
-			var mtxHeading = Matrix4x4.Transpose(Matrix4x4.CreateRotationY(MathHelper.DegreesToRadians(Heading)));
+			var mtxTilt = Matrix4x4.Transpose(Matrix4x4.CreateRotationX(MathHelper.DegreesToRadians(Elevation)));
+			var mtxHeading = Matrix4x4.Transpose(Matrix4x4.CreateRotationY(MathHelper.DegreesToRadians(Azimuth)));
 			var mtxTarget = Matrix4x4.Transpose(Matrix4x4.CreateTranslation(-Target));
 			return mtxDistance * mtxTilt * mtxHeading * mtxTarget;
 		}
