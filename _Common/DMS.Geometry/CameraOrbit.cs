@@ -30,10 +30,10 @@ namespace DMS.Geometry
 		{
 			Distance = MathHelper.Clamp(Distance, NearClip, FarClip);
 			var mtxDistance = Matrix4x4.Transpose(Matrix4x4.CreateTranslation(0, 0, -Distance));
-			var mtxTilt = Matrix4x4.Transpose(Matrix4x4.CreateRotationX(MathHelper.DegreesToRadians(Elevation)));
-			var mtxHeading = Matrix4x4.Transpose(Matrix4x4.CreateRotationY(MathHelper.DegreesToRadians(Azimuth)));
+			var mtxElevation = Matrix4x4.Transpose(Matrix4x4.CreateRotationX(MathHelper.DegreesToRadians(Elevation)));
+			var mtxAzimut = Matrix4x4.Transpose(Matrix4x4.CreateRotationY(MathHelper.DegreesToRadians(Azimuth)));
 			var mtxTarget = Matrix4x4.Transpose(Matrix4x4.CreateTranslation(-Target));
-			return mtxDistance * mtxTilt * mtxHeading * mtxTarget;
+			return mtxDistance * mtxElevation * mtxAzimut * mtxTarget;
 		}
 
 		public Matrix4x4 CalcProjectionMatrix()

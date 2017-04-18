@@ -1,6 +1,5 @@
 ﻿using DMS.OpenGL;
 using DMS.Geometry;
-using OpenTK;
 using OpenTK.Graphics.OpenGL;
 using System;
 using System.Drawing;
@@ -11,27 +10,20 @@ namespace Example
 	/// Example that shows loading and using textures. 
 	/// It loads 2 textures: one for the background and one for a space ship.
 	/// </summary>
-	class MyApplication
+	class MyWindow : IWindow
 	{
-		private GameWindow gameWindow;
 		private Texture texBackground;
 		private Texture texShip;
 
 		[STAThread]
 		public static void Main()
 		{
-			var app = new MyApplication();
-			app.gameWindow.Run();
+			var app = new ExampleApplication();
+			app.Run(new MyWindow());
 		}
 
-		private MyApplication()
+		private MyWindow()
 		{
-			//setup
-			gameWindow = new GameWindow(700, 700);
-			gameWindow.KeyDown += (s, arg) => gameWindow.Close();
-			gameWindow.Resize += (s, arg) => GL.Viewport(0, 0, gameWindow.Width, gameWindow.Height);
-			gameWindow.RenderFrame += GameWindow_RenderFrame;			
-			gameWindow.RenderFrame += (s, arg) => gameWindow.SwapBuffers();
 			texShip = TextureLoader.FromBitmap(Resourcen.redship4);
 			texBackground = TextureLoader.FromBitmap(Resourcen.water);
 			//background clear color
@@ -40,7 +32,7 @@ namespace Example
 			GL.BlendFunc(BlendingFactorSrc.SrcAlpha, BlendingFactorDest.OneMinusSrcAlpha);
 		}
 
-		private void GameWindow_RenderFrame(object sender, FrameEventArgs e)
+		public void Render()
 		{
 			GL.Clear(ClearBufferMask.ColorBufferBit);
 			//color is multiplied with texture color => white == no change to texture color
@@ -55,17 +47,21 @@ namespace Example
 			GL.Disable(EnableCap.Blend);
 		}
 
+		public void Update(float updatePeriod)
+		{
+		}
+
 		private static void DrawTexturedRect(Box2D Rect, Texture tex)
 		{
 			//the texture has to be enabled before use
 			tex.Activate();
 			GL.Begin(PrimitiveType.Quads);
-				//when using textures we have to set a texture coordinate for each vertex
-				//by using the TexCoord command BEFORE the Vertex command
-				GL.TexCoord2(0.0f, 0.0f); GL.Vertex2(Rect.X, Rect.Y);
-				GL.TexCoord2(1.0f, 0.0f); GL.Vertex2(Rect.MaxX, Rect.Y);
-				GL.TexCoord2(1.0f, 1.0f); GL.Vertex2(Rect.MaxX, Rect.MaxY);
-				GL.TexCoord2(0.0f, 1.0f); GL.Vertex2(Rect.X, Rect.MaxY);
+			//when using textures we have to set a texture coordinate for each vertex
+			//by using the TexCoord command BEFORE the Vertex command
+			GL.TexCoord2(0.0f, 0.0f); GL.Vertex2(Rect.X, Rect.Y);
+			GL.TexCoord2(1.0f, 0.0f); GL.Vertex2(Rect.MaxX, Rect.Y);
+			GL.TexCoord2(1.0f, 1.0f); GL.Vertex2(Rect.MaxX, Rect.MaxY);
+			GL.TexCoord2(0.0f, 1.0f); GL.Vertex2(Rect.X, Rect.MaxY);
 			GL.End();
 			//the texture is disabled, so no other draw calls use this texture
 			tex.Deactivate();
