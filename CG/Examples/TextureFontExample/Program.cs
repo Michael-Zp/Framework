@@ -24,19 +24,14 @@ namespace Example
 			GL.ClearColor(Color.Black);
 			//for transparency in textures
 			GL.BlendFunc(BlendingFactorSrc.SrcAlpha, BlendingFactorDest.OneMinusSrcAlpha);
+			GL.Enable(EnableCap.Blend); // for transparency in textures
+			GL.Color3(Color.White); //color is multiplied with texture color white == no change
 		}
 
 		public void Render()
 		{
 			GL.Clear(ClearBufferMask.ColorBufferBit);
-
-			//color is multiplied with texture color white == no change
-			GL.Color3(Color.White);
-
-			GL.Enable(EnableCap.Blend); // for transparency in textures
-										//print string
-			font.Print(-.9f, -.125f, 0, .25f, "SUPER GEIL");
-			GL.Disable(EnableCap.Blend); // for transparency in textures
+			font.Print(-.9f, -.125f, 0, .25f, "SUPER GEIL"); //print string
 		}
 
 		public void Update(float updatePeriod)
