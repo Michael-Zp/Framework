@@ -1,8 +1,6 @@
 1. [Minimal](MinimalExample)
 1. [Collision](CollisionExample)
-1. [Texture](TextureExample) introducing textures
-    1. change quad coordinates to be irregular
-    1. play around with the texture coordinates
+1. [Texture](TextureExample)
 1. [Texture Wrap](TextureWrapExample) texture wrap modes
 1. [Texture Coordinates](TextureCoordExample) manipulating texture coordinates
     1. switch backgrounds, load your own background
