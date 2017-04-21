@@ -1,2 +1,10 @@
-## [Theory Examples](https://github.com/danielscherzer/Framework/tree/master/CG/Examples)
+## Theory Examples(https://github.com/danielscherzer/Framework/tree/master/CG/Examples)
+1. [Minimal](Examples/MinimalExample)
+1. [Collision](CollisionExample)
+1. [Texture](TextureExample)
+1. [Texture Wrap](TextureWrapExample)
+1. [Texture Coordinates](TextureCoordExample) 
+1. [Texture Font](TextureFontExample)
+1. [Texture Animation](TextureAnimExample)
+
 ## [Mini games](https://github.com/danielscherzer/Framework/tree/master/CG/games)
