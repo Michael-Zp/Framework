@@ -1,3 +1,5 @@
 1. Look how textures are loaded and used
-1. Load another texture from a resource
+1. Open the Resourcen.resx file
+1. Drag drop another texture
+1. Load this texture from the resource (look how existing textures are loaded)
 1. Apply textures to your game
