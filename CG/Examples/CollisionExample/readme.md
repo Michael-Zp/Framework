@@ -5,4 +5,5 @@
 1. Create collision responses between all boxes
 1. Player can shoot boxes
 1. A shot kills enemies on contact
+1. Shot cooldown - you can only shoot once a second
 1. Spawn enemies
