@@ -1,9 +1,8 @@
 1. [Minimal](MinimalExample)
 1. [Collision](CollisionExample)
 1. [Texture](TextureExample)
-1. [Texture Wrap](TextureWrapExample) texture wrap modes
-1. [Texture Coordinates](TextureCoordExample) manipulating texture coordinates
-    1. switch backgrounds, load your own background
+1. [Texture Wrap](TextureWrapExample)
+1. [Texture Coordinates](TextureCoordExample) 
 1. [Texture Font](TextureFontExample) bitmap font
     1. manipulate font creation parameters
     1. load another font

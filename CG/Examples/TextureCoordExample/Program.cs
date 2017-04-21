@@ -3,7 +3,6 @@ using DMS.Geometry;
 using OpenTK.Graphics.OpenGL;
 using System.Drawing;
 using System;
-using OpenTK;
 
 namespace Example
 {
