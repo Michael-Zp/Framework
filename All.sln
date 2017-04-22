@@ -46,9 +46,6 @@ EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TextureExample", "CG\Examples\TextureExample\TextureExample.csproj", "{A4ED5B7A-C3CA-4E53-A5C3-61A5D81F5188}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Examples", "Examples", "{7784E3B6-CA36-4515-BC9D-7BEC5556D51E}"
-	ProjectSection(SolutionItems) = preProject
-		CG\Examples\readme.md = CG\Examples\readme.md
-	EndProjectSection
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TextureCoordExample", "CG\Examples\TextureCoordExample\TextureCoordExample.csproj", "{EFF9EC28-4D8D-424B-A244-56BB351D9EF0}"
 EndProject

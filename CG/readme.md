@@ -1,4 +1,4 @@
-## Theory Examples(https://github.com/danielscherzer/Framework/tree/master/CG/Examples)
+## Examples
 1. [Minimal](Examples/MinimalExample)
 1. [Collision](Examples/CollisionExample)
 1. [Texture](Examples/TextureExample)
