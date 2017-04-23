@@ -1,56 +1,44 @@
-﻿using OpenTK;
-using OpenTK.Graphics.OpenGL;
+﻿using DMS.OpenGL;
 using OpenTK.Input;
 using System;
 
 namespace Example
 {
-	class MyApplication
+	class MyApplication : ExampleApplication
 	{
-		private GameWindow gameWindow;
 		private MainVisual visual;
-
-		[STAThread]
-		public static void Main()
-		{
-			var app = new MyApplication();
-			app.gameWindow.Run();
-		}
 
 		private MyApplication()
 		{
-			gameWindow = new GameWindow(800, 800);
-			//gameWindow.LoadLayout();
-			//gameWindow.WindowState = WindowState.Fullscreen;
-			gameWindow.MouseMove += GameWindow_MouseMove;
-			gameWindow.MouseWheel += GameWindow_MouseWheel;
-			gameWindow.KeyDown += GameWindow_KeyDown;
-			gameWindow.Resize += (s, arg) => GL.Viewport(0, 0, gameWindow.Width, gameWindow.Height);
-			gameWindow.RenderFrame += (s, arg) => visual.Render();			
-			gameWindow.RenderFrame += (s, arg) => gameWindow.SwapBuffers();
+			GameWindow.MouseMove += GameWindow_MouseMove;
+			GameWindow.MouseWheel += GameWindow_MouseWheel;
 			visual = new MainVisual();
 		}
 
-		private void GameWindow_KeyDown(object sender, KeyboardKeyEventArgs e)
+		private void Run()
 		{
-			switch (e.Key)
-			{
-				case Key.Escape: gameWindow.Close(); break;
-			}
+			Run(visual);
 		}
 
 		private void GameWindow_MouseWheel(object sender, MouseWheelEventArgs e)
 		{
-			visual.OrbitCamera.Distance -= e.DeltaPrecise;
+			visual.OrbitCamera.Distance *= (float)Math.Pow(1.05, e.DeltaPrecise);
 		}
 
 		private void GameWindow_MouseMove(object sender, MouseMoveEventArgs e)
 		{
 			if (ButtonState.Pressed == e.Mouse.LeftButton)
 			{
-				visual.OrbitCamera.Azimuth += 300 * e.XDelta / (float)gameWindow.Width;
-				visual.OrbitCamera.Elevation += 300 * e.YDelta / (float)gameWindow.Height;
+				visual.OrbitCamera.Azimuth += 300 * e.XDelta / (float)GameWindow.Width;
+				visual.OrbitCamera.Elevation += 300 * e.YDelta / (float)GameWindow.Height;
 			}
+		}
+
+		[STAThread]
+		public static void Main()
+		{
+			var app = new MyApplication();
+			app.Run();
 		}
 	}
 }

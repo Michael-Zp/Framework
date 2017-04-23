@@ -8,9 +8,10 @@
 1. [TransformationExample](Examples/TransformationExample)
 1. [CameraTransformationExample](Examples/CameraTransformationExample)
 1. [CameraExample](Examples/CameraExample)
-1. [PhysicsExample](Examples/PhysicsExample)
 1. [LightingExample](Examples/LightingExample)
 1. [LightingNPRExample](Examples/LightingNPRExample)
+
+1. [PhysicsExample](Examples/PhysicsExample)
 1. [SSBOExample](Examples/SSBOExample)
 
 ## Best Practices

@@ -9,7 +9,7 @@ using System.IO;
 
 namespace Example
 {
-	public class MainVisual
+	public class MainVisual : IWindow
 	{
 		public CameraOrbit OrbitCamera { get { return camera; } }
 
@@ -53,6 +53,10 @@ namespace Example
 			GL.Uniform3(shader.GetUniformLocation("cameraPosition"), camera.CalcPosition().ToOpenTK());
 			geometry.Draw();
 			shader.Deactivate();
+		}
+
+		public void Update(float updatePeriod)
+		{
 		}
 
 		private CameraOrbit camera = new CameraOrbit();
