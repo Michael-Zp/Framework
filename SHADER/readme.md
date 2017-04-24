@@ -9,7 +9,6 @@
 1. [CameraTransformationExample](Examples/CameraTransformationExample)
 1. [CameraExample](Examples/CameraExample)
 1. [PhongLightingExample](Examples/PhongLightingExample)
-1. [LightingNPRExample](Examples/LightingNPRExample)
 1. [PhysicsExample](Examples/PhysicsExample)
 1. [SSBOExample](Examples/SSBOExample)
 

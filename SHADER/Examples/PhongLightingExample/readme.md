@@ -4,3 +4,6 @@
 1. Add a point light source
 1. Add a spot light source
 1. Animate light positions, directions, angles
+1. Implement Gooch lighting
+1. Implement Toon shading
+1. Add cel shading
