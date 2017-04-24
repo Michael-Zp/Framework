@@ -20,7 +20,7 @@ namespace Example
 				, Resourcen.vertex, Resourcen.fragment);
 			geometry = CreateMesh(shaderWatcher.Shader);
 
-			camera.FarClip = 100;
+			camera.FarClip = 50;
 			camera.Distance = 5;
 			camera.FovY = 30;
 
@@ -66,9 +66,10 @@ namespace Example
 		private static VAO CreateMesh(Shader shader)
 		{
 			Mesh mesh = new Mesh();
-			var plane = Meshes.CreatePlane(8, 8, 2, 2);
+			var roomSize = 8;
+			var plane = Meshes.CreatePlane(roomSize, roomSize, 2, 2);
 			var xform = new Transformation();
-			xform.Translate(0, -4, 0);
+			xform.Translate(0, -roomSize / 2, 0);
 			mesh.Add(plane.Transform(xform.Matrix));
 			xform.RotateZ(90f);
 			mesh.Add(plane.Transform(xform.Matrix));
@@ -81,7 +82,7 @@ namespace Example
 			xform.RotateY(180f);
 			mesh.Add(plane.Transform(xform.Matrix));
 
-			var sphere = Meshes.CreateSphere(.9f, 2);
+			var sphere = Meshes.CreateSphere(1);
 			mesh.Add(sphere);
 			var suzanne = Obj2Mesh.FromObj(Resourcen.suzanne);
 			mesh.Add(suzanne.Transform(System.Numerics.Matrix4x4.CreateTranslation(2, 2, -2)));
