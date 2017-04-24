@@ -26,6 +26,24 @@ namespace DMS.Geometry
 			}
 		}
 
+		public static Mesh Transform(this Mesh m, Matrix4x4 transform)
+		{
+			var mesh = new Mesh();
+			foreach (var pos in m.positions)
+			{
+				var newPos = Vector3.Transform(pos, transform);
+				mesh.positions.Add(newPos);
+			}
+			foreach (var n in m.normals)
+			{
+				var newN = Vector3.TransformNormal(n, transform);
+				mesh.normals.Add(newN);
+			}
+			mesh.uvs.AddRange(m.uvs);
+			mesh.ids.AddRange(m.ids);
+			return mesh;
+		}
+
 		public static Mesh SwitchHandedness(this Mesh m)
 		{
 			var mesh = new Mesh();
@@ -177,6 +195,7 @@ namespace DMS.Geometry
 					float x = -sizeX / 2.0f + u * deltaX;
 					float z = -sizeZ / 2.0f + v * deltaZ;
 					m.positions.Add(new Vector3(x, 0.0f, z));
+					m.normals.Add(Vector3.UnitY);
 				}
 			}
 			uint verticesZ = segmentsZ + 1;

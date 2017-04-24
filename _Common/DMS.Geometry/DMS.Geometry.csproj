@@ -47,6 +47,7 @@
     <Compile Include="Meshes.cs" />
     <Compile Include="Obj2Mesh.cs" />
     <Compile Include="ObjParser.cs" />
+    <Compile Include="Transformation.cs" />
     <Compile Include="Transform2D.cs" />
   </ItemGroup>
   <ItemGroup>

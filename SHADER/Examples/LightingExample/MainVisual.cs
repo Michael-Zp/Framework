@@ -20,7 +20,7 @@ namespace Example
 				, Resourcen.vertex, Resourcen.fragment);
 			geometry = CreateMesh(shaderWatcher.Shader);
 
-			camera.FarClip = 20;
+			camera.FarClip = 100;
 			camera.Distance = 5;
 			camera.FovY = 30;
 
@@ -66,8 +66,25 @@ namespace Example
 		private static VAO CreateMesh(Shader shader)
 		{
 			Mesh mesh = new Mesh();
-			mesh.Add(Meshes.CreateSphere(.9f));
-			mesh.Add(Obj2Mesh.FromObj(Resourcen.suzanne));
+			var plane = Meshes.CreatePlane(8, 8, 2, 2);
+			var xform = new Transformation();
+			xform.Translate(0, -4, 0);
+			mesh.Add(plane.Transform(xform.Matrix));
+			xform.RotateZ(90f);
+			mesh.Add(plane.Transform(xform.Matrix));
+			xform.RotateZ(90f);
+			mesh.Add(plane.Transform(xform.Matrix));
+			xform.RotateZ(90f);
+			mesh.Add(plane.Transform(xform.Matrix));
+			xform.RotateY(90f);
+			mesh.Add(plane.Transform(xform.Matrix));
+			xform.RotateY(180f);
+			mesh.Add(plane.Transform(xform.Matrix));
+
+			var sphere = Meshes.CreateSphere(.9f, 2);
+			mesh.Add(sphere);
+			var suzanne = Obj2Mesh.FromObj(Resourcen.suzanne);
+			mesh.Add(suzanne.Transform(System.Numerics.Matrix4x4.CreateTranslation(2, 2, -2)));
 			var vao = new VAO();
 			vao.SetAttribute(shader.GetAttributeLocation("position"), mesh.positions.ToArray(), VertexAttribPointerType.Float, 3);
 			vao.SetAttribute(shader.GetAttributeLocation("normal"), mesh.normals.ToArray(), VertexAttribPointerType.Float, 3);

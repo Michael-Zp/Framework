@@ -1,5 +1,6 @@
-1. implement phong shading
-1. add a point light source
-1. add a spot light source
-1. animate light positions, directions, angles
-1. implement phong lighting
+1. Implement a directional light source with diffuse shading
+1. Implement the phong illumination model with gouroud shading
+1. Implement phong shading
+1. Add a point light source
+1. Add a spot light source
+1. Animate light positions, directions, angles

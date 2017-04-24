@@ -13,6 +13,5 @@ void main()
 	pos = position;
 	n = normal;
 
-	vec3 pos = position;
-	gl_Position = camera * vec4(pos, 1.0);
+	gl_Position = camera * vec4(position, 1.0);
 }
