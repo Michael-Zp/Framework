@@ -12,7 +12,13 @@ namespace Example
 		{
 			GameWindow.MouseMove += GameWindow_MouseMove;
 			GameWindow.MouseWheel += GameWindow_MouseWheel;
+			GameWindow.Resize += GameWindow_Resize;
 			visual = new MainVisual();
+		}
+
+		private void GameWindow_Resize(object sender, EventArgs e)
+		{
+			visual.OrbitCamera.Aspect = (float)GameWindow.Width / GameWindow.Height;
 		}
 
 		private void Run()

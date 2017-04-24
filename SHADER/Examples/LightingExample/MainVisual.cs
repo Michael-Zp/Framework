@@ -24,6 +24,7 @@ namespace Example
 			camera.Distance = 5;
 			camera.FovY = 30;
 
+			GL.ClearColor(Color4.White);
 			GL.Enable(EnableCap.DepthTest);
 			GL.Enable(EnableCap.CullFace);
 		}
@@ -46,8 +47,8 @@ namespace Example
 			GL.Uniform3(shader.GetUniformLocation("light3Direction"), new Vector3(1, -1, -1).Normalized());
 			GL.Uniform1(shader.GetUniformLocation("light3Angle"), DMS.Geometry.MathHelper.DegreesToRadians(10f));
 			GL.Uniform4(shader.GetUniformLocation("light3Color"), new Color4(0, 0, 1f, 1f));
-			GL.Uniform4(shader.GetUniformLocation("ambientLightColor"), new Color4(.1f, .1f, .1f, 1f));
-			GL.Uniform4(shader.GetUniformLocation("materialColor"), new Color4(.7f, .9f, .7f, 1f));
+			GL.Uniform4(shader.GetUniformLocation("ambientLightColor"), new Color4(.3f, .3f, .1f, 1f));
+			GL.Uniform4(shader.GetUniformLocation("materialColor"), new Color4(.7f, .7f, .7f, 1f));
 			var cam = camera.CalcMatrix().ToOpenTK();
 			GL.UniformMatrix4(shader.GetUniformLocation("camera"), true, ref cam);
 			GL.Uniform3(shader.GetUniformLocation("cameraPosition"), camera.CalcPosition().ToOpenTK());
@@ -66,26 +67,10 @@ namespace Example
 		private static VAO CreateMesh(Shader shader)
 		{
 			Mesh mesh = new Mesh();
-			var roomSize = 8;
-			var plane = Meshes.CreatePlane(roomSize, roomSize, 2, 2);
-			var xform = new Transformation();
-			xform.Translate(0, -roomSize / 2, 0);
-			mesh.Add(plane.Transform(xform.Matrix));
-			xform.RotateZ(90f);
-			mesh.Add(plane.Transform(xform.Matrix));
-			xform.RotateZ(90f);
-			mesh.Add(plane.Transform(xform.Matrix));
-			xform.RotateZ(90f);
-			mesh.Add(plane.Transform(xform.Matrix));
-			xform.RotateY(90f);
-			mesh.Add(plane.Transform(xform.Matrix));
-			xform.RotateY(180f);
-			mesh.Add(plane.Transform(xform.Matrix));
-
-			var sphere = Meshes.CreateSphere(1);
+			var sphere = Meshes.CreateSphere(1, 4);
 			mesh.Add(sphere);
-			var suzanne = Obj2Mesh.FromObj(Resourcen.suzanne);
-			mesh.Add(suzanne.Transform(System.Numerics.Matrix4x4.CreateTranslation(2, 2, -2)));
+			//var suzanne = Obj2Mesh.FromObj(Resourcen.suzanne);
+			//mesh.Add(suzanne.Transform(System.Numerics.Matrix4x4.CreateTranslation(2, 2, -2)));
 			var vao = new VAO();
 			vao.SetAttribute(shader.GetAttributeLocation("position"), mesh.positions.ToArray(), VertexAttribPointerType.Float, 3);
 			vao.SetAttribute(shader.GetAttributeLocation("normal"), mesh.normals.ToArray(), VertexAttribPointerType.Float, 3);
