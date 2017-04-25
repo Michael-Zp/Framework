@@ -4,6 +4,7 @@ using DMS.System;
 using OpenTK.Graphics.OpenGL;
 using System;
 using System.IO;
+using OpenTK.Platform;
 
 namespace Example
 {
@@ -11,11 +12,11 @@ namespace Example
 	{
 		private ShaderFileDebugger shaderWatcher;
 
-		public MyWindow()
+		public MyWindow(IGameWindow gameWindow)
 		{
 			var dir = Path.GetDirectoryName(PathTools.GetSourceFilePath()) + @"\Resources\";
 			shaderWatcher = new ShaderFileDebugger(dir + "vertex.glsl", dir + "fragment.glsl"
-				, Resourcen.vertex, Resourcen.fragment);
+				, Resourcen.vertex, Resourcen.fragment, gameWindow);
 		}
 
 		public void Render()
@@ -39,7 +40,8 @@ namespace Example
 		public static void Main()
 		{
 			var app = new ExampleApplication();
-			app.Run(new MyWindow());
+			var window = new MyWindow(app.GameWindow);
+			app.Run(window);
 		}
 	}
 }

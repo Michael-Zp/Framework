@@ -1,4 +1,5 @@
 ﻿using DMS.OpenGL;
+using OpenTK.Platform;
 using System.IO;
 using System.Text;
 
@@ -6,8 +7,11 @@ namespace DMS.ShaderDebugging
 {
 	public class ShaderFileDebugger
 	{
-		public ShaderFileDebugger(string vertexFile, string fragmentFile, byte[] vertexShader = null, byte [] fragmentShader = null)
+		public ShaderFileDebugger(string vertexFile, string fragmentFile, 
+			byte[] vertexShader = null, byte [] fragmentShader = null,
+			IGameWindow gameWindow = null)
 		{
+			GameWindow = gameWindow;
 			if (File.Exists(vertexFile) && File.Exists(fragmentFile))
 			{
 				shaderWatcherVertex = new FileWatcher(vertexFile);
@@ -16,7 +20,8 @@ namespace DMS.ShaderDebugging
 				while(!ReferenceEquals(null, LastException))
 				{
 					form.Hide();
-					FormShaderExceptionFacade.ShowModal(LastException);
+					form.Show(LastException, GameWindow);
+					//FormShaderExceptionFacade.ShowModal(LastException);
 					CheckForShaderChange();
 				}
 			}
@@ -40,20 +45,23 @@ namespace DMS.ShaderDebugging
 				shaderWatcherVertex.Dirty = false;
 				shaderWatcherFragment.Dirty = false;
 				form.Clear();
+				form.Hide();
 				return true;
 			}
 			catch (IOException e)
 			{
 				LastException = new ShaderException("ERROR", e.Message, string.Empty, string.Empty);
-				form.Show(LastException);
+				form.Show(LastException, GameWindow);
 			}
 			catch (ShaderException e)
 			{
 				LastException = e;
-				form.Show(e);
+				form.Show(e, GameWindow);
 			}
 			return false;
 		}
+
+		public IGameWindow GameWindow { get; private set; }
 
 		public Shader Shader { get { return shader; } }
 		public ShaderException LastException { get; private set; }

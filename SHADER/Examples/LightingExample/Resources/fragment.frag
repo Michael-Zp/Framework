@@ -59,7 +59,5 @@ void main()
 	//}
 
 	//combine
-	color = ambient
-	+
-	light1;
+	color = ambient	+ light1;
 }

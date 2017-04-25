@@ -45,6 +45,6 @@ void main()
 	//cel shading == detect edges and color them
 	if(abs(dot(normal, v)) < 0.18)
 	{
-        color = vec4(0, 0, 0, 1);
+        color = vec4(0, 0, 1, 1);
     }
 }
