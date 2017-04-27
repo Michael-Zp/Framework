@@ -29,6 +29,8 @@ namespace DMS.Geometry
 		public static Mesh Transform(this Mesh m, Matrix4x4 transform)
 		{
 			var mesh = new Mesh();
+			mesh.uvs.AddRange(m.uvs);
+			mesh.ids.AddRange(m.ids);
 			foreach (var pos in m.positions)
 			{
 				var newPos = Vector3.Transform(pos, transform);
@@ -39,14 +41,14 @@ namespace DMS.Geometry
 				var newN = Vector3.TransformNormal(n, transform);
 				mesh.normals.Add(newN);
 			}
-			mesh.uvs.AddRange(m.uvs);
-			mesh.ids.AddRange(m.ids);
 			return mesh;
 		}
 
 		public static Mesh SwitchHandedness(this Mesh m)
 		{
 			var mesh = new Mesh();
+			mesh.uvs.AddRange(m.uvs);
+			mesh.ids.AddRange(m.ids);
 			foreach (var pos in m.positions)
 			{
 				var newPos = pos;
@@ -59,8 +61,20 @@ namespace DMS.Geometry
 				newN.Z = -newN.Z;
 				mesh.normals.Add(newN);
 			}
+			return mesh;
+		}
+
+		public static Mesh FlipNormals(this Mesh m)
+		{
+			var mesh = new Mesh();
+			mesh.positions.AddRange(m.positions);
 			mesh.uvs.AddRange(m.uvs);
 			mesh.ids.AddRange(m.ids);
+			foreach (var n in m.normals)
+			{
+				var newN = -n;
+				mesh.normals.Add(newN);
+			}
 			return mesh;
 		}
 
@@ -182,7 +196,7 @@ namespace DMS.Geometry
 			return CreateSphere(radius, 0);
 		}
 
-		public static Mesh CreatePlane(float sizeX, float sizeZ, uint segmentsX, uint segmentsZ)
+		public static Mesh CreateQuad(float sizeX, float sizeZ, uint segmentsX, uint segmentsZ)
 		{
 			float deltaX = (1.0f / segmentsX) * sizeX;
 			float deltaZ = (1.0f / segmentsZ) * sizeZ;

@@ -14,7 +14,7 @@ namespace Example
 			if(!textures.TryGetValue(textureName, out texture))
 			{
 				texture = TextureLoader.FromFile(@"..\..\LevelEditor\" + textureName);
-				texture.FilterTrilinear();
+				texture.FilterMipmap();
 				texture.WrapMode(TextureWrapMode.Clamp);
 				textures.Add(textureName, texture);
 			}

@@ -22,7 +22,7 @@ namespace DMS.Geometry
 		public float Distance { get; set; }
 		public float Elevation { get; set; }
 		public float FarClip { get; set; }
-		public float FovY { get; set; }
+		public float FovY { get { return fovY; } set { fovY = MathHelper.Clamp(value, 0f, 179.9f); } }
 		public float NearClip { get; set; }
 		public Vector3 Target { get; set; }
 
@@ -38,7 +38,6 @@ namespace DMS.Geometry
 
 		public Matrix4x4 CalcProjectionMatrix()
 		{
-			FovY = MathHelper.Clamp(FovY, 0.1f, 180);
 			return Matrix4x4.Transpose(Matrix4x4.CreatePerspectiveFieldOfView(
 				MathHelper.DegreesToRadians(FovY),
 				Aspect, NearClip, FarClip));
@@ -56,5 +55,7 @@ namespace DMS.Geometry
 			if (!Matrix4x4.Invert(view, out inverse)) throw new ArithmeticException("Could not invert matrix");
 			return new Vector3(inverse.M14, inverse.M24, inverse.M34);
 		}
+
+		private float fovY;
 	}
 }

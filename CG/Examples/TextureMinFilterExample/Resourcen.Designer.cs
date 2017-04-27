@@ -38,7 +38,7 @@ namespace Example {
         [global::System.ComponentModel.EditorBrowsableAttribute(global::System.ComponentModel.EditorBrowsableState.Advanced)]
         internal static global::System.Resources.ResourceManager ResourceManager {
             get {
-                if (object.ReferenceEquals(resourceMan, null)) {
+                if (ReferenceEquals(resourceMan, null)) {
                     global::System.Resources.ResourceManager temp = new global::System.Resources.ResourceManager("Example.Resourcen", typeof(Resourcen).Assembly);
                     resourceMan = temp;
                 }
@@ -63,30 +63,10 @@ namespace Example {
         /// <summary>
         ///   Sucht eine lokalisierte Ressource vom Typ System.Drawing.Bitmap.
         /// </summary>
-        internal static System.Drawing.Bitmap beach {
+        internal static System.Drawing.Bitmap mountains {
             get {
-                object obj = ResourceManager.GetObject("beach", resourceCulture);
+                object obj = ResourceManager.GetObject("mountains", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
-            }
-        }
-        
-        /// <summary>
-        ///   Sucht eine lokalisierte Ressource vom Typ System.Byte[].
-        /// </summary>
-        internal static byte[] fragment {
-            get {
-                object obj = ResourceManager.GetObject("fragment", resourceCulture);
-                return ((byte[])(obj));
-            }
-        }
-        
-        /// <summary>
-        ///   Sucht eine lokalisierte Ressource vom Typ System.Byte[].
-        /// </summary>
-        internal static byte[] vertex {
-            get {
-                object obj = ResourceManager.GetObject("vertex", resourceCulture);
-                return ((byte[])(obj));
             }
         }
     }

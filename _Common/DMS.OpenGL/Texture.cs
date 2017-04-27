@@ -9,7 +9,7 @@ namespace DMS.OpenGL
 	/// </summary>
 	public class Texture : Disposable
 	{
-		public enum FilterMode { NEAREST, BILINEAR, TRILINEAR };
+		public enum FilterMode { NEAREST, LINEAR, MIPMAP };
 
 		/// <summary>
 		/// Initializes a new instance of the <see cref="Texture"/> class.
@@ -30,14 +30,14 @@ namespace DMS.OpenGL
 			Deactivate();
 		}
 
-		public void FilterBilinear()
+		public void FilterLinear()
 		{
 			Activate();
 			GL.TexParameter(target, TextureParameterName.TextureMagFilter, (float)TextureMagFilter.Linear);
 			GL.TexParameter(target, TextureParameterName.TextureMinFilter, (float)TextureMinFilter.Linear);
 			GL.TexParameter(target, TextureParameterName.GenerateMipmap, 0);
 			Deactivate();
-			filterMode = FilterMode.BILINEAR;
+			filterMode = FilterMode.LINEAR;
 		}
 
 		public void FilterNearest()
@@ -50,14 +50,14 @@ namespace DMS.OpenGL
 			filterMode = FilterMode.NEAREST;
 		}
 
-		public void FilterTrilinear()
+		public void FilterMipmap()
 		{
 			Activate();
 			GL.TexParameter(target, TextureParameterName.TextureMagFilter, (float)TextureMagFilter.Linear);
 			GL.TexParameter(target, TextureParameterName.TextureMinFilter, (float)TextureMinFilter.LinearMipmapLinear);
 			GL.TexParameter(target, TextureParameterName.GenerateMipmap, 1);
 			Deactivate();
-			filterMode = FilterMode.TRILINEAR;
+			filterMode = FilterMode.MIPMAP;
 		}
 
 		public void Activate()
@@ -77,13 +77,12 @@ namespace DMS.OpenGL
 			get { return filterMode; }
 			set
 			{
-				switch (value)
+				switch ((FilterMode)(((int)value) % 3))
 				{
 					case FilterMode.NEAREST: FilterNearest(); break;
-					case FilterMode.BILINEAR: FilterBilinear(); break;
-					case FilterMode.TRILINEAR: FilterTrilinear(); break;
+					case FilterMode.LINEAR: FilterLinear(); break;
+					case FilterMode.MIPMAP: FilterMipmap(); break;
 				}
-				filterMode = value;
 			}
 		}
 		public void LoadPixels(IntPtr pixels, int width, int height, PixelInternalFormat internalFormat, PixelFormat inputPixelFormat, PixelType type)
@@ -102,7 +101,7 @@ namespace DMS.OpenGL
 			//create empty texture of given size
 			texture.LoadPixels(IntPtr.Zero, width, height, internalFormat, inputPixelFormat, type);
 			//set default parameters for filtering and clamping
-			texture.FilterBilinear();
+			texture.FilterLinear();
 			texture.WrapMode(TextureWrapMode.Repeat);
 			return texture;
 		}

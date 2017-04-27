@@ -67,7 +67,7 @@ namespace Example
 		{
 			Mesh mesh = new Mesh();
 			var roomSize = 8;
-			var plane = Meshes.CreatePlane(roomSize, roomSize, 2, 2);
+			var plane = Meshes.CreateQuad(roomSize, roomSize, 2, 2);
 			var xform = new Transformation();
 			xform.Translate(0, -roomSize / 2, 0);
 			mesh.Add(plane.Transform(xform.Matrix));

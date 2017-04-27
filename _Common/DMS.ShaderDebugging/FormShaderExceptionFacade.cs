@@ -42,12 +42,11 @@ namespace DMS.ShaderDebugging
 			{
 				Clear(); //clears last log too -> need to store lastLog afterwards
 				lastException = e;
-				FillData(e);
 			}
-			form.Show();
+			FillData(e);
+			if (!form.Visible) form.Show();
 			//todo: bring to front
 			form.TopMost = true;
-			form.TopMost = false;
 		}
 
 		public void Show(ShaderException e, OpenTK.Platform.IGameWindow gameWindow)
@@ -56,21 +55,12 @@ namespace DMS.ShaderDebugging
 			{
 				Clear(); //clears last log too -> need to store lastLog afterwards
 				lastException = e;
-				FillData(e);
 			}
+			FillData(e);
 			form.SetBounds(gameWindow.Bounds.Left, gameWindow.Bounds.Top, gameWindow.Width, gameWindow.Height);
 			if (!form.Visible) form.Show(new Owner(gameWindow.WindowInfo.Handle));
 			//todo: bring to front
 			form.TopMost = true;
-		}
-
-		public static void ShowModal(ShaderException e)
-		{
-			var facade = new FormShaderExceptionFacade();
-			//facade.OnSave += (s, a) => facade.
-			facade.Clear();
-			facade.FillData(e);
-			facade.form.ShowDialog();
 		}
 
 		private readonly FormShaderException form;

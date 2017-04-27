@@ -28,7 +28,7 @@ namespace Example
 
 		private void GameWindow_MouseWheel(object sender, MouseWheelEventArgs e)
 		{
-			visual.OrbitCamera.Distance *= (float)Math.Pow(1.05, e.DeltaPrecise);
+			visual.OrbitCamera.FovY *= (float)Math.Pow(1.05, e.DeltaPrecise);
 		}
 
 		private void GameWindow_MouseMove(object sender, MouseMoveEventArgs e)
@@ -44,6 +44,7 @@ namespace Example
 		public static void Main()
 		{
 			var app = new MyApplication();
+			//app.GameWindow.WindowState = OpenTK.WindowState.Fullscreen;
 			app.Run();
 		}
 	}

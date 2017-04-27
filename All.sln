@@ -151,6 +151,10 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "PhongLightingExample", "SHA
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "EnvMappingExample", "SHADER\Examples\EnvMappingExample\EnvMappingExample.csproj", "{40B874B8-2E8D-42AE-A567-06AE167B0E8B}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TextureMagFilterExample", "CG\Examples\TextureMagFilterExample\TextureMagFilterExample.csproj", "{54E36986-D3B2-45AD-949D-AF58EF41852B}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TextureMinFilterExample", "CG\Examples\TextureMinFilterExample\TextureMinFilterExample.csproj", "{7D52CCA1-5FC3-4EF5-820A-9B8982DBE928}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -389,6 +393,14 @@ Global
 		{40B874B8-2E8D-42AE-A567-06AE167B0E8B}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{40B874B8-2E8D-42AE-A567-06AE167B0E8B}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{40B874B8-2E8D-42AE-A567-06AE167B0E8B}.Release|Any CPU.Build.0 = Release|Any CPU
+		{54E36986-D3B2-45AD-949D-AF58EF41852B}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{54E36986-D3B2-45AD-949D-AF58EF41852B}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{54E36986-D3B2-45AD-949D-AF58EF41852B}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{54E36986-D3B2-45AD-949D-AF58EF41852B}.Release|Any CPU.Build.0 = Release|Any CPU
+		{7D52CCA1-5FC3-4EF5-820A-9B8982DBE928}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{7D52CCA1-5FC3-4EF5-820A-9B8982DBE928}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{7D52CCA1-5FC3-4EF5-820A-9B8982DBE928}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{7D52CCA1-5FC3-4EF5-820A-9B8982DBE928}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -455,5 +467,7 @@ Global
 		{AB2FC8A2-9741-42B7-9170-D713B5125D78} = {E6454C74-3D02-49DC-BF69-CCBD7CE40E25}
 		{3F29DE75-E5F8-4FC8-91AD-D332B1816EC7} = {E6454C74-3D02-49DC-BF69-CCBD7CE40E25}
 		{40B874B8-2E8D-42AE-A567-06AE167B0E8B} = {E6454C74-3D02-49DC-BF69-CCBD7CE40E25}
+		{54E36986-D3B2-45AD-949D-AF58EF41852B} = {7784E3B6-CA36-4515-BC9D-7BEC5556D51E}
+		{7D52CCA1-5FC3-4EF5-820A-9B8982DBE928} = {7784E3B6-CA36-4515-BC9D-7BEC5556D51E}
 	EndGlobalSection
 EndGlobal

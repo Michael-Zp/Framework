@@ -10,20 +10,25 @@ namespace Example
 {
 	class MyWindow : IWindow
 	{
-		private ShaderFileDebugger shaderWatcher;
+		private ShaderDebugger shaderWatcher;
 
 		public MyWindow(IGameWindow gameWindow)
 		{
 			var dir = Path.GetDirectoryName(PathTools.GetSourceFilePath()) + @"\Resources\";
-			shaderWatcher = new ShaderFileDebugger(dir + "vertex.glsl", dir + "fragment.glsl"
+			shaderWatcher = new ShaderDebugger(dir + "vertex.glsl", dir + "fragment.glsl"
 				, Resourcen.vertex, Resourcen.fragment, gameWindow);
+			shaderWatcher.ShaderLoaded += ShaderWatcher_ShaderLoaded;
+		}
+
+		private void ShaderWatcher_ShaderLoaded()
+		{
+			//setup geometry attributes when shader changes
 		}
 
 		public void Render()
 		{
 			if (shaderWatcher.CheckForShaderChange())
 			{
-				//update geometry when shader changes
 			}
 			var shader = shaderWatcher.Shader;
 			GL.Clear(ClearBufferMask.ColorBufferBit);

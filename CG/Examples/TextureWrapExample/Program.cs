@@ -31,7 +31,7 @@ namespace Example
 			DrawTexturedRect(new Box2D(-1, 0, 1, 1), texBackground, texCoord);
 			texBackground.WrapMode(TextureWrapMode.Repeat);
 			DrawTexturedRect(new Box2D(0, 0, 1, 1), texBackground, texCoord);
-			texBackground.WrapMode(TextureWrapMode.Clamp);
+			texBackground.WrapMode(TextureWrapMode.ClampToEdge);
 			DrawTexturedRect(new Box2D(-1, -1, 1, 1), texBackground, texCoord);
 			texBackground.WrapMode(TextureWrapMode.MirroredRepeat);
 			DrawTexturedRect(new Box2D(0, -1, 1, 1), texBackground, texCoord);

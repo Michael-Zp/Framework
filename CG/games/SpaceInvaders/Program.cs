@@ -7,12 +7,12 @@ using System;
 using System.Collections.Generic;
 using System.Diagnostics;
 using System.Drawing;
+using DMS.OpenGL;
 
 namespace SpaceInvaders
 {
-	class MyApplication
+	class MyWindow : IWindow
 	{
-		private GameWindow gameWindow;
 		private Box2D windowBorders = new Box2D(-1.0f, -1.0f, 2.0f, 2.0f);
 		private Box2D player = new Box2D(0.0f, -1.0f, 0.1f, 0.05f);
 		private List<Box2D> enemies = new List<Box2D>();
@@ -22,43 +22,49 @@ namespace SpaceInvaders
 		private float enemySpeed = 0.05f;
 		private bool Lost;
 
-		public MyApplication()
+		public MyWindow()
 		{
 			shootCoolDown.PeriodElapsed += (s, t) => shootCoolDown.Stop();
-
-			gameWindow = new GameWindow();
-			gameWindow.WindowState = WindowState.Fullscreen;
 			CreateEnemies();
-			gameWindow.Resize += (sender, e) => GL.Viewport(0, 0, gameWindow.Width, gameWindow.Height);
-			gameWindow.UpdateFrame += GameWindow_UpdateFrame;
-			gameWindow.RenderFrame += GameWindow_RenderFrame;
-			gameWindow.RenderFrame += (sender, e) => gameWindow.SwapBuffers();
 			timeSource.Start();
-			gameWindow.Run(60.0);
 		}
 
-		[STAThread]
-		public static void Main()
+		public void Render()
 		{
-			MyApplication app = new MyApplication();
+			GL.Clear(ClearBufferMask.ColorBufferBit);
+			foreach (Box2D enemy in enemies)
+			{
+				DrawEnemy(enemy);
+			}
+			foreach (Box2D bullet in bullets)
+			{
+				DrawBullet(bullet);
+			}
+			DrawPlayer(player);
 		}
 
-		void GameWindow_UpdateFrame(object sender, FrameEventArgs e)
+		public void Update(float updatePeriod)
 		{
 			shootCoolDown.Update((float)timeSource.Elapsed.TotalSeconds);
-			if (Keyboard.GetState()[Key.Escape] || Lost)
+			if (Lost)
 			{
-				gameWindow.Exit();
+				return;
 			}
 
-			float updatePeriod = (float)gameWindow.UpdatePeriod;
 			float axisLeftRight = Keyboard.GetState()[Key.Left] ? -1.0f : Keyboard.GetState()[Key.Right] ? 1.0f : 0.0f;
 			bool shoot = Keyboard.GetState()[Key.Space];
 
 			Update(updatePeriod, axisLeftRight, shoot);
 		}
 
-		public void Update(float timeDelta, float axisUpDown, bool shoot)
+		[STAThread]
+		public static void Main()
+		{
+			var app = new ExampleApplication();
+			app.Run(new MyWindow());
+		}
+
+		private void Update(float timeDelta, float axisUpDown, bool shoot)
 		{
 			if (Lost) return;
 			//remove outside bullet
@@ -82,20 +88,6 @@ namespace SpaceInvaders
 				CreateEnemies();
 				enemySpeed += 0.05f;
 			}
-		}
-
-		void GameWindow_RenderFrame(object sender, FrameEventArgs e)
-		{
-			GL.Clear(ClearBufferMask.ColorBufferBit);
-			foreach (Box2D enemy in enemies)
-			{
-				DrawEnemy(enemy);
-			}
-			foreach (Box2D bullet in bullets)
-			{
-				DrawBullet(bullet);
-			}
-			DrawPlayer(player);
 		}
 
 		private void DrawBullet(Box2D o)

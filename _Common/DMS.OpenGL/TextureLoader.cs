@@ -11,7 +11,7 @@ namespace DMS.OpenGL
 		public static Texture FromBitmap(Bitmap bitmap)
 		{
 			Texture texture = new Texture();
-			texture.FilterTrilinear();
+			texture.FilterMipmap();
 			texture.Activate();
 			//todo: 16bit channels
 			using (Bitmap bmp = new Bitmap(bitmap))
@@ -42,15 +42,9 @@ namespace DMS.OpenGL
 
 		public static void SaveToFile(Texture texture, string fileName, global::System.Drawing.Imaging.PixelFormat format = global::System.Drawing.Imaging.PixelFormat.Format32bppArgb)
 		{
-			using (Bitmap bmp = new Bitmap(texture.Width, texture.Height))
+			using (var bitmap = SaveToBitmap(texture, format))
 			{
-				texture.Activate();
-				BitmapData data = bmp.LockBits(new Rectangle(0, 0, bmp.Width, bmp.Height), ImageLockMode.WriteOnly, format);
-				GL.GetTexImage(TextureTarget.Texture2D, 0, SelectInputPixelFormat(format), PixelType.UnsignedByte, data.Scan0);
-				bmp.UnlockBits(data);
-				texture.Deactivate();
-				bmp.RotateFlip(RotateFlipType.RotateNoneFlipY);
-				bmp.Save(fileName);
+				bitmap.Save(fileName);
 			}
 		}
 

@@ -20,11 +20,14 @@ namespace Example
 				, Resourcen.vertex, Resourcen.fragment);
 			geometry = CreateMesh(shaderWatcher.Shader);
 
-			envMap = TextureLoader.FromBitmap(Resourcen.EnvMap);
+			envMap = TextureLoader.FromBitmap(Resourcen.beach);
+			envMap.WrapMode(TextureWrapMode.MirroredRepeat);
+			envMap.FilterLinear();
 
+			camera.NearClip = 0.01f;
 			camera.FarClip = 50;
-			camera.Distance = 5;
-			camera.FovY = 30;
+			camera.Distance = 0;
+			camera.FovY = 70;
 
 			GL.ClearColor(Color4.White);
 			GL.Enable(EnableCap.DepthTest);
@@ -42,16 +45,6 @@ namespace Example
 			var shader = shaderWatcher.Shader;
 			shader.Activate();
 			envMap.Activate();
-			GL.Uniform3(shader.GetUniformLocation("light1Direction"), new Vector3(-1, -1, -1).Normalized());
-			GL.Uniform4(shader.GetUniformLocation("light1Color"), new Color4(1f, 1f, 1f, 1f));
-			GL.Uniform3(shader.GetUniformLocation("light2Position"), new Vector3(-1, -1, 1));
-			GL.Uniform4(shader.GetUniformLocation("light2Color"), new Color4(1f, .1f, .1f, 1f));
-			GL.Uniform3(shader.GetUniformLocation("light3Position"), new Vector3(-2, 2, 2));
-			GL.Uniform3(shader.GetUniformLocation("light3Direction"), new Vector3(1, -1, -1).Normalized());
-			GL.Uniform1(shader.GetUniformLocation("light3Angle"), DMS.Geometry.MathHelper.DegreesToRadians(10f));
-			GL.Uniform4(shader.GetUniformLocation("light3Color"), new Color4(0, 0, 1f, 1f));
-			GL.Uniform4(shader.GetUniformLocation("ambientLightColor"), new Color4(.3f, .3f, .1f, 1f));
-			GL.Uniform4(shader.GetUniformLocation("materialColor"), new Color4(.7f, .7f, .7f, 1f));
 			var cam = camera.CalcMatrix().ToOpenTK();
 			GL.UniformMatrix4(shader.GetUniformLocation("camera"), true, ref cam);
 			GL.Uniform3(shader.GetUniformLocation("cameraPosition"), camera.CalcPosition().ToOpenTK());
@@ -62,6 +55,7 @@ namespace Example
 
 		public void Update(float updatePeriod)
 		{
+			camera.FovY = DMS.Geometry.MathHelper.Clamp(camera.FovY, 0.1f, 175f);
 		}
 
 		private CameraOrbit camera = new CameraOrbit();
@@ -74,9 +68,8 @@ namespace Example
 			Mesh mesh = new Mesh();
 
 			var sphere = Meshes.CreateSphere(1, 4);
-			mesh.Add(sphere);
-			//var suzanne = Obj2Mesh.FromObj(Resourcen.suzanne);
-			//mesh.Add(suzanne);
+
+			mesh.Add(sphere.SwitchTriangleMeshWinding());
 			var vao = new VAO();
 			vao.SetAttribute(shader.GetAttributeLocation("position"), mesh.positions.ToArray(), VertexAttribPointerType.Float, 3);
 			vao.SetAttribute(shader.GetAttributeLocation("normal"), mesh.normals.ToArray(), VertexAttribPointerType.Float, 3);

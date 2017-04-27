@@ -8,7 +8,7 @@ namespace DMS.OpenGL
 			, float spriteBoundingBoxWidth = 1.0f, float spriteBoundingBoxHeight = 1.0f)
 		{
 			this.tex = tex;
-			this.tex.FilterTrilinear();
+			this.tex.FilterMipmap();
 			this.spritesPerLine = spritesPerLine;
 			this.spriteBoundingBoxWidth = spriteBoundingBoxWidth;
 			this.spriteBoundingBoxHeight = spriteBoundingBoxHeight;
