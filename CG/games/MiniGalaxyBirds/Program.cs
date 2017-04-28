@@ -1,6 +1,5 @@
 ﻿using DMS.OpenGL;
 using OpenTK;
-using OpenTK.Graphics.OpenGL;
 using OpenTK.Input;
 using System;
 using System.Diagnostics;
@@ -35,7 +34,7 @@ namespace MiniGalaxyBirds
 		}
 
 		[STAThread]
-		public static void Main()
+		private static void Main()
 		{
 			var myApp = new MyApplication();
 			myApp.gameWindow.Run(60.0, 60.0);

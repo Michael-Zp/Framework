@@ -48,7 +48,7 @@ namespace Example
 		}
 
 		[STAThread]
-		public static void Main()
+		private static void Main()
 		{
 			var app = new ExampleApplication();
 			app.Run(new MyWindow());

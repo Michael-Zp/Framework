@@ -15,7 +15,7 @@ namespace Example
 		private Renderer renderer = new Renderer();
 
 		[STAThread]
-		public static void Main()
+		private static void Main()
 		{
 			var app = new ExampleApplication();
 			var aspect = app.GameWindow.Width / (float)app.GameWindow.Height;

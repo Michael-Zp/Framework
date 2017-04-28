@@ -79,7 +79,7 @@ namespace Example
 		}
 
 		[STAThread]
-		public static void Main()
+		private static void Main()
 		{
 			var app = new ExampleApplication();
 			app.GameWindow.WindowState = WindowState.Fullscreen;

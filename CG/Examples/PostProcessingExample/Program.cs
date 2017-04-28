@@ -1,6 +1,5 @@
 ﻿using DMS.OpenGL;
 using DMS.Geometry;
-using OpenTK;
 using OpenTK.Graphics.OpenGL;
 using OpenTK.Input;
 using System;
@@ -68,7 +67,7 @@ namespace Example
 		}
 
 		[STAThread]
-		public static void Main()
+		private static void Main()
 		{
 			var app = new ExampleApplication();
 			app.Run(new MyWindow(app.GameWindow.Width, app.GameWindow.Height));

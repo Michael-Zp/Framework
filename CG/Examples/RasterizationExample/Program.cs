@@ -6,7 +6,7 @@ namespace Example
 	class MyApplication
 	{
 		[STAThread]
-		public static void Main()
+		private static void Main()
 		{
 			var app = new ExampleApplication();
 			var canvas = new Canvas();

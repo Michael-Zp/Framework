@@ -5,7 +5,6 @@ using OpenTK.Input;
 using System;
 using System.Collections.Generic;
 using System.Diagnostics;
-using System.Numerics;
 
 namespace Example
 {
@@ -131,7 +130,7 @@ namespace Example
 		}
 
 		[STAThread]
-		public static void Main()
+		private static void Main()
 		{
 			var app = new ExampleApplication();
 			app.Run(new MyWindow());

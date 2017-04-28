@@ -11,7 +11,7 @@ namespace Example
 		private MainVisual visual;
 
 		[STAThread]
-		public static void Main()
+		private static void Main()
 		{
 			var app = new MyApplication();
 			app.gameWindow.Run();

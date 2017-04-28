@@ -20,7 +20,7 @@ namespace Example
 		private List<Vector2> wayTangents;
 
 		[STAThread]
-		public static void Main()
+		private static void Main()
 		{
 			var app = new MyApplication();
 			app.gameWindow.Run();

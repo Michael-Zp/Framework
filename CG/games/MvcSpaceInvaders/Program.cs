@@ -19,13 +19,6 @@ namespace MvcSpaceInvaders
 			timeSource.Start();
 		}
 
-		[STAThread]
-		public static void Main()
-		{
-			var app = new ExampleApplication();
-			app.Run(new MyWindow());
-		}
-
 		public void Render()
 		{
 			visual.DrawScreen(logic.Enemies, logic.Bullets, logic.Player);
@@ -42,5 +35,12 @@ namespace MvcSpaceInvaders
 		private Visual visual;
 		private Sound sound;
 		private Stopwatch timeSource = new Stopwatch();
+
+		[STAThread]
+		private static void Main()
+		{
+			var app = new ExampleApplication();
+			app.Run(new MyWindow());
+		}
 	}
 }

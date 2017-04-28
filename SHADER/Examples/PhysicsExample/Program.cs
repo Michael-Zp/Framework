@@ -13,7 +13,7 @@ namespace Example
 		private Model model;
 
 		[STAThread]
-		public static void Main()
+		private static void Main()
 		{
 			var app = new MyApplication();
 			app.gameWindow.Run(60.0);

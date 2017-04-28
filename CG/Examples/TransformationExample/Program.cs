@@ -16,7 +16,7 @@ namespace Example
 		private List<Box2D> birds = new List<Box2D>();
 
 		[STAThread]
-		public static void Main()
+		private static void Main()
 		{
 			var app = new MyApplication();
 			app.gameWindow.Run(60);

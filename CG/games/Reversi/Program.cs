@@ -11,7 +11,7 @@ namespace Reversi
 	class MyApplication
 	{
 		[STAThread]
-		public static void Main()
+		private static void Main()
 		{
 			MyApplication app = new MyApplication();
 			app.gameWindow.Run();

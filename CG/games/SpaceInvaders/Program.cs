@@ -57,7 +57,7 @@ namespace SpaceInvaders
 		}
 
 		[STAThread]
-		public static void Main()
+		private static void Main()
 		{
 			var app = new ExampleApplication();
 			app.Run(new MyWindow());
@@ -89,7 +89,7 @@ namespace SpaceInvaders
 			}
 		}
 
-		private void DrawBullet(Box2D o)
+		private static void DrawBullet(Box2D o)
 		{
 			GL.Begin(PrimitiveType.Quads);
 			GL.Color3(Color.White);

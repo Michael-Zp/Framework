@@ -14,7 +14,7 @@ namespace Example
 		private PingPongExample pingPongExample;
 
 		[STAThread]
-		public static void Main()
+		private static void Main()
 		{
 			var app = new MyApplication();
 			//run the update loop, which calls our registered callbacks
