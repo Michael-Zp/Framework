@@ -8,16 +8,11 @@ namespace MvcSpaceInvaders
 {
 	public class Visual
 	{
-		public Visual(Texture texEnemy, Texture texBullet, Texture texPlayer)
+		public Visual()
 		{
-			this.texEnemy = texEnemy;
-			this.texBullet = texBullet;
-			this.texPlayer = texPlayer;
-		}
-
-		public void Resize(int width, int height)
-		{
-			GL.Viewport(0, 0, width, height);
+			texPlayer = TextureLoader.FromBitmap(Resourcen.blueships1);
+			texEnemy = TextureLoader.FromBitmap(Resourcen.redship4);
+			texBullet = TextureLoader.FromBitmap(Resourcen.blueLaserRay);
 		}
 
         public void DrawScreen(IEnumerable<Box2D> enemies, IEnumerable<Box2D> bullets, Box2D player)

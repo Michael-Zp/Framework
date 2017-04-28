@@ -1,7 +1,5 @@
 ﻿using DMS.Sound;
 using DMS.System;
-using System;
-using System.IO;
 
 namespace MvcSpaceInvaders
 {
@@ -14,7 +12,7 @@ namespace MvcSpaceInvaders
 
 		public void Background()
 		{
-			//soundEngine.PlaySound(@"D:\temp\music\new\Jamie xx [None] - 00 - You've Got the Love.mp3");
+			//soundEngine.PlaySound(@"sound\Jamie xx - You've Got the Love.mp3");
 		}
 
 		public void DestroyEnemy()

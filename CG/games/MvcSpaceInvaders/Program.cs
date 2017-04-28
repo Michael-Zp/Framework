@@ -1,74 +1,43 @@
 ﻿using DMS.OpenGL;
-using OpenTK;
 using OpenTK.Input;
 using System;
 using System.Diagnostics;
 
 namespace MvcSpaceInvaders
 {
-	class MyApplication
+	class MyWindow : IWindow
 	{
-		public MyApplication()
+		public MyWindow()
 		{
-			gameWindow = new GameWindow();
 			logic = new GameLogic();
-			Texture texPlayer = TextureLoader.FromBitmap(Resourcen.blueships1);
-			Texture texEnemy = TextureLoader.FromBitmap(Resourcen.redship4);
-			Texture texBullet = TextureLoader.FromBitmap(Resourcen.blueLaserRay);
-			visual = new Visual(texEnemy, texBullet, texPlayer);
+			visual = new Visual();
 			sound = new Sound();
 			logic.OnShoot += (sender, args) => { sound.Shoot(); };
 			logic.OnEnemyDestroy += (sender, args) => { sound.DestroyEnemy(); };
-			logic.OnLost += (sender, args) => { sound.Lost(); gameWindow.Exit(); };
-
-			gameWindow.Load += GameWindow_Load;
-			gameWindow.Resize += GameWindow_Resize;
-			gameWindow.UpdateFrame += GameWindow_UpdateFrame;
-			gameWindow.RenderFrame += GameWindow_RenderFrame;
-			gameWindow.RenderFrame += (sender, e) => { gameWindow.SwapBuffers(); };
+			logic.OnLost += (sender, args) => { sound.Lost(); };
 			sound.Background();
 			timeSource.Start();
-			gameWindow.Run(60.0);
 		}
 
 		[STAThread]
 		public static void Main()
 		{
-			MyApplication app = new MyApplication();
+			var app = new ExampleApplication();
+			app.Run(new MyWindow());
 		}
 
-		void GameWindow_Load(object sender, EventArgs e)
-		{
-			//fullscreen
-			gameWindow.WindowBorder = WindowBorder.Hidden;
-			gameWindow.WindowState = WindowState.Fullscreen;
-			gameWindow.VSync = VSyncMode.On;
-		}
-
-		void GameWindow_Resize(object sender, EventArgs e)
-		{
-			visual.Resize(gameWindow.Width, gameWindow.Height);
-		}
-
-		void GameWindow_UpdateFrame(object sender, FrameEventArgs e)
-		{
-			if (Keyboard.GetState()[Key.Escape])
-			{
-				gameWindow.Exit();
-			}
-
-			float axisLeftRight = Keyboard.GetState()[Key.Left] ? -1.0f : Keyboard.GetState()[Key.Right] ? 1.0f : 0.0f;
-			bool shoot = Keyboard.GetState()[Key.Space];
-
-			logic.Update((float)timeSource.Elapsed.TotalSeconds, axisLeftRight, shoot);
-		}
-
-		void GameWindow_RenderFrame(object sender, FrameEventArgs e)
+		public void Render()
 		{
 			visual.DrawScreen(logic.Enemies, logic.Bullets, logic.Player);
 		}
 
-		private GameWindow gameWindow;
+		public void Update(float updatePeriod)
+		{
+			float axisLeftRight = Keyboard.GetState()[Key.Left] ? -1.0f : Keyboard.GetState()[Key.Right] ? 1.0f : 0.0f;
+			bool shoot = Keyboard.GetState()[Key.Space];
+			logic.Update((float)timeSource.Elapsed.TotalSeconds, axisLeftRight, shoot);
+		}
+
 		private GameLogic logic;
 		private Visual visual;
 		private Sound sound;

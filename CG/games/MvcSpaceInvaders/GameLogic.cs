@@ -27,7 +27,7 @@ namespace MvcSpaceInvaders
 		{
 			if (Lost) return;
 			shootCoolDown.Update(absoluteTime);
-			//remove outside bullet
+			//remove outside bullet - lazy remove
 			foreach (Box2D bullet in bullets)
 			{
 				if (bullet.Y > 1.0f)
