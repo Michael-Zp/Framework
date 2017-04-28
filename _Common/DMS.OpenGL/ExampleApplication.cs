@@ -31,10 +31,15 @@ namespace DMS.OpenGL
 
 		private void GameWindow_KeyDown(object sender, KeyboardKeyEventArgs e)
 		{
-			if (Key.Escape == e.Key)
+			switch(e.Key)
 			{
-				if (!ReferenceEquals(null, frameListCreator)) frameListCreator.Frames.SaveToDefaultDir();
-				gameWindow.Exit();
+				case Key.Escape:
+					if (!ReferenceEquals(null, frameListCreator)) frameListCreator.Frames.SaveToDefaultDir();
+					gameWindow.Exit();
+					break;
+				case Key.F11:
+					gameWindow.WindowState = WindowState.Fullscreen == gameWindow.WindowState ? WindowState.Normal : WindowState.Fullscreen;
+					break;
 			}
 		}
 

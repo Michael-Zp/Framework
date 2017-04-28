@@ -9,7 +9,7 @@ using System.IO;
 namespace Example
 {
 	//todo: add logic; read logic data from level and render data; distribute
-	class MyWindow : IWindow
+	class MyController : IWindow
 	{
 		private Level level = null;
 		private Renderer renderer = new Renderer();
@@ -18,26 +18,27 @@ namespace Example
 		private static void Main()
 		{
 			var app = new ExampleApplication();
-			var aspect = app.GameWindow.Width / (float)app.GameWindow.Height;
-			app.Run(new MyWindow(aspect));
+			var controller = new MyController();
+			app.GameWindow.Resize += (s, e) => controller.renderer.Resize(app.GameWindow.Width, app.GameWindow.Height);
+			app.Run(controller);
 		}
 
-		private MyWindow(float aspect)
+		private MyController()
 		{
-			LoadLevel();
+			LoadLevel(LevelData.level1);
 
 			GL.MatrixMode(MatrixMode.Projection);
 			var size = Math.Max(level.Bounds.SizeX, level.Bounds.SizeY);
-			GL.Ortho(0, size * aspect, 0, size, 0, 1);
+			GL.Ortho(0, size * 1, 0, size, 0, 1);
 			GL.MatrixMode(MatrixMode.Modelview);
 			//for transparency in textures we use blending
 			GL.BlendFunc(BlendingFactorSrc.SrcAlpha, BlendingFactorDest.OneMinusSrcAlpha);
 			GL.Enable(EnableCap.Blend);
 		}
 
-		private void LoadLevel()
+		private void LoadLevel(byte[] levelData)
 		{
-			using (var stream = new MemoryStream(LevelData.level1))
+			using (var stream = new MemoryStream(levelData))
 			{
 				level = Serialize.ObjFromBinStream(stream) as Level;
 				foreach (var layer in level.layers.Values)
