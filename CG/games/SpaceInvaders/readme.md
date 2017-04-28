@@ -1,4 +1,4 @@
-Implement MVC (Model-View-Controller)
+### Implement MVC (Model-View-Controller)
 1. Create a class `Visual`
 1. Move all code releated to drawing into this class
 1. Create a class `GameLogic`
