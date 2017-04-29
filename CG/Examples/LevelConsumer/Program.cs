@@ -10,7 +10,6 @@ namespace Example
 	//todo: add logic; read logic data from level;
 	class MyController : IWindow
 	{
-		private Level level = null;
 		private GameLogic logic = new GameLogic();
 		private Renderer renderer = new Renderer();
 
@@ -36,7 +35,7 @@ namespace Example
 		{
 			using (var stream = new MemoryStream(levelData))
 			{
-				level = Serialize.ObjFromBinStream(stream) as Level;
+				Level level = Serialize.ObjFromBinStream(stream) as Level;
 				//set level bounds
 				logic.Bounds = level.Bounds;
 				//load colliders
