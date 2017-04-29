@@ -33,6 +33,7 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
+    <Compile Include="GameLogic.cs" />
     <Compile Include="LevelData.Designer.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>

@@ -24,7 +24,7 @@ namespace LevelData
 			//do not use autosize for canvas -> set a fixed size
 			levelData.Bounds.SizeX = (float)canvas.ActualWidth;
 			levelData.Bounds.SizeY = (float)canvas.ActualHeight;
-			TraverseLogicalTree(canvas);
+			TraverseLogicalTree(canvas, string.Empty);
 			var dir = System.IO.Path.GetDirectoryName(PathTools.GetSourceFilePath()) + "/../LevelConsumer/Resources/";
 			levelData.ObjIntoBinFile(dir + "level.data");
 			string[] args = Environment.GetCommandLineArgs();
@@ -34,7 +34,7 @@ namespace LevelData
 			}
 		}
 
-		private void TraverseLogicalTree(DependencyObject dependencyObject)
+		private void TraverseLogicalTree(DependencyObject dependencyObject, string parentName)
 		{
 			if (ReferenceEquals(null, dependencyObject)) return;
 			var childern = LogicalTreeHelper.GetChildren(dependencyObject);
@@ -44,23 +44,28 @@ namespace LevelData
 				if (typeof(Image) == type)
 				{
 					var image = child as Image;
-					Convert(image);
+					Convert(image, canvas, parentName);
 				}
 				else if (typeof(Ellipse) == type)
 				{
 					var collider = child as Ellipse;
-					Convert(collider);
+					Convert(collider, parentName);
 				}
-				var logicalChild = child as DependencyObject;
-				TraverseLogicalTree(logicalChild);
+				var logicalChild = child as FrameworkElement;
+				TraverseLogicalTree(logicalChild, ResolveName(logicalChild.Name, parentName));
 			}
 		}
 
-		private void Convert(Ellipse collider)
+		private void Convert(Ellipse collider, string parentName)
 		{
-			var bounds = ConvertBounds(collider);
+			var bounds = ConvertBounds(collider, canvas);
 			var circle = CircleExtensions.CreateFromBox(bounds);
-			levelData.Add(new ColliderCircle(circle));
+			levelData.Add(new ColliderCircle(ResolveName(collider.Name, parentName), circle));
+		}
+
+		private string ResolveName(string name, string parentName)
+		{
+			return string.IsNullOrWhiteSpace(name) ? parentName : name;
 		}
 
 		/// <summary>
@@ -68,24 +73,24 @@ namespace LevelData
 		/// extracting texture source and image name
 		/// </summary>
 		/// <param name="image">Input Image UIElement to convert</param>
-		private void Convert(Image image)
+		private void Convert(Image image, Canvas canvas, string parentName)
 		{
-			var bounds = ConvertBounds(image);
-			var sprite = new Sprite(bounds);
-			var Layer = Canvas.GetZIndex(image);
-			sprite.Name = image.Name;
+			var bounds = ConvertBounds(image, canvas);
+			var layer = Canvas.GetZIndex(image);
+			var sprite = new Sprite(ResolveName(image.Name, parentName), bounds, layer);
 			var source = image.Source?.ToString();
 			if (!ReferenceEquals(null, source))
 			{
+				var fileName = System.IO.Path.GetFileName(source);
 				//sprite.TextureName = source.Substring(source.LastIndexOf(',') + 1);
-				sprite.TextureName = System.IO.Path.GetFileName(source);
-				//todo1: register bitmap list
-				sprite.Texture = new System.Drawing.Bitmap(@"..\..\" + sprite.TextureName);
+				sprite.TextureName = source;
+				//todo1: register bitmap list, convert imagesource into bitmap directly
+				sprite.Texture = new System.Drawing.Bitmap(@"..\..\" + fileName);
 			}
-			levelData.Add(Layer, sprite);
+			levelData.Sprites.Add(sprite);
 		}
 
-		private Box2D ConvertBounds(UIElement element)
+		private static Box2D ConvertBounds(UIElement element, Canvas canvas)
 		{
 			var p00 = new Point(0, 0);
 			var p11 = p00 + (Vector)element.RenderSize;

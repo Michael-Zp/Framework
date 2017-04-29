@@ -9,13 +9,17 @@ namespace LevelData
 	[Serializable]
 	public class Element
 	{
+		public Element(string name)
+		{
+			Name = name;
+		}
 		public string Name { get; set; }
 	}
 
 	[Serializable]
 	public class ColliderCircle : Element
 	{
-		public ColliderCircle(Circle bounds)
+		public ColliderCircle(string name, Circle bounds): base(name)
 		{
 			Bounds = bounds;
 		}
@@ -26,11 +30,13 @@ namespace LevelData
 	[Serializable]
 	public class Sprite : Element
 	{
-		public Sprite(Box2D renderBounds)
+		public Sprite(string name, Box2D renderBounds, int layer) : base(name)
 		{
+			Layer = layer;
 			RenderBounds = renderBounds;
 		}
 
+		public int Layer { get; set; }
 		public Box2D RenderBounds { get; set; }
 		public string TextureName { get; set; }
 		public Bitmap Texture { get; set; }
@@ -41,53 +47,12 @@ namespace LevelData
 	{
 		public Box2D Bounds = new Box2D(Box2D.BOX01);
 
-		public void Add(int layer, Sprite sprite)
-		{
-			if(!layers.ContainsKey(layer))
-			{
-				layers.Add(layer, new List<Sprite>());
-			}
-			layers[layer].Add(sprite);
-		}
-
 		public void Add(ColliderCircle collider)
 		{
 			colliders.Add(collider);
 		}
 
-		public Dictionary<int, List<Sprite>> layers = new Dictionary<int, List<Sprite>>();
+		public List<Sprite> Sprites = new List<Sprite>();
 		public List<ColliderCircle> colliders = new List<ColliderCircle>();
-
-		public void MovePlayer(float deltaX, float deltaY)
-		{
-			var player = layers[2].First();
-			player.RenderBounds.X += deltaX;
-			player.RenderBounds.Y += deltaY;
-			var circlePlayer = CircleExtensions.CreateFromBox(player.RenderBounds);
-			var collisions = new List<Circle>();
-			foreach(var collider in colliders)
-			{
-				var circleCollider = collider.Bounds;
-				if (circleCollider.Intersects(circlePlayer))
-				{
-					collisions.Add(circleCollider);
-				}
-			}
-			if (1 < collisions.Count)
-			{
-				//more than one collision -> no movement
-				player.RenderBounds.X -= deltaX;
-				player.RenderBounds.Y -= deltaY;
-			}
-			else if (1 == collisions.Count)
-			{
-				//try handling collision
-				circlePlayer.UndoOverlap(collisions.First());
-				player.RenderBounds.CenterX = circlePlayer.CenterX;
-				player.RenderBounds.CenterY = circlePlayer.CenterY;
-			}
-			player.RenderBounds.PushXRangeInside(Bounds);
-			player.RenderBounds.PushYRangeInside(Bounds);
-		}
 	}
 }

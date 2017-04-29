@@ -1,18 +1,61 @@
 ﻿using DMS.OpenGL;
 using DMS.System;
 using LevelData;
-using OpenTK.Graphics.OpenGL;
 using OpenTK.Input;
 using System;
 using System.IO;
 
 namespace Example
 {
-	//todo: add logic; read logic data from level and render data; distribute
+	//todo: add logic; read logic data from level;
 	class MyController : IWindow
 	{
 		private Level level = null;
+		private GameLogic logic = new GameLogic();
 		private Renderer renderer = new Renderer();
+
+		public MyController()
+		{
+			logic.NewPosition += Logic_NewPosition;
+			LoadLevelData(LevelData.level1);
+		}
+
+		public void Render()
+		{
+			renderer.Render(logic.Bounds);
+		}
+
+		public void Update(float updatePeriod)
+		{
+			float axisLeftRight = Keyboard.GetState()[Key.Left] ? -1.0f : Keyboard.GetState()[Key.Right] ? 1.0f : 0.0f;
+			float axisUpDown = Keyboard.GetState()[Key.Down] ? -1.0f : Keyboard.GetState()[Key.Up] ? 1.0f : 0.0f;
+			logic.Update(updatePeriod, axisLeftRight, axisUpDown);
+		}
+
+		private void LoadLevelData(byte[] levelData)
+		{
+			using (var stream = new MemoryStream(levelData))
+			{
+				level = Serialize.ObjFromBinStream(stream) as Level;
+				//set level bounds
+				logic.Bounds = level.Bounds;
+				//load colliders
+				foreach (var collider in level.colliders)
+				{
+					logic.AddCollider(collider.Name, collider.Bounds);
+				}
+				//load sprites
+				foreach (var sprite in level.Sprites)
+				{
+					renderer.AddSprite(sprite.Name, sprite.Layer, sprite.RenderBounds, sprite.TextureName, sprite.Texture);
+				}
+			}
+		}
+
+		private void Logic_NewPosition(string name, float x, float y)
+		{
+			renderer.UpdateSprites(name, x, y);
+		}
 
 		[STAThread]
 		private static void Main()
@@ -21,55 +64,6 @@ namespace Example
 			var controller = new MyController();
 			app.GameWindow.Resize += (s, e) => controller.renderer.Resize(app.GameWindow.Width, app.GameWindow.Height);
 			app.Run(controller);
-		}
-
-		private MyController()
-		{
-			LoadLevel(LevelData.level1);
-
-			GL.MatrixMode(MatrixMode.Projection);
-			var size = Math.Max(level.Bounds.SizeX, level.Bounds.SizeY);
-			GL.Ortho(0, size * 1, 0, size, 0, 1);
-			GL.MatrixMode(MatrixMode.Modelview);
-			//for transparency in textures we use blending
-			GL.BlendFunc(BlendingFactorSrc.SrcAlpha, BlendingFactorDest.OneMinusSrcAlpha);
-			GL.Enable(EnableCap.Blend);
-		}
-
-		private void LoadLevel(byte[] levelData)
-		{
-			using (var stream = new MemoryStream(levelData))
-			{
-				level = Serialize.ObjFromBinStream(stream) as Level;
-				foreach (var layer in level.layers.Values)
-				{
-					foreach (var sprite in layer)
-					{
-						renderer.Register(sprite, sprite.TextureName);
-					}
-				}
-			}
-		}
-
-		public void Render()
-		{
-			GL.Clear(ClearBufferMask.ColorBufferBit);
-			foreach (var layer in level.layers.Values)
-			{
-				foreach (var sprite in layer)
-				{
-					renderer.Draw(sprite, sprite.RenderBounds);
-				}
-			}
-		}
-
-		public void Update(float updatePeriod)
-		{
-			float delta = updatePeriod * 100;
-			//player movement
-			float axisLeftRight = Keyboard.GetState()[Key.Left] ? -1.0f : Keyboard.GetState()[Key.Right] ? 1.0f : 0.0f;
-			float axisUpDown = Keyboard.GetState()[Key.Down] ? -1.0f : Keyboard.GetState()[Key.Up] ? 1.0f : 0.0f;
-			level.MovePlayer(delta * axisLeftRight, delta * axisUpDown);
 		}
 	}
 }
