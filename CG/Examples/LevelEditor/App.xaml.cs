@@ -1,6 +1,6 @@
 ﻿using System.Windows;
 
-namespace LevelData
+namespace LevelEditor
 {
 	/// <summary>
 	/// Interaktionslogik für "App.xaml"

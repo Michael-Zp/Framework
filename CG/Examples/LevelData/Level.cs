@@ -38,7 +38,7 @@ namespace LevelData
 		public int Layer { get; set; }
 		public Box2D RenderBounds { get; set; }
 		public string TextureName { get; set; }
-		public Bitmap Texture { get; set; }
+		public Bitmap Bitmap { get; set; }
 	}
 
 	[Serializable]

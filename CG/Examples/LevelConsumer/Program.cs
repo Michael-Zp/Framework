@@ -46,7 +46,7 @@ namespace Example
 				//load sprites
 				foreach (var sprite in level.Sprites)
 				{
-					renderer.AddSprite(sprite.Name, sprite.Layer, sprite.RenderBounds, sprite.TextureName, sprite.Texture);
+					renderer.AddSprite(sprite.Name, sprite.Layer, sprite.RenderBounds, sprite.TextureName, sprite.Bitmap);
 				}
 			}
 		}
