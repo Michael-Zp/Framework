@@ -1,19 +1,17 @@
-﻿using DMS.System;
-using OpenTK;
+﻿using DMS.OpenGL;
+using DMS.System;
 using OpenTK.Input;
 using System;
-using System.ComponentModel;
 using System.IO;
 using System.Windows.Forms;
 
 namespace Example
 {
-	class MyApplication
+	class MyWindow : IWindow
 	{
-		private GameWindow gameWindow;
 		private GameState gameState;
 
-		public MyApplication()
+		public MyWindow()
 		{
 			try
 			{
@@ -23,47 +21,49 @@ namespace Example
 			{
 				gameState = new GameState(); //loading failed -> reset
 			}
-			gameWindow = new GameWindow();
-			gameWindow.Closing += GameWindow_Closing;
-			gameWindow.KeyDown += GameWindow_KeyDown;
-			gameWindow.MouseDown += GameWindow_MouseDown;
-			gameWindow.RenderFrame += GameWindow_RenderFrame;
-			gameWindow.RenderFrame += (sender, e) => gameWindow.SwapBuffers();
+		}
+
+		private void Save()
+		{
+			gameState.ObjIntoBinFile(GetGameStateFilePath());
+		}
+
+		public void Render()
+		{
+			Visual.DrawScreen(gameState);
+			VisualConsole.DrawScreen(gameState);
+		}
+
+		public void Update(float updatePeriod)
+		{
 		}
 
 		[STAThread]
 		private static void Main()
 		{
-			MyApplication app = new MyApplication();
-			app.gameWindow.Run(60.0);
-		}
-
-		private void GameWindow_Closing(object sender, CancelEventArgs e)
-		{
-			gameState.ObjIntoBinFile(GetGameStateFilePath());
-		}
-
-		private void GameWindow_KeyDown(object sender, KeyboardKeyEventArgs e)
-		{
-			if (Key.Escape == e.Key)
+			var app = new ExampleApplication();
+			var window = new MyWindow();
+			app.GameWindow.Closing += (s, e) => window.Save();
+			app.GameWindow.MouseDown += (s, e) =>
 			{
-				gameWindow.Exit();
-			}
+				var coord = app.CalcNormalized(e.X, e.Y);
+				window.HandleInput((int)e.Button, coord.X, coord.Y);
+			};
+			app.Run(window);
 		}
 
-		private void GameWindow_MouseDown(object sender, MouseButtonEventArgs e)
+		private void HandleInput(int button, float x, float y)
 		{
-			//transform window coordinates to grid coordinates
-			var gridX = (e.X * gameState.GridWidth) / (gameWindow.Width - 1);
-			var gridY = (e.Y * gameState.GridHeight) / (gameWindow.Height - 1);
-
+			//transform normalized coordinates to grid coordinates
+			var gridX = (int)(x * gameState.GridWidth);
+			var gridY = (int)(y * gameState.GridHeight);
 			FieldType field;
-			switch (e.Button)
+			switch (button)
 			{
-				case MouseButton.Left:
+				case 0:
 					field = FieldType.CROSS;
 					break;
-				case MouseButton.Right:
+				case 1:
 					field = FieldType.DIAMONT;
 					break;
 				default:
@@ -71,12 +71,6 @@ namespace Example
 					break;
 			}
 			gameState[gridX, gridY] = field;
-		}
-
-		void GameWindow_RenderFrame(object sender, FrameEventArgs e)
-		{
-			Visual.DrawScreen(gameState);
-			VisualConsole.DrawScreen(gameState);
 		}
 
 		private static string GetGameStateFilePath()

@@ -7,7 +7,7 @@ namespace Example
 		public static void DrawScreen(IGameState gameState)
 		{
 			Console.WriteLine("---------------------");
-			for (int v = 0; v < gameState.GridHeight; ++v)
+			for (int v = gameState.GridHeight - 1; v >= 0; --v)
 			{
 				string line = string.Empty;
 				for (int u = 0; u < gameState.GridWidth; ++u)
