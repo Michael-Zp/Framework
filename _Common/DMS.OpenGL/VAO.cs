@@ -145,6 +145,7 @@ namespace DMS.OpenGL
 
 		private static DrawElementsType GetDrawElementsType(Type type)
 		{
+			if (type == typeof(byte)) return DrawElementsType.UnsignedByte;
 			if (type == typeof(ushort)) return DrawElementsType.UnsignedShort;
 			if (type == typeof(uint)) return DrawElementsType.UnsignedInt;
 			throw new Exception("Invalid index type");
