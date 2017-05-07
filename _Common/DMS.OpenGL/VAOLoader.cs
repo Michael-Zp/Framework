@@ -11,7 +11,8 @@ namespace DMS.OpenGL
 			if(mesh.position.List.Count > 0) vao.SetAttribute(shader.GetAttributeLocation(mesh.position.Name), mesh.position.List.ToArray(), VertexAttribPointerType.Float, 3);
 			if (mesh.normal.List.Count > 0) vao.SetAttribute(shader.GetAttributeLocation(mesh.normal.Name), mesh.normal.List.ToArray(), VertexAttribPointerType.Float, 3);
 			if (mesh.uv.List.Count > 0) vao.SetAttribute(shader.GetAttributeLocation(mesh.uv.Name), mesh.uv.List.ToArray(), VertexAttribPointerType.Float, 2);
-			vao.SetID(mesh.IDs.ToArray(), PrimitiveType.Triangles);
+			vao.SetID(mesh.IDs.ToArray());
+			vao.PrimitiveType = PrimitiveType.Triangles;
 			return vao;
 		}
 	}

@@ -24,7 +24,9 @@ namespace DMS.OpenGL
 			idVAO = GL.GenVertexArray();
 		}
 
-		public void SetID<Index>(Index[] data, PrimitiveType primitiveType) where Index : struct
+		public PrimitiveType PrimitiveType { get; set; } = PrimitiveType.Triangles;
+
+		public void SetID<Index>(Index[] data) where Index : struct
 		{
 			Activate();
 			var buffer = RequestBuffer(idBufferBinding, BufferTarget.ElementArrayBuffer);
@@ -37,7 +39,8 @@ namespace DMS.OpenGL
 			buffer.Deactive();
 			//save data for draw call
 			DrawElementsType drawElementsType = GetDrawElementsType(typeof(Index));
-			idData = new IDData(primitiveType, data.Length, drawElementsType);
+			this.idLength = data.Length;
+			this.drawElementsType = drawElementsType;
 		}
 
 		public void SetAttribute<DataElement>(int bindingID, DataElement[] data, VertexAttribPointerType type, int elementSize, bool perInstance = false) where DataElement : struct
@@ -118,29 +121,16 @@ namespace DMS.OpenGL
 
 		public void Draw(int instanceCount = 1)
 		{
-			if (0 == idData.length) throw new VAOException("Empty id data set! Draw yourself using active/deactivate!");
+			if (0 == idLength) throw new VAOException("Empty id data set! Draw yourself using active/deactivate!");
 			Activate();
-			GL.DrawElementsInstanced(idData.primitiveType, idData.length, idData.drawElementsType, (IntPtr)0, instanceCount);
+			GL.DrawElementsInstanced(PrimitiveType, idLength, drawElementsType, (IntPtr)0, instanceCount);
 			Deactive();
 		}
 
-		private struct IDData
-		{
-			public DrawElementsType drawElementsType;
-			public int length;
-			public PrimitiveType primitiveType;
-
-			public IDData(PrimitiveType primitiveType, int length, DrawElementsType drawElementsType)
-			{
-				this.primitiveType = primitiveType;
-				this.length = length;
-				this.drawElementsType = drawElementsType;
-			}
-		}
-
-		private IDData idData;
 		private int idVAO;
 		private const int idBufferBinding = int.MaxValue;
+		private DrawElementsType drawElementsType = DrawElementsType.UnsignedShort;
+		private int idLength = 0;
 		private Dictionary<int, BufferObject> boundBuffers = new Dictionary<int, BufferObject>();
 
 		private static DrawElementsType GetDrawElementsType(Type type)
