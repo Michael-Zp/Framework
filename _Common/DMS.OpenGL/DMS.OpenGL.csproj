@@ -62,6 +62,7 @@
     <Compile Include="TextureToFrameBuffer.cs" />
     <Compile Include="VAO.cs" />
     <Compile Include="FrameListCreator.cs" />
+    <Compile Include="VAOLoader.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />

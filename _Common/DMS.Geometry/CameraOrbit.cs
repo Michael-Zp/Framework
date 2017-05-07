@@ -24,7 +24,10 @@ namespace DMS.Geometry
 		public float FarClip { get; set; }
 		public float FovY { get { return fovY; } set { fovY = MathHelper.Clamp(value, 0f, 179.9f); } }
 		public float NearClip { get; set; }
-		public Vector3 Target { get; set; }
+		public Vector3 Target { get { return target; } set { target = value; } }
+		public float TargetX { get { return Target.X; } set { target.X = value; } }
+		public float TargetY { get { return Target.Y; } set { target.Y = value; } }
+		public float TargetZ { get { return Target.Z; } set { target.Z = value; } }
 
 		public Matrix4x4 CalcViewMatrix()
 		{
@@ -57,5 +60,6 @@ namespace DMS.Geometry
 		}
 
 		private float fovY;
+		private Vector3 target;
 	}
 }

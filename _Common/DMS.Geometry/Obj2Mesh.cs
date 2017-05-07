@@ -33,16 +33,16 @@ namespace DMS.Geometry
 					uint index;
 					if (uniqueVertexIDs.TryGetValue(vertex, out index))
 					{
-						mesh.ids.Add(index);
+						mesh.IDs.Add(index);
 					}
 					else
 					{
-						uint id = (uint) mesh.positions.Count;
+						uint id = (uint) mesh.position.List.Count;
 						//add vertex data to mesh
-						mesh.positions.Add(parser.position[vertex.idPos]);
-						mesh.normals.Add(parser.normals[vertex.idNormal]);
-						mesh.uvs.Add(parser.texCoords[vertex.idTexCoord]);
-						mesh.ids.Add(id);
+						mesh.position.List.Add(parser.position[vertex.idPos]);
+						mesh.normal.List.Add(parser.normals[vertex.idNormal]);
+						mesh.uv.List.Add(parser.texCoords[vertex.idTexCoord]);
+						mesh.IDs.Add(id);
 						//new id
 						uniqueVertexIDs[vertex] = id;
 					}

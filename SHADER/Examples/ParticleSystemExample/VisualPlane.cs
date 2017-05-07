@@ -14,8 +14,7 @@ namespace Example
 			var sFragment = Encoding.UTF8.GetString(Resourcen.plane_frag);
 			shdPlane = ShaderLoader.FromStrings(sVertex, sFragment);
 			var mesh = Meshes.CreateQuad(2, 2, 1, 1);
-			plane.SetAttribute(shdPlane.GetAttributeLocation("position"), mesh.positions.ToArray(), VertexAttribPointerType.Float, 3);
-			plane.SetID(mesh.ids.ToArray(), PrimitiveType.Triangles);
+			plane = VAOLoader.FromMesh(mesh, shdPlane);
 		}
 
 		public void Draw(Matrix4 cam)

@@ -28,7 +28,14 @@ namespace Example
 
 		private void GameWindow_MouseWheel(object sender, MouseWheelEventArgs e)
 		{
-			visual.OrbitCamera.FovY *= (float)Math.Pow(1.05, e.DeltaPrecise);
+			if (Keyboard.GetState().IsKeyDown(Key.ShiftLeft))
+			{
+				visual.OrbitCamera.FovY *= (float)Math.Pow(1.05, e.DeltaPrecise);
+			}
+			else
+			{
+				visual.OrbitCamera.Distance *= (float)Math.Pow(1.05, e.DeltaPrecise);
+			}
 		}
 
 		private void GameWindow_MouseMove(object sender, MouseMoveEventArgs e)

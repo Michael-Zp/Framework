@@ -6,6 +6,7 @@ using OpenTK.Graphics.OpenGL;
 using DMS.ShaderDebugging;
 using DMS.System;
 using System.IO;
+using System;
 
 namespace Example
 {
@@ -19,10 +20,13 @@ namespace Example
 			shaderWatcher = new ShaderFileDebugger(dir + "vertex.vert", dir + "fragment.frag"
 				, Resourcen.vertex, Resourcen.fragment);
 			geometry = CreateMesh(shaderWatcher.Shader);
+			Vector4[] materials = new Vector4[] { new Vector4(1, 1, 1, 0), Vector4.UnitX, Vector4.UnitY, Vector4.One };
+			//texture.LoadPixels((IntPtr)materials, 4, 1, PixelInternalFormat.Rgba8, PixelFormat.Rgba, PixelType.Float);
 
 			camera.FarClip = 50;
-			camera.Distance = 5;
-			camera.FovY = 30;
+			camera.Distance = 1.8f;
+			camera.TargetY = -0.3f;
+			camera.FovY = 70;
 
 			GL.Enable(EnableCap.DepthTest);
 			GL.Enable(EnableCap.CullFace);
@@ -61,31 +65,12 @@ namespace Example
 
 		private CameraOrbit camera = new CameraOrbit();
 		private ShaderFileDebugger shaderWatcher;
+		private Texture texture = new Texture();
 		private VAO geometry;
 
 		private static VAO CreateMesh(Shader shader)
 		{
-			Mesh mesh = new Mesh();
-			var roomSize = 8;
-			var plane = Meshes.CreateQuad(roomSize, roomSize, 2, 2);
-			var xform = new Transformation();
-			xform.TranslateGlobal(0, -roomSize / 2, 0);
-			mesh.Add(plane.Transform(xform.Matrix));
-			xform.RotateZGlobal(90f);
-			mesh.Add(plane.Transform(xform.Matrix));
-			xform.RotateZGlobal(90f);
-			mesh.Add(plane.Transform(xform.Matrix));
-			xform.RotateZGlobal(90f);
-			mesh.Add(plane.Transform(xform.Matrix));
-			xform.RotateYGlobal(90f);
-			mesh.Add(plane.Transform(xform.Matrix));
-			xform.RotateYGlobal(180f);
-			mesh.Add(plane.Transform(xform.Matrix));
-
-			var sphere = Meshes.CreateSphere(1);
-			mesh.Add(sphere);
-			var suzanne = Obj2Mesh.FromObj(Resourcen.suzanne);
-			mesh.Add(suzanne.Transform(System.Numerics.Matrix4x4.CreateTranslation(2, 2, -2)));
+			Mesh mesh = Meshes.CreateCornellBox();
 			return VAOLoader.FromMesh(mesh, shader);
 		}
 	}

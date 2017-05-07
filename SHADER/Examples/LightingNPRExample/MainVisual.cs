@@ -65,11 +65,7 @@ namespace Example
 			Mesh mesh = new Mesh();
 			//mesh.Add(Meshes.CreateSphere(.7f, 3));
 			mesh.Add(Obj2Mesh.FromObj(Resourcen.suzanne));
-			var vao = new VAO();
-			vao.SetAttribute(shader.GetAttributeLocation("position"), mesh.positions.ToArray(), VertexAttribPointerType.Float, 3);
-			vao.SetAttribute(shader.GetAttributeLocation("normal"), mesh.normals.ToArray(), VertexAttribPointerType.Float, 3);
-			vao.SetID(mesh.ids.ToArray(), PrimitiveType.Triangles);
-			return vao;
+			return VAOLoader.FromMesh(mesh, shader);
 		}
 	}
 }

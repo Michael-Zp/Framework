@@ -12,6 +12,8 @@ namespace DMS.Geometry
 			Reset();
 		}
 
+		public Matrix4x4 Matrix { get; private set; }
+
 		public void Reset()
 		{
 			Matrix = Matrix4x4.Identity;
@@ -21,39 +23,74 @@ namespace DMS.Geometry
 		/// Rotate Transform
 		/// </summary>
 		/// <param name="degrees"></param>
-		public void RotateX(float degrees)
+		public void RotateXGlobal(float degrees)
 		{
 			TransformGlobal(Matrix4x4.CreateRotationX(MathHelper.DegreesToRadians(degrees)));
 		}
 
-		public void RotateY(float degrees)
+		public void RotateYGlobal(float degrees)
 		{
 			TransformGlobal(Matrix4x4.CreateRotationY(MathHelper.DegreesToRadians(degrees)));
 		}
 
-		public void RotateZ(float degrees)
+		public void RotateZGlobal(float degrees)
 		{
 			TransformGlobal(Matrix4x4.CreateRotationZ(MathHelper.DegreesToRadians(degrees)));
 		}
 
-		public void Scale(Vector3 scales)
+		public void RotateXLocal(float degrees)
+		{
+			TransformLocal(Matrix4x4.CreateRotationX(MathHelper.DegreesToRadians(degrees)));
+		}
+
+		public void RotateYLocal(float degrees)
+		{
+			TransformLocal(Matrix4x4.CreateRotationY(MathHelper.DegreesToRadians(degrees)));
+		}
+
+		public void RotateZLocal(float degrees)
+		{
+			TransformLocal(Matrix4x4.CreateRotationZ(MathHelper.DegreesToRadians(degrees)));
+		}
+
+		public void ScaleGlobal(Vector3 scales)
 		{
 			TransformGlobal(Matrix4x4.CreateScale(scales));
 		}
 
-		public void Scale(float x, float y, float z)
+		public void ScaleGlobal(float x, float y, float z)
 		{
 			TransformGlobal(Matrix4x4.CreateScale(x, y, z));
 		}
 
-		public void Translate(Vector3 translation)
+		public void ScaleLocal(Vector3 scales)
+		{
+			TransformLocal(Matrix4x4.CreateScale(scales));
+		}
+
+		public void ScaleLocal(float x, float y, float z)
+		{
+			TransformLocal(Matrix4x4.CreateScale(x, y, z));
+		}
+
+		public void TranslateGlobal(Vector3 translation)
 		{
 			TransformGlobal(Matrix4x4.CreateTranslation(translation));
 		}
 
-		public void Translate(float x, float y, float z)
+		public void TranslateGlobal(float x, float y, float z)
 		{
 			TransformGlobal(Matrix4x4.CreateTranslation(x, y, z));
+		}
+
+		public void TranslateLocal(Vector3 translation)
+		{
+			TransformLocal(Matrix4x4.CreateTranslation(translation));
+		}
+
+		public void TranslateLocal(float x, float y, float z)
+		{
+			TransformLocal(Matrix4x4.CreateTranslation(x, y, z));
 		}
 
 		public Vector3 Transform(Vector3 position)
@@ -79,7 +116,5 @@ namespace DMS.Geometry
 		{
 			Matrix = transform * Matrix;
 		}
-
-		public Matrix4x4 Matrix { get; private set; }
 	}
 }

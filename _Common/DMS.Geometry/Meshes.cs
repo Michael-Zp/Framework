@@ -1,45 +1,54 @@
-﻿using System.Numerics;
+﻿using System;
+using System.Numerics;
 
 namespace DMS.Geometry
 {
 	public static partial class Meshes
 	{
+		public static void AddConstantUV(this Mesh mesh, Vector2 uv)
+		{
+			foreach(var p in mesh.position.List)
+			{
+				mesh.uv.List.Add(uv);
+			}
+		}
+
 		public static Mesh Clone(this Mesh m)
 		{
 			var mesh = new Mesh();
-			mesh.positions.AddRange(m.positions);
-			mesh.normals.AddRange(m.normals);
-			mesh.uvs.AddRange(m.uvs);
-			mesh.ids.AddRange(m.ids);
+			mesh.position = m.position.Clone();
+			mesh.normal = m.normal.Clone();
+			mesh.uv = m.uv.Clone();
+			mesh.IDs.AddRange(m.IDs);
 			return mesh;
 		}
 
 		public static void Add(this Mesh a, Mesh b)
 		{
-			var count = (uint)a.positions.Count;
-			a.positions.AddRange(b.positions);
-			a.normals.AddRange(b.normals);
-			a.uvs.AddRange(b.uvs);
-			foreach(var id in b.ids)
+			var count = (uint)a.position.List.Count;
+			a.position.List.AddRange(b.position.List);
+			a.normal.List.AddRange(b.normal.List);
+			a.uv.List.AddRange(b.uv.List);
+			foreach(var id in b.IDs)
 			{
-				a.ids.Add(id + count);
+				a.IDs.Add(id + count);
 			}
 		}
 
 		public static Mesh Transform(this Mesh m, Matrix4x4 transform)
 		{
 			var mesh = new Mesh();
-			mesh.uvs.AddRange(m.uvs);
-			mesh.ids.AddRange(m.ids);
-			foreach (var pos in m.positions)
+			mesh.uv = m.uv.Clone();
+			mesh.IDs.AddRange(m.IDs);
+			foreach (var pos in m.position.List)
 			{
 				var newPos = Vector3.Transform(pos, transform);
-				mesh.positions.Add(newPos);
+				mesh.position.List.Add(newPos);
 			}
-			foreach (var n in m.normals)
+			foreach (var n in m.normal.List)
 			{
 				var newN = Vector3.TransformNormal(n, transform);
-				mesh.normals.Add(newN);
+				mesh.normal.List.Add(newN);
 			}
 			return mesh;
 		}
@@ -47,19 +56,19 @@ namespace DMS.Geometry
 		public static Mesh SwitchHandedness(this Mesh m)
 		{
 			var mesh = new Mesh();
-			mesh.uvs.AddRange(m.uvs);
-			mesh.ids.AddRange(m.ids);
-			foreach (var pos in m.positions)
+			mesh.uv = m.uv.Clone();
+			mesh.IDs.AddRange(m.IDs);
+			foreach (var pos in m.position.List)
 			{
 				var newPos = pos;
 				newPos.Z = -newPos.Z;
-				mesh.positions.Add(newPos);
+				mesh.position.List.Add(newPos);
 			}
-			foreach (var n in m.normals)
+			foreach (var n in m.normal.List)
 			{
 				var newN = n;
 				newN.Z = -newN.Z;
-				mesh.normals.Add(newN);
+				mesh.normal.List.Add(newN);
 			}
 			return mesh;
 		}
@@ -67,13 +76,13 @@ namespace DMS.Geometry
 		public static Mesh FlipNormals(this Mesh m)
 		{
 			var mesh = new Mesh();
-			mesh.positions.AddRange(m.positions);
-			mesh.uvs.AddRange(m.uvs);
-			mesh.ids.AddRange(m.ids);
-			foreach (var n in m.normals)
+			mesh.position = m.position.Clone();
+			mesh.uv = m.uv.Clone();
+			mesh.IDs.AddRange(m.IDs);
+			foreach (var n in m.normal.List)
 			{
 				var newN = -n;
-				mesh.normals.Add(newN);
+				mesh.normal.List.Add(newN);
 			}
 			return mesh;
 		}
@@ -81,15 +90,45 @@ namespace DMS.Geometry
 		public static Mesh SwitchTriangleMeshWinding(this Mesh m)
 		{
 			var mesh = new Mesh();
-			mesh.positions.AddRange(m.positions);
-			mesh.normals.AddRange(m.normals);
-			mesh.uvs.AddRange(m.uvs);
-			for (int i = 0; i < m.ids.Count; i += 3)
+			mesh.position = m.position.Clone();
+			mesh.normal = m.normal.Clone();
+			mesh.uv = m.uv.Clone();
+			for (int i = 0; i < m.IDs.Count; i += 3)
 			{
-				mesh.ids.Add(m.ids[i]);
-				mesh.ids.Add(m.ids[i + 2]);
-				mesh.ids.Add(m.ids[i + 1]);
+				mesh.IDs.Add(m.IDs[i]);
+				mesh.IDs.Add(m.IDs[i + 2]);
+				mesh.IDs.Add(m.IDs[i + 1]);
 			}
+			return mesh;
+		}
+
+		public static Mesh CreateCornellBox(float roomSize = 2, float sphereRadius = 0.3f, float cubeSize = 0.6f)
+		{
+			Mesh mesh = new Mesh();
+			var plane = Meshes.CreateQuad(roomSize, roomSize, 2, 2);
+			
+			var xform = new Transformation();
+			xform.TranslateGlobal(0, -roomSize / 2, 0);
+			mesh.Add(plane.Transform(xform.Matrix));
+			xform.RotateZGlobal(90f);
+			mesh.Add(plane.Transform(xform.Matrix));
+			xform.RotateZGlobal(90f);
+			mesh.Add(plane.Transform(xform.Matrix));
+			xform.RotateZGlobal(90f);
+			mesh.Add(plane.Transform(xform.Matrix));
+			xform.RotateYGlobal(270f);
+			mesh.Add(plane.Transform(xform.Matrix));
+
+			var sphere = Meshes.CreateSphere(sphereRadius, 4);
+			xform.Reset();
+			xform.TranslateGlobal(0.4f, -1 + sphereRadius, -0.2f);
+			mesh.Add(sphere.Transform(xform.Matrix));
+
+			var cube = Meshes.CreateCubeWithNormals(cubeSize);
+			xform.Reset();
+			xform.RotateYGlobal(35f);
+			xform.TranslateGlobal(-0.5f, -1 + 0.5f * cubeSize, 0.1f);
+			mesh.Add(cube.Transform(xform.Matrix));
 			return mesh;
 		}
 
@@ -99,58 +138,130 @@ namespace DMS.Geometry
 			var mesh = new Mesh();
 
 			//corners
-			mesh.positions.Add(new Vector3(s2, s2, -s2)); //0
-			mesh.positions.Add(new Vector3(s2, s2, s2)); //1
-			mesh.positions.Add(new Vector3(-s2, s2, s2)); //2
-			mesh.positions.Add(new Vector3(-s2, s2, -s2)); //3
-			mesh.positions.Add(new Vector3(s2, -s2, -s2)); //4
-			mesh.positions.Add(new Vector3(-s2, -s2, -s2)); //5
-			mesh.positions.Add(new Vector3(-s2, -s2, s2)); //6
-			mesh.positions.Add(new Vector3(s2, -s2, s2)); //7
+			mesh.position.List.Add(new Vector3(s2, s2, -s2)); //0
+			mesh.position.List.Add(new Vector3(s2, s2, s2)); //1
+			mesh.position.List.Add(new Vector3(-s2, s2, s2)); //2
+			mesh.position.List.Add(new Vector3(-s2, s2, -s2)); //3
+			mesh.position.List.Add(new Vector3(s2, -s2, -s2)); //4
+			mesh.position.List.Add(new Vector3(-s2, -s2, -s2)); //5
+			mesh.position.List.Add(new Vector3(-s2, -s2, s2)); //6
+			mesh.position.List.Add(new Vector3(s2, -s2, s2)); //7
 
 			//Top Face
-			mesh.ids.Add(0);
-			mesh.ids.Add(1);
-			mesh.ids.Add(2);
-			mesh.ids.Add(0);
-			mesh.ids.Add(2);
-			mesh.ids.Add(3);
+			mesh.IDs.Add(0);
+			mesh.IDs.Add(2);
+			mesh.IDs.Add(1);
+			mesh.IDs.Add(0);
+			mesh.IDs.Add(3);
+			mesh.IDs.Add(2);
 			//Bottom Face
-			mesh.ids.Add(4);
-			mesh.ids.Add(5);
-			mesh.ids.Add(6);
-			mesh.ids.Add(4);
-			mesh.ids.Add(6);
-			mesh.ids.Add(7);
+			mesh.IDs.Add(4);
+			mesh.IDs.Add(6);
+			mesh.IDs.Add(5);
+			mesh.IDs.Add(4);
+			mesh.IDs.Add(7);
+			mesh.IDs.Add(6);
 			//Front Face
-			mesh.ids.Add(1);
-			mesh.ids.Add(7);
-			mesh.ids.Add(6);
-			mesh.ids.Add(1);
-			mesh.ids.Add(6);
-			mesh.ids.Add(2);
+			mesh.IDs.Add(1);
+			mesh.IDs.Add(6);
+			mesh.IDs.Add(7);
+			mesh.IDs.Add(1);
+			mesh.IDs.Add(2);
+			mesh.IDs.Add(6);
 			//Back Face
-			mesh.ids.Add(0);
-			mesh.ids.Add(3);
-			mesh.ids.Add(5);
-			mesh.ids.Add(0);
-			mesh.ids.Add(5);
-			mesh.ids.Add(4);
+			mesh.IDs.Add(0);
+			mesh.IDs.Add(5);
+			mesh.IDs.Add(3);
+			mesh.IDs.Add(0);
+			mesh.IDs.Add(4);
+			mesh.IDs.Add(5);
 			//Left face
-			mesh.ids.Add(2);
-			mesh.ids.Add(6);
-			mesh.ids.Add(5);
-			mesh.ids.Add(2);
-			mesh.ids.Add(5);
-			mesh.ids.Add(3);
+			mesh.IDs.Add(2);
+			mesh.IDs.Add(5);
+			mesh.IDs.Add(6);
+			mesh.IDs.Add(2);
+			mesh.IDs.Add(3);
+			mesh.IDs.Add(5);
 			//Right face
-			mesh.ids.Add(1);
-			mesh.ids.Add(0);
-			mesh.ids.Add(4);
-			mesh.ids.Add(1);
-			mesh.ids.Add(4);
-			mesh.ids.Add(7);
-			return mesh.SwitchTriangleMeshWinding();
+			mesh.IDs.Add(1);
+			mesh.IDs.Add(4);
+			mesh.IDs.Add(0);
+			mesh.IDs.Add(1);
+			mesh.IDs.Add(7);
+			mesh.IDs.Add(4);
+			return mesh;
+		}
+
+		public static Mesh CreateCubeWithNormals(float size = 1.0f)
+		{
+			float s2 = size * 0.5f;
+			var mesh = new Mesh();
+
+			//corners
+			var c = new Vector3[] {
+				new Vector3(s2, s2, -s2),
+				new Vector3(s2, s2, s2),
+				new Vector3(-s2, s2, s2),
+				new Vector3(-s2, s2, -s2),
+				new Vector3(s2, -s2, -s2),
+				new Vector3(-s2, -s2, -s2),
+				new Vector3(-s2, -s2, s2),
+				new Vector3(s2, -s2, s2),
+			};
+
+			uint id = 0;
+			var n = -Vector3.UnitX;
+
+			Action<int> Add = (int pos) => { mesh.position.List.Add(c[pos]); mesh.normal.List.Add(n); mesh.IDs.Add(id); ++id; };
+
+			//Left face
+			Add(2);
+			Add(5);
+			Add(6);
+			Add(2);
+			Add(3);
+			Add(5);
+			//Right face
+			n = Vector3.UnitX;
+			Add(1);
+			Add(4);
+			Add(0);
+			Add(1);
+			Add(7);
+			Add(4);
+			//Top Face
+			n = Vector3.UnitY;
+			Add(0);
+			Add(2);
+			Add(1);
+			Add(0);
+			Add(3);
+			Add(2);
+			//Bottom Face
+			n = -Vector3.UnitY;
+			Add(4);
+			Add(6);
+			Add(5);
+			Add(4);
+			Add(7);
+			Add(6);
+			//Front Face
+			n = Vector3.UnitZ;
+			Add(1);
+			Add(6);
+			Add(7);
+			Add(1);
+			Add(2);
+			Add(6);
+			//Back Face
+			n = -Vector3.UnitZ;
+			Add(0);
+			Add(5);
+			Add(3);
+			Add(0);
+			Add(4);
+			Add(5);
+			return mesh;
 		}
 
 		public static Mesh CreateSphere(float radius_ = 1.0f, uint subdivision = 1)
@@ -174,8 +285,8 @@ namespace DMS.Geometry
 			for (int i = 0; i < 12; ++i)
 			{
 				var p = new Vector3(vdata[i, 0], vdata[i, 1], vdata[i, 2]);
-				mesh.normals.Add(p);
-				mesh.positions.Add(p);
+				mesh.normal.List.Add(p);
+				mesh.position.List.Add(p);
 			}
 			for (int i = 0; i < 20; ++i)
 			{
@@ -183,9 +294,9 @@ namespace DMS.Geometry
 			}
 
 			//scale
-			for (int i = 0; i < mesh.positions.Count; ++i)
+			for (int i = 0; i < mesh.position.List.Count; ++i)
 			{
-				mesh.positions[i] *= radius_;
+				mesh.position.List[i] *= radius_;
 			}
 
 			return mesh.SwitchTriangleMeshWinding();
@@ -208,8 +319,8 @@ namespace DMS.Geometry
 				{
 					float x = -sizeX / 2.0f + u * deltaX;
 					float z = -sizeZ / 2.0f + v * deltaZ;
-					m.positions.Add(new Vector3(x, 0.0f, z));
-					m.normals.Add(Vector3.UnitY);
+					m.position.List.Add(new Vector3(x, 0.0f, z));
+					m.normal.List.Add(Vector3.UnitY);
 				}
 			}
 			uint verticesZ = segmentsZ + 1;
@@ -218,13 +329,13 @@ namespace DMS.Geometry
 			{
 				for (uint v = 0; v < segmentsZ; ++v)
 				{
-					m.ids.Add(u* verticesZ + v);
-					m.ids.Add(u* verticesZ + v + 1);
-					m.ids.Add((u + 1) * verticesZ + v);
+					m.IDs.Add(u* verticesZ + v);
+					m.IDs.Add(u* verticesZ + v + 1);
+					m.IDs.Add((u + 1) * verticesZ + v);
 
-					m.ids.Add((u + 1) * verticesZ + v);
-					m.ids.Add(u* verticesZ + v + 1);
-					m.ids.Add((u + 1) * verticesZ + v + 1);
+					m.IDs.Add((u + 1) * verticesZ + v);
+					m.IDs.Add(u* verticesZ + v + 1);
+					m.IDs.Add((u + 1) * verticesZ + v + 1);
 				}
 			}
 			return m;
@@ -233,11 +344,11 @@ namespace DMS.Geometry
 		private static uint CreateID(Mesh m, uint id1, uint id2)
 		{
 			//todo: could detect if edge already calculated and reuse....
-			uint i12 = (uint)m.positions.Count;
-			Vector3 v12 = m.positions[(int)id1] + m.positions[(int)id2];
+			uint i12 = (uint)m.position.List.Count;
+			Vector3 v12 = m.position.List[(int)id1] + m.position.List[(int)id2];
 			v12 /= v12.Length();
-			m.normals.Add(v12);
-			m.positions.Add(v12);
+			m.normal.List.Add(v12);
+			m.position.List.Add(v12);
 			return i12;
 		}
 
@@ -245,9 +356,9 @@ namespace DMS.Geometry
 		{
 			if (0 == depth)
 			{
-				m.ids.Add(id1);
-				m.ids.Add(id2);
-				m.ids.Add(id3);
+				m.IDs.Add(id1);
+				m.IDs.Add(id2);
+				m.IDs.Add(id3);
 				return;
 			}
 			uint i12 = CreateID(m, id1, id2);

@@ -70,11 +70,7 @@ namespace Example
 			var sphere = Meshes.CreateSphere(1, 4);
 
 			mesh.Add(sphere.SwitchTriangleMeshWinding());
-			var vao = new VAO();
-			vao.SetAttribute(shader.GetAttributeLocation("position"), mesh.positions.ToArray(), VertexAttribPointerType.Float, 3);
-			vao.SetAttribute(shader.GetAttributeLocation("normal"), mesh.normals.ToArray(), VertexAttribPointerType.Float, 3);
-			vao.SetID(mesh.ids.ToArray(), PrimitiveType.Triangles);
-			return vao;
+			return VAOLoader.FromMesh(mesh, shader);
 		}
 	}
 }

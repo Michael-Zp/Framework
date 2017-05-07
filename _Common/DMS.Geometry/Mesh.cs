@@ -5,9 +5,9 @@ namespace DMS.Geometry
 {
 	public class Mesh
 	{
-		public List<Vector3> positions = new List<Vector3>();
-		public List<Vector3> normals = new List<Vector3>();
-		public List<Vector2> uvs = new List<Vector2>();
-		public List<uint> ids = new List<uint>();
+		public MeshAttribute<Vector3> position = new MeshAttribute<Vector3>(nameof(position));
+		public MeshAttribute<Vector3> normal = new MeshAttribute<Vector3>(nameof(normal));
+		public MeshAttribute<Vector2> uv = new MeshAttribute<Vector2>(nameof(uv));
+		public List<uint> IDs = new List<uint>();
 	}
 }

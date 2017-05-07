@@ -66,16 +66,12 @@ namespace Example
 
 		private static VAO CreateMesh(Shader shader)
 		{
-			Mesh mesh = new Mesh();
+			var mesh = new Mesh();
 			var sphere = Meshes.CreateSphere(1, 4);
 			mesh.Add(sphere);
-			//var suzanne = Obj2Mesh.FromObj(Resourcen.suzanne);
-			//mesh.Add(suzanne.Transform(System.Numerics.Matrix4x4.CreateTranslation(2, 2, -2)));
-			var vao = new VAO();
-			vao.SetAttribute(shader.GetAttributeLocation("position"), mesh.positions.ToArray(), VertexAttribPointerType.Float, 3);
-			vao.SetAttribute(shader.GetAttributeLocation("normal"), mesh.normals.ToArray(), VertexAttribPointerType.Float, 3);
-			vao.SetID(mesh.ids.ToArray(), PrimitiveType.Triangles);
-			return vao;
+			var suzanne = Obj2Mesh.FromObj(Resourcen.suzanne);
+			mesh.Add(suzanne.Transform(System.Numerics.Matrix4x4.CreateTranslation(2, 2, -2)));
+			return VAOLoader.FromMesh(mesh, shader);
 		}
 	}
 }

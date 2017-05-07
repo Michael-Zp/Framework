@@ -155,6 +155,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TextureMagFilterExample", "
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TextureMinFilterExample", "CG\Examples\TextureMinFilterExample\TextureMinFilterExample.csproj", "{7D52CCA1-5FC3-4EF5-820A-9B8982DBE928}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "GlobalIlluminationExample", "SHADER\Examples\GlobalIlluminationExample\GlobalIlluminationExample.csproj", "{1A07B025-F381-4503-823C-F1885E202D0B}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -401,6 +403,10 @@ Global
 		{7D52CCA1-5FC3-4EF5-820A-9B8982DBE928}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{7D52CCA1-5FC3-4EF5-820A-9B8982DBE928}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{7D52CCA1-5FC3-4EF5-820A-9B8982DBE928}.Release|Any CPU.Build.0 = Release|Any CPU
+		{1A07B025-F381-4503-823C-F1885E202D0B}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{1A07B025-F381-4503-823C-F1885E202D0B}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{1A07B025-F381-4503-823C-F1885E202D0B}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{1A07B025-F381-4503-823C-F1885E202D0B}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -469,5 +475,6 @@ Global
 		{40B874B8-2E8D-42AE-A567-06AE167B0E8B} = {E6454C74-3D02-49DC-BF69-CCBD7CE40E25}
 		{54E36986-D3B2-45AD-949D-AF58EF41852B} = {7784E3B6-CA36-4515-BC9D-7BEC5556D51E}
 		{7D52CCA1-5FC3-4EF5-820A-9B8982DBE928} = {7784E3B6-CA36-4515-BC9D-7BEC5556D51E}
+		{1A07B025-F381-4503-823C-F1885E202D0B} = {E6454C74-3D02-49DC-BF69-CCBD7CE40E25}
 	EndGlobalSection
 EndGlobal
