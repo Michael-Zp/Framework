@@ -16,9 +16,9 @@ namespace DMS.Geometry
 		public static Mesh Clone(this Mesh m)
 		{
 			var mesh = new Mesh();
-			mesh.position = m.position.Clone();
-			mesh.normal = m.normal.Clone();
-			mesh.uv = m.uv.Clone();
+			mesh.position.List.AddRange(m.position.List);
+			mesh.normal.List.AddRange(m.normal.List);
+			mesh.uv.List.AddRange(m.uv.List);
 			mesh.IDs.AddRange(m.IDs);
 			return mesh;
 		}
@@ -38,7 +38,7 @@ namespace DMS.Geometry
 		public static Mesh Transform(this Mesh m, Matrix4x4 transform)
 		{
 			var mesh = new Mesh();
-			mesh.uv = m.uv.Clone();
+			mesh.uv.List.AddRange(m.uv.List);
 			mesh.IDs.AddRange(m.IDs);
 			foreach (var pos in m.position.List)
 			{
@@ -56,7 +56,7 @@ namespace DMS.Geometry
 		public static Mesh SwitchHandedness(this Mesh m)
 		{
 			var mesh = new Mesh();
-			mesh.uv = m.uv.Clone();
+			mesh.uv.List.AddRange(m.uv.List);
 			mesh.IDs.AddRange(m.IDs);
 			foreach (var pos in m.position.List)
 			{
@@ -76,8 +76,8 @@ namespace DMS.Geometry
 		public static Mesh FlipNormals(this Mesh m)
 		{
 			var mesh = new Mesh();
-			mesh.position = m.position.Clone();
-			mesh.uv = m.uv.Clone();
+			mesh.position.List.AddRange(m.position.List);
+			mesh.uv.List.AddRange(m.uv.List);
 			mesh.IDs.AddRange(m.IDs);
 			foreach (var n in m.normal.List)
 			{
@@ -90,9 +90,9 @@ namespace DMS.Geometry
 		public static Mesh SwitchTriangleMeshWinding(this Mesh m)
 		{
 			var mesh = new Mesh();
-			mesh.position = m.position.Clone();
-			mesh.normal = m.normal.Clone();
-			mesh.uv = m.uv.Clone();
+			mesh.position.List.AddRange(m.position.List);
+			mesh.normal.List.AddRange(m.normal.List);
+			mesh.uv.List.AddRange(m.uv.List);
 			for (int i = 0; i < m.IDs.Count; i += 3)
 			{
 				mesh.IDs.Add(m.IDs[i]);
