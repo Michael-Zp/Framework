@@ -20,11 +20,16 @@ namespace Example
 			}
 			catch(ShaderException e)
 			{
-				Console.Write(e.Type);
-				Console.Write(": ");
-				Console.WriteLine(e.Message);
-				Console.WriteLine(e.Log);
+				PrintShaderException(e);
 			}
+		}
+
+		private static void PrintShaderException(ShaderException e)
+		{
+			Console.Write(e.Type);
+			Console.Write(": ");
+			Console.WriteLine(e.Message);
+			Console.WriteLine(e.Log);
 		}
 
 		public void Update(float updatePeriod)

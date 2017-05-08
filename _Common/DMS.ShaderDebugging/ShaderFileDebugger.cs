@@ -1,4 +1,5 @@
 ﻿using DMS.OpenGL;
+using System;
 using System.IO;
 using System.Text;
 
@@ -14,10 +15,11 @@ namespace DMS.ShaderDebugging
 				shaderWatcherVertex = new FileWatcher(vertexFile);
 				shaderWatcherFragment = new FileWatcher(fragmentFile);
 				CheckForShaderChange();
-				//while(!ReferenceEquals(null, LastException))
+				while (!ReferenceEquals(null, LastException))
 				{
-					form.Hide();
-					form.Show(LastException);
+					PrintShaderException(LastException);
+					//form.Hide();
+					//form.Show(LastException);
 					//FormShaderExceptionFacade.ShowModal(LastException);
 					CheckForShaderChange();
 				}
@@ -48,12 +50,14 @@ namespace DMS.ShaderDebugging
 			catch (IOException e)
 			{
 				LastException = new ShaderException("ERROR", e.Message, string.Empty, string.Empty);
-				form.Show(LastException);
+				PrintShaderException(LastException);
+				//form.Show(LastException);
 			}
 			catch (ShaderException e)
 			{
 				LastException = e;
-				form.Show(e);
+				PrintShaderException(e);
+				//form.Show(e);
 			}
 			return false;
 		}
@@ -65,5 +69,12 @@ namespace DMS.ShaderDebugging
 		private readonly FileWatcher shaderWatcherVertex = null;
 		private readonly FileWatcher shaderWatcherFragment = null;
 		private readonly FormShaderExceptionFacade form = new FormShaderExceptionFacade();
+		private static void PrintShaderException(ShaderException e)
+		{
+			Console.Write(e.Type);
+			Console.Write(": ");
+			Console.WriteLine(e.Message);
+			Console.WriteLine(e.Log);
+		}
 	}
 }
