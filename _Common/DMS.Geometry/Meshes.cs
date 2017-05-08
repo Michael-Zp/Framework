@@ -5,11 +5,19 @@ namespace DMS.Geometry
 {
 	public static partial class Meshes
 	{
-		public static void AddConstantUV(this Mesh mesh, Vector2 uv)
+		public static void SetConstantUV(this Mesh mesh, Vector2 uv)
 		{
-			foreach(var p in mesh.position.List)
+			var uvs = mesh.uv.List;
+			uvs.Capacity = mesh.position.List.Count;
+			//overwrite existing
+			for(int i = 0; i < uvs.Count; ++i)
 			{
-				mesh.uv.List.Add(uv);
+				uvs[i] = uv;
+			}
+			//add
+			for(int i = uvs.Count; i < mesh.position.List.Count; ++i)
+			{
+				uvs.Add(uv);
 			}
 		}
 
@@ -109,22 +117,29 @@ namespace DMS.Geometry
 			
 			var xform = new Transformation();
 			xform.TranslateGlobal(0, -roomSize / 2, 0);
+			plane.SetConstantUV(new Vector2(1, 0));
 			mesh.Add(plane.Transform(xform.Matrix));
 			xform.RotateZGlobal(90f);
+			plane.SetConstantUV(new Vector2(0.75f, 0));
 			mesh.Add(plane.Transform(xform.Matrix));
 			xform.RotateZGlobal(90f);
+			plane.SetConstantUV(new Vector2(1, 0));
 			mesh.Add(plane.Transform(xform.Matrix));
 			xform.RotateZGlobal(90f);
+			plane.SetConstantUV(new Vector2(0.5f, 0));
 			mesh.Add(plane.Transform(xform.Matrix));
 			xform.RotateYGlobal(270f);
+			plane.SetConstantUV(new Vector2(1, 0));
 			mesh.Add(plane.Transform(xform.Matrix));
 
 			var sphere = Meshes.CreateSphere(sphereRadius, 4);
+			sphere.SetConstantUV(new Vector2(1, 1));
 			xform.Reset();
 			xform.TranslateGlobal(0.4f, -1 + sphereRadius, -0.2f);
 			mesh.Add(sphere.Transform(xform.Matrix));
 
 			var cube = Meshes.CreateCubeWithNormals(cubeSize);
+			cube.SetConstantUV(new Vector2(1, 1));
 			xform.Reset();
 			xform.RotateYGlobal(35f);
 			xform.TranslateGlobal(-0.5f, -1 + 0.5f * cubeSize, 0.1f);

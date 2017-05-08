@@ -5,6 +5,12 @@ namespace DMS.OpenGL
 {
 	public static class VAOLoader
 	{
+		/// <summary>
+		/// Creates a VertexArrayObject from a mesh expecting the MeshAttribute names as shader variable names for the attributes 
+		/// </summary>
+		/// <param name="mesh">to load to the VertexArrayObject</param>
+		/// <param name="shader">for the attribute location bindings</param>
+		/// <returns></returns>
 		public static VAO FromMesh(Mesh mesh, Shader shader)
 		{
 			var vao = new VAO();
