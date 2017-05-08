@@ -1,4 +1,4 @@
-﻿using DMS.System;
+﻿using DMS.Base;
 
 namespace ShaderForm
 {

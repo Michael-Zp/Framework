@@ -11,7 +11,7 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution 
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "_Common", "_Common", "{353CE3AB-3D8F-4859-9B2B-75BAC7BC2359}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DMS.System", "_Common\DMS.System\DMS.System.csproj", "{E5FF60A4-46FB-42D2-9430-BC523315C2E0}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DMS.Base", "_Common\DMS.Base\DMS.Base.csproj", "{E5FF60A4-46FB-42D2-9430-BC523315C2E0}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DMS.Geometry", "_Common\DMS.Geometry\DMS.Geometry.csproj", "{B37B7DDE-435B-4F27-9A9B-9B6DF8744EBE}"
 EndProject

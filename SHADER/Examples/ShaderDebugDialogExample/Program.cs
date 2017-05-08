@@ -1,6 +1,6 @@
 ﻿using DMS.OpenGL;
 using DMS.ShaderDebugging;
-using DMS.System;
+using DMS.Base;
 using OpenTK.Graphics.OpenGL;
 using System;
 using System.IO;

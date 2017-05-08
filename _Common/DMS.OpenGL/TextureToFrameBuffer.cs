@@ -1,5 +1,5 @@
 ﻿using OpenTK.Graphics.OpenGL;
-using DMS.System;
+using DMS.Base;
 
 namespace DMS.OpenGL
 {

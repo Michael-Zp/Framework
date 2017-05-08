@@ -1,7 +1,7 @@
 ﻿using DMS.Geometry;
 using DMS.OpenGL;
 using DMS.ShaderDebugging;
-using DMS.System;
+using DMS.Base;
 using OpenTK;
 using OpenTK.Graphics;
 using OpenTK.Graphics.OpenGL;

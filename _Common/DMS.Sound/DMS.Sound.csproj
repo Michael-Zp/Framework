@@ -44,9 +44,9 @@
     <Compile Include="SoundLoopStream.cs" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\DMS.System\DMS.System.csproj">
+    <ProjectReference Include="..\DMS.Base\DMS.Base.csproj">
       <Project>{E5FF60A4-46FB-42D2-9430-BC523315C2E0}</Project>
-      <Name>DMS.System</Name>
+      <Name>DMS.Base</Name>
     </ProjectReference>
     <ProjectReference Include="..\DMS.TimeTools\DMS.TimeTools.csproj">
       <Project>{54156018-0f41-4eef-aeb4-f1c99cf7a2ab}</Project>

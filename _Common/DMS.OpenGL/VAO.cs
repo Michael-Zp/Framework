@@ -3,7 +3,7 @@ using OpenTK.Graphics.OpenGL;
 using System.Collections.Generic;
 using System.Runtime.InteropServices;
 using OpenTK;
-using DMS.System;
+using DMS.Base;
 
 namespace DMS.OpenGL
 {

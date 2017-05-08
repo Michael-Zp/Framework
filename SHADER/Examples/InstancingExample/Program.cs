@@ -5,7 +5,7 @@ using OpenTK.Graphics.OpenGL;
 using System;
 using DMS.ShaderDebugging;
 using System.IO;
-using DMS.System;
+using DMS.Base;
 
 namespace Example
 {

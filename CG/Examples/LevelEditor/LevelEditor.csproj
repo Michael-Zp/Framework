@@ -73,9 +73,9 @@
       <Project>{c660f6af-c100-4169-a9fb-61e1ebe87f34}</Project>
       <Name>DMS.OpenGL</Name>
     </ProjectReference>
-    <ProjectReference Include="..\..\..\_Common\DMS.System\DMS.System.csproj">
+    <ProjectReference Include="..\..\..\_Common\DMS.Base\DMS.Base.csproj">
       <Project>{e5ff60a4-46fb-42d2-9430-bc523315c2e0}</Project>
-      <Name>DMS.System</Name>
+      <Name>DMS.Base</Name>
     </ProjectReference>
     <ProjectReference Include="..\LevelData\LevelData.csproj">
       <Project>{94c18a12-1467-45dc-9f68-8f8c1c9ffce5}</Project>

@@ -1,4 +1,4 @@
-﻿using DMS.System;
+﻿using DMS.Base;
 using NAudio.Wave;
 using NAudio.Wave.SampleProviders;
 using System;

@@ -1,5 +1,5 @@
 ﻿using DMS.OpenGL;
-using DMS.System;
+using DMS.Base;
 using OpenTK.Graphics.OpenGL;
 using System;
 using System.Collections.Generic;

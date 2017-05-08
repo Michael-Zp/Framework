@@ -6,7 +6,7 @@ using System;
 using System.Diagnostics;
 using DMS.ShaderDebugging;
 using System.IO;
-using DMS.System;
+using DMS.Base;
 
 namespace Example
 {
