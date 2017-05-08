@@ -14,7 +14,7 @@ namespace DMS.ShaderDebugging
 				shaderWatcherVertex = new FileWatcher(vertexFile);
 				shaderWatcherFragment = new FileWatcher(fragmentFile);
 				CheckForShaderChange();
-				while(!ReferenceEquals(null, LastException))
+				//while(!ReferenceEquals(null, LastException))
 				{
 					form.Hide();
 					form.Show(LastException);
