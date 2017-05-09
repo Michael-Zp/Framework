@@ -1,12 +1,13 @@
-﻿using DMS.OpenGL;
+﻿using DMS.Application;
+using DMS.Base;
 using DMS.Geometry;
+using DMS.OpenGL;
+using DMS.ShaderDebugging;
 using OpenTK;
 using OpenTK.Graphics.OpenGL;
 using System;
 using System.Diagnostics;
-using DMS.ShaderDebugging;
 using System.IO;
-using DMS.Base;
 
 namespace Example
 {

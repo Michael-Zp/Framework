@@ -1,4 +1,4 @@
-﻿using DMS.OpenGL;
+﻿using DMS.Application;
 using DMS.ShaderDebugging;
 using DMS.Base;
 using OpenTK.Graphics.OpenGL;
@@ -24,8 +24,8 @@ namespace Example
 		public void ResourceChanged(ResourceManager resourceManager, string resourceName)
 		{
 			//setup/update everything that depends on a loaded/changed resource
-			var vs = resourceManager.GetString(ResourceVertexShader);
-			var fs = resourceManager.GetString(ResourceFragmentShader);
+			//var vs = resourceManager.GetString(ResourceVertexShader);
+			//var fs = resourceManager.GetString(ResourceFragmentShader);
 		}
 
 		public void Render()
@@ -53,9 +53,9 @@ namespace Example
 			var app = new ExampleApplication();
 			var window = new MyWindow();
 			var dir = Path.GetDirectoryName(PathTools.GetSourceFilePath()) + @"\Resources\";
-			app.ResourceManager.AddWatchedFileResource(ResourceVertexShader, dir + "vertex.glsl");
-			app.ResourceManager.AddWatchedFileResource(ResourceFragmentShader, dir + "fragment.glsl");
-			app.ResourceManager.ResourceChanged += window.ResourceChanged;
+			//app.ResourceManager.AddWatchedFileResource(ResourceVertexShader, dir + "vertex.glsl");
+			//app.ResourceManager.AddWatchedFileResource(ResourceFragmentShader, dir + "fragment.glsl");
+			//app.ResourceManager.ResourceChanged += window.ResourceChanged;
 			app.Run(window);
 		}
 	}

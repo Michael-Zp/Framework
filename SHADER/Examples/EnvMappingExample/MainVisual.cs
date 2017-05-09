@@ -1,6 +1,6 @@
-﻿using DMS.OpenGL;
+﻿using DMS.Application;
 using DMS.Geometry;
-using OpenTK;
+using DMS.OpenGL;
 using OpenTK.Graphics;
 using OpenTK.Graphics.OpenGL;
 using DMS.ShaderDebugging;

@@ -44,13 +44,10 @@
     <Compile Include="AnimationTextures.cs" />
     <Compile Include="ColorSystems.cs" />
     <Compile Include="BufferObject.cs" />
-    <Compile Include="ExampleApplication.cs" />
     <Compile Include="IAnimation.cs" />
     <Compile Include="DrawTools.cs" />
-    <Compile Include="IWindow.cs" />
     <Compile Include="QueryObject.cs" />
     <Compile Include="RenderToTexture.cs" />
-    <Compile Include="ResourceManager.cs" />
     <Compile Include="ShaderException.cs" />
     <Compile Include="SpriteSheetAnimation.cs" />
     <Compile Include="FBO.cs" />

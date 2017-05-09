@@ -1,4 +1,4 @@
-﻿using DMS.OpenGL;
+﻿using DMS.Application;
 using OpenTK.Input;
 using System;
 
@@ -13,7 +13,7 @@ namespace Example
 			GameWindow.MouseMove += GameWindow_MouseMove;
 			GameWindow.MouseWheel += GameWindow_MouseWheel;
 			GameWindow.Resize += GameWindow_Resize;
-			visual = new MainVisual();
+			visual = new MainVisual(ResourceManager);
 		}
 
 		private void GameWindow_Resize(object sender, EventArgs e)

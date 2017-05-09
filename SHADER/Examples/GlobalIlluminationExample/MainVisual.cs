@@ -1,12 +1,10 @@
-﻿using DMS.OpenGL;
+﻿using DMS.Application;
+using DMS.Base;
+using DMS.OpenGL;
 using DMS.Geometry;
 using OpenTK;
-using OpenTK.Graphics;
 using OpenTK.Graphics.OpenGL;
-using DMS.ShaderDebugging;
-using DMS.Base;
 using System.IO;
-using System;
 
 namespace Example
 {
@@ -14,12 +12,13 @@ namespace Example
 	{
 		public CameraOrbit OrbitCamera { get { return camera; } }
 
-		public MainVisual()
+		public MainVisual(ResourceManager resourceManager)
 		{
 			var dir = Path.GetDirectoryName(PathTools.GetSourceFilePath()) + "/Resources/";
-			shaderWatcher = new ShaderFileDebugger(dir + "vertex.vert", dir + "fragment.frag"
+			resourceManager.AddShader(dir + "vertex.vert", dir + "fragment.frag"
 				, Resourcen.vertex, Resourcen.fragment);
 
+			resourceManager.ShaderChanged += ResourceManager_ShaderChanged;
 			camera.FarClip = 50;
 			camera.Distance = 1.8f;
 			camera.TargetY = -0.3f;
@@ -29,15 +28,17 @@ namespace Example
 			GL.Enable(EnableCap.CullFace);
 		}
 
+		private void ResourceManager_ShaderChanged(Shader shader)
+		{
+			this.shader = shader;
+			UpdateGeometry();
+		}
+
 		public void Render()
 		{
-			if (shaderWatcher.CheckForShaderChange())
-			{
-				//update geometry when shader changes
-				UpdateGeometry(shaderWatcher.Shader);
-			}
+			if (ReferenceEquals(shader, null)) return;
+
 			GL.Clear(ClearBufferMask.ColorBufferBit | ClearBufferMask.DepthBufferBit);
-			var shader = shaderWatcher.Shader;
 			shader.Activate();
 			GL.Uniform3(shader.GetUniformLocation("ambient"), new Vector3(0.1f));
 			GL.Uniform3(shader.GetUniformLocation("lightPosition"), new Vector3(0, 0.9f, -0.5f));
@@ -54,12 +55,13 @@ namespace Example
 		}
 
 		private CameraOrbit camera = new CameraOrbit();
-		private ShaderFileDebugger shaderWatcher;
+		private Shader shader;
 		private Texture texture = new Texture();
 		private VAO geometry;
 
-		private void UpdateGeometry(Shader shader)
+		private void UpdateGeometry()
 		{
+			if (ReferenceEquals(shader, null)) return;
 			Mesh mesh = Meshes.CreateCornellBox();
 			geometry = VAOLoader.FromMesh(mesh, shader);
 

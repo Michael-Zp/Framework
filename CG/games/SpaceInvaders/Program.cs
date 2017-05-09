@@ -1,12 +1,12 @@
-﻿using DMS.TimeTools;
+﻿using DMS.Application;
 using DMS.Geometry;
+using DMS.TimeTools;
 using OpenTK.Graphics.OpenGL;
 using OpenTK.Input;
 using System;
 using System.Collections.Generic;
 using System.Diagnostics;
 using System.Drawing;
-using DMS.OpenGL;
 
 namespace SpaceInvaders
 {

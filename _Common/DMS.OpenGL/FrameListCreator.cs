@@ -27,6 +27,10 @@ namespace DMS.OpenGL
 		public void Deactivate()
 		{
 			render2tex.Deactivate();
+		}
+
+		public void SaveFrame()
+		{
 			var bmp = TextureLoader.SaveToBitmap(render2tex.Texture, format);
 			frames.Add(bmp);
 			if (!ReferenceEquals(null, tex2fb))
