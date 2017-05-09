@@ -1,4 +1,5 @@
 ﻿using DMS.OpenGL;
+using System.Diagnostics;
 using System.Windows.Forms;
 
 namespace DMS.ShaderDebugging
@@ -7,6 +8,7 @@ namespace DMS.ShaderDebugging
 	{
 		public string ShowModal(ShaderException e)
 		{
+			form = new FormShaderException();
 			form.Text = e.Message;
 			var compileException = e as ShaderCompileException;
 			if (ReferenceEquals(null, compileException))
@@ -23,16 +25,22 @@ namespace DMS.ShaderDebugging
 			foreach (var logLine in log.Lines)
 			{
 				form.Errors.Add(logLine);
+				Debug.Print(@"D:\Daten\FH Ravensburg\Framework\_Common\DMS.ShaderDebugging\FormShaderException.cs(71,41,71,41): error CS1002: ; erwartet.");
+
 			}
+			form.Select(0);
 			form.TopMost = true;
 			closeOnFileChange = true;
 			form.ShowDialog();
 			closeOnFileChange = false;
-			return form.SourceText;
+			var sourceText = form.SourceText;
+			form = null;
+			return sourceText;
 		}
 
 		public void Close()
 		{
+			if (ReferenceEquals(null, form)) return;
 			if (!closeOnFileChange) return;
 			form.Invoke((MethodInvoker)delegate
 			{
@@ -40,7 +48,7 @@ namespace DMS.ShaderDebugging
 			});
 		}
 
-		private readonly FormShaderException form = new FormShaderException();
-		private bool closeOnFileChange;
+		private FormShaderException form = null;
+		private bool closeOnFileChange = false;
 	}
 }

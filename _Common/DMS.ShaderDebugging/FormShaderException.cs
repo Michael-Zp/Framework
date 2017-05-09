@@ -19,6 +19,12 @@ namespace DMS.ShaderDebugging
 
 		public string SourceText { get { return richTextBox.Text; } set { richTextBox.Text = value; } }
 
+		public void Select(int id)
+		{
+			listBox.SelectedIndex = id;
+			listBox_SelectedIndexChanged(null, null);
+		}
+
 		public float FontSize
 		{
 			get
@@ -52,11 +58,10 @@ namespace DMS.ShaderDebugging
 			}
 		}
 
-		private void listBox_SelectedIndexChanged(object sender, System.EventArgs e)
+		private void listBox_SelectedIndexChanged(object sender, EventArgs e)
 		{
 			richTextBox.Select(0, richTextBox.Text.Length);
-			richTextBox.SelectionBackColor = Color.White;
-			richTextBox.SelectionColor = Color.Black;
+			richTextBox.SelectionColor = Color.White;
 			try
 			{
 				var logLine = errors[listBox.SelectedIndex];
@@ -65,7 +70,6 @@ namespace DMS.ShaderDebugging
 				int length = richTextBox.Lines[nr].Length;
 				richTextBox.Select(start, length);
 				richTextBox.SelectionBackColor = Color.DarkRed;
-				richTextBox.SelectionColor = Color.White;
 				richTextBox.ScrollToCaret();
 			}
 			catch { }
@@ -73,8 +77,6 @@ namespace DMS.ShaderDebugging
 
 		private void FormShaderException_FormClosing(object sender, FormClosingEventArgs e)
 		{
-			e.Cancel = true;
-			Visible = false;
 			this.SaveLayout();
 			RegistryLoader.SaveValue(Name, "fontSize", FontSize);
 		}
@@ -83,6 +85,11 @@ namespace DMS.ShaderDebugging
 		{
 			this.LoadLayout();
 			FontSize = (float)Convert.ToDouble(RegistryLoader.LoadValue(Name, "fontSize", 12.0f));
+		}
+
+		private void FormShaderException_Shown(object sender, EventArgs e)
+		{
+			TopMost = false;
 		}
 	}
 }
