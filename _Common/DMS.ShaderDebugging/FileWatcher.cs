@@ -22,9 +22,12 @@ namespace DMS.ShaderDebugging
 			watcher.EnableRaisingEvents = true;
 		}
 
+		public event FileSystemEventHandler Changed;
+
 		private void FileNotification(object sender, FileSystemEventArgs e)
 		{
 			Dirty = true;
+			Changed?.Invoke(sender, e);
 		}
 
 		public bool Dirty { get; set; }

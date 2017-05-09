@@ -27,7 +27,7 @@ namespace ShaderForm
 			active = textureBufferA;
 
 			copyToScreen = new TextureToFrameBuffer();
-			shaderDefault = InitShaderDefault();
+			shaderDefault = ShaderLoader.FromStrings(TextureToFrameBuffer.VertexShaderScreenQuad, TextureToFrameBuffer.FragmentShaderChecker);
 		}
 
 		public void SetUniform(string uniformName, float value)
@@ -162,22 +162,6 @@ namespace ShaderForm
 
 		public string AddUpdateFragmentShader(string fileName)
 		{
-			string sVertexShader = @"
-				#version 130				
-				uniform vec2 iResolution;
-				varying vec2 uv;
-				out vec2 fragCoord;
-				void main() {
-					const vec2 vertices[4] = vec2[4](vec2(-1.0, -1.0),
-                                    vec2( 1.0, -1.0),
-                                    vec2( 1.0,  1.0),
-                                    vec2(-1.0,  1.0));
-					vec2 pos = vertices[gl_VertexID];
-					uv = pos * 0.5 + 0.5;
-					fragCoord = uv * iResolution;
-					gl_Position = vec4(pos, 0.0, 1.0);
-				}";
-
 			try
 			{
 				if (shaders.ContainsKey(fileName))
@@ -189,7 +173,7 @@ namespace ShaderForm
 					}
 				}
 				var sFragmentShd = ShaderLoader.ShaderStringFromFileWithIncludes(fileName, false);
-				var shader = ShaderLoader.FromStrings(sVertexShader, sFragmentShd);
+				var shader = ShaderLoader.FromStrings(TextureToFrameBuffer.VertexShaderScreenQuad, sFragmentShd);
 				shaders[fileName] = shader;
 				return shader.LastLog;
 			}
@@ -198,13 +182,13 @@ namespace ShaderForm
 				try
 				{
 					var sFragmentShd = ShaderLoader.ShaderStringFromFileWithIncludes(fileName, true);
-					var shader = ShaderLoader.FromStrings(sVertexShader, sFragmentShd);
+					var shader = ShaderLoader.FromStrings(TextureToFrameBuffer.VertexShaderScreenQuad, sFragmentShd);
 					shaders[fileName] = shader;
 					return shader.LastLog;
 				}
 				catch (ShaderException e)
 				{
-					throw new ShaderLoadException(e.Type + " failed!" + Environment.NewLine + e.Log);
+					throw new ShaderLoadException(e.Message + Environment.NewLine + e.ShaderLog);
 				}
 			}
 		}
@@ -251,32 +235,6 @@ namespace ShaderForm
 			//return Texture.Create(width, height);
 			//return Texture.Create(width, height, PixelInternalFormat.Rgba16f, PixelFormat.Rgba, PixelType.HalfFloat);
 			return Texture.Create(width, height, PixelInternalFormat.Rgba32f, PixelFormat.Rgba, PixelType.Float);
-		}
-
-		private Shader InitShaderDefault()
-		{
-			string sVertexShader = @"
-				#version 130				
-				uniform vec2 iResolution;
-				varying vec2 uv;
-				void main() {
-					const vec2 vertices[4] = vec2[4](vec2(-1.0, -1.0),
-                                    vec2( 1.0, -1.0),
-                                    vec2( 1.0,  1.0),
-                                    vec2(-1.0,  1.0));
-					vec2 pos = vertices[gl_VertexID];
-					uv = pos * 0.5 + 0.5;
-					gl_Position = vec4(pos, 0.0, 1.0);
-				}";
-			string sFragmentShd = @"
-			varying vec2 uv;
-			void main() {
-				vec2 uv10 = floor(uv * 10.0f);
-				if(1.0 > mod(uv10.x + uv10.y, 2.0f))
-					discard;		
-				gl_FragColor = vec4(1, 1, 0, 0);
-			}";
-			return ShaderLoader.FromStrings(sVertexShader, sFragmentShd);
 		}
 
 		protected override void DisposeResources()

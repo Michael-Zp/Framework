@@ -100,7 +100,7 @@
 		#endregion
 
 		private System.Windows.Forms.SplitContainer splitContainer1;
-		public System.Windows.Forms.ListBox listBox;
-		public System.Windows.Forms.RichTextBox richTextBox;
+		private System.Windows.Forms.ListBox listBox;
+		private System.Windows.Forms.RichTextBox richTextBox;
 	}
 }

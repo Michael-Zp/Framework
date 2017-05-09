@@ -21,7 +21,7 @@ namespace DMS.OpenGL
 		{
 			isLinked = false;
 			int shaderObject = GL.CreateShader(type);
-			if (0 == shaderObject) throw new ShaderException(type.ToString(), "Could not create shader object", string.Empty, sShader);
+			if (0 == shaderObject) throw new ShaderCompileException(type, "Could not create " + type.ToString() + " object", string.Empty, sShader);
 			// Compile vertex shader
 			GL.ShaderSource(shaderObject, sShader);
 			GL.CompileShader(shaderObject);
@@ -30,7 +30,7 @@ namespace DMS.OpenGL
 			LastLog = GL.GetShaderInfoLog(shaderObject);
 			if (1 != status_code)
 			{
-				throw new ShaderException(type.ToString(), "Error compiling shader", LastLog, sShader);
+				throw new ShaderCompileException(type, "Error compiling  " + type.ToString(), LastLog, sShader);
 			}
 			GL.AttachShader(m_ProgramID, shaderObject);
 			//shaderIDs.Add(shaderObject);
@@ -84,13 +84,13 @@ namespace DMS.OpenGL
 			}
 			catch (Exception)
 			{
-				throw new ShaderException("Link", "Unknown error!", string.Empty, string.Empty);
+				throw new ShaderException("Unknown Link error!", string.Empty);
 			}
 			int status_code;
 			GL.GetProgram(m_ProgramID, GetProgramParameterName.LinkStatus, out status_code);
 			if (1 != status_code)
 			{
-				throw new ShaderException("Link", "Error linking shader", GL.GetProgramInfoLog(m_ProgramID), string.Empty);
+				throw new ShaderException("Error linking shader", GL.GetProgramInfoLog(m_ProgramID));
 			}
 			isLinked = true;
 		}

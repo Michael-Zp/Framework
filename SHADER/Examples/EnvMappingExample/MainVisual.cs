@@ -18,7 +18,6 @@ namespace Example
 			var dir = Path.GetDirectoryName(PathTools.GetSourceFilePath()) + "/Resources/";
 			shaderWatcher = new ShaderFileDebugger(dir + "vertex.vert", dir + "fragment.frag"
 				, Resourcen.vertex, Resourcen.fragment);
-			geometry = CreateMesh(shaderWatcher.Shader);
 
 			envMap = TextureLoader.FromBitmap(Resourcen.beach);
 			envMap.WrapMode(TextureWrapMode.MirroredRepeat);
@@ -38,8 +37,8 @@ namespace Example
 		{
 			if (shaderWatcher.CheckForShaderChange())
 			{
-				//update geometry when shader changes
-				geometry = CreateMesh(shaderWatcher.Shader);
+				//update geometry when shader is (re)loaded
+				UpdateGeometry(shaderWatcher.Shader);
 			}
 			GL.Clear(ClearBufferMask.ColorBufferBit | ClearBufferMask.DepthBufferBit);
 			var shader = shaderWatcher.Shader;
@@ -63,14 +62,10 @@ namespace Example
 		private Texture envMap;
 		private VAO geometry;
 
-		private static VAO CreateMesh(Shader shader)
+		private void UpdateGeometry(Shader shader)
 		{
-			Mesh mesh = new Mesh();
-
 			var sphere = Meshes.CreateSphere(1, 4);
-
-			mesh.Add(sphere.SwitchTriangleMeshWinding());
-			return VAOLoader.FromMesh(mesh, shader);
+			geometry = VAOLoader.FromMesh(sphere.SwitchTriangleMeshWinding(), shader);
 		}
 	}
 }

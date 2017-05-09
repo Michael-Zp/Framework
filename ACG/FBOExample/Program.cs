@@ -35,7 +35,7 @@ namespace Example
 			}
 			catch (ShaderException e)
 			{
-				Console.WriteLine(e.Log);
+				Console.WriteLine(e.ShaderLog);
 			}
 
 			globalTime.Start();

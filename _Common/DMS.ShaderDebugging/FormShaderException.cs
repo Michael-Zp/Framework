@@ -7,22 +7,17 @@ namespace DMS.ShaderDebugging
 {
 	public partial class FormShaderException : Form
 	{
-		public event EventHandler<EventArgs> Save;
-
 		public FormShaderException()
 		{
 			InitializeComponent();
-		}
-
-		private void OnMouseWheel(object sender, MouseEventArgs e)
-		{
-			if (Keys.Control == ModifierKeys)
-			{
-				FontSize += Math.Sign(e.Delta) * 2;
-			}
+			listBox.DataSource = errors;
+			listBox.MouseWheel += OnMouseWheel;
+			richTextBox.MouseWheel += OnMouseWheel;
 		}
 
 		public BindingList<ShaderLogLine> Errors { get { return errors; } }
+
+		public string SourceText { get { return richTextBox.Text; } set { richTextBox.Text = value; } }
 
 		public float FontSize
 		{
@@ -41,11 +36,18 @@ namespace DMS.ShaderDebugging
 
 		private BindingList<ShaderLogLine> errors = new BindingList<ShaderLogLine>();
 
+		private void OnMouseWheel(object sender, MouseEventArgs e)
+		{
+			if (Keys.Control == ModifierKeys)
+			{
+				FontSize += Math.Sign(e.Delta) * 2;
+			}
+		}
+
 		private void FormShaderError_KeyDown(object sender, KeyEventArgs e)
 		{
 			switch (e.KeyCode)
 			{
-				case Keys.S: if (Keys.Control == ModifierKeys) Save(sender, EventArgs.Empty); break;
 				case Keys.Escape: Close(); break;
 			}
 		}
@@ -79,9 +81,6 @@ namespace DMS.ShaderDebugging
 
 		private void FormShaderException_Load(object sender, EventArgs e)
 		{
-			listBox.DataSource = errors;
-			listBox.MouseWheel += OnMouseWheel;
-			richTextBox.MouseWheel += OnMouseWheel;
 			this.LoadLayout();
 			FontSize = (float)Convert.ToDouble(RegistryLoader.LoadValue(Name, "fontSize", 12.0f));
 		}

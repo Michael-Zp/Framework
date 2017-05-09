@@ -4,25 +4,24 @@ using DMS.Base;
 using OpenTK.Graphics.OpenGL;
 using System;
 using System.IO;
-using OpenTK.Platform;
 
 namespace Example
 {
 	class MyWindow : IWindow
 	{
-		private ShaderDebugger shaderWatcher;
+		private ShaderFileDebugger shaderWatcher;
 
-		public MyWindow(IGameWindow gameWindow)
+		public MyWindow()
 		{
 			var dir = Path.GetDirectoryName(PathTools.GetSourceFilePath()) + @"\Resources\";
-			shaderWatcher = new ShaderDebugger(dir + "vertex.glsl", dir + "fragment.glsl"
-				, Resourcen.vertex, Resourcen.fragment, gameWindow);
+			shaderWatcher = new ShaderFileDebugger(dir + "vertex.glsl", dir + "fragment.glsl"
+				, Resourcen.vertex, Resourcen.fragment);
 			shaderWatcher.ShaderLoaded += ShaderWatcher_ShaderLoaded;
 		}
 
 		private void ShaderWatcher_ShaderLoaded()
 		{
-			//setup geometry attributes when shader changes
+			//setup/update everything that depends on a loaded/changed shader
 		}
 
 		public void Render()
@@ -30,8 +29,11 @@ namespace Example
 			if (shaderWatcher.CheckForShaderChange())
 			{
 			}
-			var shader = shaderWatcher.Shader;
 			GL.Clear(ClearBufferMask.ColorBufferBit);
+
+			var shader = shaderWatcher.Shader;
+			if (ReferenceEquals(null, shader)) return;
+
 			shader.Activate();
 			GL.DrawArrays(PrimitiveType.Quads, 0, 4);
 			shader.Deactivate();
@@ -45,8 +47,7 @@ namespace Example
 		private static void Main()
 		{
 			var app = new ExampleApplication();
-			var window = new MyWindow(app.GameWindow);
-			app.Run(window);
+			app.Run(new MyWindow());
 		}
 	}
 }

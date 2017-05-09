@@ -1,5 +1,6 @@
 ﻿using Microsoft.Win32;
 using System;
+using System.Drawing;
 using System.Windows.Forms;
 
 namespace DMS.ShaderDebugging
@@ -21,8 +22,13 @@ namespace DMS.ShaderDebugging
 			form.Visible = Convert.ToBoolean(key.GetValue("visible", form.Visible));
 			form.Width = Convert.ToInt32(key.GetValue("Width", form.Width));
 			form.Height = Convert.ToInt32(key.GetValue("Height", form.Height));
-			form.Top = Convert.ToInt32(key.GetValue("Top", form.Top));
-			form.Left = Convert.ToInt32(key.GetValue("Left", form.Left));
+			var top = Convert.ToInt32(key.GetValue("Top", form.Top));
+			var left = Convert.ToInt32(key.GetValue("Left", form.Left));
+			if (FormTools.IsPartlyOnScreen(new Rectangle(left + 10, top + 10, 200, 10))) //check if part of the windows title bar is visible
+			{
+				form.Top = top;
+				form.Left = left;
+			}
 		}
 
 		public static void SaveLayout(this Form form)

@@ -26,10 +26,8 @@ namespace Example
 
 		private static void PrintShaderException(ShaderException e)
 		{
-			Console.Write(e.Type);
-			Console.Write(": ");
 			Console.WriteLine(e.Message);
-			Console.WriteLine(e.Log);
+			Console.WriteLine(e.ShaderLog);
 		}
 
 		public void Update(float updatePeriod)

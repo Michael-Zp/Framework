@@ -93,11 +93,11 @@ namespace DMS.OpenGL
 							{
 								shader.Compile(sIncludeShd, ShaderType.FragmentShader); //test compile include shader
 							}
-							catch (ShaderException e)
+							catch (ShaderCompileException e)
 							{
-								throw new ShaderException(e.Type,
+								throw new ShaderCompileException(e.ShaderType,
 									"include compile '" + sIncludePath + "'",
-									e.Log, sIncludeShd);
+									e.ShaderLog, sIncludeShd);
 							}
 						}
 					}
