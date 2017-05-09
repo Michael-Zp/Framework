@@ -25,15 +25,26 @@ namespace DMS.ShaderDebugging
 			foreach (var logLine in log.Lines)
 			{
 				form.Errors.Add(logLine);
-				Debug.Print(@"D:\Daten\FH Ravensburg\Framework\_Common\DMS.ShaderDebugging\FormShaderException.cs(71,41,71,41): error CS1002: ; erwartet.");
 
+			}
+			if (e.Data.Contains(ShaderLoader.ExceptionDataFileName))
+			{
+				var fileName = e.Data[ShaderLoader.ExceptionDataFileName] as string;
+				if (!ReferenceEquals(null, fileName))
+				{
+					foreach (var logLine in log.Lines)
+					{
+						Debug.Print(fileName + "(" + logLine.LineNumber + "): " + logLine.Message);
+					}
+				}
 			}
 			form.Select(0);
 			form.TopMost = true;
+			var oldSource = form.SourceText;
 			closeOnFileChange = true;
-			form.ShowDialog();
+			var result = form.ShowDialog();
 			closeOnFileChange = false;
-			var sourceText = form.SourceText;
+			var sourceText = DialogResult.OK == result ? form.SourceText : oldSource;
 			form = null;
 			return sourceText;
 		}

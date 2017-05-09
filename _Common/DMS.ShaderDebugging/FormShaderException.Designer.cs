@@ -31,6 +31,8 @@
 			this.splitContainer1 = new System.Windows.Forms.SplitContainer();
 			this.listBox = new System.Windows.Forms.ListBox();
 			this.richTextBox = new System.Windows.Forms.RichTextBox();
+			this.buttonSave = new System.Windows.Forms.Button();
+			this.buttonCancel = new System.Windows.Forms.Button();
 			((System.ComponentModel.ISupportInitialize)(this.splitContainer1)).BeginInit();
 			this.splitContainer1.Panel1.SuspendLayout();
 			this.splitContainer1.Panel2.SuspendLayout();
@@ -51,6 +53,8 @@
 			// 
 			// splitContainer1.Panel2
 			// 
+			this.splitContainer1.Panel2.Controls.Add(this.buttonCancel);
+			this.splitContainer1.Panel2.Controls.Add(this.buttonSave);
 			this.splitContainer1.Panel2.Controls.Add(this.richTextBox);
 			this.splitContainer1.Size = new System.Drawing.Size(726, 365);
 			this.splitContainer1.SplitterDistance = 89;
@@ -83,8 +87,31 @@
 			this.richTextBox.TabIndex = 2;
 			this.richTextBox.Text = "";
 			// 
+			// buttonSave
+			// 
+			this.buttonSave.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
+			this.buttonSave.DialogResult = System.Windows.Forms.DialogResult.OK;
+			this.buttonSave.Location = new System.Drawing.Point(634, 221);
+			this.buttonSave.Name = "buttonSave";
+			this.buttonSave.Size = new System.Drawing.Size(92, 23);
+			this.buttonSave.TabIndex = 3;
+			this.buttonSave.Text = "Save (CTRL+S)";
+			this.buttonSave.UseVisualStyleBackColor = true;
+			// 
+			// buttonCancel
+			// 
+			this.buttonCancel.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
+			this.buttonCancel.DialogResult = System.Windows.Forms.DialogResult.Cancel;
+			this.buttonCancel.Location = new System.Drawing.Point(634, 250);
+			this.buttonCancel.Name = "buttonCancel";
+			this.buttonCancel.Size = new System.Drawing.Size(92, 23);
+			this.buttonCancel.TabIndex = 4;
+			this.buttonCancel.Text = "Cancel (ESC)";
+			this.buttonCancel.UseVisualStyleBackColor = true;
+			// 
 			// FormShaderException
 			// 
+			this.AcceptButton = this.buttonSave;
 			this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
 			this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
 			this.ClientSize = new System.Drawing.Size(726, 365);
@@ -110,5 +137,7 @@
 		private System.Windows.Forms.SplitContainer splitContainer1;
 		private System.Windows.Forms.ListBox listBox;
 		private System.Windows.Forms.RichTextBox richTextBox;
+		private System.Windows.Forms.Button buttonCancel;
+		private System.Windows.Forms.Button buttonSave;
 	}
 }

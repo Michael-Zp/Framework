@@ -54,7 +54,8 @@ namespace DMS.ShaderDebugging
 		{
 			switch (e.KeyCode)
 			{
-				case Keys.Escape: Close(); break;
+				case Keys.Escape: buttonCancel.PerformClick(); break;
+				case Keys.S: if (e.Control) buttonSave.PerformClick(); break;
 			}
 		}
 
