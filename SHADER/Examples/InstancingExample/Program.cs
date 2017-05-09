@@ -17,26 +17,20 @@ namespace Example
 			shaderWatcher = new ShaderFileDebugger(dir + "vertex.glsl", dir + "fragment.glsl"
 				, Resourcen.vertex, Resourcen.fragment);
 
-			geometry = CreateMesh(shaderWatcher.Shader);
-
-			CreatePerInstanceAttributes(geometry, shaderWatcher.Shader);
-
 			GL.Enable(EnableCap.DepthTest);
 		}
 
 		public void Render()
 		{
-			var shader = shaderWatcher.Shader;
 			if (shaderWatcher.CheckForShaderChange())
 			{
 				//update geometry when shader changes
-				geometry = CreateMesh(shader);
-				CreatePerInstanceAttributes(geometry, shader);
+				UpdateGeometry(shaderWatcher.Shader);
 			}
 			GL.Clear(ClearBufferMask.ColorBufferBit | ClearBufferMask.DepthBufferBit);
-			shader.Activate();
+			shaderWatcher.Shader.Activate();
 			geometry.Draw(instanceCount);
-			shader.Deactivate();
+			shaderWatcher.Shader.Deactivate();
 		}
 
 		public void Update(float updatePeriod)
@@ -47,14 +41,11 @@ namespace Example
 		private ShaderFileDebugger shaderWatcher;
 		private VAO geometry;
 
-		private static VAO CreateMesh(Shader shader)
+		private void UpdateGeometry(Shader shader)
 		{
 			Mesh mesh = Meshes.CreateSphere(0.03f, 2);
-			return VAOLoader.FromMesh(mesh, shader);
-		}
+			geometry = VAOLoader.FromMesh(mesh, shader);
 
-		private static void CreatePerInstanceAttributes(VAO vao, Shader shader)
-		{
 			//per instance attributes
 			var rnd = new Random(12);
 			Func<float> Rnd01 = () => (float)rnd.NextDouble();
@@ -64,7 +55,7 @@ namespace Example
 			{
 				instancePositions[i] = new Vector3(RndCoord(), RndCoord(), RndCoord());
 			}
-			vao.SetAttribute(shader.GetAttributeLocation("instancePosition"), instancePositions, VertexAttribPointerType.Float, 3, true);
+			geometry.SetAttribute(shader.GetAttributeLocation("instancePosition"), instancePositions, VertexAttribPointerType.Float, 3, true);
 
 			//todo students: add per instance attribute speed here
 		}

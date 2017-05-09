@@ -9,6 +9,9 @@ namespace Example
 {
 	class MyWindow : IWindow
 	{
+		private const string ResourceVertexShader = "vertexShader";
+		private const string ResourceFragmentShader = "fragmentShader";
+
 		private ShaderFileDebugger shaderWatcher;
 
 		public MyWindow()
@@ -16,12 +19,13 @@ namespace Example
 			var dir = Path.GetDirectoryName(PathTools.GetSourceFilePath()) + @"\Resources\";
 			shaderWatcher = new ShaderFileDebugger(dir + "vertex.glsl", dir + "fragment.glsl"
 				, Resourcen.vertex, Resourcen.fragment);
-			shaderWatcher.ShaderLoaded += ShaderWatcher_ShaderLoaded;
 		}
 
-		private void ShaderWatcher_ShaderLoaded()
+		public void ResourceChanged(ResourceManager resourceManager, string resourceName)
 		{
-			//setup/update everything that depends on a loaded/changed shader
+			//setup/update everything that depends on a loaded/changed resource
+			var vs = resourceManager.GetString(ResourceVertexShader);
+			var fs = resourceManager.GetString(ResourceFragmentShader);
 		}
 
 		public void Render()
@@ -47,7 +51,12 @@ namespace Example
 		private static void Main()
 		{
 			var app = new ExampleApplication();
-			app.Run(new MyWindow());
+			var window = new MyWindow();
+			var dir = Path.GetDirectoryName(PathTools.GetSourceFilePath()) + @"\Resources\";
+			app.ResourceManager.AddWatchedFileResource(ResourceVertexShader, dir + "vertex.glsl");
+			app.ResourceManager.AddWatchedFileResource(ResourceFragmentShader, dir + "fragment.glsl");
+			app.ResourceManager.ResourceChanged += window.ResourceChanged;
+			app.Run(window);
 		}
 	}
 }

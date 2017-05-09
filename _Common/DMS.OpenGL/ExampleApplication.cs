@@ -17,6 +17,7 @@ namespace DMS.OpenGL
 			//register callback for keyboard
 			gameWindow.KeyDown += GameWindow_KeyDown;
 			gameWindow.KeyDown += (sender, e) => { if (Key.Escape == e.Key) gameWindow.Exit(); };
+			ResourceManager = new ResourceManager();
 		}
 
 		public IGameWindow GameWindow { get { return gameWindow; } }
@@ -30,6 +31,8 @@ namespace DMS.OpenGL
 				frameListCreator = value ? new FrameListCreator(gameWindow.Width, gameWindow.Height) : null;
 			}
 		}
+
+		public ResourceManager ResourceManager { get; private set; }
 
 		public Vector2 CalcNormalized(int pixelX, int pixelY)
 		{

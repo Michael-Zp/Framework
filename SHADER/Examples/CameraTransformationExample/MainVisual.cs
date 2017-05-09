@@ -17,9 +17,6 @@ namespace Example
 			var dir = Path.GetDirectoryName(PathTools.GetSourceFilePath()) + @"\Resources\";
 			shaderWatcher = new ShaderFileDebugger(dir + "vertex.glsl", dir + "fragment.glsl"
 				, Resourcen.vertex, Resourcen.fragment);
-			var shader = shaderWatcher.Shader;
-			geometry = CreateMesh(shader);
-			CreatePerInstanceAttributes(geometry, shader);
 
 			CameraDistance = 10.0f;
 
@@ -34,13 +31,12 @@ namespace Example
 
 		public void Render()
 		{
-			var shader = shaderWatcher.Shader;
 			if (shaderWatcher.CheckForShaderChange())
 			{
 				//update geometry when shader changes
-				geometry = CreateMesh(shader);
-				CreatePerInstanceAttributes(geometry, shader);
+				UpdateGeometry(shaderWatcher.Shader);
 			}
+			var shader = shaderWatcher.Shader;
 			var time = (float)timeSource.Elapsed.TotalSeconds;
 			GL.Clear(ClearBufferMask.ColorBufferBit | ClearBufferMask.DepthBufferBit);
 			shader.Activate();
@@ -55,14 +51,11 @@ namespace Example
 		private Matrix4 camera = Matrix4.Identity;
 		private VAO geometry;
 
-		private static VAO CreateMesh(Shader shader)
+		private void UpdateGeometry(Shader shader)
 		{
 			Mesh mesh = Obj2Mesh.FromObj(Resourcen.suzanne);
-			return VAOLoader.FromMesh(mesh, shader);
-		}
+			geometry = VAOLoader.FromMesh(mesh, shader);
 
-		private static void CreatePerInstanceAttributes(VAO vao, Shader shader)
-		{
 			//per instance attributes
 			var rnd = new Random(12);
 			Func<float> Rnd01 = () => (float)rnd.NextDouble();
@@ -72,7 +65,7 @@ namespace Example
 			{
 				instancePositions[i] = new Vector3(RndCoord(), RndCoord(), RndCoord());
 			}
-			vao.SetAttribute(shader.GetAttributeLocation("instancePosition"), instancePositions, VertexAttribPointerType.Float, 3, true);
+			geometry.SetAttribute(shader.GetAttributeLocation("instancePosition"), instancePositions, VertexAttribPointerType.Float, 3, true);
 		}
 
 		public void Update(float updatePeriod)

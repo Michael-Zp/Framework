@@ -15,7 +15,6 @@ namespace Example
 			var dir = Path.GetDirectoryName(PathTools.GetSourceFilePath()) + @"\Resources\";
 			shaderWatcher = new ShaderFileDebugger(dir + "vertex.glsl", dir + "fragment.glsl"
 				, Resourcen.vertex, Resourcen.fragment);
-			CreateMesh(shaderWatcher.Shader);
 
 			//GL.Enable(EnableCap.DepthTest);
 			//texDiffuse = TextureLoader.FromBitmap(Resourcen.capsule0);
@@ -23,26 +22,18 @@ namespace Example
 
 		public void Render()
 		{
-			var shader = shaderWatcher.Shader;
 			if (shaderWatcher.CheckForShaderChange())
 			{
 				//update geometry when shader changes
-				CreateMesh(shader);
+				UpdateGeometry(shaderWatcher.Shader);
 			}
 
 			GL.Clear(ClearBufferMask.ColorBufferBit | ClearBufferMask.DepthBufferBit);
-			shader.Activate();
+			shaderWatcher.Shader.Activate();
 			//texDiffuse.Activate();
 			geometry.Draw();
 			//texDiffuse.Deactivate();
-			shader.Deactivate();
-		}
-
-		private void CreateMesh(Shader shader)
-		{
-			//load geometry
-			Mesh mesh = Obj2Mesh.FromObj(Resourcen.suzanne);
-			geometry = VAOLoader.FromMesh(mesh, shader);
+			shaderWatcher.Shader.Deactivate();
 		}
 
 		public void Update(float updatePeriod)
@@ -52,6 +43,13 @@ namespace Example
 		private ShaderFileDebugger shaderWatcher;
 		private VAO geometry = new VAO();
 		//private Texture texDiffuse;
+
+		private void UpdateGeometry(Shader shader)
+		{
+			//load geometry
+			Mesh mesh = Obj2Mesh.FromObj(Resourcen.suzanne);
+			geometry = VAOLoader.FromMesh(mesh, shader);
+		}
 
 		[STAThread]
 		private static void Main()

@@ -18,7 +18,6 @@ namespace Example
 			var dir = Path.GetDirectoryName(PathTools.GetSourceFilePath()) + "/Resources/";
 			shaderWatcher = new ShaderFileDebugger(dir + "vertex.vert", dir + "fragment.frag"
 				, Resourcen.vertex, Resourcen.fragment);
-			geometry = CreateMesh(shaderWatcher.Shader);
 
 			camera.FarClip = 50;
 			camera.Distance = 5;
@@ -33,7 +32,7 @@ namespace Example
 			if (shaderWatcher.CheckForShaderChange())
 			{
 				//update geometry when shader changes
-				geometry = CreateMesh(shaderWatcher.Shader);
+				UpdateGeometry(shaderWatcher.Shader);
 			}
 			GL.Clear(ClearBufferMask.ColorBufferBit | ClearBufferMask.DepthBufferBit);
 			var shader = shaderWatcher.Shader;
@@ -63,7 +62,7 @@ namespace Example
 		private ShaderFileDebugger shaderWatcher;
 		private VAO geometry;
 
-		private static VAO CreateMesh(Shader shader)
+		private void UpdateGeometry(Shader shader)
 		{
 			Mesh mesh = new Mesh();
 			var roomSize = 8;
@@ -86,7 +85,7 @@ namespace Example
 			mesh.Add(sphere);
 			var suzanne = Obj2Mesh.FromObj(Resourcen.suzanne);
 			mesh.Add(suzanne.Transform(System.Numerics.Matrix4x4.CreateTranslation(2, 2, -2)));
-			return VAOLoader.FromMesh(mesh, shader);
+			geometry = VAOLoader.FromMesh(mesh, shader);
 		}
 	}
 }

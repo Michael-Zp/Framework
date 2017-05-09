@@ -17,8 +17,6 @@ namespace Example
 			var dir = Path.GetDirectoryName(PathTools.GetSourceFilePath()) + @"\Resources\";
 			shaderWatcher = new ShaderFileDebugger(dir + "vertex.glsl", dir + "fragment.glsl"
 				, Resourcen.vertex, Resourcen.fragment);
-			var shader = shaderWatcher.Shader;
-			geometry = CreateMesh(shader);
 
 			GL.ClearColor(1, 1, 1, 1);
 			GL.Enable(EnableCap.DepthTest);
@@ -28,12 +26,14 @@ namespace Example
 
 		public void Render()
 		{
-			var shader = shaderWatcher.Shader;
 			if (shaderWatcher.CheckForShaderChange())
 			{
 				//update geometry when shader changes
-				geometry = CreateMesh(shader);
+				geometry = CreateMesh(shaderWatcher.Shader);
 			}
+			var shader = shaderWatcher.Shader;
+			//Matrix4 is stored row-major -> implies a transpose so in shader matrix is column major
+			geometry.SetMatrixAttribute(shader.GetAttributeLocation("instanceTransform"), instanceTransforms, true);
 
 			GL.Clear(ClearBufferMask.ColorBufferBit | ClearBufferMask.DepthBufferBit);
 			shader.Activate();
@@ -59,9 +59,6 @@ namespace Example
 			{
 				instanceTransforms[i] *= Matrix4.CreateTranslation((i - 1) * 0.65f, 0, 0);
 			}
-			var shader = shaderWatcher.Shader;
-			//Matrix4 is stored row-major -> implies a transpose so in shader matrix is column major
-			geometry.SetMatrixAttribute(shader.GetAttributeLocation("instanceTransform"), instanceTransforms, true);
 		}
 
 		private Matrix4[] instanceTransforms = new Matrix4[3];

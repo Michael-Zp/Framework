@@ -22,10 +22,6 @@ namespace Example
 			var dir = Path.GetDirectoryName(PathTools.GetSourceFilePath()) + @"\Resources\";
 			shaderWatcher = new ShaderFileDebugger(dir + "vertex.glsl", dir + "fragment.glsl"
 				, Resourcen.vertex, Resourcen.fragment);
-			var shader = shaderWatcher.Shader;
-
-			geometry = CreateMesh(shader);
-			CreatePerInstanceAttributes(geometry, shader);
 
 			GL.Enable(EnableCap.DepthTest);
 			GL.Enable(EnableCap.CullFace);
@@ -34,13 +30,12 @@ namespace Example
 
 		public void Render()
 		{
-			var shader = shaderWatcher.Shader;
 			if (shaderWatcher.CheckForShaderChange())
 			{
 				//update geometry when shader changes
-				geometry = CreateMesh(shader);
-				CreatePerInstanceAttributes(geometry, shader);
+				UpdateMesh(shaderWatcher.Shader);
 			}
+			var shader = shaderWatcher.Shader;
 
 			var time = (float)timeSource.Elapsed.TotalSeconds;
 			GL.Clear(ClearBufferMask.ColorBufferBit | ClearBufferMask.DepthBufferBit);
@@ -62,15 +57,11 @@ namespace Example
 		private Stopwatch timeSource = new Stopwatch();
 		private VAO geometry;
 
-		private static VAO CreateMesh(Shader shader)
+		private void UpdateMesh(Shader shader)
 		{
 			Mesh mesh = Obj2Mesh.FromObj(Resourcen.suzanne);
-			var vao = VAOLoader.FromMesh(mesh, shader);
-			return vao;
-		}
+			geometry = VAOLoader.FromMesh(mesh, shader);
 
-		private static void CreatePerInstanceAttributes(VAO vao, Shader shader)
-		{
 			//per instance attributes
 			var rnd = new Random(12);
 			Func<float> Rnd01 = () => (float)rnd.NextDouble();
@@ -80,7 +71,7 @@ namespace Example
 			{
 				instancePositions[i] = new Vector3(RndCoord(), RndCoord(), RndCoord());
 			}
-			vao.SetAttribute(shader.GetAttributeLocation("instancePosition"), instancePositions, VertexAttribPointerType.Float, 3, true);
+			geometry.SetAttribute(shader.GetAttributeLocation("instancePosition"), instancePositions, VertexAttribPointerType.Float, 3, true);
 
 			Func<float> RndSpeed = () => (Rnd01() - 0.5f);
 			var instanceSpeeds = new Vector3[particelCount];
@@ -88,7 +79,7 @@ namespace Example
 			{
 				instanceSpeeds[i] = new Vector3(RndSpeed(), RndSpeed(), RndSpeed());
 			}
-			vao.SetAttribute(shader.GetAttributeLocation("instanceSpeed"), instanceSpeeds, VertexAttribPointerType.Float, 3, true);
+			geometry.SetAttribute(shader.GetAttributeLocation("instanceSpeed"), instanceSpeeds, VertexAttribPointerType.Float, 3, true);
 		}
 	}
 }

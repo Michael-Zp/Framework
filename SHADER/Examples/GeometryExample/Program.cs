@@ -11,18 +11,12 @@ namespace Example
 {
 	class MyWindow : IWindow
 	{
-		private const int pointCount = 500;
-		private ShaderFileDebugger shaderWatcher;
-		private Stopwatch timeSource = new Stopwatch();
-		private VAO geometry;
-
 		public MyWindow()
 		{
 			var dir = Path.GetDirectoryName(PathTools.GetSourceFilePath()) + @"\Resources\";
 			shaderWatcher = new ShaderFileDebugger(dir + "vertex.glsl", dir + "fragment.glsl"
 				, Resourcen.vertex, Resourcen.fragment);
 
-			geometry = CreateParticles(shaderWatcher.Shader);
 			GL.Enable(EnableCap.ProgramPointSize);
 			GL.Enable(EnableCap.PointSprite);
 			GL.Enable(EnableCap.Blend);
@@ -30,9 +24,37 @@ namespace Example
 			timeSource.Start();
 		}
 
-		private static VAO CreateParticles(Shader shader)
+		public void Update(float updatePeriod)
 		{
-			var vao = new VAO();
+		}
+
+		public void Render()
+		{
+			if (shaderWatcher.CheckForShaderChange())
+			{
+				//update geometry when shader changes
+				UpdateGeometry(shaderWatcher.Shader);
+			}
+			var shader = shaderWatcher.Shader;
+
+			GL.Clear(ClearBufferMask.ColorBufferBit);
+			shader.Activate();
+			////ATTENTION: always give the time as a float if the uniform in the shader is a float
+			GL.Uniform1(shader.GetUniformLocation("time"), (float)timeSource.Elapsed.TotalSeconds);
+			geometry.Activate();
+			GL.DrawArrays(PrimitiveType.Points, 0, pointCount);
+			geometry.Deactive();
+			shader.Deactivate();
+		}
+
+		private const int pointCount = 500;
+		private ShaderFileDebugger shaderWatcher;
+		private Stopwatch timeSource = new Stopwatch();
+		private VAO geometry;
+
+		private void UpdateGeometry(Shader shader)
+		{
+			geometry = new VAO();
 			//generate position arrray on CPU
 			var rnd = new Random(12);
 			Func<float> Rnd01 = () => (float)rnd.NextDouble();
@@ -43,7 +65,7 @@ namespace Example
 				positions[i] = new Vector2(RndCoord(), RndCoord());
 			}
 			//copy positions to GPU
-			vao.SetAttribute(shader.GetAttributeLocation("in_position"), positions, VertexAttribPointerType.Float, 2);
+			geometry.SetAttribute(shader.GetAttributeLocation("in_position"), positions, VertexAttribPointerType.Float, 2);
 			//generate velocity arrray on CPU
 			Func<float> RndSpeed = () => (Rnd01() - 0.5f) * 0.1f;
 			var velocities = new Vector2[pointCount];
@@ -52,30 +74,7 @@ namespace Example
 				velocities[i] = new Vector2(RndSpeed(), RndSpeed());
 			}
 			//copy velocities to GPU
-			vao.SetAttribute(shader.GetAttributeLocation("in_velocity"), velocities, VertexAttribPointerType.Float, 2);
-			return vao;
-		}
-
-		public void Update(float updatePeriod)
-		{
-		}
-
-		public void Render()
-		{
-			var shader = shaderWatcher.Shader;
-			if (shaderWatcher.CheckForShaderChange())
-			{
-				//update geometry when shader changes
-				geometry = CreateParticles(shader);
-			}
-			GL.Clear(ClearBufferMask.ColorBufferBit);
-			shader.Activate();
-			////ATTENTION: always give the time as a float if the uniform in the shader is a float
-			GL.Uniform1(shader.GetUniformLocation("time"), (float)timeSource.Elapsed.TotalSeconds);
-			geometry.Activate();
-			GL.DrawArrays(PrimitiveType.Points, 0, pointCount);
-			geometry.Deactive();
-			shader.Deactivate();
+			geometry.SetAttribute(shader.GetAttributeLocation("in_velocity"), velocities, VertexAttribPointerType.Float, 2);
 		}
 
 		[STAThread]

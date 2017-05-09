@@ -50,6 +50,7 @@
     <Compile Include="IWindow.cs" />
     <Compile Include="QueryObject.cs" />
     <Compile Include="RenderToTexture.cs" />
+    <Compile Include="ResourceManager.cs" />
     <Compile Include="ShaderException.cs" />
     <Compile Include="SpriteSheetAnimation.cs" />
     <Compile Include="FBO.cs" />
