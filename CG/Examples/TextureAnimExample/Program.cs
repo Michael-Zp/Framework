@@ -66,7 +66,8 @@ namespace Example
 		{
 			var app = new ExampleApplication();
 			//run the update loop, which calls our registered callbacks
-			app.Run(new MyVisual());
+			var visual = new MyVisual();
+			app.Run(visual);
 		}
 	}
 }

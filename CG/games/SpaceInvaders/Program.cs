@@ -60,7 +60,8 @@ namespace SpaceInvaders
 		private static void Main()
 		{
 			var app = new ExampleApplication();
-			app.Run(new MyWindow());
+			var window = new MyWindow();
+			app.Run(window);
 		}
 
 		private void Update(float timeDelta, float axisUpDown, bool shoot)

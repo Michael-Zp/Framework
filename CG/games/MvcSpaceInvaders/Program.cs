@@ -40,7 +40,8 @@ namespace MvcSpaceInvaders
 		private static void Main()
 		{
 			var app = new ExampleApplication();
-			app.Run(new Controller());
+			var controller = new Controller();
+			app.Run(controller);
 		}
 	}
 }

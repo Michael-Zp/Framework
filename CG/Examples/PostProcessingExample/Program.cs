@@ -71,7 +71,8 @@ namespace Example
 		private static void Main()
 		{
 			var app = new ExampleApplication();
-			app.Run(new MyVisual(app.GameWindow.Width, app.GameWindow.Height));
+			var visual = new MyVisual(app.GameWindow.Width, app.GameWindow.Height);
+			app.Run(visual);
 		}
 	}
 }

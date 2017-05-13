@@ -51,12 +51,12 @@ namespace Example
 		private static void Main()
 		{
 			var app = new ExampleApplication();
-			var window = new MyVisual();
+			var visual = new MyVisual();
 			var dir = Path.GetDirectoryName(PathTools.GetSourceFilePath()) + @"\Resources\";
 			//app.ResourceManager.AddWatchedFileResource(ResourceVertexShader, dir + "vertex.glsl");
 			//app.ResourceManager.AddWatchedFileResource(ResourceFragmentShader, dir + "fragment.glsl");
 			//app.ResourceManager.ResourceChanged += window.ResourceChanged;
-			app.Run(window);
+			app.Run(visual);
 		}
 	}
 }

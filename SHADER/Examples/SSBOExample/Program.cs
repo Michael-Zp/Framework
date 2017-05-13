@@ -9,7 +9,8 @@ namespace Example
 		private static void Main()
 		{
 			var app = new ExampleApplication();
-			app.Run(new MainVisual());
+			var visual = new MainVisual();
+			app.Run(visual);
 		}
 	}
 }

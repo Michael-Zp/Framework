@@ -77,7 +77,8 @@ namespace Example
 		private static void Main()
 		{
 			var app = new ExampleApplication();
-			app.Run(new MyVisual());
+			var visual = new MyVisual();
+			app.Run(visual);
 		}
 	}
 }

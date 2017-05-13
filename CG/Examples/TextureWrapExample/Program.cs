@@ -46,7 +46,8 @@ namespace Example
 		private static void Main()
 		{
 			var app = new ExampleApplication();
-			app.Run(new MyVisual());
+			var visual = new MyVisual();
+			app.Run(visual);
 		}
 
 		private static void DrawTexturedRect(Box2D rect, Texture tex, Box2D texCoords)

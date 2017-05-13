@@ -133,7 +133,8 @@ namespace Example
 		private static void Main()
 		{
 			var app = new ExampleApplication();
-			app.Run(new MyWindow());
+			var window = new MyWindow();
+			app.Run(window);
 		}
 	}
 }
