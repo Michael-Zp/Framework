@@ -8,7 +8,7 @@ using DMS.Application;
 
 namespace Example
 {
-	class MyVisual : IWindow
+	class MyVisual
 	{
 		private SpriteSheetAnimation explosion;
 		private AnimationTextures alienShip;
@@ -57,17 +57,14 @@ namespace Example
 			GL.Disable(EnableCap.Blend); // for transparency in textures
 		}
 
-		public void Update(float updatePeriod)
-		{
-		}
-
 		[STAThread]
 		private static void Main()
 		{
 			var app = new ExampleApplication();
 			//run the update loop, which calls our registered callbacks
 			var visual = new MyVisual();
-			app.Run(visual);
+			app.Render += visual.Render;
+			app.Run();
 		}
 	}
 }

@@ -5,7 +5,7 @@ using System.Diagnostics;
 
 namespace MvcSpaceInvaders
 {
-	class Controller : IWindow
+	class Controller
 	{
 		public Controller()
 		{
@@ -41,7 +41,9 @@ namespace MvcSpaceInvaders
 		{
 			var app = new ExampleApplication();
 			var controller = new Controller();
-			app.Run(controller);
+			app.Render += controller.Render;
+			app.Update += controller.Update;
+			app.Run();
 		}
 	}
 }

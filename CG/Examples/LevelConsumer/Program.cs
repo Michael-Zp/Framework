@@ -7,7 +7,7 @@ using System.IO;
 
 namespace Example
 {
-	class MyController : IWindow
+	class MyController
 	{
 		private GameLogic logic = new GameLogic();
 		private Renderer renderer = new Renderer();
@@ -56,7 +56,9 @@ namespace Example
 			var app = new ExampleApplication();
 			var controller = new MyController();
 			app.Resize += (width, height) => controller.renderer.Resize(width, height);
-			app.Run(controller);
+			app.Render += controller.Render;
+			app.Update += controller.Update;
+			app.Run();
 		}
 	}
 }

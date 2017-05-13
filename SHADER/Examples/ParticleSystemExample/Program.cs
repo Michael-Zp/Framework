@@ -4,7 +4,7 @@ using System.Diagnostics;
 
 namespace Example
 {
-	class MyWindow : IWindow
+	class MyWindow
 	{
 		public void Render()
 		{
@@ -27,7 +27,9 @@ namespace Example
 			window.visual = new MainVisual();
 			app.GameWindow.ConnectMouseEvents(window.visual.OrbitCamera);
 			window.timeSource.Start();
-			app.Run(window);
+			app.Render += window.Render;
+			app.Update += window.Update;
+			app.Run();
 		}
 	}
 }

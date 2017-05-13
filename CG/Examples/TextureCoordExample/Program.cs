@@ -10,7 +10,7 @@ namespace Example
 	/// <summary>
 	/// shows side scrolling setup by manipulating texture coordinates
 	/// </summary>
-	class MyVisual : IWindow
+	class MyVisual
 	{
 		private Texture texBackground;
 		private Texture texPlayer;
@@ -67,7 +67,9 @@ namespace Example
 			//app.GameWindow.WindowState = WindowState.Fullscreen;
 			//app.IsRecording = true;
 			var visual = new MyVisual();
-			app.Run(visual);
+			app.Render += visual.Render;
+			app.Update += visual.Update;
+			app.Run();
 		}
 	}
 }

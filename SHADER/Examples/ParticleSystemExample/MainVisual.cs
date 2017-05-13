@@ -7,7 +7,7 @@ using DMS.Application;
 
 namespace Example
 {
-	public class MainVisual : IWindow
+	public class MainVisual
 	{
 		public CameraOrbit OrbitCamera { get { return camera; } }
 

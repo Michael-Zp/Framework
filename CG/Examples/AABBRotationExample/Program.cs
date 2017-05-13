@@ -9,7 +9,7 @@ namespace Example
 {
 	using Line = Tuple<Vector2, Vector2>;
 
-	class Visual : IWindow
+	class Visual
 	{
 		private const float size = 0.7f;
 		private Line stick = new Line(new Vector2(-size, -size), new Vector2(size, size));
@@ -88,9 +88,9 @@ namespace Example
 		{
 			var app = new ExampleApplication();
 			var visual = new Visual();
-			//app.Render += visual.Render;
-			//app.Update += visual.Update;
-			app.Run(visual);
+			app.Render += visual.Render;
+			app.Update += visual.Update;
+			app.Run();
 		}
 	}
 }

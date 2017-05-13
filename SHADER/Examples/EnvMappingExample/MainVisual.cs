@@ -9,7 +9,7 @@ using System.IO;
 
 namespace Example
 {
-	public class MainVisual : IWindow
+	public class MainVisual
 	{
 		public CameraOrbit OrbitCamera { get { return camera; } }
 
@@ -54,7 +54,7 @@ namespace Example
 
 		public void Update(float updatePeriod)
 		{
-			camera.FovY = DMS.Geometry.MathHelper.Clamp(camera.FovY, 0.1f, 175f);
+			camera.FovY = MathHelper.Clamp(camera.FovY, 0.1f, 175f);
 		}
 
 		private CameraOrbit camera = new CameraOrbit();

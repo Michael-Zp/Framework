@@ -10,7 +10,7 @@ using System.IO;
 
 namespace Example
 {
-	public class MyVisual : IWindow
+	public class MyVisual
 	{
 		public MyVisual()
 		{
@@ -32,10 +32,6 @@ namespace Example
 			shaderWatcher.Shader.Activate();
 			geometry.Draw(instanceCount);
 			shaderWatcher.Shader.Deactivate();
-		}
-
-		public void Update(float updatePeriod)
-		{
 		}
 
 		private const int instanceCount = 10000;
@@ -66,7 +62,8 @@ namespace Example
 		{
 			var app = new ExampleApplication();
 			var visual = new MyVisual();
-			app.Run(visual);
+			app.Render += visual.Render;
+			app.Run();
 		}
 	}
 }

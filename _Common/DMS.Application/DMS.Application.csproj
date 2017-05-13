@@ -36,7 +36,6 @@
   <ItemGroup>
     <Compile Include="ExampleApplication.cs" />
     <Compile Include="GameWindowExtensions.cs" />
-    <Compile Include="IWindow.cs" />
     <Compile Include="ResourceManager.cs" />
   </ItemGroup>
   <ItemGroup>

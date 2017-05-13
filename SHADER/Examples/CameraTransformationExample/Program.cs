@@ -15,11 +15,6 @@ namespace Example
 			GameWindow.MouseWheel += GameWindow_MouseWheel;
 		}
 
-		private void Run()
-		{
-			Run(visual);
-		}
-
 		private void GameWindow_MouseWheel(object sender, MouseWheelEventArgs e)
 		{
 			visual.CameraDistance *= (float)Math.Pow(1.05, e.DeltaPrecise);
@@ -38,6 +33,8 @@ namespace Example
 		private static void Main()
 		{
 			var app = new MyApplication();
+			app.Update += app.visual.Update;
+			app.Render += app.visual.Render;
 			app.Run();
 		}
 	}

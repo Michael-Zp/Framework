@@ -14,15 +14,12 @@ namespace Example
 			GameWindow.ConnectMouseEvents(visual.OrbitCamera);
 		}
 
-		private void Run()
-		{
-			Run(visual);
-		}
-
 		[STAThread]
 		private static void Main()
 		{
 			var app = new MyApplication();
+			app.Render += app.visual.Render;
+			app.Update += app.visual.Update;
 			app.Run();
 		}
 	}

@@ -10,7 +10,7 @@ namespace Example
 	/// <summary>
 	/// Compares texture magnification filter methods
 	/// </summary>
-	class MyVisual : IWindow
+	class MyVisual
 	{
 		private Texture texBackgroundNearest;
 		private Texture texBackgroundLinear;
@@ -54,7 +54,9 @@ namespace Example
 		{
 			var app = new ExampleApplication();
 			var visual = new MyVisual();
-			app.Run(visual);
+			app.Render += visual.Render;
+			app.Update += visual.Update;
+			app.Run();
 		}
 
 		private static void DrawTexturedRect(Box2D rect, Texture tex, Box2D texCoords)

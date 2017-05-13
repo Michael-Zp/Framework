@@ -6,7 +6,7 @@ using System.Text;
 
 namespace Example
 {
-	class MyVisual : IWindow
+	class MyVisual
 	{
 		private Shader shader;
 		private QueryObject glTimerRender = new QueryObject();
@@ -31,10 +31,6 @@ namespace Example
 			Console.WriteLine(e.ShaderLog);
 		}
 
-		public void Update(float updatePeriod)
-		{
-		}
-
 		public void Render()
 		{
 			glTimerRender.Activate(QueryTarget.TimeElapsed);
@@ -53,7 +49,8 @@ namespace Example
 		{
 			var app = new ExampleApplication();
 			var visual = new MyVisual();
-			app.Run(visual);
+			app.Render += visual.Render;
+			app.Run();
 		}
 	}
 }

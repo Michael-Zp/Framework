@@ -1,5 +1,4 @@
 ﻿using DMS.Application;
-using DMS.OpenGL;
 using System;
 
 namespace Example
@@ -12,7 +11,8 @@ namespace Example
 			var app = new ExampleApplication();
 			var canvas = new Canvas();
 			var rasterizer = new Rasterizer(20, 20, canvas.Draw);
-			app.Run(rasterizer);
+			app.Render += rasterizer.Render;
+			app.Run();
 		}
 	}
 }

@@ -11,7 +11,7 @@ using System.IO;
 
 namespace Example
 {
-	public class MainVisual : IWindow
+	public class MainVisual
 	{
 		public MainVisual()
 		{

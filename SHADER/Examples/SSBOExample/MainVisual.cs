@@ -17,7 +17,7 @@ namespace Example
 		//public Vector4 color; //make it vec4  not vec3 because of alignment in std430
 	}
 
-	public class MainVisual : IWindow
+	public class MainVisual
 	{
 		public MainVisual()
 		{
@@ -57,10 +57,6 @@ namespace Example
 			bufferParticles.Deactive();
 			shader.Deactivate();
 			timeQuery.Deactivate();
-		}
-
-		public void Update(float updatePeriod)
-		{
 		}
 
 		private ShaderFileDebugger shaderWatcher;

@@ -5,18 +5,15 @@ using System.Drawing;
 
 namespace Example
 {
-	class MyVisual : IWindow
+	class MyVisual
 	{
 		[STAThread]
 		private static void Main()
 		{
 			var app = new ExampleApplication();
 			var visual = new MyVisual();
-			app.Run(visual);
-		}
-
-		public void Update(float updatePeriod)
-		{
+			app.Render += visual.Render;
+			app.Run();
 		}
 
 		public void Render()

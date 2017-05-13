@@ -11,7 +11,7 @@ using System.IO;
 
 namespace Example
 {
-	public class MainVisual : IWindow
+	public class MainVisual
 	{
 		public CameraOrbit OrbitCamera { get { return camera; } }
 
@@ -50,10 +50,6 @@ namespace Example
 
 			geometry.Draw();
 			shader.Deactivate();
-		}
-
-		public void Update(float updatePeriod)
-		{
 		}
 
 		private CameraOrbit camera = new CameraOrbit();

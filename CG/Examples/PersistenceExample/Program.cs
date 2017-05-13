@@ -6,7 +6,7 @@ using System.Windows.Forms;
 
 namespace Example
 {
-	class MyWindow : IWindow
+	class MyWindow
 	{
 		private GameState gameState;
 
@@ -33,10 +33,6 @@ namespace Example
 			VisualConsole.DrawScreen(gameState);
 		}
 
-		public void Update(float updatePeriod)
-		{
-		}
-
 		[STAThread]
 		private static void Main()
 		{
@@ -48,7 +44,8 @@ namespace Example
 				var coord = app.CalcNormalized(e.X, e.Y);
 				window.HandleInput((int)e.Button, coord.X, coord.Y);
 			};
-			app.Run(window);
+			app.Render += window.Render;
+			app.Run();
 		}
 
 		private void HandleInput(int button, float x, float y)

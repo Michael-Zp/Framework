@@ -7,7 +7,7 @@ using System.Diagnostics;
 
 namespace Example
 {
-	class MyWindow : IWindow
+	class MyWindow
 	{
 		private MyWindow()
 		{
@@ -28,10 +28,6 @@ namespace Example
 			}
 		}
 
-		public void Update(float updatePeriod)
-		{
-		}
-
 		private Stopwatch globalTime = new Stopwatch();
 		private MainVisual visual;
 		private bool doPostProcessing;
@@ -47,7 +43,8 @@ namespace Example
 				window.doPostProcessing = Keyboard.GetState().IsKeyDown(Key.Space);
 			};
 			app.GameWindow.ConnectMouseEvents(window.visual.OrbitCamera);
-			app.Run(window);
+			app.Render += window.Render;
+			app.Run();
 		}
 	}
 }

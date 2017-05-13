@@ -6,7 +6,7 @@ using System.Drawing;
 
 namespace Example
 {
-	class MyVisual : IWindow
+	class MyVisual
 	{
 		private TextureFont font;
 
@@ -15,7 +15,8 @@ namespace Example
 		{
 			var app = new ExampleApplication();
 			var visual = new MyVisual();
-			app.Run(visual);
+			app.Render += visual.Render;
+			app.Run();
 		}
 
 		private MyVisual()
@@ -34,10 +35,6 @@ namespace Example
 		{
 			GL.Clear(ClearBufferMask.ColorBufferBit);
 			font.Print(-.9f, -.125f, 0, .25f, "SUPER GEIL"); //print string
-		}
-
-		public void Update(float updatePeriod)
-		{
 		}
 	}
 }

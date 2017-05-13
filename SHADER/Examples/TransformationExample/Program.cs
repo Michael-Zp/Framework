@@ -11,7 +11,7 @@ using System.IO;
 
 namespace Example
 {
-	public class MyVisual : IWindow
+	public class MyVisual
 	{
 		public MyVisual()
 		{
@@ -78,7 +78,9 @@ namespace Example
 		{
 			var app = new ExampleApplication();
 			var visual = new MyVisual();
-			app.Run(visual);
+			app.Render += visual.Render;
+			app.Update += visual.Update;
+			app.Run();
 		}
 	}
 }

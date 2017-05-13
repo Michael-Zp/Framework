@@ -10,7 +10,8 @@ namespace Example
 		{
 			var app = new ExampleApplication();
 			var visual = new MainVisual();
-			app.Run(visual);
+			app.Render += visual.Render;
+			app.Run();
 		}
 	}
 }

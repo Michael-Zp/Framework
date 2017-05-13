@@ -10,7 +10,7 @@ using System.Drawing;
 
 namespace SpaceInvaders
 {
-	class MyWindow : IWindow
+	class MyWindow
 	{
 		private Box2D windowBorders = new Box2D(-1.0f, -1.0f, 2.0f, 2.0f);
 		private Box2D player = new Box2D(0.0f, -1.0f, 0.1f, 0.05f);
@@ -61,7 +61,9 @@ namespace SpaceInvaders
 		{
 			var app = new ExampleApplication();
 			var window = new MyWindow();
-			app.Run(window);
+			app.Render += window.Render;
+			app.Update += window.Update;
+			app.Run();
 		}
 
 		private void Update(float timeDelta, float axisUpDown, bool shoot)

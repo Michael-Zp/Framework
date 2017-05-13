@@ -7,7 +7,7 @@ using System.IO;
 
 namespace Example
 {
-	class MyVisual : IWindow
+	class MyVisual
 	{
 		private const string ResourceVertexShader = "vertexShader";
 		private const string ResourceFragmentShader = "fragmentShader";
@@ -43,10 +43,6 @@ namespace Example
 			shader.Deactivate();
 		}
 
-		public void Update(float updatePeriod)
-		{
-		}
-
 		[STAThread]
 		private static void Main()
 		{
@@ -56,7 +52,8 @@ namespace Example
 			//app.ResourceManager.AddWatchedFileResource(ResourceVertexShader, dir + "vertex.glsl");
 			//app.ResourceManager.AddWatchedFileResource(ResourceFragmentShader, dir + "fragment.glsl");
 			//app.ResourceManager.ResourceChanged += window.ResourceChanged;
-			app.Run(visual);
+			app.Render += visual.Render;
+			app.Run();
 		}
 	}
 }

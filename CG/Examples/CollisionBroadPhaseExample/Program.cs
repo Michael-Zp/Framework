@@ -8,7 +8,7 @@ using System.Diagnostics;
 
 namespace Example
 {
-	class MyWindow : IWindow
+	class MyWindow
 	{
 		private List<Collider> colliders = new List<Collider>();
 		private Box2D windowBorders = new Box2D(-1.0f, -1.0f, 2.0f, 2.0f);
@@ -134,7 +134,9 @@ namespace Example
 		{
 			var app = new ExampleApplication();
 			var window = new MyWindow();
-			app.Run(window);
+			app.Render += window.Render;
+			app.Update += window.Update;
+			app.Run();
 		}
 	}
 }

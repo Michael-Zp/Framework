@@ -4,7 +4,7 @@ using System;
 
 namespace Example
 {
-	public class Rasterizer : IWindow
+	public class Rasterizer
 	{
 		public delegate void DrawHandler();
 
@@ -29,10 +29,6 @@ namespace Example
 			drawHandler();
 			renderToTexture.Deactivate();
 			copyToFrameBuffer.Draw(texRenderSurface);
-		}
-
-		public void Update(float updatePeriod)
-		{
 		}
 	}
 }

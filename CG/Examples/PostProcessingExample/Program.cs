@@ -10,7 +10,7 @@ using System.Text;
 
 namespace Example
 {
-	class MyVisual : IWindow
+	class MyVisual
 	{
 		private PostProcessing postProcessing;
 		private Stopwatch globalTime = new Stopwatch();
@@ -72,7 +72,9 @@ namespace Example
 		{
 			var app = new ExampleApplication();
 			var visual = new MyVisual(app.GameWindow.Width, app.GameWindow.Height);
-			app.Run(visual);
+			app.Render += visual.Render;
+			app.Update += visual.Update;
+			app.Run();
 		}
 	}
 }

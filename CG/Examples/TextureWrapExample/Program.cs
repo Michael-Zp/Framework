@@ -10,7 +10,7 @@ namespace Example
 	/// <summary>
 	/// shows side scrolling setup by manipulating texture coordinates
 	/// </summary>
-	class MyVisual : IWindow
+	class MyVisual
 	{
 		private Texture texBackground;
 		private Box2D texCoord = new Box2D(-1, -1, 3, 3);
@@ -38,16 +38,13 @@ namespace Example
 			DrawTexturedRect(new Box2D(0, -1, 1, 1), texBackground, texCoord);
 		}
 
-		public void Update(float updatePeriod)
-		{
-		}
-
 		[STAThread]
 		private static void Main()
 		{
 			var app = new ExampleApplication();
 			var visual = new MyVisual();
-			app.Run(visual);
+			app.Render += visual.Render;
+			app.Run();
 		}
 
 		private static void DrawTexturedRect(Box2D rect, Texture tex, Box2D texCoords)

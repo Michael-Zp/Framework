@@ -10,7 +10,7 @@ namespace Example
 	/// <summary>
 	/// Compares texture minification filter methods
 	/// </summary>
-	class MyVisual : IWindow
+	class MyVisual
 	{
 		private Texture texBackgroundLinear;
 		private Texture texBackgroundMipmap;
@@ -53,7 +53,9 @@ namespace Example
 		{
 			var app = new ExampleApplication();
 			var visual = new MyVisual();
-			app.Run(visual);
+			app.Render += visual.Render;
+			app.Update += visual.Update;
+			app.Run();
 		}
 
 		private static void DrawTexturedRect(Box2D rect, Texture tex, Box2D texCoords)

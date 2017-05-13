@@ -9,7 +9,7 @@ using System.IO;
 
 namespace Example
 {
-	public class MainVisual : IWindow
+	public class MainVisual
 	{
 		public MainVisual()
 		{
@@ -37,10 +37,6 @@ namespace Example
 			shaderWatcher.Shader.Deactivate();
 		}
 
-		public void Update(float updatePeriod)
-		{
-		}
-
 		private ShaderFileDebugger shaderWatcher;
 		private VAO geometry = new VAO();
 		//private Texture texDiffuse;
@@ -57,7 +53,8 @@ namespace Example
 		{
 			var app = new ExampleApplication();
 			var visual = new MainVisual();
-			app.Run(visual);
+			app.Render += visual.Render;
+			app.Run();
 		}
 	}
 }

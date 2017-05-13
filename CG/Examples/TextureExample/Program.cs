@@ -11,7 +11,7 @@ namespace Example
 	/// Example that shows loading and using textures. 
 	/// It loads 2 textures: one for the background and one for a space ship.
 	/// </summary>
-	class MyVisual : IWindow
+	class MyVisual
 	{
 		private Texture texBackground;
 		private Texture texShip;
@@ -21,7 +21,8 @@ namespace Example
 		{
 			var app = new ExampleApplication();
 			var visual = new MyVisual();
-			app.Run(visual);
+			app.Render += visual.Render;
+			app.Run();
 		}
 
 		private MyVisual()
@@ -47,10 +48,6 @@ namespace Example
 			DrawTexturedRect(new Box2D(-.25f, -.25f, .5f, .5f), texShip);
 			// for transparency in textures we use blending
 			GL.Disable(EnableCap.Blend);
-		}
-
-		public void Update(float updatePeriod)
-		{
 		}
 
 		private static void DrawTexturedRect(Box2D Rect, Texture tex)

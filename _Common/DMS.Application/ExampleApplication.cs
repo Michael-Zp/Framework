@@ -49,11 +49,8 @@ namespace DMS.Application
 			return new Vector2(pixelX / (gameWindow.Width - 1f), 1f - pixelY / (gameWindow.Height - 1f));
 		}
 
-		public void Run(IWindow window)
+		public void Run()
 		{
-			Render += window.Render;
-			Update += window.Update;
-
 			//register a callback for updating the game logic
 			gameWindow.UpdateFrame += (sender, e) => Update?.Invoke((float)gameWindow.TargetUpdatePeriod);
 			//registers a callback for drawing a frame

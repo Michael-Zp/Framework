@@ -6,7 +6,7 @@ using System;
 
 namespace Example
 {
-	class MyVisual : IWindow
+	class MyVisual
 	{
 		private MyVisual()
 		{
@@ -38,16 +38,13 @@ namespace Example
 			DrawRect(rect, new Color4(.5f, .7f, 1, .5f));
 		}
 
-		public void Update(float updatePeriod)
-		{
-		}
-
 		[STAThread]
 		private static void Main()
 		{
 			var app = new ExampleApplication();
 			var visual = new MyVisual();
-			app.Run(visual);
+			app.Render += visual.Render;
+			app.Run();
 		}
 
 		private void DrawRect(Box2D rectangle, Color4 color)

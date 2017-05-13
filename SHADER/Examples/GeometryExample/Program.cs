@@ -10,7 +10,7 @@ using System.IO;
 
 namespace Example
 {
-	class MyVisual : IWindow
+	class MyVisual
 	{
 		public MyVisual()
 		{
@@ -23,10 +23,6 @@ namespace Example
 			GL.Enable(EnableCap.Blend);
 			GL.BlendFunc(BlendingFactorSrc.SrcAlpha, BlendingFactorDest.One);
 			timeSource.Start();
-		}
-
-		public void Update(float updatePeriod)
-		{
 		}
 
 		public void Render()
@@ -83,7 +79,8 @@ namespace Example
 		{
 			var app = new ExampleApplication();
 			var visual = new MyVisual();
-			app.Run(visual);
+			app.Render += visual.Render;
+			app.Run();
 		}
 	}
 }
