@@ -21,7 +21,7 @@ namespace Example
 			GL.Enable(EnableCap.DepthTest);
 		}
 
-		public void Render()
+		private void Render()
 		{
 			if (shaderWatcher.CheckForShaderChange())
 			{

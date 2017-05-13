@@ -12,7 +12,7 @@ namespace Example
 		private Box2D obstacle = new Box2D(-0.2f, 1, 0.4f, 0.2f);
 		private Box2D player = new Box2D(0.0f, -0.95f, 0.2f, 0.2f);
 
-		public void Update(float updatePeriod)
+		private void Update(float updatePeriod)
 		{
 			//player movement
 			if(Keyboard.GetState()[Key.Left])
@@ -38,7 +38,7 @@ namespace Example
 			}
 		}
 
-		public void Render()
+		private void Render()
 		{
 			GL.Clear(ClearBufferMask.ColorBufferBit);
 

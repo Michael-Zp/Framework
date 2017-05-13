@@ -16,7 +16,7 @@ namespace Example
 			app.Run();
 		}
 
-		public void Render()
+		private void Render()
 		{
 			//clear screen - what happens without?
 			GL.Clear(ClearBufferMask.ColorBufferBit);

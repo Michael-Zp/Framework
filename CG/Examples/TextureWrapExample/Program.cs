@@ -22,7 +22,7 @@ namespace Example
 			GL.ClearColor(Color.Black);
 		}
 
-		public void Render()
+		private void Render()
 		{
 			GL.Clear(ClearBufferMask.ColorBufferBit);
 			//color is multiplied with texture color white == no change

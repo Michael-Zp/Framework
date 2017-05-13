@@ -41,7 +41,7 @@ namespace Example
 			globalTime.Start();
 		}
 
-		public void Render()
+		private void Render()
 		{
 			bool doPostProcessing = !Keyboard.GetState()[Key.Space];
 
@@ -61,7 +61,7 @@ namespace Example
 			if (doPostProcessing) postProcessing.EndAndApply((float)globalTime.Elapsed.TotalSeconds);
 		}
 
-		public void Update(float updatePeriod)
+		private void Update(float updatePeriod)
 		{
 			var R = Transform2D.CreateRotationAroundOrigin(2.0f * updatePeriod);
 			bird.TransformCenter(R);

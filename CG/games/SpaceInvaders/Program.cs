@@ -28,7 +28,7 @@ namespace SpaceInvaders
 			timeSource.Start();
 		}
 
-		public void Render()
+		private void Render()
 		{
 			GL.Clear(ClearBufferMask.ColorBufferBit);
 			foreach (Box2D enemy in enemies)
@@ -42,7 +42,7 @@ namespace SpaceInvaders
 			DrawPlayer(player);
 		}
 
-		public void Update(float updatePeriod)
+		private void Update(float updatePeriod)
 		{
 			shootCoolDown.Update((float)timeSource.Elapsed.TotalSeconds);
 			if (Lost)

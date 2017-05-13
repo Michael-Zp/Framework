@@ -25,7 +25,7 @@ namespace Example
 			timeSource.Start();
 		}
 
-		public void Render()
+		private void Render()
 		{
 			if (shaderWatcher.CheckForShaderChange())
 			{
@@ -44,7 +44,7 @@ namespace Example
 			shader.Deactivate();
 		}
 
-		public void Update(float updatePeriod)
+		private void Update(float updatePeriod)
 		{
 			var time = (float)timeSource.Elapsed.TotalSeconds;
 			//store matrices as per instance attributes

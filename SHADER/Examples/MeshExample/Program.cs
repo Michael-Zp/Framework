@@ -21,7 +21,7 @@ namespace Example
 			//texDiffuse = TextureLoader.FromBitmap(Resourcen.capsule0);
 		}
 
-		public void Render()
+		private void Render()
 		{
 			if (shaderWatcher.CheckForShaderChange())
 			{

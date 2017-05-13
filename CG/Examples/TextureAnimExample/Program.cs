@@ -43,7 +43,7 @@ namespace Example
 			timeSource.Start();
 		}
 
-		public void Render()
+		private void Render()
 		{
 			GL.Clear(ClearBufferMask.ColorBufferBit);
 

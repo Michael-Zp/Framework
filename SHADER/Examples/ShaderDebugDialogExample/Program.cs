@@ -28,7 +28,7 @@ namespace Example
 			//var fs = resourceManager.GetString(ResourceFragmentShader);
 		}
 
-		public void Render()
+		private void Render()
 		{
 			if (shaderWatcher.CheckForShaderChange())
 			{

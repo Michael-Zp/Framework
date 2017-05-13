@@ -27,7 +27,7 @@ namespace Example
 			gameState.ObjIntoBinFile(GetGameStateFilePath());
 		}
 
-		public void Render()
+		private void Render()
 		{
 			Visual.DrawScreen(gameState);
 			VisualConsole.DrawScreen(gameState);

@@ -31,7 +31,7 @@ namespace Example
 			GL.Color3(Color.White); //color is multiplied with texture color white == no change
 		}
 
-		public void Render()
+		private void Render()
 		{
 			GL.Clear(ClearBufferMask.ColorBufferBit);
 			font.Print(-.9f, -.125f, 0, .25f, "SUPER GEIL"); //print string

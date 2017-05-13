@@ -6,12 +6,7 @@ namespace Example
 {
 	class MyWindow
 	{
-		public void Render()
-		{
-			visual.Render();
-		}
-
-		public void Update(float updatePeriod)
+		private void Update(float updatePeriod)
 		{
 			visual.Update((float)timeSource.Elapsed.TotalSeconds);
 		}
@@ -27,7 +22,7 @@ namespace Example
 			window.visual = new MainVisual();
 			app.GameWindow.ConnectMouseEvents(window.visual.OrbitCamera);
 			window.timeSource.Start();
-			app.Render += window.Render;
+			app.Render += window.visual.Render;
 			app.Update += window.Update;
 			app.Run();
 		}

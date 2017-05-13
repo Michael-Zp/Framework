@@ -29,7 +29,7 @@ namespace Example
 			GL.BlendFunc(BlendingFactorSrc.SrcAlpha, BlendingFactorDest.OneMinusSrcAlpha);
 		}
 
-		public void Render()
+		private void Render()
 		{
 			GL.Clear(ClearBufferMask.ColorBufferBit);
 			//color is multiplied with texture color white == no change
@@ -43,7 +43,7 @@ namespace Example
 			GL.Disable(EnableCap.Blend); // for transparency in textures
 		}
 
-		public void Update(float updatePeriod)
+		private void Update(float updatePeriod)
 		{
 			texCoord.X += updatePeriod * 0.1f;
 		}

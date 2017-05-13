@@ -43,7 +43,7 @@ namespace Example
 			collisionGrid = new CollisionGrid(windowBorders, size * scale, size * scale);
 		}
 
-		public void Update(float updatePeriod)
+		private void Update(float updatePeriod)
 		{
 			//movement
 			foreach (var collider in colliders)
@@ -109,7 +109,7 @@ namespace Example
 			}
 		}
 
-		public void Render()
+		private void Render()
 		{
 			GL.Clear(ClearBufferMask.ColorBufferBit);
 			foreach (var collider in colliders)

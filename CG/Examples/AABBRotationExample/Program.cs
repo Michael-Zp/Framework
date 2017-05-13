@@ -57,7 +57,7 @@ namespace Example
 			GL.End();
 		}
 
-		public void Render()
+		private void Render()
 		{
 			GL.Clear(ClearBufferMask.ColorBufferBit);
 
@@ -71,7 +71,7 @@ namespace Example
 			DrawAABB(Box2dExtensions.CreateFromCenterSize(0, 0, 0.02f, 0.02f));
 		}
 
-		public void Update(float updatePeriod)
+		private void Update(float updatePeriod)
 		{
 			float angle = -updatePeriod * 0.6f;
 

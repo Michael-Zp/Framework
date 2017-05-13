@@ -29,7 +29,7 @@ namespace Example
 			GL.ClearColor(Color.Black);
 		}
 
-		public void Render()
+		private void Render()
 		{
 			GL.Clear(ClearBufferMask.ColorBufferBit);
 			//color is multiplied with texture color white == no change
@@ -39,7 +39,7 @@ namespace Example
 			DrawTexturedRect(new Box2D(0, -1, 1, 2), texBackgroundLinear, texCoord);
 		}
 
-		public void Update(float updatePeriod)
+		private void Update(float updatePeriod)
 		{
 			if (texCoord.SizeX > 0.99f || texCoord.SizeX < 0.05f) scaleFactor = -scaleFactor;
 			float factor = 1 + scaleFactor * updatePeriod;

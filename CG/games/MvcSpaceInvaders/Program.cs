@@ -19,12 +19,12 @@ namespace MvcSpaceInvaders
 			timeSource.Start();
 		}
 
-		public void Render()
+		private void Render()
 		{
 			visual.DrawScreen(logic.Enemies, logic.Bullets, logic.Player);
 		}
 
-		public void Update(float updatePeriod)
+		private void Update(float updatePeriod)
 		{
 			float axisLeftRight = Keyboard.GetState()[Key.Left] ? -1.0f : Keyboard.GetState()[Key.Right] ? 1.0f : 0.0f;
 			bool shoot = Keyboard.GetState()[Key.Space];

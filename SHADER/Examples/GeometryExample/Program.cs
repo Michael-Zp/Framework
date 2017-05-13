@@ -25,7 +25,7 @@ namespace Example
 			timeSource.Start();
 		}
 
-		public void Render()
+		private void Render()
 		{
 			if (shaderWatcher.CheckForShaderChange())
 			{

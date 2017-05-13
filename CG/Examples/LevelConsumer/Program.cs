@@ -18,12 +18,12 @@ namespace Example
 			LoadLevelData(LevelData.level1);
 		}
 
-		public void Render()
+		private void Render()
 		{
 			renderer.Render(logic.Bounds);
 		}
 
-		public void Update(float updatePeriod)
+		private void Update(float updatePeriod)
 		{
 			float axisLeftRight = Keyboard.GetState()[Key.Left] ? -1.0f : Keyboard.GetState()[Key.Right] ? 1.0f : 0.0f;
 			float axisUpDown = Keyboard.GetState()[Key.Down] ? -1.0f : Keyboard.GetState()[Key.Up] ? 1.0f : 0.0f;

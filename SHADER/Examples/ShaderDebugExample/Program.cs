@@ -31,7 +31,7 @@ namespace Example
 			Console.WriteLine(e.ShaderLog);
 		}
 
-		public void Render()
+		private void Render()
 		{
 			glTimerRender.Activate(QueryTarget.TimeElapsed);
 			GL.Clear(ClearBufferMask.ColorBufferBit);

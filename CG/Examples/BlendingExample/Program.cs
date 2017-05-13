@@ -18,7 +18,7 @@ namespace Example
 			GL.Enable(EnableCap.Blend);
 		}
 
-		public void Render()
+		private void Render()
 		{
 			GL.Clear(ClearBufferMask.ColorBufferBit);
 
