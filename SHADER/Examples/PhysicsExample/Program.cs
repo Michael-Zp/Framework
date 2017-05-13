@@ -1,4 +1,5 @@
-﻿using OpenTK;
+﻿using DMS.Application;
+using OpenTK;
 using OpenTK.Graphics;
 using OpenTK.Graphics.OpenGL;
 using OpenTK.Input;
@@ -24,30 +25,16 @@ namespace Example
 			var mode = new GraphicsMode(new ColorFormat(32), 24, 8, 0);
 			gameWindow = new GameWindow(700, 700, mode, "Example", GameWindowFlags.Default, DisplayDevice.Default, 4, 3, GraphicsContextFlags.ForwardCompatible);
 
+			model = new Model();
+			visual = new MainVisual();
+
 			gameWindow.WindowState = WindowState.Fullscreen;
-			gameWindow.MouseMove += GameWindow_MouseMove;
-			gameWindow.MouseWheel += GameWindow_MouseWheel;
+			gameWindow.ConnectMouseEvents(visual.Camera);
 			gameWindow.KeyDown += (s, arg) => gameWindow.Close();
 			gameWindow.Resize += (s, arg) => GL.Viewport(0, 0, gameWindow.Width, gameWindow.Height);
 			gameWindow.UpdateFrame += GameWindow_UpdateFrame;
 			gameWindow.RenderFrame += GameWindow_RenderFrame;			
 			gameWindow.RenderFrame += (s, arg) => gameWindow.SwapBuffers();
-			model = new Model();
-			visual = new MainVisual();
-		}
-
-		private void GameWindow_MouseWheel(object sender, MouseWheelEventArgs e)
-		{
-			visual.Camera.Distance -= 10 * e.DeltaPrecise;
-		}
-
-		private void GameWindow_MouseMove(object sender, MouseMoveEventArgs e)
-		{
-			if (ButtonState.Pressed == e.Mouse.LeftButton)
-			{
-				visual.Camera.Azimuth += 300 * e.XDelta / (float)gameWindow.Width;
-				visual.Camera.Elevation += 300 * e.YDelta / (float)gameWindow.Height;
-			}
 		}
 
 		private void GameWindow_UpdateFrame(object sender, FrameEventArgs e)

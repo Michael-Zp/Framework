@@ -6,7 +6,7 @@ using System.Drawing;
 
 namespace Example
 {
-	class MyWindow : IWindow
+	class MyVisual : IWindow
 	{
 		private TextureFont font;
 
@@ -14,10 +14,10 @@ namespace Example
 		private static void Main()
 		{
 			var app = new ExampleApplication();
-			app.Run(new MyWindow());
+			app.Run(new MyVisual());
 		}
 
-		private MyWindow()
+		private MyVisual()
 		{
 			//load font
 			font = new TextureFont(TextureLoader.FromBitmap(Resourcen.Blood_Bath_2), 10, 32, .8f, 1, .7f);

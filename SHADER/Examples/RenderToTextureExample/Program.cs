@@ -1,5 +1,7 @@
 ﻿using DMS.Application;
+using DMS.Geometry;
 using OpenTK.Input;
+using OpenTK.Platform;
 using System;
 using System.Diagnostics;
 
@@ -44,25 +46,7 @@ namespace Example
 			{
 				window.doPostProcessing = Keyboard.GetState().IsKeyDown(Key.Space);
 			};
-			app.GameWindow.MouseMove += (s, e) =>
-			{
-				if (ButtonState.Pressed == e.Mouse.LeftButton)
-				{
-					window.visual.OrbitCamera.Azimuth += 300 * e.XDelta / (float)app.GameWindow.Width;
-					window.visual.OrbitCamera.Elevation += 300 * e.YDelta / (float)app.GameWindow.Height;
-				}
-			};
-			app.GameWindow.MouseWheel += (s, e) =>
-			{
-				if (Keyboard.GetState().IsKeyDown(Key.ShiftLeft))
-				{
-					window.visual.OrbitCamera.FovY *= (float)Math.Pow(1.05, e.DeltaPrecise);
-				}
-				else
-				{
-					window.visual.OrbitCamera.Distance *= (float)Math.Pow(1.05, e.DeltaPrecise);
-				}
-			};
+			app.GameWindow.ConnectMouseEvents(window.visual.OrbitCamera);
 			app.Run(window);
 		}
 	}

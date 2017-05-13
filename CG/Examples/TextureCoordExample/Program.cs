@@ -10,13 +10,13 @@ namespace Example
 	/// <summary>
 	/// shows side scrolling setup by manipulating texture coordinates
 	/// </summary>
-	class MyWindow : IWindow
+	class MyVisual : IWindow
 	{
 		private Texture texBackground;
 		private Texture texPlayer;
 		private Box2D texCoord = new Box2D(0, 0, 0.3f, 1);
 
-		private MyWindow()
+		private MyVisual()
 		{
 			texPlayer = TextureLoader.FromBitmap(Resourcen.bird1);
 			//two landscape resources are available in the Resourcen.resx file
@@ -66,7 +66,7 @@ namespace Example
 			var app = new ExampleApplication();
 			//app.GameWindow.WindowState = WindowState.Fullscreen;
 			//app.IsRecording = true;
-			app.Run(new MyWindow());
+			app.Run(new MyVisual());
 		}
 	}
 }

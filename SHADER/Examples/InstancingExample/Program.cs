@@ -10,9 +10,9 @@ using System.IO;
 
 namespace Example
 {
-	public class MyWindow : IWindow
+	public class MyVisual : IWindow
 	{
-		public MyWindow()
+		public MyVisual()
 		{
 			var dir = Path.GetDirectoryName(PathTools.GetSourceFilePath()) + @"\Resources\";
 			shaderWatcher = new ShaderFileDebugger(dir + "vertex.glsl", dir + "fragment.glsl"
@@ -65,7 +65,7 @@ namespace Example
 		private static void Main()
 		{
 			var app = new ExampleApplication();
-			app.Run(new MyWindow());
+			app.Run(new MyVisual());
 		}
 	}
 }

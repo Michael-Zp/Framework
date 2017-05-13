@@ -5,13 +5,13 @@ using System.Drawing;
 
 namespace Example
 {
-	class MyWindow : IWindow
+	class MyVisual : IWindow
 	{
 		[STAThread]
 		private static void Main()
 		{
 			var app = new ExampleApplication();
-			app.Run(new MyWindow());
+			app.Run(new MyVisual());
 		}
 
 		public void Update(float updatePeriod)

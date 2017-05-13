@@ -6,9 +6,9 @@ using System;
 
 namespace Example
 {
-	class MyWindow : IWindow
+	class MyVisual : IWindow
 	{
-		private MyWindow()
+		private MyVisual()
 		{
 			//background clear color
 			GL.ClearColor(1, 1, 1, 1);
@@ -46,7 +46,7 @@ namespace Example
 		private static void Main()
 		{
 			var app = new ExampleApplication();
-			app.Run(new MyWindow());
+			app.Run(new MyVisual());
 		}
 
 		private void DrawRect(Box2D rectangle, Color4 color)

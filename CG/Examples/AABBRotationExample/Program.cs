@@ -9,13 +9,13 @@ namespace Example
 {
 	using Line = Tuple<Vector2, Vector2>;
 
-	class MyWindow : IWindow
+	class Visual : IWindow
 	{
 		private const float size = 0.7f;
 		private Line stick = new Line(new Vector2(-size, -size), new Vector2(size, size));
 		private Box2D stickAABB = Box2D.EMPTY;
 
-		private MyWindow()
+		private Visual()
 		{
 			GL.LineWidth(5.0f);
 			GL.ClearColor(1, 1, 1, 0);
@@ -87,7 +87,10 @@ namespace Example
 		private static void Main()
 		{
 			var app = new ExampleApplication();
-			app.Run(new MyWindow());
+			var visual = new Visual();
+			//app.Render += visual.Render;
+			//app.Update += visual.Update;
+			app.Run(visual);
 		}
 	}
 }

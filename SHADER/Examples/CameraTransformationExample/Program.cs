@@ -10,9 +10,9 @@ namespace Example
 
 		private MyApplication()
 		{
+			visual = new MainVisual();
 			GameWindow.MouseMove += GameWindow_MouseMove;
 			GameWindow.MouseWheel += GameWindow_MouseWheel;
-			visual = new MainVisual();
 		}
 
 		private void Run()

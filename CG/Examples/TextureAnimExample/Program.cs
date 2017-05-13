@@ -1,6 +1,5 @@
 ﻿using DMS.OpenGL;
 using DMS.Geometry;
-using OpenTK;
 using OpenTK.Graphics.OpenGL;
 using System;
 using System.Diagnostics;
@@ -9,13 +8,13 @@ using DMS.Application;
 
 namespace Example
 {
-	class MyWindow : IWindow
+	class MyVisual : IWindow
 	{
 		private SpriteSheetAnimation explosion;
 		private AnimationTextures alienShip;
 		private Stopwatch timeSource = new Stopwatch();
 
-		private MyWindow()
+		private MyVisual()
 		{
 			//animation using a single SpriteSheet
 			explosion = new SpriteSheetAnimation(new SpriteSheet(TextureLoader.FromBitmap(Resourcen.explosion), 5), 0, 24, 1);
@@ -67,7 +66,7 @@ namespace Example
 		{
 			var app = new ExampleApplication();
 			//run the update loop, which calls our registered callbacks
-			app.Run(new MyWindow());
+			app.Run(new MyVisual());
 		}
 	}
 }

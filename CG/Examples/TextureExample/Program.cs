@@ -11,7 +11,7 @@ namespace Example
 	/// Example that shows loading and using textures. 
 	/// It loads 2 textures: one for the background and one for a space ship.
 	/// </summary>
-	class MyWindow : IWindow
+	class MyVisual : IWindow
 	{
 		private Texture texBackground;
 		private Texture texShip;
@@ -20,10 +20,10 @@ namespace Example
 		private static void Main()
 		{
 			var app = new ExampleApplication();
-			app.Run(new MyWindow());
+			app.Run(new MyVisual());
 		}
 
-		private MyWindow()
+		private MyVisual()
 		{
 			texShip = TextureLoader.FromBitmap(Resourcen.redship4);
 			texBackground = TextureLoader.FromBitmap(Resourcen.water);

@@ -10,7 +10,7 @@ using System.Text;
 
 namespace Example
 {
-	class MyWindow : IWindow
+	class MyVisual : IWindow
 	{
 		private PostProcessing postProcessing;
 		private Stopwatch globalTime = new Stopwatch();
@@ -19,7 +19,7 @@ namespace Example
 		private Box2D background = new Box2D(-1.0f, -1.0f, 2.0f, 2.0f);
 		private Texture texBackground;
 
-		private MyWindow(int width, int height)
+		private MyVisual(int width, int height)
 		{
 			texBackground = TextureLoader.FromBitmap(Resources.background);
 			texBird = TextureLoader.FromBitmap(Resources.bird);
@@ -71,7 +71,7 @@ namespace Example
 		private static void Main()
 		{
 			var app = new ExampleApplication();
-			app.Run(new MyWindow(app.GameWindow.Width, app.GameWindow.Height));
+			app.Run(new MyVisual(app.GameWindow.Width, app.GameWindow.Height));
 		}
 	}
 }

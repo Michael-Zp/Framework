@@ -10,14 +10,14 @@ namespace Example
 	/// <summary>
 	/// Compares texture magnification filter methods
 	/// </summary>
-	class MyWindow : IWindow
+	class MyVisual : IWindow
 	{
 		private Texture texBackgroundNearest;
 		private Texture texBackgroundLinear;
 		private Box2D texCoord = new Box2D(0, 0, 1, 1);
 		private float scaleFactor = 1f;
 
-		private MyWindow()
+		private MyVisual()
 		{
 			texBackgroundNearest = TextureLoader.FromBitmap(Resourcen.mountains);
 			texBackgroundNearest.FilterNearest(); //filter by taking the nearest texel's color as a pixels color
@@ -53,7 +53,7 @@ namespace Example
 		private static void Main()
 		{
 			var app = new ExampleApplication();
-			app.Run(new MyWindow());
+			app.Run(new MyVisual());
 		}
 
 		private static void DrawTexturedRect(Box2D rect, Texture tex, Box2D texCoords)

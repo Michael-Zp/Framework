@@ -35,6 +35,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="ExampleApplication.cs" />
+    <Compile Include="GameWindowExtensions.cs" />
     <Compile Include="IWindow.cs" />
     <Compile Include="ResourceManager.cs" />
   </ItemGroup>
@@ -42,12 +43,17 @@
     <Reference Include="OpenTK">
       <HintPath>..\DMS.ShaderDebugging\bin\Debug\OpenTK.dll</HintPath>
     </Reference>
+    <Reference Include="System" />
     <Reference Include="System.Drawing" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\DMS.Base\DMS.Base.csproj">
       <Project>{e5ff60a4-46fb-42d2-9430-bc523315c2e0}</Project>
       <Name>DMS.Base</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\DMS.Geometry\DMS.Geometry.csproj">
+      <Project>{B37B7DDE-435B-4F27-9A9B-9B6DF8744EBE}</Project>
+      <Name>DMS.Geometry</Name>
     </ProjectReference>
     <ProjectReference Include="..\DMS.OpenGL\DMS.OpenGL.csproj">
       <Project>{C660F6AF-C100-4169-A9FB-61E1EBE87F34}</Project>

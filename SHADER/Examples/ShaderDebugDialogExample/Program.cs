@@ -7,14 +7,14 @@ using System.IO;
 
 namespace Example
 {
-	class MyWindow : IWindow
+	class MyVisual : IWindow
 	{
 		private const string ResourceVertexShader = "vertexShader";
 		private const string ResourceFragmentShader = "fragmentShader";
 
 		private ShaderFileDebugger shaderWatcher;
 
-		public MyWindow()
+		public MyVisual()
 		{
 			var dir = Path.GetDirectoryName(PathTools.GetSourceFilePath()) + @"\Resources\";
 			shaderWatcher = new ShaderFileDebugger(dir + "vertex.glsl", dir + "fragment.glsl"
@@ -51,7 +51,7 @@ namespace Example
 		private static void Main()
 		{
 			var app = new ExampleApplication();
-			var window = new MyWindow();
+			var window = new MyVisual();
 			var dir = Path.GetDirectoryName(PathTools.GetSourceFilePath()) + @"\Resources\";
 			//app.ResourceManager.AddWatchedFileResource(ResourceVertexShader, dir + "vertex.glsl");
 			//app.ResourceManager.AddWatchedFileResource(ResourceFragmentShader, dir + "fragment.glsl");

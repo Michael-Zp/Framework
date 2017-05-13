@@ -10,14 +10,14 @@ namespace Example
 	/// <summary>
 	/// Compares texture minification filter methods
 	/// </summary>
-	class MyWindow : IWindow
+	class MyVisual : IWindow
 	{
 		private Texture texBackgroundLinear;
 		private Texture texBackgroundMipmap;
 		private Box2D texCoord = new Box2D(0, 0, 100, 100);
 		private float scaleFactor = 1f;
 
-		private MyWindow()
+		private MyVisual()
 		{
 			texBackgroundLinear = TextureLoader.FromBitmap(Resourcen.mountains);
 			texBackgroundLinear.FilterLinear(); //filter by taking the nearest texel's color as a pixels color
@@ -52,7 +52,7 @@ namespace Example
 		private static void Main()
 		{
 			var app = new ExampleApplication();
-			app.Run(new MyWindow());
+			app.Run(new MyVisual());
 		}
 
 		private static void DrawTexturedRect(Box2D rect, Texture tex, Box2D texCoords)

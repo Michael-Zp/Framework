@@ -3,10 +3,11 @@ using DMS.Geometry;
 using OpenTK;
 using OpenTK.Graphics.OpenGL;
 using System;
+using DMS.Application;
 
 namespace Example
 {
-	public class MainVisual
+	public class MainVisual : IWindow
 	{
 		public CameraOrbit OrbitCamera { get { return camera; } }
 

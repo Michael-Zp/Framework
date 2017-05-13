@@ -10,9 +10,6 @@ namespace DMS.Application
 {
 	public class ExampleApplication
 	{
-		public delegate void ResizeHandler(int width, int height);
-		public event ResizeHandler Resize;
-
 		public ExampleApplication()
 		{
 			gameWindow = new GameWindow();
@@ -26,6 +23,14 @@ namespace DMS.Application
 		}
 
 		public IGameWindow GameWindow { get { return gameWindow; } }
+
+		public event Action Render;
+
+		public delegate void ResizeHandler(int width, int height);
+		public event ResizeHandler Resize;
+
+		public delegate void UpdateHandler(float updatePeriod);
+		public event UpdateHandler Update;
 
 		public bool IsRecording
 		{
@@ -46,10 +51,13 @@ namespace DMS.Application
 
 		public void Run(IWindow window)
 		{
+			Render += window.Render;
+			Update += window.Update;
+
 			//register a callback for updating the game logic
-			gameWindow.UpdateFrame += (sender, e) => window.Update((float)gameWindow.TargetUpdatePeriod);
+			gameWindow.UpdateFrame += (sender, e) => Update?.Invoke((float)gameWindow.TargetUpdatePeriod);
 			//registers a callback for drawing a frame
-			gameWindow.RenderFrame += (sender, e) => Render(window);
+			gameWindow.RenderFrame += (sender, e) => GameWindowRender();
 			//run the update loop, which calls our registered callbacks
 			gameWindow.Run(60, 60);
 		}
@@ -57,13 +65,13 @@ namespace DMS.Application
 		private GameWindow gameWindow;
 		private FrameListCreator frameListCreator;
 
-		private void Render(IWindow window)
+		private void GameWindowRender()
 		{
 			ResourceManager?.CheckForShaderChange();
 			//record frame
 			frameListCreator?.Activate();
 			//render
-			window.Render();
+			Render?.Invoke();
 			//stop recording frame
 			frameListCreator?.Deactivate();
 			//buffer swap of double buffering (http://gameprogrammingpatterns.com/double-buffer.html)

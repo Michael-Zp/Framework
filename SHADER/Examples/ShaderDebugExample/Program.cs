@@ -6,12 +6,12 @@ using System.Text;
 
 namespace Example
 {
-	class MyWindow : IWindow
+	class MyVisual : IWindow
 	{
 		private Shader shader;
 		private QueryObject glTimerRender = new QueryObject();
 
-		public MyWindow()
+		public MyVisual()
 		{
 			var sVertex = Encoding.UTF8.GetString(Resourcen.vertex);
 			var sFragment = Encoding.UTF8.GetString(Resourcen.fragment);
@@ -52,7 +52,7 @@ namespace Example
 		private static void Main()
 		{
 			var app = new ExampleApplication();
-			app.Run(new MyWindow());
+			app.Run(new MyVisual());
 		}
 	}
 }

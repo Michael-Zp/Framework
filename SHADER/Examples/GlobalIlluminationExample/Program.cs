@@ -1,5 +1,4 @@
 ﻿using DMS.Application;
-using OpenTK.Input;
 using System;
 
 namespace Example
@@ -11,35 +10,13 @@ namespace Example
 		private MyApplication()
 		{
 			visual = new MainVisual(ResourceManager);
-			GameWindow.MouseMove += GameWindow_MouseMove;
-			GameWindow.MouseWheel += GameWindow_MouseWheel;
 			Resize += (width, height) => visual.OrbitCamera.Aspect = (float)width / height;
+			GameWindow.ConnectMouseEvents(visual.OrbitCamera);
 		}
 
 		private void Run()
 		{
 			Run(visual);
-		}
-
-		private void GameWindow_MouseWheel(object sender, MouseWheelEventArgs e)
-		{
-			if (Keyboard.GetState().IsKeyDown(Key.ShiftLeft))
-			{
-				visual.OrbitCamera.FovY *= (float)Math.Pow(1.05, e.DeltaPrecise);
-			}
-			else
-			{
-				visual.OrbitCamera.Distance *= (float)Math.Pow(1.05, e.DeltaPrecise);
-			}
-		}
-
-		private void GameWindow_MouseMove(object sender, MouseMoveEventArgs e)
-		{
-			if (ButtonState.Pressed == e.Mouse.LeftButton)
-			{
-				visual.OrbitCamera.Azimuth += 300 * e.XDelta / (float)GameWindow.Width;
-				visual.OrbitCamera.Elevation += 300 * e.YDelta / (float)GameWindow.Height;
-			}
 		}
 
 		[STAThread]

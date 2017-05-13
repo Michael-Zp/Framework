@@ -5,9 +5,9 @@ using System.Diagnostics;
 
 namespace MvcSpaceInvaders
 {
-	class MyWindow : IWindow
+	class Controller : IWindow
 	{
-		public MyWindow()
+		public Controller()
 		{
 			logic = new GameLogic();
 			visual = new Visual();
@@ -40,7 +40,7 @@ namespace MvcSpaceInvaders
 		private static void Main()
 		{
 			var app = new ExampleApplication();
-			app.Run(new MyWindow());
+			app.Run(new Controller());
 		}
 	}
 }
