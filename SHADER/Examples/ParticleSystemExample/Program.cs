@@ -6,24 +6,17 @@ namespace Example
 {
 	class MyWindow
 	{
-		private void Update(float updatePeriod)
-		{
-			visual.Update((float)timeSource.Elapsed.TotalSeconds);
-		}
-
-		private MainVisual visual;
-		private Stopwatch timeSource = new Stopwatch();
-
 		[STAThread]
 		private static void Main()
 		{
 			var app = new ExampleApplication();
 			var window = new MyWindow();
-			window.visual = new MainVisual();
-			app.GameWindow.ConnectMouseEvents(window.visual.OrbitCamera);
-			window.timeSource.Start();
-			app.Render += window.visual.Render;
-			app.Update += window.Update;
+			var visual = new MainVisual();
+			var timeSource = new Stopwatch();
+			app.GameWindow.ConnectMouseEvents(visual.OrbitCamera);
+			app.Render += visual.Render;
+			app.Update += (t) => visual.Update((float)timeSource.Elapsed.TotalSeconds);
+			timeSource.Start();
 			app.Run();
 		}
 	}
