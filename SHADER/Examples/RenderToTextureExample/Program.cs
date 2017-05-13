@@ -1,65 +1,69 @@
-﻿using DMS.OpenGL;
-using OpenTK;
+﻿using DMS.Application;
 using OpenTK.Input;
 using System;
 using System.Diagnostics;
 
 namespace Example
 {
-	class MyApplication
+	class MyWindow : IWindow
 	{
-		private GameWindow gameWindow = new GameWindow(1024, 1024);
+		private MyWindow()
+		{
+			visual = new MainVisual();
+			globalTime.Start();
+		}
+
+		public void Render()
+		{
+			float time = (float)globalTime.Elapsed.TotalSeconds;
+			if(doPostProcessing)
+			{
+				visual.DrawWithPostProcessing(time);
+			}
+			else
+			{
+				visual.Draw();
+			}
+		}
+
+		public void Update(float updatePeriod)
+		{
+		}
+
 		private Stopwatch globalTime = new Stopwatch();
-		private PostProcessingExample postProcessingExample;
-		private PingPongExample pingPongExample;
+		private MainVisual visual;
+		private bool doPostProcessing;
 
 		[STAThread]
 		private static void Main()
 		{
-			var app = new MyApplication();
-			//run the update loop, which calls our registered callbacks
-			app.gameWindow.Run();
-		}
-
-		private MyApplication()
-		{
-			//registers a callback for drawing a frame
-			gameWindow.RenderFrame += GameWindow_RenderFrame;
-			gameWindow.RenderFrame += (sender, e) => gameWindow.SwapBuffers();
-			gameWindow.KeyDown += GameWindow_KeyDown;
-
-			try
+			var app = new ExampleApplication();
+			var window = new MyWindow();
+			app.Resize += window.visual.Resize;
+			app.GameWindow.UpdateFrame += (s, e) =>
 			{
-				postProcessingExample = new PostProcessingExample(gameWindow.Width, gameWindow.Height);
-				pingPongExample = new PingPongExample(gameWindow.Width, gameWindow.Height);
-			}
-			catch (ShaderException e)
+				window.doPostProcessing = Keyboard.GetState().IsKeyDown(Key.Space);
+			};
+			app.GameWindow.MouseMove += (s, e) =>
 			{
-				Console.WriteLine(e.ShaderLog);
-			}
-
-			globalTime.Start();
-		}
-
-		private void GameWindow_KeyDown(object sender, KeyboardKeyEventArgs e)
-		{
-			if (Key.Escape == e.Key)
+				if (ButtonState.Pressed == e.Mouse.LeftButton)
+				{
+					window.visual.OrbitCamera.Azimuth += 300 * e.XDelta / (float)app.GameWindow.Width;
+					window.visual.OrbitCamera.Elevation += 300 * e.YDelta / (float)app.GameWindow.Height;
+				}
+			};
+			app.GameWindow.MouseWheel += (s, e) =>
 			{
-				gameWindow.Exit();
-			}
-		}
-
-		private void GameWindow_RenderFrame(object sender, FrameEventArgs e)
-		{
-			bool doPostProcessing = !Keyboard.GetState()[Key.Space];
-			float time = (float)globalTime.Elapsed.TotalSeconds;
-			int width = gameWindow.Width;
-			int height = gameWindow.Height;
-			float mouseX = gameWindow.Mouse.X / (float)width;
-			float mouseY = (height - gameWindow.Mouse.Y) / (float)height;
-
-			postProcessingExample.Draw(doPostProcessing, width, height, time);
-			//pingPongExample.Draw(width, height, mouseX, mouseY);
+				if (Keyboard.GetState().IsKeyDown(Key.ShiftLeft))
+				{
+					window.visual.OrbitCamera.FovY *= (float)Math.Pow(1.05, e.DeltaPrecise);
+				}
+				else
+				{
+					window.visual.OrbitCamera.Distance *= (float)Math.Pow(1.05, e.DeltaPrecise);
+				}
+			};
+			app.Run(window);
 		}
 	}
 }

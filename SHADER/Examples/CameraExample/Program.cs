@@ -10,20 +10,10 @@ namespace Example
 
 		private MyApplication()
 		{
+			visual = new MainVisual();
+			Resize += (width, height) => visual.OrbitCamera.Aspect = (float)width / height;
 			GameWindow.MouseMove += GameWindow_MouseMove;
 			GameWindow.MouseWheel += GameWindow_MouseWheel;
-			GameWindow.Resize += GameWindow_Resize;
-			visual = new MainVisual();
-		}
-
-		private void GameWindow_Resize(object sender, EventArgs e)
-		{
-			visual.OrbitCamera.Aspect = (float)GameWindow.Width / GameWindow.Height;
-		}
-
-		private void Run()
-		{
-			Run(visual);
 		}
 
 		private void GameWindow_MouseWheel(object sender, MouseWheelEventArgs e)
@@ -44,7 +34,7 @@ namespace Example
 		private static void Main()
 		{
 			var app = new MyApplication();
-			app.Run();
+			app.Run(app.visual);
 		}
 	}
 }

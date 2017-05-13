@@ -82,7 +82,6 @@ namespace Example
 		private static void Main()
 		{
 			var app = new ExampleApplication();
-			app.GameWindow.WindowState = WindowState.Fullscreen;
 			app.Run(new MyWindow());
 		}
 	}

@@ -55,7 +55,7 @@ namespace Example
 		{
 			var app = new ExampleApplication();
 			var controller = new MyController();
-			app.GameWindow.Resize += (s, e) => controller.renderer.Resize(app.GameWindow.Width, app.GameWindow.Height);
+			app.Resize += (width, height) => controller.renderer.Resize(width, height);
 			app.Run(controller);
 		}
 	}

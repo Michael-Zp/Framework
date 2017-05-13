@@ -33,9 +33,7 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
-    <Compile Include="PingPongExample.cs" />
-    <Compile Include="PixelShader.cs" />
-    <Compile Include="PostProcessingExample.cs" />
+    <Compile Include="MainVisual.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Resources.Designer.cs">
       <AutoGen>True</AutoGen>
@@ -50,8 +48,13 @@
     </Reference>
     <Reference Include="System" />
     <Reference Include="System.Drawing" />
+    <Reference Include="System.Numerics" />
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\..\..\_Common\DMS.Application\DMS.Application.csproj">
+      <Project>{911C6DFF-BE3E-4EA5-ADF2-A363DF797F23}</Project>
+      <Name>DMS.Application</Name>
+    </ProjectReference>
     <ProjectReference Include="..\..\..\_Common\DMS.OpenGL\DMS.OpenGL.csproj">
       <Project>{c660f6af-c100-4169-a9fb-61e1ebe87f34}</Project>
       <Name>DMS.OpenGL</Name>
@@ -77,11 +80,11 @@
     <None Include="Resources\ChromaticAberration.glsl" />
     <None Include="Resources\convolution.glsl" />
     <None Include="Resources\EdgeDetect.glsl" />
-    <None Include="Resources\GameOfLife.glsl" />
-    <None Include="Resources\PatternCircle.glsl" />
+    <None Include="Resources\fragment.frag" />
     <None Include="Resources\Ripple.glsl" />
     <None Include="Resources\Sepia.glsl" />
     <None Include="Resources\Swirl.glsl" />
+    <None Include="Resources\vertex.vert" />
     <None Include="Resources\Vignetting.glsl" />
     <None Include="Resources\Grayscale.glsl" />
   </ItemGroup>

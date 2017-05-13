@@ -142,10 +142,10 @@
   <data name="convolution" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>Resources\convolution.glsl;System.Byte[], mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </data>
-  <data name="PatternCircle" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>Resources\PatternCircle.glsl;System.Byte[], mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  <data name="fragment" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>Resources\fragment.frag;System.Byte[], mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </data>
-  <data name="GameOfLife" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>Resources\GameOfLife.glsl;System.Byte[], mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  <data name="vertex" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>Resources\vertex.vert;System.Byte[], mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </data>
 </root>

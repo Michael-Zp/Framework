@@ -4,11 +4,15 @@ using OpenTK;
 using OpenTK.Graphics.OpenGL;
 using OpenTK.Input;
 using OpenTK.Platform;
+using System;
 
 namespace DMS.Application
 {
 	public class ExampleApplication
 	{
+		public delegate void ResizeHandler(int width, int height);
+		public event ResizeHandler Resize;
+
 		public ExampleApplication()
 		{
 			gameWindow = new GameWindow();
@@ -82,7 +86,7 @@ namespace DMS.Application
 			}
 		}
 
-		private void GameWindow_Resize(object sender, global::System.EventArgs e)
+		private void GameWindow_Resize(object sender, EventArgs e)
 		{
 			GL.Viewport(0, 0, gameWindow.Width, gameWindow.Height);
 			if (!ReferenceEquals(null, frameListCreator))
@@ -90,6 +94,7 @@ namespace DMS.Application
 				frameListCreator.Dispose();
 				frameListCreator = new FrameListCreator(gameWindow.Width, gameWindow.Height);
 			}
+			Resize?.Invoke(gameWindow.Width, gameWindow.Height);
 		}
 	}
 }

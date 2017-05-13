@@ -10,8 +10,6 @@ namespace Example
 {
 	public class MainVisual : IWindow
 	{
-		public CameraOrbit OrbitCamera { get { return camera; } }
-
 		public MainVisual(ResourceManager resourceManager)
 		{
 			var dir = Path.GetDirectoryName(PathTools.GetSourceFilePath()) + "/Resources/";
@@ -27,6 +25,8 @@ namespace Example
 			GL.Enable(EnableCap.DepthTest);
 			GL.Enable(EnableCap.CullFace);
 		}
+
+		public CameraOrbit OrbitCamera { get { return camera; } }
 
 		private void ResourceManager_ShaderChanged(Shader shader)
 		{
@@ -60,7 +60,7 @@ namespace Example
 
 		private CameraOrbit camera = new CameraOrbit();
 		private Shader shader;
-		private Texture texture = new Texture();
+		//private Texture texture = new Texture();
 		private VAO geometry;
 	}
 }

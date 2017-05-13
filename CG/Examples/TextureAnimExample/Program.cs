@@ -5,32 +5,18 @@ using OpenTK.Graphics.OpenGL;
 using System;
 using System.Diagnostics;
 using System.Drawing;
+using DMS.Application;
 
 namespace Example
 {
-	class MyApplication
+	class MyWindow : IWindow
 	{
-		private GameWindow gameWindow;
 		private SpriteSheetAnimation explosion;
 		private AnimationTextures alienShip;
 		private Stopwatch timeSource = new Stopwatch();
 
-		[STAThread]
-		private static void Main()
+		private MyWindow()
 		{
-			var app = new MyApplication();
-			//run the update loop, which calls our registered callbacks
-			app.gameWindow.Run();
-		}
-
-		private MyApplication()
-		{
-			//setup
-			gameWindow = new GameWindow(700, 700);
-			gameWindow.KeyDown += (s, arg) => gameWindow.Close();
-			gameWindow.Resize += (s, arg) => GL.Viewport(0, 0, gameWindow.Width, gameWindow.Height);
-			gameWindow.RenderFrame += GameWindow_RenderFrame;			
-			gameWindow.RenderFrame += (s, arg) => gameWindow.SwapBuffers();
 			//animation using a single SpriteSheet
 			explosion = new SpriteSheetAnimation(new SpriteSheet(TextureLoader.FromBitmap(Resourcen.explosion), 5), 0, 24, 1);
 			//animation using a bitmap for each frame
@@ -58,7 +44,7 @@ namespace Example
 			timeSource.Start();
 		}
 
-		private void GameWindow_RenderFrame(object sender, FrameEventArgs e)
+		public void Render()
 		{
 			GL.Clear(ClearBufferMask.ColorBufferBit);
 
@@ -70,6 +56,18 @@ namespace Example
 
 			alienShip.Draw(new Box2D(.3f, -.2f, .4f, .4f), (float)timeSource.Elapsed.TotalSeconds);
 			GL.Disable(EnableCap.Blend); // for transparency in textures
+		}
+
+		public void Update(float updatePeriod)
+		{
+		}
+
+		[STAThread]
+		private static void Main()
+		{
+			var app = new ExampleApplication();
+			//run the update loop, which calls our registered callbacks
+			app.Run(new MyWindow());
 		}
 	}
 }
