@@ -66,7 +66,7 @@ namespace DMS.ShaderDebugging
 				//save changed code to shaderfile
 				switch(compileException.ShaderType)
 				{
-					case ShaderType.VertexShader: File.WriteAllText(shaderWatcherFragment.FullPath, newShaderCode); break;
+					case ShaderType.VertexShader: File.WriteAllText(shaderWatcherVertex.FullPath, newShaderCode); break;
 					case ShaderType.FragmentShader: File.WriteAllText(shaderWatcherFragment.FullPath, newShaderCode); break;
 					default: throw new ArgumentOutOfRangeException("ShowDebugDialog called with invalid shader type", compileException);
 				}

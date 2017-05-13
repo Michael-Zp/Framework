@@ -31,13 +31,17 @@ namespace Example
 		private void ResourceManager_ShaderChanged(Shader shader)
 		{
 			this.shader = shader;
-			UpdateGeometry();
+			if (ReferenceEquals(shader, null)) return;
+			Mesh mesh = Meshes.CreateCornellBox();
+			geometry = VAOLoader.FromMesh(mesh, shader);
+
+			Vector4[] materials = new Vector4[] { new Vector4(1, 1, 1, 0), Vector4.UnitX, Vector4.UnitY, Vector4.One };
+			//texture.LoadPixels((IntPtr)materials, 4, 1, PixelInternalFormat.Rgba8, PixelFormat.Rgba, PixelType.Float);
 		}
 
 		public void Render()
 		{
 			if (ReferenceEquals(shader, null)) return;
-
 			GL.Clear(ClearBufferMask.ColorBufferBit | ClearBufferMask.DepthBufferBit);
 			shader.Activate();
 			GL.Uniform3(shader.GetUniformLocation("ambient"), new Vector3(0.1f));
@@ -58,15 +62,5 @@ namespace Example
 		private Shader shader;
 		private Texture texture = new Texture();
 		private VAO geometry;
-
-		private void UpdateGeometry()
-		{
-			if (ReferenceEquals(shader, null)) return;
-			Mesh mesh = Meshes.CreateCornellBox();
-			geometry = VAOLoader.FromMesh(mesh, shader);
-
-			Vector4[] materials = new Vector4[] { new Vector4(1, 1, 1, 0), Vector4.UnitX, Vector4.UnitY, Vector4.One };
-			//texture.LoadPixels((IntPtr)materials, 4, 1, PixelInternalFormat.Rgba8, PixelFormat.Rgba, PixelType.Float);
-		}
 	}
 }

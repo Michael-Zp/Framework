@@ -7,7 +7,6 @@ using System.IO;
 
 namespace Example
 {
-	//todo: add logic; read logic data from level;
 	class MyController : IWindow
 	{
 		private GameLogic logic = new GameLogic();
@@ -15,7 +14,7 @@ namespace Example
 
 		public MyController()
 		{
-			logic.NewPosition += Logic_NewPosition;
+			logic.NewPosition += (name, x, y) => renderer.UpdateSprites(name, x, y);
 			LoadLevelData(LevelData.level1);
 		}
 
@@ -49,11 +48,6 @@ namespace Example
 					renderer.AddSprite(sprite.Name, sprite.Layer, sprite.RenderBounds, sprite.TextureName, sprite.Bitmap);
 				}
 			}
-		}
-
-		private void Logic_NewPosition(string name, float x, float y)
-		{
-			renderer.UpdateSprites(name, x, y);
 		}
 
 		[STAThread]

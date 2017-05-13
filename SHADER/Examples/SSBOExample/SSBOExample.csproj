@@ -5,7 +5,7 @@
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
     <ProjectGuid>{B477FA61-3ABE-43EC-B785-2306975C65B1}</ProjectGuid>
-    <OutputType>WinExe</OutputType>
+    <OutputType>Exe</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
     <RootNamespace>Example</RootNamespace>
     <AssemblyName>SSBOExample</AssemblyName>
@@ -87,6 +87,10 @@
     </BootstrapperPackage>
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\..\..\_Common\DMS.Application\DMS.Application.csproj">
+      <Project>{911C6DFF-BE3E-4EA5-ADF2-A363DF797F23}</Project>
+      <Name>DMS.Application</Name>
+    </ProjectReference>
     <ProjectReference Include="..\..\..\_Common\DMS.Geometry\DMS.Geometry.csproj">
       <Project>{b37b7dde-435b-4f27-9a9b-9b6df8744ebe}</Project>
       <Name>DMS.Geometry</Name>

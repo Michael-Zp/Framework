@@ -35,7 +35,7 @@ namespace DemoPlayer
 			gameWindow.RenderFrame += game_RenderFrame;
 			visualContext = new VisualContext();
 			var textures = new Textures(visualContext);
-			var shaders = new Shaders(visualContext, NewShaderFile);
+			var shaders = new Shaders(NewShaderFile);
 			demo = new DemoModel(visualContext, shaders, textures, false);
 			demo.TimeSource.TimeFinished += () => gameWindow.Close();
 
