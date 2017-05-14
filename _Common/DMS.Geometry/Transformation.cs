@@ -3,7 +3,7 @@
 namespace DMS.Geometry
 {
 	/// <summary>
-	/// todo: Row-major transformation class
+	/// Transformation class that is based on row-major matrices
 	/// </summary>
 	public class Transformation
 	{
@@ -12,11 +12,14 @@ namespace DMS.Geometry
 			Reset();
 		}
 
-		public Matrix4x4 Matrix { get; private set; }
+		public static implicit operator Matrix4x4(Transformation t)
+		{
+			return t.matrix;
+		}
 
 		public void Reset()
 		{
-			Matrix = Matrix4x4.Identity;
+			matrix = Matrix4x4.Identity;
 		}
 
 		/// <summary>
@@ -95,26 +98,19 @@ namespace DMS.Geometry
 
 		public Vector3 Transform(Vector3 position)
 		{
-			return Vector3.Transform(position, Matrix);
+			return Vector3.Transform(position, matrix);
 		}
 
-		public void TransformGlobal(Transformation transform)
-		{
-			TransformGlobal(transform.Matrix);
-		}
 		public void TransformGlobal(Matrix4x4 transform)
 		{
-			Matrix *= transform;
-		}
-
-		public void TransformLocal(Transformation transform)
-		{
-			TransformLocal(transform.Matrix);
+			matrix *= transform;
 		}
 
 		public void TransformLocal(Matrix4x4 transform)
 		{
-			Matrix = transform * Matrix;
+			matrix = transform * matrix;
 		}
+
+		private Matrix4x4 matrix;
 	}
 }

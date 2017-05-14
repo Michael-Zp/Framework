@@ -6,11 +6,11 @@ using System.Windows.Forms;
 
 namespace Example
 {
-	class MyWindow
+	class Controller
 	{
 		private GameState gameState;
 
-		public MyWindow()
+		public Controller()
 		{
 			try
 			{
@@ -37,14 +37,14 @@ namespace Example
 		private static void Main()
 		{
 			var app = new ExampleApplication();
-			var window = new MyWindow();
-			app.GameWindow.Closing += (s, e) => window.Save();
+			var controller = new Controller();
+			app.GameWindow.Closing += (s, e) => controller.Save();
 			app.GameWindow.MouseDown += (s, e) =>
 			{
 				var coord = app.CalcNormalized(e.X, e.Y);
-				window.HandleInput((int)e.Button, coord.X, coord.Y);
+				controller.HandleInput((int)e.Button, coord.X, coord.Y);
 			};
-			app.Render += window.Render;
+			app.Render += controller.Render;
 			app.Run();
 		}
 

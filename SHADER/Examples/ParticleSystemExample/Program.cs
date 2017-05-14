@@ -4,13 +4,13 @@ using System.Diagnostics;
 
 namespace Example
 {
-	class MyWindow
+	class Controller
 	{
 		[STAThread]
 		private static void Main()
 		{
 			var app = new ExampleApplication();
-			var window = new MyWindow();
+			var controller = new Controller();
 			var visual = new MainVisual();
 			var timeSource = new Stopwatch();
 			app.GameWindow.ConnectMouseEvents(visual.OrbitCamera);

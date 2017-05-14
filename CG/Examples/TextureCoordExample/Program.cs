@@ -64,8 +64,6 @@ namespace Example
 		private static void Main()
 		{
 			var app = new ExampleApplication();
-			//app.GameWindow.WindowState = WindowState.Fullscreen;
-			//app.IsRecording = true;
 			var visual = new MyVisual();
 			app.Render += visual.Render;
 			app.Update += visual.Update;

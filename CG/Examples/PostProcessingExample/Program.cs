@@ -63,8 +63,9 @@ namespace Example
 
 		private void Update(float updatePeriod)
 		{
-			var R = Transform2D.CreateRotationAroundOrigin(2.0f * updatePeriod);
-			bird.TransformCenter(R);
+			var t = new Transformation2D();
+			t.RotateLocal(-200f * updatePeriod);
+			bird.TransformCenter(t);
 		}
 
 		[STAThread]

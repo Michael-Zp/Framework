@@ -10,7 +10,7 @@ using System.Drawing;
 
 namespace SpaceInvaders
 {
-	class MyWindow
+	class Controller
 	{
 		private Box2D windowBorders = new Box2D(-1.0f, -1.0f, 2.0f, 2.0f);
 		private Box2D player = new Box2D(0.0f, -1.0f, 0.1f, 0.05f);
@@ -21,7 +21,7 @@ namespace SpaceInvaders
 		private float enemySpeed = 0.05f;
 		private bool Lost;
 
-		public MyWindow()
+		public Controller()
 		{
 			shootCoolDown.PeriodElapsed += (s, t) => shootCoolDown.Stop();
 			CreateEnemies();
@@ -60,9 +60,9 @@ namespace SpaceInvaders
 		private static void Main()
 		{
 			var app = new ExampleApplication();
-			var window = new MyWindow();
-			app.Render += window.Render;
-			app.Update += window.Update;
+			var controller = new Controller();
+			app.Render += controller.Render;
+			app.Update += controller.Update;
 			app.Run();
 		}
 

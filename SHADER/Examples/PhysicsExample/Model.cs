@@ -29,7 +29,7 @@ namespace Example
 
 		public IEnumerable<IBody> Bodies { get { return bodies; } }
 
-		public void Update()
+		public void Update(float updatePeriod)
 		{
 			Func<float> R = () => (Rnd01() - 0.5f) * .001f;
 			foreach (var b1 in bodies)

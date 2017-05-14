@@ -7,7 +7,7 @@ using System.Drawing;
 
 namespace Example
 {
-	class MyWindow
+	class Controller
 	{
 		private Box2D obstacle = new Box2D(-0.2f, 1, 0.4f, 0.2f);
 		private Box2D player = new Box2D(0.0f, -0.95f, 0.2f, 0.2f);
@@ -86,9 +86,9 @@ namespace Example
 		private static void Main()
 		{
 			var app = new ExampleApplication();
-			var window = new MyWindow();
-			app.Render += window.Render;
-			app.Update += window.Update;
+			var controller = new Controller();
+			app.Render += controller.Render;
+			app.Update += controller.Update;
 			app.Run();
 		}
 	}

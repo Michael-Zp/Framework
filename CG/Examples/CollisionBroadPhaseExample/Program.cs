@@ -8,7 +8,7 @@ using System.Diagnostics;
 
 namespace Example
 {
-	class MyWindow
+	class Controller
 	{
 		private List<Collider> colliders = new List<Collider>();
 		private Box2D windowBorders = new Box2D(-1.0f, -1.0f, 2.0f, 2.0f);
@@ -16,7 +16,7 @@ namespace Example
 		private Stopwatch time = new Stopwatch();
 		private double lastBenchmark = 0;
 
-		private MyWindow()
+		private Controller()
 		{
 			SetupColliders();
 			time.Start();
@@ -133,9 +133,9 @@ namespace Example
 		private static void Main()
 		{
 			var app = new ExampleApplication();
-			var window = new MyWindow();
-			app.Render += window.Render;
-			app.Update += window.Update;
+			var controller = new Controller();
+			app.Render += controller.Render;
+			app.Update += controller.Update;
 			app.Run();
 		}
 	}

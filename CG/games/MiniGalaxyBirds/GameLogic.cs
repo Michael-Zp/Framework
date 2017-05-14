@@ -80,7 +80,6 @@ namespace MiniGalaxyBirds
 				compPlayer.SetPlayerState(axisUpDown, axisLeftRight, shoot);
 			}
 		}
-	
 
 		private void HandleCollisions(float absoluteTime, IComponentContainer containerPlayer)
 		{

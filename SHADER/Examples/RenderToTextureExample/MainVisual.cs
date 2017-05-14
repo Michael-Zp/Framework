@@ -2,12 +2,13 @@
 using DMS.OpenGL;
 using OpenTK.Graphics.OpenGL;
 using System.Text;
+using DMS.Application;
 
 namespace Example
 {
 	public class MainVisual
 	{
-		public MainVisual()
+		public MainVisual(ResourceManager resourceManager)
 		{
 			camera.FarClip = 50;
 			camera.Distance = 1.8f;
