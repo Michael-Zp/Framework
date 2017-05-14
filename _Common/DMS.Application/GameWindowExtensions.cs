@@ -7,8 +7,9 @@ namespace DMS.Application
 {
 	public static class GameWindowExtensions
 	{
-		public static void ConnectMouseEvents(this IGameWindow gameWindow, CameraOrbit camera)
+		public static void ConnectEvents(this IGameWindow gameWindow, CameraOrbit camera)
 		{
+			gameWindow.Resize += (s, e) => camera.Aspect = (float)gameWindow.Width / gameWindow.Height;
 			gameWindow.MouseMove += (s, e) =>
 			{
 				if (ButtonState.Pressed == e.Mouse.LeftButton)

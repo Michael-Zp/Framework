@@ -31,7 +31,7 @@ namespace Example
 
 			app.Update += (t) => doPostProcessing = !Keyboard.GetState()[Key.Space];
 			app.Resize += visual.Resize;
-			app.GameWindow.ConnectMouseEvents(visual.OrbitCamera);
+			app.GameWindow.ConnectEvents(visual.OrbitCamera);
 
 			globalTime.Start();
 			app.Run();

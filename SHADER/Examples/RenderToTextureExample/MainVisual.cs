@@ -52,7 +52,6 @@ namespace Example
 		public void Resize(int width, int height)
 		{
 			rtt = new RenderToTexture(Texture.Create(width, height));
-			camera.Aspect = (float)width / height;
 		}
 
 		private CameraOrbit camera = new CameraOrbit();

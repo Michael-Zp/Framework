@@ -13,7 +13,7 @@ namespace Example
 			var controller = new Controller();
 			var visual = new MainVisual();
 			var timeSource = new Stopwatch();
-			app.GameWindow.ConnectMouseEvents(visual.OrbitCamera);
+			app.GameWindow.ConnectEvents(visual.OrbitCamera);
 			app.Render += visual.Render;
 			app.Update += (t) => visual.Update((float)timeSource.Elapsed.TotalSeconds);
 			timeSource.Start();
