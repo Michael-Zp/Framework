@@ -3,7 +3,6 @@ using DMS.Geometry;
 using OpenTK;
 using OpenTK.Graphics.OpenGL;
 using System;
-using DMS.Application;
 
 namespace Example
 {
@@ -25,6 +24,12 @@ namespace Example
 			camera.Elevation = 15;
 
 			GL.Enable(EnableCap.DepthTest);
+		}
+
+		public void ShaderChanged(string name, Shader shader)
+		{
+			visualSmoke.ShaderChanged(name, shader);
+			visualWaterfall.ShaderChanged(name, shader);
 		}
 
 		public void Update(float time)

@@ -46,6 +46,7 @@ namespace Example
 
 		private void Render()
 		{
+			if (ReferenceEquals(shader, null)) return;
 			GL.Clear(ClearBufferMask.ColorBufferBit);
 			shader.Activate();
 			GL.DrawArrays(PrimitiveType.Quads, 0, 4);

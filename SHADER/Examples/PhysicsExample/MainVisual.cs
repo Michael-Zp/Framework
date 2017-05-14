@@ -5,7 +5,6 @@ using OpenTK.Graphics.OpenGL;
 using System;
 using System.Collections.Generic;
 using System.Diagnostics;
-using System.Text;
 
 namespace Example
 {
@@ -15,20 +14,27 @@ namespace Example
 		{
 			camera.FarClip = 500;
 			camera.Distance = 30;
-			var sVertex = Encoding.UTF8.GetString(Resourcen.vertex);
-			var sFragment = Encoding.UTF8.GetString(Resourcen.fragment);
-			shader = ShaderLoader.FromStrings(sVertex, sFragment);
-			geometry = CreateMesh(shader);
-
 			GL.Enable(EnableCap.DepthTest);
 			GL.Enable(EnableCap.CullFace);
 			timeSource.Start();
+		}
+
+		public static readonly string ShaderName = nameof(shader);
+
+		public void ShaderChanged(string name, Shader shader)
+		{
+			if (ShaderName != name) return;
+			this.shader = shader;
+			if (ReferenceEquals(shader, null)) return;
+			Mesh mesh = Obj2Mesh.FromObj(Resourcen.suzanne);
+			geometry = VAOLoader.FromMesh(mesh, shader);
 		}
 
 		public CameraOrbit Camera { get { return camera; } }
 
 		public void Render(IEnumerable<IBody> bodies)
 		{
+			if (ReferenceEquals(null, shader)) return;
 			var instancePositions = new List<Vector3>();
 			var instanceScale = new List<float>();
 			foreach (var body in bodies)
@@ -54,11 +60,5 @@ namespace Example
 		private Stopwatch timeSource = new Stopwatch();
 		private VAO geometry;
 		private CameraOrbit camera = new CameraOrbit();
-
-		private static VAO CreateMesh(Shader shader)
-		{
-			Mesh mesh = Obj2Mesh.FromObj(Resourcen.suzanne);
-			return VAOLoader.FromMesh(mesh, shader);
-		}
 	}
 }

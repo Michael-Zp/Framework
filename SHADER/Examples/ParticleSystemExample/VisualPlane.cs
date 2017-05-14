@@ -19,6 +19,7 @@ namespace Example
 
 		public void Draw(Matrix4 cam)
 		{
+			if (ReferenceEquals(shdPlane, null)) return;
 			GL.Disable(EnableCap.CullFace);
 			shdPlane.Activate();
 			GL.UniformMatrix4(shdPlane.GetUniformLocation("camera"), true, ref cam);

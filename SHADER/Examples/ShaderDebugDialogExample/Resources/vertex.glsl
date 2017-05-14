@@ -3,7 +3,7 @@
 out vec3 pos;
 
 void main() {
-    const vec2 vertices[4] = vec2[4](vec2(-0.9, -0.8),
+    const vec2 vertices[4] = vec2[4](vec2(-0.6, -0.8),
                                     vec2( 0.9, -0.9),
                                     vec2( 0.2,  0.8),
                                     vec2(-0.9,  0.9));

@@ -1,22 +1,14 @@
-﻿using DMS.Application;
-using DMS.Base;
-using DMS.OpenGL;
+﻿using DMS.OpenGL;
 using DMS.Geometry;
 using OpenTK;
 using OpenTK.Graphics.OpenGL;
-using System.IO;
 
 namespace Example
 {
 	public class MainVisual
 	{
-		public MainVisual(ResourceManager resourceManager)
+		public MainVisual()
 		{
-			var dir = Path.GetDirectoryName(PathTools.GetSourceFilePath()) + "/Resources/";
-			resourceManager.AddShader(dir + "vertex.vert", dir + "fragment.frag"
-				, Resourcen.vertex, Resourcen.fragment);
-
-			resourceManager.ShaderChanged += ResourceManager_ShaderChanged;
 			camera.FarClip = 50;
 			camera.Distance = 1.8f;
 			camera.TargetY = -0.3f;
@@ -26,10 +18,12 @@ namespace Example
 			GL.Enable(EnableCap.CullFace);
 		}
 
+		public static readonly string ShaderName = nameof(shader);
 		public CameraOrbit OrbitCamera { get { return camera; } }
 
-		private void ResourceManager_ShaderChanged(Shader shader)
+		public void ShaderChanged(string name, Shader shader)
 		{
+			if (ShaderName != name) return;
 			this.shader = shader;
 			if (ReferenceEquals(shader, null)) return;
 			Mesh mesh = Meshes.CreateCornellBox();

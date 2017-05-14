@@ -24,7 +24,7 @@ namespace DMS.OpenGL
 				shd.Compile(sFragmentShd_, ShaderType.FragmentShader);
 				shd.Link();
 			}
-			catch(Exception e)
+			catch (Exception e)
 			{
 				shd.Dispose();
 				throw e;
@@ -53,14 +53,14 @@ namespace DMS.OpenGL
 				}
 				return shader;
 			}
-			catch(ShaderCompileException sce)
+			catch (ShaderCompileException sce)
 			{
 				if (sce.Data.Contains(ExceptionDataFileName)) throw sce;
 				switch (sce.ShaderType)
 				{
 					case ShaderType.VertexShader: sce.Data.Add(ExceptionDataFileName, sVertexShdFile_); break;
 					case ShaderType.FragmentShader: sce.Data.Add(ExceptionDataFileName, sFragmentShdFile_); break;
-					default: throw new ArgumentOutOfRangeException("FromFiles called with unexpected shader type", sce); 
+					default: throw new ArgumentOutOfRangeException("FromFiles called with unexpected shader type", sce);
 				}
 				throw sce;
 			}
@@ -80,7 +80,7 @@ namespace DMS.OpenGL
 				throw new FileNotFoundException("Could not find shader file '" + shaderFile + "'");
 			}
 			sShader = File.ReadAllText(shaderFile);
-			
+
 			//handle includes
 			string sCurrentPath = Path.GetDirectoryName(shaderFile) + Path.DirectorySeparatorChar; // get path to current shader
 			string sName = Path.GetFileName(shaderFile);
@@ -122,10 +122,19 @@ namespace DMS.OpenGL
 					}
 					sIncludeShd += Environment.NewLine + "#line " + lineNr.ToString() + Environment.NewLine;
 					sShader = sShader.Replace(sFullMatch, sIncludeShd); // replace #include with actual include
-	 			}
+				}
 				++lineNr;
 			}
 			return sShader;
+		}
+
+		public static string ExtractFileName(this ShaderException e)
+		{
+			if (e.Data.Contains(ExceptionDataFileName))
+			{
+				return e.Data[ExceptionDataFileName] as string;
+			}
+			return string.Empty;
 		}
 	}
 }

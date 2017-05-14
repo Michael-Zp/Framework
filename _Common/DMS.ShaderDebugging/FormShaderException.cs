@@ -17,7 +17,7 @@ namespace DMS.ShaderDebugging
 
 		public BindingList<ShaderLogLine> Errors { get { return errors; } }
 
-		public string SourceText { get { return richTextBox.Text; } set { richTextBox.Text = value; } }
+		public string ShaderSourceCode { get { return richTextBox.Text; } set { richTextBox.Text = value; } }
 
 		public void Select(int id)
 		{

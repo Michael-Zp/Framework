@@ -1,13 +1,9 @@
-﻿using DMS.Application;
-using DMS.Base;
-using DMS.Geometry;
+﻿using DMS.Geometry;
 using DMS.OpenGL;
-using DMS.ShaderDebugging;
 using OpenTK;
 using OpenTK.Graphics;
 using OpenTK.Graphics.OpenGL;
 using System.Drawing;
-using System.IO;
 
 namespace Example
 {
@@ -17,10 +13,6 @@ namespace Example
 
 		public MainVisual()
 		{
-			var dir = Path.GetDirectoryName(PathTools.GetSourceFilePath()) + "/Resources/";
-			shaderWatcher = new ShaderFileDebugger(dir + "vertex.vert", dir + "fragment.frag"
-				, Resourcen.vertex, Resourcen.fragment);
-
 			camera.FarClip = 20;
 			camera.Distance = 5;
 			camera.FovY = 30;
@@ -30,15 +22,18 @@ namespace Example
 			GL.ClearColor(Color.White);
 		}
 
+		public void ShaderChanged(string name, Shader shader)
+		{
+			if (ShaderName != name) return;
+			this.shader = shader;
+			if (ReferenceEquals(shader, null)) return;
+			UpdateGeometry(shader);
+		}
+
 		public void Render()
 		{
-			if (shaderWatcher.CheckForShaderChange())
-			{
-				//update geometry when shader changes
-				UpdateGeometry(shaderWatcher.Shader);
-			}
+			if (ReferenceEquals(shader, null)) return;
 			GL.Clear(ClearBufferMask.ColorBufferBit | ClearBufferMask.DepthBufferBit);
-			var shader = shaderWatcher.Shader;
 			shader.Activate();
 			GL.Uniform4(shader.GetUniformLocation("lightColor"), new Color4(1f, 1f, 1f, 1f));
 			GL.Uniform3(shader.GetUniformLocation("lightPosition"), new Vector3(1, 1, 4));
@@ -52,8 +47,10 @@ namespace Example
 			shader.Deactivate();
 		}
 
+		public static readonly string ShaderName = nameof(shader);
 		private CameraOrbit camera = new CameraOrbit();
-		private ShaderFileDebugger shaderWatcher;
+		private Shader shader;
+
 		private VAO geometry;
 
 		private void UpdateGeometry(Shader shader)

@@ -1,5 +1,7 @@
-﻿using DMS.OpenGL;
+﻿using System;
+using DMS.OpenGL;
 using DMS.ShaderDebugging;
+using System.Collections.Generic;
 
 namespace DMS.Application
 {
@@ -7,7 +9,7 @@ namespace DMS.Application
 	{
 		//public delegate void ResourceChangedHandler(ResourceManager manager, string name);
 		//public event ResourceChangedHandler ResourceChanged;
-		public delegate void ShaderChangedHandler(Shader shader);
+		public delegate void ShaderChangedHandler(string name, Shader shader);
 		public event ShaderChangedHandler ShaderChanged;
 
 		//public void AddWatchedFileResource(string v1, string v2)
@@ -24,21 +26,30 @@ namespace DMS.Application
 		//	return null;
 		//}
 
-		public void AddShader(string vertexFile, string fragmentFile,
+		public void AddShader(string name, string vertexFile, string fragmentFile,
 			byte[] vertexShader = null, byte[] fragmentShader = null)
 		{
-			shaderWatcher = new ShaderFileDebugger(vertexFile, fragmentFile, vertexShader, fragmentShader);
+			var sfd = new ShaderFileDebugger(vertexFile, fragmentFile, vertexShader, fragmentShader);
+			shaderWatcher.Add(name, sfd);
 		}
 
 		public void CheckForShaderChange()
 		{
-			if (ReferenceEquals(null, shaderWatcher)) return;
-			if(shaderWatcher.CheckForShaderChange())
+			foreach(var item in shaderWatcher)
 			{
-				ShaderChanged?.Invoke(shaderWatcher.Shader);
+				if(item.Value.CheckForShaderChange())
+				{
+					ShaderChanged?.Invoke(item.Key, item.Value.Shader);
+				}
 			}
 		}
 
-		private ShaderFileDebugger shaderWatcher;
+		public void AddShader(string name, string sVertexShader, string sFragmentShader)
+		{
+			var sfd = new ShaderFileDebugger(null, null, sVertexShader, sFragmentShader);
+			ShaderChanged?.Invoke(name, sfd.Shader);
+		}
+
+		private Dictionary<string, ShaderFileDebugger> shaderWatcher = new Dictionary<string, ShaderFileDebugger>();
 	}
 }

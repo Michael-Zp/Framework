@@ -1,24 +1,14 @@
-﻿using DMS.Application;
-using DMS.Geometry;
+﻿using DMS.Geometry;
 using DMS.OpenGL;
 using OpenTK.Graphics;
 using OpenTK.Graphics.OpenGL;
-using DMS.ShaderDebugging;
-using DMS.Base;
-using System.IO;
 
 namespace Example
 {
 	public class MainVisual
 	{
-		public CameraOrbit OrbitCamera { get { return camera; } }
-
 		public MainVisual()
 		{
-			var dir = Path.GetDirectoryName(PathTools.GetSourceFilePath()) + "/Resources/";
-			shaderWatcher = new ShaderFileDebugger(dir + "vertex.vert", dir + "fragment.frag"
-				, Resourcen.vertex, Resourcen.fragment);
-
 			envMap = TextureLoader.FromBitmap(Resourcen.beach);
 			envMap.WrapMode(TextureWrapMode.MirroredRepeat);
 			envMap.FilterLinear();
@@ -33,15 +23,21 @@ namespace Example
 			GL.Enable(EnableCap.CullFace);
 		}
 
+		public CameraOrbit OrbitCamera { get { return camera; } }
+
+		public void ShaderChanged(string name, Shader shader)
+		{
+			if (ShaderName != name) return;
+			this.shader = shader;
+			if (ReferenceEquals(shader, null)) return;
+			var sphere = Meshes.CreateSphere(1, 4);
+			geometry = VAOLoader.FromMesh(sphere.SwitchTriangleMeshWinding(), shader);
+		}
+
 		public void Render()
 		{
-			if (shaderWatcher.CheckForShaderChange())
-			{
-				//update geometry when shader is (re)loaded
-				UpdateGeometry(shaderWatcher.Shader);
-			}
+			if (ReferenceEquals(shader, null)) return;
 			GL.Clear(ClearBufferMask.ColorBufferBit | ClearBufferMask.DepthBufferBit);
-			var shader = shaderWatcher.Shader;
 			shader.Activate();
 			envMap.Activate();
 			camera.FovY = MathHelper.Clamp(camera.FovY, 0.1f, 175f);
@@ -53,15 +49,11 @@ namespace Example
 			shader.Deactivate();
 		}
 
+		public static readonly string ShaderName = nameof(shader);
 		private CameraOrbit camera = new CameraOrbit();
-		private ShaderFileDebugger shaderWatcher;
+
+		private Shader shader;
 		private Texture envMap;
 		private VAO geometry;
-
-		private void UpdateGeometry(Shader shader)
-		{
-			var sphere = Meshes.CreateSphere(1, 4);
-			geometry = VAOLoader.FromMesh(sphere.SwitchTriangleMeshWinding(), shader);
-		}
 	}
 }

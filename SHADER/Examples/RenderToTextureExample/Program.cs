@@ -1,7 +1,9 @@
 ﻿using DMS.Application;
+using DMS.OpenGL;
 using OpenTK.Input;
 using System;
 using System.Diagnostics;
+using System.Text;
 
 namespace Example
 {
@@ -11,7 +13,9 @@ namespace Example
 		private static void Main()
 		{
 			var app = new ExampleApplication();
-			var visual = new MainVisual(app.ResourceManager);
+			var visual = new MainVisual();
+			app.ResourceManager.ShaderChanged += visual.ShaderChanged;
+			LoadResources(app.ResourceManager);
 
 			Stopwatch globalTime = new Stopwatch();
 			bool doPostProcessing = false;
@@ -35,6 +39,12 @@ namespace Example
 
 			globalTime.Start();
 			app.Run();
+		}
+
+		private static void LoadResources(ResourceManager resourceManager)
+		{
+			resourceManager.AddShader(MainVisual.ShaderPostProcessName, TextureToFrameBuffer.VertexShaderScreenQuad, Encoding.UTF8.GetString(Resources.Swirl));
+			resourceManager.AddShader(MainVisual.ShaderName, Encoding.UTF8.GetString(Resources.vertex), Encoding.UTF8.GetString(Resources.fragment));
 		}
 	}
 }

@@ -1,6 +1,4 @@
 ﻿using DMS.OpenGL;
-using OpenTK.Graphics.OpenGL;
-using System;
 using System.IO;
 using System.Text;
 
@@ -8,26 +6,21 @@ namespace DMS.ShaderDebugging
 {
 	public class ShaderFileDebugger
 	{
-		public delegate void ShaderLoadedHandler();
-		public event ShaderLoadedHandler ShaderLoaded;
+		//public delegate void ShaderLoadedHandler();
+		//public event ShaderLoadedHandler ShaderLoaded;
 
 		public ShaderFileDebugger(string vertexFile, string fragmentFile,
 			byte[] vertexShader = null, byte[] fragmentShader = null)
 		{
-			if (File.Exists(vertexFile) && File.Exists(fragmentFile))
-			{
-				shaderWatcherVertex = new FileWatcher(vertexFile);
-				shaderWatcherVertex.Changed += (s, e) => form.Close();
-				shaderWatcherFragment = new FileWatcher(fragmentFile);
-				shaderWatcherFragment.Changed += (s, e) => form.Close();
-			}
-			else
-			{
-				var sVertex = Encoding.UTF8.GetString(vertexShader);
-				var sFragment = Encoding.UTF8.GetString(fragmentShader);
-				shader = ShaderLoader.FromStrings(sVertex, sFragment);
-				ShaderLoaded?.Invoke();
-			}
+			var sVertex = Encoding.UTF8.GetString(vertexShader);
+			var sFragment = Encoding.UTF8.GetString(fragmentShader);
+			Load(vertexFile, fragmentFile, sVertex, sFragment);
+		}
+
+		public ShaderFileDebugger(string vertexFile, string fragmentFile,
+			string sVertexShader = null, string sFragmentShader = null)
+		{
+			Load(vertexFile, fragmentFile, sVertexShader, sFragmentShader);
 		}
 
 		public bool CheckForShaderChange()
@@ -41,7 +34,7 @@ namespace DMS.ShaderDebugging
 				shader = ShaderLoader.FromFiles(shaderWatcherVertex.FullPath, shaderWatcherFragment.FullPath);
 				shaderWatcherVertex.Dirty = false;
 				shaderWatcherFragment.Dirty = false;
-				ShaderLoaded?.Invoke();
+				//ShaderLoaded?.Invoke();
 				return true;
 			}
 			catch (IOException e)
@@ -59,25 +52,32 @@ namespace DMS.ShaderDebugging
 		private void ShowDebugDialog(ShaderException exception)
 		{
 			var newShaderCode = form.ShowModal(exception);
-			var compileException = exception as ShaderCompileException;
-			if (ReferenceEquals(null, compileException)) return;
-			if (newShaderCode != compileException.ShaderCode)
-			{
-				//save changed code to shaderfile
-				switch(compileException.ShaderType)
-				{
-					case ShaderType.VertexShader: File.WriteAllText(shaderWatcherVertex.FullPath, newShaderCode); break;
-					case ShaderType.FragmentShader: File.WriteAllText(shaderWatcherFragment.FullPath, newShaderCode); break;
-					default: throw new ArgumentOutOfRangeException("ShowDebugDialog called with invalid shader type", compileException);
-				}
-			}
 		}
 
 		public Shader Shader { get { return shader; } }
 
 		private Shader shader;
-		private readonly FileWatcher shaderWatcherVertex = null;
-		private readonly FileWatcher shaderWatcherFragment = null;
+		private FileWatcher shaderWatcherVertex = null;
+		private FileWatcher shaderWatcherFragment = null;
 		private readonly FormShaderExceptionFacade form = new FormShaderExceptionFacade();
+
+		private void Load(string vertexFile, string fragmentFile,
+			string sVertexShader = null, string sFragmentShader = null)
+		{
+			if (File.Exists(vertexFile) && File.Exists(fragmentFile))
+			{
+				shaderWatcherVertex = new FileWatcher(vertexFile);
+				shaderWatcherVertex.Changed += (s, e) => form.Close();
+				shaderWatcherFragment = new FileWatcher(fragmentFile);
+				shaderWatcherFragment.Changed += (s, e) => form.Close();
+			}
+			else
+			{
+				var sVertex = sVertexShader;
+				var sFragment = sFragmentShader;
+				shader = ShaderLoader.FromStrings(sVertex, sFragment);
+				//ShaderLoaded?.Invoke(); //is null because we are in the constructor
+			}
+		}
 	}
 }

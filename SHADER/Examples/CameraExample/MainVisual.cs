@@ -1,13 +1,9 @@
-﻿using DMS.Application;
-using DMS.Base;
-using DMS.Geometry;
+﻿using DMS.Geometry;
 using DMS.OpenGL;
-using DMS.ShaderDebugging;
 using OpenTK;
 using OpenTK.Graphics.OpenGL;
 using System;
 using System.Diagnostics;
-using System.IO;
 
 namespace Example
 {
@@ -20,24 +16,22 @@ namespace Example
 			camera.FarClip = 500;
 			camera.Distance = 30;
 
-			var dir = Path.GetDirectoryName(PathTools.GetSourceFilePath()) + @"\Resources\";
-			shaderWatcher = new ShaderFileDebugger(dir + "vertex.glsl", dir + "fragment.glsl"
-				, Resourcen.vertex, Resourcen.fragment);
-
 			GL.Enable(EnableCap.DepthTest);
 			GL.Enable(EnableCap.CullFace);
 			timeSource.Start();
 		}
 
+		public void ShaderChanged(string name, Shader shader)
+		{
+			if (ShaderName != name) return;
+			this.shader = shader;
+			if (ReferenceEquals(shader, null)) return;
+			UpdateMesh(shader);
+		}
+
 		public void Render()
 		{
-			if (shaderWatcher.CheckForShaderChange())
-			{
-				//update geometry when shader changes
-				UpdateMesh(shaderWatcher.Shader);
-			}
-			var shader = shaderWatcher.Shader;
-
+			if (ReferenceEquals(shader, null)) return;
 			var time = (float)timeSource.Elapsed.TotalSeconds;
 			GL.Clear(ClearBufferMask.ColorBufferBit | ClearBufferMask.DepthBufferBit);
 			shader.Activate();
@@ -48,9 +42,11 @@ namespace Example
 			shader.Deactivate();
 		}
 
+		public static readonly string ShaderName = nameof(shader);
 		private CameraOrbit camera = new CameraOrbit();
 		private const int particelCount = 500;
-		private ShaderFileDebugger shaderWatcher;
+
+		private Shader shader;
 		private Stopwatch timeSource = new Stopwatch();
 		private VAO geometry;
 

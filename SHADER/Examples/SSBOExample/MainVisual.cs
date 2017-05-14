@@ -1,11 +1,7 @@
 ﻿using DMS.OpenGL;
 using OpenTK.Graphics.OpenGL;
-using DMS.ShaderDebugging;
 using System;
 using System.Numerics;
-using System.IO;
-using DMS.Base;
-using DMS.Application;
 using System.Diagnostics;
 
 namespace Example
@@ -21,11 +17,7 @@ namespace Example
 	{
 		public MainVisual()
 		{
-			var dir = Path.GetDirectoryName(PathTools.GetSourceFilePath()) + "/Resources/";
-			shaderWatcher = new ShaderFileDebugger(dir + "vertex.vert", dir + "fragment.frag"
-				, Resourcen.vertex, Resourcen.fragment);
 			InitParticles();
-
 			GL.Enable(EnableCap.ProgramPointSize);
 			GL.Enable(EnableCap.PointSprite);
 			GL.Enable(EnableCap.Blend);
@@ -33,21 +25,24 @@ namespace Example
 			timeSource.Start();
 		}
 
+		public static readonly string ShaderName = nameof(shader);
+
+		public void ShaderChanged(string name, Shader shader)
+		{
+			if (ShaderName != name) return;
+			this.shader = shader;
+		}
+
 		public void Render()
 		{
+			if (ReferenceEquals(null, shader)) return;
 			var time = (float)timeSource.Elapsed.TotalSeconds;
 			var deltaTime = time - lastRenderTime;
 			lastRenderTime = time;
 			Console.WriteLine(timeQuery.ResultLong * 1e-9);
-			if (shaderWatcher.CheckForShaderChange())
-			{
-				//should update geometry when shader changes -> attribute bindings may change
-			}
 			timeQuery.Activate(QueryTarget.TimeElapsed);
 			GL.PointSize(1.0f);
 			GL.Clear(ClearBufferMask.ColorBufferBit);
-			var shader = shaderWatcher.Shader;
-			if (ReferenceEquals(null, shader)) return;
 			shader.Activate();
 			GL.Uniform1(shader.GetUniformLocation("deltaTime"), deltaTime);
 			GL.Uniform1(shader.GetUniformLocation("particelCount"), particelCount);
@@ -59,7 +54,7 @@ namespace Example
 			timeQuery.Deactivate();
 		}
 
-		private ShaderFileDebugger shaderWatcher;
+		private Shader shader;
 		private BufferObject bufferParticles;
 		private QueryObject timeQuery = new QueryObject();
 		private Stopwatch timeSource = new Stopwatch();
