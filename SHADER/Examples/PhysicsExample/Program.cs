@@ -22,7 +22,7 @@ namespace Example
 
 		private static void LoadResources(ResourceManager resourceManager)
 		{
-			resourceManager.AddShader(MainVisual.ShaderName, Encoding.UTF8.GetString(Resourcen.vertex), Encoding.UTF8.GetString(Resourcen.fragment));
+			//todo: resourceManager.AddShader(MainVisual.ShaderName, Encoding.UTF8.GetString(Resourcen.vertex), Encoding.UTF8.GetString(Resourcen.fragment));
 		}
 	}
 }

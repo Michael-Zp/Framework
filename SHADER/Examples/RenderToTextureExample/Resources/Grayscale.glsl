@@ -1,8 +1,6 @@
 #version 430 core
 
 uniform sampler2D image;
-uniform float iGlobalTime;
-uniform vec2 superGeilerParameter;
 
 in vec2 uv;
 
@@ -13,7 +11,7 @@ float grayScale(vec3 color)
 
 void main() 
 {
-	vec3 image = texture(image, uv).rgb;
-	image = vec3(grayScale(image));
-	gl_FragColor = vec4(image, 1.0);
+	vec3 color = texture(image, uv).rgb;
+	color = vec3(grayScale(color));
+	gl_FragColor = vec4(color, 1.0);
 }

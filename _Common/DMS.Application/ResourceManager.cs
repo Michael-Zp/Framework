@@ -44,12 +44,6 @@ namespace DMS.Application
 			}
 		}
 
-		public void AddShader(string name, string sVertexShader, string sFragmentShader)
-		{
-			var sfd = new ShaderFileDebugger(null, null, sVertexShader, sFragmentShader);
-			ShaderChanged?.Invoke(name, sfd.Shader);
-		}
-
 		private Dictionary<string, ShaderFileDebugger> shaderWatcher = new Dictionary<string, ShaderFileDebugger>();
 	}
 }

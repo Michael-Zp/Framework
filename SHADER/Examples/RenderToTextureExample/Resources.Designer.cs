@@ -153,6 +153,16 @@ namespace Example {
         /// <summary>
         ///   Sucht eine lokalisierte Ressource vom Typ System.Byte[].
         /// </summary>
+        internal static byte[] vertexPostProcess {
+            get {
+                object obj = ResourceManager.GetObject("vertexPostProcess", resourceCulture);
+                return ((byte[])(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Sucht eine lokalisierte Ressource vom Typ System.Byte[].
+        /// </summary>
         internal static byte[] Vignetting {
             get {
                 object obj = ResourceManager.GetObject("Vignetting", resourceCulture);

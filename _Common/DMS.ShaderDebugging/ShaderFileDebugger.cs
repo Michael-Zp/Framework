@@ -12,15 +12,9 @@ namespace DMS.ShaderDebugging
 		public ShaderFileDebugger(string vertexFile, string fragmentFile,
 			byte[] vertexShader = null, byte[] fragmentShader = null)
 		{
-			var sVertex = Encoding.UTF8.GetString(vertexShader);
-			var sFragment = Encoding.UTF8.GetString(fragmentShader);
+			var sVertex = ReferenceEquals(null, vertexShader) ? string.Empty : Encoding.UTF8.GetString(vertexShader);
+			var sFragment = ReferenceEquals(null, fragmentShader) ? string.Empty : Encoding.UTF8.GetString(fragmentShader);
 			Load(vertexFile, fragmentFile, sVertex, sFragment);
-		}
-
-		public ShaderFileDebugger(string vertexFile, string fragmentFile,
-			string sVertexShader = null, string sFragmentShader = null)
-		{
-			Load(vertexFile, fragmentFile, sVertexShader, sFragmentShader);
 		}
 
 		public bool CheckForShaderChange()

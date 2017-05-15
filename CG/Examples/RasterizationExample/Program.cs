@@ -1,6 +1,5 @@
 ﻿using DMS.Application;
 using DMS.OpenGL;
-using OpenTK.Platform;
 using OpenTK.Graphics.OpenGL;
 using System;
 using System.Drawing;

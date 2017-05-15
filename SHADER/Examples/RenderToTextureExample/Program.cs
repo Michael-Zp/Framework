@@ -1,9 +1,9 @@
 ﻿using DMS.Application;
-using DMS.OpenGL;
+using DMS.Base;
 using OpenTK.Input;
 using System;
 using System.Diagnostics;
-using System.Text;
+using System.IO;
 
 namespace Example
 {
@@ -33,7 +33,7 @@ namespace Example
 				}
 			};
 
-			app.Update += (t) => doPostProcessing = Keyboard.GetState()[Key.Space];
+			app.Update += (t) => doPostProcessing = !Keyboard.GetState()[Key.Space];
 			app.Resize += visual.Resize;
 			app.GameWindow.ConnectEvents(visual.OrbitCamera);
 
@@ -43,8 +43,10 @@ namespace Example
 
 		private static void LoadResources(ResourceManager resourceManager)
 		{
-			resourceManager.AddShader(MainVisual.ShaderPostProcessName, TextureToFrameBuffer.VertexShaderScreenQuad, Encoding.UTF8.GetString(Resources.Swirl));
-			resourceManager.AddShader(MainVisual.ShaderName, Encoding.UTF8.GetString(Resources.vertex), Encoding.UTF8.GetString(Resources.fragment));
+			var dir = Path.GetDirectoryName(PathTools.GetSourceFilePath()) + "/Resources/";
+			resourceManager.AddShader(MainVisual.ShaderName, dir + "vertex.vert", dir + "fragment.frag", Resources.vertex, Resources.fragment);
+			//change fragment shader to switch between post-processing methods
+			resourceManager.AddShader(MainVisual.ShaderPostProcessName, dir + "vertexPostProcess.vert", dir + "Grayscale.glsl", null, null);
 		}
 	}
 }

@@ -5,7 +5,7 @@
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
     <ProjectGuid>{06D368A6-B600-4323-BDBC-EA5B9486C145}</ProjectGuid>
-    <OutputType>Exe</OutputType>
+    <OutputType>WinExe</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
     <RootNamespace>Example</RootNamespace>
     <AssemblyName>RenderToTextureExample</AssemblyName>
@@ -32,6 +32,9 @@
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
+  <PropertyGroup>
+    <StartupObject />
+  </PropertyGroup>
   <ItemGroup>
     <Compile Include="MainVisual.cs" />
     <Compile Include="Program.cs" />
@@ -49,6 +52,7 @@
     <Reference Include="System" />
     <Reference Include="System.Drawing" />
     <Reference Include="System.Numerics" />
+    <Reference Include="System.Windows.Forms" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\..\..\_Common\DMS.Application\DMS.Application.csproj">
@@ -77,6 +81,7 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />
+    <None Include="readme.md" />
     <None Include="Resources\ChromaticAberration.glsl" />
     <None Include="Resources\convolution.glsl" />
     <None Include="Resources\EdgeDetect.glsl" />
@@ -85,6 +90,7 @@
     <None Include="Resources\Sepia.glsl" />
     <None Include="Resources\Swirl.glsl" />
     <None Include="Resources\vertex.vert" />
+    <None Include="Resources\vertexPostProcess.vert" />
     <None Include="Resources\Vignetting.glsl" />
     <None Include="Resources\Grayscale.glsl" />
   </ItemGroup>
