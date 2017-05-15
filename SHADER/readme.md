@@ -10,7 +10,7 @@
 1. [CameraExample](Examples/CameraExample)
 1. [PhongLightingExample](Examples/PhongLightingExample)
 1. [EnvMappingExample](Examples/EnvMappingExample)
-1. [RenderToTextureExample](RenderToTextureExample)
+1. [RenderToTextureExample](Examples/RenderToTextureExample)
 
 
 1. [ParticleSystemExample](Examples/ParticleSystemExample)
