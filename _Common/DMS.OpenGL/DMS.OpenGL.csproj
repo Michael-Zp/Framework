@@ -47,7 +47,6 @@
     <Compile Include="IAnimation.cs" />
     <Compile Include="DrawTools.cs" />
     <Compile Include="QueryObject.cs" />
-    <Compile Include="RenderToTexture.cs" />
     <Compile Include="ShaderException.cs" />
     <Compile Include="SpriteSheetAnimation.cs" />
     <Compile Include="FBO.cs" />

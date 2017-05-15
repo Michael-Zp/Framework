@@ -16,37 +16,54 @@ namespace DMS.OpenGL
 
 	public class FBO : Disposable
 	{
-		public FBO()
+		public FBO(Texture texture, bool depthBuffer = false)
 		{
+			if (ReferenceEquals(null, texture)) throw new FBOException("Texture is null");
+			this.texture = texture;
+
 			// Create an FBO object
 			GL.GenFramebuffers(1, out m_FBOHandle);
-		}
+			Activate();
 
-		public void Activate(Texture texture)
-		{
-			lastFBO = currentFrameBufferHandle;
-			GL.BindFramebuffer(FramebufferTarget.Framebuffer, m_FBOHandle);
+			if (depthBuffer)
+			{
+				depth = GL.GenRenderbuffer();
+				GL.BindRenderbuffer(RenderbufferTarget.Renderbuffer, depth);
+				GL.RenderbufferStorage(RenderbufferTarget.Renderbuffer, RenderbufferStorage.DepthComponent32, texture.Width, texture.Height);
+				GL.FramebufferRenderbuffer(FramebufferTarget.Framebuffer, FramebufferAttachment.DepthAttachment, RenderbufferTarget.Renderbuffer, depth);
+			}
 			GL.FramebufferTexture2D(FramebufferTarget.Framebuffer, FramebufferAttachment.ColorAttachment0, TextureTarget.Texture2D, texture.ID, 0);
+
 			string status = GetStatusMessage();
+			Deactivate();
 			if (!string.IsNullOrEmpty(status))
 			{
-				Deactivate();
 				throw new FBOException(status);
 			}
+		}
+
+		public Texture Texture { get { return texture; } }
+
+		public void Activate()
+		{
 			GL.PushAttrib(AttribMask.ViewportBit);
-			GL.Viewport(0, 0, texture.Width, texture.Height);
+			lastFBO = currentFrameBufferHandle;
+			GL.BindFramebuffer(FramebufferTarget.Framebuffer, m_FBOHandle);
+			GL.Viewport(0, 0, Texture.Width, Texture.Height);
 			currentFrameBufferHandle = m_FBOHandle;
 		}
 
 		public void Deactivate()
 		{
-			GL.PopAttrib();
 			GL.BindFramebuffer(FramebufferTarget.FramebufferExt, lastFBO);
+			GL.PopAttrib();
 			currentFrameBufferHandle = lastFBO;
 		}
 
+		private Texture texture;
 		private uint m_FBOHandle = 0;
 		private uint lastFBO = 0;
+		private int depth = -1;
 		private static uint currentFrameBufferHandle = 0;
 
 		private string GetStatusMessage()
@@ -68,6 +85,7 @@ namespace DMS.OpenGL
 		protected override void DisposeResources()
 		{
 			GL.DeleteFramebuffers(1, ref m_FBOHandle);
+			if(-1 != depth) GL.DeleteRenderbuffer(depth);
 		}
 	}
 }

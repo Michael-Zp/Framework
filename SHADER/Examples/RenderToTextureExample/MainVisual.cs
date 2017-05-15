@@ -64,11 +64,11 @@ namespace Example
 
 		public void Resize(int width, int height)
 		{
-			renderToTexture = new RenderToTexture(Texture.Create(width, height), true);
+			renderToTexture = new FBO(Texture.Create(width, height), true);
 		}
 
 		private CameraOrbit camera = new CameraOrbit();
-		private RenderToTexture renderToTexture;
+		private FBO renderToTexture;
 		private Shader shaderPostProcess;
 		private Shader shader;
 		private VAO geometry;

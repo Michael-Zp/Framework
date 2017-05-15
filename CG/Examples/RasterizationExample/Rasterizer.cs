@@ -14,11 +14,11 @@ namespace Example
 			copyToFrameBuffer = new TextureToFrameBuffer();
 			texRenderSurface = Texture.Create(resolutionX, resolutionY);
 			texRenderSurface.FilterNearest();
-			renderToTexture = new RenderToTexture(texRenderSurface);
+			renderToTexture = new FBO(texRenderSurface);
 		}
 
 		private Texture texRenderSurface;
-		private RenderToTexture renderToTexture;
+		private FBO renderToTexture;
 		private TextureToFrameBuffer copyToFrameBuffer;
 		private DrawHandler drawHandler;
 

@@ -13,7 +13,7 @@ namespace DMS.OpenGL
 		public FrameListCreator(int width, int height, PixelFormat format = PixelFormat.Format24bppRgb, bool drawToFrameBuffer = true)
 		{
 			this.format = format;
-			render2tex = new RenderToTexture(Texture.Create(width, height,
+			render2tex = new FBO(Texture.Create(width, height,
 				TextureLoader.SelectInternalPixelFormat(format),
 				TextureLoader.SelectPixelFormat(format)));
 			if(drawToFrameBuffer) tex2fb = new TextureToFrameBuffer();
@@ -51,13 +51,14 @@ namespace DMS.OpenGL
 
 		protected override void DisposeResources()
 		{
+			render2tex.Texture.Dispose();
 			render2tex.Dispose();
 			tex2fb.Dispose();
 		}
 
 		public IEnumerable<Bitmap> Frames { get { return frames; } }
 
-		private RenderToTexture render2tex;
+		private FBO render2tex;
 		private TextureToFrameBuffer tex2fb;
 		private List<Bitmap> frames = new List<Bitmap>();
 		private PixelFormat format;

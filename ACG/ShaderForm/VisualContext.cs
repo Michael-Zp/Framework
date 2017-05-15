@@ -21,10 +21,7 @@ namespace ShaderForm
 			GL.Disable(EnableCap.DepthTest);
 			GL.ClearColor(1, 0, 0, 0);
 
-			surface = new FBO();
-			textureBufferA = CreateTexture(1, 1);
-			textureBufferB = CreateTexture(1, 1);
-			active = textureBufferA;
+			surface = new RenderSurfacePingPong();
 
 			copyToScreen = new TextureToFrameBuffer();
 			shaderDefault = ShaderLoader.FromStrings(TextureToFrameBuffer.VertexShaderScreenQuad, TextureToFrameBuffer.FragmentShaderChecker);
@@ -78,18 +75,12 @@ namespace ShaderForm
 				++id;
 			}
 			//bind last frame as texture
-			var last = (active == textureBufferA) ? textureBufferB : textureBufferA;
+			var last = surface.Last;
 			GL.ActiveTexture(TextureUnit.Texture0 + id);
 			last.Activate();
 			GL.Uniform1(shaderCurrent.GetUniformLocation("texLastFrame"), id);
 
-			surface.Activate(active);
-			GL.Viewport(0, 0, active.Width, active.Height);
-
-			//Drawing
-			GL.DrawArrays(PrimitiveType.Quads, 0, 4);
-
-			surface.Deactivate();
+			surface.Render();
 
 			id = 0;
 			foreach (var tex in textures)
@@ -107,16 +98,7 @@ namespace ShaderForm
 
 		public void UpdateSurfaceSize(int width, int height)
 		{
-			if (0 == width || 0 == height) return;
-			if (width != active.Width || height != active.Height)
-			{
-				var isTexAactive = active == textureBufferA;
-				textureBufferB.Dispose();
-				textureBufferA.Dispose();
-				textureBufferA = CreateTexture(width, height);
-				textureBufferB = CreateTexture(width, height);
-				active = isTexAactive ? textureBufferA : textureBufferB;
-			}
+			surface.UpdateSurfaceSize(width, height);
 		}
 
 		public bool AddUpdateTexture(string fileName)
@@ -206,14 +188,13 @@ namespace ShaderForm
 		public void Draw(int width, int height)
 		{
 			GL.Viewport(0, 0, width, height);
-			copyToScreen.Draw(active);
-			var last = (active == textureBufferA) ? textureBufferB : textureBufferA;
-			active = last;
+			copyToScreen.Draw(surface.Active);
+			surface.SwapRenderBuffer();
 		}
 
 		public void Save(string fileName)
 		{
-			TextureLoader.SaveToFile(active, fileName);
+			TextureLoader.SaveToFile(surface.Active, fileName);
 		}
 
 		public float UpdateTime { get { return (float)(glTimer.ResultLong * 1e-9); } }
@@ -223,19 +204,11 @@ namespace ShaderForm
 		private List<string> textureNames = new List<string>();
 		private List<Texture> textures = new List<Texture>();
 		private Dictionary<string, Shader> shaders = new Dictionary<string, Shader>();
-		private FBO surface;
-		private Texture textureBufferA, textureBufferB, active;
+		private RenderSurfacePingPong surface;
 		private TextureToFrameBuffer copyToScreen;
 		private Shader shaderCurrent;
 		private Shader shaderDefault;
 		private QueryObject glTimer = new QueryObject();
-
-		private Texture CreateTexture(int width, int height)
-		{
-			//return Texture.Create(width, height);
-			//return Texture.Create(width, height, PixelInternalFormat.Rgba16f, PixelFormat.Rgba, PixelType.HalfFloat);
-			return Texture.Create(width, height, PixelInternalFormat.Rgba32f, PixelFormat.Rgba, PixelType.Float);
-		}
 
 		protected override void DisposeResources()
 		{
@@ -243,9 +216,6 @@ namespace ShaderForm
 			foreach (var tex in textures) tex.Dispose();
 			shaderDefault.Dispose();
 			copyToScreen.Dispose();
-			active = null;
-			textureBufferB.Dispose();
-			textureBufferA.Dispose();
 			surface.Dispose();
 		}
 	}
