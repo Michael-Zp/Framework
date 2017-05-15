@@ -48,28 +48,28 @@ namespace Example
 
 		public void DrawWithPostProcessing(float time)
 		{
-			rtt.Activate(); //start drawing into texture
+			renderToTexture.Activate(); //start drawing into texture
 			Draw();
-			rtt.Deactivate(); //stop drawing into texture
-			rtt.Texture.Activate();
+			renderToTexture.Deactivate(); //stop drawing into texture
+			renderToTexture.Texture.Activate();
 			if (ReferenceEquals(shaderPostProcess, null)) return;
 			shaderPostProcess.Activate();
 			GL.Uniform1(shaderPostProcess.GetUniformLocation("iGlobalTime"), time);
 			GL.DrawArrays(PrimitiveType.Quads, 0, 4);
 			shaderPostProcess.Deactivate();
-			rtt.Texture.Deactivate();
+			renderToTexture.Texture.Deactivate();
 		}
 
 		public void Resize(int width, int height)
 		{
-			rtt = new RenderToTexture(Texture.Create(width, height));
+			renderToTexture = new RenderToTexture(Texture.Create(width, height));
 		}
 
 		public static readonly string ShaderPostProcessName = nameof(shaderPostProcess);
 		public static readonly string ShaderName = nameof(shader);
 
 		private CameraOrbit camera = new CameraOrbit();
-		private RenderToTexture rtt;
+		private RenderToTexture renderToTexture;
 		private Shader shaderPostProcess;
 		private Shader shader;
 		private VAO geometry;

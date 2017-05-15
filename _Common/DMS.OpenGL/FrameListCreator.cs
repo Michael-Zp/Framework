@@ -15,7 +15,7 @@ namespace DMS.OpenGL
 			this.format = format;
 			render2tex = new RenderToTexture(Texture.Create(width, height,
 				TextureLoader.SelectInternalPixelFormat(format),
-				TextureLoader.SelectInputPixelFormat(format)));
+				TextureLoader.SelectPixelFormat(format)));
 			if(drawToFrameBuffer) tex2fb = new TextureToFrameBuffer();
 		}
 

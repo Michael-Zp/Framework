@@ -1,5 +1,4 @@
-﻿using DMS.Application;
-using DMS.OpenGL;
+﻿using DMS.OpenGL;
 using System;
 
 namespace Example

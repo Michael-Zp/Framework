@@ -33,7 +33,7 @@ namespace Example
 				}
 			};
 
-			app.Update += (t) => doPostProcessing = !Keyboard.GetState()[Key.Space];
+			app.Update += (t) => doPostProcessing = Keyboard.GetState()[Key.Space];
 			app.Resize += visual.Resize;
 			app.GameWindow.ConnectEvents(visual.OrbitCamera);
 

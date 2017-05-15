@@ -12,7 +12,7 @@ namespace DMS.Application
 	{
 		public ExampleApplication()
 		{
-			gameWindow = new GameWindow();
+			gameWindow = new GameWindow(512, 512);
 			gameWindow.VSync = VSyncMode.On;
 			//register callback for resizing of window
 			gameWindow.Resize += GameWindow_Resize;
