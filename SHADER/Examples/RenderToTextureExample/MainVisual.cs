@@ -14,6 +14,10 @@ namespace Example
 			camera.FovY = 70;
 		}
 
+		public CameraOrbit OrbitCamera { get { return camera; } }
+		public static readonly string ShaderPostProcessName = nameof(shaderPostProcess);
+		public static readonly string ShaderName = nameof(shader);
+
 		public void ShaderChanged(string name, Shader shader)
 		{
 			if(ShaderPostProcessName == name)
@@ -29,21 +33,19 @@ namespace Example
 			}
 		}
 
-		public CameraOrbit OrbitCamera { get { return camera; } }
-
 		public void Draw()
 		{
 			if (ReferenceEquals(shader, null)) return;
+			GL.Clear(ClearBufferMask.ColorBufferBit | ClearBufferMask.DepthBufferBit);
 			GL.Enable(EnableCap.DepthTest);
 			GL.Enable(EnableCap.CullFace);
-			GL.Clear(ClearBufferMask.ColorBufferBit | ClearBufferMask.DepthBufferBit);
 			shader.Activate();
 			var cam = camera.CalcMatrix().ToOpenTK();
 			GL.UniformMatrix4(shader.GetUniformLocation("camera"), true, ref cam);
 			geometry.Draw();
 			shader.Deactivate();
-			GL.Disable(EnableCap.DepthTest);
 			GL.Disable(EnableCap.CullFace);
+			GL.Disable(EnableCap.DepthTest);
 		}
 
 		public void DrawWithPostProcessing(float time)
@@ -51,22 +53,19 @@ namespace Example
 			renderToTexture.Activate(); //start drawing into texture
 			Draw();
 			renderToTexture.Deactivate(); //stop drawing into texture
-			renderToTexture.Texture.Activate();
+			renderToTexture.Texture.Activate(); //us this new texture
 			if (ReferenceEquals(shaderPostProcess, null)) return;
-			shaderPostProcess.Activate();
+			shaderPostProcess.Activate(); //activate post processing shader
 			GL.Uniform1(shaderPostProcess.GetUniformLocation("iGlobalTime"), time);
-			GL.DrawArrays(PrimitiveType.Quads, 0, 4);
+			GL.DrawArrays(PrimitiveType.Quads, 0, 4); //draw quad
 			shaderPostProcess.Deactivate();
 			renderToTexture.Texture.Deactivate();
 		}
 
 		public void Resize(int width, int height)
 		{
-			renderToTexture = new RenderToTexture(Texture.Create(width, height));
+			renderToTexture = new RenderToTexture(Texture.Create(width, height), true);
 		}
-
-		public static readonly string ShaderPostProcessName = nameof(shaderPostProcess);
-		public static readonly string ShaderName = nameof(shader);
 
 		private CameraOrbit camera = new CameraOrbit();
 		private RenderToTexture renderToTexture;

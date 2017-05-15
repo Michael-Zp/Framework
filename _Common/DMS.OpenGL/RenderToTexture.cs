@@ -6,22 +6,34 @@ namespace DMS.OpenGL
 {
 	public class RenderToTexture : Disposable
 	{
-		public RenderToTexture(Texture texture)
+		public RenderToTexture(Texture texture, bool depthBuffer = false)
 		{
-			Texture = texture;
+			this.texture = texture;
+			if (depthBuffer)
+			{
+				fbo.Activate(texture);
+				depth = GL.GenRenderbuffer();
+				GL.BindRenderbuffer(RenderbufferTarget.Renderbuffer, depth);
+				GL.RenderbufferStorage(RenderbufferTarget.Renderbuffer, RenderbufferStorage.DepthComponent24, texture.Width, texture.Height);
+				GL.FramebufferRenderbuffer(FramebufferTarget.Framebuffer, FramebufferAttachment.Depth, RenderbufferTarget.Renderbuffer, depth);
+				//GL.BindRenderbuffer(RenderbufferTarget.Renderbuffer, 0);
+				fbo.Deactivate();
+			}
 		}
+
+		public Texture Texture { get { return texture; } }
 
 		public void Activate()
 		{
-			GL.PushAttrib(AttribMask.ViewportBit);
 			fbo.Activate(Texture); //start drawing into texture
-			GL.Viewport(0, 0, Texture.Width, Texture.Height);
+			if(-1 != depth)
+			{ 
+			}
 		}
 
 		public void Deactivate()
 		{
 			fbo.Deactivate();
-			GL.PopAttrib();
 		}
 
 		protected override void DisposeResources()
@@ -31,6 +43,7 @@ namespace DMS.OpenGL
 		}
 
 		private FBO fbo = new FBO();
-		public Texture Texture;
+		private int depth = -1;
+		private Texture texture;
 	}
 }

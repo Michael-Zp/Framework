@@ -46,7 +46,6 @@ void main()
 			color += edgeDetection2[j][i] * sample;
 		}
 	}
-	//color /= 9;
 
 	gl_FragColor = vec4(color, 1.0);
 }

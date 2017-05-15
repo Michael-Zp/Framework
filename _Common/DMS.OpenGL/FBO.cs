@@ -33,12 +33,14 @@ namespace DMS.OpenGL
 				Deactivate();
 				throw new FBOException(status);
 			}
+			GL.PushAttrib(AttribMask.ViewportBit);
 			GL.Viewport(0, 0, texture.Width, texture.Height);
 			currentFrameBufferHandle = m_FBOHandle;
 		}
 
 		public void Deactivate()
 		{
+			GL.PopAttrib();
 			GL.BindFramebuffer(FramebufferTarget.FramebufferExt, lastFBO);
 			currentFrameBufferHandle = lastFBO;
 		}
