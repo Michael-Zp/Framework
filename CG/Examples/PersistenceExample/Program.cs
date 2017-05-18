@@ -8,10 +8,11 @@ namespace Example
 {
 	class Controller
 	{
-		private GameState gameState;
-
-		public Controller()
+		[STAThread]
+		private static void Main()
 		{
+			var app = new ExampleApplication();
+			GameState gameState;
 			try
 			{
 				gameState = (GameState)Serialize.ObjFromBinFile(GetGameStateFilePath()); //try to load from file
@@ -20,35 +21,19 @@ namespace Example
 			{
 				gameState = new GameState(); //loading failed -> reset
 			}
-		}
 
-		private void Save()
-		{
-			gameState.ObjIntoBinFile(GetGameStateFilePath());
-		}
-
-		private void Render()
-		{
-			Visual.DrawScreen(gameState);
-			VisualConsole.DrawScreen(gameState);
-		}
-
-		[STAThread]
-		private static void Main()
-		{
-			var app = new ExampleApplication();
-			var controller = new Controller();
-			app.GameWindow.Closing += (s, e) => controller.Save();
+			app.GameWindow.Closing += (s, e) => gameState.ObjIntoBinFile(GetGameStateFilePath());
 			app.GameWindow.MouseDown += (s, e) =>
 			{
 				var coord = app.CalcNormalized(e.X, e.Y);
-				controller.HandleInput((int)e.Button, coord.X, coord.Y);
+				HandleInput(gameState, (int)e.Button, coord.X, coord.Y);
 			};
-			app.Render += controller.Render;
+			app.Render += () => Visual.DrawScreen(gameState);
+			app.Render += () => VisualConsole.DrawScreen(gameState);
 			app.Run();
 		}
 
-		private void HandleInput(int button, float x, float y)
+		private static void HandleInput(GameState gameState, int button, float x, float y)
 		{
 			//transform normalized coordinates to grid coordinates
 			var gridX = (int)(x * gameState.GridWidth);

@@ -7,30 +7,25 @@ using System.IO;
 
 namespace Example
 {
-	class MyController
+	class Controller
 	{
-		private GameLogic logic = new GameLogic();
-		private Renderer renderer = new Renderer();
-
-		public MyController()
+		[STAThread]
+		private static void Main()
 		{
+			var app = new ExampleApplication();
+			var controller = new Controller();
+			var logic = new GameLogic();
+			var renderer = new Renderer();
 			logic.NewPosition += (name, x, y) => renderer.UpdateSprites(name, x, y);
-			LoadLevelData(LevelData.level1);
+			LoadLevelData(LevelData.level1, logic, renderer);
+
+			app.Resize += (width, height) => renderer.Resize(width, height);
+			app.Render += () => renderer.Render(logic.Bounds);
+			app.Update += (updatePeriod) => HandleInput(updatePeriod, logic);
+			app.Run();
 		}
 
-		private void Render()
-		{
-			renderer.Render(logic.Bounds);
-		}
-
-		private void Update(float updatePeriod)
-		{
-			float axisLeftRight = Keyboard.GetState()[Key.Left] ? -1.0f : Keyboard.GetState()[Key.Right] ? 1.0f : 0.0f;
-			float axisUpDown = Keyboard.GetState()[Key.Down] ? -1.0f : Keyboard.GetState()[Key.Up] ? 1.0f : 0.0f;
-			logic.Update(updatePeriod, axisLeftRight, axisUpDown);
-		}
-
-		private void LoadLevelData(byte[] levelData)
+		private static void LoadLevelData(byte[] levelData, GameLogic logic, Renderer renderer)
 		{
 			using (var stream = new MemoryStream(levelData))
 			{
@@ -50,15 +45,11 @@ namespace Example
 			}
 		}
 
-		[STAThread]
-		private static void Main()
+		private static void HandleInput(float updatePeriod, GameLogic logic)
 		{
-			var app = new ExampleApplication();
-			var controller = new MyController();
-			app.Resize += (width, height) => controller.renderer.Resize(width, height);
-			app.Render += controller.Render;
-			app.Update += controller.Update;
-			app.Run();
+			float axisLeftRight = Keyboard.GetState()[Key.Left] ? -1.0f : Keyboard.GetState()[Key.Right] ? 1.0f : 0.0f;
+			float axisUpDown = Keyboard.GetState()[Key.Down] ? -1.0f : Keyboard.GetState()[Key.Up] ? 1.0f : 0.0f;
+			logic.Update(updatePeriod, axisLeftRight, axisUpDown);
 		}
 	}
 }

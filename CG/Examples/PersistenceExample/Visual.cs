@@ -1,7 +1,6 @@
 ﻿using DMS.Geometry;
 using OpenTK.Graphics.OpenGL;
 using System.Drawing;
-using System;
 
 namespace Example
 {

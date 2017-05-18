@@ -20,7 +20,7 @@
 			</Canvas>
 		</Viewbox>
 		<Image Source="grass.png" Stretch="Fill" Height="500" Width="500" Panel.ZIndex="-1" d:IsLocked="True"/>
-		<Viewbox x:Name="boar" Canvas.Left="40" Canvas.Top="147" Stretch="Fill" Height="38" Width="50">
+		<Viewbox x:Name="boar" Canvas.Left="39" Canvas.Top="174" Stretch="Fill" Height="38" Width="50">
 			<Canvas Height="54" Width="70" d:IsLocked="True">
 				<Image Height="53" Source="boar.png" Stretch="Fill" Width="69"/>
 				<Ellipse Height="50" Width="52" Canvas.Left="12" Canvas.Top="4"/>
