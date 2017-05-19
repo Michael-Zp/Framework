@@ -1,2 +1,3 @@
 ### How to save and load your game state
-1. Make this example into a real Tic-Tack-Toe game
+Make this example into a real Tic-Tack-Toe game
+1. Add a game logic class and implement the Tic-Tack-Toe logic
