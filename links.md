@@ -67,7 +67,7 @@
 + [NAudio](https://naudio.codeplex.com/documentation): The sound framework I use in the course framework.
 
 ## Content (can besearched on google via „site:“ prefix)
-+ [Bitmap Fonts](https://forum.thegamecreators.com/thread/74430)(https://forum.thegamecreators.com/thread/74431)
++ [Bitmap Fonts](https://forum.thegamecreators.com/thread/74431) [Bitmap Fonts 2](https://forum.thegamecreators.com/thread/74430)
 + [opengameart.org](http://opengameart.org/)
 + [deviantart](http://www.deviantart.com/)
 + [mediamilitia](http://mediamilitia.com/category/freebies/)
