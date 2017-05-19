@@ -14,7 +14,7 @@ namespace Example
 	{
 		private Texture texBackgroundLinear;
 		private Texture texBackgroundMipmap;
-		private Box2D texCoord = new Box2D(0, 0, 100, 100);
+		private Box2D texCoord = new Box2D(0, 0, 1, 1);
 		private float scaleFactor = 1f;
 
 		private MyVisual()
@@ -43,15 +43,16 @@ namespace Example
 		{
 			if (texCoord.SizeX > 200f || texCoord.SizeX < 1f) scaleFactor = -scaleFactor;
 			float factor = scaleFactor * updatePeriod;
-			//texCoord.SizeX *= 1 + factor;
-			//texCoord.SizeY *= 1 + factor;
-			texCoord.CenterX += factor * 0.1f;
+			texCoord.SizeX *= 1 + factor;
+			texCoord.SizeY *= 1 + factor;
+			//texCoord.CenterX += factor * 0.1f;
 		}
 
 		[STAThread]
 		private static void Main()
 		{
 			var app = new ExampleApplication();
+			app.IsRecording = true;
 			var visual = new MyVisual();
 			app.Render += visual.Render;
 			app.Update += visual.Update;

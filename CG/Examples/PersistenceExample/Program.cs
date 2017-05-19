@@ -15,7 +15,7 @@ namespace Example
 			GameState gameState;
 			try
 			{
-				gameState = (GameState)Serialize.ObjFromBinFile(GetGameStateFilePath()); //try to load from file
+				gameState = (GameState)Serialize.ObjFromBinFile(GetGameStateFilePath()); //try to load the game state from a file
 			}
 			catch
 			{
@@ -28,8 +28,8 @@ namespace Example
 				var coord = app.CalcNormalized(e.X, e.Y);
 				HandleInput(gameState, (int)e.Button, coord.X, coord.Y);
 			};
-			app.Render += () => Visual.DrawScreen(gameState);
-			app.Render += () => VisualConsole.DrawScreen(gameState);
+			app.Render += () => Visual.DrawScreen(gameState); //this draws the game using OpenGL
+			//app.Render += () => VisualConsole.DrawScreen(gameState); //this draws the game to the console
 			app.Run();
 		}
 
