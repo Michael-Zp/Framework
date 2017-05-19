@@ -15,19 +15,20 @@ namespace Example
 			GameState gameState;
 			try
 			{
-				gameState = (GameState)Serialize.ObjFromBinFile(GetGameStateFilePath()); //try to load the game state from a file
+				gameState = (GameState)Serialize.ObjFromBinFile(GetGameStateFilePath()); //try to load the game state from a file at start of program
 			}
 			catch
 			{
 				gameState = new GameState(); //loading failed -> reset
 			}
 
-			app.GameWindow.Closing += (s, e) => gameState.ObjIntoBinFile(GetGameStateFilePath());
+			app.GameWindow.Closing += (s, e) => gameState.ObjIntoBinFile(GetGameStateFilePath()); //save game state at end of program
 			app.GameWindow.MouseDown += (s, e) =>
 			{
-				var coord = app.CalcNormalized(e.X, e.Y);
+				var coord = app.CalcNormalized(e.X, e.Y); //convert mouse coordinates from pixel to [0,1]²
 				HandleInput(gameState, (int)e.Button, coord.X, coord.Y);
 			};
+			app.Resize += (width, height) => //todo: react on window changes (update apsect ratio of game)
 			app.Render += () => Visual.DrawScreen(gameState); //this draws the game using OpenGL
 			//app.Render += () => VisualConsole.DrawScreen(gameState); //this draws the game to the console
 			app.Run();
