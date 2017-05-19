@@ -5,7 +5,7 @@ namespace Example
 	[Serializable]
 	public class GameState : IGameState
 	{
-		private FieldType[,] grid = new FieldType[8, 8];
+		private FieldType[,] grid = new FieldType[3, 3];
 
 		public GameState()
 		{
