@@ -12,9 +12,20 @@ namespace DMS.ShaderDebugging
 		public ShaderFileDebugger(string vertexFile, string fragmentFile,
 			byte[] vertexShader = null, byte[] fragmentShader = null)
 		{
-			var sVertex = ReferenceEquals(null, vertexShader) ? string.Empty : Encoding.UTF8.GetString(vertexShader);
-			var sFragment = ReferenceEquals(null, fragmentShader) ? string.Empty : Encoding.UTF8.GetString(fragmentShader);
-			Load(vertexFile, fragmentFile, sVertex, sFragment);
+			if (File.Exists(vertexFile) && File.Exists(fragmentFile))
+			{
+				shaderWatcherVertex = new FileWatcher(vertexFile);
+				shaderWatcherVertex.Changed += (s, e) => form.Close();
+				shaderWatcherFragment = new FileWatcher(fragmentFile);
+				shaderWatcherFragment.Changed += (s, e) => form.Close();
+			}
+			else
+			{
+				var sVertex = ReferenceEquals(null, vertexShader) ? string.Empty : Encoding.UTF8.GetString(vertexShader);
+				var sFragment = ReferenceEquals(null, fragmentShader) ? string.Empty : Encoding.UTF8.GetString(fragmentShader);
+				shader = ShaderLoader.FromStrings(sVertex, sFragment);
+				//ShaderLoaded?.Invoke(); //is null because we are in the constructor
+			}
 		}
 
 		public bool CheckForShaderChange()
@@ -54,24 +65,5 @@ namespace DMS.ShaderDebugging
 		private FileWatcher shaderWatcherVertex = null;
 		private FileWatcher shaderWatcherFragment = null;
 		private readonly FormShaderExceptionFacade form = new FormShaderExceptionFacade();
-
-		private void Load(string vertexFile, string fragmentFile,
-			string sVertexShader = null, string sFragmentShader = null)
-		{
-			if (File.Exists(vertexFile) && File.Exists(fragmentFile))
-			{
-				shaderWatcherVertex = new FileWatcher(vertexFile);
-				shaderWatcherVertex.Changed += (s, e) => form.Close();
-				shaderWatcherFragment = new FileWatcher(fragmentFile);
-				shaderWatcherFragment.Changed += (s, e) => form.Close();
-			}
-			else
-			{
-				var sVertex = sVertexShader;
-				var sFragment = sFragmentShader;
-				shader = ShaderLoader.FromStrings(sVertex, sFragment);
-				//ShaderLoaded?.Invoke(); //is null because we are in the constructor
-			}
-		}
 	}
 }

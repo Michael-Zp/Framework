@@ -34,18 +34,18 @@ namespace Example
 			GL.Clear(ClearBufferMask.ColorBufferBit);
 			//color is multiplied with texture color white == no change
 			GL.Color3(Color.White);
-			//draw background
+			//draw background with changing texture coordinates
 			DrawTexturedRect(new Box2D(-1, -1, 2, 2), texBackground, texCoord);
 
-			GL.Enable(EnableCap.Blend); // for transparency in textures
-										//draw player
-			DrawTexturedRect(new Box2D(-.25f, -.1f, .2f, .2f), texPlayer, new Box2D(0, 0, 1, 1));
-			GL.Disable(EnableCap.Blend); // for transparency in textures
+			GL.Enable(EnableCap.Blend); // enable transparency
+
+			DrawTexturedRect(new Box2D(-.25f, -.1f, .2f, .2f), texPlayer, new Box2D(0, 0, 1, 1)); // draw player
+			GL.Disable(EnableCap.Blend); // disable transparency
 		}
 
 		private void Update(float updatePeriod)
 		{
-			texCoord.X += updatePeriod * 0.1f;
+			texCoord.X += updatePeriod * 0.1f; //scroll texture coordinates
 		}
 
 		private static void DrawTexturedRect(Box2D rect, Texture tex, Box2D texCoords)
