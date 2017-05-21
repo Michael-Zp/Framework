@@ -10,4 +10,5 @@ The player who succeeds in placing three of their marks in a horizontal, vertica
 1. Hit the `r`-key your game should reset
 1. Switch to a 3x3 game board
 1. Add a game logic class and implement the Tic-Tack-Toe logic
+1. Generalize your logic to work with arbitrary board sizes
 1. Make the graphics nicer (textures, ...)
