@@ -8,6 +8,7 @@ Make this example into a real [Tic-Tac-Toe](https://en.wikipedia.org/wiki/Tic-ta
 1. Hit the `r`-key your game should reset
 1. Switch to a 3x3 game board
 1. Add a game logic class and implement the Tic-Tac-Toe logic
+
 *Two players, X and O, take turns marking the spaces in a 3×3 grid. 
 The player who succeeds in placing three of their marks in a horizontal, vertical, or diagonal row wins the game.*
 1. Generalize your logic to work with arbitrary board sizes
