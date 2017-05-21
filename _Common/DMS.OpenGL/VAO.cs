@@ -28,6 +28,8 @@ namespace DMS.OpenGL
 
 		public void SetID<Index>(Index[] data) where Index : struct
 		{
+			if (ReferenceEquals(null, data)) return;
+			if (0 == data.Length) return;
 			Activate();
 			var buffer = RequestBuffer(idBufferBinding, BufferTarget.ElementArrayBuffer);
 			// set buffer data
@@ -36,7 +38,7 @@ namespace DMS.OpenGL
 			buffer.Activate();
 			//cleanup state
 			Deactive();
-			buffer.Deactive();
+			buffer.Deactivate();
 			//save data for draw call
 			DrawElementsType drawElementsType = GetDrawElementsType(typeof(Index));
 			this.idLength = data.Length;
@@ -61,7 +63,7 @@ namespace DMS.OpenGL
 			}
 			//cleanup state
 			Deactive();
-			buffer.Deactive();
+			buffer.Deactivate();
 			GL.DisableVertexAttribArray(bindingID);
 		}
 

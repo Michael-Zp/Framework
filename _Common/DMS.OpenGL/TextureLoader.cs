@@ -1,15 +1,36 @@
 ﻿using OpenTK.Graphics.OpenGL;
 using System;
 using System.Drawing;
-using System.Drawing.Imaging;
 using System.IO;
 
 namespace DMS.OpenGL
 {
+	using System.Runtime.InteropServices;
 	using SysDraw = System.Drawing.Imaging;
 
 	public static class TextureLoader
 	{
+		public static Texture FromArray<TYPE>(TYPE[,] data, PixelInternalFormat internalFormat, PixelFormat format, PixelType type)
+		{
+			GCHandle pinnedArray = GCHandle.Alloc(data, GCHandleType.Pinned);
+			try
+			{
+				IntPtr pointer = pinnedArray.AddrOfPinnedObject();
+				var width = data.GetLength(0);
+				var height = data.GetLength(1);
+				Texture texture = new Texture();
+				texture.FilterMipmap();
+				texture.Activate();
+				texture.LoadPixels(pointer, width, height, internalFormat, format, type);
+				texture.Deactivate();
+				return texture;
+			}
+			finally
+			{
+				pinnedArray.Free();
+			}
+		}
+
 		public static Texture FromBitmap(Bitmap bitmap)
 		{
 			Texture texture = new Texture();
@@ -19,7 +40,7 @@ namespace DMS.OpenGL
 			using (Bitmap bmp = new Bitmap(bitmap))
 			{
 				bmp.RotateFlip(RotateFlipType.RotateNoneFlipY);
-				BitmapData bmpData = bmp.LockBits(new Rectangle(0, 0, bmp.Width, bmp.Height), ImageLockMode.ReadOnly, bmp.PixelFormat);
+				var bmpData = bmp.LockBits(new Rectangle(0, 0, bmp.Width, bmp.Height), SysDraw.ImageLockMode.ReadOnly, bmp.PixelFormat);
 				PixelInternalFormat internalFormat = SelectInternalPixelFormat(bmp.PixelFormat);
 				OpenTK.Graphics.OpenGL.PixelFormat inputPixelFormat = SelectPixelFormat(bmp.PixelFormat);
 				texture.LoadPixels(bmpData.Scan0, bmpData.Width, bmpData.Height, internalFormat, inputPixelFormat, PixelType.UnsignedByte);
@@ -56,7 +77,7 @@ namespace DMS.OpenGL
 			{ 
 				var bmp = new Bitmap(texture.Width, texture.Height);
 				texture.Activate();
-				BitmapData data = bmp.LockBits(new Rectangle(0, 0, bmp.Width, bmp.Height), ImageLockMode.WriteOnly, format);
+				var data = bmp.LockBits(new Rectangle(0, 0, bmp.Width, bmp.Height), SysDraw.ImageLockMode.WriteOnly, format);
 				GL.GetTexImage(TextureTarget.Texture2D, 0, SelectPixelFormat(format), PixelType.UnsignedByte, data.Scan0);
 				bmp.UnlockBits(data);
 				texture.Deactivate();

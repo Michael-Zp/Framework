@@ -31,7 +31,9 @@ namespace Example
 			this.shader = shader;
 			if (ReferenceEquals(shader, null)) return;
 			var sphere = Meshes.CreateSphere(1, 4);
-			geometry = VAOLoader.FromMesh(sphere.SwitchTriangleMeshWinding(), shader);
+			var envSphere = sphere.SwitchTriangleMeshWinding();
+			//var refSphere = sphere.
+			geometry = VAOLoader.FromMesh(envSphere, shader);
 		}
 
 		public void Render()

@@ -72,6 +72,16 @@ namespace DMS.OpenGL
 			return value[0];
 		}
 
+		public int GetUniformBufferBindingIndex(string name)
+		{
+			var index = GL.GetProgramResourceIndex(m_ProgramID, ProgramInterface.UniformBlock, name);
+			ProgramProperty[] prop = { ProgramProperty.BufferBinding };
+			int length;
+			int[] value = { -1 };
+			GL.GetProgramResource(m_ProgramID, ProgramInterface.UniformBlock, index, 1, prop, 1, out length, value);
+			return value[0];
+		}
+
 		public bool IsLinked { get { return isLinked; } }
 
 		public string LastLog { get; private set; }

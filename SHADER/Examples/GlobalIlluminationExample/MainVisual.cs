@@ -21,6 +21,14 @@ namespace Example
 		public static readonly string ShaderName = nameof(shader);
 		public CameraOrbit OrbitCamera { get { return camera; } }
 
+		struct Material
+		{
+			public Vector3 color;
+			public float reflectivity;
+			//float scatter;
+			//float shininess;
+		};
+
 		public void ShaderChanged(string name, Shader shader)
 		{
 			if (ShaderName != name) return;
@@ -29,8 +37,16 @@ namespace Example
 			Mesh mesh = Meshes.CreateCornellBox();
 			geometry = VAOLoader.FromMesh(mesh, shader);
 
-			Vector4[] materials = new Vector4[] { new Vector4(1, 1, 1, 0), Vector4.UnitX, Vector4.UnitY, Vector4.One };
-			//texture.LoadPixels((IntPtr)materials, 4, 1, PixelInternalFormat.Rgba8, PixelFormat.Rgba, PixelType.Float);
+			var materials = new Material[4];
+			materials[0].color = new Vector3(1, 1, 1);
+			materials[0].reflectivity = 0;
+			materials[1].color = new Vector3(0, 1, 0);
+			materials[1].reflectivity = 0;
+			materials[2].color = new Vector3(1, 0, 0);
+			materials[1].reflectivity = 0;
+			materials[3].color = new Vector3(1, 1, 1);
+			materials[3].reflectivity = 1;
+			bufferMaterials.Set(materials, BufferUsageHint.StaticDraw);
 		}
 
 		public void Render()
@@ -40,17 +56,20 @@ namespace Example
 			shader.Activate();
 			GL.Uniform3(shader.GetUniformLocation("ambient"), new Vector3(0.1f));
 			GL.Uniform3(shader.GetUniformLocation("lightPosition"), new Vector3(0, 0.9f, -0.5f));
-			GL.Uniform3(shader.GetUniformLocation("lightColor"), new Vector3(1, 1, 1));
+			GL.Uniform3(shader.GetUniformLocation("lightColor"), new Vector3(0.8f));
 			var cam = camera.CalcMatrix().ToOpenTK();
 			GL.UniformMatrix4(shader.GetUniformLocation("camera"), true, ref cam);
 			GL.Uniform3(shader.GetUniformLocation("cameraPosition"), camera.CalcPosition().ToOpenTK());
+			var bindingIndex = shader.GetUniformBufferBindingIndex("bufferMaterials");
+			bufferMaterials.ActivateBind(bindingIndex);
 			geometry.Draw();
+			bufferMaterials.Deactivate();
 			shader.Deactivate();
 		}
 
 		private CameraOrbit camera = new CameraOrbit();
+		private BufferObject bufferMaterials = new BufferObject(BufferTarget.UniformBuffer);
 		private Shader shader;
-		//private Texture texture = new Texture();
 		private VAO geometry;
 	}
 }

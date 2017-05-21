@@ -23,7 +23,8 @@ namespace Example
 			}
 
 			app.GameWindow.Closing += (s, e) => gameState.ObjIntoBinFile(GetGameStateFilePath()); //save game state at end of program
-			app.GameWindow.MouseDown += (s, e) =>
+			app.GameWindow.KeyDown += (s, e) => { if (e.Key == OpenTK.Input.Key.R) gameState = new GameState(); }; //reset
+			app.GameWindow.MouseDown += (s, e) => 
 			{
 				var coord = app.CalcNormalized(e.X, e.Y); //convert mouse coordinates from pixel to [0,1]²
 				HandleInput(gameState, (int)e.Button, coord.X, coord.Y);

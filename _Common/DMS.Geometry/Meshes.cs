@@ -117,29 +117,29 @@ namespace DMS.Geometry
 			
 			var xform = new Transformation();
 			xform.TranslateGlobal(0, -roomSize / 2, 0);
-			plane.SetConstantUV(new Vector2(1, 0));
-			mesh.Add(plane.Transform(xform));
-			xform.RotateZGlobal(90f);
-			plane.SetConstantUV(new Vector2(0.75f, 0));
+			plane.SetConstantUV(new Vector2(0, 0));
 			mesh.Add(plane.Transform(xform));
 			xform.RotateZGlobal(90f);
 			plane.SetConstantUV(new Vector2(1, 0));
 			mesh.Add(plane.Transform(xform));
 			xform.RotateZGlobal(90f);
-			plane.SetConstantUV(new Vector2(0.5f, 0));
+			plane.SetConstantUV(new Vector2(0, 0));
+			mesh.Add(plane.Transform(xform));
+			xform.RotateZGlobal(90f);
+			plane.SetConstantUV(new Vector2(2, 0));
 			mesh.Add(plane.Transform(xform));
 			xform.RotateYGlobal(270f);
-			plane.SetConstantUV(new Vector2(1, 0));
+			plane.SetConstantUV(new Vector2(0, 0));
 			mesh.Add(plane.Transform(xform));
 
 			var sphere = Meshes.CreateSphere(sphereRadius, 4);
-			sphere.SetConstantUV(new Vector2(1, 1));
+			sphere.SetConstantUV(new Vector2(3, 0));
 			xform.Reset();
 			xform.TranslateGlobal(0.4f, -1 + sphereRadius, -0.2f);
 			mesh.Add(sphere.Transform(xform));
 
 			var cube = Meshes.CreateCubeWithNormals(cubeSize);
-			cube.SetConstantUV(new Vector2(1, 1));
+			cube.SetConstantUV(new Vector2(3, 0));
 			xform.Reset();
 			xform.RotateYGlobal(35f);
 			xform.TranslateGlobal(-0.5f, -1 + 0.5f * cubeSize, 0.1f);

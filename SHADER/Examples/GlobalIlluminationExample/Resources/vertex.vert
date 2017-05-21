@@ -1,4 +1,15 @@
 #version 430 core				
+struct Material
+{
+	vec3 color;
+	float reflectivity;
+	//vec4 color; //make it vec4  not vec3 because of alignment
+};
+
+uniform bufferMaterials
+{
+	Material material[4];
+};
 
 uniform mat4 camera;
 
@@ -6,16 +17,24 @@ in vec3 position;
 in vec3 normal;
 in vec2 uv;
 
-out vec3 v_position;
-out vec3 v_normal;
-out vec3 v_color;
-out float v_specularity;
+out blockData
+{
+	vec3 position;
+	vec3 normal;
+	vec3 color;
+	float reflectivity;
+} o;
+
+void set(Material mat)
+{
+	o.color = mat.color;
+	o.reflectivity = mat.reflectivity;
+}
 
 void main() 
 {
-	v_position = position;
-	v_normal = normal;
-	v_color = uv.s > 0.9 ? vec3(1) : uv.s > 0.6 ? vec3(0,1,0) : vec3(1,0,0);
-	v_specularity = uv.t;
+	o.position = position;
+	o.normal = normal;
+	set(material[int(uv.s)]);
 	gl_Position = camera * vec4(position, 1.0);
 }

@@ -27,7 +27,7 @@ namespace DMS.OpenGL
 			GL.BindBufferBase​(target, index, bufferID);
 		}
 
-		public void Deactive()
+		public void Deactivate()
 		{
 			GL.BindBuffer​(BufferTarget, 0);
 		}
@@ -40,7 +40,7 @@ namespace DMS.OpenGL
 			// set buffer data
 			GL.BufferData(BufferTarget, (IntPtr)bufferByteSize, data, usageHint);
 			//cleanup state
-			Deactive();
+			Deactivate();
 		}
 
 		protected override void DisposeResources()

@@ -1,13 +1,18 @@
 #version 430 core
+uniform sampler2D texMaterial;
+
 uniform vec3 ambient;
 uniform vec3 lightPosition;
 uniform vec3 lightColor;
 uniform vec3 cameraPosition;
 
-in vec3 v_position;
-in vec3 v_normal;
-in vec3 v_color;
-in float v_specularity;
+in blockData
+{
+	vec3 position;
+	vec3 normal;
+	vec3 color;
+	float reflectivity;
+} i;
 
 float lambert(vec3 n, vec3 l)
 {
@@ -25,13 +30,14 @@ out vec4 color;
 
 void main() 
 {
-	vec3 normal = normalize(v_normal);
-	vec3 v = normalize(cameraPosition - v_position);
+	vec3 normal = normalize(i.normal);
+	vec3 v = normalize(cameraPosition - i.position);
+	vec3 l = normalize(lightPosition - i.position);
 
 	//point light
-	vec3 l = normalize(lightPosition - v_position);
-	vec3 light = v_color * ambient + v_color * lightColor * lambert(normal, l)
-				+ v_specularity * lightColor * specular(normal, l, v, 100);
+	vec3 light = i.color * (ambient + lightColor * lambert(normal, l))
+				+ i.reflectivity * lightColor * specular(normal, l, v, 100)
+				;
 
 
 	color =  vec4(light, 1);

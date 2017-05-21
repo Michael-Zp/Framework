@@ -49,7 +49,7 @@ namespace Example
 			var bindingIndex = shader.GetShaderStorageBufferBindingIndex("BufferParticle");
 			bufferParticles.ActivateBind(bindingIndex);
 			GL.DrawArrays(PrimitiveType.Points, 0, particelCount);
-			bufferParticles.Deactive();
+			bufferParticles.Deactivate();
 			shader.Deactivate();
 			timeQuery.Deactivate();
 		}
