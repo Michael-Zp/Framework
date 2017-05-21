@@ -21,14 +21,6 @@ namespace Example
 		public static readonly string ShaderName = nameof(shader);
 		public CameraOrbit OrbitCamera { get { return camera; } }
 
-		struct Material
-		{
-			public Vector3 color;
-			public float reflectivity;
-			//float scatter;
-			//float shininess;
-		};
-
 		public void ShaderChanged(string name, Shader shader)
 		{
 			if (ShaderName != name) return;
@@ -36,17 +28,7 @@ namespace Example
 			if (ReferenceEquals(shader, null)) return;
 			Mesh mesh = Meshes.CreateCornellBox();
 			geometry = VAOLoader.FromMesh(mesh, shader);
-
-			var materials = new Material[4];
-			materials[0].color = new Vector3(1, 1, 1);
-			materials[0].reflectivity = 0;
-			materials[1].color = new Vector3(0, 1, 0);
-			materials[1].reflectivity = 0;
-			materials[2].color = new Vector3(1, 0, 0);
-			materials[1].reflectivity = 0;
-			materials[3].color = new Vector3(1, 1, 1);
-			materials[3].reflectivity = 1;
-			bufferMaterials.Set(materials, BufferUsageHint.StaticDraw);
+			bufferMaterials.Set(Meshes.CreateCornellBoxMaterial(), BufferUsageHint.StaticDraw);
 		}
 
 		public void Render()

@@ -12,6 +12,7 @@ in blockData
 	vec3 normal;
 	vec3 color;
 	float reflectivity;
+	float shininess;
 } i;
 
 float lambert(vec3 n, vec3 l)
@@ -36,7 +37,7 @@ void main()
 
 	//point light
 	vec3 light = i.color * (ambient + lightColor * lambert(normal, l))
-				+ i.reflectivity * lightColor * specular(normal, l, v, 100)
+				+ i.reflectivity * lightColor * specular(normal, l, v, i.shininess)
 				;
 
 

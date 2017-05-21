@@ -159,6 +159,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DMS.Application", "_Common\
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "RenderToTextureExample", "SHADER\Examples\RenderToTextureExample\RenderToTextureExample.csproj", "{06D368A6-B600-4323-BDBC-EA5B9486C145}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ShadowMappingExample", "SHADER\Examples\ShadowMappingExample\ShadowMappingExample.csproj", "{613DB9B5-0255-4B4E-9482-EA6A127F7894}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -413,6 +415,10 @@ Global
 		{06D368A6-B600-4323-BDBC-EA5B9486C145}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{06D368A6-B600-4323-BDBC-EA5B9486C145}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{06D368A6-B600-4323-BDBC-EA5B9486C145}.Release|Any CPU.Build.0 = Release|Any CPU
+		{613DB9B5-0255-4B4E-9482-EA6A127F7894}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{613DB9B5-0255-4B4E-9482-EA6A127F7894}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{613DB9B5-0255-4B4E-9482-EA6A127F7894}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{613DB9B5-0255-4B4E-9482-EA6A127F7894}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -483,5 +489,6 @@ Global
 		{1A07B025-F381-4503-823C-F1885E202D0B} = {E6454C74-3D02-49DC-BF69-CCBD7CE40E25}
 		{911C6DFF-BE3E-4EA5-ADF2-A363DF797F23} = {353CE3AB-3D8F-4859-9B2B-75BAC7BC2359}
 		{06D368A6-B600-4323-BDBC-EA5B9486C145} = {E6454C74-3D02-49DC-BF69-CCBD7CE40E25}
+		{613DB9B5-0255-4B4E-9482-EA6A127F7894} = {E6454C74-3D02-49DC-BF69-CCBD7CE40E25}
 	EndGlobalSection
 EndGlobal

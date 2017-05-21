@@ -117,7 +117,7 @@ namespace DMS.Geometry
 			
 			var xform = new Transformation();
 			xform.TranslateGlobal(0, -roomSize / 2, 0);
-			plane.SetConstantUV(new Vector2(0, 0));
+			plane.SetConstantUV(new Vector2(3, 0));
 			mesh.Add(plane.Transform(xform));
 			xform.RotateZGlobal(90f);
 			plane.SetConstantUV(new Vector2(1, 0));
@@ -145,6 +145,24 @@ namespace DMS.Geometry
 			xform.TranslateGlobal(-0.5f, -1 + 0.5f * cubeSize, 0.1f);
 			mesh.Add(cube.Transform(xform));
 			return mesh;
+		}
+		public struct CornellBoxMaterial //use 16 byte alignment or you have to query all variable offsets
+		{
+			public Vector3 color;
+			public float shininess;
+		};
+		public static CornellBoxMaterial[] CreateCornellBoxMaterial()
+		{
+			var materials = new CornellBoxMaterial[4];
+			materials[0].color = new Vector3(1, 1, 1);
+			materials[0].shininess = 0;
+			materials[1].color = new Vector3(0, 1, 0);
+			materials[1].shininess = 0;
+			materials[2].color = new Vector3(1, 0, 0);
+			materials[2].shininess = 0;
+			materials[3].color = new Vector3(1, 1, 1);
+			materials[3].shininess = 256;
+			return materials;
 		}
 
 		public static Mesh CreateCube(float size = 1.0f)
@@ -336,6 +354,7 @@ namespace DMS.Geometry
 					float z = -sizeZ / 2.0f + v * deltaZ;
 					m.position.List.Add(new Vector3(x, 0.0f, z));
 					m.normal.List.Add(Vector3.UnitY);
+					m.uv.List.Add(new Vector2(u, v));
 				}
 			}
 			uint verticesZ = segmentsZ + 1;
