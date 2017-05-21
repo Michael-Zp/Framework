@@ -1,4 +1,5 @@
-﻿using DMS.OpenGL;
+﻿using DMS.Geometry;
+using DMS.OpenGL;
 using OpenTK;
 using OpenTK.Graphics.OpenGL;
 using System.Drawing;
@@ -16,12 +17,11 @@ namespace Reversi
 			texTable = TextureLoader.FromBitmap(Resourcen.pool_table);
 		}
 
-		public void Resize(int width, int height)
+		public void Resize(IGameState gameState, int width, int height)
 		{
-			var size = 8.0f;
+			var size = Math.Max(gameState.GridWidth, gameState.GridHeight);
+			aspect = width / (float)height;
 
-			GL.Viewport(0, 0, width, height);
-			GL.MatrixMode(MatrixMode.Projection);
 			if (width >= height)
 			{
 				var emptyPart = (width / (float)height - 1.0f) * size * 0.5f;
@@ -32,8 +32,6 @@ namespace Reversi
 				var emptyPart = (height / (float)width - 1.0f) * size * 0.5f;
 				toClipSpace = Matrix4.CreateOrthographicOffCenter(0.0f, size, -emptyPart, emptyPart + size, 0.0f, 1.0f);
 			}
-			GL.LoadMatrix(ref toClipSpace);
-			GL.MatrixMode(MatrixMode.Modelview);
 		}
 
 		public Point CalcGridPosFromNormalized(Vector2 coord)
@@ -47,6 +45,9 @@ namespace Reversi
 
 		public void Render(IGameState gameState)
 		{
+			GL.MatrixMode(MatrixMode.Projection);
+			GL.LoadMatrix(ref toClipSpace);
+			GL.MatrixMode(MatrixMode.Modelview);
 			GL.Clear(ClearBufferMask.ColorBufferBit);
 			DrawField(gameState);
 			//which player moves?
@@ -54,8 +55,20 @@ namespace Reversi
 			GL.BlendFunc(BlendingFactorSrc.SrcAlpha, BlendingFactorDest.OneMinusSrcAlpha);
 			GL.Color4(1.0, 1.0, 1.0, 1.0);
 			GL.Disable(EnableCap.Blend);
+		}
 
-			PrintWinLooseMessage(gameState);
+		public void PrintMessage(string message)
+		{
+			GL.MatrixMode(MatrixMode.Projection);
+			var mtxAspect = Matrix4.CreateOrthographic(1 * aspect, 1, 0, 1);
+			GL.LoadMatrix(ref mtxAspect);
+			GL.MatrixMode(MatrixMode.Modelview);
+			GL.Enable(EnableCap.Blend);
+			GL.BlendFunc(BlendingFactorSrc.SrcAlpha, BlendingFactorDest.OneMinusSrcAlpha);
+			GL.Color3(Color.White);
+			var size = 0.1f;
+			font.Print(-0.5f * font.Width(message, size), 0, 0, size, message);
+			GL.Disable(EnableCap.Blend);
 		}
 
 		private Matrix4 toClipSpace = new Matrix4();
@@ -63,62 +76,36 @@ namespace Reversi
 		private Texture texWhite;
 		private Texture texBlack;
 		private Texture texTable;
-
-		private void PrintWinLooseMessage(IGameState gameState)
-		{
-			int countWhite = 0;
-			int countBlack = 0;
-			for (int x = 0; x < 8; ++x)
-			{
-				for (int y = 0; y < 8; ++y)
-				{
-					switch (gameState[x, y])
-					{
-						case FieldType.BLACK: ++countBlack; break;
-						case FieldType.WHITE: ++countWhite; break;
-					}
-				}
-			}
-			//gameWindow.Title = "white:" + countWhite.ToString() + " black:" + countBlack.ToString();
-			if (8 * 8 == countWhite + countBlack)
-			{
-				//win/loose
-				GL.Enable(EnableCap.Blend);
-				GL.BlendFunc(BlendingFactorSrc.SrcAlpha, BlendingFactorDest.OneMinusSrcAlpha);
-				GL.Color4(1.0, 1.0, 1.0, 1.0);
-				string score = countWhite.ToString() + '-' + countBlack.ToString();
-				font.Print(4.0f - 0.5f * font.Width(score, 1.0f), 4.0f, 0.0f, 1.0f, score);
-				string winner = countWhite > countBlack ? "White" : "Black";
-				winner = countWhite == countBlack ? "Draw" : winner + " wins";
-				font.Print(4.0f - 0.5f * font.Width(score, 1.0f), 3.0f, 0.0f, 1.0f, winner);
-				GL.Disable(EnableCap.Blend);
-			}
-		}
+		private float aspect;
 
 		private void DrawField(IGameState gameState)
 		{
-			DrawSprite(4.0f, 4.0f, texTable, 4.0f, 8.0f);
+			//background
+			var field = new Box2D(0, 0, gameState.GridWidth, gameState.GridHeight);
+			texTable.Activate();
+			field.DrawTexturedRect(new Box2D(0, 0, 8, 8));
+			texTable.Deactivate();
 			//grid
 			GL.Color3(Color.Black);
 			GL.LineWidth(3.0f);
 			GL.Begin(PrimitiveType.Lines);
-			for (int i = 0; i < 9; ++i)
+			for (int i = 0; i <= gameState.GridWidth; ++i)
 			{
 				GL.Vertex2(i, 0.0);
-				GL.Vertex2(i, 8.0);
+				GL.Vertex2(i, gameState.GridHeight);
 			}
-			for (int i = 0; i < 9; ++i)
+			for (int i = 0; i <= gameState.GridHeight; ++i)
 			{
 				GL.Vertex2(0.0, i);
-				GL.Vertex2(8.0, i);
+				GL.Vertex2(gameState.GridWidth, i);
 			}
 			GL.End();
 			//chips
 			GL.Enable(EnableCap.Blend);
 			GL.BlendFunc(BlendingFactorSrc.SrcAlpha, BlendingFactorDest.OneMinusSrcAlpha);
-			for (int x = 0; x < 8; ++x)
+			for (int x = 0; x < gameState.GridWidth; ++x)
 			{
-				for (int y = 0; y < 8; ++y)
+				for (int y = 0; y < gameState.GridHeight; ++y)
 				{
 					var type = gameState[x, y];
 					if (FieldType.EMPTY == type) continue;

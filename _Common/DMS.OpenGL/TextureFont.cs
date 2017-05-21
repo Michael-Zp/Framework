@@ -24,6 +24,7 @@ namespace DMS.OpenGL
 			this.texFont = new SpriteSheet(texture, charactersPerLine, characterBoundingBoxWidth, characterBoundingBoxHeight);
 			// Creating 256 Display Lists
 			this.baseList = (uint)GL.GenLists(256);
+			this.characterSpacing = characterSpacing;
 			//foreach of the 256 possible characters create a a quad 
 			//with texture coordinates and store it in a display list
 			var rect = new Box2D(0, 0, 1, 1);
@@ -60,13 +61,14 @@ namespace DMS.OpenGL
 			GL.PopMatrix();
 		}
 
-		public float Width(string text, float size, float characterSpacing = 1.0f)
+		public float Width(string text, float size)
 		{
 			return text.Length * size * characterSpacing;
 		}
 
 		private readonly uint baseList = 0;	// Base Display List For The Font
 		private readonly SpriteSheet texFont;
+		private readonly float characterSpacing;
 
 		private void PrintRawQuads(byte[] text)
 		{
