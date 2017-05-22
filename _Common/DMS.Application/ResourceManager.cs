@@ -27,9 +27,9 @@ namespace DMS.Application
 		//}
 
 		public void AddShader(string name, string vertexFile, string fragmentFile,
-			byte[] vertexShader = null, byte[] fragmentShader = null)
+			byte[] vertexShaderResource = null, byte[] fragmentShaderResource = null)
 		{
-			var sfd = new ShaderFileDebugger(vertexFile, fragmentFile, vertexShader, fragmentShader);
+			var sfd = new ShaderFileDebugger(vertexFile, fragmentFile, vertexShaderResource, fragmentShaderResource);
 			shaderWatcher.Add(name, sfd);
 		}
 

@@ -49,6 +49,7 @@ namespace Example
 			{
 				this.shaderDepth = shader;
 				if (ReferenceEquals(shaderDepth, null)) return;
+				//todo: radeon cards make errors with geometry bound to one shader and use in other shaders because of binding id changes
 			}
 		}
 
