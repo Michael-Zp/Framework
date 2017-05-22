@@ -4,7 +4,7 @@
   <PropertyGroup>
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
-    <ProjectGuid>{613DB9B5-0255-4B4E-9482-EA6A127F7894}</ProjectGuid>
+    <ProjectGuid>{1F9BC86D-1D21-48F1-B41F-FE353D9E192B}</ProjectGuid>
     <OutputType>WinExe</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
     <RootNamespace>Example</RootNamespace>
@@ -110,7 +110,6 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />
-    <None Include="readme.md" />
     <None Include="Resources\depthFrag.glsl" />
     <None Include="Resources\depthVert.glsl" />
     <None Include="Resources\fragment.frag" />

@@ -56,15 +56,23 @@ namespace Example
 		{
 			if (ReferenceEquals(shader, null)) return;
 			if (ReferenceEquals(shaderDepth, null)) return;
-			//todo: first pass: create shadow map
+			shaderDepth.Activate();
+			fboShadowMap.Activate();
+			GL.Clear(ClearBufferMask.ColorBufferBit | ClearBufferMask.DepthBufferBit);
+			var light = cameraLight.CalcMatrix().ToOpenTK();
+			GL.UniformMatrix4(shaderDepth.GetUniformLocation("camera"), true, ref light);
+			geometry.Draw();
+			shaderDepth.Deactivate();
+			fboShadowMap.Deactivate();
 
-			//second pass: render with shadow map
+			if (ReferenceEquals(shader, null)) return;
 			GL.Clear(ClearBufferMask.ColorBufferBit | ClearBufferMask.DepthBufferBit);
 			shader.Activate();
 			fboShadowMap.Texture.Activate();
 			GL.Uniform3(shader.GetUniformLocation("ambient"), new Vector3(0.1f));
 			var cam = camera.CalcMatrix().ToOpenTK();
 			GL.UniformMatrix4(shader.GetUniformLocation("camera"), true, ref cam);
+			GL.UniformMatrix4(shader.GetUniformLocation("light"), true, ref light);
 			geometry.Draw();
 			fboShadowMap.Texture.Deactivate();
 			shader.Deactivate();
