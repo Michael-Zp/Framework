@@ -120,7 +120,7 @@
     <Compile Include="Interfaces\ISetUniform.cs" />
     <Compile Include="DemoModelFactory\IShaderFile.cs" />
     <Compile Include="Visual\IShaders.cs" />
-    <Compile Include="Visual\ITextures.cs" />
+    <Compile Include="Interfaces\ITextures.cs" />
     <Compile Include="Interfaces\IUniforms.cs" />
     <Compile Include="Graph\KeyFramesHelper.cs" />
     <Compile Include="Graph\MultiGraph.cs" />
@@ -135,7 +135,7 @@
     <Compile Include="Demo\ShaderKeyframes.cs" />
     <Compile Include="DemoModelFactory\Shaders.cs" />
     <Compile Include="Visual\ShaderLoadException.cs" />
-    <Compile Include="Visual\Textures.cs" />
+    <Compile Include="DemoModelFactory\Textures.cs" />
     <Compile Include="Demo\DemoTimeSource.cs" />
     <Compile Include="Demo\UniformHelper.cs" />
     <Compile Include="Demo\KeyFrames.cs" />

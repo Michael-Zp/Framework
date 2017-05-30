@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 
-namespace ShaderForm.Visual
+namespace ShaderForm.Interfaces
 {
 	public interface ITextures : IEnumerable<string>
 	{

@@ -1,13 +1,14 @@
 ﻿using DMS.Base;
 using ShaderForm.Interfaces;
+using ShaderForm.Visual;
 using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 
-namespace ShaderForm.Visual
+namespace ShaderForm.DemoModelFactory
 {
-	public class Textures : Disposable, IEnumerable<string>, ITextures
+	public class Textures : Disposable, ITextures
 	{
 		public event EventHandler<EventArgs> Changed;
 
