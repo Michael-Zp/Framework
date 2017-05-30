@@ -1,4 +1,5 @@
-﻿using System;
+﻿using OpenTK;
+using System;
 using System.Windows.Forms;
 
 namespace ShaderForm
@@ -13,7 +14,8 @@ namespace ShaderForm
         {
             Application.EnableVisualStyles();
             Application.SetCompatibleTextRenderingDefault(false);
-            Application.Run(new FormMain());
+			Toolkit.Init(); //todo: check if newer version of glcontrol fixes this issue
+			Application.Run(new FormMain());
         }
     }
 }

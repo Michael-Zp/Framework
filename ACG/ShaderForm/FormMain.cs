@@ -25,7 +25,6 @@ namespace ShaderForm
 
 		public FormMain()
 		{
-			OpenTK.Toolkit.Init(); //todo: check if newer version of glcontrol fixes this issue
 			InitializeComponent();
 
 			string demoFilter = DefaultFiles.GetDemoExtension() + " (*" + DefaultFiles.GetDemoExtension() + ")|*" + DefaultFiles.GetDemoExtension();
