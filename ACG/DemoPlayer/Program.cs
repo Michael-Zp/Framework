@@ -4,6 +4,9 @@ using System;
 using System.Linq;
 using System.Windows.Forms;
 using OpenTK.Input;
+using ShaderForm.Visual;
+using ShaderForm.Demo;
+using ShaderForm.DemoModelFactory;
 
 namespace DemoPlayer
 {

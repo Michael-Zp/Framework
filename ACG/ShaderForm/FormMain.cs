@@ -1,4 +1,8 @@
 ﻿using ControlClassLibrary;
+using ShaderForm.Camera;
+using ShaderForm.Demo;
+using ShaderForm.Graph;
+using ShaderForm.Interfaces;
 using System;
 using System.Drawing;
 using System.Globalization;
@@ -187,7 +191,7 @@ namespace ShaderForm
 		{
 			try
 			{
-				demo = DemoModelFactory.Create(this);
+				demo = DemoModelFactory.DemoModelFactory.Create(this);
 				//make for valid time source even if no new demo is loaded afterwards (when starting with shader cmd line argument)
 				Demo_OnTimeSourceLoaded(null, EventArgs.Empty);
 				demo.SetCustomUniforms += Demo_OnSetCustomUniforms;

@@ -5,6 +5,9 @@ using System.Linq;
 using System.Windows.Forms;
 using OpenTK.Input;
 using System.IO;
+using ShaderForm.Visual;
+using ShaderForm.Demo;
+using ShaderForm.DemoModelFactory;
 
 namespace DemoRecorder
 {

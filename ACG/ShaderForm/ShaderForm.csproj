@@ -71,31 +71,31 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="AdapterCamera.cs" />
+    <Compile Include="Camera\AdapterCamera.cs" />
     <Compile Include="DefaultFiles.cs" />
-    <Compile Include="DemoModelFactory.cs" />
-    <Compile Include="FacadeCamera.cs" />
+    <Compile Include="DemoModelFactory\DemoModelFactory.cs" />
+    <Compile Include="Camera\FacadeCamera.cs" />
     <Compile Include="FacadeFormMessages.cs" />
-    <Compile Include="FlyCamera.cs" />
+    <Compile Include="Camera\FlyCamera.cs" />
     <Compile Include="DemoData2\DemoData2.cs" />
     <Compile Include="DemoData2\Keyframe.cs" />
     <Compile Include="DemoData2\ShaderKeyframe.cs" />
     <Compile Include="DemoData2\Track.cs" />
     <Compile Include="DemoData2\Uniform.cs" />
-    <Compile Include="DemoLoader.cs" />
-    <Compile Include="DemoModel.cs" />
-    <Compile Include="FacadeKeyframesVisualisation.cs" />
+    <Compile Include="Demo\DemoLoader.cs" />
+    <Compile Include="Demo\DemoModel.cs" />
+    <Compile Include="Graph\FacadeKeyframesVisualisation.cs" />
     <Compile Include="Dialogs.cs" />
-    <Compile Include="FormCamera.cs">
+    <Compile Include="Camera\FormCamera.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="FormCamera.Designer.cs">
+    <Compile Include="Camera\FormCamera.Designer.cs">
       <DependentUpon>FormCamera.cs</DependentUpon>
     </Compile>
-    <Compile Include="FormGraph.cs">
+    <Compile Include="Graph\FormGraph.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="FormGraph.Designer.cs">
+    <Compile Include="Graph\FormGraph.Designer.cs">
       <DependentUpon>FormGraph.cs</DependentUpon>
     </Compile>
     <Compile Include="FormMain.cs">
@@ -110,20 +110,20 @@
     <Compile Include="FormMessages.Designer.cs">
       <DependentUpon>FormMessages.cs</DependentUpon>
     </Compile>
-    <Compile Include="IKeyFrames.cs" />
-    <Compile Include="InputBox.cs">
+    <Compile Include="Interfaces\IKeyFrames.cs" />
+    <Compile Include="Graph\InputBox.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="InputBox.Designer.cs">
+    <Compile Include="Graph\InputBox.Designer.cs">
       <DependentUpon>InputBox.cs</DependentUpon>
     </Compile>
-    <Compile Include="ISetUniform.cs" />
-    <Compile Include="IShaderFile.cs" />
-    <Compile Include="IShaders.cs" />
-    <Compile Include="ITextures.cs" />
-    <Compile Include="IUniforms.cs" />
-    <Compile Include="KeyFramesHelper.cs" />
-    <Compile Include="MultiGraph.cs" />
+    <Compile Include="Interfaces\ISetUniform.cs" />
+    <Compile Include="DemoModelFactory\IShaderFile.cs" />
+    <Compile Include="Visual\IShaders.cs" />
+    <Compile Include="Visual\ITextures.cs" />
+    <Compile Include="Interfaces\IUniforms.cs" />
+    <Compile Include="Graph\KeyFramesHelper.cs" />
+    <Compile Include="Graph\MultiGraph.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Properties\Resources.Designer.cs">
@@ -131,20 +131,21 @@
       <DesignTime>True</DesignTime>
       <DependentUpon>Resources.resx</DependentUpon>
     </Compile>
-    <Compile Include="RenderSurfacePingPong.cs" />
-    <Compile Include="ShaderKeyframes.cs" />
-    <Compile Include="Shaders.cs" />
-    <Compile Include="Textures.cs" />
-    <Compile Include="DemoTimeSource.cs" />
-    <Compile Include="UniformHelper.cs" />
-    <Compile Include="KeyFrames.cs" />
-    <Compile Include="Uniforms.cs" />
-    <Compile Include="VisualContext.cs" />
-    <Compile Include="ShaderFile.cs" />
-    <EmbeddedResource Include="FormCamera.resx">
+    <Compile Include="Visual\RenderSurfacePingPong.cs" />
+    <Compile Include="Demo\ShaderKeyframes.cs" />
+    <Compile Include="DemoModelFactory\Shaders.cs" />
+    <Compile Include="Visual\ShaderLoadException.cs" />
+    <Compile Include="Visual\Textures.cs" />
+    <Compile Include="Demo\DemoTimeSource.cs" />
+    <Compile Include="Demo\UniformHelper.cs" />
+    <Compile Include="Demo\KeyFrames.cs" />
+    <Compile Include="Demo\Uniforms.cs" />
+    <Compile Include="Visual\VisualContext.cs" />
+    <Compile Include="DemoModelFactory\ShaderFile.cs" />
+    <EmbeddedResource Include="Camera\FormCamera.resx">
       <DependentUpon>FormCamera.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="FormGraph.resx">
+    <EmbeddedResource Include="Graph\FormGraph.resx">
       <DependentUpon>FormGraph.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="FormMain.resx">
@@ -153,7 +154,7 @@
     <EmbeddedResource Include="FormMessages.resx">
       <DependentUpon>FormMessages.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="InputBox.resx">
+    <EmbeddedResource Include="Graph\InputBox.resx">
       <DependentUpon>InputBox.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Properties\Resources.resx">
