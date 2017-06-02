@@ -31,6 +31,7 @@ namespace Example
 		public void Render()
 		{
 			if (ReferenceEquals(shader, null)) return;
+
 			//Matrix4 is stored row-major -> implies a transpose so in shader matrix is column major
 			geometry.SetMatrixAttribute(shader.GetAttributeLocation("instanceTransform"), instanceTransforms, true);
 

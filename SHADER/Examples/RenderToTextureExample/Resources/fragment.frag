@@ -4,7 +4,7 @@ in vec3 v_pos;
 in vec3 v_n;
 in vec2 v_uv;
 
-out vec4 color;
+out vec4 color; //todo: asdf
 
 void main() 
 {

@@ -4,11 +4,11 @@ uniform mat4 camera;
 
 in vec3 position;
 in vec3 normal;
-in vec2 uv;
+in vec2 uv;//todo
 
 out vec3 v_pos;
 out vec3 v_n;
-out vec2 v_uv;
+out vec2 v_uv; //todo: XXXXXXX
 
 void main() 
 {
@@ -16,5 +16,5 @@ void main()
 	v_n = normal;
 	v_uv = uv;
 
-	gl_Position = camera * vec4(position, 1.0);
+	gl_Position = camera * vec4(position, 1.0); //todo
 }

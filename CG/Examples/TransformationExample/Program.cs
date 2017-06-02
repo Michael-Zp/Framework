@@ -20,7 +20,7 @@ namespace Example
 			//setup
 			texBird = TextureLoader.FromBitmap(Resourcen.bird1);
 			//background clear color
-			GL.ClearColor(Color.DarkGreen);
+			GL.ClearColor(Color.White);
 			//for transparency in textures
 			GL.BlendFunc(BlendingFactorSrc.SrcAlpha, BlendingFactorDest.OneMinusSrcAlpha);
 			GL.Enable(EnableCap.Blend); // for transparency in textures
@@ -36,7 +36,7 @@ namespace Example
 
 		private void Update(float updatePeriod)
 		{
-			rotCenter.X += 0.003f;
+			rotCenter.X += updatePeriod * 0.1f;
 			var t = Transformation2D.CreateRotationAround(rotCenter.X, rotCenter.Y, updatePeriod * 200f);
 			foreach (var bird in birds)
 			{

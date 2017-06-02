@@ -10,9 +10,11 @@ namespace DMS.Application
 {
 	public class ExampleApplication
 	{
-		public ExampleApplication()
+		public ExampleApplication(int width = 512, int height = 512, double updateRate = 60)
 		{
-			gameWindow = new GameWindow(512, 512);
+			gameWindow = new GameWindow(width, height);
+			gameWindow.TargetUpdateFrequency = updateRate;
+			gameWindow.TargetRenderFrequency = updateRate;
 			gameWindow.VSync = VSyncMode.On;
 			//register callback for resizing of window
 			gameWindow.Resize += GameWindow_Resize;
@@ -56,7 +58,7 @@ namespace DMS.Application
 			//registers a callback for drawing a frame
 			gameWindow.RenderFrame += (sender, e) => GameWindowRender();
 			//run the update loop, which calls our registered callbacks
-			gameWindow.Run(60, 60);
+			gameWindow.Run();
 		}
 
 		private GameWindow gameWindow;

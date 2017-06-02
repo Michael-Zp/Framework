@@ -1,7 +1,6 @@
 ﻿using DMS.Application;
 using DMS.Base;
 using System;
-using DMS.ShaderDebugging;
 using System.IO;
 
 namespace Example
@@ -12,6 +11,7 @@ namespace Example
 		private static void Main()
 		{
 			var app = new ExampleApplication();
+			//app.IsRecording = true;
 			var visual = new MainVisual();
 			app.ResourceManager.ShaderChanged += visual.ShaderChanged;
 			LoadResources(app.ResourceManager);
