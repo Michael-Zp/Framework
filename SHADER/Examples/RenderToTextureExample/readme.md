@@ -5,4 +5,4 @@
 1. Try out increasing kernel sizes and look how this slows down your program.
 1. Create a two pass blur shader: First filter vertical then filter the filtered result of this step horizontal.
 1. Try out increasing kernel sizes and look how this slows down your program.
-1. Create a bloom shader: Not everything is blured, but only very bright parts of your scene.
+1. Create a bloom shader: Not everything is blurred, but only very bright parts of your scene.

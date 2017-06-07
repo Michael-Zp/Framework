@@ -22,7 +22,7 @@ namespace Example
 		{
 			if(ShaderPostProcessName == name)
 			{
-				shaderPostProcess = shader;
+				shaderPostProcess = shader; //todo: ati seams to do VAO vertex attribute ordering different for each shader would need to create own vao
 			}
 			else if (ShaderName == name)
 			{
