@@ -11,9 +11,9 @@ namespace Reversi
 		private static void Main()
 		{
 			var app = new ExampleApplication();
-			var logic = new GameLogic(); //todo: load the game state
+			var logic = new GameLogic(); //todo student: load the game state
 			var visual = new Visual();
-			app.GameWindow.Closing += (s, e) => { /*todo: save the game state */ };
+			app.GameWindow.Closing += (s, e) => { /*todo student: save the game state */ };
 			app.Resize += (w, h) => visual.Resize(logic.GameState, w, h);
 			app.Render += () =>
 			{

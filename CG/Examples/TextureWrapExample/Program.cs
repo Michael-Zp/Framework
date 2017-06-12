@@ -26,7 +26,7 @@ namespace Example
 		{
 			GL.Clear(ClearBufferMask.ColorBufferBit);
 			//color is multiplied with texture color white == no change
-			GL.Color3(Color.White); //todo: i) change color
+			GL.Color3(Color.White); //todo student: i) change color
 			//draw with different wrap modes - defines how texture coordinates outside of [0..1]² are handled
 			texBackground.WrapMode(TextureWrapMode.ClampToBorder);
 			DrawTexturedRect(new Box2D(-1, 0, 1, 1), texBackground, texCoord);

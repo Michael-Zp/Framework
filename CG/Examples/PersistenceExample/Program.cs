@@ -29,7 +29,7 @@ namespace Example
 				var coord = app.CalcNormalized(e.X, e.Y); //convert mouse coordinates from pixel to [0,1]²
 				HandleInput(gameState, (int)e.Button, coord.X, coord.Y);
 			};
-			//todo: app.Resize += (width, height) => //todo: react on window changes (update apsect ratio of game)
+			//todo student: app.Resize += (width, height) => //todo student: react on window changes (update apsect ratio of game)
 			app.Render += () => Visual.DrawScreen(gameState); //this draws the game using OpenGL
 			//app.Render += () => VisualConsole.DrawScreen(gameState); //this draws the game to the console
 			app.Run();

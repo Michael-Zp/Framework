@@ -7,6 +7,7 @@ namespace DMS.OpenGL
 	/// <summary>
 	/// Shader class
 	/// </summary>
+	/// todo: rename to ShaderProgram and create Shader classes to compile individual (fragment, vertex, ...) shaders
 	public class Shader : Disposable
 	{
 		/// <summary>
@@ -30,6 +31,7 @@ namespace DMS.OpenGL
 			LastLog = GL.GetShaderInfoLog(shaderObject);
 			if (1 != status_code)
 			{
+				GL.DeleteShader(shaderObject);
 				throw new ShaderCompileException(type, "Error compiling  " + type.ToString(), LastLog, sShader);
 			}
 			GL.AttachShader(m_ProgramID, shaderObject);

@@ -29,6 +29,7 @@ namespace Example
 		{
 			Console.WriteLine(e.Message);
 			Console.WriteLine(e.ShaderLog);
+			//Console.ReadLine();
 		}
 
 		private void Render()

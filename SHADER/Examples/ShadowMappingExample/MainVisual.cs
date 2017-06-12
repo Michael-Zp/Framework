@@ -56,7 +56,7 @@ namespace Example
 		{
 			if (ReferenceEquals(shader, null)) return;
 			if (ReferenceEquals(shaderDepth, null)) return;
-			//todo: first pass: create shadow map
+			//todo student: first pass: create shadow map
 
 			//second pass: render with shadow map
 			GL.Clear(ClearBufferMask.ColorBufferBit | ClearBufferMask.DepthBufferBit);
