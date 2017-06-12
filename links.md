@@ -1,15 +1,15 @@
 ## General computer graphics
-+ [www.scratchapixel.com](https://www.scratchapixel.com) an introduction to Mathematics for Computergraphics: "Learn Computer Graphics From Scratch!" Foundations of computer graphics with an emphasis on the relationship between mathematical background and practice
++ [www.scratchapixel.com](https://www.scratchapixel.com) an introduction to Mathematics for Computer Graphics: "Learn Computer Graphics From Scratch!" Foundations of computer graphics with an emphasis on the relationship between mathematical background and practice
 + [realtimerendering.com](http://www.realtimerendering.com/) Link repository to many real-time rendering related cites. Page to the book: MÖLLER T., HAINES E.: Real-Time Rendering, Third Edition, Peters, Wellesley, 2008, ISBN-13: 978-1568814247
 + [Computer Graphics Research Software and libraries](http://www.dgp.toronto.edu/~rms/links.html)
 + [Physically Based Camera Rendering](https://extremeistan.wordpress.com/2014/09/24/physically-based-camera-rendering)
-+ [iquilezles.org](http://www.iquilezles.org/) Advanced topics in computer graphics and shader implementations (Raymarching tricks from the demo scene)
++ [iquilezles.org](http://www.iquilezles.org/) Advanced topics in computer graphics and shader implementations (ray-marching tricks from the demo scene)
 + [9bit Science: Raymarching Distance Fields](http://9bitscience.blogspot.com/2013/07/raymarching-distance-fields_14.html)
 + [Let's make a voxel engine](https://sites.google.com/site/letsmakeavoxelengine/)
 + [Compute Shader HDR and Bloom](https://software.intel.com/en-us/articles/compute-shader-hdr-and-bloom)
 + [Light scattering with openGL shader](http://fabiensanglard.net/lightScattering/)
-+ [Shadertoy BETA](http://www.shadertoy.com/) Online fragment shader collection and execution
-+ [GLSL Sandbox Gallery](http://glslsandbox.com/) Online fragment shader collection and execution
++ [Shadertoy BETA](http://www.shadertoy.com/) On-line fragment shader collection and execution
++ [GLSL Sandbox Gallery](http://glslsandbox.com/) On-line fragment shader collection and execution
 + [Pixel Shader Examples](http://pixelshaders.com/examples/)
 + [Geometric Tools Engine](https://www.geometrictools.com/index.html) a game engine described in the books 
 	+ 3D Game Engine Design (2nd Edition) by David H. Eberly, The Morgan Kaufmann Series in Interactive 3D Technology 
@@ -24,8 +24,8 @@
 ## Games
 + [21 Free Learning Resources for Game Developers](http://www.gamecareerguide.com/features/1455/21_free_learning_resources_for_.php)
 + [A game about games](http://www.kongregate.com/de/games/pixelate/understanding-games-episode-1)
-+ [gamedev.net](https://www.gamedev.net) Large online community page with articles covering all areas of games
-+ [gamasutra.com](https://www.gamasutra.com) Large online community page with articles covering all areas of games
++ [gamedev.net](https://www.gamedev.net) Large on-line community page with articles covering all areas of games
++ [gamasutra.com](https://www.gamasutra.com) Large on-line community page with articles covering all areas of games
 + [Tiled map editor](http://www.mapeditor.org/) Open source map editor for 2d maps (tile-based, isometric, hexagonal)
 + [Spritesheet splitter/unpacker](https://github.com/ForkandBeard/Alferd-Spritesheet-Unpacker)
 + [Spieleentwicklungstools für Visual Studio](https://www.visualstudio.com/de/vs/game-development/)
