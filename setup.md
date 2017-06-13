@@ -20,4 +20,4 @@
 ### GLSL syntax highlighting
 + [notepad++ GLSL syntax highlighting and intelisense](/glslExtensions/notepadpp)
 + [visual studio (incl. 2015) shader highlighting](http://www.horsedrawngames.com/shader-syntax-highlighting-in-visual-studio-2013/)
-+ [Visual Studio 2015 extension by me (alpha state)](/glslExtensions/GLSL.vsix)
++ [Visual Studio 2015 extension by me (alpha state)](/glslExtensions/GLSLintegration.vsix)

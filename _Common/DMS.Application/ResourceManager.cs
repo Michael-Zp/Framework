@@ -5,7 +5,7 @@ using System.Collections.Generic;
 
 namespace DMS.Application
 {
-	public class ResourceManager
+	public class ResourceManager : IShaderProvider
 	{
 		//public delegate void ResourceChangedHandler(ResourceManager manager, string name);
 		//public event ResourceChangedHandler ResourceChanged;
@@ -42,6 +42,16 @@ namespace DMS.Application
 					ShaderChanged?.Invoke(item.Key, item.Value.Shader);
 				}
 			}
+		}
+
+		public Shader GetShader(string name)
+		{
+			ShaderFileDebugger shaderFD;
+			if(shaderWatcher.TryGetValue(name, out shaderFD))
+			{
+				return shaderFD.Shader;
+			}
+			return null;
 		}
 
 		private Dictionary<string, ShaderFileDebugger> shaderWatcher = new Dictionary<string, ShaderFileDebugger>();

@@ -1,20 +1,20 @@
 ## Examples
-1. [MinimalShaderExample](/Examples/MinimalShaderExample) 
-1. [ShaderDebugExample](/Examples/ShaderDebugExample)
-1. [ShaderDebugDialogExample](/Examples/ShaderDebugDialogExample)
-1. [GeometryExample](/Examples/GeometryExample)
-1. [MeshExample](/Examples/MeshExample)
-1. [InstancingExample](/Examples/InstancingExample)
-1. [TransformationExample](/Examples/TransformationExample)
-1. [CameraTransformationExample](/Examples/CameraTransformationExample)
-1. [CameraExample](/Examples/CameraExample)
-1. [PhongLightingExample](/Examples/PhongLightingExample)
-1. [EnvMappingExample](/Examples/EnvMappingExample)
-1. [RenderToTextureExample](/Examples/RenderToTextureExample)
-1. [ShadowMappingExample](/Examples/ShadowMappingExample)
-<!--1. [ParticleSystemExample](/Examples/ParticleSystemExample)
-1. [PhysicsExample](/Examples/PhysicsExample)
-1. [SSBOExample](/Examples/SSBOExample)-->
+1. [MinimalShaderExample](/SHADER/Examples/MinimalShaderExample) 
+1. [ShaderDebugExample](/SHADER/Examples/ShaderDebugExample)
+1. [ShaderDebugDialogExample](/SHADER/Examples/ShaderDebugDialogExample)
+1. [GeometryExample](/SHADER/Examples/GeometryExample)
+1. [MeshExample](/SHADER/Examples/MeshExample)
+1. [InstancingExample](/SHADER/Examples/InstancingExample)
+1. [TransformationExample](/SHADER/Examples/TransformationExample)
+1. [CameraTransformationExample](/SHADER/Examples/CameraTransformationExample)
+1. [CameraExample](/SHADER/Examples/CameraExample)
+1. [PhongLightingExample](/SHADER/Examples/PhongLightingExample)
+1. [EnvMappingExample](/SHADER/Examples/EnvMappingExample)
+1. [RenderToTextureExample](/SHADER/Examples/RenderToTextureExample)
+1. [ShadowMappingExample](/SHADER/Examples/ShadowMappingExample)
+<!--1. [ParticleSystemExample](/SHADER/Examples/ParticleSystemExample)
+1. [PhysicsExample](/SHADER/Examples/PhysicsExample)
+1. [SSBOExample](/SHADER/Examples/SSBOExample)-->
 
 ## Best Practices
 #### Automatic conversion of the data type of a uniform

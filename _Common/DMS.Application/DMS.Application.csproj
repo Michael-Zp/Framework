@@ -36,6 +36,7 @@
   <ItemGroup>
     <Compile Include="ExampleApplication.cs" />
     <Compile Include="GameWindowExtensions.cs" />
+    <Compile Include="IShaderProvider.cs" />
     <Compile Include="ResourceManager.cs" />
   </ItemGroup>
   <ItemGroup>
