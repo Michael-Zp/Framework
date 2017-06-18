@@ -4,11 +4,11 @@
   <PropertyGroup>
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
-    <ProjectGuid>{ADFE07A0-D2B7-42A7-8DDC-C0F1D441ACC1}</ProjectGuid>
-    <OutputType>Exe</OutputType>
+    <ProjectGuid>{776773EC-BD02-49C8-9571-DDB8398DAB25}</ProjectGuid>
+    <OutputType>WinExe</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
     <RootNamespace>Example</RootNamespace>
-    <AssemblyName>PhysicsExample</AssemblyName>
+    <AssemblyName>EnvMappingExample</AssemblyName>
     <TargetFrameworkVersion>v4.6</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
     <PublishUrl>publish\</PublishUrl>
@@ -38,50 +38,7 @@
     <DefineConstants>DEBUG;TRACE</DefineConstants>
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
-    <CodeContractsEnableRuntimeChecking>False</CodeContractsEnableRuntimeChecking>
-    <CodeContractsRuntimeOnlyPublicSurface>False</CodeContractsRuntimeOnlyPublicSurface>
-    <CodeContractsRuntimeThrowOnFailure>True</CodeContractsRuntimeThrowOnFailure>
-    <CodeContractsRuntimeCallSiteRequires>False</CodeContractsRuntimeCallSiteRequires>
-    <CodeContractsRuntimeSkipQuantifiers>False</CodeContractsRuntimeSkipQuantifiers>
-    <CodeContractsRunCodeAnalysis>True</CodeContractsRunCodeAnalysis>
-    <CodeContractsNonNullObligations>True</CodeContractsNonNullObligations>
-    <CodeContractsBoundsObligations>True</CodeContractsBoundsObligations>
-    <CodeContractsArithmeticObligations>True</CodeContractsArithmeticObligations>
-    <CodeContractsEnumObligations>True</CodeContractsEnumObligations>
-    <CodeContractsRedundantAssumptions>True</CodeContractsRedundantAssumptions>
-    <CodeContractsAssertsToContractsCheckBox>True</CodeContractsAssertsToContractsCheckBox>
-    <CodeContractsRedundantTests>True</CodeContractsRedundantTests>
-    <CodeContractsMissingPublicRequiresAsWarnings>True</CodeContractsMissingPublicRequiresAsWarnings>
-    <CodeContractsMissingPublicEnsuresAsWarnings>False</CodeContractsMissingPublicEnsuresAsWarnings>
-    <CodeContractsInferRequires>True</CodeContractsInferRequires>
-    <CodeContractsInferEnsures>False</CodeContractsInferEnsures>
-    <CodeContractsInferEnsuresAutoProperties>True</CodeContractsInferEnsuresAutoProperties>
-    <CodeContractsInferObjectInvariants>False</CodeContractsInferObjectInvariants>
-    <CodeContractsSuggestAssumptions>False</CodeContractsSuggestAssumptions>
-    <CodeContractsSuggestAssumptionsForCallees>False</CodeContractsSuggestAssumptionsForCallees>
-    <CodeContractsSuggestRequires>False</CodeContractsSuggestRequires>
-    <CodeContractsNecessaryEnsures>True</CodeContractsNecessaryEnsures>
-    <CodeContractsSuggestObjectInvariants>False</CodeContractsSuggestObjectInvariants>
-    <CodeContractsSuggestReadonly>True</CodeContractsSuggestReadonly>
-    <CodeContractsRunInBackground>True</CodeContractsRunInBackground>
-    <CodeContractsShowSquigglies>True</CodeContractsShowSquigglies>
-    <CodeContractsUseBaseLine>False</CodeContractsUseBaseLine>
-    <CodeContractsEmitXMLDocs>False</CodeContractsEmitXMLDocs>
-    <CodeContractsCustomRewriterAssembly />
-    <CodeContractsCustomRewriterClass />
-    <CodeContractsLibPaths />
-    <CodeContractsExtraRewriteOptions />
-    <CodeContractsExtraAnalysisOptions />
-    <CodeContractsSQLServerOption />
-    <CodeContractsBaseLineFile />
-    <CodeContractsCacheAnalysisResults>True</CodeContractsCacheAnalysisResults>
-    <CodeContractsSkipAnalysisIfCannotConnectToCache>False</CodeContractsSkipAnalysisIfCannotConnectToCache>
-    <CodeContractsFailBuildOnWarnings>False</CodeContractsFailBuildOnWarnings>
-    <CodeContractsBeingOptimisticOnExternal>True</CodeContractsBeingOptimisticOnExternal>
-    <CodeContractsRuntimeCheckingLevel>Full</CodeContractsRuntimeCheckingLevel>
-    <CodeContractsReferenceAssembly>DoNotBuild</CodeContractsReferenceAssembly>
-    <CodeContractsAnalysisWarningLevel>0</CodeContractsAnalysisWarningLevel>
-
+    <UseVSHostingProcess>false</UseVSHostingProcess>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
     <PlatformTarget>AnyCPU</PlatformTarget>
@@ -96,17 +53,14 @@
     <StartupObject />
   </PropertyGroup>
   <ItemGroup>
-    <Compile Include="Body.cs" />
-    <Compile Include="IBody.cs" />
-    <Compile Include="Liquid.cs" />
     <Compile Include="MainVisual.cs" />
-    <Compile Include="Model.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Resourcen.Designer.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
       <DependentUpon>Resourcen.resx</DependentUpon>
     </Compile>
+    <Compile Include="VisualBackground.cs" />
   </ItemGroup>
   <ItemGroup>
     <Reference Include="OpenTK, Version=2.0.0.0, Culture=neutral, PublicKeyToken=bad199fe84eb3df4, processorArchitecture=MSIL">
@@ -135,10 +89,30 @@
     </BootstrapperPackage>
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\..\..\_Common\DMS.Application\DMS.Application.csproj">
+      <Project>{911C6DFF-BE3E-4EA5-ADF2-A363DF797F23}</Project>
+      <Name>DMS.Application</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\..\_Common\DMS.OpenGL\DMS.OpenGL.csproj">
+      <Project>{c660f6af-c100-4169-a9fb-61e1ebe87f34}</Project>
+      <Name>DMS.OpenGL</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\..\_Common\DMS.Geometry\DMS.Geometry.csproj">
+      <Project>{B37B7DDE-435B-4F27-9A9B-9B6DF8744EBE}</Project>
+      <Name>DMS.Geometry</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\..\_Common\DMS.ShaderDebugging\DMS.ShaderDebugging.csproj">
+      <Project>{3c8bcf2c-1019-4a8d-b986-afd6bb80e917}</Project>
+      <Name>DMS.ShaderDebugging</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\..\_Common\DMS.Base\DMS.Base.csproj">
+      <Project>{E5FF60A4-46FB-42D2-9430-BC523315C2E0}</Project>
+      <Name>DMS.Base</Name>
+    </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
     <None Include="packages.config" />
-    <None Include="readme.md" />
     <None Include="Resources\fragment.frag" />
-    <None Include="Resources\suzanne.obj" />
     <None Include="Resources\vertex.vert" />
   </ItemGroup>
   <ItemGroup>
@@ -148,22 +122,7 @@
     </EmbeddedResource>
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\..\..\_Common\DMS.Application\DMS.Application.csproj">
-      <Project>{911c6dff-be3e-4ea5-adf2-a363df797f23}</Project>
-      <Name>DMS.Application</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\..\..\_Common\DMS.OpenGL\DMS.OpenGL.csproj">
-      <Project>{c660f6af-c100-4169-a9fb-61e1ebe87f34}</Project>
-      <Name>DMS.OpenGL</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\..\..\_Common\DMS.Geometry\DMS.Geometry.csproj">
-      <Project>{b37b7dde-435b-4f27-9a9b-9b6df8744ebe}</Project>
-      <Name>DMS.Geometry</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\..\..\_Common\DMS.Base\DMS.Base.csproj">
-      <Project>{E5FF60A4-46FB-42D2-9430-BC523315C2E0}</Project>
-      <Name>DMS.Base</Name>
-    </ProjectReference>
+    <None Include="Resources\beach.jpg" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

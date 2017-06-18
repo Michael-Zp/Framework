@@ -23,7 +23,7 @@ namespace Example
 			Velocity = Vector3.Zero;
 		}
 
-		public const float G = .1f;//6.67408e-11f;
+		public const float G = .1f; //physically correct would be 6.67408e-11f;
 
 		public Vector3 Acceleration { get; set; }
 		public Vector3 Location { get; set; }
@@ -32,14 +32,14 @@ namespace Example
 
 		public void ApplyForce(Vector3 force)
 		{
-			//Newtons 2nd Law: F = Mass * Acceleration; 
+			//Newtons 2nd Law: Force = Mass * Acceleration; 
 			//but also consider force accumulation:
 			//acceleration equals the sum of all forces / Mass
 			Acceleration += force / Mass;
 		}
 
 		public Vector3 AttractionFrom(Body bodyB)
-		{
+		{	
 			//gravitation
 			var dir = bodyB.Location - Location;
 			var distance = MathHelper.Clamp(dir.Length, 5f, 20);

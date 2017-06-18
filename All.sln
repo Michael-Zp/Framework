@@ -166,6 +166,8 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solutions", "Solutions", "{
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ShadowMappingExample", "SHADER\Solutions\ShadowMappingExample\ShadowMappingExample.csproj", "{1F9BC86D-1D21-48F1-B41F-FE353D9E192B}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "EnvMappingExample", "SHADER\Solutions\EnvMappingExample\EnvMappingExample.csproj", "{776773EC-BD02-49C8-9571-DDB8398DAB25}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -428,6 +430,10 @@ Global
 		{1F9BC86D-1D21-48F1-B41F-FE353D9E192B}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{1F9BC86D-1D21-48F1-B41F-FE353D9E192B}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{1F9BC86D-1D21-48F1-B41F-FE353D9E192B}.Release|Any CPU.Build.0 = Release|Any CPU
+		{776773EC-BD02-49C8-9571-DDB8398DAB25}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{776773EC-BD02-49C8-9571-DDB8398DAB25}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{776773EC-BD02-49C8-9571-DDB8398DAB25}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{776773EC-BD02-49C8-9571-DDB8398DAB25}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -501,5 +507,6 @@ Global
 		{613DB9B5-0255-4B4E-9482-EA6A127F7894} = {E6454C74-3D02-49DC-BF69-CCBD7CE40E25}
 		{60690206-8C29-45FF-B353-25286A9438CE} = {D5D01620-9700-43CA-9B7B-3A22DA0D5C41}
 		{1F9BC86D-1D21-48F1-B41F-FE353D9E192B} = {60690206-8C29-45FF-B353-25286A9438CE}
+		{776773EC-BD02-49C8-9571-DDB8398DAB25} = {60690206-8C29-45FF-B353-25286A9438CE}
 	EndGlobalSection
 EndGlobal
