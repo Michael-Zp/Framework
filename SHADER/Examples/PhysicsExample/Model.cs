@@ -7,7 +7,7 @@ namespace Example
 	{
 		public Model()
 		{
-			//setup bodies positions and masses
+			//for each body - setup body position and mass
 			bodies.Add(new Body(new Vector3(0, 18, 10), 50));
 			bodies.Add(new Body(new Vector3(14, 0, -5), 50));
 			bodies.Add(new Body(new Vector3(0, -20, 0), 5));
@@ -22,10 +22,11 @@ namespace Example
 		{
 			foreach (var b1 in bodies)
 			{
+				//todo student: apply global forces
 				foreach (var b2 in bodies)
 				{
 					if (b1 == b2) continue;
-					//todo student: apply forces
+					//todo student: apply pairwise forces
 				}
 			}
 			foreach (var body in bodies)

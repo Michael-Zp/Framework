@@ -27,7 +27,12 @@ namespace Example
 			this.shader = shader;
 			if (ReferenceEquals(shader, null)) return;
 			Mesh mesh = Obj2Mesh.FromObj(Resourcen.suzanne);
-			geometry = VAOLoader.FromMesh(mesh, shader);
+			geometryBody = VAOLoader.FromMesh(mesh, shader);
+
+			var plane = Meshes.CreateQuad(100, 100, 10, 10);
+			var xForm = new Transformation();
+			xForm.TranslateLocal(0, -20, 0);
+			geometryPlane = VAOLoader.FromMesh(plane.Transform(xForm), shader);
 		}
 
 		public CameraOrbit Camera { get { return camera; } }
@@ -42,8 +47,8 @@ namespace Example
 				instancePositions.Add(body.Location);
 				instanceScale.Add((float)Math.Pow(body.Mass, 0.33f));
 			}
-			geometry.SetAttribute(shader.GetAttributeLocation("instancePosition"), instancePositions.ToArray(), VertexAttribPointerType.Float, 3, true);
-			geometry.SetAttribute(shader.GetAttributeLocation("instanceScale"), instanceScale.ToArray(), VertexAttribPointerType.Float, 1, true);
+			geometryBody.SetAttribute(shader.GetAttributeLocation("instancePosition"), instancePositions.ToArray(), VertexAttribPointerType.Float, 3, true);
+			geometryBody.SetAttribute(shader.GetAttributeLocation("instanceScale"), instanceScale.ToArray(), VertexAttribPointerType.Float, 1, true);
 
 			var time = (float)timeSource.Elapsed.TotalSeconds;
 
@@ -52,13 +57,14 @@ namespace Example
 			GL.Uniform1(shader.GetUniformLocation("time"), time);
 			Matrix4 cam = camera.CalcMatrix().ToOpenTK();
 			GL.UniformMatrix4(shader.GetUniformLocation("camera"), true, ref cam);
-			geometry.Draw(instancePositions.Count);
+			geometryBody.Draw(instancePositions.Count);
+			//geometryPlane.Draw(); //todo student: uncomment for gravity
 			shader.Deactivate();
 		}
 
 		private Shader shader;
 		private Stopwatch timeSource = new Stopwatch();
-		private VAO geometry;
+		private VAO geometryBody, geometryPlane;
 		private CameraOrbit camera = new CameraOrbit();
 	}
 }
