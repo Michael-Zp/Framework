@@ -13,8 +13,8 @@
 1. [RenderToTextureExample](/SHADER/Examples/RenderToTextureExample)
 1. [ShadowMappingExample](/SHADER/Examples/ShadowMappingExample)
 1. [PhysicsExample](/SHADER/Examples/PhysicsExample)
-<!--1. [ParticleSystemExample](/SHADER/Examples/ParticleSystemExample)
-1. [SSBOExample](/SHADER/Examples/SSBOExample)-->
+1. [ParticleSystemExample](/SHADER/Examples/ParticleSystemExample)
+<!--1. [SSBOExample](/SHADER/Examples/SSBOExample)-->
 
 ## Best Practices
 #### Automatic conversion of the data type of a uniform
