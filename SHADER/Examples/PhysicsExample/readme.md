@@ -1,6 +1,6 @@
-Tip: Try the forces in these exercises first in isolation (only wind, only downward gravity) before combining them.
+**Tip:** Try the forces in these exercises first in isolation (only wind, only downward gravity) before combining them.
 
-Tip 2: On [Nature of code](http://natureofcode.com/book/chapter-2-forces/#chapter02_example6) you will find working implementations if you have trouble doing it on your own (along with very nice explanations).
+**Tip 2:** On [Nature of code](http://natureofcode.com/book/chapter-2-forces/#chapter02_example6) you will find example implementations if you have trouble doing it on your own (along with very nice explanations).
 
 1. Implement wind
 1. Implement downward gravity (every head falls down onto the plane). Very similar to wind.
