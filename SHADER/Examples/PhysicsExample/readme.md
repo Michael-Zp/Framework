@@ -8,6 +8,6 @@
 1. Implement bounce up at plane contact
 1. Implement friction - bounce becomes smaller over time
 1. Implement gravitational attraction (use your own gravitational constant, because real gravity is really small e.x.: 0.1)
-1. Implement another force like resistance 
-   - Consider for example a water basin, which offers resistance in a certain space
+1. Combine it with another force like resistance 
+   - Consider for example a water basin, which offers resistance in a certain space, while the bodies are floating around propelled by gravitational attraction.
 1. Invent your own force
