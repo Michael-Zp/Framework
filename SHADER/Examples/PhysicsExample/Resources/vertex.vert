@@ -15,6 +15,5 @@ void main()
 	n = normal;
 
 	vec3 pos = instanceScale * position + instancePosition;
-
 	gl_Position = camera * vec4(pos, 1.0);
 }
