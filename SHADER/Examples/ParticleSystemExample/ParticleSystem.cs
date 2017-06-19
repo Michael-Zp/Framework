@@ -8,7 +8,13 @@ namespace Example
 		public delegate PARTICLE ParticleCreater(float creationTime);
 		public delegate void AfterParticleUpdate(PARTICLE particle);
 
+		/// <summary>
+		/// Will be called each time a particle is created
+		/// </summary>
 		public event ParticleCreater OnParticleCreate;
+		/// <summary>
+		/// Is called after a particle is updated
+		/// </summary>
 		public event AfterParticleUpdate OnAfterParticleUpdate;
 
 		public ParticleSystem(int maxParticleCount)
@@ -60,6 +66,9 @@ namespace Example
 
 		public int ParticleCount { get { return particles.Count; } }
 		public IEnumerable<PARTICLE> Particles { get { return particles; } }
+		/// <summary>
+		/// Controls how often per second a particle is created
+		/// </summary>
 		public float ReleaseInterval { get; set; }
 		public int MaxParticleCount { get; private set; }
 

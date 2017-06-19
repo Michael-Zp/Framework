@@ -19,21 +19,16 @@ namespace Example
 		public Particle Create(float creationTime)
 		{
 			var p = new Particle(creationTime);
-			p.LifeTime = 10f;
+			p.LifeTime = 5f;
 			Func<float> Rnd01 = () => (float)random.NextDouble();
 			Func<float> RndCoord = () => (Rnd01() - 0.5f) * 2.0f;
 			//around emitter position
 			p.Position = emitterPos + new Vector3(RndCoord(), RndCoord(), RndCoord()) * .1f;
-			//speed between [.002, .004]
+			//start speed
 			p.Velocity = Vector3.Zero;
-			//gravity
+			//downward gravity
 			p.Acceleration = new Vector3(0, -.4f, 0);
 			return p;
-		}
-
-		private Vector3 Reflect(Vector3 incoming, Vector3 normal)
-		{
-			return 2 * Vector3.Dot(normal, -incoming) *normal + incoming;
 		}
 
 		private void OnAfterParticleUpdate(Particle particle)
@@ -46,6 +41,7 @@ namespace Example
 				//slightly different upward vectors
 				var direction = new Vector3(RndCoord(), Rnd01(), RndCoord()).Normalized();
 				var speed = particle.Velocity.Length;
+				//random perturb velocity to get more water like effects
 				particle.Velocity = direction * speed * 0.7f;
 			}
 		}
@@ -66,6 +62,7 @@ namespace Example
 			int i = 0;
 			foreach (var particle in particleSystem.Particles)
 			{
+				//fading with age effect
 				var age = time - particle.CreationTime;
 				fade[i] = 1f - age / particle.LifeTime;
 				positions[i] = particle.Position;
@@ -89,6 +86,7 @@ namespace Example
 
 			shaderWaterfall.Activate();
 			GL.UniformMatrix4(shaderWaterfall.GetUniformLocation("camera"), true, ref camera);
+			GL.Uniform1(shaderWaterfall.GetUniformLocation("pointSize"), 0.3f);
 			//GL.Uniform1(shader.GetUniformLocation("texParticle"), 0);
 			texStar.Activate();
 			particles.DrawArrays(PrimitiveType.Points, particleSystem.ParticleCount);
