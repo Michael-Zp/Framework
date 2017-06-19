@@ -81,7 +81,6 @@
     <CodeContractsRuntimeCheckingLevel>Full</CodeContractsRuntimeCheckingLevel>
     <CodeContractsReferenceAssembly>DoNotBuild</CodeContractsReferenceAssembly>
     <CodeContractsAnalysisWarningLevel>0</CodeContractsAnalysisWarningLevel>
-
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
     <PlatformTarget>AnyCPU</PlatformTarget>
@@ -98,7 +97,6 @@
   <ItemGroup>
     <Compile Include="Body.cs" />
     <Compile Include="IBody.cs" />
-    <Compile Include="Liquid.cs" />
     <Compile Include="MainVisual.cs" />
     <Compile Include="Model.cs" />
     <Compile Include="Program.cs" />
