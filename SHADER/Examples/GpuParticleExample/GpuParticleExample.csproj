@@ -110,7 +110,6 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />
-    <None Include="readme.md" />
     <None Include="Resources\fragment.frag" />
     <None Include="Resources\vertex.vert" />
   </ItemGroup>
