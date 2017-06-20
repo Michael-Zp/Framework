@@ -2,11 +2,11 @@
 
 namespace DMS.Application
 {
-	public interface IResource<TYPE> where TYPE : class
+	public interface IResource<RESOURCE_TYPE> where RESOURCE_TYPE : IDisposable
 	{
 		bool IsValueCreated { get; }
-		TYPE Value { get; }
+		RESOURCE_TYPE Value { get; }
 
-		event EventHandler<TYPE> Change;
+		event EventHandler<RESOURCE_TYPE> Change;
 	}
 }

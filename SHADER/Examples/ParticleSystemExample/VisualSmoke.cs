@@ -1,4 +1,5 @@
-﻿using DMS.OpenGL;
+﻿using DMS.Application;
+using DMS.OpenGL;
 using OpenTK;
 using OpenTK.Graphics.OpenGL;
 using System;
@@ -14,7 +15,7 @@ namespace Example
 		{
 			Emitter = emitterPos;
 			Wind = wind;
-			texStar = TextureLoader.FromBitmap(Resourcen.smoke);
+			texStar = TextureLoader.FromBitmap(Resourcen.smoke); //resourceProvider.Get<Texture>(nameof(Resourcen.smoke)).Value;
 			particleSystem.ReleaseInterval = 0.02f;
 			particleSystem.OnParticleCreate += Create;
 		}
@@ -94,5 +95,7 @@ namespace Example
 		private VAO particles = new VAO();
 		private ParticleSystem<Particle> particleSystem = new ParticleSystem<Particle>(1000);
 		private Random random = new Random();
+
+		//private IResourceProvider resourceProvider;
 	}
 }

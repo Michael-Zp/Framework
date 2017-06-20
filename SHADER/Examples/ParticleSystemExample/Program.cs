@@ -12,10 +12,10 @@ namespace Example
 		private static void Main()
 		{
 			var app = new ExampleApplication();
+			LoadResources(app.ResourceManager);
 			var controller = new Controller();
 			var visual = new MainVisual();
 			app.ResourceManager.ShaderChanged += visual.ShaderChanged;
-			LoadResources(app.ResourceManager);
 			var timeSource = new Stopwatch();
 			app.GameWindow.ConnectEvents(visual.OrbitCamera);
 			app.Render += visual.Render;
@@ -26,6 +26,7 @@ namespace Example
 
 		private static void LoadResources(ResourceManager resourceManager)
 		{
+			resourceManager.Add(nameof(Resourcen.smoke), new ResourceTextureBitmap(Resourcen.smoke));
 			var dir = Path.GetDirectoryName(PathTools.GetSourceFilePath()) + "/Resources/";
 			resourceManager.AddShader(VisualSmoke.ShaderName, dir + "smoke.vert", dir + "smoke.frag"
 				, Resourcen.smoke_vert, Resourcen.smoke_frag);

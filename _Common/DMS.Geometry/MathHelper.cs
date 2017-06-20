@@ -57,6 +57,11 @@ namespace DMS.Geometry
 			return new Vector3(Clamp(v.X, min, max), Clamp(v.Y, min, max), Clamp(v.Z, min, max));
 		}
 
+		public static Vector4 Clamp(this Vector4 v, float min, float max)
+		{
+			return new Vector4(Clamp(v.X, min, max), Clamp(v.Y, min, max), Clamp(v.Z, min, max), Clamp(v.W, min, max));
+		}
+
 		public static Vector3 Floor(this Vector3 v)
 		{
 			return new Vector3(Floor(v.X), Floor(v.Y), Floor(v.Z));
@@ -66,6 +71,46 @@ namespace DMS.Geometry
 		{
 			var div = x / y;
 			return x - y * Floor(div);
+		}
+
+		public static Vector4 Color(uint r, uint g, uint b, uint a)
+		{
+			return new Vector4(r, g, b, a) / 255f;
+		}
+
+		public static uint PackUnorm4x8(Vector4 v)
+		{
+			var r = Round(Clamp(v, 0.0f, 1.0f) * 255.0f);
+			var x = (uint)r.X;
+			var y = (uint)r.Y;
+			var z = (uint)r.Z;
+			var w = (uint)r.W;
+			return (w << 24) + (z << 16) + (y << 8) + x;
+		}
+
+		public static Vector4 UnpackUnorm4x8(uint i)
+		{
+			var x = (i & 0x000000ff);
+			var y = (i & 0x0000ff00) >> 8;
+			var z = (i & 0x00ff0000) >> 16;
+			var w = (i & 0xff000000) >> 24;
+			var v = new Vector4(x, y, z, w);
+			return v / 255.0f;
+		}
+
+		public static float Round(float f)
+		{
+			return (float)Math.Round(f);
+		}
+
+		public static Vector3 Round(this Vector3 v)
+		{
+			return new Vector3(Round(v.X), Round(v.Y), Round(v.Z));
+		}
+
+		public static Vector4 Round(this Vector4 v)
+		{
+			return new Vector4(Round(v.X), Round(v.Y), Round(v.Z), Round(v.W));
 		}
 
 		/// <summary>

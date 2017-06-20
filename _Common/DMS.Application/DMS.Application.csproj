@@ -37,15 +37,18 @@
     <Compile Include="ExampleApplication.cs" />
     <Compile Include="GameWindowExtensions.cs" />
     <Compile Include="IResource.cs" />
+    <Compile Include="IResourceProvider.cs" />
     <Compile Include="IShaderProvider.cs" />
-    <Compile Include="Resource.cs" />
     <Compile Include="ResourceManager.cs" />
+    <Compile Include="ResourceTextureBitmap.cs" />
+    <Compile Include="ResourceTextureFile.cs" />
   </ItemGroup>
   <ItemGroup>
     <Reference Include="OpenTK">
       <HintPath>..\DMS.ShaderDebugging\bin\Debug\OpenTK.dll</HintPath>
     </Reference>
     <Reference Include="System" />
+    <Reference Include="System.ComponentModel.Composition" />
     <Reference Include="System.Drawing" />
   </ItemGroup>
   <ItemGroup>

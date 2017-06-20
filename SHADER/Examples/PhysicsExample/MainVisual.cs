@@ -33,6 +33,10 @@ namespace Example
 			var xForm = new Transformation();
 			xForm.TranslateLocal(0, -20, 0);
 			geometryPlane = VAOLoader.FromMesh(plane.Transform(xForm), shader);
+			//for AMD graphics cards
+			geometryPlane.SetAttribute(shader.GetAttributeLocation("instancePosition"), new Vector3[] { Vector3.Zero }, VertexAttribPointerType.Float, 3, true);
+			geometryPlane.SetAttribute(shader.GetAttributeLocation("instanceScale"), new float[] { 1 }, VertexAttribPointerType.Float, 1, true);
+
 		}
 
 		public CameraOrbit Camera { get { return camera; } }

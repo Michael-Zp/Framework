@@ -5,6 +5,8 @@ using OpenTK.Graphics.OpenGL;
 using OpenTK.Input;
 using OpenTK.Platform;
 using System;
+using System.ComponentModel.Composition;
+using System.ComponentModel.Composition.Hosting;
 
 namespace DMS.Application
 {
@@ -12,6 +14,18 @@ namespace DMS.Application
 	{
 		public ExampleApplication(int width = 512, int height = 512, double updateRate = 60)
 		{
+			var catalog = new AggregateCatalog();
+			catalog.Catalogs.Add(new AssemblyCatalog(typeof(ExampleApplication).Assembly));
+			_container = new CompositionContainer(catalog);
+			try
+			{
+				_container.SatisfyImportsOnce(this);
+			}
+			catch (CompositionException e)
+			{
+				Console.WriteLine(e.ToString());
+			}
+
 			gameWindow = new GameWindow(width, height);
 			gameWindow.TargetUpdateFrequency = updateRate;
 			gameWindow.TargetRenderFrequency = updateRate;
@@ -21,7 +35,7 @@ namespace DMS.Application
 			//register callback for keyboard
 			gameWindow.KeyDown += GameWindow_KeyDown;
 			gameWindow.KeyDown += (sender, e) => { if (Key.Escape == e.Key) gameWindow.Exit(); };
-			ResourceManager = new ResourceManager();
+			ResourceManager = resourceProvider as ResourceManager;
 		}
 
 		public IGameWindow GameWindow { get { return gameWindow; } }
@@ -61,8 +75,12 @@ namespace DMS.Application
 			gameWindow.Run();
 		}
 
+		private CompositionContainer _container;
 		private GameWindow gameWindow;
 		private FrameListCreator frameListCreator;
+
+		[Import]
+		private IResourceProvider resourceProvider = null;
 
 		private void GameWindowRender()
 		{
