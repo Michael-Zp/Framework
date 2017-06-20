@@ -29,8 +29,6 @@ namespace Example
 			GL.Enable(EnableCap.ProgramPointSize);
 			GL.Enable(EnableCap.PointSprite);
 			GL.Enable(EnableCap.DepthTest);
-			//GL.Enable(EnableCap.Blend);
-			//GL.BlendFunc(BlendingFactorSrc.SrcAlpha, BlendingFactorDest.One);
 			timeSource.Start();
 		}
 
@@ -53,7 +51,6 @@ namespace Example
 			Console.Write(Math.Round(timeQuery.ResultLong * 1e-6, 2));
 			Console.WriteLine("msec");
 			timeQuery.Activate(QueryTarget.TimeElapsed);
-			GL.PointSize(1.0f);
 			GL.Clear(ClearBufferMask.ColorBufferBit | ClearBufferMask.DepthBufferBit);
 			shader.Activate();
 			var cam = camera.CalcMatrix().ToOpenTK();

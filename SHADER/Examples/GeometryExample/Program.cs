@@ -21,7 +21,7 @@ namespace Example
 		private static void LoadResources(ResourceManager resourceManager)
 		{
 			var dir = Path.GetDirectoryName(PathTools.GetSourceFilePath()) + @"\Resources\";
-			resourceManager.AddShader(MainVisual.ShaderName, dir + "vertex.glsl", dir + "fragment.glsl"
+			resourceManager.AddShader(MainVisual.ShaderName, dir + "vertex.vert", dir + "fragment.frag"
 				, Resourcen.vertex, Resourcen.fragment);
 		}
 	}
