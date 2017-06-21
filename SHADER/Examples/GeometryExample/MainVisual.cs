@@ -36,7 +36,7 @@ namespace Example
 			GL.Uniform1(shader.GetUniformLocation("time"), (float)timeSource.Elapsed.TotalSeconds);
 			geometry.Activate();
 			GL.DrawArrays(PrimitiveType.Points, 0, pointCount);
-			geometry.Deactive();
+			geometry.Deactivate();
 			shader.Deactivate();
 		}
 

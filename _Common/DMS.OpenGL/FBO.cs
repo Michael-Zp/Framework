@@ -42,6 +42,7 @@ namespace DMS.OpenGL
 			}
 		}
 
+		public bool IsActive {  get { return currentFrameBufferHandle == m_FBOHandle; } }
 		public Texture Texture { get { return texture; } }
 
 		public void Activate()

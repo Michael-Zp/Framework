@@ -24,7 +24,9 @@ namespace DMS.OpenGL
 			idVAO = GL.GenVertexArray();
 		}
 
+		public int IDLength { get; private set; } = 0;
 		public PrimitiveType PrimitiveType { get; set; } = PrimitiveType.Triangles;
+		public DrawElementsType DrawElementsType { get; private set; } = DrawElementsType.UnsignedShort;
 
 		public void SetID<Index>(Index[] data) where Index : struct
 		{
@@ -37,12 +39,12 @@ namespace DMS.OpenGL
 			//activate for state
 			buffer.Activate();
 			//cleanup state
-			Deactive();
+			Deactivate();
 			buffer.Deactivate();
 			//save data for draw call
 			DrawElementsType drawElementsType = GetDrawElementsType(typeof(Index));
-			this.idLength = data.Length;
-			this.drawElementsType = drawElementsType;
+			IDLength = data.Length;
+			DrawElementsType = drawElementsType;
 		}
 
 		public void SetAttribute<DataElement>(int bindingID, DataElement[] data, VertexAttribPointerType type, int elementSize, bool perInstance = false) where DataElement : struct
@@ -62,7 +64,7 @@ namespace DMS.OpenGL
 				GL.VertexAttribDivisor(bindingID, 1);
 			}
 			//cleanup state
-			Deactive();
+			Deactivate();
 			buffer.Deactivate();
 			GL.DisableVertexAttribArray(bindingID);
 		}
@@ -96,7 +98,7 @@ namespace DMS.OpenGL
 				}
 			}
 			//cleanup state
-			Deactive();
+			Deactivate();
 			GL.BindBuffer(BufferTarget.ArrayBuffer, 0);
 			for (int i = 0; i < 4; i++)
 			{
@@ -109,7 +111,7 @@ namespace DMS.OpenGL
 			GL.BindVertexArray(idVAO);
 		}
 
-		public void Deactive()
+		public void Deactivate()
 		{
 			GL.BindVertexArray(0);
 		}
@@ -118,21 +120,19 @@ namespace DMS.OpenGL
 		{
 			Activate();
 			GL.DrawArrays(type, start, count);
-			Deactive();
+			Deactivate();
 		}
 
 		public void Draw(int instanceCount = 1)
 		{
-			if (0 == idLength) throw new VAOException("Empty id data set! Draw yourself using active/deactivate!");
+			if (0 == IDLength) throw new VAOException("Empty id data set! Draw yourself using active/deactivate!");
 			Activate();
-			GL.DrawElementsInstanced(PrimitiveType, idLength, drawElementsType, (IntPtr)0, instanceCount);
-			Deactive();
+			GL.DrawElementsInstanced(PrimitiveType, IDLength, DrawElementsType, (IntPtr)0, instanceCount);
+			Deactivate();
 		}
 
 		private int idVAO;
 		private const int idBufferBinding = int.MaxValue;
-		private DrawElementsType drawElementsType = DrawElementsType.UnsignedShort;
-		private int idLength = 0;
 		private Dictionary<int, BufferObject> boundBuffers = new Dictionary<int, BufferObject>();
 
 		private static DrawElementsType GetDrawElementsType(Type type)

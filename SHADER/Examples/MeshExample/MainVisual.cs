@@ -36,7 +36,7 @@ namespace Example
 		}
 
 		private Shader shader;
-		private VAO geometry = new VAO();
+		private VAO geometry;
 		//private Texture texDiffuse;
 	}
 }

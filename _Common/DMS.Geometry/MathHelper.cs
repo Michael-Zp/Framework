@@ -47,6 +47,11 @@ namespace DMS.Geometry
 			return a * (1 - weight) + b * weight;
 		}
 
+		public static Vector3 Lerp(Vector3 a, Vector3 b, float weight)
+		{
+			return a * (1 - weight) + b * weight;
+		}
+
 		public static float Floor(this float x)
 		{
 			return (float)Math.Floor(x);
