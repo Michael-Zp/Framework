@@ -2,6 +2,9 @@
 
 namespace DMS.OpenGL
 {
+	/// <summary>
+	/// Sprite sheet class for a sprite sheet with quadratic sprites
+	/// </summary>
 	public class SpriteSheet
 	{
 		public SpriteSheet(Texture tex, uint spritesPerLine
