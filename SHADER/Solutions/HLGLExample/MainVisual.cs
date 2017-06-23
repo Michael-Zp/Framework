@@ -9,13 +9,13 @@ namespace Example
 		public MainVisual()
 		{
 			drawParametersBase.BackfaceCulling = true;
-			drawParametersBase.Textures.Add(new NamedTexture("diffuse", TextureLoader.FromBitmap(Resourcen.capsule0)));
+			drawParametersBase.AddTexture(new NamedTexture("diffuse", TextureLoader.FromBitmap(Resourcen.capsule0)));
 			drawParametersBase.UpdateMesh(Obj2Mesh.FromObj(Resourcen.suzanne));
 			drawParametersBase.UpdateShader(Resources.Shader);
 			drawParametersBase.ZBufferTest = true;
 
 			drawParametersFB.BackfaceCulling = false;
-			drawParametersFB.Textures.Add(new NamedTexture("tex", imageBase.Texture));
+			drawParametersFB.AddTexture(new NamedTexture("tex", imageBase.Texture));
 			drawParametersFB.UpdateShader(Resources.ShaderCopy);
 			drawParametersFB.ZBufferTest = false;
 		}
@@ -23,13 +23,14 @@ namespace Example
 		public void Render()
 		{
 			imageBase.Clear();
+			//todo: draw object multiple times
 			imageBase.Draw(drawParametersBase);
 			frameBuffer.Draw(drawParametersFB);
 		}
 
 		private Image frameBuffer = new Image();
-		private Image imageBase = new Image(64, 64, true);
-		private DrawParameters drawParametersBase = new DrawParameters();
-		private DrawParameters drawParametersFB = new DrawParameters();
+		private Image imageBase = new Image(128, 128, true);
+		private Configuration drawParametersBase = new Configuration();
+		private Configuration drawParametersFB = new Configuration();
 	}
 }

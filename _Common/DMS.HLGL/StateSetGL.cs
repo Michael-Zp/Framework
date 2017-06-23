@@ -3,7 +3,7 @@ using OpenTK.Graphics.OpenGL;
 
 namespace DMS.HLGL
 {
-	internal class StateSetGL
+	public class StateSetGL
 	{
 		public bool BackfaceCulling
 		{
