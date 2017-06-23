@@ -10,6 +10,11 @@ namespace DMS.Application
 	[PartCreationPolicy(CreationPolicy.Shared)]
 	public class ResourceManager : IShaderProvider, IResourceProvider
 	{
+		public ResourceManager()
+		{
+			Instance = this;
+		}
+
 		public delegate void ShaderChangedHandler(string name, Shader shader);
 		public event ShaderChangedHandler ShaderChanged;
 
@@ -58,5 +63,7 @@ namespace DMS.Application
 
 		private Dictionary<string, ShaderFileDebugger> shaderWatcher = new Dictionary<string, ShaderFileDebugger>();
 		private Dictionary<string, object> resources = new Dictionary<string, object>();
+
+		public static ResourceManager Instance { get; private set; }
 	}
 }

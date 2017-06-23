@@ -1,7 +1,5 @@
 ﻿using DMS.Application;
-using DMS.Base;
 using System;
-using System.IO;
 
 namespace Example
 {
@@ -11,18 +9,11 @@ namespace Example
 		private static void Main()
 		{
 			var app = new ExampleApplication();
+			Resources.LoadResources(app.ResourceManager);
 			var visual = new MainVisual();
-			app.ResourceManager.ShaderChanged += visual.ShaderChanged;
-			LoadResources(app.ResourceManager);
+			//app.ResourceManager.ShaderChanged += visual.ShaderChanged;
 			app.Render += visual.Render;
 			app.Run();
-		}
-
-		private static void LoadResources(ResourceManager resourceManager)
-		{
-			var dir = Path.GetDirectoryName(PathTools.GetSourceFilePath()) + @"\Resources\";
-			resourceManager.AddShader(MainVisual.ShaderName, dir + "vertex.vert", dir + "fragment.frag"
-				, Resourcen.vertex, Resourcen.fragment);
 		}
 	}
 }

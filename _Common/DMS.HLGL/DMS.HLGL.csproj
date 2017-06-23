@@ -51,6 +51,10 @@
     <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\DMS.Application\DMS.Application.csproj">
+      <Project>{911C6DFF-BE3E-4EA5-ADF2-A363DF797F23}</Project>
+      <Name>DMS.Application</Name>
+    </ProjectReference>
     <ProjectReference Include="..\DMS.Base\DMS.Base.csproj">
       <Project>{e5ff60a4-46fb-42d2-9430-bc523315c2e0}</Project>
       <Name>DMS.Base</Name>

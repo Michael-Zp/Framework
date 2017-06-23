@@ -42,6 +42,7 @@ namespace DMS.HLGL
 			stateSetGL.Shader = shader;
 			BindTextures(shader, parameters.Textures);
 			//todo: set shader parameters
+
 			var vao = parameters.Vao;
 			if (ReferenceEquals(null, vao))
 			{
@@ -59,7 +60,7 @@ namespace DMS.HLGL
 		private Action actionClear = null;
 		private static StateSetGL stateSetGL = null;
 
-		private void BindTextures(Shader shader, List<NamedTexture> textures)
+		private static void BindTextures(Shader shader, List<NamedTexture> textures)
 		{
 			int id = 0;
 			if (ReferenceEquals(null, shader))
@@ -83,7 +84,7 @@ namespace DMS.HLGL
 			}
 		}
 
-		private void UnbindTextures(List<NamedTexture> textures)
+		private static void UnbindTextures(List<NamedTexture> textures)
 		{
 			int id = 0;
 			foreach (var namedTex in textures)

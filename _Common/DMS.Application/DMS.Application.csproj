@@ -40,6 +40,8 @@
     <Compile Include="IResourceProvider.cs" />
     <Compile Include="IShaderProvider.cs" />
     <Compile Include="ResourceManager.cs" />
+    <Compile Include="ResourceVertFragShaderString.cs" />
+    <Compile Include="ResourceVertFragShaderFile.cs" />
     <Compile Include="ResourceTextureBitmap.cs" />
     <Compile Include="ResourceTextureFile.cs" />
   </ItemGroup>
