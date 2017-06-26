@@ -43,6 +43,16 @@ namespace DMS.OpenGL
 			Deactivate();
 		}
 
+		public void Set<DataElement>(DataElement data, BufferUsageHint usageHint) where DataElement : struct
+		{
+			Activate();
+			var elementBytes = Marshal.SizeOf(typeof(DataElement));
+			// set buffer data
+			GL.BufferData(BufferTarget, elementBytes, ref data, usageHint);
+			//cleanup state
+			Deactivate();
+		}
+
 		protected override void DisposeResources()
 		{
 			if (-1 == bufferID) return;

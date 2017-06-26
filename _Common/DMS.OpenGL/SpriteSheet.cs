@@ -3,7 +3,7 @@
 namespace DMS.OpenGL
 {
 	/// <summary>
-	/// Sprite sheet class for a sprite sheet with quadratic or rectangular sprites
+	/// Supports sprite sheets with rectangular sprites
 	/// </summary>
 	public class SpriteSheet
 	{

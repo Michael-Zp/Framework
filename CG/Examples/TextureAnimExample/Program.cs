@@ -11,6 +11,12 @@ namespace Example
 	class MyVisual
 	{
 		private SpriteSheetAnimation explosion;
+		private SpriteSheetAnimation girlIdleRun;
+		private SpriteSheetAnimation girlJumpBall;
+		private SpriteSheetAnimation girlRun;
+		private SpriteSheetAnimation girlFight;
+		private SpriteSheetAnimation girlDie;
+		private SpriteSheetAnimation girlBack;
 		private AnimationTextures alienShip;
 		private Stopwatch timeSource = new Stopwatch();
 
@@ -18,6 +24,15 @@ namespace Example
 		{
 			//animation using a single SpriteSheet
 			explosion = new SpriteSheetAnimation(new SpriteSheet(TextureLoader.FromBitmap(Resourcen.explosion), 5), 0, 24, 1);
+
+			//art from https://github.com/sparklinlabs/superpowers-asset-packs
+			var spriteSheetGirl = new SpriteSheet(TextureLoader.FromBitmap(Resourcen.girl_2), 6, 7);
+			girlIdleRun = new SpriteSheetAnimation(spriteSheetGirl, 0, 10, 1);
+			girlJumpBall = new SpriteSheetAnimation(spriteSheetGirl, 11, 20, 1);
+			girlFight = new SpriteSheetAnimation(spriteSheetGirl, 21, 25, 1);
+			girlDie = new SpriteSheetAnimation(spriteSheetGirl, 25, 32, 1);
+			girlBack = new SpriteSheetAnimation(spriteSheetGirl, 33, 36, 1);
+
 			//animation using a bitmap for each frame
 			alienShip = new AnimationTextures(.5f);
 			//art from http://millionthvector.blogspot.de/p/free-sprites.html
@@ -39,8 +54,9 @@ namespace Example
 
 			//for transparency in textures
 			GL.BlendFunc(BlendingFactorSrc.SrcAlpha, BlendingFactorDest.OneMinusSrcAlpha);
-			//start game time
-			timeSource.Start();
+			GL.Enable(EnableCap.Blend);
+								
+			timeSource.Start();//start game time
 		}
 
 		private void Render()
@@ -50,11 +66,14 @@ namespace Example
 			//color is multiplied with texture color white == no change
 			GL.Color3(Color.White);
 
-			GL.Enable(EnableCap.Blend); // for transparency in textures
-			explosion.Draw(new Box2D(-.7f, -.2f, .4f, .4f), (float)timeSource.Elapsed.TotalSeconds);
+			explosion.Draw(new Box2D(-.7f, .2f, .4f, .4f), (float)timeSource.Elapsed.TotalSeconds);
+			alienShip.Draw(new Box2D(.3f, .2f, .4f, .4f), (float)timeSource.Elapsed.TotalSeconds);
 
-			alienShip.Draw(new Box2D(.3f, -.2f, .4f, .4f), (float)timeSource.Elapsed.TotalSeconds);
-			GL.Disable(EnableCap.Blend); // for transparency in textures
+			girlIdleRun.Draw(new Box2D(-1f, -.6f, .4f, .4f), (float)timeSource.Elapsed.TotalSeconds);
+			girlJumpBall.Draw(new Box2D(-.6f, -.6f, .4f, .4f), (float)timeSource.Elapsed.TotalSeconds);
+			girlFight.Draw(new Box2D( -.2f, -.6f, .4f, .4f), (float)timeSource.Elapsed.TotalSeconds);
+			girlDie.Draw(new Box2D(.2f, -.6f, .4f, .4f), (float)timeSource.Elapsed.TotalSeconds);
+			girlBack.Draw(new Box2D(.6f, -.6f, .4f, .4f), (float)timeSource.Elapsed.TotalSeconds);
 		}
 
 		[STAThread]

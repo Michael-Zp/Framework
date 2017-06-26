@@ -8,6 +8,7 @@ namespace Example
 	{
 		public const string Shader = "shader";
 		public const string ShaderCopy = "copy";
+		public const string TextureDiffuse = "diffuse";
 
 		public static void LoadResources(ResourceManager resourceManager)
 		{
@@ -17,6 +18,7 @@ namespace Example
 			resourceManager.Add<Shader>(ShaderCopy, new ResourceVertFragShaderString(TextureToFrameBuffer.VertexShaderScreenQuad, TextureToFrameBuffer.FragmentShaderCopy));
 			//resourceManager.AddShader("shader", dir + "vertex.vert", dir + "fragment.frag"
 			//	, Resourcen.vertex, Resourcen.fragment);
+			resourceManager.Add<Texture>(TextureDiffuse, new ResourceTextureBitmap(Resourcen.capsule0));
 		}
 	}
 }

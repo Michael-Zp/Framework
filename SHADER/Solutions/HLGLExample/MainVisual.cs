@@ -1,6 +1,6 @@
 ﻿using DMS.Geometry;
 using DMS.HLGL;
-using DMS.OpenGL;
+using System.Numerics;
 
 namespace Example
 {
@@ -8,29 +8,29 @@ namespace Example
 	{
 		public MainVisual()
 		{
-			drawParametersBase.BackfaceCulling = true;
-			drawParametersBase.AddTexture(new NamedTexture("diffuse", TextureLoader.FromBitmap(Resourcen.capsule0)));
-			drawParametersBase.UpdateMesh(Obj2Mesh.FromObj(Resourcen.suzanne));
-			drawParametersBase.UpdateShader(Resources.Shader);
-			drawParametersBase.ZBufferTest = true;
+			suzanne.BackfaceCulling = true;
+			suzanne.AddTexture(Resources.TextureDiffuse);
+			suzanne.UpdateMeshShader(Obj2Mesh.FromObj(Resourcen.suzanne), Resources.Shader);
+			suzanne.ZBufferTest = true;
 
-			drawParametersFB.BackfaceCulling = false;
-			drawParametersFB.AddTexture(new NamedTexture("tex", imageBase.Texture));
-			drawParametersFB.UpdateShader(Resources.ShaderCopy);
-			drawParametersFB.ZBufferTest = false;
+			copyQuad.BackfaceCulling = false;
+			copyQuad.AddTexture(new NamedTexture("tex", imageBase.Texture));
+			copyQuad.UpdateMeshShader(null, Resources.ShaderCopy);
+			copyQuad.ZBufferTest = false;
 		}
 
 		public void Render()
 		{
 			imageBase.Clear();
-			//todo: draw object multiple times
-			imageBase.Draw(drawParametersBase);
-			frameBuffer.Draw(drawParametersFB);
+			//todo: draw object multiple times -> shader parameter
+			suzanne.UpdateParameters(new Vector3(1, 0, 0));
+			imageBase.Draw(suzanne);
+			frameBuffer.Draw(copyQuad);
 		}
 
 		private Image frameBuffer = new Image();
 		private Image imageBase = new Image(128, 128, true);
-		private Configuration drawParametersBase = new Configuration();
-		private Configuration drawParametersFB = new Configuration();
+		private DrawConfiguration suzanne = new DrawConfiguration();
+		private DrawConfiguration copyQuad = new DrawConfiguration();
 	}
 }

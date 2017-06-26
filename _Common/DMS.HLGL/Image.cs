@@ -32,10 +32,10 @@ namespace DMS.HLGL
 			actionClear();
 		}
 
-		public void Draw(Configuration parameters)
+		public void Draw(DrawConfiguration config)
 		{
 			stateSetGL.Fbo = fbo;
-			parameters.Draw(stateSetGL);
+			config.Draw(stateSetGL);
 		}
 
 		private FBO fbo = null;
