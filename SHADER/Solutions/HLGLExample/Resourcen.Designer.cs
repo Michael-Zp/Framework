@@ -73,16 +73,6 @@ namespace Example {
         /// <summary>
         ///   Sucht eine lokalisierte Ressource vom Typ System.Byte[].
         /// </summary>
-        internal static byte[] capsule1 {
-            get {
-                object obj = ResourceManager.GetObject("capsule1", resourceCulture);
-                return ((byte[])(obj));
-            }
-        }
-        
-        /// <summary>
-        ///   Sucht eine lokalisierte Ressource vom Typ System.Byte[].
-        /// </summary>
         internal static byte[] fragment {
             get {
                 object obj = ResourceManager.GetObject("fragment", resourceCulture);

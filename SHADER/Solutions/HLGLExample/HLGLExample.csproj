@@ -133,7 +133,6 @@
   <ItemGroup>
     <None Include="packages.config" />
     <None Include="Resources\fragment.frag" />
-    <None Include="Resources\capsule.obj" />
     <None Include="Resources\suzanne.obj" />
     <None Include="Resources\vertex.vert" />
   </ItemGroup>

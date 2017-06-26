@@ -1,4 +1,11 @@
 #version 430 core				
+
+uniform ShaderParameter  //use 16 byte alignment or you have to query all variable offsets
+{
+	mat4 camera;
+	vec3 translate;
+};
+
 in vec3 position;
 in vec3 normal;
 in vec2 uv;
@@ -11,5 +18,5 @@ void main()
 	n = normal;
 	uvs = uv;
 
-	gl_Position = vec4(position, 1.0);
+	gl_Position = camera * vec4(translate + position, 1.0);
 }

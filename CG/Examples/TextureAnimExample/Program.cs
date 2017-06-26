@@ -13,7 +13,6 @@ namespace Example
 		private SpriteSheetAnimation explosion;
 		private SpriteSheetAnimation girlIdleRun;
 		private SpriteSheetAnimation girlJumpBall;
-		private SpriteSheetAnimation girlRun;
 		private SpriteSheetAnimation girlFight;
 		private SpriteSheetAnimation girlDie;
 		private SpriteSheetAnimation girlBack;
@@ -23,15 +22,15 @@ namespace Example
 		private MyVisual()
 		{
 			//animation using a single SpriteSheet
-			explosion = new SpriteSheetAnimation(new SpriteSheet(TextureLoader.FromBitmap(Resourcen.explosion), 5), 0, 24, 1);
+			explosion = new SpriteSheetAnimation(new SpriteSheet(TextureLoader.FromBitmap(Resourcen.explosion), 5), 0, 24, 1f);
 
 			//art from https://github.com/sparklinlabs/superpowers-asset-packs
 			var spriteSheetGirl = new SpriteSheet(TextureLoader.FromBitmap(Resourcen.girl_2), 6, 7);
-			girlIdleRun = new SpriteSheetAnimation(spriteSheetGirl, 0, 10, 1);
-			girlJumpBall = new SpriteSheetAnimation(spriteSheetGirl, 11, 20, 1);
-			girlFight = new SpriteSheetAnimation(spriteSheetGirl, 21, 25, 1);
-			girlDie = new SpriteSheetAnimation(spriteSheetGirl, 25, 32, 1);
-			girlBack = new SpriteSheetAnimation(spriteSheetGirl, 33, 36, 1);
+			girlIdleRun = new SpriteSheetAnimation(spriteSheetGirl, 0, 10, 1f);
+			girlJumpBall = new SpriteSheetAnimation(spriteSheetGirl, 11, 20, 1f);
+			girlFight = new SpriteSheetAnimation(spriteSheetGirl, 21, 25, 1f);
+			girlDie = new SpriteSheetAnimation(spriteSheetGirl, 25, 32, 1f);
+			girlBack = new SpriteSheetAnimation(spriteSheetGirl, 33, 36, 1f);
 
 			//animation using a bitmap for each frame
 			alienShip = new AnimationTextures(.5f);

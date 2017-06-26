@@ -38,30 +38,37 @@ namespace DMS.HLGL
 			textures.Add(new NamedTexture(name, ResourceManager.Instance.Get<Texture>(name).Value));
 		}
 
-		public void Draw(StateSetGL stateSetGL)
+		public void Draw(StateSetGL stateSetGL, int instanceCount = 1)
 		{
 			stateSetGL.BackfaceCulling = BackfaceCulling;
 			stateSetGL.ZBufferTest = ZBufferTest;
-			var shader = Shader;
-			stateSetGL.Shader = shader;
-			//todo: set shader parameters
+			stateSetGL.Shader = Shader;
 
-			BindTextures(shader, textures);
+			BindTextures();
+			var hasParameters = !string.IsNullOrEmpty(parameterTypeName);
+			if (hasParameters)
+			{
+				var bindingIndex = Shader.GetUniformBufferBindingIndex(parameterTypeName);
+				if (-1 == bindingIndex) throw new ArgumentException("Could not find shader parameters '" + parameterTypeName + "'");
+				parameterBuffer.ActivateBind(bindingIndex);
+			}
 
 			var vao = Vao;
 			//todo: parameters.Geometry;
-			var bindingIndex = shader.GetUniformBufferBindingIndex("bufferMaterials");
-			parameterBuffer.ActivateBind(bindingIndex);
 			if (ReferenceEquals(null, vao))
 			{
-				GL.DrawArrays(PrimitiveType.Quads, 0, 4); //todo: make this general -> mesh with only vertex count?
+				GL.DrawArrays(PrimitiveType.Quads, 0, 4); //todo: make this general -> mesh with only vertex count? particle system, sprites
 			}
 			else
 			{
 				Vao.Draw();
 			}
-			parameterBuffer.Deactivate();
-			UnbindTextures(textures);
+
+			if (hasParameters)
+			{
+				parameterBuffer.Deactivate();
+			}
+			UnbindTextures();
 
 		}
 
@@ -77,16 +84,19 @@ namespace DMS.HLGL
 
 		public void UpdateParameters<DATA>(DATA parameters) where DATA : struct
 		{
+			var type = typeof(DATA);
+			parameterTypeName = type.Name;
 			parameterBuffer.Set(parameters, BufferUsageHint.StaticRead);
 		}
 
 		private List<NamedTexture> textures = new List<NamedTexture>();
 		private BufferObject parameterBuffer = new BufferObject(BufferTarget.UniformBuffer);
+		private string parameterTypeName;
 
-		private static void BindTextures(Shader shader, List<NamedTexture> textures)
+		private void BindTextures()
 		{
 			int id = 0;
-			if (ReferenceEquals(null, shader))
+			if (ReferenceEquals(null, Shader))
 			{
 				foreach (var namedTex in textures)
 				{
@@ -101,13 +111,13 @@ namespace DMS.HLGL
 				{
 					GL.ActiveTexture(TextureUnit.Texture0 + id);
 					namedTex.Texture.Activate();
-					GL.Uniform1(shader.GetUniformLocation(namedTex.Name), id);
+					GL.Uniform1(Shader.GetUniformLocation(namedTex.Name), id);
 					++id;
 				}
 			}
 		}
 
-		private static void UnbindTextures(List<NamedTexture> textures)
+		private void UnbindTextures()
 		{
 			int id = 0;
 			foreach (var namedTex in textures)
