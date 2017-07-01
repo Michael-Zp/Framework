@@ -10,17 +10,23 @@ namespace DMS.OpenGL
 	/// todo: rename to ShaderProgram and create Shader classes to compile individual (fragment, vertex, ...) shaders
 	public class Shader : Disposable
 	{
+		public bool IsLinked { get; private set; } = false;
+
+		public string LastLog { get; private set; }
+
+		public int ProgramID { get; private set; } = 0;
+
 		/// <summary>
 		/// Initializes a new instance of the <see cref="Shader"/> class.
 		/// </summary>
 		public Shader()
 		{
-			m_ProgramID = GL.CreateProgram();
+			ProgramID = GL.CreateProgram();
 		}
 
 		public void Compile(string sShader, ShaderType type)
 		{
-			isLinked = false;
+			IsLinked = false;
 			int shaderObject = GL.CreateShader(type);
 			if (0 == shaderObject) throw new ShaderCompileException(type, "Could not create " + type.ToString() + " object", string.Empty, sShader);
 			// Compile vertex shader
@@ -34,7 +40,7 @@ namespace DMS.OpenGL
 				GL.DeleteShader(shaderObject);
 				throw new ShaderCompileException(type, "Error compiling  " + type.ToString(), LastLog, sShader);
 			}
-			GL.AttachShader(m_ProgramID, shaderObject);
+			GL.AttachShader(ProgramID, shaderObject);
 			//shaderIDs.Add(shaderObject);
 		}
 
@@ -43,7 +49,7 @@ namespace DMS.OpenGL
 		/// </summary>
 		public void Activate()
 		{
-			GL.UseProgram(m_ProgramID);
+			GL.UseProgram(ProgramID);
 		}
 
 		/// <summary>
@@ -56,67 +62,51 @@ namespace DMS.OpenGL
 
 		public int GetAttributeLocation(string name)
 		{
-			return GL.GetAttribLocation(m_ProgramID, name);
+			return GL.GetAttribLocation(ProgramID, name);
 		}
 
 		public int GetUniformLocation(string name)
 		{
-			return GL.GetUniformLocation(m_ProgramID, name);
+			return GL.GetUniformLocation(ProgramID, name);
+			//return GL.GetProgramResourceIndex(ProgramID, ProgramInterface.Uniform, name); //alternative
 		}
 
 		public int GetShaderStorageBufferBindingIndex(string name)
 		{
-			var index = GL.GetProgramResourceIndex(m_ProgramID, ProgramInterface.ShaderStorageBlock, name);
-			ProgramProperty[] prop = { ProgramProperty.BufferBinding };
-			int length;
-			int[] value = { -1 };
-			GL.GetProgramResource(m_ProgramID, ProgramInterface.ShaderStorageBlock, index, 1, prop, 1, out length, value);
-			return value[0];
+			return GL.GetProgramResourceIndex(ProgramID, ProgramInterface.ShaderStorageBlock, name);
 		}
 
 		public int GetUniformBufferBindingIndex(string name)
 		{
-			var index = GL.GetProgramResourceIndex(m_ProgramID, ProgramInterface.UniformBlock, name);
-			ProgramProperty[] prop = { ProgramProperty.BufferBinding };
-			int length;
-			int[] value = { -1 };
-			GL.GetProgramResource(m_ProgramID, ProgramInterface.UniformBlock, index, 1, prop, 1, out length, value);
-			return value[0];
+			return GL.GetProgramResourceIndex(ProgramID, ProgramInterface.UniformBlock, name);
 		}
-
-		public bool IsLinked { get { return isLinked; } }
-
-		public string LastLog { get; private set; }
 
 		public void Link()
 		{
 			try
 			{
-				GL.LinkProgram(m_ProgramID);
+				GL.LinkProgram(ProgramID);
 			}
 			catch (Exception)
 			{
 				throw new ShaderException("Unknown Link error!", string.Empty);
 			}
 			int status_code;
-			GL.GetProgram(m_ProgramID, GetProgramParameterName.LinkStatus, out status_code);
+			GL.GetProgram(ProgramID, GetProgramParameterName.LinkStatus, out status_code);
 			if (1 != status_code)
 			{
-				throw new ShaderException("Error linking shader", GL.GetProgramInfoLog(m_ProgramID));
+				throw new ShaderException("Error linking shader", GL.GetProgramInfoLog(ProgramID));
 			}
-			isLinked = true;
+			IsLinked = true;
 		}
 
 		protected override void DisposeResources()
 		{
-			if (0 != m_ProgramID)
+			if (0 != ProgramID)
 			{
-				GL.DeleteProgram(m_ProgramID);
+				GL.DeleteProgram(ProgramID);
 			}
 		}
-
-		private int m_ProgramID = 0;
-		private bool isLinked = false;
 
 		//private List<int> shaderIDs = new List<int>();
 

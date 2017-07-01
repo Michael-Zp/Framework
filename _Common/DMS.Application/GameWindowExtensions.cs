@@ -1,4 +1,5 @@
 ﻿using DMS.Geometry;
+using OpenTK;
 using OpenTK.Input;
 using OpenTK.Platform;
 using System;
@@ -7,7 +8,7 @@ namespace DMS.Application
 {
 	public static class GameWindowExtensions
 	{
-		public static void ConnectEvents(this IGameWindow gameWindow, CameraOrbit camera)
+		public static void ConnectEvents(this INativeWindow gameWindow, CameraOrbit camera)
 		{
 			gameWindow.Resize += (s, e) => camera.Aspect = (float)gameWindow.Width / gameWindow.Height;
 			gameWindow.MouseMove += (s, e) =>

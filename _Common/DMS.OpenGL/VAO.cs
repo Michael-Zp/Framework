@@ -76,7 +76,7 @@ namespace DMS.OpenGL
 		/// <param name="bindingID">shader binding location</param>
 		/// <param name="data">array of Matrix4 inputs</param>
 		/// <param name="perInstance"></param>
-		public void SetMatrixAttribute(int bindingID, Matrix4[] data, bool perInstance = false)
+		public void SetAttribute(int bindingID, Matrix4[] data, bool perInstance = false)
 		{
 			if (-1 == bindingID) return; //if matrix not used in shader or wrong name
 			Activate();
@@ -140,7 +140,7 @@ namespace DMS.OpenGL
 			if (type == typeof(byte)) return DrawElementsType.UnsignedByte;
 			if (type == typeof(ushort)) return DrawElementsType.UnsignedShort;
 			if (type == typeof(uint)) return DrawElementsType.UnsignedInt;
-			throw new Exception("Invalid index type");
+			throw new VAOException("Invalid index type");
 		}
 		
 		private BufferObject RequestBuffer(int bindingID, BufferTarget bufferTarget)

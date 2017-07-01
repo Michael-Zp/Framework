@@ -20,7 +20,7 @@ namespace DMS.OpenGL
 			GL.BindBuffer​(BufferTarget, bufferID);
 		}
 
-		public void ActivateBind(int index)
+		public void ActivateBind(int index) //todo: more than one bound buffer is not working, but have different indices; test: glUniformBlockBinding
 		{
 			Activate();
 			BufferRangeTarget target = (BufferRangeTarget)BufferTarget;
@@ -32,10 +32,10 @@ namespace DMS.OpenGL
 			GL.BindBuffer​(BufferTarget, 0);
 		}
 
-		public void Set<DataElement>(DataElement[] data, BufferUsageHint usageHint) where DataElement : struct
+		public void Set<DATA_ELEMENT_TYPE>(DATA_ELEMENT_TYPE[] data, BufferUsageHint usageHint) where DATA_ELEMENT_TYPE : struct
 		{
 			Activate();
-			int elementBytes = Marshal.SizeOf(typeof(DataElement));
+			int elementBytes = Marshal.SizeOf(typeof(DATA_ELEMENT_TYPE));
 			int bufferByteSize = data.Length * elementBytes;
 			// set buffer data
 			GL.BufferData(BufferTarget, (IntPtr)bufferByteSize, data, usageHint);
@@ -43,10 +43,10 @@ namespace DMS.OpenGL
 			Deactivate();
 		}
 
-		public void Set<DataElement>(DataElement data, BufferUsageHint usageHint) where DataElement : struct
+		public void Set<DATA_TYPE>(DATA_TYPE data, BufferUsageHint usageHint) where DATA_TYPE : struct
 		{
 			Activate();
-			var elementBytes = Marshal.SizeOf(typeof(DataElement));
+			var elementBytes = Marshal.SizeOf(typeof(DATA_TYPE));
 			// set buffer data
 			GL.BufferData(BufferTarget, elementBytes, ref data, usageHint);
 			//cleanup state

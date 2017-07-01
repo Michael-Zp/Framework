@@ -7,70 +7,78 @@ using System.Collections.Generic;
 
 namespace DMS.HLGL
 {
-	public class NamedTexture
-	{
-		public NamedTexture(string name, Texture texture)
-		{
-			Texture = texture;
-			Name = name;
-		}
-
-		public string Name { get; private set; }
-		public Texture Texture { get; private set; }
-	}
-
-	//todo: make this to a node with typed inputs and outputs
+	//todo: make this into a node with typed inputs and outputs
 	public class DrawConfiguration
 	{
-		public bool BackfaceCulling { get; set; }
-		//todo parameters: buffers
+		public bool BackfaceCulling { get; set; } = false;
+		public int InstanceCount { get; set; } = 1;
 		public Shader Shader { get; private set; }
 		public VAO Vao { get; private set; }
-		public bool ZBufferTest { get; set; }
+		public bool ZBufferTest { get; set; } = false;
 
-		public void AddTexture(NamedTexture tex)
+		public void AddInputTexture(string name, Image image)
 		{
-			textures.Add(tex);
+			textures.Add(name, image.Texture);
 		}
 
-		public void AddTexture(string name)
+		public void AddInputTexture(string name)
 		{
-			textures.Add(new NamedTexture(name, ResourceManager.Instance.Get<Texture>(name).Value));
+			textures.Add(name, ResourceManager.Instance.Get<Texture>(name).Value);
 		}
 
-		public void Draw(StateSetGL stateSetGL, int instanceCount = 1)
+		public void Draw(StateSetGL stateSetGL)
 		{
 			stateSetGL.BackfaceCulling = BackfaceCulling;
 			stateSetGL.ZBufferTest = ZBufferTest;
 			stateSetGL.Shader = Shader;
 
 			BindTextures();
-			var hasParameters = !string.IsNullOrEmpty(parameterTypeName);
-			if (hasParameters)
-			{
-				var bindingIndex = Shader.GetUniformBufferBindingIndex(parameterTypeName);
-				if (-1 == bindingIndex) throw new ArgumentException("Could not find shader parameters '" + parameterTypeName + "'");
-				parameterBuffer.ActivateBind(bindingIndex);
-			}
+			ActivateUniformBuffers();
 
 			var vao = Vao;
-			//todo: parameters.Geometry;
 			if (ReferenceEquals(null, vao))
 			{
 				GL.DrawArrays(PrimitiveType.Quads, 0, 4); //todo: make this general -> mesh with only vertex count? particle system, sprites
 			}
 			else
 			{
-				Vao.Draw();
+				Vao.Draw(InstanceCount);
 			}
 
-			if (hasParameters)
-			{
-				parameterBuffer.Deactivate();
-			}
+			DeactivateUniformBuffers();
 			UnbindTextures();
 
 		}
+
+		public void UpdateInstanceAttribute(string name, int[] data)
+		{
+			Vao.SetAttribute(GetAttributeShaderLocationAndCheckVao(name), data, VertexAttribPointerType.Int, 1, true);
+		}
+
+		public void UpdateInstanceAttribute(string name, float[] data)
+		{
+			Vao.SetAttribute(GetAttributeShaderLocationAndCheckVao(name), data, VertexAttribPointerType.Float, 1, true);
+		}
+
+		public void UpdateInstanceAttribute(string name, System.Numerics.Vector2[] data)
+		{
+			Vao.SetAttribute(GetAttributeShaderLocationAndCheckVao(name), data, VertexAttribPointerType.Float, 2, true);
+		}
+
+		public void UpdateInstanceAttribute(string name, System.Numerics.Vector3[] data)
+		{
+			Vao.SetAttribute(GetAttributeShaderLocationAndCheckVao(name), data, VertexAttribPointerType.Float, 3, true);
+		}
+
+		public void UpdateInstanceAttribute(string name, System.Numerics.Vector4[] data)
+		{
+			Vao.SetAttribute(GetAttributeShaderLocationAndCheckVao(name), data, VertexAttribPointerType.Float, 4, true);
+		}
+
+		//public void UpdateInstanceAttribute<DATA_ELEMENT_TYPE>(string name, DATA_ELEMENT_TYPE[] data) where DATA_ELEMENT_TYPE : struct
+		//{
+		//	Vao.SetAttribute(GetAttributeShaderLocationAndCheckVao(name), data, VertexAttribPointerType.Float, 3, true);
+		//}
 
 		public void UpdateMeshShader(Mesh mesh, string shaderName)
 		{
@@ -82,16 +90,47 @@ namespace DMS.HLGL
 			Vao = ReferenceEquals(null, mesh) ? null : VAOLoader.FromMesh(mesh, Shader);
 		}
 
-		public void UpdateParameters<DATA>(DATA parameters) where DATA : struct
+		public void UpdateUniforms<DATA>(string name, DATA uniforms) where DATA : struct
 		{
-			var type = typeof(DATA);
-			parameterTypeName = type.Name;
-			parameterBuffer.Set(parameters, BufferUsageHint.StaticRead);
+			BufferObject buffer;
+			if (!uniformBuffers.TryGetValue(name, out buffer))
+			{
+				buffer = new BufferObject(BufferTarget.UniformBuffer);
+				uniformBuffers.Add(name, buffer);
+			}
+			buffer.Set(uniforms, BufferUsageHint.StaticRead);
+		}
+		//public void UpdateUniforms<DATA_ELEMENT_TYPE>(string name, DATA_ELEMENT_TYPE[] uniformArray) where DATA_ELEMENT_TYPE : struct
+		//{
+		//	BufferObject buffer;
+		//	if (!uniformBuffers.TryGetValue(name, out buffer))
+		//	{
+		//		buffer = new BufferObject(BufferTarget.UniformBuffer);
+		//		uniformBuffers.Add(name, buffer);
+		//	}
+		//	buffer.Set(uniformArray, BufferUsageHint.StaticRead);
+		//}
+
+		private Dictionary<string, Texture> textures = new Dictionary<string, Texture>();
+		private Dictionary<string, BufferObject> uniformBuffers = new Dictionary<string, BufferObject>();
+
+		private void ActivateUniformBuffers()
+		{
+			foreach (var uBuffer in uniformBuffers)
+			{
+				var bindingIndex = Shader.GetUniformBufferBindingIndex(uBuffer.Key);
+				if (-1 == bindingIndex) throw new ArgumentException("Could not find shader parameters '" + uBuffer.Key + "'");
+				uBuffer.Value.ActivateBind(bindingIndex);
+			}
 		}
 
-		private List<NamedTexture> textures = new List<NamedTexture>();
-		private BufferObject parameterBuffer = new BufferObject(BufferTarget.UniformBuffer);
-		private string parameterTypeName;
+		private void DeactivateUniformBuffers()
+		{
+			foreach (var uBuffer in uniformBuffers)
+			{
+				uBuffer.Value.Deactivate();
+			}
+		}
 
 		private void BindTextures()
 		{
@@ -101,7 +140,7 @@ namespace DMS.HLGL
 				foreach (var namedTex in textures)
 				{
 					GL.ActiveTexture(TextureUnit.Texture0 + id);
-					namedTex.Texture.Activate();
+					namedTex.Value.Activate();
 					++id;
 				}
 			}
@@ -110,8 +149,8 @@ namespace DMS.HLGL
 				foreach (var namedTex in textures)
 				{
 					GL.ActiveTexture(TextureUnit.Texture0 + id);
-					namedTex.Texture.Activate();
-					GL.Uniform1(Shader.GetUniformLocation(namedTex.Name), id);
+					namedTex.Value.Activate();
+					GL.Uniform1(Shader.GetUniformLocation(namedTex.Key), id);
 					++id;
 				}
 			}
@@ -123,10 +162,16 @@ namespace DMS.HLGL
 			foreach (var namedTex in textures)
 			{
 				GL.ActiveTexture(TextureUnit.Texture0 + id);
-				namedTex.Texture.Deactivate();
+				namedTex.Value.Deactivate();
 				++id;
 			}
 			GL.ActiveTexture(TextureUnit.Texture0);
+		}
+
+		private int GetAttributeShaderLocationAndCheckVao(string name)
+		{
+			if (ReferenceEquals(null, Vao)) throw new InvalidOperationException("Specify mesh before setting instance attributes");
+			return Shader.GetAttributeLocation(name);
 		}
 	}
 }

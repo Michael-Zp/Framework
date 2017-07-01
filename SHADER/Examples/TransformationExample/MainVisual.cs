@@ -33,7 +33,7 @@ namespace Example
 			if (ReferenceEquals(shader, null)) return;
 
 			//Matrix4 is stored row-major -> implies a transpose so in shader matrix is column major
-			geometry.SetMatrixAttribute(shader.GetAttributeLocation("instanceTransform"), instanceTransforms, true);
+			geometry.SetAttribute(shader.GetAttributeLocation("instanceTransform"), instanceTransforms, true);
 
 			GL.Clear(ClearBufferMask.ColorBufferBit | ClearBufferMask.DepthBufferBit);
 			shader.Activate();
