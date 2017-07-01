@@ -60,9 +60,9 @@ namespace DMS.Application
 
 		public ResourceManager ResourceManager { get; private set; }
 
-		public Vector2 CalcNormalized(int pixelX, int pixelY)
+		public System.Numerics.Vector2 CalcNormalized(int pixelX, int pixelY)
 		{
-			return new Vector2(pixelX / (gameWindow.Width - 1f), 1f - pixelY / (gameWindow.Height - 1f));
+			return new System.Numerics.Vector2(pixelX / (gameWindow.Width - 1f), 1f - pixelY / (gameWindow.Height - 1f));
 		}
 
 		public void Run()

@@ -180,6 +180,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "HLGLExample", "SHADER\Solut
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "GameLoopExample", "CG\Examples\GameLoopExample\GameLoopExample.csproj", "{3E179B42-E1EF-41A4-804C-6EDBB06EC86C}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ParticlePhysicsExample", "SHADER\Solutions\ParticlePhysicsExample\ParticlePhysicsExample.csproj", "{EF31CB77-8ECF-4C5E-80A0-B0123C1C8647}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -470,6 +472,10 @@ Global
 		{3E179B42-E1EF-41A4-804C-6EDBB06EC86C}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{3E179B42-E1EF-41A4-804C-6EDBB06EC86C}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{3E179B42-E1EF-41A4-804C-6EDBB06EC86C}.Release|Any CPU.Build.0 = Release|Any CPU
+		{EF31CB77-8ECF-4C5E-80A0-B0123C1C8647}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{EF31CB77-8ECF-4C5E-80A0-B0123C1C8647}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{EF31CB77-8ECF-4C5E-80A0-B0123C1C8647}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{EF31CB77-8ECF-4C5E-80A0-B0123C1C8647}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -550,5 +556,6 @@ Global
 		{227D6BE1-BA08-4030-A755-07288540931F} = {353CE3AB-3D8F-4859-9B2B-75BAC7BC2359}
 		{4A06C598-5CAE-4EFF-AE4E-086F8CA86FC3} = {60690206-8C29-45FF-B353-25286A9438CE}
 		{3E179B42-E1EF-41A4-804C-6EDBB06EC86C} = {7784E3B6-CA36-4515-BC9D-7BEC5556D51E}
+		{EF31CB77-8ECF-4C5E-80A0-B0123C1C8647} = {60690206-8C29-45FF-B353-25286A9438CE}
 	EndGlobalSection
 EndGlobal

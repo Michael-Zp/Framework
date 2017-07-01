@@ -30,7 +30,7 @@ namespace Reversi
 			{
 				if (e.Button != MouseButton.Left) return; //only accept left mouse button
 				var coord = app.CalcNormalized(e.X, e.Y); //convert mouse coordinates from pixel to [0,1]²
-				var gridPos = visual.CalcGridPosFromNormalized(coord); //convert normalized mouse coordinates into grid coordinates
+				var gridPos = visual.CalcGridPosFromNormalized(new OpenTK.Vector2(coord.X, coord.Y)); //convert normalized mouse coordinates into grid coordinates
 				logic.Move(gridPos); //do move
 			};
 			app.Run();
