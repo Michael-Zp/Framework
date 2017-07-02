@@ -21,8 +21,6 @@ namespace Example
 		{
 			drawObstacles.UpdateUniforms(nameof(MouseState), mouseState);
 			imageObstacles.Draw(drawObstacles);
-
-			frameBuffer.Clear();
 			frameBuffer.Draw(copyQuad);
 		}
 

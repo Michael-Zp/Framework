@@ -14,10 +14,16 @@ namespace DMS.OpenGL
 		public FrameListCreator(int width, int height, Imaging.PixelFormat format = Imaging.PixelFormat.Format24bppRgb, bool drawToFrameBuffer = true, bool needZbuffer = true)
 		{
 			this.format = format;
-			render2tex = new FBO(Texture.Create(width, height,
-				TextureLoader.SelectInternalPixelFormat(format),
-				TextureLoader.SelectPixelFormat(format)), needZbuffer);
-			if(drawToFrameBuffer) tex2fb = new TextureToFrameBuffer();
+			var tex = Texture.Create(width, height,	TextureLoader.SelectInternalPixelFormat(format), TextureLoader.SelectPixelFormat(format));
+			if (needZbuffer)
+			{
+				render2tex = new FBOwithDepth(tex);
+			}
+			else
+			{
+				render2tex = new FBO(tex);
+			}
+			if (drawToFrameBuffer) tex2fb = new TextureToFrameBuffer();
 		}
 
 		public void Activate()

@@ -44,9 +44,11 @@
     <Compile Include="AnimationTextures.cs" />
     <Compile Include="ColorSystems.cs" />
     <Compile Include="BufferObject.cs" />
+    <Compile Include="FBOwithDepth.cs" />
     <Compile Include="IAnimation.cs" />
     <Compile Include="DrawTools.cs" />
     <Compile Include="QueryObject.cs" />
+    <Compile Include="RenderBuffer.cs" />
     <Compile Include="ShaderException.cs" />
     <Compile Include="SpriteSheetAnimation.cs" />
     <Compile Include="FBO.cs" />

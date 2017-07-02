@@ -16,7 +16,7 @@ namespace DMS.OpenGL
 
 	public class FBO : Disposable
 	{
-		public FBO(Texture texture, bool depthBuffer = false)
+		public FBO(Texture texture)
 		{
 			if (ReferenceEquals(null, texture)) throw new FBOException("Texture is null");
 			this.texture = texture;
@@ -25,13 +25,6 @@ namespace DMS.OpenGL
 			GL.GenFramebuffers(1, out m_FBOHandle);
 			Activate();
 
-			if (depthBuffer)
-			{
-				depth = GL.GenRenderbuffer();
-				GL.BindRenderbuffer(RenderbufferTarget.Renderbuffer, depth);
-				GL.RenderbufferStorage(RenderbufferTarget.Renderbuffer, RenderbufferStorage.DepthComponent32, texture.Width, texture.Height);
-				GL.FramebufferRenderbuffer(FramebufferTarget.Framebuffer, FramebufferAttachment.DepthAttachment, RenderbufferTarget.Renderbuffer, depth);
-			}
 			GL.FramebufferTexture2D(FramebufferTarget.Framebuffer, FramebufferAttachment.ColorAttachment0, TextureTarget.Texture2D, texture.ID, 0);
 
 			string status = GetStatusMessage();
@@ -64,7 +57,6 @@ namespace DMS.OpenGL
 		private Texture texture;
 		private uint m_FBOHandle = 0;
 		private uint lastFBO = 0;
-		private int depth = -1;
 		private static uint currentFrameBufferHandle = 0;
 
 		private string GetStatusMessage()
@@ -86,7 +78,6 @@ namespace DMS.OpenGL
 		protected override void DisposeResources()
 		{
 			GL.DeleteFramebuffers(1, ref m_FBOHandle);
-			if(-1 != depth) GL.DeleteRenderbuffer(depth);
 		}
 	}
 }

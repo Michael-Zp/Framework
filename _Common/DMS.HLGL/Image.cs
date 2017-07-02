@@ -1,14 +1,22 @@
-﻿using DMS.OpenGL;
+﻿using DMS.Base;
+using DMS.OpenGL;
 using OpenTK.Graphics.OpenGL;
 using System;
 
 namespace DMS.HLGL
 {
-	public class Image
+	public class Image : Disposable
 	{
 		public Image(int width, int height, bool hasDepthBuffer = false): this(hasDepthBuffer)
 		{
-			fbo = new FBO(Texture.Create(width, height), hasDepthBuffer);
+			if(hasDepthBuffer)
+			{
+				fbo = new FBOwithDepth(Texture.Create(width, height));
+			}
+			else
+			{
+				fbo = new FBO(Texture.Create(width, height));
+			}
 		}
 
 		public Image(bool hasDepthBuffer = false)
@@ -36,6 +44,11 @@ namespace DMS.HLGL
 		{
 			stateSetGL.Fbo = fbo;
 			config.Draw(stateSetGL);
+		}
+
+		protected override void DisposeResources()
+		{
+			if (!ReferenceEquals(null, fbo)) fbo.Dispose();
 		}
 
 		private FBO fbo = null;
