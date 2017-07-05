@@ -1,7 +1,7 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
-# Visual Studio 14
-VisualStudioVersion = 14.0.25420.1
+# Visual Studio 15
+VisualStudioVersion = 15.0.26430.14
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{6DE0AA68-F375-4C8C-B207-141BF71DF96F}"
 	ProjectSection(SolutionItems) = preProject
@@ -136,8 +136,6 @@ EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "OcclusionQueryExample", "SHADER\Examples\OcclusionQueryExample\OcclusionQueryExample.csproj", "{FC0DCE57-DE47-494B-9CA8-FE2756C300D9}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Raytracer", "ACG\Examples\raytracing\RaytracerCPU\Raytracer.csproj", "{5E1DD531-7FAD-4FA1-BB74-A45566A34346}"
-EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ShaderForm.CodedUITest", "ShaderForm.CodedUITest\ShaderForm.CodedUITest.csproj", "{8EF169C8-0B3D-432D-8B87-A1A53142F368}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -349,10 +347,6 @@ Global
 		{5E1DD531-7FAD-4FA1-BB74-A45566A34346}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{5E1DD531-7FAD-4FA1-BB74-A45566A34346}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{5E1DD531-7FAD-4FA1-BB74-A45566A34346}.Release|Any CPU.Build.0 = Release|Any CPU
-		{8EF169C8-0B3D-432D-8B87-A1A53142F368}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{8EF169C8-0B3D-432D-8B87-A1A53142F368}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{8EF169C8-0B3D-432D-8B87-A1A53142F368}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{8EF169C8-0B3D-432D-8B87-A1A53142F368}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -412,6 +406,5 @@ Global
 		{B477FA61-3ABE-43EC-B785-2306975C65B1} = {E6454C74-3D02-49DC-BF69-CCBD7CE40E25}
 		{FC0DCE57-DE47-494B-9CA8-FE2756C300D9} = {E6454C74-3D02-49DC-BF69-CCBD7CE40E25}
 		{5E1DD531-7FAD-4FA1-BB74-A45566A34346} = {C3FDBD2F-302D-406C-9BE1-BFD1E34C3DCC}
-		{8EF169C8-0B3D-432D-8B87-A1A53142F368} = {C3FDBD2F-302D-406C-9BE1-BFD1E34C3DCC}
 	EndGlobalSection
 EndGlobal
