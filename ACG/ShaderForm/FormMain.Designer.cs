@@ -284,18 +284,21 @@ namespace ShaderForm
 			this.menuOnTop.ShortcutKeys = ((System.Windows.Forms.Keys)((System.Windows.Forms.Keys.Control | System.Windows.Forms.Keys.T)));
 			this.menuOnTop.Size = new System.Drawing.Size(223, 22);
 			this.menuOnTop.Text = "OnTop";
+			this.menuOnTop.CheckedChanged += new System.EventHandler(this.menuOnTop_CheckedChanged);
 			// 
 			// logToolStripMenuItem
 			// 
 			this.logToolStripMenuItem.Name = "logToolStripMenuItem";
 			this.logToolStripMenuItem.Size = new System.Drawing.Size(223, 22);
 			this.logToolStripMenuItem.Text = "Log Window";
+			this.logToolStripMenuItem.Click += new System.EventHandler(this.logToolStripMenuItem_Click);
 			// 
 			// cameraWindowToolStripMenuItem
 			// 
 			this.cameraWindowToolStripMenuItem.Name = "cameraWindowToolStripMenuItem";
 			this.cameraWindowToolStripMenuItem.Size = new System.Drawing.Size(223, 22);
 			this.cameraWindowToolStripMenuItem.Text = "Camera Window";
+			this.cameraWindowToolStripMenuItem.Click += new System.EventHandler(this.cameraWindowToolStripMenuItem_Click);
 			// 
 			// panelSequence
 			// 

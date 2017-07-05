@@ -1,6 +1,7 @@
-﻿using System.Windows.Forms;
+﻿using ShaderForm.Interfaces;
+using System.Windows.Forms;
 
-namespace ShaderForm
+namespace ShaderForm.Camera
 {
 	public class FacadeCamera
 	{
@@ -12,7 +13,7 @@ namespace ShaderForm
 
 		public void AddKeyFrames(float time, IUniforms uniforms)
 		{
-			//todo1: event recursions handle all with mediator pattern or event queue...
+			//todo: event recursions handle all with mediator pattern or similar
 			var position = camera.Position;
 			var rotation = camera.Rotation;
 			for (int i = 0; i < 3; ++i)
