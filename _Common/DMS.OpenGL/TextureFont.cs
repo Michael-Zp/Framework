@@ -1,13 +1,13 @@
 ﻿using DMS.Geometry;
+using DMS.Base;
 using OpenTK.Graphics.OpenGL;
-using System;
 
 namespace DMS.OpenGL
 {
 	/// <summary>
 	/// allows to print text were the individual characters come all from a single texture 
 	/// </summary>
-	public class TextureFont : IDisposable
+	public class TextureFont : Disposable
 	{
 		/// <summary>
 		/// Create a new font that can be printed in OpenGL
@@ -24,6 +24,7 @@ namespace DMS.OpenGL
 			this.texFont = new SpriteSheet(texture, charactersPerLine, characterBoundingBoxWidth, characterBoundingBoxHeight);
 			// Creating 256 Display Lists
 			this.baseList = (uint)GL.GenLists(256);
+			this.characterSpacing = characterSpacing;
 			//foreach of the 256 possible characters create a a quad 
 			//with texture coordinates and store it in a display list
 			var rect = new Box2D(0, 0, 1, 1);
@@ -34,11 +35,6 @@ namespace DMS.OpenGL
 				GL.Translate(characterSpacing, 0, 0);	// Move To The next character
 				GL.EndList();
 			}
-		}
-
-		public void Dispose()
-		{
-			GL.DeleteLists(this.baseList, 256);	// Delete All 256 Display Lists
 		}
 
 		public byte[] ConvertString2Ascii(string text)
@@ -59,19 +55,20 @@ namespace DMS.OpenGL
 			GL.Translate(xPos, yPos, zPos);
 			GL.Scale(size, size, size);
 			var bytes = ConvertString2Ascii(text);
-			texFont.BeginUse();
+			texFont.Activate();
 			PrintRawQuads(bytes);
-			texFont.EndUse();
+			texFont.Deactivate();
 			GL.PopMatrix();
 		}
 
-		public float Width(string text, float size, float characterSpacing = 1.0f)
+		public float Width(string text, float size)
 		{
 			return text.Length * size * characterSpacing;
 		}
 
 		private readonly uint baseList = 0;	// Base Display List For The Font
 		private readonly SpriteSheet texFont;
+		private readonly float characterSpacing;
 
 		private void PrintRawQuads(byte[] text)
 		{
@@ -82,6 +79,11 @@ namespace DMS.OpenGL
 			GL.CallLists(text.Length, ListNameType.UnsignedByte, text); // Write The Text To The Screen
 			GL.PopMatrix();
 			GL.PopAttrib();
+		}
+
+		protected override void DisposeResources()
+		{
+			GL.DeleteLists(this.baseList, 256); // Delete All 256 Display Lists
 		}
 	}
 }

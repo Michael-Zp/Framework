@@ -5,7 +5,6 @@ using OpenTK.Graphics.OpenGL;
 using System;
 using System.Collections.Generic;
 using System.Diagnostics;
-using System.Text;
 
 namespace Example
 {
@@ -15,20 +14,36 @@ namespace Example
 		{
 			camera.FarClip = 500;
 			camera.Distance = 30;
-			var sVertex = Encoding.UTF8.GetString(Resourcen.vertex);
-			var sFragment = Encoding.UTF8.GetString(Resourcen.fragment);
-			shader = ShaderLoader.FromStrings(sVertex, sFragment);
-			geometry = CreateMesh(shader);
-
 			GL.Enable(EnableCap.DepthTest);
 			GL.Enable(EnableCap.CullFace);
 			timeSource.Start();
+		}
+
+		public static readonly string ShaderName = nameof(shader);
+
+		public void ShaderChanged(string name, Shader shader)
+		{
+			if (ShaderName != name) return;
+			this.shader = shader;
+			if (ReferenceEquals(shader, null)) return;
+			Mesh mesh = Obj2Mesh.FromObj(Resourcen.suzanne);
+			geometryBody = VAOLoader.FromMesh(mesh, shader);
+
+			var plane = Meshes.CreateQuad(100, 100, 10, 10);
+			var xForm = new Transformation();
+			xForm.TranslateLocal(0, -20, 0);
+			geometryPlane = VAOLoader.FromMesh(plane.Transform(xForm), shader);
+			//for AMD graphics cards
+			geometryPlane.SetAttribute(shader.GetAttributeLocation("instancePosition"), new Vector3[] { Vector3.Zero }, VertexAttribPointerType.Float, 3, true);
+			geometryPlane.SetAttribute(shader.GetAttributeLocation("instanceScale"), new float[] { 1 }, VertexAttribPointerType.Float, 1, true);
+
 		}
 
 		public CameraOrbit Camera { get { return camera; } }
 
 		public void Render(IEnumerable<IBody> bodies)
 		{
+			if (ReferenceEquals(null, shader)) return;
 			var instancePositions = new List<Vector3>();
 			var instanceScale = new List<float>();
 			foreach (var body in bodies)
@@ -36,8 +51,8 @@ namespace Example
 				instancePositions.Add(body.Location);
 				instanceScale.Add((float)Math.Pow(body.Mass, 0.33f));
 			}
-			geometry.SetAttribute(shader.GetAttributeLocation("instancePosition"), instancePositions.ToArray(), VertexAttribPointerType.Float, 3, true);
-			geometry.SetAttribute(shader.GetAttributeLocation("instanceScale"), instanceScale.ToArray(), VertexAttribPointerType.Float, 1, true);
+			geometryBody.SetAttribute(shader.GetAttributeLocation("instancePosition"), instancePositions.ToArray(), VertexAttribPointerType.Float, 3, true);
+			geometryBody.SetAttribute(shader.GetAttributeLocation("instanceScale"), instanceScale.ToArray(), VertexAttribPointerType.Float, 1, true);
 
 			var time = (float)timeSource.Elapsed.TotalSeconds;
 
@@ -46,23 +61,14 @@ namespace Example
 			GL.Uniform1(shader.GetUniformLocation("time"), time);
 			Matrix4 cam = camera.CalcMatrix().ToOpenTK();
 			GL.UniformMatrix4(shader.GetUniformLocation("camera"), true, ref cam);
-			geometry.Draw(instancePositions.Count);
+			geometryBody.Draw(instancePositions.Count);
+			//geometryPlane.Draw(); //todo student: uncomment for gravity
 			shader.Deactivate();
 		}
 
 		private Shader shader;
 		private Stopwatch timeSource = new Stopwatch();
-		private VAO geometry;
+		private VAO geometryBody, geometryPlane;
 		private CameraOrbit camera = new CameraOrbit();
-
-		private static VAO CreateMesh(Shader shader)
-		{
-			Mesh mesh = Obj2Mesh.FromObj(Resourcen.suzanne);
-			var vao = new VAO();
-			vao.SetAttribute(shader.GetAttributeLocation("position"), mesh.positions.ToArray(), VertexAttribPointerType.Float, 3);
-			vao.SetAttribute(shader.GetAttributeLocation("normal"), mesh.normals.ToArray(), VertexAttribPointerType.Float, 3);
-			vao.SetID(mesh.ids.ToArray(), PrimitiveType.Triangles);
-			return vao;
-		}
 	}
 }

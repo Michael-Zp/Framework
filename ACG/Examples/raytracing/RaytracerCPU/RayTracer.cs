@@ -17,7 +17,7 @@ namespace Raytracer
 			{
 				return scene.Background;
 			}
-			//todo light hit
+			//light hit
 
 			Surface surf = isect.Thing.Surface;
 			Vector3 pos = isect.Ray.Start + isect.Dist * isect.Ray.Dir;

@@ -1,48 +1,30 @@
-﻿using OpenTK;
-using OpenTK.Graphics;
-using OpenTK.Graphics.OpenGL;
-using OpenTK.Input;
+﻿using DMS.Application;
+using DMS.Base;
 using System;
+using System.IO;
 
 namespace Example
 {
-	class MyApplication
+	class Controller
 	{
-		private GameWindow gameWindow;
-		private MainVisual visual;
-
 		[STAThread]
-		public static void Main()
+		private static void Main()
 		{
-			var app = new MyApplication();
-			app.gameWindow.Run();
+			var app = new ExampleApplication();
+			var visual = new MainVisual();
+			app.ResourceManager.ShaderChanged += visual.ShaderChanged;
+			LoadResources(app.ResourceManager);
+
+			app.GameWindow.ConnectEvents(visual.OrbitCamera);
+			app.Render += visual.Render;
+			app.Run();
 		}
 
-		private MyApplication()
+		private static void LoadResources(ResourceManager resourceManager)
 		{
-			gameWindow = new GameWindow();
-			//gameWindow.WindowState = WindowState.Fullscreen;
-			gameWindow.MouseMove += GameWindow_MouseMove;
-			gameWindow.MouseWheel += GameWindow_MouseWheel;
-			gameWindow.KeyDown += (s, arg) => gameWindow.Close();
-			gameWindow.Resize += (s, arg) => GL.Viewport(0, 0, gameWindow.Width, gameWindow.Height);
-			gameWindow.RenderFrame += (s, arg) => visual.Render();			
-			gameWindow.RenderFrame += (s, arg) => gameWindow.SwapBuffers();
-			visual = new MainVisual();
-		}
-
-		private void GameWindow_MouseWheel(object sender, MouseWheelEventArgs e)
-		{
-			visual.OrbitCamera.Distance -= 10 * e.DeltaPrecise;
-		}
-
-		private void GameWindow_MouseMove(object sender, MouseMoveEventArgs e)
-		{
-			if (ButtonState.Pressed == e.Mouse.LeftButton)
-			{
-				visual.OrbitCamera.Heading += 300 * e.XDelta / (float)gameWindow.Width;
-				visual.OrbitCamera.Tilt += 300 * e.YDelta / (float)gameWindow.Height;
-			}
+			var dir = Path.GetDirectoryName(PathTools.GetSourceFilePath()) + @"\Resources\";
+			resourceManager.AddShader(MainVisual.ShaderName, dir + "vertex.glsl", dir + "fragment.glsl"
+				, Resourcen.vertex, Resourcen.fragment);
 		}
 	}
 }

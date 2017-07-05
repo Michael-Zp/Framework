@@ -1,4 +1,5 @@
-﻿using OpenTK.Graphics.OpenGL;
+﻿using DMS.Base;
+using OpenTK.Graphics.OpenGL;
 using System;
 
 namespace DMS.OpenGL
@@ -13,38 +14,50 @@ namespace DMS.OpenGL
 		public FBOException(string msg) : base(msg) { }
 	}
 
-	public class FBO : IDisposable
+	public class FBO : Disposable
 	{
-		public FBO()
+		public FBO(Texture texture)
 		{
+			if (ReferenceEquals(null, texture)) throw new FBOException("Texture is null");
+			this.texture = texture;
+
 			// Create an FBO object
 			GL.GenFramebuffers(1, out m_FBOHandle);
-		}
+			Activate();
 
-		public void BeginUse(Texture texture)
-		{
-			GL.BindFramebuffer(FramebufferTarget.Framebuffer, this.m_FBOHandle);
 			GL.FramebufferTexture2D(FramebufferTarget.Framebuffer, FramebufferAttachment.ColorAttachment0, TextureTarget.Texture2D, texture.ID, 0);
+
 			string status = GetStatusMessage();
+			Deactivate();
 			if (!string.IsNullOrEmpty(status))
 			{
-				EndUse();
 				throw new FBOException(status);
 			}
-			GL.Viewport(0, 0, texture.Width, texture.Height);
 		}
 
-		public void EndUse()
+		public bool IsActive {  get { return currentFrameBufferHandle == m_FBOHandle; } }
+		public Texture Texture { get { return texture; } }
+
+		public void Activate()
 		{
-			GL.BindFramebuffer(FramebufferTarget.FramebufferExt, 0);
+			GL.PushAttrib(AttribMask.ViewportBit);
+			lastFBO = currentFrameBufferHandle;
+			GL.BindFramebuffer(FramebufferTarget.Framebuffer, m_FBOHandle);
+			GL.Viewport(0, 0, Texture.Width, Texture.Height);
+			currentFrameBufferHandle = m_FBOHandle;
 		}
 
-		public void Dispose()
+		public void Deactivate()
 		{
-			GL.DeleteFramebuffers(1, ref this.m_FBOHandle);
+			GL.BindFramebuffer(FramebufferTarget.FramebufferExt, lastFBO);
+			GL.PopAttrib();
+			currentFrameBufferHandle = lastFBO;
 		}
 
+		private Texture texture;
 		private uint m_FBOHandle = 0;
+		private uint lastFBO = 0;
+		private static uint currentFrameBufferHandle = 0;
 
 		private string GetStatusMessage()
 		{
@@ -60,6 +73,11 @@ namespace DMS.OpenGL
 				case FramebufferErrorCode.FramebufferUnsupported: return "This particular FBO configuration is not supported by the implementation.";
 				default: return "Status unknown. (yes, this is really bad.)";
 			}
+		}
+
+		protected override void DisposeResources()
+		{
+			GL.DeleteFramebuffers(1, ref m_FBOHandle);
 		}
 	}
 }

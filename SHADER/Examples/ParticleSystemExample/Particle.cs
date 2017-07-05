@@ -20,6 +20,9 @@ namespace Example
 		public Vector3 Velocity;
 		public Vector3 Acceleration;
 
+		/// <summary>
+		/// Controls how long a particle lives in seconds
+		/// </summary>
 		public float LifeTime { get; set; }
 		public float CreationTime { get; private set; }
 	}

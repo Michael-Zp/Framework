@@ -1,38 +1,37 @@
 ﻿using DMS.OpenGL;
 using DMS.Geometry;
-using OpenTK;
 using OpenTK.Graphics.OpenGL;
 using System;
 using System.Diagnostics;
 using System.Drawing;
+using DMS.Application;
 
 namespace Example
 {
-	class MyApplication
+	class MyVisual
 	{
-		private GameWindow gameWindow;
 		private SpriteSheetAnimation explosion;
+		private SpriteSheetAnimation girlIdleRun;
+		private SpriteSheetAnimation girlJumpBall;
+		private SpriteSheetAnimation girlFight;
+		private SpriteSheetAnimation girlDie;
+		private SpriteSheetAnimation girlBack;
 		private AnimationTextures alienShip;
 		private Stopwatch timeSource = new Stopwatch();
 
-		[STAThread]
-		public static void Main()
+		private MyVisual()
 		{
-			var app = new MyApplication();
-			//run the update loop, which calls our registered callbacks
-			app.gameWindow.Run();
-		}
-
-		private MyApplication()
-		{
-			//setup
-			gameWindow = new GameWindow(700, 700);
-			gameWindow.KeyDown += (s, arg) => gameWindow.Close();
-			gameWindow.Resize += (s, arg) => GL.Viewport(0, 0, gameWindow.Width, gameWindow.Height);
-			gameWindow.RenderFrame += GameWindow_RenderFrame;			
-			gameWindow.RenderFrame += (s, arg) => gameWindow.SwapBuffers();
 			//animation using a single SpriteSheet
-			explosion = new SpriteSheetAnimation(new SpriteSheet(TextureLoader.FromBitmap(Resourcen.explosion), 5), 0, 24, 1);
+			explosion = new SpriteSheetAnimation(new SpriteSheet(TextureLoader.FromBitmap(Resourcen.explosion), 5), 0, 24, 1f);
+
+			//art from https://github.com/sparklinlabs/superpowers-asset-packs
+			var spriteSheetGirl = new SpriteSheet(TextureLoader.FromBitmap(Resourcen.girl_2), 6, 7);
+			girlIdleRun = new SpriteSheetAnimation(spriteSheetGirl, 0, 10, 1f);
+			girlJumpBall = new SpriteSheetAnimation(spriteSheetGirl, 11, 20, 1f);
+			girlFight = new SpriteSheetAnimation(spriteSheetGirl, 21, 25, 1f);
+			girlDie = new SpriteSheetAnimation(spriteSheetGirl, 25, 32, 1f);
+			girlBack = new SpriteSheetAnimation(spriteSheetGirl, 33, 36, 1f);
+
 			//animation using a bitmap for each frame
 			alienShip = new AnimationTextures(.5f);
 			//art from http://millionthvector.blogspot.de/p/free-sprites.html
@@ -54,22 +53,36 @@ namespace Example
 
 			//for transparency in textures
 			GL.BlendFunc(BlendingFactorSrc.SrcAlpha, BlendingFactorDest.OneMinusSrcAlpha);
-			//start game time
-			timeSource.Start();
+			GL.Enable(EnableCap.Blend);
+								
+			timeSource.Start();//start game time
 		}
 
-		private void GameWindow_RenderFrame(object sender, FrameEventArgs e)
+		private void Render()
 		{
 			GL.Clear(ClearBufferMask.ColorBufferBit);
 
 			//color is multiplied with texture color white == no change
 			GL.Color3(Color.White);
 
-			GL.Enable(EnableCap.Blend); // for transparency in textures
-			explosion.Draw(new Box2D(-.7f, -.2f, .4f, .4f), (float)timeSource.Elapsed.TotalSeconds);
+			explosion.Draw(new Box2D(-.7f, .2f, .4f, .4f), (float)timeSource.Elapsed.TotalSeconds);
+			alienShip.Draw(new Box2D(.3f, .2f, .4f, .4f), (float)timeSource.Elapsed.TotalSeconds);
 
-			alienShip.Draw(new Box2D(.3f, -.2f, .4f, .4f), (float)timeSource.Elapsed.TotalSeconds);
-			GL.Disable(EnableCap.Blend); // for transparency in textures
+			girlIdleRun.Draw(new Box2D(-1f, -.6f, .4f, .4f), (float)timeSource.Elapsed.TotalSeconds);
+			girlJumpBall.Draw(new Box2D(-.6f, -.6f, .4f, .4f), (float)timeSource.Elapsed.TotalSeconds);
+			girlFight.Draw(new Box2D( -.2f, -.6f, .4f, .4f), (float)timeSource.Elapsed.TotalSeconds);
+			girlDie.Draw(new Box2D(.2f, -.6f, .4f, .4f), (float)timeSource.Elapsed.TotalSeconds);
+			girlBack.Draw(new Box2D(.6f, -.6f, .4f, .4f), (float)timeSource.Elapsed.TotalSeconds);
+		}
+
+		[STAThread]
+		private static void Main()
+		{
+			var app = new ExampleApplication();
+			//run the update loop, which calls our registered callbacks
+			var visual = new MyVisual();
+			app.Render += visual.Render;
+			app.Run();
 		}
 	}
 }

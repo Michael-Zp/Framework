@@ -1,36 +1,14 @@
-﻿using DMS.OpenGL;
+﻿using DMS.Application;
+using DMS.OpenGL;
 using OpenTK;
 using OpenTK.Graphics.OpenGL;
 using System;
-using System.Drawing;
 
 namespace Example
 {
-	class MyApplication
+	class MyVisual
 	{
-		private GameWindow gameWindow = new GameWindow();
-		private Shader shader;
-
-		[STAThread]
-		public static void Main()
-		{
-			var app = new MyApplication();
-			app.Run();
-		}
-
-		private void Run()
-		{
-			gameWindow.Run(60.0);
-		}
-
-		private MyApplication()
-		{
-			gameWindow.RenderFrame += game_RenderFrame;
-			LoadShader();
-
-		}
-
-		private void LoadShader()
+		private MyVisual()
 		{
 			string sVertexShader = @"
 				#version 430 core				
@@ -51,7 +29,7 @@ namespace Example
 				color = vec4(pos + 1.0, 1.0);
 			}";
 			//read shader from file
-			//string fileName = @"..\..\..\GLSL pixel shader\Hello world.glsl";
+			//string fileName = "Hello world.glsl";
 			//try
 			//{
 			//	using (StreamReader sr = new StreamReader(fileName))
@@ -64,13 +42,24 @@ namespace Example
 			shader = ShaderLoader.FromStrings(sVertexShader, sFragmentShd);
 		}
 
-		private void game_RenderFrame(object sender, FrameEventArgs e)
+		private Shader shader;
+
+		private void Render()
 		{
+			if (ReferenceEquals(shader, null)) return;
 			GL.Clear(ClearBufferMask.ColorBufferBit);
 			shader.Activate();
 			GL.DrawArrays(PrimitiveType.Quads, 0, 4);
 			shader.Deactivate();
-			gameWindow.SwapBuffers();
+		}
+
+		[STAThread]
+		private static void Main()
+		{
+			var app = new ExampleApplication();
+			var visual = new MyVisual();
+			app.Render += visual.Render;
+			app.Run();
 		}
 	}
 }

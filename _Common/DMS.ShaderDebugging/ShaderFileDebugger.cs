@@ -6,25 +6,25 @@ namespace DMS.ShaderDebugging
 {
 	public class ShaderFileDebugger
 	{
-		public ShaderFileDebugger(string vertexFile, string fragmentFile, byte[] vertexShader = null, byte [] fragmentShader = null)
+		//public delegate void ShaderLoadedHandler();
+		//public event ShaderLoadedHandler ShaderLoaded;
+
+		public ShaderFileDebugger(string vertexFile, string fragmentFile,
+			byte[] vertexShader = null, byte[] fragmentShader = null)
 		{
 			if (File.Exists(vertexFile) && File.Exists(fragmentFile))
 			{
 				shaderWatcherVertex = new FileWatcher(vertexFile);
+				shaderWatcherVertex.Changed += (s, e) => form.Close();
 				shaderWatcherFragment = new FileWatcher(fragmentFile);
-				CheckForShaderChange();
-				while(!ReferenceEquals(null, LastException))
-				{
-					form.Hide();
-					FormShaderExceptionFacade.ShowModal(LastException);
-					CheckForShaderChange();
-				}
+				shaderWatcherFragment.Changed += (s, e) => form.Close();
 			}
 			else
 			{
-				var sVertex = Encoding.UTF8.GetString(vertexShader);
-				var sFragment = Encoding.UTF8.GetString(fragmentShader);
+				var sVertex = ReferenceEquals(null, vertexShader) ? string.Empty : Encoding.UTF8.GetString(vertexShader);
+				var sFragment = ReferenceEquals(null, fragmentShader) ? string.Empty : Encoding.UTF8.GetString(fragmentShader);
 				shader = ShaderLoader.FromStrings(sVertex, sFragment);
+				//ShaderLoaded?.Invoke(); //is null because we are in the constructor
 			}
 		}
 
@@ -39,28 +39,31 @@ namespace DMS.ShaderDebugging
 				shader = ShaderLoader.FromFiles(shaderWatcherVertex.FullPath, shaderWatcherFragment.FullPath);
 				shaderWatcherVertex.Dirty = false;
 				shaderWatcherFragment.Dirty = false;
-				form.Clear();
+				//ShaderLoaded?.Invoke();
 				return true;
 			}
 			catch (IOException e)
 			{
-				LastException = new ShaderException("ERROR", e.Message, string.Empty, string.Empty);
-				form.Show(LastException);
+				var exception = new ShaderException(e.Message, string.Empty);
+				ShowDebugDialog(exception);
 			}
 			catch (ShaderException e)
 			{
-				LastException = e;
-				form.Show(e);
+				ShowDebugDialog(e);
 			}
 			return false;
 		}
 
+		private void ShowDebugDialog(ShaderException exception)
+		{
+			var newShaderCode = form.ShowModal(exception);
+		}
+
 		public Shader Shader { get { return shader; } }
-		public ShaderException LastException { get; private set; }
 
 		private Shader shader;
-		private readonly FileWatcher shaderWatcherVertex = null;
-		private readonly FileWatcher shaderWatcherFragment = null;
+		private FileWatcher shaderWatcherVertex = null;
+		private FileWatcher shaderWatcherFragment = null;
 		private readonly FormShaderExceptionFacade form = new FormShaderExceptionFacade();
 	}
 }

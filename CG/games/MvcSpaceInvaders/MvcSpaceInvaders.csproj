@@ -66,6 +66,10 @@
     </EmbeddedResource>
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\..\..\_Common\DMS.Application\DMS.Application.csproj">
+      <Project>{911C6DFF-BE3E-4EA5-ADF2-A363DF797F23}</Project>
+      <Name>DMS.Application</Name>
+    </ProjectReference>
     <ProjectReference Include="..\..\..\_Common\DMS.OpenGL\DMS.OpenGL.csproj">
       <Project>{c660f6af-c100-4169-a9fb-61e1ebe87f34}</Project>
       <Name>DMS.OpenGL</Name>
@@ -77,6 +81,10 @@
     <ProjectReference Include="..\..\..\_Common\DMS.Sound\DMS.Sound.csproj">
       <Project>{78A88806-AD96-4821-B9AD-8FC060F6FEB6}</Project>
       <Name>DMS.Sound</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\..\_Common\DMS.Base\DMS.Base.csproj">
+      <Project>{E5FF60A4-46FB-42D2-9430-BC523315C2E0}</Project>
+      <Name>DMS.Base</Name>
     </ProjectReference>
     <ProjectReference Include="..\..\..\_Common\DMS.TimeTools\DMS.TimeTools.csproj">
       <Project>{54156018-0f41-4eef-aeb4-f1c99cf7a2ab}</Project>

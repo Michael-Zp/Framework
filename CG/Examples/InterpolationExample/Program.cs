@@ -6,27 +6,20 @@ using System;
 using System.Collections.Generic;
 using System.Diagnostics;
 using System.Drawing;
+using DMS.Application;
 
 namespace Example
 {
-	class MyApplication
+	class MyVisual
 	{
 		//private double timeSec = 0;
-		private GameWindow gameWindow;
 		private Texture texBird;
 		private Box2D bird = new Box2D(0, 0, .2f, .2f);
 		private Stopwatch timeSource = new Stopwatch();
 		private List<Vector2> wayPoints = new List<Vector2>();
 		private List<Vector2> wayTangents;
 
-		[STAThread]
-		public static void Main()
-		{
-			var app = new MyApplication();
-			app.gameWindow.Run();
-		}
-
-		private MyApplication()
+		private MyVisual()
 		{
 			//set waypoints of enemy
 			wayPoints.Add(new Vector2(-.5f, -.5f));
@@ -38,23 +31,23 @@ namespace Example
 			//wayPoints.Add(new Vector2(-.5f, .4f));
 			//wayPoints.Add(new Vector2(0, 0));
 			wayTangents = CatmullRomSpline.FiniteDifferenceLoop(wayPoints);
-			//setup
-			gameWindow = new GameWindow(700, 700);
-			gameWindow.VSync = VSyncMode.On;
-			gameWindow.KeyDown += (s, arg) => gameWindow.Close();
-			gameWindow.Resize += (s, arg) => GL.Viewport(0, 0, gameWindow.Width, gameWindow.Height);
-			gameWindow.UpdateFrame += GameWindow_UpdateFrame;
-			gameWindow.RenderFrame += GameWindow_RenderFrame;			
-			gameWindow.RenderFrame += (s, arg) => gameWindow.SwapBuffers();
+
 			texBird = TextureLoader.FromBitmap(Resourcen.bird1);
 			//background clear color
 			GL.ClearColor(Color.White);
 			//for transparency in textures
 			GL.BlendFunc(BlendingFactorSrc.SrcAlpha, BlendingFactorDest.OneMinusSrcAlpha);
+			GL.Enable(EnableCap.Blend); // for transparency in textures
 			timeSource.Start();
 		}
 
-		private void GameWindow_UpdateFrame(object sender, FrameEventArgs e)
+		private void Render()
+		{
+			GL.Clear(ClearBufferMask.ColorBufferBit);
+			DrawTexturedRect(bird, texBird);
+		}
+
+		private void Update(float updatePeriod)
 		{
 			//timeSec += e.Time;
 			//var seconds = (float)timeSec;
@@ -70,17 +63,7 @@ namespace Example
 			bird.CenterY = pos.Y;
 		}
 
-		private void GameWindow_RenderFrame(object sender, FrameEventArgs e)
-		{
-			GL.Clear(ClearBufferMask.ColorBufferBit);
-
-			GL.Enable(EnableCap.Blend); // for transparency in textures
-			//draw enemy
-			DrawTexturedRect(bird, texBird);
-			GL.Disable(EnableCap.Blend); // for transparency in textures
-		}
-
-		private void DrawTexturedRect(Box2D Rectangle, Texture tex)
+		private static void DrawTexturedRect(Box2D Rectangle, Texture tex)
 		{
 			GL.Color3(Color.White);
 			tex.Activate();
@@ -91,6 +74,16 @@ namespace Example
 			GL.TexCoord2(0.0f, 1.0f); GL.Vertex2(Rectangle.X, Rectangle.MaxY);
 			GL.End();
 			tex.Deactivate();
+		}
+
+		[STAThread]
+		private static void Main()
+		{
+			var app = new ExampleApplication();
+			var visual = new MyVisual();
+			app.Render += visual.Render;
+			app.Update += visual.Update;
+			app.Run();
 		}
 	}
 }

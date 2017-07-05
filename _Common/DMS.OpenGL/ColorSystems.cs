@@ -1,5 +1,6 @@
 ﻿using DMS.Geometry;
 using System.Numerics;
+	using SysColor = System.Drawing.Color;
 
 namespace DMS.OpenGL
 {
@@ -25,10 +26,10 @@ namespace DMS.OpenGL
 			return b * Vector3.Lerp(Vector3.One, rgb, s);
 		}
 
-		public static System.Drawing.Color ToSystemColor(this Vector3 color)
+		public static global::System.Drawing.Color ToSystemColor(this Vector3 color)
 		{
 			color *= 255;
-			return System.Drawing.Color.FromArgb((int)color.X, (int)color.Y, (int)color.Z);
+			return global::System.Drawing.Color.FromArgb((int)color.X, (int)color.Y, (int)color.Z);
 		} 
 	}
 }

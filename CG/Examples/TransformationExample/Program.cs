@@ -5,40 +5,27 @@ using OpenTK.Graphics.OpenGL;
 using System;
 using System.Collections.Generic;
 using System.Drawing;
+using DMS.Application;
 
 namespace Example
 {
-	class MyApplication
+	class MyVisual
 	{
-		private GameWindow gameWindow;
 		private Texture texBird;
 		private Vector2 rotCenter = new Vector2(-.9f, 0);
 		private List<Box2D> birds = new List<Box2D>();
 
-		[STAThread]
-		public static void Main()
-		{
-			var app = new MyApplication();
-			app.gameWindow.Run();
-		}
-
-		private MyApplication()
+		private MyVisual()
 		{
 			//setup
-			gameWindow = new GameWindow(700, 700);
-			gameWindow.VSync = VSyncMode.On;
-			gameWindow.KeyDown += (s, arg) => gameWindow.Close();
-			gameWindow.Resize += (s, arg) => GL.Viewport(0, 0, gameWindow.Width, gameWindow.Height);
-			gameWindow.UpdateFrame += GameWindow_UpdateFrame;
-			gameWindow.RenderFrame += GameWindow_RenderFrame;			
-			gameWindow.RenderFrame += (s, arg) => gameWindow.SwapBuffers();
 			texBird = TextureLoader.FromBitmap(Resourcen.bird1);
 			//background clear color
-			GL.ClearColor(Color.DarkGreen);
+			GL.ClearColor(Color.White);
 			//for transparency in textures
 			GL.BlendFunc(BlendingFactorSrc.SrcAlpha, BlendingFactorDest.OneMinusSrcAlpha);
+			GL.Enable(EnableCap.Blend); // for transparency in textures
 			//generate birds
-			for(float delta = .1f; delta < .5f; delta += .1f)
+			for (float delta = .1f; delta < .5f; delta += .1f)
 			{
 				birds.Add(Box2dExtensions.CreateFromCenterSize(rotCenter.X - delta, rotCenter.Y - delta, .1f, .1f));
 				birds.Add(Box2dExtensions.CreateFromCenterSize(rotCenter.X - delta, rotCenter.Y + delta, .1f, .1f));
@@ -47,30 +34,26 @@ namespace Example
 			}
 		}
 
-
-		private void GameWindow_UpdateFrame(object sender, FrameEventArgs e)
+		private void Update(float updatePeriod)
 		{
-			rotCenter.X += 0.003f;
-			var R = Transform2D.CreateRotationAround(rotCenter.X, rotCenter.Y, (float)gameWindow.UpdatePeriod * 4);
+			rotCenter.X += updatePeriod * 0.1f;
+			var t = Transformation2D.CreateRotationAround(rotCenter.X, rotCenter.Y, updatePeriod * 200f);
 			foreach (var bird in birds)
 			{
-				bird.TransformCenter(R);
+				bird.TransformCenter(t);
 			}
 		}
 
-		private void GameWindow_RenderFrame(object sender, FrameEventArgs e)
+		private void Render()
 		{
 			GL.Clear(ClearBufferMask.ColorBufferBit);
-
-			GL.Enable(EnableCap.Blend); // for transparency in textures
 			foreach (var bird in birds)
 			{
 				DrawTexturedRect(bird, texBird);
 			}
-			GL.Disable(EnableCap.Blend); // for transparency in textures
 		}
 
-		private void DrawTexturedRect(Box2D Rectangle, Texture tex)
+		private static void DrawTexturedRect(Box2D Rectangle, Texture tex)
 		{
 			GL.Color3(Color.White);
 			tex.Activate();
@@ -81,6 +64,16 @@ namespace Example
 			GL.TexCoord2(0.0f, 1.0f); GL.Vertex2(Rectangle.X, Rectangle.MaxY);
 			GL.End();
 			tex.Deactivate();
+		}
+
+		[STAThread]
+		private static void Main()
+		{
+			var app = new ExampleApplication();
+			var visual = new MyVisual();
+			app.Update += visual.Update;
+			app.Render += visual.Render;
+			app.Run();
 		}
 	}
 }

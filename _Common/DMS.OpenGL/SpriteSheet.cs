@@ -2,42 +2,58 @@
 
 namespace DMS.OpenGL
 {
+	/// <summary>
+	/// Supports sprite sheets with rectangular sprites
+	/// </summary>
 	public class SpriteSheet
 	{
+		public SpriteSheet(Texture tex, uint spritesPerRow, uint spritesPerColumn
+			, float spriteBoundingBoxWidth = 1.0f, float spriteBoundingBoxHeight = 1.0f)
+		{
+			this.tex = tex;
+			this.tex.FilterMipmap();
+			this.spritesPerRow = spritesPerRow;
+			this.spritesPerColumn = spritesPerColumn;
+			this.spriteBoundingBoxWidth = spriteBoundingBoxWidth;
+			this.spriteBoundingBoxHeight = spriteBoundingBoxHeight;
+		}
+
 		public SpriteSheet(Texture tex, uint spritesPerLine
 			, float spriteBoundingBoxWidth = 1.0f, float spriteBoundingBoxHeight = 1.0f)
 		{
 			this.tex = tex;
-			this.tex.FilterTrilinear();
-			this.spritesPerLine = spritesPerLine;
+			this.tex.FilterMipmap();
+			this.spritesPerRow = spritesPerLine;
+			this.spritesPerColumn = spritesPerLine;
 			this.spriteBoundingBoxWidth = spriteBoundingBoxWidth;
 			this.spriteBoundingBoxHeight = spriteBoundingBoxHeight;
 		}
 
 		public Box2D CalcSpriteTexCoords(uint spriteID)
 		{
-			return CalcSpriteTexCoords(spriteID, SpritesPerLine, SpriteBoundingBoxWidth, SpriteBoundingBoxHeight);
+			return CalcSpriteTexCoords(spriteID, SpritesPerRow, SpritesPerColumn, SpriteBoundingBoxWidth, SpriteBoundingBoxHeight);
 		}
 
-		public static Box2D CalcSpriteTexCoords(uint spriteID, uint spritesPerLine
+		public static Box2D CalcSpriteTexCoords(uint spriteID, uint spritesPerRow, uint spritesPerColumn
 			, float spriteBoundingBoxWidth = 1.0f, float spriteBoundingBoxHeight = 1.0f)
 		{
-			uint row = spriteID / spritesPerLine;
-			uint col = spriteID % spritesPerLine;
+			uint row = spriteID / spritesPerRow;
+			uint col = spriteID % spritesPerRow;
 
-			float centerX = (col + 0.5f) / spritesPerLine;
-			float centerY = 1.0f - (row + 0.5f) / spritesPerLine;
-			float height = spriteBoundingBoxHeight / spritesPerLine;
-			float width = spriteBoundingBoxWidth / spritesPerLine;
+			float centerX = (col + 0.5f) / spritesPerRow;
+			float centerY = 1.0f - (row + 0.5f) / spritesPerColumn;
+			float width = spriteBoundingBoxWidth / spritesPerRow;
+			float height = spriteBoundingBoxHeight / spritesPerColumn;
+			
 			return new Box2D(centerX - 0.5f * width, centerY - 0.5f * height, width, height);
 		}
 
-		public void BeginUse()
+		public void Activate()
 		{
 			tex.Activate();
 		}
 
-		public void EndUse()
+		public void Deactivate()
 		{
 			tex.Deactivate();
 		}
@@ -64,11 +80,19 @@ namespace DMS.OpenGL
 			}
 		}
 
-		public uint SpritesPerLine
+		public uint SpritesPerRow
 		{
 			get
 			{
-				return spritesPerLine;
+				return spritesPerRow;
+			}
+		}
+
+		public uint SpritesPerColumn
+		{
+			get
+			{
+				return spritesPerColumn;
 			}
 		}
 
@@ -82,7 +106,8 @@ namespace DMS.OpenGL
 
 		private readonly float spriteBoundingBoxWidth;
 		private readonly float spriteBoundingBoxHeight;
-		private readonly uint spritesPerLine;
+		private readonly uint spritesPerRow;
+		private readonly uint spritesPerColumn;
 		private readonly Texture tex;
 	}
 }

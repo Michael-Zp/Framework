@@ -1,35 +1,29 @@
-﻿using OpenTK;
-using OpenTK.Graphics.OpenGL;
-using OpenTK.Input;
+﻿using DMS.Application;
+using DMS.OpenGL;
 using System;
-using System.Drawing;
+using System.Windows.Forms;
 
 namespace Example
 {
-	class MyApplication
+	public class MyApplication
 	{
-		private Rasterizer rasterizer;
-
 		[STAThread]
 		public static void Main()
 		{
-			var app = new MyApplication();
-			//run the update loop, which calls our draw callback
-			app.rasterizer.Run();
+			var app = new ExampleApplication();
+			var canvas = new Canvas();
+			var rasterizer = new Rasterizer(10, 10, canvas.Draw);
+			app.Render += rasterizer.Render;
+			//app.Render += () => Screenshot();
+			app.Run();
 		}
 
-		private MyApplication()
+		private static void Screenshot()
 		{
-			rasterizer = new Rasterizer(20, 20, Draw);
-		}
-
-		private void Draw()
-		{
-			GL.Color3(0.2, 0.4, 1);
-			GL.Begin(PrimitiveType.Lines);
-				GL.Vertex2(-1, -1);
-				GL.Vertex2(1, 1);
-			GL.End();
+			var name = System.Reflection.Assembly.GetExecutingAssembly().GetName().Name;
+			var bmp = ReadBack.FrameBuffer();
+			Clipboard.SetImage(bmp);
+			bmp.Save(@"d:\" + name + ".png");
 		}
 	}
 }

@@ -5,7 +5,7 @@
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
     <ProjectGuid>{0D198482-14CC-4FBA-BDF5-8B1633D4E5A4}</ProjectGuid>
-    <OutputType>WinExe</OutputType>
+    <OutputType>Exe</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
     <RootNamespace>Example</RootNamespace>
     <AssemblyName>ParticleSystemExample</AssemblyName>
@@ -72,6 +72,7 @@
       <Private>True</Private>
     </Reference>
     <Reference Include="System" />
+    <Reference Include="System.ComponentModel.Composition" />
     <Reference Include="System.Drawing" />
     <Reference Include="System.Numerics" />
   </ItemGroup>
@@ -93,6 +94,10 @@
     </BootstrapperPackage>
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\..\..\_Common\DMS.Application\DMS.Application.csproj">
+      <Project>{911c6dff-be3e-4ea5-adf2-a363df797f23}</Project>
+      <Name>DMS.Application</Name>
+    </ProjectReference>
     <ProjectReference Include="..\..\..\_Common\DMS.OpenGL\DMS.OpenGL.csproj">
       <Project>{c660f6af-c100-4169-a9fb-61e1ebe87f34}</Project>
       <Name>DMS.OpenGL</Name>
@@ -105,9 +110,14 @@
       <Project>{3c8bcf2c-1019-4a8d-b986-afd6bb80e917}</Project>
       <Name>DMS.ShaderDebugging</Name>
     </ProjectReference>
+    <ProjectReference Include="..\..\..\_Common\DMS.Base\DMS.Base.csproj">
+      <Project>{E5FF60A4-46FB-42D2-9430-BC523315C2E0}</Project>
+      <Name>DMS.Base</Name>
+    </ProjectReference>
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />
+    <None Include="readme.md" />
     <None Include="Resources\smoke.frag" />
     <None Include="Resources\plane.frag" />
     <None Include="Resources\smoke.vert" />

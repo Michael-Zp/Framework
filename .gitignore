@@ -1,5 +1,6 @@
 bin
 obj
+*.lnk
 *.suo
 *.user
 *.sdf

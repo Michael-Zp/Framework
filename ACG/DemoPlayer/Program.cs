@@ -1,16 +1,18 @@
 ﻿using OpenTK;
-using ShaderForm;
 using System;
 using System.Linq;
 using System.Windows.Forms;
 using OpenTK.Input;
+using ShaderForm.Visual;
+using ShaderForm.Demo;
+using ShaderForm.DemoModelFactory;
 
 namespace DemoPlayer
 {
 	class MyApplication
 	{
 		[STAThread]
-		public static void Main()
+		private static void Main()
 		{
 			var app = new MyApplication();
 			app.Run();
@@ -35,7 +37,7 @@ namespace DemoPlayer
 			gameWindow.RenderFrame += game_RenderFrame;
 			visualContext = new VisualContext();
 			var textures = new Textures(visualContext);
-			var shaders = new Shaders(visualContext, NewShaderFile);
+			var shaders = new Shaders(NewShaderFile);
 			demo = new DemoModel(visualContext, shaders, textures, false);
 			demo.TimeSource.TimeFinished += () => gameWindow.Close();
 

@@ -126,6 +126,10 @@
     </BootstrapperPackage>
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\..\_Common\DMS.Base\DMS.Base.csproj">
+      <Project>{E5FF60A4-46FB-42D2-9430-BC523315C2E0}</Project>
+      <Name>DMS.Base</Name>
+    </ProjectReference>
     <ProjectReference Include="..\..\_Common\DMS.TimeTools\DMS.TimeTools.csproj">
       <Project>{54156018-0f41-4eef-aeb4-f1c99cf7a2ab}</Project>
       <Name>DMS.TimeTools</Name>

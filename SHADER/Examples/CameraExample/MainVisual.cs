@@ -1,10 +1,9 @@
-﻿using DMS.OpenGL;
-using DMS.Geometry;
+﻿using DMS.Geometry;
+using DMS.OpenGL;
 using OpenTK;
 using OpenTK.Graphics.OpenGL;
 using System;
 using System.Diagnostics;
-using System.Text;
 
 namespace Example
 {
@@ -16,21 +15,23 @@ namespace Example
 		{
 			camera.FarClip = 500;
 			camera.Distance = 30;
-			var sVertex = Encoding.UTF8.GetString(Resourcen.vertex);
-			var sFragment = Encoding.UTF8.GetString(Resourcen.fragment);
-			shader = ShaderLoader.FromStrings(sVertex, sFragment);
-
-			geometry = CreateMesh(shader);
-
-			CreatePerInstanceAttributes(geometry, shader);
 
 			GL.Enable(EnableCap.DepthTest);
 			GL.Enable(EnableCap.CullFace);
 			timeSource.Start();
 		}
 
+		public void ShaderChanged(string name, Shader shader)
+		{
+			if (ShaderName != name) return;
+			this.shader = shader;
+			if (ReferenceEquals(shader, null)) return;
+			UpdateMesh(shader);
+		}
+
 		public void Render()
 		{
+			if (ReferenceEquals(shader, null)) return;
 			var time = (float)timeSource.Elapsed.TotalSeconds;
 			GL.Clear(ClearBufferMask.ColorBufferBit | ClearBufferMask.DepthBufferBit);
 			shader.Activate();
@@ -41,24 +42,19 @@ namespace Example
 			shader.Deactivate();
 		}
 
+		public static readonly string ShaderName = nameof(shader);
 		private CameraOrbit camera = new CameraOrbit();
 		private const int particelCount = 500;
+
 		private Shader shader;
 		private Stopwatch timeSource = new Stopwatch();
 		private VAO geometry;
 
-		private static VAO CreateMesh(Shader shader)
+		private void UpdateMesh(Shader shader)
 		{
 			Mesh mesh = Obj2Mesh.FromObj(Resourcen.suzanne);
-			var vao = new VAO();
-			vao.SetAttribute(shader.GetAttributeLocation("position"), mesh.positions.ToArray(), VertexAttribPointerType.Float, 3);
-			vao.SetAttribute(shader.GetAttributeLocation("normal"), mesh.normals.ToArray(), VertexAttribPointerType.Float, 3);
-			vao.SetID(mesh.ids.ToArray(), PrimitiveType.Triangles);
-			return vao;
-		}
+			geometry = VAOLoader.FromMesh(mesh, shader);
 
-		private static void CreatePerInstanceAttributes(VAO vao, Shader shader)
-		{
 			//per instance attributes
 			var rnd = new Random(12);
 			Func<float> Rnd01 = () => (float)rnd.NextDouble();
@@ -68,7 +64,7 @@ namespace Example
 			{
 				instancePositions[i] = new Vector3(RndCoord(), RndCoord(), RndCoord());
 			}
-			vao.SetAttribute(shader.GetAttributeLocation("instancePosition"), instancePositions, VertexAttribPointerType.Float, 3, true);
+			geometry.SetAttribute(shader.GetAttributeLocation("instancePosition"), instancePositions, VertexAttribPointerType.Float, 3, true);
 
 			Func<float> RndSpeed = () => (Rnd01() - 0.5f);
 			var instanceSpeeds = new Vector3[particelCount];
@@ -76,7 +72,7 @@ namespace Example
 			{
 				instanceSpeeds[i] = new Vector3(RndSpeed(), RndSpeed(), RndSpeed());
 			}
-			vao.SetAttribute(shader.GetAttributeLocation("instanceSpeed"), instanceSpeeds, VertexAttribPointerType.Float, 3, true);
+			geometry.SetAttribute(shader.GetAttributeLocation("instanceSpeed"), instanceSpeeds, VertexAttribPointerType.Float, 3, true);
 		}
 	}
 }

@@ -42,12 +42,15 @@
     <Compile Include="Circle.cs" />
     <Compile Include="CircleExtensions.cs" />
     <Compile Include="ControlPoints.cs" />
+    <Compile Include="IMeshAttribute.cs" />
     <Compile Include="MathHelper.cs" />
     <Compile Include="Mesh.cs" />
+    <Compile Include="MeshAttribute.cs" />
     <Compile Include="Meshes.cs" />
     <Compile Include="Obj2Mesh.cs" />
     <Compile Include="ObjParser.cs" />
-    <Compile Include="Transform2D.cs" />
+    <Compile Include="Transformation.cs" />
+    <Compile Include="Transformation2D.cs" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Properties\" />

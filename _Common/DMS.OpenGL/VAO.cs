@@ -3,6 +3,7 @@ using OpenTK.Graphics.OpenGL;
 using System.Collections.Generic;
 using System.Runtime.InteropServices;
 using OpenTK;
+using DMS.Base;
 
 namespace DMS.OpenGL
 {
@@ -16,26 +17,21 @@ namespace DMS.OpenGL
 		public VAOException(string msg) : base(msg) { }
 	}
 
-	public class VAO : IDisposable
+	public class VAO : Disposable
 	{
 		public VAO()
 		{
 			idVAO = GL.GenVertexArray();
 		}
 
-		public void Dispose()
-		{
-			foreach (var buffer in boundBuffers.Values)
-			{
-				buffer.Dispose();
-			}
-			boundBuffers.Clear();
-			GL.DeleteVertexArray(idVAO);
-			idVAO = 0;
-		}
+		public int IDLength { get; private set; } = 0;
+		public PrimitiveType PrimitiveType { get; set; } = PrimitiveType.Triangles;
+		public DrawElementsType DrawElementsType { get; private set; } = DrawElementsType.UnsignedShort;
 
-		public void SetID<Index>(Index[] data, PrimitiveType primitiveType) where Index : struct
+		public void SetID<Index>(Index[] data) where Index : struct
 		{
+			if (ReferenceEquals(null, data)) return;
+			if (0 == data.Length) return;
 			Activate();
 			var buffer = RequestBuffer(idBufferBinding, BufferTarget.ElementArrayBuffer);
 			// set buffer data
@@ -43,11 +39,12 @@ namespace DMS.OpenGL
 			//activate for state
 			buffer.Activate();
 			//cleanup state
-			Deactive();
-			buffer.Deactive();
+			Deactivate();
+			buffer.Deactivate();
 			//save data for draw call
 			DrawElementsType drawElementsType = GetDrawElementsType(typeof(Index));
-			idData = new IDData(primitiveType, data.Length, drawElementsType);
+			IDLength = data.Length;
+			DrawElementsType = drawElementsType;
 		}
 
 		public void SetAttribute<DataElement>(int bindingID, DataElement[] data, VertexAttribPointerType type, int elementSize, bool perInstance = false) where DataElement : struct
@@ -67,18 +64,19 @@ namespace DMS.OpenGL
 				GL.VertexAttribDivisor(bindingID, 1);
 			}
 			//cleanup state
-			Deactive();
-			buffer.Deactive();
+			Deactivate();
+			buffer.Deactivate();
 			GL.DisableVertexAttribArray(bindingID);
 		}
 
 		/// <summary>
 		/// sets or updates a vertex attribute of type Matrix4
+		/// Matrix4 is stored row-major, but OpenGL expects data to be column-major, so the Matrix4 inputs become transposed in the shader
 		/// </summary>
 		/// <param name="bindingID">shader binding location</param>
-		/// <param name="data">ATTENTION: here the matrices are assumed to be rowmajor. why i don't know</param>
+		/// <param name="data">array of Matrix4 inputs</param>
 		/// <param name="perInstance"></param>
-		public void SetMatrixAttribute(int bindingID, Matrix4[] data, bool perInstance = false)
+		public void SetAttribute(int bindingID, Matrix4[] data, bool perInstance = false)
 		{
 			if (-1 == bindingID) return; //if matrix not used in shader or wrong name
 			Activate();
@@ -100,7 +98,7 @@ namespace DMS.OpenGL
 				}
 			}
 			//cleanup state
-			Deactive();
+			Deactivate();
 			GL.BindBuffer(BufferTarget.ArrayBuffer, 0);
 			for (int i = 0; i < 4; i++)
 			{
@@ -113,7 +111,7 @@ namespace DMS.OpenGL
 			GL.BindVertexArray(idVAO);
 		}
 
-		public void Deactive()
+		public void Deactivate()
 		{
 			GL.BindVertexArray(0);
 		}
@@ -122,41 +120,27 @@ namespace DMS.OpenGL
 		{
 			Activate();
 			GL.DrawArrays(type, start, count);
-			Deactive();
+			Deactivate();
 		}
 
 		public void Draw(int instanceCount = 1)
 		{
-			if (0 == idData.length) throw new VAOException("Empty id data set! Draw yourself using active/deactivate!");
+			if (0 == IDLength) throw new VAOException("Empty id data set! Draw yourself using active/deactivate!");
 			Activate();
-			GL.DrawElementsInstanced(idData.primitiveType, idData.length, idData.drawElementsType, (IntPtr)0, instanceCount);
-			Deactive();
+			GL.DrawElementsInstanced(PrimitiveType, IDLength, DrawElementsType, (IntPtr)0, instanceCount);
+			Deactivate();
 		}
 
-		private struct IDData
-		{
-			public DrawElementsType drawElementsType;
-			public int length;
-			public PrimitiveType primitiveType;
-
-			public IDData(PrimitiveType primitiveType, int length, DrawElementsType drawElementsType)
-			{
-				this.primitiveType = primitiveType;
-				this.length = length;
-				this.drawElementsType = drawElementsType;
-			}
-		}
-
-		private IDData idData;
 		private int idVAO;
 		private const int idBufferBinding = int.MaxValue;
 		private Dictionary<int, BufferObject> boundBuffers = new Dictionary<int, BufferObject>();
 
 		private static DrawElementsType GetDrawElementsType(Type type)
 		{
+			if (type == typeof(byte)) return DrawElementsType.UnsignedByte;
 			if (type == typeof(ushort)) return DrawElementsType.UnsignedShort;
 			if (type == typeof(uint)) return DrawElementsType.UnsignedInt;
-			throw new Exception("Invalid index type");
+			throw new VAOException("Invalid index type");
 		}
 		
 		private BufferObject RequestBuffer(int bindingID, BufferTarget bufferTarget)
@@ -168,6 +152,17 @@ namespace DMS.OpenGL
 				boundBuffers[bindingID] = buffer;
 			}
 			return buffer;
+		}
+
+		protected override void DisposeResources()
+		{
+			foreach (var buffer in boundBuffers.Values)
+			{
+				buffer.Dispose();
+			}
+			boundBuffers.Clear();
+			GL.DeleteVertexArray(idVAO);
+			idVAO = 0;
 		}
 	}
 }

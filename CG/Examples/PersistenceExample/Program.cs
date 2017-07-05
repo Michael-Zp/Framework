@@ -1,69 +1,52 @@
-﻿using DMS.System;
-using OpenTK;
-using OpenTK.Input;
+﻿using DMS.Application;
+using DMS.Base;
 using System;
-using System.ComponentModel;
 using System.IO;
 using System.Windows.Forms;
 
 namespace Example
 {
-	class MyApplication
+	class Controller
 	{
-		private GameWindow gameWindow;
-		private GameState gameState;
-
-		public MyApplication()
+		[STAThread]
+		private static void Main()
 		{
+			var app = new ExampleApplication();
+			GameState gameState;
 			try
 			{
-				gameState = (GameState)Serialize.ObjFromBinFile(GetGameStateFilePath()); //try to load from file
+				gameState = (GameState)Serialize.ObjFromBinFile(GetGameStateFilePath()); //try to load the game state from a file at start of program
 			}
 			catch
 			{
 				gameState = new GameState(); //loading failed -> reset
 			}
-			gameWindow = new GameWindow();
-			gameWindow.Closing += GameWindow_Closing;
-			gameWindow.KeyDown += GameWindow_KeyDown;
-			gameWindow.MouseDown += GameWindow_MouseDown;
-			gameWindow.RenderFrame += GameWindow_RenderFrame;
-			gameWindow.RenderFrame += (sender, e) => gameWindow.SwapBuffers();
-		}
 
-		[STAThread]
-		public static void Main()
-		{
-			MyApplication app = new MyApplication();
-			app.gameWindow.Run(60.0);
-		}
-
-		private void GameWindow_Closing(object sender, CancelEventArgs e)
-		{
-			gameState.ObjIntoBinFile(GetGameStateFilePath());
-		}
-
-		private void GameWindow_KeyDown(object sender, KeyboardKeyEventArgs e)
-		{
-			if (Key.Escape == e.Key)
+			app.GameWindow.Closing += (s, e) => gameState.ObjIntoBinFile(GetGameStateFilePath()); //save game state at end of program
+			app.GameWindow.KeyDown += (s, e) => { if (e.Key == OpenTK.Input.Key.R) gameState = new GameState(); }; //reset
+			app.GameWindow.MouseDown += (s, e) => 
 			{
-				gameWindow.Exit();
-			}
+				var coord = app.CalcNormalized(e.X, e.Y); //convert mouse coordinates from pixel to [0,1]²
+				HandleInput(gameState, (int)e.Button, coord.X, coord.Y);
+			};
+			//todo student: app.Resize += (width, height) => //todo student: react on window changes (update apsect ratio of game)
+			app.Render += () => Visual.DrawScreen(gameState); //this draws the game using OpenGL
+			//app.Render += () => VisualConsole.DrawScreen(gameState); //this draws the game to the console
+			app.Run();
 		}
 
-		private void GameWindow_MouseDown(object sender, MouseButtonEventArgs e)
+		private static void HandleInput(GameState gameState, int button, float x, float y)
 		{
-			//transform window coordinates to grid coordinates
-			var gridX = (e.X * gameState.GridWidth) / (gameWindow.Width - 1);
-			var gridY = (e.Y * gameState.GridHeight) / (gameWindow.Height - 1);
-
+			//transform normalized coordinates to grid coordinates
+			var gridX = (int)(x * gameState.GridWidth);
+			var gridY = (int)(y * gameState.GridHeight);
 			FieldType field;
-			switch (e.Button)
+			switch (button)
 			{
-				case MouseButton.Left:
+				case 0:
 					field = FieldType.CROSS;
 					break;
-				case MouseButton.Right:
+				case 1:
 					field = FieldType.DIAMONT;
 					break;
 				default:
@@ -71,12 +54,6 @@ namespace Example
 					break;
 			}
 			gameState[gridX, gridY] = field;
-		}
-
-		void GameWindow_RenderFrame(object sender, FrameEventArgs e)
-		{
-			Visual.DrawScreen(gameState);
-			VisualConsole.DrawScreen(gameState);
 		}
 
 		private static string GetGameStateFilePath()

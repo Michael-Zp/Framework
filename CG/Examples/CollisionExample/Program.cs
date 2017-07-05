@@ -1,5 +1,5 @@
-﻿using DMS.Geometry;
-using OpenTK;
+﻿using DMS.Application;
+using DMS.Geometry;
 using OpenTK.Graphics.OpenGL;
 using OpenTK.Input;
 using System;
@@ -7,84 +7,89 @@ using System.Drawing;
 
 namespace Example
 {
-	class MyApplication
+	class Controller
 	{
-		private GameWindow gameWindow = new GameWindow();
-		private Box2D obstacle = new Box2D(0, 1, 0.1f, 0.1f);
-		private Box2D player = new Box2D(0.0f, -0.95f, 0.1f, 0.05f);
-		private Box2D windowBorders = new Box2D(-1.0f, -1.0f, 2.0f, 2.0f);
+		private Box2D obstacle = new Box2D(-0.2f, 1, 0.4f, 0.2f);
+		private Box2D player = new Box2D(0.0f, -0.95f, 0.2f, 0.2f);
 
-		[STAThread]
-		public static void Main()
+		private void Update(float updatePeriod)
 		{
-			var app = new MyApplication();
-			//run the update loop, which calls our registered callbacks
-			app.gameWindow.Run();
-		}
-
-		private MyApplication()
-		{
-			//registers a callback for drawing a frame
-			gameWindow.RenderFrame += GameWindow_RenderFrame;
-			gameWindow.RenderFrame += (sender, e) => gameWindow.SwapBuffers();
-			//register a callback for updating the game logic
-			gameWindow.UpdateFrame += GameWindow_UpdateFrame;
-			gameWindow.KeyDown += GameWindow_KeyDown;
-		}
-
-		private void GameWindow_KeyDown(object sender, KeyboardKeyEventArgs e)
-		{
-			if (Key.Escape == e.Key)
-			{
-				gameWindow.Exit();
-			}
-		}
-
-		private void GameWindow_UpdateFrame(object sender, FrameEventArgs e)
-		{
-			float updatePeriod = (float)gameWindow.UpdatePeriod;
-
-			obstacle.Y -= 0.5f * updatePeriod;
-
 			//player movement
-			float axisLeftRight = Keyboard.GetState()[Key.Left] ? -1.0f : Keyboard.GetState()[Key.Right] ? 1.0f : 0.0f;
-			player.X += updatePeriod * axisLeftRight;
-			//todo: limit player position [left, right]
-
-			//check if obstacle intersects player
-			if(obstacle.Intersects(player))
+			if(Keyboard.GetState()[Key.Left])
 			{
-				//stop updates
-				gameWindow.UpdateFrame -= GameWindow_UpdateFrame;
+				player.X -= updatePeriod;
 			}
-			//check if obstacle has reached lower border
-			if (obstacle.Y < windowBorders.Y)
+			else if (Keyboard.GetState()[Key.Right])
 			{
-				//stop updates
-				gameWindow.UpdateFrame -= GameWindow_UpdateFrame;
+				player.X += updatePeriod;
+			}
+			//todo student: let the player also move up and down
+			//todo student:Limit player movements to window
+
+			//no intersection -> move obstacle
+			if (!obstacle.Intersects(player))
+			{
+				obstacle.Y -= 0.5f * updatePeriod;
+			}
+
+			if(obstacle.MaxY < -1)
+			{
+				obstacle.Y = 1;
 			}
 		}
 
-		private void GameWindow_RenderFrame(object sender, FrameEventArgs e)
+		private void Render()
 		{
-			//clear screen - what happens without?
 			GL.Clear(ClearBufferMask.ColorBufferBit);
 
-			GL.Color3(Color.White);
-			DrawBox(player);
+			GL.Color3(Color.CornflowerBlue);
+			DrawComplex(player);
+			DrawComplex(obstacle);
 
-			GL.Color3(Color.Red);
-			DrawBox(obstacle);
+			GL.LineWidth(2.0f);
+			GL.Color3(Color.YellowGreen);
+			DrawBoxOutline(player);
+			DrawBoxOutline(obstacle);
 		}
-		
-		private void DrawBox(Box2D rect)
+
+		private void DrawBoxOutline(Box2D rect)
 		{
-			GL.Begin(PrimitiveType.Quads);
+			GL.Begin(PrimitiveType.LineLoop);
 			GL.Vertex2(rect.X, rect.Y);
 			GL.Vertex2(rect.MaxX, rect.Y);
 			GL.Vertex2(rect.MaxX, rect.MaxY);
 			GL.Vertex2(rect.X, rect.MaxY);
 			GL.End();
+		}
+
+		private void DrawComplex(Box2D rect)
+		{
+			var xQuarter = rect.X + rect.SizeX * 0.25f;
+			var x3Quarter = rect.X + rect.SizeX * 0.75f;
+			var yThird = rect.Y + rect.SizeY * 0.33f;
+			var y2Third = rect.Y + rect.SizeY * 0.66f;
+			GL.Begin(PrimitiveType.Polygon);
+			GL.Vertex2(rect.CenterX, rect.MaxY);
+			GL.Vertex2(x3Quarter, y2Third);
+			GL.Vertex2(rect.MaxX, rect.CenterY);
+			GL.Vertex2(x3Quarter, yThird);
+			GL.Vertex2(rect.MaxX, rect.Y);
+			GL.Vertex2(rect.CenterX, yThird);
+			GL.Vertex2(rect.X, rect.Y);
+			GL.Vertex2(xQuarter, yThird);
+			GL.Vertex2(rect.X, rect.CenterY);
+			GL.Vertex2(xQuarter, y2Third);
+			GL.End();
+		}
+
+		[STAThread]
+		private static void Main()
+		{
+			var app = new ExampleApplication();
+			var controller = new Controller();
+			app.Render += controller.Render;
+			app.Update += controller.Update;
+			app.Run();
 		}
 	}
 }

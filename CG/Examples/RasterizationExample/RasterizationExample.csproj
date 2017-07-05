@@ -33,6 +33,7 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
+    <Compile Include="Canvas.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Rasterizer.cs" />
   </ItemGroup>
@@ -43,8 +44,13 @@
     </Reference>
     <Reference Include="System" />
     <Reference Include="System.Drawing" />
+    <Reference Include="System.Windows.Forms" />
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\..\..\_Common\DMS.Application\DMS.Application.csproj">
+      <Project>{911C6DFF-BE3E-4EA5-ADF2-A363DF797F23}</Project>
+      <Name>DMS.Application</Name>
+    </ProjectReference>
     <ProjectReference Include="..\..\..\_Common\DMS.OpenGL\DMS.OpenGL.csproj">
       <Project>{c660f6af-c100-4169-a9fb-61e1ebe87f34}</Project>
       <Name>DMS.OpenGL</Name>
@@ -53,9 +59,16 @@
       <Project>{B37B7DDE-435B-4F27-9A9B-9B6DF8744EBE}</Project>
       <Name>DMS.Geometry</Name>
     </ProjectReference>
+    <ProjectReference Include="..\..\..\_Common\DMS.Base\DMS.Base.csproj">
+      <Project>{E5FF60A4-46FB-42D2-9430-BC523315C2E0}</Project>
+      <Name>DMS.Base</Name>
+    </ProjectReference>
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="Properties\" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

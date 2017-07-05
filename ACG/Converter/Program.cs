@@ -1,5 +1,5 @@
-﻿using DMS.System;
-using ShaderForm;
+﻿using DMS.Base;
+using ShaderForm.Demo;
 using ShaderForm.DemoData;
 using ShaderForm.DemoData2;
 using System;

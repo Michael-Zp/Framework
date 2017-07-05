@@ -1,6 +1,6 @@
-﻿using DMS.OpenGL;
+﻿using DMS.Application;
 using DMS.Geometry;
-using OpenTK;
+using DMS.OpenGL;
 using OpenTK.Graphics.OpenGL;
 using OpenTK.Input;
 using System;
@@ -10,9 +10,8 @@ using System.Text;
 
 namespace Example
 {
-	class MyApplication
+	class MyVisual
 	{
-		private GameWindow gameWindow = new GameWindow(1024, 1024);
 		private PostProcessing postProcessing;
 		private Stopwatch globalTime = new Stopwatch();
 		private Box2D bird = Box2dExtensions.CreateFromCenterSize(0.0f, -0.8f, 0.3f, 0.3f);
@@ -20,34 +19,19 @@ namespace Example
 		private Box2D background = new Box2D(-1.0f, -1.0f, 2.0f, 2.0f);
 		private Texture texBackground;
 
-		[STAThread]
-		public static void Main()
+		private MyVisual(int width, int height)
 		{
-			var app = new MyApplication();
-			//run the update loop, which calls our registered callbacks
-			app.gameWindow.Run();
-		}
-
-		private MyApplication()
-		{
-			//registers a callback for drawing a frame
-			gameWindow.RenderFrame += GameWindow_RenderFrame;
-			gameWindow.RenderFrame += (sender, e) => gameWindow.SwapBuffers();
-			//register a callback for updating the game logic
-			gameWindow.UpdateFrame += GameWindow_UpdateFrame;
-			gameWindow.KeyDown += GameWindow_KeyDown;
-
 			texBackground = TextureLoader.FromBitmap(Resources.background);
 			texBird = TextureLoader.FromBitmap(Resources.bird);
 
-			postProcessing = new PostProcessing(gameWindow.Width, gameWindow.Height);
+			postProcessing = new PostProcessing(width, height);
 			try
 			{
 				postProcessing.SetShader(Encoding.UTF8.GetString(Resources.EdgeDetect));
 			}
 			catch (ShaderException e)
 			{
-				Console.WriteLine(e.Log);
+				Console.WriteLine(e.ShaderLog);
 			}
 
 			//for transparency in textures we use blending
@@ -57,27 +41,11 @@ namespace Example
 			globalTime.Start();
 		}
 
-		private void GameWindow_KeyDown(object sender, KeyboardKeyEventArgs e)
-		{
-			if (Key.Escape == e.Key)
-			{
-				gameWindow.Exit();
-			}
-		}
-
-		private void GameWindow_UpdateFrame(object sender, FrameEventArgs e)
-		{
-			float updatePeriod = (float)gameWindow.UpdatePeriod;
-
-			var R = Transform2D.CreateRotationAroundOrigin(2.0f * updatePeriod);
-			bird.TransformCenter(R);
-		}
-
-		private void GameWindow_RenderFrame(object sender, FrameEventArgs e)
+		private void Render()
 		{
 			bool doPostProcessing = !Keyboard.GetState()[Key.Space];
 
-			if(doPostProcessing) postProcessing.Start();
+			if (doPostProcessing) postProcessing.Start();
 
 			GL.Color3(Color.White);
 			//draw background
@@ -90,9 +58,24 @@ namespace Example
 			bird.DrawTexturedRect(Box2D.BOX01);
 			texBird.Deactivate();
 
-			if (doPostProcessing) postProcessing.EndAndApply(gameWindow.Width, gameWindow.Height, (float)globalTime.Elapsed.TotalSeconds);
+			if (doPostProcessing) postProcessing.EndAndApply((float)globalTime.Elapsed.TotalSeconds);
+		}
 
+		private void Update(float updatePeriod)
+		{
+			var t = new Transformation2D();
+			t.RotateLocal(-200f * updatePeriod);
+			bird.TransformCenter(t);
+		}
 
+		[STAThread]
+		private static void Main()
+		{
+			var app = new ExampleApplication();
+			var visual = new MyVisual(app.GameWindow.Width, app.GameWindow.Height);
+			app.Render += visual.Render;
+			app.Update += visual.Update;
+			app.Run();
 		}
 	}
 }

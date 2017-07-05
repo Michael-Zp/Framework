@@ -1,4 +1,5 @@
-﻿using OpenTK.Graphics.OpenGL;
+﻿using DMS.Base;
+using OpenTK.Graphics.OpenGL;
 using System;
 
 namespace DMS.OpenGL
@@ -6,9 +7,9 @@ namespace DMS.OpenGL
 	/// <summary>
 	/// Gl Texture class that allows loading from a file.
 	/// </summary>
-	public class Texture : IDisposable
+	public class Texture : Disposable
 	{
-		public enum FilterMode { NEAREST, BILINEAR, TRILINEAR };
+		public enum FilterMode { NEAREST, LINEAR, MIPMAP };
 
 		/// <summary>
 		/// Initializes a new instance of the <see cref="Texture"/> class.
@@ -24,55 +25,50 @@ namespace DMS.OpenGL
 		public void WrapMode(TextureWrapMode mode)
 		{
 			Activate();
-			GL.TexParameter(TextureTarget.Texture2D, TextureParameterName.TextureWrapS, (int)mode);
-			GL.TexParameter(TextureTarget.Texture2D, TextureParameterName.TextureWrapT, (int)mode);
+			GL.TexParameter(target, TextureParameterName.TextureWrapS, (int)mode);
+			GL.TexParameter(target, TextureParameterName.TextureWrapT, (int)mode);
 			Deactivate();
 		}
 
-		public void Dispose()
-		{
-			GL.DeleteTexture(m_uTextureID);
-		}
-
-		public void FilterBilinear()
+		public void FilterLinear()
 		{
 			Activate();
-			GL.TexParameter(TextureTarget.Texture2D, TextureParameterName.TextureMagFilter, (float)TextureMagFilter.Linear);
-			GL.TexParameter(TextureTarget.Texture2D, TextureParameterName.TextureMinFilter, (float)TextureMinFilter.Linear);
-			GL.TexParameter(TextureTarget.Texture2D, TextureParameterName.GenerateMipmap, 0);
+			GL.TexParameter(target, TextureParameterName.TextureMagFilter, (float)TextureMagFilter.Linear);
+			GL.TexParameter(target, TextureParameterName.TextureMinFilter, (float)TextureMinFilter.Linear);
+			GL.TexParameter(target, TextureParameterName.GenerateMipmap, 0);
 			Deactivate();
-			filterMode = FilterMode.BILINEAR;
+			filterMode = FilterMode.LINEAR;
 		}
 
 		public void FilterNearest()
 		{
 			Activate();
-			GL.TexParameter(TextureTarget.Texture2D, TextureParameterName.TextureMagFilter, (float)TextureMagFilter.Nearest);
-			GL.TexParameter(TextureTarget.Texture2D, TextureParameterName.TextureMinFilter, (float)TextureMinFilter.Nearest);
-			GL.TexParameter(TextureTarget.Texture2D, TextureParameterName.GenerateMipmap, 0);
+			GL.TexParameter(target, TextureParameterName.TextureMagFilter, (float)TextureMagFilter.Nearest);
+			GL.TexParameter(target, TextureParameterName.TextureMinFilter, (float)TextureMinFilter.Nearest);
+			GL.TexParameter(target, TextureParameterName.GenerateMipmap, 0);
 			Deactivate();
 			filterMode = FilterMode.NEAREST;
 		}
 
-		public void FilterTrilinear()
+		public void FilterMipmap()
 		{
 			Activate();
-			GL.TexParameter(TextureTarget.Texture2D, TextureParameterName.TextureMagFilter, (float)TextureMagFilter.Linear);
-			GL.TexParameter(TextureTarget.Texture2D, TextureParameterName.TextureMinFilter, (float)TextureMinFilter.LinearMipmapLinear);
-			GL.TexParameter(TextureTarget.Texture2D, TextureParameterName.GenerateMipmap, 1);
+			GL.TexParameter(target, TextureParameterName.TextureMagFilter, (float)TextureMagFilter.Linear);
+			GL.TexParameter(target, TextureParameterName.TextureMinFilter, (float)TextureMinFilter.LinearMipmapLinear);
+			GL.TexParameter(target, TextureParameterName.GenerateMipmap, 1);
 			Deactivate();
-			filterMode = FilterMode.TRILINEAR;
+			filterMode = FilterMode.MIPMAP;
 		}
 
 		public void Activate()
 		{
 			GL.Enable(EnableCap.Texture2D);
-			GL.BindTexture(TextureTarget.Texture2D, m_uTextureID);
+			GL.BindTexture(target, m_uTextureID);
 		}
 
 		public void Deactivate()
 		{
-			GL.BindTexture(TextureTarget.Texture2D, 0);
+			GL.BindTexture(target, 0);
 			GL.Disable(EnableCap.Texture2D);
 		}
 
@@ -81,19 +77,18 @@ namespace DMS.OpenGL
 			get { return filterMode; }
 			set
 			{
-				switch (value)
+				switch ((FilterMode)(((int)value) % 3))
 				{
 					case FilterMode.NEAREST: FilterNearest(); break;
-					case FilterMode.BILINEAR: FilterBilinear(); break;
-					case FilterMode.TRILINEAR: FilterTrilinear(); break;
+					case FilterMode.LINEAR: FilterLinear(); break;
+					case FilterMode.MIPMAP: FilterMipmap(); break;
 				}
-				filterMode = value;
 			}
 		}
 		public void LoadPixels(IntPtr pixels, int width, int height, PixelInternalFormat internalFormat, PixelFormat inputPixelFormat, PixelType type)
 		{
 			Activate();
-			GL.TexImage2D(TextureTarget.Texture2D, 0, internalFormat, width, height, 0,	inputPixelFormat, type, pixels);
+			GL.TexImage2D(target, 0, internalFormat, width, height, 0, inputPixelFormat, type, pixels);
 			this.Width = width;
 			this.Height = height;
 			Deactivate();
@@ -106,9 +101,14 @@ namespace DMS.OpenGL
 			//create empty texture of given size
 			texture.LoadPixels(IntPtr.Zero, width, height, internalFormat, inputPixelFormat, type);
 			//set default parameters for filtering and clamping
-			texture.FilterBilinear();
+			texture.FilterLinear();
 			texture.WrapMode(TextureWrapMode.Repeat);
 			return texture;
+		}
+
+		protected override void DisposeResources()
+		{
+			GL.DeleteTexture(m_uTextureID);
 		}
 
 		public int Width { get; private set; }
@@ -119,5 +119,6 @@ namespace DMS.OpenGL
 	
 		private readonly uint m_uTextureID = 0;
 		private FilterMode filterMode;
+		private readonly TextureTarget target = TextureTarget.Texture2D;
 	}
 }

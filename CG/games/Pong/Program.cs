@@ -5,29 +5,28 @@ using OpenTK.Graphics.OpenGL;
 using OpenTK.Input;
 using System;
 using System.Drawing;
+using DMS.Application;
 
 namespace Pong
 {
-	class MyApplication
+	class Game
 	{
 		[STAThread]
-		public static void Main()
+		private static void Main()
 		{
-			MyApplication app = new MyApplication();
-			app.gameWindow.Run(60.0);
+			var app = new ExampleApplication();
+			var game = new Game();
+			app.Update += game.Update;
+			app.Render += game.Render;
+			app.Run();
 		}
 
-		public MyApplication()
+		private Game()
 		{
-			gameWindow.KeyUp += (sender, e) => { if (e.Key == Key.Space) { resetBall(true); } };
-			gameWindow.UpdateFrame += GameWindow_UpdateFrame;
-			gameWindow.RenderFrame += GameWindow_RenderFrame;
-			gameWindow.RenderFrame += (sender, e) => { gameWindow.SwapBuffers(); };
-			resetBall(true);
+			ResetBall(true);
 			GL.ClearColor(Color.Black);
 		}
 
-		private GameWindow gameWindow = new GameWindow(1024, 1024);
 		private TextureFont font = new TextureFont(TextureLoader.FromBitmap(Resourcen.Big_Cheese), 10, 32);
 		private Box2D paddle1 = new Box2D(-0.95f, -0.2f, 0.05f, 0.4f);
 		private Box2D paddle2 = new Box2D(0.9f, -0.2f, 0.05f, 0.4f);
@@ -35,28 +34,28 @@ namespace Pong
 		private Vector2 ballV = new Vector2(1.0f, 0.0f);
 		private int player1Points = 0;
 		private int player2Points = 0;
-		
-		private void resetBall(bool toPlayer2)
+
+		private void ResetBall(bool toPlayer2)
 		{
 			ball.X = 0.0f;
 			ball.Y = 0.0f;
 			ballV = new Vector2(toPlayer2 ? 1.0f : -1.0f, 0.0f);
 		}
 
-		private static float movePaddle(float paddleY, bool up, bool down)
+		private static float MovePaddle(float paddleY, float updatePeriod, bool up, bool down)
 		{
 			if (down)
 			{
-				paddleY -= 0.03f;
+				paddleY -= updatePeriod;
 			}
 			if (up)
 			{
-				paddleY += 0.03f;
+				paddleY += updatePeriod;
 			}
 			return OpenTK.MathHelper.Clamp(paddleY, -1.0f, 0.6f);
 		}
 
-		private static float paddleBallResponse(Box2D paddle, Box2D ball)
+		private static float PaddleBallResponse(Box2D paddle, Box2D ball)
 		{
 			float vY = (paddle.CenterY - ball.CenterY) / (0.5f * paddle.SizeY);
 			vY = OpenTK.MathHelper.Clamp(vY, -2.0f, 2.0f);
@@ -64,17 +63,32 @@ namespace Pong
 			return vY;
 		}
 
-		private void GameWindow_UpdateFrame(object sender, FrameEventArgs e)
+		private void Render()
 		{
-			if (Keyboard.GetState()[Key.Escape])
+			GL.Clear(ClearBufferMask.ColorBufferBit);
+			DrawPaddle(paddle1);
+			DrawPaddle(paddle2);
+			DrawCircle(ball.CenterX, ball.CenterY, 0.5f * ball.SizeX);
+			GL.Enable(EnableCap.Blend);
+			GL.BlendFunc(BlendingFactorSrc.SrcAlpha, BlendingFactorDest.OneMinusSrcAlpha);
+			GL.Color4(1.0, 1.0, 1.0, 1.0);
+			string score = player1Points.ToString() + '-' + player2Points.ToString();
+			font.Print(-0.5f * font.Width(score, 0.1f), -0.9f, 0.0f, 0.1f, score);
+			GL.Disable(EnableCap.Blend);
+		}
+
+		private void Update(float updatePeriod)
+		{
+			if (Keyboard.GetState()[Key.Space])
 			{
-				gameWindow.Exit();
+				ResetBall(true);
 			}
-			paddle1.Y = movePaddle(paddle1.Y, Keyboard.GetState()[Key.Q], Keyboard.GetState()[Key.A]);
-			paddle2.Y = movePaddle(paddle2.Y, Keyboard.GetState()[Key.O], Keyboard.GetState()[Key.L]);
+
+			paddle1.Y = MovePaddle(paddle1.Y, updatePeriod, Keyboard.GetState()[Key.Q], Keyboard.GetState()[Key.A]);
+			paddle2.Y = MovePaddle(paddle2.Y, updatePeriod, Keyboard.GetState()[Key.O], Keyboard.GetState()[Key.L]);
 			//move ball
-			ball.X += 1.0f / 60.0f * ballV.X;
-			ball.Y += 1.0f / 60.0f * ballV.Y;
+			ball.X += updatePeriod * ballV.X;
+			ball.Y += updatePeriod * ballV.Y;
 			//reflect ball
 			if (ball.MaxY > 1.0f || ball.Y < -1.0)
 			{
@@ -84,27 +98,27 @@ namespace Pong
 			if (ball.X > 1.0f) 
 			{
 				++player1Points;
-				resetBall(false);
+				ResetBall(false);
 			}
 			if (ball.MaxX < -1.0)
 			{
 				++player2Points;
-				resetBall(true);
+				ResetBall(true);
 			}
 			//paddle vs ball
 			if (paddle1.Intersects(ball))
 			{
-				ballV.Y = paddleBallResponse(paddle1, ball);
+				ballV.Y = PaddleBallResponse(paddle1, ball);
 				ballV.X = 1.0f;
 			}
 			if (paddle2.Intersects(ball))
 			{
-				ballV.Y = paddleBallResponse(paddle2, ball);
+				ballV.Y = PaddleBallResponse(paddle2, ball);
 				ballV.X = -1.0f;
 			}
 		}
 
-		static void drawCircle(float centerX, float centerY, float radius)
+		static void DrawCircle(float centerX, float centerY, float radius)
 		{
 			GL.Begin(PrimitiveType.Polygon);
 			GL.Color3(Color.Red);
@@ -117,7 +131,7 @@ namespace Pong
 			GL.End();
 		}
 
-		static void drawPaddle(Box2D frame)
+		static void DrawPaddle(Box2D frame)
 		{
 			GL.Begin(PrimitiveType.Quads);
 			GL.Color3(Color.Green);
@@ -126,20 +140,6 @@ namespace Pong
 			GL.Vertex2(frame.MaxX, frame.MaxY);
 			GL.Vertex2(frame.X, frame.MaxY);
 			GL.End();
-		}
-
-		void GameWindow_RenderFrame(object sender, FrameEventArgs e)
-		{
-			GL.Clear(ClearBufferMask.ColorBufferBit);
-			drawPaddle(paddle1);
-			drawPaddle(paddle2);
-			drawCircle(ball.CenterX, ball.CenterY, 0.5f * ball.SizeX);
-			GL.Enable(EnableCap.Blend);
-			GL.BlendFunc(BlendingFactorSrc.SrcAlpha, BlendingFactorDest.OneMinusSrcAlpha);
-			GL.Color4(1.0, 1.0, 1.0, 1.0);
-			string score = player1Points.ToString() + '-' + player2Points.ToString();
-			font.Print(-0.5f * font.Width(score, 0.1f), -0.9f, 0.0f, 0.1f, score);
-			GL.Disable(EnableCap.Blend);
 		}
 	}
 }

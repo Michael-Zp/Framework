@@ -1,4 +1,6 @@
 ﻿using ShaderForm;
+using ShaderForm.DemoModelFactory;
+using ShaderForm.Visual;
 using System;
 using System.IO;
 

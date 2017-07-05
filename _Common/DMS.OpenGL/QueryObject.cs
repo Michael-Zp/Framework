@@ -1,9 +1,9 @@
-﻿using OpenTK.Graphics.OpenGL;
-using System;
+﻿using DMS.Base;
+using OpenTK.Graphics.OpenGL;
 
 namespace DMS.OpenGL
 {
-	public class QueryObject : IDisposable
+	public class QueryObject : Disposable
 	{
 		public QueryObject()
 		{
@@ -19,10 +19,6 @@ namespace DMS.OpenGL
 		public void Deactivate()
 		{
 			GL.EndQuery(Target);
-		}
-		public void Dispose()
-		{
-			GL.DeleteQueries(1, ref id);
 		}
 
 		public bool IsFinished
@@ -45,6 +41,16 @@ namespace DMS.OpenGL
 			}
 		}
 
+		public long ResultLong
+		{
+			get
+			{
+				long result;
+				GL.GetQueryObject(id, GetQueryObjectParam.QueryResult, out result);
+				return result;
+			}
+		}
+
 		public QueryTarget Target { get; private set; }
 
 		public bool TryGetResult(out int result)
@@ -52,6 +58,18 @@ namespace DMS.OpenGL
 			result = -1;
 			GL.GetQueryObject(id, GetQueryObjectParam.QueryResultNoWait, out result);
 			return -1 != result;
+		}
+
+		public bool TryGetResult(out long result)
+		{
+			result = -1;
+			GL.GetQueryObject(id, GetQueryObjectParam.QueryResultNoWait, out result);
+			return -1 != result;
+		}
+
+		protected override void DisposeResources()
+		{
+			GL.DeleteQueries(1, ref id);
 		}
 
 		private int id;

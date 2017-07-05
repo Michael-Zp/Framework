@@ -24,7 +24,7 @@ namespace MvcSokoban
 			GL.LoadIdentity();
 			GL.Enable(EnableCap.Blend);
 			GL.BlendFunc(BlendingFactorSrc.SrcAlpha, BlendingFactorDest.OneMinusSrcAlpha);
-			spriteSheet.BeginUse();
+			spriteSheet.Activate();
 			GL.Color3(Color.White);
 			for (int x = 0; x < level.Width; ++x)
 			{
@@ -34,7 +34,7 @@ namespace MvcSokoban
 				}
 			}
 
-			spriteSheet.EndUse();
+			spriteSheet.Deactivate();
 			GL.Disable(EnableCap.Blend);
 		}
 

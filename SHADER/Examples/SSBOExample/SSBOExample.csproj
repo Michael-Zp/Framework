@@ -5,7 +5,7 @@
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
     <ProjectGuid>{B477FA61-3ABE-43EC-B785-2306975C65B1}</ProjectGuid>
-    <OutputType>WinExe</OutputType>
+    <OutputType>Exe</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
     <RootNamespace>Example</RootNamespace>
     <AssemblyName>SSBOExample</AssemblyName>
@@ -87,6 +87,14 @@
     </BootstrapperPackage>
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\..\..\_Common\DMS.Application\DMS.Application.csproj">
+      <Project>{911C6DFF-BE3E-4EA5-ADF2-A363DF797F23}</Project>
+      <Name>DMS.Application</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\..\_Common\DMS.Geometry\DMS.Geometry.csproj">
+      <Project>{b37b7dde-435b-4f27-9a9b-9b6df8744ebe}</Project>
+      <Name>DMS.Geometry</Name>
+    </ProjectReference>
     <ProjectReference Include="..\..\..\_Common\DMS.OpenGL\DMS.OpenGL.csproj">
       <Project>{c660f6af-c100-4169-a9fb-61e1ebe87f34}</Project>
       <Name>DMS.OpenGL</Name>
@@ -95,9 +103,14 @@
       <Project>{3c8bcf2c-1019-4a8d-b986-afd6bb80e917}</Project>
       <Name>DMS.ShaderDebugging</Name>
     </ProjectReference>
+    <ProjectReference Include="..\..\..\_Common\DMS.Base\DMS.Base.csproj">
+      <Project>{E5FF60A4-46FB-42D2-9430-BC523315C2E0}</Project>
+      <Name>DMS.Base</Name>
+    </ProjectReference>
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />
+    <None Include="readme.md" />
     <None Include="Resources\fragment.frag" />
     <None Include="Resources\vertex.vert" />
   </ItemGroup>

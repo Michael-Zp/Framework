@@ -1,45 +1,28 @@
-### Setup
-+ [notepad++ GLSL syntax highlighting and intelisense](https://github.com/danielscherzer/MMPROG/tree/master/notepad%2B%2B%20glsl%20extension)
-+ [visual studio (incl. 2015) shader highlighting](http://www.horsedrawngames.com/shader-syntax-highlighting-in-visual-studio-2013/)
-
-
-### Exercises
-1. **MinimalShaderExample**: compile/run/tweak shader
-1. **ShaderVBOExample**: get points to follow mouse cursor
-1. **InstancingExample**: add instance attribute speed (an individual speed for each sphere) and move spheres in vertex shader
-1. **MeshExample**: test [obj](http://www.scratchapixel.com/old/lessons/3d-advanced-lessons/obj-file-format/obj-file-format/) loading (only triangulated, single mesh models); load textured model; use instancing; 
-1. **TransformationExample**: 
-    1. get each head to rotate individually
-    1. let heads orbit each other -> binary head systems
-    1. solar systems of heads in a galaxy of heads; the big head-bang theory...
-1. **CameraExample**: 
-    1. account for the aspect ratio of your window
-    1. create a camera class using LookAt or custom transformation
-    1. use ortho instead of perspective
-1. **PhysicsExample**:
-    1. implement wind
-    1. implement downward gravity (everything falls down onto a plane)
-1. **LightingExample**:
-    1. implement phong shading
-    1. add a point light source
-    1. add a spot light source
-    1. animate light positions, directions, angles
-    1. implement phong lighting
-1. **LightingNPRExample**:
-    1. implement Toon shading
-    1. add cel shading
-    1. implement Gooch lighting
-
-### [Links and further reading](https://github.com/danielscherzer/Framework/blob/master/readme.md)
-
+## Examples
+1. [MinimalShaderExample](/SHADER/Examples/MinimalShaderExample) 
+1. [ShaderDebugExample](/SHADER/Examples/ShaderDebugExample)
+1. [ShaderDebugDialogExample](/SHADER/Examples/ShaderDebugDialogExample)
+1. [GeometryExample](/SHADER/Examples/GeometryExample)
+1. [MeshExample](/SHADER/Examples/MeshExample)
+1. [InstancingExample](/SHADER/Examples/InstancingExample)
+1. [TransformationExample](/SHADER/Examples/TransformationExample)
+1. [CameraTransformationExample](/SHADER/Examples/CameraTransformationExample)
+1. [CameraExample](/SHADER/Examples/CameraExample)
+1. [PhongLightingExample](/SHADER/Examples/PhongLightingExample)
+1. [EnvMappingExample](/SHADER/Examples/EnvMappingExample)
+1. [RenderToTextureExample](/SHADER/Examples/RenderToTextureExample)
+1. [ShadowMappingExample](/SHADER/Examples/ShadowMappingExample)
+1. [PhysicsExample](/SHADER/Examples/PhysicsExample)
+1. [ParticleSystemExample](/SHADER/Examples/ParticleSystemExample)
+<!--1. [SSBOExample](/SHADER/Examples/SSBOExample)-->
 
 ## Best Practices
 #### Automatic conversion of the data type of a uniform
 **Example:**
-app code: `GL.Uniform1(shader.GetUniformLocation("time"), timeSource.Elapsed.TotalSeconds);`
+application code: `GL.Uniform1(shader.GetUniformLocation("time"), timeSource.Elapsed.TotalSeconds);`
 shader code: `uniform float time;`
 
 **Problem:** `timeSource.Elapsed.TotalSeconds` returns a `double`. the shader expects a `float`. 
-does not work on for instance intel HW, `uniform float time` stays on `0`.
+does not work on for instance Intel HW, `uniform float time` stays on `0`.
 
 **Solution:** explicit conversion: `GL.Uniform1(shader.GetUniformLocation("time"), (float)timeSource.Elapsed.TotalSeconds);`

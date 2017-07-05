@@ -32,10 +32,15 @@ namespace ShaderForm
 			multiGraph.ChangedPosition += (pos) => soundPlayerBar1.Position = pos;
 			multiGraph.KeyDown += FormMain_KeyDown;
 			camera.Redraw += (position) => glControl.Invalidate();
+			cameraWindowToolStripMenuItem.Click += (s, e) => camera.Show();
+			addCameraUniformsToolStripMenuItem.Click += (s, e) => camera.AddKeyFrames(demo.TimeSource.Position, demo.Uniforms);
+
+			logToolStripMenuItem.Click += (s, e) => log.Show();
 			soundPlayerBar1.PositionChanged += (position) => glControl.Invalidate();
 			soundPlayerBar1.PositionChanged += (position) => multiGraph.UpdatePosition(position);
 			soundPlayerBar1.PositionChanged += (position) => camera.UpdateFromUniforms(demo.Uniforms, position);
 
+			menuOnTop.CheckedChanged += (s, e) => TopMost = menuOnTop.Checked;
 			menuHelp.Click += (sender, e) => Dialogs.Help();
 			menuLoad.Click += (sender, e) => Dialogs.OpenFile(demoFilter
 				, (fileName) => LoadDemo(fileName));
@@ -533,26 +538,6 @@ namespace ShaderForm
 			camera.Reset();
 		}
 
-		private void addCameraUniformsToolStripMenuItem_Click(object sender, EventArgs e)
-		{
-			camera.AddKeyFrames(demo.TimeSource.Position, demo.Uniforms);
-		}
-
-		private void menuOnTop_CheckedChanged(object sender, EventArgs e)
-		{
-			TopMost = menuOnTop.Checked;
-		}
-
-		private void logToolStripMenuItem_Click(object sender, EventArgs e)
-		{
-			log.Show();
-		}
-
-		private void cameraWindowToolStripMenuItem_Click(object sender, EventArgs e)
-		{
-			camera.Show();
-		}
-
 		private void menuCompact_CheckStateChanged(object sender, EventArgs e)
 		{
 			if (menuCompact.Checked)
@@ -582,15 +567,6 @@ namespace ShaderForm
 			this.panelSequence.Visible = false;
 			this.soundPlayerBar1.Visible = false;
 			this.Bounds = bounds;
-		}
-
-		private void glControl_MouseEnter(object sender, EventArgs e)
-		{
-			//if (menuCompact.Checked)
-			//{
-			//	NormalView();
-			//	Activate();
-			//}
 		}
 
 		private void FormMain_Deactivate(object sender, EventArgs e)

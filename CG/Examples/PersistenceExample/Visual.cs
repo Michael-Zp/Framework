@@ -1,7 +1,6 @@
 ﻿using DMS.Geometry;
 using OpenTK.Graphics.OpenGL;
 using System.Drawing;
-using System;
 
 namespace Example
 {
@@ -24,8 +23,8 @@ namespace Example
 			{
 				for (int v = 0; v < state.GridHeight; ++v)
 				{
-					cell.X = deltaX * u - 1.0f;
-					cell.Y = 1.0f - deltaY * (v + 1);
+					cell.X = deltaX * u - 1f;
+					cell.Y = deltaY * v - 1f;
 					switch (state[u, v])
 					{
 						case FieldType.DIAMONT:

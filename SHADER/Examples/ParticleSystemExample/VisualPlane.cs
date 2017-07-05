@@ -13,13 +13,13 @@ namespace Example
 			var sVertex = Encoding.UTF8.GetString(Resourcen.plane_vert);
 			var sFragment = Encoding.UTF8.GetString(Resourcen.plane_frag);
 			shdPlane = ShaderLoader.FromStrings(sVertex, sFragment);
-			var mesh = Meshes.CreatePlane(2, 2, 1, 1);
-			plane.SetAttribute(shdPlane.GetAttributeLocation("position"), mesh.positions.ToArray(), VertexAttribPointerType.Float, 3);
-			plane.SetID(mesh.ids.ToArray(), PrimitiveType.Triangles);
+			var mesh = Meshes.CreateQuad(2, 2, 1, 1);
+			plane = VAOLoader.FromMesh(mesh, shdPlane);
 		}
 
 		public void Draw(Matrix4 cam)
 		{
+			if (ReferenceEquals(shdPlane, null)) return;
 			GL.Disable(EnableCap.CullFace);
 			shdPlane.Activate();
 			GL.UniformMatrix4(shdPlane.GetUniformLocation("camera"), true, ref cam);

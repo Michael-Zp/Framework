@@ -32,6 +32,7 @@ namespace DMS.Geometry
 		}
 
 		public static readonly Box2D BOX01 = new Box2D(0, 0, 1, 1);
+		public static readonly Box2D EMPTY = new Box2D(0, 0, 0, 0);
 
 		public float SizeX { get; set; }
 

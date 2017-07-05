@@ -7,22 +7,23 @@ namespace DMS.ShaderDebugging
 {
 	public partial class FormShaderException : Form
 	{
-		public event EventHandler<EventArgs> Save;
-
 		public FormShaderException()
 		{
 			InitializeComponent();
-		}
-
-		private void OnMouseWheel(object sender, MouseEventArgs e)
-		{
-			if (Keys.Control == ModifierKeys)
-			{
-				FontSize += Math.Sign(e.Delta) * 2;
-			}
+			listBox.DataSource = errors;
+			listBox.MouseWheel += OnMouseWheel;
+			richTextBox.MouseWheel += OnMouseWheel;
 		}
 
 		public BindingList<ShaderLogLine> Errors { get { return errors; } }
+
+		public string ShaderSourceCode { get { return richTextBox.Text; } set { richTextBox.Text = value; } }
+
+		public void Select(int id)
+		{
+			listBox.SelectedIndex = id;
+			listBox_SelectedIndexChanged(null, null);
+		}
 
 		public float FontSize
 		{
@@ -41,20 +42,27 @@ namespace DMS.ShaderDebugging
 
 		private BindingList<ShaderLogLine> errors = new BindingList<ShaderLogLine>();
 
+		private void OnMouseWheel(object sender, MouseEventArgs e)
+		{
+			if (Keys.Control == ModifierKeys)
+			{
+				FontSize += Math.Sign(e.Delta) * 2;
+			}
+		}
+
 		private void FormShaderError_KeyDown(object sender, KeyEventArgs e)
 		{
 			switch (e.KeyCode)
 			{
-				case Keys.S: if (Keys.Control == ModifierKeys) Save(sender, EventArgs.Empty); break;
-				case Keys.Escape: Close(); break;
+				case Keys.Escape: buttonCancel.PerformClick(); break;
+				case Keys.S: if (e.Control) buttonSave.PerformClick(); break;
 			}
 		}
 
-		private void listBox_SelectedIndexChanged(object sender, System.EventArgs e)
+		private void listBox_SelectedIndexChanged(object sender, EventArgs e)
 		{
 			richTextBox.Select(0, richTextBox.Text.Length);
-			richTextBox.SelectionBackColor = Color.White;
-			richTextBox.SelectionColor = Color.Black;
+			richTextBox.SelectionColor = Color.White;
 			try
 			{
 				var logLine = errors[listBox.SelectedIndex];
@@ -63,7 +71,6 @@ namespace DMS.ShaderDebugging
 				int length = richTextBox.Lines[nr].Length;
 				richTextBox.Select(start, length);
 				richTextBox.SelectionBackColor = Color.DarkRed;
-				richTextBox.SelectionColor = Color.White;
 				richTextBox.ScrollToCaret();
 			}
 			catch { }
@@ -71,19 +78,19 @@ namespace DMS.ShaderDebugging
 
 		private void FormShaderException_FormClosing(object sender, FormClosingEventArgs e)
 		{
-			e.Cancel = true;
-			Visible = false;
 			this.SaveLayout();
 			RegistryLoader.SaveValue(Name, "fontSize", FontSize);
 		}
 
 		private void FormShaderException_Load(object sender, EventArgs e)
 		{
-			listBox.DataSource = errors;
-			listBox.MouseWheel += OnMouseWheel;
-			richTextBox.MouseWheel += OnMouseWheel;
 			this.LoadLayout();
 			FontSize = (float)Convert.ToDouble(RegistryLoader.LoadValue(Name, "fontSize", 12.0f));
+		}
+
+		private void FormShaderException_Shown(object sender, EventArgs e)
+		{
+			TopMost = false;
 		}
 	}
 }

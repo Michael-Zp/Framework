@@ -1,43 +1,25 @@
-﻿using DMS.Geometry;
+﻿using DMS.Application;
+using DMS.Geometry;
 using OpenTK.Graphics.OpenGL;
 using OpenTK.Input;
 using System;
 using System.Collections.Generic;
 using System.Diagnostics;
-using System.Numerics;
 
 namespace Example
 {
-	class MyApplication
+	class Controller
 	{
-		private OpenTK.GameWindow gameWindow = new OpenTK.GameWindow();
 		private List<Collider> colliders = new List<Collider>();
 		private Box2D windowBorders = new Box2D(-1.0f, -1.0f, 2.0f, 2.0f);
 		private CollisionGrid collisionGrid;
-		private Stopwatch stopWatch = new Stopwatch();
-		private double smoothedBenchmark = 0;
-		private static Random rnd = new Random(12);
+		private Stopwatch time = new Stopwatch();
+		private double lastBenchmark = 0;
 
-		[STAThread]
-		public static void Main()
+		private Controller()
 		{
-			var app = new MyApplication();
-			//run the update loop, which calls our registered callbacks
-			app.gameWindow.Run(60.0f, 60.0f);
-		}
-
-		private MyApplication()
-		{
-			//gameWindow.WindowState = OpenTK.WindowState.Fullscreen;
-			GL.Viewport(0, 0, gameWindow.Width, gameWindow.Height);
 			SetupColliders();
-			//registers a callback for drawing a frame
-			gameWindow.RenderFrame += GameWindow_RenderFrame;
-			gameWindow.RenderFrame += (sender, e) => gameWindow.SwapBuffers();
-			//register a callback for updating the game logic
-			gameWindow.UpdateFrame += GameWindow_UpdateFrame;
-
-			gameWindow.KeyDown += GameWindow_KeyDown;
+			time.Start();
 		}
 
 		private void SetupColliders()
@@ -52,7 +34,7 @@ namespace Example
 				for (float y = -0.9f; y < 0.9f; y += delta)
 				{
 					var collider = new Collider(x, y, size, size);
-					collider.Velocity = RndVelocity();
+					collider.Velocity = RandomVectors.Velocity();
 					colliders.Add(collider);
 					++i;
 				}
@@ -61,17 +43,8 @@ namespace Example
 			collisionGrid = new CollisionGrid(windowBorders, size * scale, size * scale);
 		}
 
-		private void GameWindow_KeyDown(object sender, KeyboardKeyEventArgs e)
+		private void Update(float updatePeriod)
 		{
-			if (Key.Escape == e.Key)
-			{
-				gameWindow.Exit();
-			}
-		}
-
-		private void GameWindow_UpdateFrame(object sender, OpenTK.FrameEventArgs e)
-		{
-			float updatePeriod = (float)gameWindow.TargetUpdatePeriod;
 			//movement
 			foreach (var collider in colliders)
 			{
@@ -86,7 +59,7 @@ namespace Example
 				}
 			}
 
-			stopWatch.Restart(); //measure time spend on collision detection
+			var t1 = time.Elapsed.TotalMilliseconds; //get time before collision detection
 			//handle collisions
 			if(Keyboard.GetState().IsKeyDown(Key.Space))
 			{
@@ -96,11 +69,13 @@ namespace Example
 			{
 				GridCollision();
 			}
-			stopWatch.Stop();
+			var t2 = time.Elapsed.TotalMilliseconds; //get time after collision detection
 
-			var inertness = MathHelper.Clamp(gameWindow.UpdatePeriod, 0.001, 1.0);
-			smoothedBenchmark = MathHelper.Lerp(smoothedBenchmark, stopWatch.Elapsed.TotalMilliseconds, inertness);
-			Console.WriteLine(smoothedBenchmark.ToString());
+			if (t2 > lastBenchmark + 500.0)
+			{
+				Console.WriteLine((t2 - t1).ToString());
+				lastBenchmark = t2;
+			}
 		}
 
 		private void BruteForceCollision()
@@ -129,12 +104,12 @@ namespace Example
 				collider1.RestoreSavedBox();
 				collider2.RestoreSavedBox();
 				////set random velocity
-				collider1.Velocity = RndVelocity();
-				collider2.Velocity = RndVelocity();
+				collider1.Velocity = RandomVectors.Velocity();
+				collider2.Velocity = RandomVectors.Velocity();
 			}
 		}
 
-		private void GameWindow_RenderFrame(object sender, OpenTK.FrameEventArgs e)
+		private void Render()
 		{
 			GL.Clear(ClearBufferMask.ColorBufferBit);
 			foreach (var collider in colliders)
@@ -154,13 +129,14 @@ namespace Example
 			GL.End();
 		}
 
-		private Vector2 RndVelocity()
+		[STAThread]
+		private static void Main()
 		{
-			var rndData = new byte[2];
-			rnd.NextBytes(rndData);
-			var velocity = new Vector2(rndData[0] - 128, rndData[1] - 128);
-			velocity *= 0.0005f;
-			return velocity;
+			var app = new ExampleApplication();
+			var controller = new Controller();
+			app.Render += controller.Render;
+			app.Update += controller.Update;
+			app.Run();
 		}
 	}
 }

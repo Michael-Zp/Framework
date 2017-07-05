@@ -38,7 +38,6 @@
   <ItemGroup>
     <Reference Include="System" />
     <Reference Include="System.Drawing" />
-    <Reference Include="System.Numerics" />
     <Reference Include="System.Xaml">
       <RequiredTargetFramework>4.0</RequiredTargetFramework>
     </Reference>
@@ -51,7 +50,6 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
-    <Compile Include="Level.cs" />
     <Page Include="MainWindow.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
@@ -60,23 +58,28 @@
       <DependentUpon>App.xaml</DependentUpon>
       <SubType>Code</SubType>
     </Compile>
+    <Compile Include="EditorTools.cs" />
     <Compile Include="MainWindow.xaml.cs">
       <DependentUpon>MainWindow.xaml</DependentUpon>
       <SubType>Code</SubType>
     </Compile>
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\..\..\_Common\DMS.OpenGL\DMS.OpenGL.csproj">
-      <Project>{c660f6af-c100-4169-a9fb-61e1ebe87f34}</Project>
-      <Name>DMS.OpenGL</Name>
-    </ProjectReference>
     <ProjectReference Include="..\..\..\_Common\DMS.Geometry\DMS.Geometry.csproj">
       <Project>{b37b7dde-435b-4f27-9a9b-9b6df8744ebe}</Project>
       <Name>DMS.Geometry</Name>
     </ProjectReference>
-    <ProjectReference Include="..\..\..\_Common\DMS.System\DMS.System.csproj">
+    <ProjectReference Include="..\..\..\_Common\DMS.OpenGL\DMS.OpenGL.csproj">
+      <Project>{c660f6af-c100-4169-a9fb-61e1ebe87f34}</Project>
+      <Name>DMS.OpenGL</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\..\_Common\DMS.Base\DMS.Base.csproj">
       <Project>{e5ff60a4-46fb-42d2-9430-bc523315c2e0}</Project>
-      <Name>DMS.System</Name>
+      <Name>DMS.Base</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\LevelData\LevelData.csproj">
+      <Project>{94c18a12-1467-45dc-9f68-8f8c1c9ffce5}</Project>
+      <Name>LevelData</Name>
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>
@@ -111,7 +114,7 @@
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <PropertyGroup>
-    <PostBuildEvent>$(TargetFileName) close</PostBuildEvent>
+    <PostBuildEvent>$(TargetFileName) autosave "$(ProjectDir)\..\LevelConsumer\Resources\level.data"</PostBuildEvent>
   </PropertyGroup>
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.

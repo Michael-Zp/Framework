@@ -1,45 +1,27 @@
-﻿using DMS.Geometry;
-using OpenTK;
+﻿using DMS.Application;
+using DMS.Geometry;
 using OpenTK.Graphics;
 using OpenTK.Graphics.OpenGL;
 using System;
 
 namespace Example
 {
-	class MyApplication
+	class MyVisual
 	{
-		private GameWindow gameWindow;
-
-		[STAThread]
-		public static void Main()
+		private MyVisual()
 		{
-			var app = new MyApplication();
-			app.gameWindow.Run();
-		}
-
-		private MyApplication()
-		{
-			//setup
-			gameWindow = new GameWindow(700, 700);
-			gameWindow.VSync = VSyncMode.On;
-			gameWindow.KeyDown += (s, arg) => gameWindow.Close();
-			gameWindow.Resize += (s, arg) => GL.Viewport(0, 0, gameWindow.Width, gameWindow.Height);
-			gameWindow.RenderFrame += GameWindow_RenderFrame;			
-			gameWindow.RenderFrame += (s, arg) => gameWindow.SwapBuffers();
 			//background clear color
 			GL.ClearColor(1, 1, 1, 1);
+			//setup blending equation Color = Color_new · alpha + Color_before · (1 - alpha)
+			GL.BlendFunc(BlendingFactorSrc.SrcAlpha, BlendingFactorDest.OneMinusSrcAlpha);
+			GL.BlendEquation(BlendEquationMode.FuncAdd);
+			GL.Enable(EnableCap.Blend);
 		}
 
-		private void GameWindow_RenderFrame(object sender, FrameEventArgs e)
+		private void Render()
 		{
 			GL.Clear(ClearBufferMask.ColorBufferBit);
 
-			//setup blending equation Color = Color_s · alpha + Color_d · (1 - alpha)
-			GL.BlendFunc(BlendingFactorSrc.SrcAlpha, BlendingFactorDest.OneMinusSrcAlpha);
-			GL.BlendEquation(BlendEquationMode.FuncAdd);
-
-
-			GL.Enable(EnableCap.Blend);
 			var rect = new Box2D(-.75f, -.75f, .5f, .5f);
 			DrawRect(rect, new Color4(.5f, .7f, .1f, 1));
 			rect.X += .25f;
@@ -54,7 +36,15 @@ namespace Example
 			rect.X += .25f;
 			rect.Y += .25f;
 			DrawRect(rect, new Color4(.5f, .7f, 1, .5f));
-			GL.Disable(EnableCap.Blend);
+		}
+
+		[STAThread]
+		private static void Main()
+		{
+			var app = new ExampleApplication();
+			var visual = new MyVisual();
+			app.Render += visual.Render;
+			app.Run();
 		}
 
 		private void DrawRect(Box2D rectangle, Color4 color)

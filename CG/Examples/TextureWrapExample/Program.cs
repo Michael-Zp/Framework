@@ -1,6 +1,6 @@
-﻿using DMS.OpenGL;
+﻿using DMS.Application;
 using DMS.Geometry;
-using OpenTK;
+using DMS.OpenGL;
 using OpenTK.Graphics.OpenGL;
 using System;
 using System.Drawing;
@@ -10,49 +10,41 @@ namespace Example
 	/// <summary>
 	/// shows side scrolling setup by manipulating texture coordinates
 	/// </summary>
-	class MyApplication
+	class MyVisual
 	{
-		private GameWindow gameWindow;
 		private Texture texBackground;
 		private Box2D texCoord = new Box2D(-1, -1, 3, 3);
 
-		[STAThread]
-		public static void Main()
+		private MyVisual()
 		{
-			var app = new MyApplication();
-			app.gameWindow.Run();
-		}
-
-		private MyApplication()
-		{
-			//setup
-			gameWindow = new GameWindow(512, 512);
-			gameWindow.KeyDown += (s, arg) => gameWindow.Close();
-			gameWindow.Resize += (s, arg) => GL.Viewport(0, 0, gameWindow.Width, gameWindow.Height);
-			gameWindow.RenderFrame += GameWindow_RenderFrame;			
-			gameWindow.RenderFrame += (s, arg) => gameWindow.SwapBuffers();
 			texBackground = TextureLoader.FromBitmap(Resourcen.mountains);
 			//background clear color
-			GL.ClearColor(Color.White);
+			GL.ClearColor(Color.Black);
 		}
 
-		private void GameWindow_RenderFrame(object sender, FrameEventArgs e)
+		private void Render()
 		{
 			GL.Clear(ClearBufferMask.ColorBufferBit);
 			//color is multiplied with texture color white == no change
-			GL.Color3(Color.White);
-
-			//draw with different wrap modes
-
-			//set how texture coordinates outside of [0..1] are handled
-			texBackground.WrapMode(TextureWrapMode.Repeat);
-			DrawTexturedRect(new Box2D(-1, -1, 1, 1), texBackground, texCoord);
-			texBackground.WrapMode(TextureWrapMode.Clamp);
-			DrawTexturedRect(new Box2D(0, -1, 1, 1), texBackground, texCoord);
+			GL.Color3(Color.White); //todo student: i) change color
+			//draw with different wrap modes - defines how texture coordinates outside of [0..1]² are handled
 			texBackground.WrapMode(TextureWrapMode.ClampToBorder);
 			DrawTexturedRect(new Box2D(-1, 0, 1, 1), texBackground, texCoord);
-			texBackground.WrapMode(TextureWrapMode.MirroredRepeat);
+			texBackground.WrapMode(TextureWrapMode.Repeat);
 			DrawTexturedRect(new Box2D(0, 0, 1, 1), texBackground, texCoord);
+			texBackground.WrapMode(TextureWrapMode.ClampToEdge);
+			DrawTexturedRect(new Box2D(-1, -1, 1, 1), texBackground, texCoord);
+			texBackground.WrapMode(TextureWrapMode.MirroredRepeat);
+			DrawTexturedRect(new Box2D(0, -1, 1, 1), texBackground, texCoord);
+		}
+
+		[STAThread]
+		private static void Main()
+		{
+			var app = new ExampleApplication();
+			var visual = new MyVisual();
+			app.Render += visual.Render;
+			app.Run();
 		}
 
 		private static void DrawTexturedRect(Box2D rect, Texture tex, Box2D texCoords)

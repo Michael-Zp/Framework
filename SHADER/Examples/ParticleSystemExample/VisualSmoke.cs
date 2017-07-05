@@ -1,7 +1,7 @@
-﻿using DMS.OpenGL;
+﻿using DMS.Application;
+using DMS.OpenGL;
 using OpenTK;
 using OpenTK.Graphics.OpenGL;
-using DMS.ShaderDebugging;
 using System;
 
 namespace Example
@@ -15,11 +15,7 @@ namespace Example
 		{
 			Emitter = emitterPos;
 			Wind = wind;
-			texStar = TextureLoader.FromBitmap(Resourcen.smoke);
-			shaderWatcher = new ShaderFileDebugger("../../ParticleSystemExample/Resources/smoke.vert"
-				, "../../ParticleSystemExample/Resources/smoke.frag"
-				, Resourcen.smoke_vert, Resourcen.smoke_frag);
-
+			texStar = TextureLoader.FromBitmap(Resourcen.smoke); //resourceProvider.Get<Texture>(nameof(Resourcen.smoke)).Value;
 			particleSystem.ReleaseInterval = 0.02f;
 			particleSystem.OnParticleCreate += Create;
 		}
@@ -40,8 +36,15 @@ namespace Example
 			return p;
 		}
 
+		public void ShaderChanged(string name, Shader shader)
+		{
+			if (ShaderName != name) return;
+			this.shaderSmoke = shader;
+		}
+
 		public void Update(float time)
 		{
+			if (ReferenceEquals(shaderSmoke, null)) return;
 			particleSystem.Update(time);
 			//gather all active particle positions into array
 			var positions = new Vector3[particleSystem.ParticleCount];
@@ -56,13 +59,13 @@ namespace Example
 				++i;
 			}
 
-			shaderWatcher.CheckForShaderChange();
-			particles.SetAttribute(shaderWatcher.Shader.GetAttributeLocation("position"), positions, VertexAttribPointerType.Float, 3);
-			particles.SetAttribute(shaderWatcher.Shader.GetAttributeLocation("fade"), fade, VertexAttribPointerType.Float, 1);
+			particles.SetAttribute(shaderSmoke.GetAttributeLocation("position"), positions, VertexAttribPointerType.Float, 3);
+			particles.SetAttribute(shaderSmoke.GetAttributeLocation("fade"), fade, VertexAttribPointerType.Float, 1);
 		}
 
 		public void Render(Matrix4 camera)
 		{
+			if (ReferenceEquals(shaderSmoke, null)) return;
 			//setup blending equation Color = Color_s · alpha + Color_d
 			GL.BlendFunc(BlendingFactorSrc.SrcAlpha, BlendingFactorDest.One);
 			GL.BlendEquation(BlendEquationMode.FuncAdd);
@@ -71,14 +74,13 @@ namespace Example
 			GL.Enable(EnableCap.PointSprite);
 			GL.Enable(EnableCap.VertexProgramPointSize);
 
-			var shader = shaderWatcher.Shader;
-			shader.Activate();
-			GL.UniformMatrix4(shader.GetUniformLocation("camera"), true, ref camera);
+			shaderSmoke.Activate();
+			GL.UniformMatrix4(shaderSmoke.GetUniformLocation("camera"), true, ref camera);
 			//GL.Uniform1(shader.GetUniformLocation("texParticle"), 0);
 			texStar.Activate();
 			particles.DrawArrays(PrimitiveType.Points, particleSystem.ParticleCount);
 			texStar.Deactivate();
-			shader.Deactivate();
+			shaderSmoke.Deactivate();
 
 			GL.Disable(EnableCap.VertexProgramPointSize);
 			GL.Disable(EnableCap.PointSprite);
@@ -86,10 +88,14 @@ namespace Example
 			GL.DepthMask(true);
 		}
 
-		private ShaderFileDebugger shaderWatcher;
+		public static readonly string ShaderName = nameof(shaderSmoke);
+		private Shader shaderSmoke;
+
 		private Texture texStar;
 		private VAO particles = new VAO();
 		private ParticleSystem<Particle> particleSystem = new ParticleSystem<Particle>(1000);
 		private Random random = new Random();
+
+		//private IResourceProvider resourceProvider;
 	}
 }

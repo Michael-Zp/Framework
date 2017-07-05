@@ -1,10 +1,9 @@
 ﻿using DMS.Sound;
-using System;
-using System.IO;
+using DMS.Base;
 
 namespace MvcSpaceInvaders
 {
-	public class Sound : IDisposable
+	public class Sound : Disposable
 	{
 		public Sound()
 		{
@@ -13,18 +12,13 @@ namespace MvcSpaceInvaders
 
 		public void Background()
 		{
-			//soundEngine.PlaySound(@"D:\temp\music\new\Jamie xx [None] - 00 - You've Got the Love.mp3");
+			//soundEngine.PlaySound(@"sound\Jamie xx - You've Got the Love.mp3");
 		}
 
 		public void DestroyEnemy()
 		{
 			//var memStream = new MemoryStream(Resourcen.EVAXDaughters);
 			//soundEngine.PlaySound(memStream);
-		}
-
-		public void Dispose()
-		{
-			soundEngine.Dispose();
 		}
 
 		public void Lost()
@@ -34,6 +28,11 @@ namespace MvcSpaceInvaders
 		public void Shoot()
 		{
 			soundEngine.PlaySound(Resourcen.laser);
+		}
+
+		protected override void DisposeResources()
+		{
+			soundEngine.Dispose();
 		}
 
 		private AudioPlaybackEngine soundEngine;
