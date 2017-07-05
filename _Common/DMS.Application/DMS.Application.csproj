@@ -39,6 +39,7 @@
     <Compile Include="IResource.cs" />
     <Compile Include="IResourceProvider.cs" />
     <Compile Include="IShaderProvider.cs" />
+    <Compile Include="Reference.cs" />
     <Compile Include="ResourceManager.cs" />
     <Compile Include="ResourceVertFragShaderString.cs" />
     <Compile Include="ResourceVertFragShaderFile.cs" />

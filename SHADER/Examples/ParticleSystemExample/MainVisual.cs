@@ -15,7 +15,6 @@ namespace Example
 			plane = new VisualPlane();
 
 			visualSmoke = new VisualSmoke(Vector3.Zero, new Vector3(.2f, 0, 0));
-			//todo: add particles that bounce off plane
 			visualWaterfall = new VisualWaterfall(new Vector3(-.5f, 1, -.5f));
 
 			camera.FarClip = 20;

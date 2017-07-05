@@ -76,6 +76,11 @@ namespace DMS.OpenGL
 			return GL.GetProgramResourceIndex(ProgramID, ProgramInterface.ShaderStorageBlock, name);
 		}
 
+		public int GetResourceIndex(string name, ProgramInterface type)
+		{
+			return GL.GetProgramResourceIndex(ProgramID, type, name);
+		}
+
 		public int GetUniformBufferBindingIndex(string name)
 		{
 			return GL.GetProgramResourceIndex(ProgramID, ProgramInterface.UniformBlock, name);

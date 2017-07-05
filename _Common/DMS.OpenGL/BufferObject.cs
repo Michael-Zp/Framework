@@ -10,10 +10,16 @@ namespace DMS.OpenGL
 		public BufferObject(BufferTarget bufferTarget)
 		{
 			BufferTarget = bufferTarget;
+			switch(bufferTarget)
+			{
+				case BufferTarget.UniformBuffer: Type = ProgramInterface.UniformBlock; break;
+				case BufferTarget.ShaderStorageBuffer: Type = ProgramInterface.ShaderStorageBlock; break;
+			}
 			GL.GenBuffers​(1, out bufferID);
 		}
 
 		public BufferTarget BufferTarget { get; private set; }
+		public ProgramInterface Type { get; private set; }
 
 		public void Activate()
 		{

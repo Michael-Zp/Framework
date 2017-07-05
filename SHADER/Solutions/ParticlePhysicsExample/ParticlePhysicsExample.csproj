@@ -132,7 +132,9 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />
+    <None Include="Resources\particlesFrag.frag" />
     <None Include="Resources\paintObstacles.frag" />
+    <None Include="Resources\particles.vert" />
   </ItemGroup>
   <ItemGroup>
     <EmbeddedResource Include="Resourcen.resx">

@@ -16,12 +16,12 @@ namespace Example
 			Camera.FovY = 90f;
 
 			suzanne.BackfaceCulling = true;
-			suzanne.AddInputTexture(Resources.TextureDiffuse);
+			suzanne.SetInputTexture(Resources.TextureDiffuse);
 			suzanne.UpdateMeshShader(Obj2Mesh.FromObj(Resourcen.suzanne), Resources.ShaderDefault);
 			suzanne.ZBufferTest = true;
 
 			copyQuad.BackfaceCulling = false;
-			copyQuad.AddInputTexture("tex", imageBase);
+			copyQuad.SetInputTexture("tex", imageBase);
 			copyQuad.UpdateMeshShader(null, Resources.ShaderCopy);
 			copyQuad.ZBufferTest = false;
 

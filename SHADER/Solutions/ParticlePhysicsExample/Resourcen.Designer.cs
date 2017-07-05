@@ -69,5 +69,25 @@ namespace Example {
                 return ((byte[])(obj));
             }
         }
+        
+        /// <summary>
+        ///   Sucht eine lokalisierte Ressource vom Typ System.Byte[].
+        /// </summary>
+        internal static byte[] particles {
+            get {
+                object obj = ResourceManager.GetObject("particles", resourceCulture);
+                return ((byte[])(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Sucht eine lokalisierte Ressource vom Typ System.Byte[].
+        /// </summary>
+        internal static byte[] particlesFrag {
+            get {
+                object obj = ResourceManager.GetObject("particlesFrag", resourceCulture);
+                return ((byte[])(obj));
+            }
+        }
     }
 }

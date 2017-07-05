@@ -12,42 +12,51 @@ namespace DMS.HLGL
 	{
 		public bool BackfaceCulling { get; set; } = false;
 		public int InstanceCount { get; set; } = 1;
+		public bool ShaderPointSize { get; set; } = false;
 		public Shader Shader { get; private set; }
 		public VAO Vao { get; private set; }
 		public bool ZBufferTest { get; set; } = false;
 
-		public void AddInputTexture(string name, Image image)
-		{
-			textures.Add(name, image.Texture);
-		}
-
-		public void AddInputTexture(string name)
-		{
-			textures.Add(name, ResourceManager.Instance.Get<Texture>(name).Value);
-		}
-
 		public void Draw(StateSetGL stateSetGL)
 		{
 			stateSetGL.BackfaceCulling = BackfaceCulling;
+			stateSetGL.ShaderPointSize = ShaderPointSize;
 			stateSetGL.ZBufferTest = ZBufferTest;
 			stateSetGL.Shader = Shader;
 
 			BindTextures();
-			ActivateUniformBuffers();
+			ActivateBuffers();
 
 			var vao = Vao;
 			if (ReferenceEquals(null, vao))
 			{
-				GL.DrawArrays(PrimitiveType.Quads, 0, 4); //todo: make this general -> mesh with only vertex count? particle system, sprites
+				if (1 == InstanceCount)
+				{
+					GL.DrawArrays(PrimitiveType.Quads, 0, 4); //todo: make this general -> mesh with only vertex count? particle system, sprites
+				}
+				else
+				{
+					GL.DrawArrays(PrimitiveType.Points, 0, InstanceCount);
+				}
 			}
 			else
 			{
 				Vao.Draw(InstanceCount);
 			}
 
-			DeactivateUniformBuffers();
+			DeactivateBuffers();
 			UnbindTextures();
 
+		}
+
+		public void SetInputTexture(string name, Image image)
+		{
+			textures[name] = image.Texture;
+		}
+
+		public void SetInputTexture(string name)
+		{
+			textures[name] = ResourceManager.Instance.Get<Texture>(name).Value;
 		}
 
 		public void UpdateInstanceAttribute(string name, int[] data)
@@ -93,40 +102,41 @@ namespace DMS.HLGL
 		public void UpdateUniforms<DATA>(string name, DATA uniforms) where DATA : struct
 		{
 			BufferObject buffer;
-			if (!uniformBuffers.TryGetValue(name, out buffer))
+			if (!buffers.TryGetValue(name, out buffer))
 			{
 				buffer = new BufferObject(BufferTarget.UniformBuffer);
-				uniformBuffers.Add(name, buffer);
+				buffers.Add(name, buffer);
 			}
 			buffer.Set(uniforms, BufferUsageHint.StaticRead);
 		}
-		//public void UpdateUniforms<DATA_ELEMENT_TYPE>(string name, DATA_ELEMENT_TYPE[] uniformArray) where DATA_ELEMENT_TYPE : struct
-		//{
-		//	BufferObject buffer;
-		//	if (!uniformBuffers.TryGetValue(name, out buffer))
-		//	{
-		//		buffer = new BufferObject(BufferTarget.UniformBuffer);
-		//		uniformBuffers.Add(name, buffer);
-		//	}
-		//	buffer.Set(uniformArray, BufferUsageHint.StaticRead);
-		//}
+
+		public void UpdateShaderBuffer<DATA_ELEMENT_TYPE>(string name, DATA_ELEMENT_TYPE[] uniformArray) where DATA_ELEMENT_TYPE : struct
+		{
+			BufferObject buffer;
+			if (!buffers.TryGetValue(name, out buffer))
+			{
+				buffer = new BufferObject(BufferTarget.ShaderStorageBuffer);
+				buffers.Add(name, buffer);
+			}
+			buffer.Set(uniformArray, BufferUsageHint.StaticCopy);
+		}
 
 		private Dictionary<string, Texture> textures = new Dictionary<string, Texture>();
-		private Dictionary<string, BufferObject> uniformBuffers = new Dictionary<string, BufferObject>();
+		private Dictionary<string, BufferObject> buffers = new Dictionary<string, BufferObject>();
 
-		private void ActivateUniformBuffers()
+		private void ActivateBuffers()
 		{
-			foreach (var uBuffer in uniformBuffers)
+			foreach (var uBuffer in buffers)
 			{
-				var bindingIndex = Shader.GetUniformBufferBindingIndex(uBuffer.Key);
+				var bindingIndex = Shader.GetResourceIndex(uBuffer.Key, uBuffer.Value.Type);
 				if (-1 == bindingIndex) throw new ArgumentException("Could not find shader parameters '" + uBuffer.Key + "'");
 				uBuffer.Value.ActivateBind(bindingIndex);
 			}
 		}
 
-		private void DeactivateUniformBuffers()
+		private void DeactivateBuffers()
 		{
-			foreach (var uBuffer in uniformBuffers)
+			foreach (var uBuffer in buffers)
 			{
 				uBuffer.Value.Deactivate();
 			}

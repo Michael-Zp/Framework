@@ -77,7 +77,7 @@ namespace LevelEditor
 			var layer = Canvas.GetZIndex(image);
 			var sprite = new Sprite(EditorTools.ResolveName(image.Name, parentName), bounds, layer);
 			sprite.TextureName = image.Source?.ToString();
-			//todo1: register bitmap list
+			//todo: register bitmap list
 			sprite.Bitmap = image.Source.ToBitmap();
 			levelData.Sprites.Add(sprite);
 		}

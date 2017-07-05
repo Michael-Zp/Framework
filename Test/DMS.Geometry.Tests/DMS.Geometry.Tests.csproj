@@ -60,7 +60,7 @@
     <Compile Include="Transform2DTests.cs" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\DMS.Geometry\DMS.Geometry.csproj">
+    <ProjectReference Include="..\..\_Common\DMS.Geometry\DMS.Geometry.csproj">
       <Project>{B37B7DDE-435B-4F27-9A9B-9B6DF8744EBE}</Project>
       <Name>DMS.Geometry</Name>
     </ProjectReference>

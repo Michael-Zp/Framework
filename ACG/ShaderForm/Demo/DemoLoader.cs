@@ -31,7 +31,7 @@ namespace ShaderForm.Demo
 			if (!LoadSound(data.SoundFileName, demo, progressHandler)) return;
 			foreach (var track in data.Tracks)
 			{
-				//todo1: load track.Name;
+				//todo: load track.Name;
 				foreach (var shaderKeyframe in track.ShaderKeyframes)
 				{
 					demo.Shaders.AddUpdateShader(shaderKeyframe.ShaderPath);

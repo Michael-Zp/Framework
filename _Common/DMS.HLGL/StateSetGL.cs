@@ -16,6 +16,17 @@ namespace DMS.HLGL
 			}
 		}
 
+		public bool ShaderPointSize
+		{
+			get { return shaderPointSize; }
+			set
+			{
+				if (value == shaderPointSize) return;
+				shaderPointSize = value;
+				if (value) GL.Enable(EnableCap.ProgramPointSize); else GL.Disable(EnableCap.ProgramPointSize);
+			}
+		}
+
 		public FBO Fbo
 		{
 			get	{ return fbo; }
@@ -72,5 +83,6 @@ namespace DMS.HLGL
 		//private VAO vao = null;
 		private Shader shader = null;
 		private bool zBufferTest = false;
+		private bool shaderPointSize = false;
 	}
 }

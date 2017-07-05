@@ -5,11 +5,41 @@ using System.IO;
 
 namespace DMS.OpenGL
 {
+	using System.Diagnostics;
 	using System.Runtime.InteropServices;
 	using SysDraw = System.Drawing.Imaging;
 
 	public static class TextureLoader
 	{
+		public static Texture Create(int width, int height, byte components = 4, bool floatingPoint = false)
+		{
+			Debug.Assert(components < 5);
+			PixelInternalFormat internalFormat = PixelInternalFormat.Rgba8;
+			PixelFormat inputPixelFormat = PixelFormat.Rgba;
+			PixelType type = PixelType.UnsignedByte;
+			if(floatingPoint)
+			{
+				type = PixelType.Float;
+				switch(components)
+				{
+					case 1: internalFormat = PixelInternalFormat.R32f; inputPixelFormat = PixelFormat.Red; break;
+					case 2: internalFormat = PixelInternalFormat.Rg32f; inputPixelFormat = PixelFormat.Rg; break;
+					case 3: internalFormat = PixelInternalFormat.Rgb32f; inputPixelFormat = PixelFormat.Rgb; break;
+				}
+			}
+			else
+			{
+				switch (components)
+				{
+					case 1: internalFormat = PixelInternalFormat.R8; inputPixelFormat = PixelFormat.Red; break;
+					case 2: internalFormat = PixelInternalFormat.Rg8; inputPixelFormat = PixelFormat.Rg; break;
+					case 3: internalFormat = PixelInternalFormat.Rgb8; inputPixelFormat = PixelFormat.Rgb; break;
+				}
+			}
+			return Texture.Create(width, height, internalFormat, inputPixelFormat, type);
+		}
+
+
 		public static Texture FromArray<TYPE>(TYPE[,] data, PixelInternalFormat internalFormat, PixelFormat format, PixelType type)
 		{
 			GCHandle pinnedArray = GCHandle.Alloc(data, GCHandleType.Pinned);
@@ -91,13 +121,13 @@ namespace DMS.OpenGL
 			}
 		}
 
-		public static OpenTK.Graphics.OpenGL.PixelFormat SelectPixelFormat(SysDraw.PixelFormat pixelFormat)
+		public static PixelFormat SelectPixelFormat(SysDraw.PixelFormat pixelFormat)
 		{
 			switch (pixelFormat)
 			{
-				case SysDraw.PixelFormat.Format8bppIndexed: return OpenTK.Graphics.OpenGL.PixelFormat.Red;
-				case SysDraw.PixelFormat.Format24bppRgb: return OpenTK.Graphics.OpenGL.PixelFormat.Bgr;
-				case SysDraw.PixelFormat.Format32bppArgb: return OpenTK.Graphics.OpenGL.PixelFormat.Bgra;
+				case SysDraw.PixelFormat.Format8bppIndexed: return PixelFormat.Red;
+				case SysDraw.PixelFormat.Format24bppRgb: return PixelFormat.Bgr;
+				case SysDraw.PixelFormat.Format32bppArgb: return PixelFormat.Bgra;
 				default: throw new FileLoadException("Wrong pixel format " + pixelFormat.ToString());
 			}
 		}
