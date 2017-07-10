@@ -35,7 +35,7 @@
   <ItemGroup>
     <Compile Include="GameState.cs" />
     <Compile Include="IGameState.cs" />
-    <Compile Include="Program.cs" />
+    <Compile Include="PersistenceExample.cs" />
     <Compile Include="Visual.cs" />
     <Compile Include="VisualConsole.cs" />
   </ItemGroup>

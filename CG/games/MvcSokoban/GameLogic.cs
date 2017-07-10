@@ -32,7 +32,7 @@ namespace MvcSokoban
 			newPlayerPos = CalcNewPosition(newPlayerPos, movement);
 			ElementType type = level.GetElement(newPlayerPos.X, newPlayerPos.Y);
 			if (ElementType.Wall == type) return;
-			if (ElementType.Box == type ||ElementType.BoaxOnGoal == type)
+			if (ElementType.Box == type ||ElementType.BoxOnGoal == type)
 			{
 				//box will be moved
 				Point newBoxPos = CalcNewPosition(newPlayerPos, movement);

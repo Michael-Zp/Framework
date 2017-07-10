@@ -10,7 +10,7 @@ namespace DMS.Application
 			shader = ShaderLoader.FromFiles(sVertexShdFile_, sFragmentShdFile_);
 		}
 
-		public bool IsValueCreated { get { return true; } }
+		public bool IsValueCreated { get { return !ReferenceEquals(null, shader); } }
 
 		public Shader Value { get { return shader; } }
 

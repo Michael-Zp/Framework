@@ -36,7 +36,7 @@
     <StartupObject />
   </PropertyGroup>
   <ItemGroup>
-    <Compile Include="Program.cs" />
+    <Compile Include="TextureAnimExample.cs" />
     <Compile Include="Resourcen.Designer.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>

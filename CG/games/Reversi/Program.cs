@@ -1,7 +1,6 @@
 ﻿using DMS.Application;
 using OpenTK.Input;
 using System;
-using System.Drawing;
 
 namespace Reversi
 {

@@ -34,7 +34,7 @@
   </PropertyGroup>
   <ItemGroup>
     <Compile Include="PostProcessing.cs" />
-    <Compile Include="Program.cs" />
+    <Compile Include="PostProcessingExample.cs" />
     <Compile Include="Resources.Designer.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>

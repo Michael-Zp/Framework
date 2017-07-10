@@ -34,7 +34,7 @@
   </PropertyGroup>
   <ItemGroup>
     <Compile Include="Canvas.cs" />
-    <Compile Include="Program.cs" />
+    <Compile Include="RasterizationExample.cs" />
     <Compile Include="Rasterizer.cs" />
   </ItemGroup>
   <ItemGroup>

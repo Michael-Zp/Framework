@@ -29,7 +29,7 @@ namespace MvcSokoban
 						case '@': type = ElementType.Man; break;
 						case '$': type = ElementType.Box; break;
 						case '.': type = ElementType.Goal; break;
-						case '*': type = ElementType.BoaxOnGoal; break;
+						case '*': type = ElementType.BoxOnGoal; break;
 						case '+': type = ElementType.ManOnGoal; break;
 					};
 					level.SetElement(x, y, type);

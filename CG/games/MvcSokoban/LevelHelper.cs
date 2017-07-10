@@ -32,14 +32,14 @@ namespace MvcSokoban
 			switch (type)
 			{
 				case ElementType.Box: level.SetElement(oldPos, ElementType.Floor); break;
-				case ElementType.BoaxOnGoal: level.SetElement(oldPos, ElementType.Goal); break;
+				case ElementType.BoxOnGoal: level.SetElement(oldPos, ElementType.Goal); break;
 				default: return;
 			}
 			ElementType type2 = level.GetElement(newPos);
 			switch (type2)
 			{
 				case ElementType.Floor: level.SetElement(newPos, ElementType.Box); break;
-				case ElementType.Goal: level.SetElement(newPos, ElementType.BoaxOnGoal); break;
+				case ElementType.Goal: level.SetElement(newPos, ElementType.BoxOnGoal); break;
 				default: return;
 			}
 		}

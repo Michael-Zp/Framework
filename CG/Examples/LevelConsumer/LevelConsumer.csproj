@@ -39,7 +39,7 @@
       <DesignTime>True</DesignTime>
       <DependentUpon>LevelData.resx</DependentUpon>
     </Compile>
-    <Compile Include="Program.cs" />
+    <Compile Include="LevelConsumer.cs" />
     <Compile Include="Renderer.cs" />
   </ItemGroup>
   <ItemGroup>

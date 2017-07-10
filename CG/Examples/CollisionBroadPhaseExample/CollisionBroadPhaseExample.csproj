@@ -36,7 +36,7 @@
     <Compile Include="Collider.cs" />
     <Compile Include="CollisionGrid.cs" />
     <Compile Include="IBox2DCollider.cs" />
-    <Compile Include="Program.cs" />
+    <Compile Include="CollisionBroadPhaseExample.cs" />
     <Compile Include="RandomVectors.cs" />
   </ItemGroup>
   <ItemGroup>
