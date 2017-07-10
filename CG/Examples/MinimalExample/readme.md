@@ -4,8 +4,8 @@
 	+ Note that OpenGL is a state machine. Color stays until other color is selected.
 1. Resize the window. What happens? 
 1. Add `wnd.Resize += (s, a) => GL.Viewport(0, 0, wnd.Width, wnd.Height);` after creating the window. What happens when you resize the window now?
-1. Make the whole quad move to the right over time
 1. Move the render code for the quad into a function `void DrawBox(Box2D box)`
+1. Make the whole quad move to the right over time
 1. Make the whole quad move to some direction over time
 1. Make the quad change directions if it leaves the window
 1. Render a number of boxes that move into different directions

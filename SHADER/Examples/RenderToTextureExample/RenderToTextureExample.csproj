@@ -37,7 +37,7 @@
   </PropertyGroup>
   <ItemGroup>
     <Compile Include="MainVisual.cs" />
-    <Compile Include="Program.cs" />
+    <Compile Include="RenderToTextureExample.cs" />
     <Compile Include="Resources.Designer.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>

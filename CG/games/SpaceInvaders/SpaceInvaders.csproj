@@ -7,8 +7,8 @@
     <ProjectGuid>{F532D63E-3438-452D-8180-4F493980754E}</ProjectGuid>
     <OutputType>Exe</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>SpaceInvader</RootNamespace>
-    <AssemblyName>SpaceInvader</AssemblyName>
+    <RootNamespace>SpaceInvaders</RootNamespace>
+    <AssemblyName>SpaceInvaders</AssemblyName>
     <TargetFrameworkVersion>v4.6</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
     <PublishUrl>publish\</PublishUrl>

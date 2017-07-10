@@ -96,7 +96,7 @@
   </PropertyGroup>
   <ItemGroup>
     <Compile Include="MainVisual.cs" />
-    <Compile Include="Program.cs" />
+    <Compile Include="MeshExample.cs" />
     <Compile Include="Resourcen.Designer.cs">
       <DependentUpon>Resourcen.resx</DependentUpon>
       <AutoGen>True</AutoGen>

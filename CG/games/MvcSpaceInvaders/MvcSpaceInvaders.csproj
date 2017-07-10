@@ -8,7 +8,7 @@
     <OutputType>Exe</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
     <RootNamespace>MvcSpaceInvaders</RootNamespace>
-    <AssemblyName>MvcSpaceInvader</AssemblyName>
+    <AssemblyName>MvcSpaceInvaders</AssemblyName>
     <TargetFrameworkVersion>v4.6</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
     <TargetFrameworkProfile />

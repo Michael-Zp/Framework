@@ -96,7 +96,7 @@
   </PropertyGroup>
   <ItemGroup>
     <Compile Include="MainVisual.cs" />
-    <Compile Include="Program.cs" />
+    <Compile Include="TransformationExample.cs" />
     <Compile Include="Resourcen.Designer.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>

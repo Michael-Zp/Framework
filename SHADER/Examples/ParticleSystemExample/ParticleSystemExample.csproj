@@ -56,7 +56,7 @@
     <Compile Include="MainVisual.cs" />
     <Compile Include="Particle.cs" />
     <Compile Include="ParticleSystem.cs" />
-    <Compile Include="Program.cs" />
+    <Compile Include="ParticleSystemExample.cs" />
     <Compile Include="Resourcen.Designer.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>

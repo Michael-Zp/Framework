@@ -10,7 +10,7 @@ namespace Example
 		[STAThread]
 		private static void Main()
 		{
-			var wnd = new GameWindow();
+			var wnd = new GameWindow(512, 512);
 			GL.ClearColor(Color.CornflowerBlue);
 			wnd.Visible = true;
 			while (wnd.Exists)

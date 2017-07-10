@@ -1,5 +1,4 @@
-﻿using DMS.Geometry;
-using Microsoft.VisualStudio.TestTools.UnitTesting;
+﻿using Microsoft.VisualStudio.TestTools.UnitTesting;
 using System;
 using System.Numerics;
 
@@ -9,52 +8,23 @@ namespace DMS.Geometry.Tests
 	public class MathHelperTests
 	{
 		[TestMethod()]
-		public void ToPolarTestVector0()
+		public void ToPolarTest()
 		{
-			var a = new Vector2(0, 0);
-			var expectedA = new Vector2(0, 0);
-			Assert.AreEqual(expectedA, MathHelper.ToPolar(a));
+			TestToPolar(0, 0, 0, 0);
+			TestToPolar(1, 0, 0, 1);
+			TestToPolar(0, 1, 0.5 * Math.PI, 1); //90°
+			TestToPolar(0, 4, 0.5 * Math.PI, 4); //90°
+			TestToPolar(-1, 0, Math.PI, 1); //180°
+			TestToPolar(-2, 0, Math.PI, 2); //180°
+			TestToPolar(0, -1, -1.0 / 2.0 * Math.PI, 1); //270°
+			TestToPolar(0, -2, -1.0 / 2.0 * Math.PI, 2); // 270°
 		}
 
-		[TestMethod()]
-		public void ToPolarTest0Grad()
+		private static void TestToPolar(double inputX, double inputY, double expectedX, double expectedY)
 		{
-			var a = new Vector2(1, 0);
-			var expectedA = new Vector2(0, 1);
-			Assert.AreEqual(expectedA, MathHelper.ToPolar(a));
-		}
-
-		[TestMethod()]
-		public void ToPolarTest90Grad()
-		{
-			var a = new Vector2(0, 1);
-			var expectedA = new Vector2((float)(0.5 * Math.PI), 1);
-			Assert.AreEqual(expectedA, MathHelper.ToPolar(a));
-		}
-
-		[TestMethod()]
-		public void ToPolarTest180Grad()
-		{
-			var a = new Vector2(-1, 0);
-			var expectedA = new Vector2((float)(Math.PI), 1);
-			Assert.AreEqual(expectedA, MathHelper.ToPolar(a));
-		}
-
-
-		[TestMethod()]
-		public void ToPolarTest270Grad()
-		{
-			var a = new Vector2(0, -1);
-			var expectedA = new Vector2((float)(-1.0 / 2.0 * Math.PI), 1);
-			Assert.AreEqual(expectedA, MathHelper.ToPolar(a));
-		}
-
-		[TestMethod()]
-		public void ToPolarTest270Grad2()
-		{
-			var a = new Vector2(0, -2);
-			var expectedA = new Vector2((float)(-1.0 / 2.0 * Math.PI), 2);
-			Assert.AreEqual(expectedA, MathHelper.ToPolar(a));
+			var input = new Vector2((float)inputX, (float)inputY);
+			var expected = new Vector2((float)expectedX, (float)expectedY);
+			Assert.AreEqual(expected, MathHelper.ToPolar(input));
 		}
 
 		[TestMethod()]
