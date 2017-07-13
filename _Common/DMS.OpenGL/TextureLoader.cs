@@ -1,22 +1,23 @@
 ﻿using OpenTK.Graphics.OpenGL;
 using System;
+using System.Diagnostics;
 using System.Drawing;
 using System.IO;
+using System.Runtime.InteropServices;
 
 namespace DMS.OpenGL
 {
-	using System.Diagnostics;
-	using System.Runtime.InteropServices;
 	using SysDraw = System.Drawing.Imaging;
+	using SysMedia = System.Windows.Media;
 
 	public static class TextureLoader
 	{
 		public static Texture Create(int width, int height, byte components = 4, bool floatingPoint = false)
 		{
 			Debug.Assert(components < 5);
-			PixelInternalFormat internalFormat = PixelInternalFormat.Rgba8;
-			PixelFormat inputPixelFormat = PixelFormat.Rgba;
-			PixelType type = PixelType.UnsignedByte;
+			var internalFormat = PixelInternalFormat.Rgba8;
+			var inputPixelFormat = PixelFormat.Rgba;
+			var type = PixelType.UnsignedByte;
 			if(floatingPoint)
 			{
 				type = PixelType.Float;
@@ -71,11 +72,30 @@ namespace DMS.OpenGL
 			{
 				bmp.RotateFlip(RotateFlipType.RotateNoneFlipY);
 				var bmpData = bmp.LockBits(new Rectangle(0, 0, bmp.Width, bmp.Height), SysDraw.ImageLockMode.ReadOnly, bmp.PixelFormat);
-				PixelInternalFormat internalFormat = SelectInternalPixelFormat(bmp.PixelFormat);
-				OpenTK.Graphics.OpenGL.PixelFormat inputPixelFormat = SelectPixelFormat(bmp.PixelFormat);
+				var internalFormat = SelectInternalPixelFormat(bmp.PixelFormat);
+				var inputPixelFormat = SelectPixelFormat(bmp.PixelFormat);
 				texture.LoadPixels(bmpData.Scan0, bmpData.Width, bmpData.Height, internalFormat, inputPixelFormat, PixelType.UnsignedByte);
 				bmp.UnlockBits(bmpData);
 			}
+			texture.Deactivate();
+			return texture;
+		}
+
+		public static Texture FromStream(Stream stream)
+		{
+			Texture texture = new Texture();
+			texture.FilterMipmap();
+			texture.Activate();
+			var source = new SysMedia.Imaging.BitmapImage();
+			source.BeginInit();
+			source.StreamSource = stream;
+			source.EndInit();
+			var writable = new SysMedia.Imaging.WriteableBitmap(source);
+			writable.Lock();
+			var internalFormat = SelectInternalPixelFormat(source.Format);
+			var inputPixelFormat = SelectPixelFormat(source.Format);
+			texture.LoadPixels(writable.BackBuffer, source.PixelWidth, source.PixelHeight, internalFormat, inputPixelFormat, PixelType.UnsignedByte);
+			writable.Unlock();
 			texture.Deactivate();
 			return texture;
 		}
@@ -141,6 +161,40 @@ namespace DMS.OpenGL
 				case SysDraw.PixelFormat.Format32bppArgb: return PixelInternalFormat.Rgba;
 				default: throw new FileLoadException("Wrong pixel format " + pixelFormat.ToString());
 			}
+		}
+
+		private static PixelInternalFormat SelectInternalPixelFormat(SysMedia.PixelFormat pixelFormat)
+		{
+			if (SysMedia.PixelFormats.Bgra32 == pixelFormat)
+			{
+				return PixelInternalFormat.Rgba;
+			}
+			else if (SysMedia.PixelFormats.Rgb24 == pixelFormat)
+			{
+				return PixelInternalFormat.Rgb;
+			}
+			else if (SysMedia.PixelFormats.Gray8 == pixelFormat)
+			{
+				return PixelInternalFormat.Luminance;
+			}
+			else throw new FileLoadException("Wrong pixel format " + pixelFormat.ToString());
+		}
+
+		private static PixelFormat SelectPixelFormat(SysMedia.PixelFormat pixelFormat)
+		{
+			if (SysMedia.PixelFormats.Bgra32 == pixelFormat)
+			{
+				return PixelFormat.Bgra;
+			}
+			else if (SysMedia.PixelFormats.Rgb24 == pixelFormat)
+			{
+				return PixelFormat.Bgr;
+			}
+			else if (SysMedia.PixelFormats.Gray8 == pixelFormat)
+			{
+				return PixelFormat.Red;
+			}
+			else throw new FileLoadException("Wrong pixel format " + pixelFormat.ToString());
 		}
 	}
 }

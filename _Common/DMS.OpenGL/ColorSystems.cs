@@ -9,9 +9,9 @@ namespace DMS.OpenGL
 		/// <summary>
 		/// Converts hsb (Hue, Saturation and Brightness) color value into rgb
 		/// </summary>
-		/// <param name="h">Hue</param>
-		/// <param name="s">Saturation</param>
-		/// <param name="b">Brightness</param>
+		/// <param name="h">Hue [0..1]</param>
+		/// <param name="s">Saturation [0..1]</param>
+		/// <param name="b">Brightness [0..1]</param>
 		/// <returns>rgb color</returns>
 		public static Vector3 Hsb2rgb(float h, float s, float b)
 		{
@@ -26,10 +26,25 @@ namespace DMS.OpenGL
 			return b * Vector3.Lerp(Vector3.One, rgb, s);
 		}
 
-		public static global::System.Drawing.Color ToSystemColor(this Vector3 color)
+		/// <summary>
+		/// transformation not correct
+		/// </summary>
+		/// <param name="color"></param>
+		/// <returns></returns>
+		//public static Vector3 Color2Hsb(SysColor color)
+		//{
+		//	return new Vector3(color.GetHue() / 360f, color.GetSaturation(), color.GetBrightness());
+		//}
+
+		public static SysColor ToSystemColor(this Vector3 color)
 		{
 			color *= 255;
-			return global::System.Drawing.Color.FromArgb((int)color.X, (int)color.Y, (int)color.Z);
-		} 
+			return SysColor.FromArgb((int)color.X, (int)color.Y, (int)color.Z);
+		}
+
+		public static Vector3 ToVector3(this SysColor color)
+		{
+			return new Vector3(color.R / 255f, color.G / 255f, color.B / 255f);
+		}
 	}
 }

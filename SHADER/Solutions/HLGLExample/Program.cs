@@ -14,6 +14,7 @@ namespace Example
 			app.GameWindow.ConnectEvents(visual.Camera);
 			//app.ResourceManager.ShaderChanged += visual.ShaderChanged;
 			app.Render += visual.Render;
+			app.Resize += visual.Resize;
 			app.Run();
 		}
 	}

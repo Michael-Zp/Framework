@@ -132,12 +132,12 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />
+    <None Include="Resources\chalet.obj" />
     <None Include="Resources\fragment.frag" />
-    <None Include="Resources\suzanne.obj" />
     <None Include="Resources\vertex.vert" />
   </ItemGroup>
   <ItemGroup>
-    <Content Include="Resources\capsule0.jpg" />
+    <None Include="Resources\chalet.jpg" />
   </ItemGroup>
   <ItemGroup>
     <EmbeddedResource Include="Resourcen.resx">

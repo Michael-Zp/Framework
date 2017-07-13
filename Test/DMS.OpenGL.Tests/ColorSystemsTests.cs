@@ -1,5 +1,5 @@
 ﻿using Microsoft.VisualStudio.TestTools.UnitTesting;
-using System.Numerics;
+using System.Drawing;
 
 namespace DMS.OpenGL.Tests
 {
@@ -7,96 +7,25 @@ namespace DMS.OpenGL.Tests
 	public class ColorSystemsTests
 	{
 		[TestMethod()]
-		public void Hsb2rgbTestBlack1()
+		public void Hsb2rgb()
 		{
-
-			var rgb = ColorSystems.Hsb2rgb(0, 0, 0);
-			var expected = Vector3.Zero; //black
-			Assert.AreEqual(expected, rgb);
+			Hsb2rgb(0, 0, 0, Color.Black);
+			Hsb2rgb(1, 0, 0, Color.Black);
+			Hsb2rgb(1, 1, 0, Color.Black);
+			Hsb2rgb(0, 0, 1, Color.White);
+			Hsb2rgb(0, 1, 1, Color.Red);
+			Hsb2rgb(1f / 6f, 1, 1, Color.Yellow);
+			Hsb2rgb(2f / 6f, 1, 1, Color.Lime); //0,1,0
+			Hsb2rgb(3f / 6f, 1, 1, Color.Cyan);
+			Hsb2rgb(4f / 6f, 1, 1, Color.Blue);
+			Hsb2rgb(5f / 6f, 1, 1, Color.Magenta);
+			Hsb2rgb(0, 0, 128f / 255f, Color.Gray);
 		}
 
-		[TestMethod()]
-		public void Hsb2rgbTestBlack2()
+		public void Hsb2rgb(float h, float s, float b, Color expectedColor)
 		{
-
-			var rgb = ColorSystems.Hsb2rgb(1, 0, 0);
-			var expected = Vector3.Zero; //black
-			Assert.AreEqual(expected, rgb);
-		}
-
-		[TestMethod()]
-		public void Hsb2rgbTestBlack3()
-		{
-
-			var rgb = ColorSystems.Hsb2rgb(1, 1, 0);
-			var expected = Vector3.Zero; //black
-			Assert.AreEqual(expected, rgb);
-		}
-
-		[TestMethod()]
-		public void Hsb2rgbTestWhite()
-		{
-
-			var rgb = ColorSystems.Hsb2rgb(0, 0, 1);
-			var expected = Vector3.One; //white
-			Assert.AreEqual(expected, rgb);
-		}
-
-		[TestMethod()]
-		public void Hsb2rgbTestColor()
-		{
-
-			var rgb = ColorSystems.Hsb2rgb(0, 0.2f, 1);
-			var expected = new Vector3(1, 0.8f, 0.8f);
-			Assert.AreEqual(expected, rgb);
-		}
-
-		[TestMethod()]
-		public void Hsb2rgbTestRed()
-		{
-
-			var rgb = ColorSystems.Hsb2rgb(0, 1, 1);
-			var expected = Vector3.UnitX; //red
-			Assert.AreEqual(expected, rgb);
-		}
-
-		[TestMethod()]
-		public void Hsb2rgbTestYellow()
-		{
-			var rgb = ColorSystems.Hsb2rgb(1.0f / 6.0f, 1, 1);
-			var expected = new Vector3(1, 1, 0);
-			Assert.AreEqual(expected, rgb);
-		}
-
-		[TestMethod()]
-		public void Hsb2rgbTestGreen()
-		{
-			var rgb = ColorSystems.Hsb2rgb(2.0f / 6.0f, 1, 1);
-			var expected = Vector3.UnitY;
-			Assert.AreEqual(expected, rgb);
-		}
-
-		[TestMethod()]
-		public void Hsb2rgbCyan()
-		{
-			var rgb = ColorSystems.Hsb2rgb(3.0f / 6.0f, 1, 1);
-			var expected = new Vector3(0, 1, 1);
-			Assert.AreEqual(expected, rgb);
-		}
-
-		[TestMethod()]
-		public void Hsb2rgbBlue()
-		{
-			var rgb = ColorSystems.Hsb2rgb(4.0f / 6.0f, 1, 1);
-			var expected = new Vector3(0, 0, 1);
-			Assert.AreEqual(expected, rgb);
-		}
-
-		[TestMethod()]
-		public void Hsb2rgbMagenta()
-		{
-			var rgb = ColorSystems.Hsb2rgb(5.0f / 6.0f, 1, 1);
-			var expected = new Vector3(1, 0, 1);
+			var rgb = ColorSystems.Hsb2rgb(h, s, b);
+			var expected = expectedColor.ToVector3();
 			Assert.AreEqual(expected, rgb);
 		}
 	}

@@ -18,7 +18,7 @@
     <DebugSymbols>true</DebugSymbols>
     <DebugType>full</DebugType>
     <Optimize>false</Optimize>
-    <OutputPath>..\bin\Debug\</OutputPath>
+    <OutputPath>..\..\..\bin\Debug\</OutputPath>
     <DefineConstants>DEBUG;TRACE</DefineConstants>
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
@@ -27,7 +27,7 @@
     <PlatformTarget>AnyCPU</PlatformTarget>
     <DebugType>pdbonly</DebugType>
     <Optimize>true</Optimize>
-    <OutputPath>..\bin\Release\</OutputPath>
+    <OutputPath>..\..\..\bin\Release\</OutputPath>
     <DefineConstants>TRACE</DefineConstants>
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
@@ -44,6 +44,10 @@
     <Reference Include="System.Drawing" />
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\..\..\_Common\DMS.Application\DMS.Application.csproj">
+      <Project>{911c6dff-be3e-4ea5-adf2-a363df797f23}</Project>
+      <Name>DMS.Application</Name>
+    </ProjectReference>
     <ProjectReference Include="..\..\..\_Common\DMS.Geometry\DMS.Geometry.csproj">
       <Project>{b37b7dde-435b-4f27-9a9b-9b6df8744ebe}</Project>
       <Name>DMS.Geometry</Name>

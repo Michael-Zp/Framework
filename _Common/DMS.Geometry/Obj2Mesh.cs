@@ -40,8 +40,8 @@ namespace DMS.Geometry
 						uint id = (uint) mesh.position.List.Count;
 						//add vertex data to mesh
 						mesh.position.List.Add(parser.position[vertex.idPos]);
-						mesh.normal.List.Add(parser.normals[vertex.idNormal]);
-						mesh.uv.List.Add(parser.texCoords[vertex.idTexCoord]);
+						if(-1 != vertex.idNormal) mesh.normal.List.Add(parser.normals[vertex.idNormal]);
+						if (-1 != vertex.idTexCoord) mesh.uv.List.Add(parser.texCoords[vertex.idTexCoord]);
 						mesh.IDs.Add(id);
 						//new id
 						uniqueVertexIDs[vertex] = id;

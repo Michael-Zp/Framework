@@ -18,6 +18,7 @@ namespace DMS.OpenGL
 		{
 			//generate one texture and put its ID number into the "m_uTextureID" variable
 			GL.GenTextures(1, out m_uTextureID);
+			//GL.CreateTextures(target, 1, out m_uTextureID);
 			Width = 0;
 			Height = 0;
 		}

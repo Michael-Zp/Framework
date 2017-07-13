@@ -2,6 +2,7 @@
 using DMS.HLGL;
 using System.Collections.Generic;
 using System.Numerics;
+using System;
 
 namespace Example
 {
@@ -12,12 +13,15 @@ namespace Example
 		public MainVisual()
 		{
 			Camera.FarClip = 50f;
-			Camera.Distance = 4f;
+			Camera.Distance = 1.5f;
 			Camera.FovY = 90f;
+			Camera.Azimuth = 90;
+			Camera.Elevation = 20;
 
 			suzanne.BackfaceCulling = true;
 			suzanne.SetInputTexture(Resources.TextureDiffuse);
-			suzanne.UpdateMeshShader(Obj2Mesh.FromObj(Resourcen.suzanne), Resources.ShaderDefault);
+			//from https://sketchfab.com/models/e925320e1d5744d9ae661aeff61e7aef
+			suzanne.UpdateMeshShader(Obj2Mesh.FromObj(Resourcen.chalet1).Transform(Matrix4x4.CreateRotationX(-0.5f * MathHelper.PI)), Resources.ShaderDefault);
 			suzanne.ZBufferTest = true;
 
 			copyQuad.BackfaceCulling = false;
@@ -25,21 +29,24 @@ namespace Example
 			copyQuad.UpdateMeshShader(null, Resources.ShaderCopy);
 			copyQuad.ZBufferTest = false;
 
-			var delta = 3f;
-			var extend = 10f * delta;
+			var delta = 2f;
+			var extend = 1f * delta;
 			var translates = new List<Vector3>();
 			for (float x = -extend; x <= extend; x += delta)
 			{
-				for (float y = -extend; y <= extend; y += delta)
+				for (float z = -extend; z <= extend; z += delta)
 				{
-					for (float z = -extend; z <= extend; z += delta)
-					{
-						translates.Add(new Vector3(x, y, z));
-					}
+					translates.Add(new Vector3(x, 0, z));
 				}
 			}
 			suzanne.UpdateInstanceAttribute("translate", translates.ToArray());
 			suzanne.InstanceCount = translates.Count;
+		}
+
+		internal void Resize(int width, int height)
+		{
+			imageBase = new Image(width, height, true);
+			copyQuad.SetInputTexture("tex", imageBase);
 		}
 
 		public void Render()
@@ -61,7 +68,7 @@ namespace Example
 		private Translate t = new Translate() { translate = Vector4.Zero };
 
 		private Image frameBuffer = new Image();
-		private Image imageBase = new Image(1024, 1024, true);
+		private Image imageBase = new Image(512, 512, true);
 		private Uniforms uniforms = new Uniforms();
 		private DrawConfiguration suzanne = new DrawConfiguration();
 		private DrawConfiguration copyQuad = new DrawConfiguration();

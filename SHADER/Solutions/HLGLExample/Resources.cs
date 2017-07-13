@@ -18,7 +18,7 @@ namespace Example
 			resourceManager.Add<Shader>(ShaderCopy, new ResourceVertFragShaderString(TextureToFrameBuffer.VertexShaderScreenQuad, TextureToFrameBuffer.FragmentShaderCopy));
 			//resourceManager.AddShader("shader", dir + "vertex.vert", dir + "fragment.frag"
 			//	, Resourcen.vertex, Resourcen.fragment);
-			resourceManager.Add<Texture>(TextureDiffuse, new ResourceTextureBitmap(Resourcen.capsule0));
+			resourceManager.Add<Texture>(TextureDiffuse, new ResourceTextureBitmap(Resourcen.chalet));
 		}
 	}
 }

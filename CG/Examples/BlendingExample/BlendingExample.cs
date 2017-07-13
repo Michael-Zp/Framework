@@ -3,10 +3,12 @@ using DMS.Geometry;
 using OpenTK.Graphics;
 using OpenTK.Graphics.OpenGL;
 using System;
+using System.ComponentModel.Composition;
 
 namespace Example
 {
-	class MyVisual
+	[Export(typeof(IExample))]
+	class MyVisual : IExample
 	{
 		private MyVisual()
 		{
@@ -56,6 +58,11 @@ namespace Example
 			GL.Vertex2(rectangle.MaxX, rectangle.MaxY);
 			GL.Vertex2(rectangle.X, rectangle.MaxY);
 			GL.End();
+		}
+
+		public void Update()
+		{
+			Render();
 		}
 	}
 }

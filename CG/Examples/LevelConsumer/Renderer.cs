@@ -51,6 +51,7 @@ namespace Example
 			var sprites = FindNamedSprites(name);
 			foreach (var sprite in sprites)
 			{
+				//todo: do some hierarchical transform, otherwise all sprites have same position
 				sprite.CenterX = x;
 				sprite.CenterY = y;
 			}
@@ -103,8 +104,7 @@ namespace Example
 		{
 			if (string.IsNullOrWhiteSpace(name)) return null;
 			var n = name.ToLowerInvariant();
-			List<Box2D> sprites;
-			if (namedSprites.TryGetValue(n, out sprites))
+			if (namedSprites.TryGetValue(n, out List<Box2D> sprites))
 			{
 				return sprites;
 			}
