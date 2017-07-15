@@ -73,7 +73,7 @@ namespace DMS.OpenGL
 
 		public int GetShaderStorageBufferBindingIndex(string name)
 		{
-			return GL.GetProgramResourceIndex(ProgramID, ProgramInterface.ShaderStorageBlock, name);
+			return GetResourceIndex(name, ProgramInterface.ShaderStorageBlock);
 		}
 
 		public int GetResourceIndex(string name, ProgramInterface type)
@@ -83,7 +83,7 @@ namespace DMS.OpenGL
 
 		public int GetUniformBufferBindingIndex(string name)
 		{
-			return GL.GetProgramResourceIndex(ProgramID, ProgramInterface.UniformBlock, name);
+			return GetResourceIndex(name, ProgramInterface.UniformBlock);
 		}
 
 		public void Link()

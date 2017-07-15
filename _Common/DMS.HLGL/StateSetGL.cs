@@ -7,24 +7,14 @@ namespace DMS.HLGL
 	{
 		public bool BackfaceCulling
 		{
-			get	{ return backfaceCulling; }
-			set
-			{
-				if (value == backfaceCulling) return;
-				backfaceCulling = value;
-				if (value) GL.Enable(EnableCap.CullFace); else GL.Disable(EnableCap.CullFace);
-			}
+			get	{ return backfaceCulling.Enabled; }
+			set { backfaceCulling.Enabled = value; }
 		}
 
 		public bool ShaderPointSize
 		{
-			get { return shaderPointSize; }
-			set
-			{
-				if (value == shaderPointSize) return;
-				shaderPointSize = value;
-				if (value) GL.Enable(EnableCap.ProgramPointSize); else GL.Disable(EnableCap.ProgramPointSize);
-			}
+			get { return shaderPointSize.Enabled; }
+			set { shaderPointSize.Enabled = value; }
 		}
 
 		public FBO Fbo
@@ -68,21 +58,15 @@ namespace DMS.HLGL
 
 		public bool ZBufferTest
 		{
-			get { return zBufferTest; }
-
-			set
-			{
-				if (value == zBufferTest) return;
-				zBufferTest = value;
-				if (value) GL.Enable(EnableCap.DepthTest); else GL.Disable(EnableCap.DepthTest);
-			}
+			get { return zBufferTest.Enabled; }
+			set { zBufferTest.Enabled = value; }
 		}
 
-		private bool backfaceCulling = false;
+		private StateGLBool backfaceCulling = new StateGLBool(EnableCap.CullFace);
 		private FBO fbo = null;
 		//private VAO vao = null;
 		private Shader shader = null;
-		private bool zBufferTest = false;
-		private bool shaderPointSize = false;
+		private StateGLBool shaderPointSize = new StateGLBool(EnableCap.VertexProgramPointSize);
+		private StateGLBool zBufferTest = new StateGLBool(EnableCap.DepthTest);
 	}
 }

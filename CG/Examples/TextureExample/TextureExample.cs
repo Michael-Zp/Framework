@@ -4,7 +4,6 @@ using DMS.Geometry;
 using OpenTK.Graphics.OpenGL;
 using System;
 using System.Drawing;
-using System.Reflection;
 
 namespace Example
 {
@@ -28,10 +27,6 @@ namespace Example
 
 		private MyVisual()
 		{
-			//var assembly = Assembly.GetExecutingAssembly();
-			//var names = assembly.GetManifestResourceNames();
-			//var imageStream = assembly.GetManifestResourceStream("Example.Resources.ps8k_height.png");
-
 			texShip = TextureLoader.FromBitmap(Resourcen.redship4);
 			texBackground = TextureLoader.FromBitmap(Resourcen.water);
 			//background clear color

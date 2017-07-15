@@ -2,7 +2,6 @@
 using DMS.HLGL;
 using System.Collections.Generic;
 using System.Numerics;
-using System;
 
 namespace Example
 {
@@ -20,7 +19,7 @@ namespace Example
 
 			suzanne.BackfaceCulling = true;
 			suzanne.SetInputTexture(Resources.TextureDiffuse);
-			//from https://sketchfab.com/models/e925320e1d5744d9ae661aeff61e7aef
+			//model from https://sketchfab.com/models/e925320e1d5744d9ae661aeff61e7aef
 			suzanne.UpdateMeshShader(Obj2Mesh.FromObj(Resourcen.chalet1).Transform(Matrix4x4.CreateRotationX(-0.5f * MathHelper.PI)), Resources.ShaderDefault);
 			suzanne.ZBufferTest = true;
 

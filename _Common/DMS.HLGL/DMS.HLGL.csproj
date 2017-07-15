@@ -31,6 +31,7 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
+    <Compile Include="StateGLBool.cs" />
     <Compile Include="DrawConfiguration.cs" />
     <Compile Include="StateSetGL.cs" />
     <Compile Include="Image.cs" />

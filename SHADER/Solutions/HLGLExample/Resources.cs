@@ -12,6 +12,10 @@ namespace Example
 
 		public static void LoadResources(ResourceManager resourceManager)
 		{
+			//var assembly = Assembly.GetExecutingAssembly();
+			//var names = assembly.GetManifestResourceNames();
+			//var imageStream = assembly.GetManifestResourceStream("Example.Resources.ps8k_height.png");
+			
 			//var dir = Path.GetDirectoryName(PathTools.GetSourceFilePath()) + @"\Resources\";
 			//resourceManager.Add<Shader>("shader", new ResourceVertFragShaderFile(dir + "vertex.vert", dir + "fragment.frag"));
 			resourceManager.Add<Shader>(ShaderDefault, new ResourceVertFragShaderString(Encoding.UTF8.GetString(Resourcen.vertex), Encoding.UTF8.GetString(Resourcen.fragment)));
