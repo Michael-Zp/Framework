@@ -23,7 +23,16 @@ namespace DMS.HLGL
 
 		public Image(bool hasDepthBuffer = false)
 		{
-			if (ReferenceEquals(null, stateSetGL)) stateSetGL = new StateSetGL();
+			if (ReferenceEquals(null, stateSetGL))
+			{
+				stateSetGL = new StateSetGL();
+				stateSetGL.Register<ZBufferTest>(EnableCap.DepthTest);
+				stateSetGL.Register<BackfaceCulling>(EnableCap.CullFace);
+				stateSetGL.Register<ShaderPointSize>(EnableCap.ProgramPointSize);
+				stateSetGL.Register<PointSprite>(EnableCap.PointSprite);
+				stateSetGL.Register<Blend>(EnableCap.Blend);
+			}
+
 			if (hasDepthBuffer)
 			{
 				actionClear = () => GL.Clear(ClearBufferMask.ColorBufferBit | ClearBufferMask.DepthBufferBit);

@@ -12,8 +12,7 @@ namespace DMS.HLGL
 
 		public bool Enabled
 		{
-			get { return enabled; }
-
+			get => enabled;
 			set
 			{
 				if (value == enabled) return;

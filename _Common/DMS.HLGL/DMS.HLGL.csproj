@@ -33,6 +33,7 @@
   <ItemGroup>
     <Compile Include="StateGLBool.cs" />
     <Compile Include="DrawConfiguration.cs" />
+    <Compile Include="States.cs" />
     <Compile Include="StateSetGL.cs" />
     <Compile Include="Image.cs" />
   </ItemGroup>
