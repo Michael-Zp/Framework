@@ -38,8 +38,7 @@ namespace DMS.Application
 
 		public Shader GetShader(string name)
 		{
-			ShaderFileDebugger shaderFD;
-			if(shaderWatcher.TryGetValue(name, out shaderFD))
+			if (shaderWatcher.TryGetValue(name, out ShaderFileDebugger shaderFD))
 			{
 				return shaderFD.Shader;
 			}

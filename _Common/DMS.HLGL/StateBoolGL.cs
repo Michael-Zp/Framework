@@ -2,9 +2,9 @@
 
 namespace DMS.HLGL
 {
-	public class StateGLBool
+	public class StateBoolGL : IStateBool
 	{
-		public StateGLBool(EnableCap capability)
+		public StateBoolGL(EnableCap capability)
 		{
 			this.capability = capability;
 			UpdateGL();

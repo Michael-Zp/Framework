@@ -26,11 +26,12 @@ namespace DMS.HLGL
 			if (ReferenceEquals(null, stateSetGL))
 			{
 				stateSetGL = new StateSetGL();
-				stateSetGL.Register<ZBufferTest>(EnableCap.DepthTest);
-				stateSetGL.Register<BackfaceCulling>(EnableCap.CullFace);
-				stateSetGL.Register<ShaderPointSize>(EnableCap.ProgramPointSize);
-				stateSetGL.Register<PointSprite>(EnableCap.PointSprite);
-				stateSetGL.Register<Blend>(EnableCap.Blend);
+				//stateSetGL.Statemanager.Register<IActiveShader>(new StateShaderGL());
+				stateSetGL.StateManager.Register<IStateBool, IZBufferTest>(new StateBoolGL(EnableCap.DepthTest));
+				stateSetGL.StateManager.Register<IStateBool, IBackfaceCulling>(new StateBoolGL(EnableCap.CullFace));
+				stateSetGL.StateManager.Register<IStateBool, IShaderPointSize>(new StateBoolGL(EnableCap.ProgramPointSize));
+				stateSetGL.StateManager.Register<IStateBool, IPointSprite>(new StateBoolGL(EnableCap.PointSprite));
+				stateSetGL.StateManager.Register<IStateBool, IBlending>(new StateBoolGL(EnableCap.Blend));
 			}
 
 			if (hasDepthBuffer)

@@ -19,9 +19,12 @@ namespace DMS.HLGL
 
 		public void Draw(StateSetGL stateSetGL)
 		{
-			stateSetGL.SetState<BackfaceCulling>(BackfaceCulling);
-			stateSetGL.SetState<ShaderPointSize>(ShaderPointSize);
-			stateSetGL.SetState<ZBufferTest>(ZBufferTest);
+			//stateSetGL.GetState2(States.BackfaceCulling).Enabled = BackfaceCulling;
+			//stateSetGL.GetState2(States.Blending).Enabled = BackfaceCulling;
+			stateSetGL.StateManager.GetState<IStateBool, IBlending>().Enabled = BackfaceCulling;
+			stateSetGL.StateManager.GetState<IStateBool, IBackfaceCulling>().Enabled = BackfaceCulling;
+			stateSetGL.StateManager.GetState<IStateBool, IShaderPointSize>().Enabled = ShaderPointSize;
+			stateSetGL.StateManager.GetState<IStateBool, IZBufferTest>().Enabled = ZBufferTest;
 			stateSetGL.Shader = Shader;
 
 			BindTextures();

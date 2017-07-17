@@ -41,7 +41,11 @@ namespace DMS.Geometry.Tests
 							var input = new Vector4(x, y, z, w);
 							var output = MathHelper.UnpackUnorm4x8(MathHelper.PackUnorm4x8(input / 255f));
 							output *= 255f;
-							Assert.AreEqual(input, output);
+							var delta = .0001f;
+							Assert.AreEqual(input.X, output.X, delta);
+							Assert.AreEqual(input.Y, output.Y, delta);
+							Assert.AreEqual(input.Z, output.Z, delta);
+							Assert.AreEqual(input.W, output.W, delta);
 						}
 					}
 				}

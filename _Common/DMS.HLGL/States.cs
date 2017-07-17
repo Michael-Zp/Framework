@@ -1,9 +1,11 @@
-﻿namespace DMS.HLGL
+﻿using System;
+
+namespace DMS.HLGL
 {
-	public interface IState { };
-	public struct BackfaceCulling : IState { };
-	public struct Blend : IState { };
-	public struct PointSprite : IState { };
-	public struct ShaderPointSize : IState { };
-	public struct ZBufferTest : IState { };
+	public interface IBackfaceCulling : IStateBool { };
+	public interface IBlending : IStateBool { };
+	public interface IPointSprite : IStateBool { };
+	public interface IShaderPointSize : IStateBool { };
+	public interface IZBufferTest : IStateBool { };
+	//public interface IActiveShader : IStateHandle { };
 }
