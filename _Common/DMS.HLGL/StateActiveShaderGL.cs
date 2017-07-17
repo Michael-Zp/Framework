@@ -2,7 +2,7 @@
 
 namespace DMS.HLGL
 {
-	public class StateShaderGL : IState
+	public class StateActiveShaderGL : IState
 	{
 		public Shader Shader
 		{

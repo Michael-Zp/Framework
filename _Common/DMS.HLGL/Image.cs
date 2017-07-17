@@ -23,15 +23,16 @@ namespace DMS.HLGL
 
 		public Image(bool hasDepthBuffer = false)
 		{
-			if (ReferenceEquals(null, stateSetGL))
+			if (ReferenceEquals(null, stateManager))
 			{
-				stateSetGL = new StateSetGL();
-				//stateSetGL.Statemanager.Register<IActiveShader>(new StateShaderGL());
-				stateSetGL.StateManager.Register<IStateBool, IZBufferTest>(new StateBoolGL(EnableCap.DepthTest));
-				stateSetGL.StateManager.Register<IStateBool, IBackfaceCulling>(new StateBoolGL(EnableCap.CullFace));
-				stateSetGL.StateManager.Register<IStateBool, IShaderPointSize>(new StateBoolGL(EnableCap.ProgramPointSize));
-				stateSetGL.StateManager.Register<IStateBool, IPointSprite>(new StateBoolGL(EnableCap.PointSprite));
-				stateSetGL.StateManager.Register<IStateBool, IBlending>(new StateBoolGL(EnableCap.Blend));
+				stateManager = new StateManager();
+				stateManager.Register<StateActiveFboGL, StateActiveFboGL>(new StateActiveFboGL());
+				stateManager.Register<StateActiveShaderGL, StateActiveShaderGL>(new StateActiveShaderGL());
+				stateManager.Register<IStateBool, States.IZBufferTest>(new StateBoolGL(EnableCap.DepthTest));
+				stateManager.Register<IStateBool, States.IBackfaceCulling>(new StateBoolGL(EnableCap.CullFace));
+				stateManager.Register<IStateBool, States.IShaderPointSize>(new StateBoolGL(EnableCap.ProgramPointSize));
+				stateManager.Register<IStateBool, States.IPointSprite>(new StateBoolGL(EnableCap.PointSprite));
+				stateManager.Register<IStateBool, States.IBlending>(new StateBoolGL(EnableCap.Blend));
 			}
 
 			if (hasDepthBuffer)
@@ -48,14 +49,14 @@ namespace DMS.HLGL
 
 		public void Clear()
 		{
-			stateSetGL.Fbo = fbo;
+			stateManager.GetState<StateActiveFboGL, StateActiveFboGL>().Fbo = fbo;
 			actionClear();
 		}
 
 		public void Draw(DrawConfiguration config)
 		{
-			stateSetGL.Fbo = fbo;
-			config.Draw(stateSetGL);
+			stateManager.GetState<StateActiveFboGL, StateActiveFboGL>().Fbo = fbo;
+			config.Draw(stateManager);
 		}
 
 		protected override void DisposeResources()
@@ -65,6 +66,6 @@ namespace DMS.HLGL
 
 		private FBO fbo = null;
 		private Action actionClear = null;
-		private static StateSetGL stateSetGL = null;
+		private static StateManager stateManager = null;
 	}
 }

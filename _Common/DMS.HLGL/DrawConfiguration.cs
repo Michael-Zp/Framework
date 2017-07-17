@@ -17,15 +17,13 @@ namespace DMS.HLGL
 		public VAO Vao { get; private set; }
 		public bool ZBufferTest { get; set; } = false;
 
-		public void Draw(StateSetGL stateSetGL)
+		public void Draw(StateManager stateManager)
 		{
-			//stateSetGL.GetState2(States.BackfaceCulling).Enabled = BackfaceCulling;
-			//stateSetGL.GetState2(States.Blending).Enabled = BackfaceCulling;
-			stateSetGL.StateManager.GetState<IStateBool, IBlending>().Enabled = BackfaceCulling;
-			stateSetGL.StateManager.GetState<IStateBool, IBackfaceCulling>().Enabled = BackfaceCulling;
-			stateSetGL.StateManager.GetState<IStateBool, IShaderPointSize>().Enabled = ShaderPointSize;
-			stateSetGL.StateManager.GetState<IStateBool, IZBufferTest>().Enabled = ZBufferTest;
-			stateSetGL.Shader = Shader;
+			stateManager.GetState<IStateBool, States.IBlending>().Enabled = BackfaceCulling;
+			stateManager.GetState<IStateBool, States.IBackfaceCulling>().Enabled = BackfaceCulling;
+			stateManager.GetState<IStateBool, States.IShaderPointSize>().Enabled = ShaderPointSize;
+			stateManager.GetState<IStateBool, States.IZBufferTest>().Enabled = ZBufferTest;
+			stateManager.GetState<StateActiveShaderGL, StateActiveShaderGL>().Shader = Shader;
 
 			BindTextures();
 			ActivateBuffers();
@@ -49,7 +47,6 @@ namespace DMS.HLGL
 
 			DeactivateBuffers();
 			UnbindTextures();
-
 		}
 
 		public void SetInputTexture(string name, Image image)

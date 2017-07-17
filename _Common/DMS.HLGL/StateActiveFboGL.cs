@@ -2,7 +2,7 @@
 
 namespace DMS.HLGL
 {
-	public class StateFboGL : IState
+	public class StateActiveFboGL : IState
 	{
 		public FBO Fbo
 		{

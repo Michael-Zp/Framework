@@ -3,6 +3,8 @@ using System;
 
 namespace DMS.HLGL.Tests
 {
+	using static States;
+
 	[TestClass()]
 	public class StateManagerTests
 	{

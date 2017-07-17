@@ -36,13 +36,12 @@
     <Compile Include="IStateFloat.cs" />
     <Compile Include="StateBoolGL.cs" />
     <Compile Include="DrawConfiguration.cs" />
-    <Compile Include="StateFboGL.cs" />
+    <Compile Include="StateActiveFboGL.cs" />
     <Compile Include="StateFloatGL.cs" />
     <Compile Include="StateManager.cs" />
     <Compile Include="States.cs" />
-    <Compile Include="StateSetGL.cs" />
     <Compile Include="Image.cs" />
-    <Compile Include="StateShaderGL.cs" />
+    <Compile Include="StateActiveShaderGL.cs" />
   </ItemGroup>
   <ItemGroup>
     <Reference Include="OpenTK, Version=2.0.0.0, Culture=neutral, PublicKeyToken=bad199fe84eb3df4, processorArchitecture=MSIL">
