@@ -6,8 +6,7 @@ namespace DMS.HLGL
 	{
 		public Shader Shader
 		{
-			get { return shader; }
-
+			get => shader;
 			set
 			{
 				if (ReferenceEquals(shader, value)) return;

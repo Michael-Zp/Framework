@@ -6,8 +6,7 @@ namespace DMS.HLGL
 	{
 		public FBO Fbo
 		{
-			get { return fbo; }
-
+			get => fbo;
 			set
 			{
 				if (ReferenceEquals(fbo, value)) return;

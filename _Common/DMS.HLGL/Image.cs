@@ -5,7 +5,7 @@ using System;
 
 namespace DMS.HLGL
 {
-	//todo: stateSetGL + all gl classes into a manager class that handles dispose, state etc. do not use gl classes directly
+	//todo: move all gl classes into a manager class that handles dispose; do not use gl classes directly
 	public class Image : Disposable
 	{
 		public Image(int width, int height, bool hasDepthBuffer = false, byte components = 4, bool floatingPoint = false): this(hasDepthBuffer)
@@ -61,7 +61,7 @@ namespace DMS.HLGL
 
 		protected override void DisposeResources()
 		{
-			if (!ReferenceEquals(null, fbo)) fbo.Dispose();	
+			if (!ReferenceEquals(null, fbo)) fbo.Dispose();
 		}
 
 		private FBO fbo = null;
