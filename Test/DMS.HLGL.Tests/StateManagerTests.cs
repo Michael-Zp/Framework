@@ -13,7 +13,7 @@ namespace DMS.HLGL.Tests
 			public bool Enabled { get; set; } = false;
 		}
 
-		class StateFloat : IStateCommand<float>
+		class StateFloat : IStateTyped<float>
 		{
 			public float Value { get; set; }
 		}

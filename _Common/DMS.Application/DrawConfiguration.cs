@@ -17,8 +17,9 @@ namespace DMS.HLGL
 		public VAO Vao { get; private set; }
 		public bool ZBufferTest { get; set; } = false;
 
-		public void Draw(StateManager stateManager)
+		public void Draw(IContext context)
 		{
+			var stateManager = context.StateManager;
 			stateManager.Get<IStateBool, States.IBlending>().Enabled = BackfaceCulling;
 			stateManager.Get<IStateBool, States.IBackfaceCulling>().Enabled = BackfaceCulling;
 			stateManager.Get<IStateBool, States.IShaderPointSize>().Enabled = ShaderPointSize;

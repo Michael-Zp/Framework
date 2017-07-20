@@ -96,8 +96,7 @@ namespace DMS.OpenGL
 			{
 				throw new ShaderException("Unknown Link error!", string.Empty);
 			}
-			int status_code;
-			GL.GetProgram(ProgramID, GetProgramParameterName.LinkStatus, out status_code);
+			GL.GetProgram(ProgramID, GetProgramParameterName.LinkStatus, out int status_code);
 			if (1 != status_code)
 			{
 				throw new ShaderException("Error linking shader", GL.GetProgramInfoLog(ProgramID));

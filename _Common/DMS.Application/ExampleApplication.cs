@@ -15,6 +15,9 @@ namespace DMS.Application
 	{
 		public ExampleApplication(int width = 512, int height = 512, double updateRate = 60)
 		{
+			gameWindow = new GameWindow(width, height);
+			Context = new ContextGL();
+
 			var catalog = new AggregateCatalog();
 			catalog.Catalogs.Add(new AssemblyCatalog(typeof(ExampleApplication).Assembly));
 			_container = new CompositionContainer(catalog);
@@ -27,7 +30,6 @@ namespace DMS.Application
 				Console.WriteLine(e.ToString());
 			}
 
-			gameWindow = new GameWindow(width, height);
 			gameWindow.TargetUpdateFrequency = updateRate;
 			gameWindow.TargetRenderFrequency = updateRate;
 			gameWindow.VSync = VSyncMode.On;
@@ -42,6 +44,7 @@ namespace DMS.Application
 		public IGameWindow GameWindow { get { return gameWindow; } }
 
 		public event Action Render;
+		public IContext Context { get; private set; }
 
 		public delegate void ResizeHandler(int width, int height);
 		public event ResizeHandler Resize;

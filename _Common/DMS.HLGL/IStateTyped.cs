@@ -1,6 +1,6 @@
 ﻿namespace DMS.HLGL
 {
-	public interface IStateCommand<TYPE> : IState
+	public interface IStateTyped<TYPE> : IState
 	{
 		TYPE Value { get; set; }
 	}

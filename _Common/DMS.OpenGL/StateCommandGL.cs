@@ -3,7 +3,7 @@ using DMS.HLGL;
 
 namespace DMS.OpenGL
 {
-	public class StateCommandGL<TYPE> : IStateCommand<TYPE> where TYPE : IEquatable<TYPE>
+	public class StateCommandGL<TYPE> : IStateTyped<TYPE> where TYPE : IEquatable<TYPE>
 	{
 		public StateCommandGL(Action<TYPE> glCommand, TYPE defaultValue)
 		{

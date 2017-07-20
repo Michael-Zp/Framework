@@ -3,7 +3,7 @@ using System.Collections.Generic;
 
 namespace DMS.HLGL
 {
-	public class StateManager
+	public class StateManager : IStateManager
 	{
 		/// <summary>
 		/// Returns the state implementation registered with the KEYTYPE cast to the given INTERFACE

@@ -7,8 +7,8 @@ namespace DMS.HLGL
 	{
 		public interface IBackfaceCulling : IStateBool { };
 		public interface IBlending : IStateBool { };
-		public interface IClearColor : IStateCommand<Vector4> { };
-		public interface ILineWidth : IStateCommand<float> { };
+		public interface IClearColor : IStateTyped<Vector4> { };
+		public interface ILineWidth : IStateTyped<float> { };
 		public interface IPointSprite : IStateBool { };
 		public interface IShaderPointSize : IStateBool { };
 		public interface IZBufferTest : IStateBool { };

@@ -47,11 +47,17 @@
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="ICommand.cs" />
+    <Compile Include="IContext.cs" />
+    <Compile Include="ICreator.cs" />
+    <Compile Include="IShader.cs" />
+    <Compile Include="IStateManager.cs" />
+    <Compile Include="TypedHandle.cs" />
     <Compile Include="IResource.cs" />
     <Compile Include="IResourceProvider.cs" />
     <Compile Include="IState.cs" />
     <Compile Include="IStateBool.cs" />
-    <Compile Include="IStateCommand.cs" />
+    <Compile Include="IStateTyped.cs" />
     <Compile Include="StateManager.cs" />
     <Compile Include="States.cs" />
   </ItemGroup>

@@ -34,6 +34,7 @@
   <ItemGroup>
     <Reference Include="PresentationCore" />
     <Reference Include="System" />
+    <Reference Include="System.ComponentModel.Composition" />
     <Reference Include="System.Drawing" />
     <Reference Include="System.Numerics" />
     <Reference Include="WindowsBase" />
@@ -42,6 +43,7 @@
     <Compile Include="AnimationTextures.cs" />
     <Compile Include="ColorSystems.cs" />
     <Compile Include="BufferObject.cs" />
+    <Compile Include="CommandGL.cs" />
     <Compile Include="ContextGL.cs" />
     <Compile Include="DoubleBufferedFBO.cs" />
     <Compile Include="FBOwithDepth.cs" />
@@ -54,6 +56,7 @@
     <Compile Include="ResourceTextureFile.cs" />
     <Compile Include="ResourceVertFragShaderFile.cs" />
     <Compile Include="ResourceVertFragShaderString.cs" />
+    <Compile Include="ShaderCreatorGL.cs" />
     <Compile Include="ShaderException.cs" />
     <Compile Include="SpriteSheetAnimation.cs" />
     <Compile Include="FBO.cs" />

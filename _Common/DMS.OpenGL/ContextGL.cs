@@ -1,28 +1,33 @@
-﻿using DMS.OpenGL;
+﻿using DMS.HLGL;
 using OpenTK.Graphics.OpenGL4;
 using System.Numerics;
 
-namespace DMS.HLGL
+namespace DMS.OpenGL
 {
-	public static class ContextGL
+	//public interface IClearColor : ICommand { };
+
+	public class ContextGL : IContext
 	{
-		public static StateManager CreateStateManager()
+		public ContextGL()
 		{
-			var stateManager = new StateManager();
-			stateManager.Register<StateActiveFboGL, StateActiveFboGL>(new StateActiveFboGL());
-			stateManager.Register<StateActiveShaderGL, StateActiveShaderGL>(new StateActiveShaderGL());
-			stateManager.Register<IStateBool, States.IZBufferTest>(new StateBoolGL(EnableCap.DepthTest));
-			stateManager.Register<IStateBool, States.IBackfaceCulling>(new StateBoolGL(EnableCap.CullFace));
-			stateManager.Register<IStateBool, States.IShaderPointSize>(new StateBoolGL(EnableCap.ProgramPointSize));
-			stateManager.Register<IStateBool, States.IPointSprite>(new StateBoolGL(EnableCap.PointSprite));
-			stateManager.Register<IStateBool, States.IBlending>(new StateBoolGL(EnableCap.Blend));
-			stateManager.Register<IStateCommand<float>, States.ILineWidth>(new StateCommandGL<float>(GL.LineWidth, 1f));
-			stateManager.Register<IStateCommand<Vector4>, States.IClearColor>(new StateCommandGL<Vector4>(ClearColor, Vector4.Zero));
-			return stateManager;
+			StateManager = new StateManager();
+			StateManager.Register<StateActiveFboGL, StateActiveFboGL>(new StateActiveFboGL());
+			StateManager.Register<StateActiveShaderGL, StateActiveShaderGL>(new StateActiveShaderGL());
+			StateManager.Register<IStateBool, States.IZBufferTest>(new StateBoolGL(EnableCap.DepthTest));
+			StateManager.Register<IStateBool, States.IBackfaceCulling>(new StateBoolGL(EnableCap.CullFace));
+			StateManager.Register<IStateBool, States.IShaderPointSize>(new StateBoolGL(EnableCap.ProgramPointSize));
+			StateManager.Register<IStateBool, States.IPointSprite>(new StateBoolGL(EnableCap.PointSprite));
+			StateManager.Register<IStateBool, States.IBlending>(new StateBoolGL(EnableCap.Blend));
+			StateManager.Register<IStateTyped<float>, States.ILineWidth>(new StateCommandGL<float>(GL.LineWidth, 1f));
+			StateManager.Register<IStateTyped<Vector4>, States.IClearColor>(new StateCommandGL<Vector4>(ClearColor, Vector4.Zero));
+			//stateManager.Register<ICommand, IClearColor>(new CommandGL());
+			StateManager.Register<ICreator<IShader>, IShader>(new ShaderCreatorGL());
 		}
 
-		public static void ClearColor(Vector4 c) => GL.ClearColor(c.X, c.Y, c.Z, c.W);
-		public static void ClearColor() => GL.Clear(ClearBufferMask.ColorBufferBit);
-		public static void ClearColorDepth() => GL.Clear(ClearBufferMask.ColorBufferBit | ClearBufferMask.DepthBufferBit);
+		public IStateManager StateManager { get; private set; }
+
+		private void ClearColor(Vector4 c) => GL.ClearColor(c.X, c.Y, c.Z, c.W);
+		public void ClearColor() => GL.Clear(ClearBufferMask.ColorBufferBit);
+		public void ClearColorDepth() => GL.Clear(ClearBufferMask.ColorBufferBit | ClearBufferMask.DepthBufferBit);
 	}
 }

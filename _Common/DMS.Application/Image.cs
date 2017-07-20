@@ -23,19 +23,19 @@ namespace DMS.HLGL
 
 		public Image(bool hasDepthBuffer = false)
 		{
-			if (ReferenceEquals(null, stateManager))
+			if (ReferenceEquals(null, context))
 			{
-				stateManager = ContextGL.CreateStateManager();
-				stateManager.Get<IStateCommand<Vector4>, States.IClearColor>().Value = new Vector4(0, .3f, .7f, 1);
+				context = new ContextGL();
+				//context.StateManager.Get<IStateTyped<Vector4>, States.IClearColor>().Value = new Vector4(0, .3f, .7f, 1);
 			}
 
 			if (hasDepthBuffer)
 			{
-				actionClear = () => ContextGL.ClearColorDepth();
+				actionClear = () => context.ClearColorDepth();
 			}
 			else
 			{
-				actionClear = () => ContextGL.ClearColor();
+				actionClear = () => context.ClearColor();
 			}
 		}
 
@@ -43,14 +43,14 @@ namespace DMS.HLGL
 
 		public void Clear()
 		{
-			stateManager.Get<StateActiveFboGL, StateActiveFboGL>().Fbo = fbo;
+			context.StateManager.Get<StateActiveFboGL, StateActiveFboGL>().Fbo = fbo;
 			actionClear();
 		}
 
 		public void Draw(DrawConfiguration config)
 		{
-			stateManager.Get<StateActiveFboGL, StateActiveFboGL>().Fbo = fbo;
-			config.Draw(stateManager);
+			context.StateManager.Get<StateActiveFboGL, StateActiveFboGL>().Fbo = fbo;
+			config.Draw(context);
 		}
 
 		protected override void DisposeResources()
@@ -60,6 +60,6 @@ namespace DMS.HLGL
 
 		private FBO fbo = null;
 		private Action actionClear = null;
-		private static StateManager stateManager = null;
+		private static ContextGL context = null;
 	}
 }
