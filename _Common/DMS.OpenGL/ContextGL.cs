@@ -1,6 +1,7 @@
 ﻿using DMS.HLGL;
 using OpenTK.Graphics.OpenGL4;
 using System.Numerics;
+using System;
 
 namespace DMS.OpenGL
 {
@@ -29,5 +30,10 @@ namespace DMS.OpenGL
 		private void ClearColor(Vector4 c) => GL.ClearColor(c.X, c.Y, c.Z, c.W);
 		public void ClearColor() => GL.Clear(ClearBufferMask.ColorBufferBit);
 		public void ClearColorDepth() => GL.Clear(ClearBufferMask.ColorBufferBit | ClearBufferMask.DepthBufferBit);
+
+		public void DrawPoints(int count)
+		{
+			GL.DrawArrays(PrimitiveType.Points, 0, count);
+		}
 	}
 }

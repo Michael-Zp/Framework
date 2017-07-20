@@ -1,9 +1,9 @@
 ﻿using DMS.Base;
+using DMS.HLGL;
 using DMS.OpenGL;
 using System;
-using System.Numerics;
 
-namespace DMS.HLGL
+namespace DMS.Application
 {
 	//todo: move all gl classes into a manager class that handles dispose; do not use gl classes directly
 	public class Image : Disposable
@@ -39,6 +39,7 @@ namespace DMS.HLGL
 			}
 		}
 
+		public IContext Context { get { return context; } }
 		public Texture Texture { get { return fbo?.Texture; } }
 
 		public void Clear()

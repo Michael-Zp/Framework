@@ -1,7 +1,6 @@
-﻿using DMS.Geometry;
-using DMS.HLGL;
+﻿using DMS.Application;
+using DMS.Geometry;
 using System.Collections.Generic;
-using System.ComponentModel.Composition;
 using System.Numerics;
 
 namespace Example
@@ -18,6 +17,8 @@ namespace Example
 			Camera.Azimuth = 90;
 			Camera.Elevation = 20;
 
+			//var context = imageBase.Context;
+			//context.
 			suzanne.BackfaceCulling = true;
 			suzanne.SetInputTexture(Resources.TextureDiffuse);
 			//model from https://sketchfab.com/models/e925320e1d5744d9ae661aeff61e7aef

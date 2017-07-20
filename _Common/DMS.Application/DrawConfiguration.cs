@@ -1,11 +1,12 @@
 ﻿using DMS.Application;
 using DMS.Geometry;
+using DMS.HLGL;
 using DMS.OpenGL;
 using OpenTK.Graphics.OpenGL4;
 using System;
 using System.Collections.Generic;
 
-namespace DMS.HLGL
+namespace DMS.Application
 {
 	//todo: make this into a node with typed inputs and outputs
 	public class DrawConfiguration
@@ -38,7 +39,7 @@ namespace DMS.HLGL
 				}
 				else
 				{
-					GL.DrawArrays(PrimitiveType.Points, 0, InstanceCount);
+					context.DrawPoints(InstanceCount);
 				}
 			}
 			else
