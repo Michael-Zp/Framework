@@ -30,12 +30,12 @@ namespace Example
 			GL.Clear(ClearBufferMask.ColorBufferBit | ClearBufferMask.DepthBufferBit);
 
 			GL.Color3(Color.White);
-			queryA.Activate(QueryTarget.SamplesPassed);
+			queryA.Activate(OpenTK.Graphics.OpenGL4.QueryTarget.SamplesPassed);
 			DrawBox(boxA, 0.0f);
 			queryA.Deactivate();
 
 			GL.Color3(Color.Red);
-			queryB.Activate(QueryTarget.SamplesPassed);
+			queryB.Activate(OpenTK.Graphics.OpenGL4.QueryTarget.SamplesPassed);
 			DrawBox(boxB, 0.5f);
 			queryB.Deactivate();
 

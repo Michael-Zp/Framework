@@ -9,7 +9,7 @@ namespace DMS.ShaderDebugging
 	{
 		public static RegistryKey GetAppKey()
 		{
-			return Application.UserAppDataRegistry;
+			return System.Windows.Forms.Application.UserAppDataRegistry;
 		}
 
 		public static void LoadLayout(this Form form)

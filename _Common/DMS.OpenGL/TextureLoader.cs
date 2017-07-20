@@ -1,6 +1,5 @@
-﻿using OpenTK.Graphics.OpenGL;
+﻿using OpenTK.Graphics.OpenGL4;
 using System;
-using System.Diagnostics;
 using System.Drawing;
 using System.IO;
 using System.Runtime.InteropServices;
@@ -12,35 +11,6 @@ namespace DMS.OpenGL
 
 	public static class TextureLoader
 	{
-		public static Texture Create(int width, int height, byte components = 4, bool floatingPoint = false)
-		{
-			Debug.Assert(components < 5);
-			var internalFormat = PixelInternalFormat.Rgba8;
-			var inputPixelFormat = PixelFormat.Rgba;
-			var type = PixelType.UnsignedByte;
-			if(floatingPoint)
-			{
-				type = PixelType.Float;
-				switch(components)
-				{
-					case 1: internalFormat = PixelInternalFormat.R32f; inputPixelFormat = PixelFormat.Red; break;
-					case 2: internalFormat = PixelInternalFormat.Rg32f; inputPixelFormat = PixelFormat.Rg; break;
-					case 3: internalFormat = PixelInternalFormat.Rgb32f; inputPixelFormat = PixelFormat.Rgb; break;
-				}
-			}
-			else
-			{
-				switch (components)
-				{
-					case 1: internalFormat = PixelInternalFormat.R8; inputPixelFormat = PixelFormat.Red; break;
-					case 2: internalFormat = PixelInternalFormat.Rg8; inputPixelFormat = PixelFormat.Rg; break;
-					case 3: internalFormat = PixelInternalFormat.Rgb8; inputPixelFormat = PixelFormat.Rgb; break;
-				}
-			}
-			return Texture.Create(width, height, internalFormat, inputPixelFormat, type);
-		}
-
-
 		public static Texture FromArray<TYPE>(TYPE[,] data, PixelInternalFormat internalFormat, PixelFormat format, PixelType type)
 		{
 			GCHandle pinnedArray = GCHandle.Alloc(data, GCHandleType.Pinned);

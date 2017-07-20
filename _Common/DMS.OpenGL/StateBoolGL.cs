@@ -1,6 +1,7 @@
-﻿using OpenTK.Graphics.OpenGL;
+﻿using DMS.HLGL;
+using OpenTK.Graphics.OpenGL4;
 
-namespace DMS.HLGL
+namespace DMS.OpenGL
 {
 	public class StateBoolGL : IStateBool
 	{

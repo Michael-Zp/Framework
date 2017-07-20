@@ -21,10 +21,10 @@ namespace Example
 		{
 			texBackgroundNearest = TextureLoader.FromBitmap(Resourcen.mountains);
 			texBackgroundNearest.FilterNearest(); //filter by taking the nearest texel's color as a pixels color
-			texBackgroundNearest.WrapMode(TextureWrapMode.ClampToBorder);
+			texBackgroundNearest.WrapMode(OpenTK.Graphics.OpenGL4.TextureWrapMode.ClampToBorder);
 			texBackgroundLinear = TextureLoader.FromBitmap(Resourcen.mountains);
 			texBackgroundLinear.FilterLinear(); //filter by calculating the pixels color as an weighted average of the neighboring texel's colors
-			texBackgroundLinear.WrapMode(TextureWrapMode.ClampToBorder);
+			texBackgroundLinear.WrapMode(OpenTK.Graphics.OpenGL4.TextureWrapMode.ClampToBorder);
 			//background clear color
 			GL.ClearColor(Color.Black);
 		}

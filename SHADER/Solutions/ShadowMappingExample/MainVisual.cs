@@ -1,7 +1,7 @@
 ﻿using DMS.OpenGL;
 using DMS.Geometry;
 using OpenTK;
-using OpenTK.Graphics.OpenGL;
+using OpenTK.Graphics.OpenGL4;
 
 namespace Example
 {

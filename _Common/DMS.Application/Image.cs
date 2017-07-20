@@ -1,6 +1,5 @@
 ﻿using DMS.Base;
 using DMS.OpenGL;
-using OpenTK.Graphics.OpenGL;
 using System;
 using System.Numerics;
 
@@ -11,7 +10,7 @@ namespace DMS.HLGL
 	{
 		public Image(int width, int height, bool hasDepthBuffer = false, byte components = 4, bool floatingPoint = false): this(hasDepthBuffer)
 		{
-			var tex = TextureLoader.Create(width, height, components, floatingPoint);
+			var tex = Texture.Create(width, height, components, floatingPoint);
 			if (hasDepthBuffer)
 			{
 				fbo = new FBOwithDepth(tex);
@@ -32,11 +31,11 @@ namespace DMS.HLGL
 
 			if (hasDepthBuffer)
 			{
-				actionClear = () => GL.Clear(ClearBufferMask.ColorBufferBit | ClearBufferMask.DepthBufferBit);
+				actionClear = () => ContextGL.ClearColorDepth();
 			}
 			else
 			{
-				actionClear = () => GL.Clear(ClearBufferMask.ColorBufferBit);
+				actionClear = () => ContextGL.ClearColor();
 			}
 		}
 

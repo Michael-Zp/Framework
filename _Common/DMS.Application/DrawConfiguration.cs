@@ -1,7 +1,7 @@
 ﻿using DMS.Application;
 using DMS.Geometry;
 using DMS.OpenGL;
-using OpenTK.Graphics.OpenGL;
+using OpenTK.Graphics.OpenGL4;
 using System;
 using System.Collections.Generic;
 

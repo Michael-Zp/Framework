@@ -1,7 +1,7 @@
 ﻿using System;
-using OpenTK.Graphics.OpenGL;
+using DMS.HLGL;
 
-namespace DMS.HLGL
+namespace DMS.OpenGL
 {
 	public class StateCommandGL<TYPE> : IStateCommand<TYPE> where TYPE : IEquatable<TYPE>
 	{

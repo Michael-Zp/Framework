@@ -1,7 +1,8 @@
 ﻿using DMS.Base;
+using DMS.HLGL;
 using DMS.OpenGL;
 using OpenTK;
-using OpenTK.Graphics.OpenGL;
+using OpenTK.Graphics.OpenGL4;
 using OpenTK.Input;
 using OpenTK.Platform;
 using System;

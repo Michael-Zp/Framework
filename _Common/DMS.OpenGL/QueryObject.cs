@@ -1,5 +1,5 @@
 ﻿using DMS.Base;
-using OpenTK.Graphics.OpenGL;
+using OpenTK.Graphics.OpenGL4;
 
 namespace DMS.OpenGL
 {

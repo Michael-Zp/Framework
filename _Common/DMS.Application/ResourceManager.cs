@@ -3,6 +3,7 @@ using DMS.OpenGL;
 using DMS.ShaderDebugging;
 using System.Collections.Generic;
 using System.ComponentModel.Composition;
+using DMS.HLGL;
 
 namespace DMS.Application
 {

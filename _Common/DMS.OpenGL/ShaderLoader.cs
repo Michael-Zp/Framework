@@ -1,5 +1,5 @@
 ﻿using System.IO;
-using OpenTK.Graphics.OpenGL;
+using OpenTK.Graphics.OpenGL4;
 using System.Text.RegularExpressions;
 using System;
 

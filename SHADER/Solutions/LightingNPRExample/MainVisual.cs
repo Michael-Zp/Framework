@@ -2,7 +2,7 @@
 using DMS.OpenGL;
 using OpenTK;
 using OpenTK.Graphics;
-using OpenTK.Graphics.OpenGL;
+using OpenTK.Graphics.OpenGL4;
 using System.Drawing;
 
 namespace Example

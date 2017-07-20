@@ -1,6 +1,6 @@
-﻿using DMS.OpenGL;
+﻿using DMS.HLGL;
 
-namespace DMS.HLGL
+namespace DMS.OpenGL
 {
 	public class StateActiveFboGL : IState
 	{

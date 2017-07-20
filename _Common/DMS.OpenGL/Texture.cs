@@ -1,5 +1,5 @@
 ﻿using DMS.Base;
-using OpenTK.Graphics.OpenGL;
+using OpenTK.Graphics.OpenGL4;
 using System;
 
 namespace DMS.OpenGL
@@ -95,8 +95,35 @@ namespace DMS.OpenGL
 			Deactivate();
 		}
 
-		public static Texture Create(int width, int height, PixelInternalFormat internalFormat = PixelInternalFormat.Rgba8
-			, PixelFormat inputPixelFormat = PixelFormat.Rgba, PixelType type = PixelType.UnsignedByte)
+		public static Texture Create(int width, int height, byte components = 4, bool floatingPoint = false)
+		{
+			if (components > 4) throw new ArgumentException("Only up to 4 components allowed");
+			var internalFormat = PixelInternalFormat.Rgba8;
+			var inputPixelFormat = PixelFormat.Rgba;
+			var type = PixelType.UnsignedByte;
+			if (floatingPoint)
+			{
+				type = PixelType.Float;
+				switch (components)
+				{
+					case 1: internalFormat = PixelInternalFormat.R32f; inputPixelFormat = PixelFormat.Red; break;
+					case 2: internalFormat = PixelInternalFormat.Rg32f; inputPixelFormat = PixelFormat.Rg; break;
+					case 3: internalFormat = PixelInternalFormat.Rgb32f; inputPixelFormat = PixelFormat.Rgb; break;
+				}
+			}
+			else
+			{
+				switch (components)
+				{
+					case 1: internalFormat = PixelInternalFormat.R8; inputPixelFormat = PixelFormat.Red; break;
+					case 2: internalFormat = PixelInternalFormat.Rg8; inputPixelFormat = PixelFormat.Rg; break;
+					case 3: internalFormat = PixelInternalFormat.Rgb8; inputPixelFormat = PixelFormat.Rgb; break;
+				}
+			}
+			return Texture.Create(width, height, internalFormat, inputPixelFormat, type);
+		}
+
+		public static Texture Create(int width, int height, PixelInternalFormat internalFormat, PixelFormat inputPixelFormat = PixelFormat.Rgba, PixelType type = PixelType.UnsignedByte)
 		{
 			var texture = new Texture();
 			//create empty texture of given size

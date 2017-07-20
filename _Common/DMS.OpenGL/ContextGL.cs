@@ -1,4 +1,5 @@
-﻿using OpenTK.Graphics.OpenGL;
+﻿using DMS.OpenGL;
+using OpenTK.Graphics.OpenGL4;
 using System.Numerics;
 
 namespace DMS.HLGL
@@ -20,6 +21,8 @@ namespace DMS.HLGL
 			return stateManager;
 		}
 
-		private static void ClearColor(Vector4 c) => GL.ClearColor(c.X, c.Y, c.Z, c.W); 
+		public static void ClearColor(Vector4 c) => GL.ClearColor(c.X, c.Y, c.Z, c.W);
+		public static void ClearColor() => GL.Clear(ClearBufferMask.ColorBufferBit);
+		public static void ClearColorDepth() => GL.Clear(ClearBufferMask.ColorBufferBit | ClearBufferMask.DepthBufferBit);
 	}
 }

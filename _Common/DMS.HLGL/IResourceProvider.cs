@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace DMS.Application
+namespace DMS.HLGL
 {
 	public interface IResourceProvider
 	{

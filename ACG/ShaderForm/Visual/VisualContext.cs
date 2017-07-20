@@ -1,6 +1,6 @@
 ﻿using DMS.OpenGL;
 using DMS.Base;
-using OpenTK.Graphics.OpenGL;
+using OpenTK.Graphics.OpenGL4;
 using System;
 using System.Collections.Generic;
 using System.Diagnostics;
