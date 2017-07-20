@@ -27,7 +27,7 @@ namespace DMS.HLGL
 			if (ReferenceEquals(null, stateManager))
 			{
 				stateManager = ContextGL.CreateStateManager();
-				stateManager.Get<IStateCommand<Vector4>, States.IClearColor>().Value = Vector4.One;
+				stateManager.Get<IStateCommand<Vector4>, States.IClearColor>().Value = new Vector4(0, .3f, .7f, 1);
 			}
 
 			if (hasDepthBuffer)

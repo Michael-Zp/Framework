@@ -45,7 +45,6 @@
     <Compile Include="StateActiveShaderGL.cs" />
   </ItemGroup>
   <ItemGroup>
-    <Reference Include="System" />
     <Reference Include="System.Numerics" />
   </ItemGroup>
   <ItemGroup>
