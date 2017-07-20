@@ -11,7 +11,7 @@ namespace DMS.HLGL
 		/// <typeparam name="INTERFACE">interface you want the returned state implementation to have</typeparam>
 		/// <typeparam name="KEYTYPE">used to determine which registered state implementation to return</typeparam>
 		/// <returns>a state implementation</returns>
-		public INTERFACE GetState<INTERFACE, KEYTYPE>() where KEYTYPE : IState where INTERFACE : class, IState
+		public INTERFACE Get<INTERFACE, KEYTYPE>() where KEYTYPE : IState where INTERFACE : class, IState
 		{
 			var type = typeof(KEYTYPE);
 			if (states.TryGetValue(type, out IState stateImplementation))

@@ -13,7 +13,7 @@ namespace DMS.HLGL.Tests
 			public bool Enabled { get; set; } = false;
 		}
 
-		class StateFloat : IStateFloat
+		class StateFloat : IStateCommand<float>
 		{
 			public float Value { get; set; }
 		}
@@ -23,12 +23,12 @@ namespace DMS.HLGL.Tests
 		{
 			var stateManager = new StateManager();
 			stateManager.Register<IStateBool, IBlending>(new StateBool());
-			var blend = stateManager.GetState<IStateBool, IBlending>();
+			var blend = stateManager.Get<IStateBool, IBlending>();
 			blend.Enabled = true;
-			Assert.IsTrue(stateManager.GetState<IStateBool, IBlending>().Enabled);
+			Assert.IsTrue(stateManager.Get<IStateBool, IBlending>().Enabled);
 
 			blend.Enabled = false;
-			Assert.IsFalse(stateManager.GetState<IStateBool, IBlending>().Enabled);
+			Assert.IsFalse(stateManager.Get<IStateBool, IBlending>().Enabled);
 		}
 
 		[TestMethod()]
@@ -36,7 +36,7 @@ namespace DMS.HLGL.Tests
 		public void UnregisteredTest()
 		{
 			var stateManager = new StateManager();
-			var blend = stateManager.GetState<IStateBool, IBlending>();
+			var blend = stateManager.Get<IStateBool, IBlending>();
 		}
 
 		[TestMethod()]
@@ -45,7 +45,7 @@ namespace DMS.HLGL.Tests
 		{
 			var stateManager = new StateManager();
 			stateManager.Register<IStateBool, IBackfaceCulling>(new StateBool());
-			var state = stateManager.GetState<IStateBool, IBlending>();
+			var state = stateManager.Get<IStateBool, IBlending>();
 		}
 
 		[TestMethod()]
@@ -62,7 +62,7 @@ namespace DMS.HLGL.Tests
 		{
 			var stateManager = new StateManager();
 			stateManager.Register<IStateBool, IBlending>(new StateFloat());
-			var state = stateManager.GetState<IStateBool, IBlending>();
+			var state = stateManager.Get<IStateBool, IBlending>();
 		}
 
 		[TestMethod()]
@@ -74,7 +74,7 @@ namespace DMS.HLGL.Tests
 			stateManager.Register<StateBool, StateBool>(new StateBool());
 			//register same again
 			stateManager.Register<StateBool, StateBool>(new StateBool());
-			var state = stateManager.GetState<IStateBool, StateBool>();
+			var state = stateManager.Get<IStateBool, StateBool>();
 		}
 
 		class StateBool2 : StateBool { };
@@ -87,8 +87,8 @@ namespace DMS.HLGL.Tests
 			stateManager.Register<StateBool, StateBool>(new StateBool());
 			//register same again
 			stateManager.Register<StateBool, StateBool2>(new StateBool());
-			var state = stateManager.GetState<IStateBool, StateBool>();
-			var state2 = stateManager.GetState<IStateBool, StateBool2>();
+			var state = stateManager.Get<IStateBool, StateBool>();
+			var state2 = stateManager.Get<IStateBool, StateBool2>();
 			Assert.AreNotSame(state, state2);
 			Assert.AreEqual(state.Enabled, state2.Enabled);
 		}

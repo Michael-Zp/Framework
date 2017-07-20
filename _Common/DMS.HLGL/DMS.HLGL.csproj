@@ -33,12 +33,13 @@
   <ItemGroup>
     <Compile Include="IState.cs" />
     <Compile Include="IStateBool.cs" />
-    <Compile Include="IStateFloat.cs" />
+    <Compile Include="IStateCommand.cs" />
     <Compile Include="StateBoolGL.cs" />
     <Compile Include="DrawConfiguration.cs" />
     <Compile Include="StateActiveFboGL.cs" />
-    <Compile Include="StateFloatGL.cs" />
+    <Compile Include="StateCommandGL.cs" />
     <Compile Include="StateManager.cs" />
+    <Compile Include="ContextGL.cs" />
     <Compile Include="States.cs" />
     <Compile Include="Image.cs" />
     <Compile Include="StateActiveShaderGL.cs" />

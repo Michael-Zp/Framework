@@ -2,6 +2,7 @@
 using DMS.OpenGL;
 using OpenTK.Graphics.OpenGL;
 using System;
+using System.Numerics;
 
 namespace DMS.HLGL
 {
@@ -25,14 +26,8 @@ namespace DMS.HLGL
 		{
 			if (ReferenceEquals(null, stateManager))
 			{
-				stateManager = new StateManager();
-				stateManager.Register<StateActiveFboGL, StateActiveFboGL>(new StateActiveFboGL());
-				stateManager.Register<StateActiveShaderGL, StateActiveShaderGL>(new StateActiveShaderGL());
-				stateManager.Register<IStateBool, States.IZBufferTest>(new StateBoolGL(EnableCap.DepthTest));
-				stateManager.Register<IStateBool, States.IBackfaceCulling>(new StateBoolGL(EnableCap.CullFace));
-				stateManager.Register<IStateBool, States.IShaderPointSize>(new StateBoolGL(EnableCap.ProgramPointSize));
-				stateManager.Register<IStateBool, States.IPointSprite>(new StateBoolGL(EnableCap.PointSprite));
-				stateManager.Register<IStateBool, States.IBlending>(new StateBoolGL(EnableCap.Blend));
+				stateManager = ContextGL.CreateStateManager();
+				stateManager.Get<IStateCommand<Vector4>, States.IClearColor>().Value = Vector4.One;
 			}
 
 			if (hasDepthBuffer)
@@ -49,13 +44,13 @@ namespace DMS.HLGL
 
 		public void Clear()
 		{
-			stateManager.GetState<StateActiveFboGL, StateActiveFboGL>().Fbo = fbo;
+			stateManager.Get<StateActiveFboGL, StateActiveFboGL>().Fbo = fbo;
 			actionClear();
 		}
 
 		public void Draw(DrawConfiguration config)
 		{
-			stateManager.GetState<StateActiveFboGL, StateActiveFboGL>().Fbo = fbo;
+			stateManager.Get<StateActiveFboGL, StateActiveFboGL>().Fbo = fbo;
 			config.Draw(stateManager);
 		}
 
