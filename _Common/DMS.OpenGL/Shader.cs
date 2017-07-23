@@ -1,14 +1,19 @@
 ﻿using System;
 using OpenTK.Graphics.OpenGL4;
 using DMS.Base;
+using System.Collections.Generic;
+using DMS.HLGL;
 
 namespace DMS.OpenGL
 {
+	using TKShaderType = OpenTK.Graphics.OpenGL4.ShaderType;
+	using ShaderType = HLGL.ShaderType;
+
 	/// <summary>
 	/// Shader class
 	/// </summary>
 	/// todo: rename to ShaderProgram and create Shader classes to compile individual (fragment, vertex, ...) shaders
-	public class Shader : Disposable
+	public class Shader : Disposable, IShader
 	{
 		public bool IsLinked { get; private set; } = false;
 
@@ -27,13 +32,12 @@ namespace DMS.OpenGL
 		public void Compile(string sShader, ShaderType type)
 		{
 			IsLinked = false;
-			int shaderObject = GL.CreateShader(type);
+			int shaderObject = GL.CreateShader(ConvertType(type));
 			if (0 == shaderObject) throw new ShaderCompileException(type, "Could not create " + type.ToString() + " object", string.Empty, sShader);
 			// Compile vertex shader
 			GL.ShaderSource(shaderObject, sShader);
 			GL.CompileShader(shaderObject);
-			int status_code;
-			GL.GetShader(shaderObject, ShaderParameter.CompileStatus, out status_code);
+			GL.GetShader(shaderObject, ShaderParameter.CompileStatus, out int status_code);
 			LastLog = GL.GetShaderInfoLog(shaderObject);
 			if (1 != status_code)
 			{
@@ -41,7 +45,7 @@ namespace DMS.OpenGL
 				throw new ShaderCompileException(type, "Error compiling  " + type.ToString(), LastLog, sShader);
 			}
 			GL.AttachShader(ProgramID, shaderObject);
-			//shaderIDs.Add(shaderObject);
+			shaderIDs.Add(shaderObject);
 		}
 
 		/// <summary>
@@ -102,6 +106,7 @@ namespace DMS.OpenGL
 				throw new ShaderException("Error linking shader", GL.GetProgramInfoLog(ProgramID));
 			}
 			IsLinked = true;
+			RemoveShaders();
 		}
 
 		protected override void DisposeResources()
@@ -112,15 +117,30 @@ namespace DMS.OpenGL
 			}
 		}
 
-		//private List<int> shaderIDs = new List<int>();
+		private List<int> shaderIDs = new List<int>();
 
-		//private void DetachShaders()
-		//{
-		//	foreach (int id in shaderIDs)
-		//	{
-		//		GL.DetachShader(m_ProgramID, id);
-		//	}
-		//	shaderIDs.Clear();
-		//}
+		private TKShaderType ConvertType(ShaderType type)
+		{
+			switch(type)
+			{
+				case ShaderType.ComputeShader: return TKShaderType.ComputeShader;
+				case ShaderType.FragmentShader: return TKShaderType.FragmentShader;
+				case ShaderType.GeometryShader: return TKShaderType.GeometryShader;
+				case ShaderType.TessControlShader: return TKShaderType.TessControlShader;
+				case ShaderType.TessEvaluationShader: return TKShaderType.TessEvaluationShader;
+				case ShaderType.VertexShader: return TKShaderType.VertexShader;
+				default: throw new ArgumentOutOfRangeException("Unknown Shader type");
+			}
+		}
+
+		private void RemoveShaders()
+		{
+			foreach (int id in shaderIDs)
+			{
+				GL.DetachShader(ProgramID, id);
+				GL.DeleteShader(id);
+			}
+			shaderIDs.Clear();
+		}
 	}
 }

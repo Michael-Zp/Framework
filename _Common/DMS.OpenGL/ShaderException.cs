@@ -1,4 +1,4 @@
-﻿using OpenTK.Graphics.OpenGL4;
+﻿using DMS.HLGL;
 using System;
 
 namespace DMS.OpenGL

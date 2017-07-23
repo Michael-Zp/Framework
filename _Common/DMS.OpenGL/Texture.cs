@@ -4,13 +4,14 @@ using System;
 
 namespace DMS.OpenGL
 {
+	public enum TextureFilterMode { Nearest, Linear, Mipmap };
+	public enum TextureWrapFunction { Repeat, MirroredRepeat, ClampToEdge, ClampToBorder };
+
 	/// <summary>
 	/// Gl Texture class that allows loading from a file.
 	/// </summary>
 	public class Texture : Disposable
 	{
-		public enum FilterMode { NEAREST, LINEAR, MIPMAP };
-
 		/// <summary>
 		/// Initializes a new instance of the <see cref="Texture"/> class.
 		/// </summary>
@@ -23,12 +24,25 @@ namespace DMS.OpenGL
 			Height = 0;
 		}
 
-		public void WrapMode(TextureWrapMode mode)
+		public void WrapMode(TextureWrapFunction wrapFunc)
 		{
+			var mode = ConvertWrapFunction(wrapFunc);
 			Activate();
-			GL.TexParameter(target, TextureParameterName.TextureWrapS, (int)mode);
-			GL.TexParameter(target, TextureParameterName.TextureWrapT, (int)mode);
+			GL.TexParameter(target, TextureParameterName.TextureWrapS, mode);
+			GL.TexParameter(target, TextureParameterName.TextureWrapT, mode);
 			Deactivate();
+		}
+
+		private int ConvertWrapFunction(TextureWrapFunction wrapFunc)
+		{
+			switch(wrapFunc)
+			{
+				case TextureWrapFunction.ClampToBorder: return (int)TextureWrapMode.ClampToBorder;
+				case TextureWrapFunction.ClampToEdge: return (int)TextureWrapMode.ClampToEdge;
+				case TextureWrapFunction.Repeat: return (int)TextureWrapMode.Repeat;
+				case TextureWrapFunction.MirroredRepeat: return (int)TextureWrapMode.MirroredRepeat;
+				default: throw new ArgumentOutOfRangeException("Unknown wrap function");
+			}
 		}
 
 		public void FilterLinear()
@@ -38,7 +52,7 @@ namespace DMS.OpenGL
 			GL.TexParameter(target, TextureParameterName.TextureMinFilter, (float)TextureMinFilter.Linear);
 			GL.TexParameter(target, TextureParameterName.GenerateMipmap, 0);
 			Deactivate();
-			filterMode = FilterMode.LINEAR;
+			filterMode = TextureFilterMode.Linear;
 		}
 
 		public void FilterNearest()
@@ -48,7 +62,7 @@ namespace DMS.OpenGL
 			GL.TexParameter(target, TextureParameterName.TextureMinFilter, (float)TextureMinFilter.Nearest);
 			GL.TexParameter(target, TextureParameterName.GenerateMipmap, 0);
 			Deactivate();
-			filterMode = FilterMode.NEAREST;
+			filterMode = TextureFilterMode.Nearest;
 		}
 
 		public void FilterMipmap()
@@ -58,7 +72,7 @@ namespace DMS.OpenGL
 			GL.TexParameter(target, TextureParameterName.TextureMinFilter, (float)TextureMinFilter.LinearMipmapLinear);
 			GL.TexParameter(target, TextureParameterName.GenerateMipmap, 1);
 			Deactivate();
-			filterMode = FilterMode.MIPMAP;
+			filterMode = TextureFilterMode.Mipmap;
 		}
 
 		public void Activate()
@@ -73,16 +87,16 @@ namespace DMS.OpenGL
 			GL.Disable(EnableCap.Texture2D);
 		}
 
-		public FilterMode Filter
+		public TextureFilterMode Filter
 		{
 			get { return filterMode; }
 			set
 			{
-				switch ((FilterMode)(((int)value) % 3))
+				switch ((TextureFilterMode)(((int)value) % 3))
 				{
-					case FilterMode.NEAREST: FilterNearest(); break;
-					case FilterMode.LINEAR: FilterLinear(); break;
-					case FilterMode.MIPMAP: FilterMipmap(); break;
+					case TextureFilterMode.Nearest: FilterNearest(); break;
+					case TextureFilterMode.Linear: FilterLinear(); break;
+					case TextureFilterMode.Mipmap: FilterMipmap(); break;
 				}
 			}
 		}
@@ -130,7 +144,7 @@ namespace DMS.OpenGL
 			texture.LoadPixels(IntPtr.Zero, width, height, internalFormat, inputPixelFormat, type);
 			//set default parameters for filtering and clamping
 			texture.FilterLinear();
-			texture.WrapMode(TextureWrapMode.Repeat);
+			texture.WrapMode(TextureWrapFunction.Repeat);
 			return texture;
 		}
 
@@ -146,7 +160,7 @@ namespace DMS.OpenGL
 		public uint ID { get { return m_uTextureID; } }
 	
 		private readonly uint m_uTextureID = 0;
-		private FilterMode filterMode;
+		private TextureFilterMode filterMode;
 		private readonly TextureTarget target = TextureTarget.Texture2D;
 	}
 }

@@ -1,5 +1,6 @@
 ﻿using DMS.Application;
 using DMS.Geometry;
+using DMS.HLGL;
 using System.Collections.Generic;
 using System.Numerics;
 
@@ -9,7 +10,7 @@ namespace Example
 	{
 		public CameraOrbit Camera { get; private set; } = new CameraOrbit();
 
-		public MainVisual()
+		public MainVisual(IContext context)
 		{
 			Camera.FarClip = 50f;
 			Camera.Distance = 1.5f;
@@ -17,12 +18,14 @@ namespace Example
 			Camera.Azimuth = 90;
 			Camera.Elevation = 20;
 
+			//frameBuffer = context.GetFrameBuffer();
 			//var context = imageBase.Context;
-			//context.
+			//suzanne = context.CreateDrawConfiguration();
 			suzanne.BackfaceCulling = true;
 			suzanne.SetInputTexture(Resources.TextureDiffuse);
 			//model from https://sketchfab.com/models/e925320e1d5744d9ae661aeff61e7aef
-			suzanne.UpdateMeshShader(Obj2Mesh.FromObj(Resourcen.chalet1).Transform(Matrix4x4.CreateRotationX(-0.5f * MathHelper.PI)), Resources.ShaderDefault);
+			var mesh = Obj2Mesh.FromObj(Resourcen.chalet1).Transform(Matrix4x4.CreateRotationX(-0.5f * MathHelper.PI));
+			suzanne.UpdateMeshShader(mesh, Resources.ShaderDefault);
 			suzanne.ZBufferTest = true;
 
 			copyQuad.BackfaceCulling = false;

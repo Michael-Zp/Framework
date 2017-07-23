@@ -8,5 +8,9 @@
 		}
 
 		public int ID { get; private set; }
+
+		public bool IsNull => ID == NULL.ID;
+
+		public static TypedHandle<TYPE> NULL;
 	}
 }

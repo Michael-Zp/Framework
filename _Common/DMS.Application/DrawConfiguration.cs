@@ -1,5 +1,4 @@
-﻿using DMS.Application;
-using DMS.Geometry;
+﻿using DMS.Geometry;
 using DMS.HLGL;
 using DMS.OpenGL;
 using OpenTK.Graphics.OpenGL4;
@@ -9,7 +8,7 @@ using System.Collections.Generic;
 namespace DMS.Application
 {
 	//todo: make this into a node with typed inputs and outputs
-	public class DrawConfiguration
+	public class DrawConfiguration : IDrawConfiguration
 	{
 		public bool BackfaceCulling { get; set; } = false;
 		public int InstanceCount { get; set; } = 1;
@@ -54,6 +53,10 @@ namespace DMS.Application
 		public void SetInputTexture(string name, Image image)
 		{
 			textures[name] = image.Texture;
+		}
+
+		public void SetInputTexture(string name, IImage image)
+		{
 		}
 
 		public void SetInputTexture(string name)

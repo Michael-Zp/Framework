@@ -4,7 +4,7 @@ using System.Collections.Generic;
 
 namespace DMS.OpenGL
 {
-	public class ShaderCreatorGL : ICreator<IShader>, IShader
+	public class ShaderCreatorGL : ICreator<IShader>
 	{
 		public TypedHandle<IShader> Create()
 		{

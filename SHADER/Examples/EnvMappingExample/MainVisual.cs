@@ -10,7 +10,7 @@ namespace Example
 		public MainVisual()
 		{
 			envMap = TextureLoader.FromBitmap(Resourcen.beach);
-			envMap.WrapMode(TextureWrapMode.MirroredRepeat);
+			envMap.WrapMode(TextureWrapFunction.MirroredRepeat);
 			envMap.FilterLinear();
 
 			camera.NearClip = 0.01f;

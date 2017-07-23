@@ -28,13 +28,13 @@ namespace Example
 			//color is multiplied with texture color white == no change
 			GL.Color3(Color.White); //todo student: i) change color
 			//draw with different wrap modes - defines how texture coordinates outside of [0..1]² are handled
-			texBackground.WrapMode(OpenTK.Graphics.OpenGL4.TextureWrapMode.ClampToBorder);
+			texBackground.WrapMode(TextureWrapFunction.ClampToBorder);
 			DrawTexturedRect(new Box2D(-1, 0, 1, 1), texBackground, texCoord);
-			texBackground.WrapMode(OpenTK.Graphics.OpenGL4.TextureWrapMode.Repeat);
+			texBackground.WrapMode(TextureWrapFunction.Repeat);
 			DrawTexturedRect(new Box2D(0, 0, 1, 1), texBackground, texCoord);
-			texBackground.WrapMode(OpenTK.Graphics.OpenGL4.TextureWrapMode.ClampToEdge);
+			texBackground.WrapMode(TextureWrapFunction.ClampToEdge);
 			DrawTexturedRect(new Box2D(-1, -1, 1, 1), texBackground, texCoord);
-			texBackground.WrapMode(OpenTK.Graphics.OpenGL4.TextureWrapMode.MirroredRepeat);
+			texBackground.WrapMode(TextureWrapFunction.MirroredRepeat);
 			DrawTexturedRect(new Box2D(0, -1, 1, 1), texBackground, texCoord);
 		}
 

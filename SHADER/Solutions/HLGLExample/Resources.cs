@@ -1,4 +1,5 @@
 ﻿using DMS.Application;
+using DMS.HLGL;
 using DMS.OpenGL;
 using System.Text;
 
@@ -10,7 +11,7 @@ namespace Example
 		public const string ShaderCopy = "copy";
 		public const string TextureDiffuse = "diffuse";
 
-		public static void LoadResources(ResourceManager resourceManager)
+		public static void LoadResources(IResourceProvider resourceProvider)
 		{
 			//var assembly = Assembly.GetExecutingAssembly();
 			//var names = assembly.GetManifestResourceNames();
@@ -18,11 +19,11 @@ namespace Example
 			
 			//var dir = Path.GetDirectoryName(PathTools.GetSourceFilePath()) + @"\Resources\";
 			//resourceManager.Add<Shader>("shader", new ResourceVertFragShaderFile(dir + "vertex.vert", dir + "fragment.frag"));
-			resourceManager.Add(ShaderDefault, new ResourceVertFragShaderString(Encoding.UTF8.GetString(Resourcen.vertex), Encoding.UTF8.GetString(Resourcen.fragment)));
-			resourceManager.Add(ShaderCopy, new ResourceVertFragShaderString(TextureToFrameBuffer.VertexShaderScreenQuad, TextureToFrameBuffer.FragmentShaderCopy));
+			resourceProvider.Add(ShaderDefault, new ResourceVertFragShaderString(Encoding.UTF8.GetString(Resourcen.vertex), Encoding.UTF8.GetString(Resourcen.fragment)));
+			resourceProvider.Add(ShaderCopy, new ResourceVertFragShaderString(TextureToFrameBuffer.VertexShaderScreenQuad, TextureToFrameBuffer.FragmentShaderCopy));
 			//resourceManager.AddShader("shader", dir + "vertex.vert", dir + "fragment.frag"
 			//	, Resourcen.vertex, Resourcen.fragment);
-			resourceManager.Add(TextureDiffuse, new ResourceTextureBitmap(Resourcen.chalet));
+			resourceProvider.Add(TextureDiffuse, new ResourceTextureBitmap(Resourcen.chalet));
 		}
 	}
 }

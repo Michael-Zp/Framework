@@ -53,8 +53,7 @@ namespace DMS.Application
 
 		public IResource<RESOURCE_TYPE> Get<RESOURCE_TYPE>(string name) where RESOURCE_TYPE : IDisposable
 		{
-			object resource;
-			if(resources.TryGetValue(name, out resource))
+			if (resources.TryGetValue(name, out object resource))
 			{
 				return resource as IResource<RESOURCE_TYPE>;
 			}
@@ -64,6 +63,6 @@ namespace DMS.Application
 		private Dictionary<string, ShaderFileDebugger> shaderWatcher = new Dictionary<string, ShaderFileDebugger>();
 		private Dictionary<string, object> resources = new Dictionary<string, object>();
 
-		public static ResourceManager Instance { get; private set; }
+		public static IResourceProvider Instance { get; private set; }
 	}
 }

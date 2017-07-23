@@ -22,7 +22,7 @@ namespace DMS.OpenGL
 			StateManager.Register<IStateTyped<float>, States.ILineWidth>(new StateCommandGL<float>(GL.LineWidth, 1f));
 			StateManager.Register<IStateTyped<Vector4>, States.IClearColor>(new StateCommandGL<Vector4>(ClearColor, Vector4.Zero));
 			//stateManager.Register<ICommand, IClearColor>(new CommandGL());
-			StateManager.Register<ICreator<IShader>, IShader>(new ShaderCreatorGL());
+			//StateManager.Register<ICreator<IShader>, IShader>(new ShaderCreatorGL());
 		}
 
 		public IStateManager StateManager { get; private set; }
@@ -34,6 +34,16 @@ namespace DMS.OpenGL
 		public void DrawPoints(int count)
 		{
 			GL.DrawArrays(PrimitiveType.Points, 0, count);
+		}
+
+		public IImage GetFrameBuffer()
+		{
+			throw new NotImplementedException();
+		}
+
+		public IDrawConfiguration CreateDrawConfiguration()
+		{
+			throw new NotImplementedException();
 		}
 	}
 }

@@ -1,7 +1,7 @@
 ﻿using System.IO;
-using OpenTK.Graphics.OpenGL4;
 using System.Text.RegularExpressions;
 using System;
+using DMS.HLGL;
 
 namespace DMS.OpenGL
 {
@@ -20,8 +20,8 @@ namespace DMS.OpenGL
 			Shader shd = new Shader();
 			try
 			{
-				shd.Compile(sVertexShd_, ShaderType.VertexShader);
-				shd.Compile(sFragmentShd_, ShaderType.FragmentShader);
+				shd.Compile(sVertexShd_, HLGL.ShaderType.VertexShader);
+				shd.Compile(sFragmentShd_, HLGL.ShaderType.FragmentShader);
 				shd.Link();
 			}
 			catch (Exception e)

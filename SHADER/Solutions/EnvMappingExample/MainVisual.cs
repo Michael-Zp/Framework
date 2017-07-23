@@ -12,7 +12,7 @@ namespace Example
 		{
 			this.shaderProvider = shaderProvider;
 			envMap = TextureLoader.FromBitmap(Resourcen.beach);
-			envMap.WrapMode(TextureWrapMode.MirroredRepeat);
+			envMap.WrapMode(TextureWrapFunction.MirroredRepeat);
 			envMap.FilterLinear();
 			background = new VisualBackground(envMap);
 

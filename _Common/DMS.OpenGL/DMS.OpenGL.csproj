@@ -49,6 +49,7 @@
     <Compile Include="FBOwithDepth.cs" />
     <Compile Include="IAnimation.cs" />
     <Compile Include="DrawTools.cs" />
+    <Compile Include="ShaderManagerGL.cs" />
     <Compile Include="QueryObject.cs" />
     <Compile Include="ReadBack.cs" />
     <Compile Include="RenderBuffer.cs" />

@@ -10,7 +10,7 @@ namespace Example
 		{
 			var app = new ExampleApplication();
 			Resources.LoadResources(app.ResourceManager);
-			var visual = new MainVisual();
+			var visual = new MainVisual(app.Context);
 			app.GameWindow.ConnectEvents(visual.Camera);
 			//app.ResourceManager.ShaderChanged += visual.ShaderChanged;
 			app.Render += visual.Render;

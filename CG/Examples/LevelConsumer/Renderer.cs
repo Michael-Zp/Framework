@@ -118,7 +118,7 @@ namespace Example
 			{
 				texture = TextureLoader.FromBitmap(bitmap);
 				texture.FilterMipmap();
-				texture.WrapMode(OpenTK.Graphics.OpenGL4.TextureWrapMode.ClampToEdge);
+				texture.WrapMode(TextureWrapFunction.ClampToEdge);
 				textures.Add(textureName, texture);
 			}
 			return texture;
