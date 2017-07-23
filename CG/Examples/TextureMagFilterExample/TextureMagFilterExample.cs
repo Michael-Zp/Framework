@@ -1,5 +1,6 @@
 ﻿using DMS.Application;
 using DMS.Geometry;
+using DMS.HLGL;
 using DMS.OpenGL;
 using OpenTK.Graphics.OpenGL;
 using System;
@@ -21,10 +22,10 @@ namespace Example
 		{
 			texBackgroundNearest = TextureLoader.FromBitmap(Resourcen.mountains);
 			texBackgroundNearest.FilterNearest(); //filter by taking the nearest texel's color as a pixels color
-			texBackgroundNearest.WrapMode(TextureWrapFunction.ClampToBorder);
+			texBackgroundNearest.WrapFunction = TextureWrapFunction.ClampToBorder;
 			texBackgroundLinear = TextureLoader.FromBitmap(Resourcen.mountains);
 			texBackgroundLinear.FilterLinear(); //filter by calculating the pixels color as an weighted average of the neighboring texel's colors
-			texBackgroundLinear.WrapMode(TextureWrapFunction.ClampToBorder);
+			texBackgroundLinear.WrapFunction = TextureWrapFunction.ClampToBorder;
 			//background clear color
 			GL.ClearColor(Color.Black);
 		}

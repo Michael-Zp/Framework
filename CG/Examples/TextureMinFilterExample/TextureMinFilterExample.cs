@@ -4,6 +4,7 @@ using DMS.Geometry;
 using OpenTK.Graphics.OpenGL;
 using System;
 using System.Drawing;
+using DMS.HLGL;
 
 namespace Example
 {
@@ -21,10 +22,10 @@ namespace Example
 		{
 			texBackgroundLinear = TextureLoader.FromBitmap(Resourcen.mountains);
 			texBackgroundLinear.FilterLinear(); //filter by taking the nearest texel's color as a pixels color
-			texBackgroundLinear.WrapMode(TextureWrapFunction.Repeat);
+			texBackgroundLinear.WrapFunction = TextureWrapFunction.Repeat;
 			texBackgroundMipmap = TextureLoader.FromBitmap(Resourcen.mountains);
 			texBackgroundMipmap.FilterMipmap(); //filter by calculating the pixels color as a weighted average of the neighboring texel's colors
-			texBackgroundMipmap.WrapMode(TextureWrapFunction.Repeat);
+			texBackgroundMipmap.WrapFunction = TextureWrapFunction.Repeat;
 			//background clear color
 			GL.ClearColor(Color.Black);
 		}

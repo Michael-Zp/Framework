@@ -1,4 +1,5 @@
 ﻿using DMS.Geometry;
+using DMS.HLGL;
 using DMS.OpenGL;
 using OpenTK.Graphics;
 using OpenTK.Graphics.OpenGL4;
@@ -10,7 +11,7 @@ namespace Example
 		public MainVisual()
 		{
 			envMap = TextureLoader.FromBitmap(Resourcen.beach);
-			envMap.WrapMode(TextureWrapFunction.MirroredRepeat);
+			envMap.WrapFunction = TextureWrapFunction.MirroredRepeat;
 			envMap.FilterLinear();
 
 			camera.NearClip = 0.01f;

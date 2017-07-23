@@ -55,6 +55,7 @@
     <Compile Include="IShader.cs" />
     <Compile Include="IShaderProgram.cs" />
     <Compile Include="IStateManager.cs" />
+    <Compile Include="ITexture.cs" />
     <Compile Include="TypedHandle.cs" />
     <Compile Include="IResource.cs" />
     <Compile Include="IResourceProvider.cs" />

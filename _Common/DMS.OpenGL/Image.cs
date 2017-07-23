@@ -1,16 +1,15 @@
 ﻿using DMS.Base;
 using DMS.HLGL;
-using DMS.OpenGL;
 using System;
 
-namespace DMS.Application
+namespace DMS.OpenGL
 {
 	//todo: move all gl classes into a manager class that handles dispose; do not use gl classes directly
-	public class Image : Disposable
+	public class Image : Disposable, IImage
 	{
 		public Image(int width, int height, bool hasDepthBuffer = false, byte components = 4, bool floatingPoint = false): this(hasDepthBuffer)
 		{
-			var tex = Texture.Create(width, height, components, floatingPoint);
+			var tex = OpenGL.Texture.Create(width, height, components, floatingPoint);
 			if (hasDepthBuffer)
 			{
 				fbo = new FBOwithDepth(tex);
@@ -40,7 +39,7 @@ namespace DMS.Application
 		}
 
 		public IContext Context { get { return context; } }
-		public Texture Texture { get { return fbo?.Texture; } }
+		public ITexture Texture { get { return fbo?.Texture; } }
 
 		public void Clear()
 		{
@@ -48,7 +47,7 @@ namespace DMS.Application
 			actionClear();
 		}
 
-		public void Draw(DrawConfiguration config)
+		public void Draw(IDrawConfiguration config)
 		{
 			context.StateManager.Get<StateActiveFboGL, StateActiveFboGL>().Fbo = fbo;
 			config.Draw(context);

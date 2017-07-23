@@ -10,5 +10,6 @@
 		void ClearColorDepth();
 		IImage GetFrameBuffer();
 		IDrawConfiguration CreateDrawConfiguration();
+		IImage CreateImage(int width, int height, bool hasDepthBuffer = false, byte components = 4, bool floatingPoint = false);
 	}
 }

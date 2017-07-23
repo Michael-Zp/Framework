@@ -18,7 +18,9 @@ namespace Example
 			Camera.Azimuth = 90;
 			Camera.Elevation = 20;
 
-			//frameBuffer = context.GetFrameBuffer();
+			this.context = context;
+			frameBuffer = context.GetFrameBuffer();
+			imageBase = context.CreateImage(512, 512, true);
 			//var context = imageBase.Context;
 			//suzanne = context.CreateDrawConfiguration();
 			suzanne.BackfaceCulling = true;
@@ -49,7 +51,7 @@ namespace Example
 
 		internal void Resize(int width, int height)
 		{
-			imageBase = new Image(width, height, true);
+			imageBase = context.CreateImage(width, height, true);
 			copyQuad.SetInputTexture("tex", imageBase);
 		}
 
@@ -71,8 +73,9 @@ namespace Example
 		struct Translate { public Vector4 translate; };
 		private Translate t = new Translate() { translate = Vector4.Zero };
 
-		private Image frameBuffer = new Image();
-		private Image imageBase = new Image(512, 512, true);
+		private IContext context;
+		private IImage frameBuffer;
+		private IImage imageBase;
 		private Uniforms uniforms = new Uniforms();
 		private DrawConfiguration suzanne = new DrawConfiguration();
 		private DrawConfiguration copyQuad = new DrawConfiguration();

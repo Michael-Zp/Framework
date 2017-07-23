@@ -1,16 +1,14 @@
 ﻿using DMS.Base;
+using DMS.HLGL;
 using OpenTK.Graphics.OpenGL4;
 using System;
 
 namespace DMS.OpenGL
 {
-	public enum TextureFilterMode { Nearest, Linear, Mipmap };
-	public enum TextureWrapFunction { Repeat, MirroredRepeat, ClampToEdge, ClampToBorder };
-
 	/// <summary>
 	/// Gl Texture class that allows loading from a file.
 	/// </summary>
-	public class Texture : Disposable
+	public class Texture : Disposable, ITexture
 	{
 		/// <summary>
 		/// Initializes a new instance of the <see cref="Texture"/> class.
@@ -24,25 +22,30 @@ namespace DMS.OpenGL
 			Height = 0;
 		}
 
-		public void WrapMode(TextureWrapFunction wrapFunc)
+		public int Width { get; private set; }
+
+		public int Height { get; private set; }
+
+		public uint ID { get { return m_uTextureID; } }
+
+		public TextureFilterMode Filter
 		{
-			var mode = ConvertWrapFunction(wrapFunc);
-			Activate();
-			GL.TexParameter(target, TextureParameterName.TextureWrapS, mode);
-			GL.TexParameter(target, TextureParameterName.TextureWrapT, mode);
-			Deactivate();
+			get { return filterMode; }
+			set
+			{
+				switch ((TextureFilterMode)(((int)value) % 3))
+				{
+					case TextureFilterMode.Nearest: FilterNearest(); break;
+					case TextureFilterMode.Linear: FilterLinear(); break;
+					case TextureFilterMode.Mipmap: FilterMipmap(); break;
+				}
+			}
 		}
 
-		private int ConvertWrapFunction(TextureWrapFunction wrapFunc)
+		public TextureWrapFunction WrapFunction
 		{
-			switch(wrapFunc)
-			{
-				case TextureWrapFunction.ClampToBorder: return (int)TextureWrapMode.ClampToBorder;
-				case TextureWrapFunction.ClampToEdge: return (int)TextureWrapMode.ClampToEdge;
-				case TextureWrapFunction.Repeat: return (int)TextureWrapMode.Repeat;
-				case TextureWrapFunction.MirroredRepeat: return (int)TextureWrapMode.MirroredRepeat;
-				default: throw new ArgumentOutOfRangeException("Unknown wrap function");
-			}
+			get => wrapFunction;
+			set => SetWrapMode(value);
 		}
 
 		public void FilterLinear()
@@ -87,19 +90,6 @@ namespace DMS.OpenGL
 			GL.Disable(EnableCap.Texture2D);
 		}
 
-		public TextureFilterMode Filter
-		{
-			get { return filterMode; }
-			set
-			{
-				switch ((TextureFilterMode)(((int)value) % 3))
-				{
-					case TextureFilterMode.Nearest: FilterNearest(); break;
-					case TextureFilterMode.Linear: FilterLinear(); break;
-					case TextureFilterMode.Mipmap: FilterMipmap(); break;
-				}
-			}
-		}
 		public void LoadPixels(IntPtr pixels, int width, int height, PixelInternalFormat internalFormat, PixelFormat inputPixelFormat, PixelType type)
 		{
 			Activate();
@@ -109,31 +99,47 @@ namespace DMS.OpenGL
 			Deactivate();
 		}
 
+		public void LoadPixels(IntPtr pixels, int width, int height, byte components = 4, bool floatingPoint = false)
+		{
+			var internalFormat = Convert(components, floatingPoint);
+			var inputPixelFormat = Convert(components);
+			var type = floatingPoint ? PixelType.UnsignedByte : PixelType.Float;
+			Activate();
+			GL.TexImage2D(target, 0, internalFormat, width, height, 0, inputPixelFormat, type, pixels);
+			this.Width = width;
+			this.Height = height;
+			Deactivate();
+		}
+
+		public static PixelInternalFormat Convert(byte components = 4, bool floatingPoint = false)
+		{
+			switch (components)
+			{
+				case 1: return floatingPoint ? PixelInternalFormat.R32f : PixelInternalFormat.R8;
+				case 2: return floatingPoint ? PixelInternalFormat.Rg32f : PixelInternalFormat.Rg8;
+				case 3: return floatingPoint ? PixelInternalFormat.Rgb32f : PixelInternalFormat.Rgb8;
+				case 4: return floatingPoint ? PixelInternalFormat.Rgba32f : PixelInternalFormat.Rgba8;
+			}
+			throw new ArgumentOutOfRangeException("Invalid Format only 1-4 components allowed");
+		}
+
+		public static PixelFormat Convert(byte components = 4)
+		{
+			switch (components)
+			{
+				case 1: return PixelFormat.Red;
+				case 2: return PixelFormat.Rg;
+				case 3: return PixelFormat.Rgb;
+				case 4: return PixelFormat.Rgba;
+			}
+			throw new ArgumentOutOfRangeException("Invalid Format only 1-4 components allowed");
+		}
+
 		public static Texture Create(int width, int height, byte components = 4, bool floatingPoint = false)
 		{
-			if (components > 4) throw new ArgumentException("Only up to 4 components allowed");
-			var internalFormat = PixelInternalFormat.Rgba8;
-			var inputPixelFormat = PixelFormat.Rgba;
-			var type = PixelType.UnsignedByte;
-			if (floatingPoint)
-			{
-				type = PixelType.Float;
-				switch (components)
-				{
-					case 1: internalFormat = PixelInternalFormat.R32f; inputPixelFormat = PixelFormat.Red; break;
-					case 2: internalFormat = PixelInternalFormat.Rg32f; inputPixelFormat = PixelFormat.Rg; break;
-					case 3: internalFormat = PixelInternalFormat.Rgb32f; inputPixelFormat = PixelFormat.Rgb; break;
-				}
-			}
-			else
-			{
-				switch (components)
-				{
-					case 1: internalFormat = PixelInternalFormat.R8; inputPixelFormat = PixelFormat.Red; break;
-					case 2: internalFormat = PixelInternalFormat.Rg8; inputPixelFormat = PixelFormat.Rg; break;
-					case 3: internalFormat = PixelInternalFormat.Rgb8; inputPixelFormat = PixelFormat.Rgb; break;
-				}
-			}
+			var internalFormat = Convert(components, floatingPoint);
+			var inputPixelFormat = Convert(components);
+			var type = floatingPoint ? PixelType.UnsignedByte : PixelType.Float;
 			return Texture.Create(width, height, internalFormat, inputPixelFormat, type);
 		}
 
@@ -144,7 +150,7 @@ namespace DMS.OpenGL
 			texture.LoadPixels(IntPtr.Zero, width, height, internalFormat, inputPixelFormat, type);
 			//set default parameters for filtering and clamping
 			texture.FilterLinear();
-			texture.WrapMode(TextureWrapFunction.Repeat);
+			texture.SetWrapMode(TextureWrapFunction.Repeat);
 			return texture;
 		}
 
@@ -153,14 +159,31 @@ namespace DMS.OpenGL
 			GL.DeleteTexture(m_uTextureID);
 		}
 
-		public int Width { get; private set; }
-
-		public int Height { get; private set; }
-
-		public uint ID { get { return m_uTextureID; } }
-	
 		private readonly uint m_uTextureID = 0;
 		private TextureFilterMode filterMode;
+		private TextureWrapFunction wrapFunction;
 		private readonly TextureTarget target = TextureTarget.Texture2D;
+
+		private int ConvertWrapFunction(TextureWrapFunction wrapFunc)
+		{
+			switch (wrapFunc)
+			{
+				case TextureWrapFunction.ClampToBorder: return (int)TextureWrapMode.ClampToBorder;
+				case TextureWrapFunction.ClampToEdge: return (int)TextureWrapMode.ClampToEdge;
+				case TextureWrapFunction.Repeat: return (int)TextureWrapMode.Repeat;
+				case TextureWrapFunction.MirroredRepeat: return (int)TextureWrapMode.MirroredRepeat;
+				default: throw new ArgumentOutOfRangeException("Unknown wrap function");
+			}
+		}
+
+		private void SetWrapMode(TextureWrapFunction wrapFunc)
+		{
+			var mode = ConvertWrapFunction(wrapFunc);
+			Activate();
+			GL.TexParameter(target, TextureParameterName.TextureWrapS, mode);
+			GL.TexParameter(target, TextureParameterName.TextureWrapT, mode);
+			Deactivate();
+			wrapFunction = wrapFunc;
+		}
 	}
 }

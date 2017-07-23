@@ -50,13 +50,9 @@ namespace DMS.Application
 			UnbindTextures();
 		}
 
-		public void SetInputTexture(string name, Image image)
-		{
-			textures[name] = image.Texture;
-		}
-
 		public void SetInputTexture(string name, IImage image)
 		{
+			textures[name] = image.Texture;
 		}
 
 		public void SetInputTexture(string name)
@@ -126,7 +122,7 @@ namespace DMS.Application
 			buffer.Set(uniformArray, BufferUsageHint.StaticCopy);
 		}
 
-		private Dictionary<string, Texture> textures = new Dictionary<string, Texture>();
+		private Dictionary<string, ITexture> textures = new Dictionary<string, ITexture>();
 		private Dictionary<string, BufferObject> buffers = new Dictionary<string, BufferObject>();
 
 		private void ActivateBuffers()

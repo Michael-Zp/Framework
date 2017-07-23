@@ -38,12 +38,17 @@ namespace DMS.OpenGL
 
 		public IImage GetFrameBuffer()
 		{
-			throw new NotImplementedException();
+			return new Image();
 		}
 
 		public IDrawConfiguration CreateDrawConfiguration()
 		{
 			throw new NotImplementedException();
+		}
+
+		public IImage CreateImage(int width, int height, bool hasDepthBuffer = false, byte components = 4, bool floatingPoint = false)
+		{
+			return new Image(width, height, hasDepthBuffer, components, floatingPoint);
 		}
 	}
 }

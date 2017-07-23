@@ -39,7 +39,6 @@
     <Compile Include="Framebuffer.cs" />
     <Compile Include="GameWindowExtensions.cs" />
     <Compile Include="IExample.cs" />
-    <Compile Include="Image.cs" />
     <Compile Include="IShaderProvider.cs" />
     <Compile Include="Reference.cs" />
     <Compile Include="ResourceManager.cs" />

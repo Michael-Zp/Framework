@@ -61,8 +61,7 @@ namespace ShaderForm.Visual
 		private Texture CreateTexture(int width, int height)
 		{
 			//return Texture.Create(width, height);
-			//return Texture.Create(width, height, PixelInternalFormat.Rgba16f, PixelFormat.Rgba, PixelType.HalfFloat);
-			return Texture.Create(width, height, PixelInternalFormat.Rgba32f, PixelFormat.Rgba, PixelType.Float);
+			return Texture.Create(width, height, 4, true);
 		}
 	}
 }

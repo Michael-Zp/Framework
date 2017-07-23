@@ -1,5 +1,6 @@
 ﻿using DMS.Application;
 using DMS.Geometry;
+using DMS.HLGL;
 using DMS.OpenGL;
 using OpenTK.Graphics.OpenGL;
 using System;
@@ -28,13 +29,13 @@ namespace Example
 			//color is multiplied with texture color white == no change
 			GL.Color3(Color.White); //todo student: i) change color
 			//draw with different wrap modes - defines how texture coordinates outside of [0..1]² are handled
-			texBackground.WrapMode(TextureWrapFunction.ClampToBorder);
+			texBackground.WrapFunction = TextureWrapFunction.ClampToBorder;
 			DrawTexturedRect(new Box2D(-1, 0, 1, 1), texBackground, texCoord);
-			texBackground.WrapMode(TextureWrapFunction.Repeat);
+			texBackground.WrapFunction = TextureWrapFunction.Repeat;
 			DrawTexturedRect(new Box2D(0, 0, 1, 1), texBackground, texCoord);
-			texBackground.WrapMode(TextureWrapFunction.ClampToEdge);
+			texBackground.WrapFunction = TextureWrapFunction.ClampToEdge;
 			DrawTexturedRect(new Box2D(-1, -1, 1, 1), texBackground, texCoord);
-			texBackground.WrapMode(TextureWrapFunction.MirroredRepeat);
+			texBackground.WrapFunction = TextureWrapFunction.MirroredRepeat;
 			DrawTexturedRect(new Box2D(0, -1, 1, 1), texBackground, texCoord);
 		}
 

@@ -4,6 +4,7 @@ using DMS.Geometry;
 using OpenTK.Graphics.OpenGL;
 using System.Drawing;
 using System;
+using DMS.HLGL;
 
 namespace Example
 {
@@ -22,7 +23,7 @@ namespace Example
 			//two landscape resources are available in the Resourcen.resx file
 			texBackground = TextureLoader.FromBitmap(Resourcen.forest);
 			//set how texture coordinates outside of [0..1] are handled
-			texBackground.WrapMode(TextureWrapFunction.MirroredRepeat);
+			texBackground.WrapFunction = TextureWrapFunction.MirroredRepeat;
 			//background clear color
 			GL.ClearColor(Color.White);
 			//for transparency in textures

@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using OpenTK.Graphics.OpenGL;
 using System;
 using System.Drawing;
+using DMS.HLGL;
 
 namespace Example
 {
@@ -118,7 +119,7 @@ namespace Example
 			{
 				texture = TextureLoader.FromBitmap(bitmap);
 				texture.FilterMipmap();
-				texture.WrapMode(TextureWrapFunction.ClampToEdge);
+				texture.WrapFunction = TextureWrapFunction.ClampToEdge;
 				textures.Add(textureName, texture);
 			}
 			return texture;

@@ -2,5 +2,8 @@
 {
 	public interface IImage
 	{
+		ITexture Texture { get; }
+		void Clear();
+		void Draw(IDrawConfiguration config);
 	}
 }
