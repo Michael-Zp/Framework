@@ -36,7 +36,7 @@ namespace DMS.OpenGL
 
 		public IRenderSurface GetFrameBuffer()
 		{
-			return new Image();
+			return new RenderSurfaceGL();
 		}
 
 		public IDrawConfiguration CreateDrawConfiguration()
@@ -46,7 +46,7 @@ namespace DMS.OpenGL
 
 		public IRenderSurface CreateRenderSurface(int width, int height, bool hasDepthBuffer = false, byte components = 4, bool floatingPoint = false)
 		{
-			return new Image(width, height, hasDepthBuffer, components, floatingPoint);
+			return new RenderSurfaceGL(width, height, hasDepthBuffer, components, floatingPoint);
 		}
 	}
 }

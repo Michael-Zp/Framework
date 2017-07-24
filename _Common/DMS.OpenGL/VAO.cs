@@ -145,8 +145,7 @@ namespace DMS.OpenGL
 		
 		private BufferObject RequestBuffer(int bindingID, BufferTarget bufferTarget)
 		{
-			BufferObject buffer;
-			if (!boundBuffers.TryGetValue(bindingID, out buffer))
+			if (!boundBuffers.TryGetValue(bindingID, out BufferObject buffer))
 			{
 				buffer = new BufferObject(bufferTarget);
 				boundBuffers[bindingID] = buffer;

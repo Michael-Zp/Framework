@@ -11,12 +11,14 @@ namespace Example
 		{
 			var app = new ExampleApplication();
 			Resources.LoadResources(app.ResourceManager);
-			var visual = new MainVisual();
+			var visual = new MainVisual(app.RenderContext);
 			Action<MouseEventArgs> updateMouseState = (a) => 
 			{
-				var mouseState = new MouseState();
-				mouseState.position = app.CalcNormalized(a.X, a.Y);
-				mouseState.drawState = GetDrawState(a.Mouse);
+				var mouseState = new MouseState()
+				{
+					position = app.CalcNormalized(a.X, a.Y),
+					drawState = GetDrawState(a.Mouse)
+				};
 				visual.MouseState = mouseState;
 			};
 

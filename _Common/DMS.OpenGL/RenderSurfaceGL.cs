@@ -6,9 +6,9 @@ using System;
 namespace DMS.OpenGL
 {
 	//todo: move all gl classes into a manager class that handles dispose; do not use gl classes directly
-	public class Image : Disposable, IRenderSurface
+	public class RenderSurfaceGL : Disposable, IRenderSurface
 	{
-		public Image(int width, int height, bool hasDepthBuffer = false, byte components = 4, bool floatingPoint = false): this(hasDepthBuffer)
+		public RenderSurfaceGL(int width, int height, bool hasDepthBuffer = false, byte components = 4, bool floatingPoint = false): this(hasDepthBuffer)
 		{
 			var tex = OpenGL.Texture.Create(width, height, components, floatingPoint);
 			if (hasDepthBuffer)
@@ -21,7 +21,7 @@ namespace DMS.OpenGL
 			}
 		}
 
-		public Image(bool hasDepthBuffer = false)
+		public RenderSurfaceGL(bool hasDepthBuffer = false)
 		{
 			if (ReferenceEquals(null, context))
 			{
@@ -40,7 +40,6 @@ namespace DMS.OpenGL
 			}
 		}
 
-		public IRenderContext Context { get { return context; } }
 		public ITexture Texture { get { return fbo?.Texture; } }
 
 		public void Clear()
