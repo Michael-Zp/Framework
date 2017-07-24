@@ -1,6 +1,6 @@
 ﻿namespace DMS.HLGL
 {
-	public interface IImage
+	public interface IRenderSurface
 	{
 		ITexture Texture { get; }
 		void Clear();

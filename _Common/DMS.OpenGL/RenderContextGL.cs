@@ -7,9 +7,9 @@ namespace DMS.OpenGL
 {
 	//public interface IClearColor : ICommand { };
 
-	public class ContextGL : IContext
+	public class RenderContextGL : IRenderContext
 	{
-		public ContextGL()
+		public RenderContextGL()
 		{
 			StateManager = new StateManager();
 			StateManager.Register<StateActiveFboGL, StateActiveFboGL>(new StateActiveFboGL());
@@ -28,15 +28,13 @@ namespace DMS.OpenGL
 		public IStateManager StateManager { get; private set; }
 
 		private void ClearColor(Vector4 c) => GL.ClearColor(c.X, c.Y, c.Z, c.W);
-		public void ClearColor() => GL.Clear(ClearBufferMask.ColorBufferBit);
-		public void ClearColorDepth() => GL.Clear(ClearBufferMask.ColorBufferBit | ClearBufferMask.DepthBufferBit);
 
 		public void DrawPoints(int count)
 		{
 			GL.DrawArrays(PrimitiveType.Points, 0, count);
 		}
 
-		public IImage GetFrameBuffer()
+		public IRenderSurface GetFrameBuffer()
 		{
 			return new Image();
 		}
@@ -46,7 +44,7 @@ namespace DMS.OpenGL
 			throw new NotImplementedException();
 		}
 
-		public IImage CreateImage(int width, int height, bool hasDepthBuffer = false, byte components = 4, bool floatingPoint = false)
+		public IRenderSurface CreateRenderSurface(int width, int height, bool hasDepthBuffer = false, byte components = 4, bool floatingPoint = false)
 		{
 			return new Image(width, height, hasDepthBuffer, components, floatingPoint);
 		}

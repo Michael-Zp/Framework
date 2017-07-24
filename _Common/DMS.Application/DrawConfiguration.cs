@@ -17,7 +17,7 @@ namespace DMS.Application
 		public VAO Vao { get; private set; }
 		public bool ZBufferTest { get; set; } = false;
 
-		public void Draw(IContext context)
+		public void Draw(IRenderContext context)
 		{
 			var stateManager = context.StateManager;
 			stateManager.Get<IStateBool, States.IBlending>().Enabled = BackfaceCulling;
@@ -50,7 +50,7 @@ namespace DMS.Application
 			UnbindTextures();
 		}
 
-		public void SetInputTexture(string name, IImage image)
+		public void SetInputTexture(string name, IRenderSurface image)
 		{
 			textures[name] = image.Texture;
 		}

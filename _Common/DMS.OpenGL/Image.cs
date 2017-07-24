@@ -1,11 +1,12 @@
 ﻿using DMS.Base;
 using DMS.HLGL;
+using OpenTK.Graphics.OpenGL4;
 using System;
 
 namespace DMS.OpenGL
 {
 	//todo: move all gl classes into a manager class that handles dispose; do not use gl classes directly
-	public class Image : Disposable, IImage
+	public class Image : Disposable, IRenderSurface
 	{
 		public Image(int width, int height, bool hasDepthBuffer = false, byte components = 4, bool floatingPoint = false): this(hasDepthBuffer)
 		{
@@ -24,21 +25,22 @@ namespace DMS.OpenGL
 		{
 			if (ReferenceEquals(null, context))
 			{
-				context = new ContextGL();
+				context = new RenderContextGL();
 				//context.StateManager.Get<IStateTyped<Vector4>, States.IClearColor>().Value = new Vector4(0, .3f, .7f, 1);
 			}
 
 			if (hasDepthBuffer)
 			{
-				actionClear = () => context.ClearColorDepth();
+				actionClear = () => GL.Clear(ClearBufferMask.ColorBufferBit | ClearBufferMask.DepthBufferBit);
+
 			}
 			else
 			{
-				actionClear = () => context.ClearColor();
+				actionClear = () => GL.Clear(ClearBufferMask.ColorBufferBit);
 			}
 		}
 
-		public IContext Context { get { return context; } }
+		public IRenderContext Context { get { return context; } }
 		public ITexture Texture { get { return fbo?.Texture; } }
 
 		public void Clear()
@@ -60,6 +62,6 @@ namespace DMS.OpenGL
 
 		private FBO fbo = null;
 		private Action actionClear = null;
-		private static ContextGL context = null;
+		private static RenderContextGL context = null;
 	}
 }

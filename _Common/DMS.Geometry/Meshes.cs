@@ -55,7 +55,7 @@ namespace DMS.Geometry
 			}
 			foreach (var n in m.normal.List)
 			{
-				var newN = Vector3.TransformNormal(n, transform);
+				var newN = Vector3.Normalize(Vector3.TransformNormal(n, transform));
 				mesh.normal.List.Add(newN);
 			}
 			return mesh;

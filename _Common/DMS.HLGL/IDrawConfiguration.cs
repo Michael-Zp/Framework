@@ -10,9 +10,9 @@ namespace DMS.HLGL
 		bool ShaderPointSize { get; set; }
 		bool ZBufferTest { get; set; }
 
-		void Draw(IContext context);
+		void Draw(IRenderContext context);
 		void SetInputTexture(string name);
-		void SetInputTexture(string name, IImage image);
+		void SetInputTexture(string name, IRenderSurface image);
 		void UpdateInstanceAttribute(string name, float[] data);
 		void UpdateInstanceAttribute(string name, int[] data);
 		void UpdateInstanceAttribute(string name, Vector2[] data);

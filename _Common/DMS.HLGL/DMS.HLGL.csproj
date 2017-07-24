@@ -48,10 +48,10 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="ICommand.cs" />
-    <Compile Include="IContext.cs" />
+    <Compile Include="IRenderContext.cs" />
     <Compile Include="ICreator.cs" />
     <Compile Include="IDrawConfiguration.cs" />
-    <Compile Include="IImage.cs" />
+    <Compile Include="IRenderSurface.cs" />
     <Compile Include="IShader.cs" />
     <Compile Include="IShaderProgram.cs" />
     <Compile Include="IStateManager.cs" />

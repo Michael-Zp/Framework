@@ -44,7 +44,7 @@
     <Compile Include="ColorSystems.cs" />
     <Compile Include="BufferObject.cs" />
     <Compile Include="CommandGL.cs" />
-    <Compile Include="ContextGL.cs" />
+    <Compile Include="RenderContextGL.cs" />
     <Compile Include="DoubleBufferedFBO.cs" />
     <Compile Include="FBOwithDepth.cs" />
     <Compile Include="IAnimation.cs" />

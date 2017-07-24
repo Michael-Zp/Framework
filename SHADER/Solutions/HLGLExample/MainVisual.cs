@@ -10,7 +10,7 @@ namespace Example
 	{
 		public CameraOrbit Camera { get; private set; } = new CameraOrbit();
 
-		public MainVisual(IContext context)
+		public MainVisual(IRenderContext context)
 		{
 			Camera.FarClip = 50f;
 			Camera.Distance = 1.5f;
@@ -20,7 +20,7 @@ namespace Example
 
 			this.context = context;
 			frameBuffer = context.GetFrameBuffer();
-			imageBase = context.CreateImage(512, 512, true);
+			surfaceGeometry = context.CreateRenderSurface(512, 512, true);
 			//var context = imageBase.Context;
 			//suzanne = context.CreateDrawConfiguration();
 			suzanne.BackfaceCulling = true;
@@ -31,7 +31,7 @@ namespace Example
 			suzanne.ZBufferTest = true;
 
 			copyQuad.BackfaceCulling = false;
-			copyQuad.SetInputTexture("tex", imageBase);
+			copyQuad.SetInputTexture("tex", surfaceGeometry);
 			copyQuad.UpdateMeshShader(null, Resources.ShaderCopy);
 			copyQuad.ZBufferTest = false;
 
@@ -51,17 +51,17 @@ namespace Example
 
 		internal void Resize(int width, int height)
 		{
-			imageBase = context.CreateImage(width, height, true);
-			copyQuad.SetInputTexture("tex", imageBase);
+			surfaceGeometry = context.CreateRenderSurface(width, height, true);
+			copyQuad.SetInputTexture("tex", surfaceGeometry);
 		}
 
 		public void Render()
 		{
-			imageBase.Clear();
+			surfaceGeometry.Clear();
 
 			uniforms.camera = Matrix4x4.Transpose(Camera.CalcMatrix());
 			suzanne.UpdateUniforms(nameof(Uniforms), uniforms);
-			imageBase.Draw(suzanne);
+			surfaceGeometry.Draw(suzanne);
 
 			frameBuffer.Draw(copyQuad);
 		}
@@ -73,9 +73,9 @@ namespace Example
 		struct Translate { public Vector4 translate; };
 		private Translate t = new Translate() { translate = Vector4.Zero };
 
-		private IContext context;
-		private IImage frameBuffer;
-		private IImage imageBase;
+		private IRenderContext context;
+		private IRenderSurface frameBuffer;
+		private IRenderSurface surfaceGeometry;
 		private Uniforms uniforms = new Uniforms();
 		private DrawConfiguration suzanne = new DrawConfiguration();
 		private DrawConfiguration copyQuad = new DrawConfiguration();
