@@ -4,6 +4,7 @@ using System;
 using System.Numerics;
 using System.Diagnostics;
 using DMS.Geometry;
+using DMS.HLGL;
 
 namespace Example
 {
@@ -38,7 +39,7 @@ namespace Example
 
 		public CameraOrbit OrbitCamera { get { return camera; } }
 
-		public void ShaderChanged(string name, Shader shader)
+		public void ShaderChanged(string name, IShader shader)
 		{
 			if (ShaderName != name) return;
 			this.shader = shader;
@@ -79,7 +80,7 @@ namespace Example
 		private Vector3 source = Vector3.Zero;
 		private Vector3 destination = Vector3.One;
 		private Vector3 acceleration = new Vector3(0, 0, 0);
-		private Shader shader;
+		private IShader shader;
 		private BufferObject bufferParticles;
 		private Stopwatch timeSource = new Stopwatch();
 		private float lastRenderTime = 0f;

@@ -1,4 +1,5 @@
 ﻿using DMS.Geometry;
+using DMS.HLGL;
 using DMS.OpenGL;
 using OpenTK.Graphics.OpenGL4;
 
@@ -18,7 +19,7 @@ namespace Example
 		public static readonly string ShaderPostProcessName = nameof(shaderPostProcess);
 		public static readonly string ShaderName = nameof(shader);
 
-		public void ShaderChanged(string name, Shader shader)
+		public void ShaderChanged(string name, IShader shader)
 		{
 			if(ShaderPostProcessName == name)
 			{
@@ -69,8 +70,8 @@ namespace Example
 
 		private CameraOrbit camera = new CameraOrbit();
 		private FBO renderToTexture;
-		private Shader shaderPostProcess;
-		private Shader shader;
+		private IShader shaderPostProcess;
+		private IShader shader;
 		private VAO geometry;
 	}
 }

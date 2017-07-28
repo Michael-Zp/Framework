@@ -1,4 +1,5 @@
 ﻿using DMS.Geometry;
+using DMS.HLGL;
 using DMS.OpenGL;
 using OpenTK;
 using OpenTK.Graphics.OpenGL4;
@@ -23,7 +24,7 @@ namespace Example
 
 		public static readonly string ShaderName = nameof(shader);
 
-		public void ShaderChanged(string name, Shader shader)
+		public void ShaderChanged(string name, IShader shader)
 		{
 			if (ShaderName != name) return;
 			this.shader = shader;
@@ -63,7 +64,7 @@ namespace Example
 
 		private const int particelCount = 500;
 
-		private Shader shader;
+		private IShader shader;
 		private Stopwatch timeSource = new Stopwatch();
 		private Matrix4 camera = Matrix4.Identity;
 		private VAO geometry;

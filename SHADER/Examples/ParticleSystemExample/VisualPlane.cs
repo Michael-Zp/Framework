@@ -3,6 +3,7 @@ using OpenTK.Graphics.OpenGL4;
 using System.Text;
 using OpenTK;
 using DMS.Geometry;
+using DMS.HLGL;
 
 namespace Example
 {
@@ -30,6 +31,6 @@ namespace Example
 		}
 
 		private VAO plane = new VAO();
-		private Shader shdPlane;
+		private IShader shdPlane;
 	}
 }

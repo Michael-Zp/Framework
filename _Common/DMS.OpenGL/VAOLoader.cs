@@ -1,4 +1,5 @@
 ﻿using DMS.Geometry;
+using DMS.HLGL;
 using OpenTK.Graphics.OpenGL4;
 
 namespace DMS.OpenGL
@@ -11,7 +12,7 @@ namespace DMS.OpenGL
 		/// <param name="mesh">to load to the VertexArrayObject</param>
 		/// <param name="shader">for the attribute location bindings</param>
 		/// <returns></returns>
-		public static VAO FromMesh(Mesh mesh, Shader shader)
+		public static VAO FromMesh(Mesh mesh, IShader shader)
 		{
 			var vao = new VAO();
 			if (mesh.position.List.Count > 0) vao.SetAttribute(shader.GetAttributeLocation(mesh.position.Name), mesh.position.List.ToArray(), VertexAttribPointerType.Float, 3);

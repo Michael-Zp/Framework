@@ -4,6 +4,7 @@ using OpenTK;
 using OpenTK.Graphics.OpenGL4;
 using System;
 using System.Diagnostics;
+using DMS.HLGL;
 
 namespace Example
 {
@@ -19,7 +20,7 @@ namespace Example
 
 		public static readonly string ShaderName = nameof(shader);
 
-		public void ShaderChanged(string name, Shader shader)
+		public void ShaderChanged(string name, IShader shader)
 		{
 			if (ShaderName != name) return;
 			this.shader = shader;
@@ -62,7 +63,7 @@ namespace Example
 		}
 
 		private Matrix4[] instanceTransforms = new Matrix4[3];
-		private Shader shader;
+		private IShader shader;
 		private Stopwatch timeSource = new Stopwatch();
 		private VAO geometry;
 	}

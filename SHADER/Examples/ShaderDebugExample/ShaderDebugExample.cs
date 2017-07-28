@@ -1,4 +1,5 @@
 ﻿using DMS.Application;
+using DMS.HLGL;
 using DMS.OpenGL;
 using OpenTK.Graphics.OpenGL4;
 using System;
@@ -8,7 +9,7 @@ namespace Example
 {
 	class MyVisual
 	{
-		private Shader shader;
+		private IShader shader;
 		private QueryObject glTimerRender = new QueryObject();
 
 		public MyVisual()

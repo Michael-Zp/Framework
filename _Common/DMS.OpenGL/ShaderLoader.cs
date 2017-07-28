@@ -9,6 +9,7 @@ namespace DMS.OpenGL
 	{
 		public const string ExceptionDataFileName = "fileName";
 
+
 		/// <summary>
 		/// Compiles and links vertex and fragment shaders from strings.
 		/// </summary>
@@ -20,8 +21,8 @@ namespace DMS.OpenGL
 			Shader shd = new Shader();
 			try
 			{
-				shd.Compile(sVertexShd_, HLGL.ShaderType.VertexShader);
-				shd.Compile(sFragmentShd_, HLGL.ShaderType.FragmentShader);
+				shd.Compile(sVertexShd_, ShaderType.VertexShader);
+				shd.Compile(sFragmentShd_, ShaderType.FragmentShader);
 				shd.Link();
 			}
 			catch (Exception e)
@@ -70,9 +71,9 @@ namespace DMS.OpenGL
 		/// Reads the contents of a file into a string
 		/// </summary>
 		/// <param name="shaderFile">path to the shader file</param>
-		/// <param name="precompileInclude">should includes be compiled (for error checking) before beeing pasted into the including shader</param>
+		/// <param name="testCompileInclude">should includes be compiled (for error checking) before beeing pasted into the including shader</param>
 		/// <returns>string with contents of shaderFile</returns>
-		public static string ShaderStringFromFileWithIncludes(string shaderFile, bool precompileInclude)
+		public static string ShaderStringFromFileWithIncludes(string shaderFile, bool testCompileInclude)
 		{
 			string sShader = null;
 			if (!File.Exists(shaderFile))
@@ -102,7 +103,7 @@ namespace DMS.OpenGL
 						throw new FileNotFoundException("Could not find include-file '" + sIncludeFileName + "' for shader '" + shaderFile + "'.");
 					}
 					string sIncludeShd = File.ReadAllText(sIncludePath); // read include as string
-					if (precompileInclude)
+					if (testCompileInclude)
 					{
 						using (var shader = new Shader())
 						{

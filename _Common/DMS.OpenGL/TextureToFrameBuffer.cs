@@ -1,11 +1,12 @@
 ﻿using OpenTK.Graphics.OpenGL4;
 using DMS.Base;
+using DMS.HLGL;
 
 namespace DMS.OpenGL
 {
 	public class TextureToFrameBuffer : Disposable
 	{
-		public delegate void SetUniforms(Shader currentShader);
+		public delegate void SetUniforms(IShader currentShader);
 
 		public TextureToFrameBuffer(string fragmentShader = FragmentShaderCopy, string vertexShader = VertexShaderScreenQuad)
 		{

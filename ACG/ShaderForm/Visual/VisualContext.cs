@@ -172,8 +172,7 @@ namespace ShaderForm.Visual
 
 		public void RemoveShader(string shaderFileName)
 		{
-			Shader shader;
-			if (shaders.TryGetValue(shaderFileName, out shader))
+			if (shaders.TryGetValue(shaderFileName, out Shader shader))
 			{
 				shader.Dispose();
 				shaders.Remove(shaderFileName);

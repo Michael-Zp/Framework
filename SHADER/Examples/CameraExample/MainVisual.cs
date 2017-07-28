@@ -1,4 +1,5 @@
 ﻿using DMS.Geometry;
+using DMS.HLGL;
 using DMS.OpenGL;
 using OpenTK;
 using OpenTK.Graphics.OpenGL4;
@@ -21,7 +22,7 @@ namespace Example
 			timeSource.Start();
 		}
 
-		public void ShaderChanged(string name, Shader shader)
+		public void ShaderChanged(string name, IShader shader)
 		{
 			if (ShaderName != name) return;
 			this.shader = shader;
@@ -46,11 +47,11 @@ namespace Example
 		private CameraOrbit camera = new CameraOrbit();
 		private const int particelCount = 500;
 
-		private Shader shader;
+		private IShader shader;
 		private Stopwatch timeSource = new Stopwatch();
 		private VAO geometry;
 
-		private void UpdateMesh(Shader shader)
+		private void UpdateMesh(IShader shader)
 		{
 			Mesh mesh = Obj2Mesh.FromObj(Resourcen.suzanne);
 			geometry = VAOLoader.FromMesh(mesh, shader);

@@ -1,4 +1,5 @@
-﻿using DMS.OpenGL;
+﻿using DMS.HLGL;
+using DMS.OpenGL;
 using OpenTK;
 using OpenTK.Graphics.OpenGL4;
 using System;
@@ -19,7 +20,7 @@ namespace Example
 
 		public static readonly string ShaderName = nameof(shader);
 
-		public void ShaderChanged(string name, Shader shader)
+		public void ShaderChanged(string name, IShader shader)
 		{
 			if (ShaderName != name) return;
 			this.shader = shader;
@@ -41,11 +42,11 @@ namespace Example
 		}
 
 		private const int pointCount = 500;
-		private Shader shader;
+		private IShader shader;
 		private Stopwatch timeSource = new Stopwatch();
 		private VAO geometry;
 
-		private void UpdateGeometry(Shader shader)
+		private void UpdateGeometry(IShader shader)
 		{
 			geometry = new VAO();
 			//generate position arrray on CPU

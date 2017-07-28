@@ -1,4 +1,5 @@
 ﻿using DMS.Application;
+using DMS.HLGL;
 using DMS.OpenGL;
 using OpenTK;
 using OpenTK.Graphics.OpenGL4;
@@ -36,7 +37,7 @@ namespace Example
 			return p;
 		}
 
-		public void ShaderChanged(string name, Shader shader)
+		public void ShaderChanged(string name, IShader shader)
 		{
 			if (ShaderName != name) return;
 			this.shaderSmoke = shader;
@@ -89,7 +90,7 @@ namespace Example
 		}
 
 		public static readonly string ShaderName = nameof(shaderSmoke);
-		private Shader shaderSmoke;
+		private IShader shaderSmoke;
 
 		private Texture texStar;
 		private VAO particles = new VAO();

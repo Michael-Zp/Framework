@@ -1,5 +1,6 @@
 ﻿using OpenTK.Graphics.OpenGL4;
 using DMS.OpenGL;
+using DMS.HLGL;
 
 namespace Example
 {
@@ -7,7 +8,7 @@ namespace Example
 	{
 		public static readonly string ShaderName = nameof(shader);
 
-		public void ShaderChanged(string name, Shader shader)
+		public void ShaderChanged(string name, IShader shader)
 		{
 			if (ShaderName != name) return;
 			this.shader = shader;
@@ -22,6 +23,6 @@ namespace Example
 			shader.Deactivate();
 		}
 
-		private Shader shader;
+		private IShader shader;
 	}
 }

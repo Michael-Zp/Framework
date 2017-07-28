@@ -16,7 +16,7 @@ namespace DMS.Application
 			Instance = this;
 		}
 
-		public delegate void ShaderChangedHandler(string name, Shader shader);
+		public delegate void ShaderChangedHandler(string name, IShader shader);
 		public event ShaderChangedHandler ShaderChanged;
 
 		public void AddShader(string name, string vertexFile, string fragmentFile,
@@ -37,7 +37,7 @@ namespace DMS.Application
 			}
 		}
 
-		public Shader GetShader(string name)
+		public IShader GetShader(string name)
 		{
 			if (shaderWatcher.TryGetValue(name, out ShaderFileDebugger shaderFD))
 			{

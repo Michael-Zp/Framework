@@ -3,6 +3,7 @@ using DMS.Geometry;
 using OpenTK;
 using OpenTK.Graphics.OpenGL4;
 using System;
+using DMS.HLGL;
 
 namespace Example
 {
@@ -25,7 +26,7 @@ namespace Example
 			GL.Enable(EnableCap.DepthTest);
 		}
 
-		public void ShaderChanged(string name, Shader shader)
+		public void ShaderChanged(string name, IShader shader)
 		{
 			visualSmoke.ShaderChanged(name, shader);
 			visualWaterfall.ShaderChanged(name, shader);

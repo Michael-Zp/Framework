@@ -9,7 +9,7 @@ namespace Example
 			this.envMap = envMap;
 		}
 
-		//public void ShaderChanged(string name, Shader shader)
+		//public void ShaderChanged(string name, IShader shader)
 		//{
 		//	if (ShaderName != name) return;
 		//	this.shader = shader;

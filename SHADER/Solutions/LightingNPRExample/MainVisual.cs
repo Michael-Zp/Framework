@@ -1,4 +1,5 @@
 ﻿using DMS.Geometry;
+using DMS.HLGL;
 using DMS.OpenGL;
 using OpenTK;
 using OpenTK.Graphics;
@@ -22,7 +23,7 @@ namespace Example
 			GL.ClearColor(Color.White);
 		}
 
-		public void ShaderChanged(string name, Shader shader)
+		public void ShaderChanged(string name, IShader shader)
 		{
 			if (ShaderName != name) return;
 			this.shader = shader;
@@ -49,11 +50,11 @@ namespace Example
 
 		public static readonly string ShaderName = nameof(shader);
 		private CameraOrbit camera = new CameraOrbit();
-		private Shader shader;
+		private IShader shader;
 
 		private VAO geometry;
 
-		private void UpdateGeometry(Shader shader)
+		private void UpdateGeometry(IShader shader)
 		{
 			Mesh mesh = new Mesh();
 			//mesh.Add(Meshes.CreateSphere(.7f, 3));

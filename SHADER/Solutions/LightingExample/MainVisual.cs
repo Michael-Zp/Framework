@@ -3,6 +3,7 @@ using DMS.Geometry;
 using OpenTK;
 using OpenTK.Graphics;
 using OpenTK.Graphics.OpenGL4;
+using DMS.HLGL;
 
 namespace Example
 {
@@ -21,7 +22,7 @@ namespace Example
 
 		public CameraOrbit OrbitCamera { get { return camera; } }
 
-		public void ShaderChanged(string name, Shader shader)
+		public void ShaderChanged(string name, IShader shader)
 		{
 			if (ShaderName != name) return;
 			this.shader = shader;
@@ -53,11 +54,11 @@ namespace Example
 
 		public static readonly string ShaderName = nameof(shader);
 		private CameraOrbit camera = new CameraOrbit();
-		private Shader shader;
+		private IShader shader;
 
 		private VAO geometry;
 
-		private void UpdateGeometry(Shader shader)
+		private void UpdateGeometry(IShader shader)
 		{
 			var mesh = new Mesh();
 			var sphere = Meshes.CreateSphere(1, 4);

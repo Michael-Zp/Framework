@@ -2,6 +2,7 @@
 using DMS.Geometry;
 using OpenTK;
 using OpenTK.Graphics.OpenGL4;
+using DMS.HLGL;
 
 namespace Example
 {
@@ -21,7 +22,7 @@ namespace Example
 		public static readonly string ShaderName = nameof(shader);
 		public CameraOrbit OrbitCamera { get { return camera; } }
 
-		public void ShaderChanged(string name, Shader shader)
+		public void ShaderChanged(string name, IShader shader)
 		{
 			if (ShaderName != name) return;
 			this.shader = shader;
@@ -51,7 +52,7 @@ namespace Example
 
 		private CameraOrbit camera = new CameraOrbit();
 		private BufferObject bufferMaterials = new BufferObject(BufferTarget.UniformBuffer);
-		private Shader shader;
+		private IShader shader;
 		private VAO geometry;
 	}
 }

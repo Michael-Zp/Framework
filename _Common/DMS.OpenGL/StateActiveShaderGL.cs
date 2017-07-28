@@ -4,7 +4,7 @@ namespace DMS.OpenGL
 {
 	public class StateActiveShaderGL : IState
 	{
-		public Shader Shader
+		public IShader Shader
 		{
 			get => shader;
 			set
@@ -16,6 +16,6 @@ namespace DMS.OpenGL
 			}
 		}
 
-		private Shader shader = null;
+		private IShader shader = null;
 	}
 }

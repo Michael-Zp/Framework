@@ -26,7 +26,7 @@ namespace Example
 
 		public CameraOrbit OrbitCamera { get { return camera; } }
 
-		public void ShaderChanged(string name, Shader shader)
+		public void ShaderChanged(string name, IShader shader)
 		{
 			if (ShaderName != name) return;
 			this.shader = shader;
@@ -59,7 +59,7 @@ namespace Example
 			shader.Deactivate();
 		}
 
-		private Shader shader;
+		private IShader shader;
 		private Stopwatch timeSource = new Stopwatch();
 		private const int instanceCount = (int)30000;
 		private Vector3[] instancePosition = new Vector3[instanceCount];

@@ -2,6 +2,7 @@
 using DMS.Geometry;
 using OpenTK;
 using OpenTK.Graphics.OpenGL4;
+using DMS.HLGL;
 
 namespace Example
 {
@@ -27,7 +28,7 @@ namespace Example
 		public static readonly string ShaderDepthName = nameof(shaderDepth);
 		public CameraOrbit OrbitCamera { get { return camera; } }
 
-		public void ShaderChanged(string name, Shader shader)
+		public void ShaderChanged(string name, IShader shader)
 		{
 			if (ShaderName == name)
 			{
@@ -81,8 +82,8 @@ namespace Example
 
 		private CameraOrbit camera = new CameraOrbit();
 		private CameraOrbit cameraLight = new CameraOrbit();
-		private Shader shader;
-		private Shader shaderDepth;
+		private IShader shader;
+		private IShader shaderDepth;
 		private FBO fboShadowMap = new FBOwithDepth(Texture.Create(512, 512, 1, true));
 		private VAO geometry;
 	}

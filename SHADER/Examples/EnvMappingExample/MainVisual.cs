@@ -26,7 +26,7 @@ namespace Example
 
 		public CameraOrbit OrbitCamera { get { return camera; } }
 
-		public void ShaderChanged(string name, Shader shader)
+		public void ShaderChanged(string name, IShader shader)
 		{
 			if (ShaderName != name) return;
 			this.shader = shader;
@@ -55,7 +55,7 @@ namespace Example
 		public static readonly string ShaderName = nameof(shader);
 		private CameraOrbit camera = new CameraOrbit();
 
-		private Shader shader;
+		private IShader shader;
 		private Texture envMap;
 		private VAO geometry;
 	}

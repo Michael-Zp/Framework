@@ -1,4 +1,5 @@
-﻿using DMS.OpenGL;
+﻿using DMS.HLGL;
+using DMS.OpenGL;
 using OpenTK;
 using OpenTK.Graphics.OpenGL4;
 using System;
@@ -47,7 +48,7 @@ namespace Example
 			}
 		}
 
-		public void ShaderChanged(string name, Shader shader)
+		public void ShaderChanged(string name, IShader shader)
 		{
 			if (ShaderName != name) return;
 			this.shaderWaterfall = shader;
@@ -101,7 +102,7 @@ namespace Example
 		}
 
 		public static readonly string ShaderName = nameof(shaderWaterfall);
-		private Shader shaderWaterfall;
+		private IShader shaderWaterfall;
 
 		private Texture texStar;
 		private VAO particles = new VAO();

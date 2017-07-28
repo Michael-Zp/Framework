@@ -1,4 +1,5 @@
-﻿using DMS.OpenGL;
+﻿using DMS.HLGL;
+using DMS.OpenGL;
 using System.IO;
 using System.Text;
 
@@ -59,9 +60,9 @@ namespace DMS.ShaderDebugging
 			var newShaderCode = form.ShowModal(exception);
 		}
 
-		public Shader Shader { get { return shader; } }
+		public IShader Shader { get { return shader; } }
 
-		private Shader shader;
+		private IShader shader;
 		private FileWatcher shaderWatcherVertex = null;
 		private FileWatcher shaderWatcherFragment = null;
 		private readonly FormShaderExceptionFacade form = new FormShaderExceptionFacade();

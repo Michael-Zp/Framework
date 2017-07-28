@@ -1,4 +1,5 @@
-﻿using DMS.OpenGL;
+﻿using DMS.HLGL;
+using DMS.OpenGL;
 
 namespace DMS.Application
 {
@@ -7,7 +8,7 @@ namespace DMS.Application
 		//public delegate void ShaderChangedHandler(string name, Shader shader);
 		//public event ShaderChangedHandler ShaderChanged;
 
-		Shader GetShader(string name);
+		IShader GetShader(string name);
 		//Texture GetTexture(string name);
 	}
 }

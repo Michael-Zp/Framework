@@ -60,6 +60,14 @@
     </EmbeddedResource>
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\DMS.Base\DMS.Base.csproj">
+      <Project>{E5FF60A4-46FB-42D2-9430-BC523315C2E0}</Project>
+      <Name>DMS.Base</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\DMS.HLGL\DMS.HLGL.csproj">
+      <Project>{227D6BE1-BA08-4030-A755-07288540931F}</Project>
+      <Name>DMS.HLGL</Name>
+    </ProjectReference>
     <ProjectReference Include="..\DMS.OpenGL\DMS.OpenGL.csproj">
       <Project>{c660f6af-c100-4169-a9fb-61e1ebe87f34}</Project>
       <Name>DMS.OpenGL</Name>

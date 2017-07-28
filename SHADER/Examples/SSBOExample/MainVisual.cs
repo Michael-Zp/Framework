@@ -4,6 +4,7 @@ using System;
 using System.Numerics;
 using System.Diagnostics;
 using DMS.Geometry;
+using DMS.HLGL;
 
 namespace Example
 {
@@ -30,7 +31,7 @@ namespace Example
 
 		public static readonly string ShaderName = nameof(shader);
 
-		public void ShaderChanged(string name, Shader shader)
+		public void ShaderChanged(string name, IShader shader)
 		{
 			if (ShaderName != name) return;
 			this.shader = shader;
@@ -58,7 +59,7 @@ namespace Example
 			timeQuery.Deactivate();
 		}
 
-		private Shader shader;
+		private IShader shader;
 		private BufferObject bufferParticles;
 		private QueryObject timeQuery = new QueryObject();
 		private Stopwatch timeSource = new Stopwatch();

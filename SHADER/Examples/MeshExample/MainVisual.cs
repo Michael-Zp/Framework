@@ -1,4 +1,5 @@
 ﻿using DMS.Geometry;
+using DMS.HLGL;
 using DMS.OpenGL;
 using OpenTK.Graphics.OpenGL4;
 
@@ -14,7 +15,7 @@ namespace Example
 
 		public static readonly string ShaderName = nameof(shader);
 
-		public void ShaderChanged(string name, Shader shader)
+		public void ShaderChanged(string name, IShader shader)
 		{
 			if (ShaderName != name) return;
 			this.shader = shader;
@@ -35,7 +36,7 @@ namespace Example
 			shader.Deactivate();
 		}
 
-		private Shader shader;
+		private IShader shader;
 		private VAO geometry;
 		//private Texture texDiffuse;
 	}
