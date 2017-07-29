@@ -6,12 +6,13 @@ using System;
 using System.Collections.Generic;
 using System.Drawing;
 using DMS.Application;
+using DMS.HLGL;
 
 namespace Example
 {
 	class MyVisual
 	{
-		private Texture texBird;
+		private ITexture texBird;
 		private Vector2 rotCenter = new Vector2(-.9f, 0);
 		private List<Box2D> birds = new List<Box2D>();
 
@@ -53,7 +54,7 @@ namespace Example
 			}
 		}
 
-		private static void DrawTexturedRect(Box2D Rectangle, Texture tex)
+		private static void DrawTexturedRect(Box2D Rectangle, ITexture tex)
 		{
 			GL.Color3(Color.White);
 			tex.Activate();

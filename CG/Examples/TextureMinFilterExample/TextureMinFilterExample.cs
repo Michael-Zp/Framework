@@ -13,18 +13,18 @@ namespace Example
 	/// </summary>
 	class MyVisual
 	{
-		private Texture texBackgroundLinear;
-		private Texture texBackgroundMipmap;
+		private ITexture texBackgroundLinear;
+		private ITexture texBackgroundMipmap;
 		private Box2D texCoord = new Box2D(0, 0, 1, 1);
 		private float scaleFactor = 1f;
 
 		private MyVisual()
 		{
 			texBackgroundLinear = TextureLoader.FromBitmap(Resourcen.mountains);
-			texBackgroundLinear.FilterLinear(); //filter by taking the nearest texel's color as a pixels color
+			texBackgroundLinear.Filter = TextureFilterMode.Linear; //filter by taking the nearest texel's color as a pixels color
 			texBackgroundLinear.WrapFunction = TextureWrapFunction.Repeat;
 			texBackgroundMipmap = TextureLoader.FromBitmap(Resourcen.mountains);
-			texBackgroundMipmap.FilterMipmap(); //filter by calculating the pixels color as a weighted average of the neighboring texel's colors
+			texBackgroundMipmap.Filter = TextureFilterMode.Mipmap; //filter by calculating the pixels color as a weighted average of the neighboring texel's colors
 			texBackgroundMipmap.WrapFunction = TextureWrapFunction.Repeat;
 			//background clear color
 			GL.ClearColor(Color.Black);
@@ -59,7 +59,7 @@ namespace Example
 			app.Run();
 		}
 
-		private static void DrawTexturedRect(Box2D rect, Texture tex, Box2D texCoords)
+		private static void DrawTexturedRect(Box2D rect, ITexture tex, Box2D texCoords)
 		{
 			tex.Activate();
 			rect.DrawTexturedRect(texCoords);

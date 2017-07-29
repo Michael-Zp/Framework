@@ -14,7 +14,7 @@ namespace Example
 			this.shaderProvider = shaderProvider;
 			envMap = TextureLoader.FromBitmap(Resourcen.beach);
 			envMap.WrapFunction = TextureWrapFunction.MirroredRepeat;
-			envMap.FilterLinear();
+			envMap.Filter = TextureFilterMode.Linear;
 			background = new VisualBackground(envMap);
 
 			camera.NearClip = 0.01f;
@@ -59,7 +59,7 @@ namespace Example
 		private CameraOrbit camera = new CameraOrbit();
 
 		private IShaderProvider shaderProvider;
-		private Texture envMap;
+		private ITexture envMap;
 		private VAO geometry;
 		private VisualBackground background;
 	}

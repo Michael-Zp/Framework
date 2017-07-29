@@ -6,6 +6,7 @@ using System.Collections.Generic;
 using System.Diagnostics;
 using System.IO;
 using ShaderForm.Interfaces;
+using DMS.HLGL;
 
 namespace ShaderForm.Visual
 {
@@ -196,7 +197,7 @@ namespace ShaderForm.Visual
 		//public IEnumerable<string> TextureList { get { return textureNames; } }
 
 		private List<string> textureNames = new List<string>();
-		private List<Texture> textures = new List<Texture>();
+		private List<ITexture> textures = new List<ITexture>();
 		private Dictionary<string, Shader> shaders = new Dictionary<string, Shader>();
 		private RenderSurfacePingPong surface;
 		private TextureToFrameBuffer copyToScreen;

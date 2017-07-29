@@ -30,7 +30,7 @@ namespace Example
 			Mesh mesh = Obj2Mesh.FromObj(Resourcen.suzanne);
 			geometryBody = VAOLoader.FromMesh(mesh, shader);
 
-			var plane = Meshes.CreateQuad(100, 100, 10, 10);
+			var plane = Meshes.CreatePlane(100, 100, 10, 10);
 			var xForm = new Transformation();
 			xForm.TranslateLocal(0, -20, 0);
 			geometryPlane = VAOLoader.FromMesh(plane.Transform(xForm), shader);

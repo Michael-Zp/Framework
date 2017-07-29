@@ -3,6 +3,7 @@ using DMS.Geometry;
 using OpenTK.Graphics.OpenGL;
 using System;
 using System.Collections.Generic;
+using DMS.HLGL;
 
 namespace MiniGalaxyBirds
 {
@@ -10,7 +11,7 @@ namespace MiniGalaxyBirds
 	{
 		public Renderer() { }
 
-		public void Register(string type, Texture texture)
+		public void Register(string type, ITexture texture)
 		{
 			this.registeredTypes[type] = texture;
 		}
@@ -32,8 +33,7 @@ namespace MiniGalaxyBirds
 
 		public IDrawable CreateDrawable(string type, Box2D frame)
 		{
-			Texture tex;
-			if (this.registeredTypes.TryGetValue(type, out tex))
+			if (this.registeredTypes.TryGetValue(type, out ITexture tex))
 			{
 				IDrawable drawable = new Sprite(tex, frame);
 				drawables.Add(drawable);
@@ -44,8 +44,7 @@ namespace MiniGalaxyBirds
 
 		public IDrawable CreateDrawable(string type, Box2D frame, IAnimation animation)
 		{
-			Texture tex;
-			if (this.registeredTypes.TryGetValue(type, out tex))
+			if (this.registeredTypes.TryGetValue(type, out ITexture tex))
 			{
 				IDrawable drawable = new AnimatedSprite(tex, frame, animation);
 				drawables.Add(drawable);
@@ -95,7 +94,7 @@ namespace MiniGalaxyBirds
 			font.Print(x, y, z, size, text);
 		}
 
-		private readonly Dictionary<string, Texture> registeredTypes = new Dictionary<string, Texture>();
+		private readonly Dictionary<string, ITexture> registeredTypes = new Dictionary<string, ITexture>();
 		private readonly HashSet<IDrawable> drawables = new HashSet<IDrawable>();
 
 		private TextureFont font = null;

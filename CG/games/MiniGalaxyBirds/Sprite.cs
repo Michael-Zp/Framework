@@ -1,13 +1,13 @@
-﻿using DMS.OpenGL;
-using DMS.Geometry;
+﻿using DMS.Geometry;
 using OpenTK.Graphics.OpenGL;
 using System.Drawing;
+using DMS.HLGL;
 
 namespace MiniGalaxyBirds
 {
 	public class Sprite : IDrawable
 	{
-		public Sprite(Texture tex, Box2D extents)
+		public Sprite(ITexture tex, Box2D extents)
 		{
 			this.tex = tex;
 			this.Rect = extents;
@@ -27,6 +27,6 @@ namespace MiniGalaxyBirds
 		}
 
 		public Box2D Rect { get; private set; }
-		private Texture tex;
+		private ITexture tex;
 	}
 }

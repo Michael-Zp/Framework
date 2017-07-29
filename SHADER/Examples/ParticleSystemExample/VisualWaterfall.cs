@@ -104,7 +104,7 @@ namespace Example
 		public static readonly string ShaderName = nameof(shaderWaterfall);
 		private IShader shaderWaterfall;
 
-		private Texture texStar;
+		private ITexture texStar;
 		private VAO particles = new VAO();
 		private ParticleSystem<Particle> particleSystem = new ParticleSystem<Particle>(10000);
 		private Random random = new Random();

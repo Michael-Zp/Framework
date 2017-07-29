@@ -13,8 +13,8 @@ namespace Example
 	/// </summary>
 	class MyVisual
 	{
-		private Texture texBackground;
-		private Texture texPlayer;
+		private ITexture texBackground;
+		private ITexture texPlayer;
 		private Box2D texCoord = new Box2D(0, 0, 0.3f, 1);
 
 		private MyVisual()
@@ -49,7 +49,7 @@ namespace Example
 			texCoord.X += updatePeriod * 0.1f; //scroll texture coordinates
 		}
 
-		private static void DrawTexturedRect(Box2D rect, Texture tex, Box2D texCoords)
+		private static void DrawTexturedRect(Box2D rect, ITexture tex, Box2D texCoords)
 		{
 			tex.Activate();
 			GL.Begin(PrimitiveType.Quads);

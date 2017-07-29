@@ -60,7 +60,7 @@ namespace Example
 
 		private class Layer
 		{
-			public void Add(Texture tex, Box2D bounds)
+			public void Add(ITexture tex, Box2D bounds)
 			{
 				if (!textures.ContainsKey(tex))
 				{
@@ -82,11 +82,11 @@ namespace Example
 				}
 			}
 
-			private Dictionary<Texture, List<Box2D>> textures = new Dictionary<Texture, List<Box2D>>();
+			private Dictionary<ITexture, List<Box2D>> textures = new Dictionary<ITexture, List<Box2D>>();
 		}
 
 		private SortedDictionary<int, Layer> layers = new SortedDictionary<int, Layer>();
-		private Dictionary<string, Texture> textures = new Dictionary<string, Texture>();
+		private Dictionary<string, ITexture> textures = new Dictionary<string, ITexture>();
 		private Dictionary<string, List<Box2D>> namedSprites = new Dictionary<string, List<Box2D>>();
 		private float aspect = 1f;
 
@@ -112,13 +112,13 @@ namespace Example
 			return null;
 		}
 
-		private Texture GetTexture(string textureName, Bitmap bitmap)
+		private ITexture GetTexture(string textureName, Bitmap bitmap)
 		{
-			Texture texture;
+			ITexture texture;
 			if (!textures.TryGetValue(textureName, out texture))
 			{
 				texture = TextureLoader.FromBitmap(bitmap);
-				texture.FilterMipmap();
+				texture.Filter = TextureFilterMode.Mipmap;
 				texture.WrapFunction = TextureWrapFunction.ClampToEdge;
 				textures.Add(textureName, texture);
 			}

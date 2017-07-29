@@ -1,4 +1,5 @@
 ﻿using DMS.Geometry;
+using DMS.HLGL;
 using System;
 using System.Collections.Generic;
 
@@ -11,14 +12,14 @@ namespace DMS.OpenGL
 			this.AnimationLength = animationLength;
 		}
 
-		public void AddFrame(Texture textureFrame)
+		public void AddFrame(ITexture textureFrame)
 		{
 			textures.Add(textureFrame);
 		}
 
 		public float AnimationLength { get; set; }
 
-		public IList<Texture> Textures
+		public IList<ITexture> Textures
 		{
 			get
 			{
@@ -52,6 +53,6 @@ namespace DMS.OpenGL
 			textures[id].Deactivate();
 		}
 
-		private List<Texture> textures = new List<Texture>();
+		private List<ITexture> textures = new List<ITexture>();
 	}
 }

@@ -61,7 +61,7 @@ namespace Example
 		{
 			Mesh mesh = new Mesh();
 			var roomSize = 8;
-			var plane = Meshes.CreateQuad(roomSize, roomSize, 2, 2);
+			var plane = Meshes.CreatePlane(roomSize, roomSize, 2, 2);
 			var xform = new Transformation();
 			xform.TranslateGlobal(0, -roomSize / 2, 0);
 			mesh.Add(plane.Transform(xform));
@@ -77,6 +77,7 @@ namespace Example
 			mesh.Add(plane.Transform(xform));
 
 			var sphere = Meshes.CreateSphere(1);
+			sphere.SetConstantUV(new System.Numerics.Vector2(0, 0));
 			mesh.Add(sphere);
 			var suzanne = Obj2Mesh.FromObj(Resourcen.suzanne);
 			mesh.Add(suzanne.Transform(System.Numerics.Matrix4x4.CreateTranslation(2, 2, -2)));

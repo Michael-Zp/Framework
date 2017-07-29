@@ -13,7 +13,7 @@ namespace Example
 	/// </summary>
 	class MyVisual
 	{
-		private Texture texBackground;
+		private ITexture texBackground;
 		private Box2D texCoord = new Box2D(-1, -1, 3, 3);
 
 		private MyVisual()
@@ -48,7 +48,7 @@ namespace Example
 			app.Run();
 		}
 
-		private static void DrawTexturedRect(Box2D rect, Texture tex, Box2D texCoords)
+		private static void DrawTexturedRect(Box2D rect, ITexture tex, Box2D texCoords)
 		{
 			tex.Activate();
 			rect.DrawTexturedRect(texCoords);

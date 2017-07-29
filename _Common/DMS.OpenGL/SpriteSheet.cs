@@ -1,4 +1,5 @@
 ﻿using DMS.Geometry;
+using DMS.HLGL;
 
 namespace DMS.OpenGL
 {
@@ -7,22 +8,22 @@ namespace DMS.OpenGL
 	/// </summary>
 	public class SpriteSheet
 	{
-		public SpriteSheet(Texture tex, uint spritesPerRow, uint spritesPerColumn
+		public SpriteSheet(ITexture tex, uint spritesPerRow, uint spritesPerColumn
 			, float spriteBoundingBoxWidth = 1.0f, float spriteBoundingBoxHeight = 1.0f)
 		{
 			this.tex = tex;
-			this.tex.FilterMipmap();
+			this.tex.Filter = TextureFilterMode.Mipmap;
 			this.spritesPerRow = spritesPerRow;
 			this.spritesPerColumn = spritesPerColumn;
 			this.spriteBoundingBoxWidth = spriteBoundingBoxWidth;
 			this.spriteBoundingBoxHeight = spriteBoundingBoxHeight;
 		}
 
-		public SpriteSheet(Texture tex, uint spritesPerLine
+		public SpriteSheet(ITexture tex, uint spritesPerLine
 			, float spriteBoundingBoxWidth = 1.0f, float spriteBoundingBoxHeight = 1.0f)
 		{
 			this.tex = tex;
-			this.tex.FilterMipmap();
+			this.tex.Filter = TextureFilterMode.Mipmap;
 			this.spritesPerRow = spritesPerLine;
 			this.spritesPerColumn = spritesPerLine;
 			this.spriteBoundingBoxWidth = spriteBoundingBoxWidth;
@@ -96,7 +97,7 @@ namespace DMS.OpenGL
 			}
 		}
 
-		public Texture Tex
+		public ITexture Tex
 		{
 			get
 			{
@@ -108,6 +109,6 @@ namespace DMS.OpenGL
 		private readonly float spriteBoundingBoxHeight;
 		private readonly uint spritesPerRow;
 		private readonly uint spritesPerColumn;
-		private readonly Texture tex;
+		private readonly ITexture tex;
 	}
 }

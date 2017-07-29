@@ -1,6 +1,7 @@
 ﻿using DMS.Geometry;
 using DMS.Base;
 using OpenTK.Graphics.OpenGL;
+using DMS.HLGL;
 
 namespace DMS.OpenGL
 {
@@ -18,7 +19,7 @@ namespace DMS.OpenGL
 		/// <param name="characterBoundingBoxWidth">bounding box width of each character cell, allows to zoom in/out of each character</param>
 		/// <param name="characterBoundingBoxHeight">bounding box height of each character cell, allows to zoom in/out of each character</param>
 		/// <param name="characterSpacing">how much to move to the right after drawing a single character</param>
-		public TextureFont(Texture texture, uint charactersPerLine = 16, byte firstAsciiCode = 0
+		public TextureFont(ITexture texture, uint charactersPerLine = 16, byte firstAsciiCode = 0
 			, float characterBoundingBoxWidth = 1.0f, float characterBoundingBoxHeight = 1.0f, float characterSpacing = 1.0f)
 		{
 			this.texFont = new SpriteSheet(texture, charactersPerLine, characterBoundingBoxWidth, characterBoundingBoxHeight);

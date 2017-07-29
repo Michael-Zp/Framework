@@ -7,13 +7,14 @@ using System.Collections.Generic;
 using System.Diagnostics;
 using System.Drawing;
 using DMS.Application;
+using DMS.HLGL;
 
 namespace Example
 {
 	class MyVisual
 	{
 		//private double timeSec = 0;
-		private Texture texBird;
+		private ITexture texBird;
 		private Box2D bird = new Box2D(0, 0, .2f, .2f);
 		private Stopwatch timeSource = new Stopwatch();
 		private List<Vector2> wayPoints = new List<Vector2>();
@@ -63,7 +64,7 @@ namespace Example
 			bird.CenterY = pos.Y;
 		}
 
-		private static void DrawTexturedRect(Box2D Rectangle, Texture tex)
+		private static void DrawTexturedRect(Box2D Rectangle, ITexture tex)
 		{
 			GL.Color3(Color.White);
 			tex.Activate();

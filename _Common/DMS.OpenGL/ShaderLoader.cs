@@ -32,6 +32,13 @@ namespace DMS.OpenGL
 			}
 			return shd;
 		}
+		public static string FromStrings(this IShader shader, string sVertexShd_, string sFragmentShd_)
+		{
+			shader.Compile(sVertexShd_, ShaderType.VertexShader);
+			shader.Compile(sFragmentShd_, ShaderType.FragmentShader);
+			shader.Link();
+			return shader.LastLog;
+		}
 
 		/// <summary>
 		/// Compiles and links vertex and fragment shaders from files.

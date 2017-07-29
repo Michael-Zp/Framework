@@ -1,11 +1,12 @@
 ﻿using DMS.OpenGL;
 using DMS.Geometry;
+using DMS.HLGL;
 
 namespace MiniGalaxyBirds
 {
 	public class AnimatedSprite : IDrawable
 	{
-		public AnimatedSprite(Texture tex, Box2D extents, IAnimation animation)
+		public AnimatedSprite(ITexture tex, Box2D extents, IAnimation animation)
 		{
 			this.spriteSheet = new SpriteSheetAnimation(new SpriteSheet(tex, 5), 0, 24, animation.Length);
 			this.Rect = extents;

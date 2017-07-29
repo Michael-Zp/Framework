@@ -5,7 +5,7 @@ namespace DMS.HLGL
 	public enum TextureFilterMode { Nearest, Linear, Mipmap };
 	public enum TextureWrapFunction { Repeat, MirroredRepeat, ClampToEdge, ClampToBorder };
 
-	public interface ITexture
+	public interface ITexture : IDisposable
 	{
 		TextureFilterMode Filter { get; set; }
 		int Height { get; }

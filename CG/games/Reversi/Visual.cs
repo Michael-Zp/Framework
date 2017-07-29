@@ -4,6 +4,7 @@ using OpenTK;
 using OpenTK.Graphics.OpenGL;
 using System.Drawing;
 using System;
+using DMS.HLGL;
 
 namespace Reversi
 {
@@ -73,9 +74,9 @@ namespace Reversi
 
 		private Matrix4 toClipSpace = new Matrix4();
 		private TextureFont font = new TextureFont(TextureLoader.FromBitmap(Resourcen.Fire_2), 10, 32, 1.0f, 0.9f, 0.5f);
-		private Texture texWhite;
-		private Texture texBlack;
-		private Texture texTable;
+		private ITexture texWhite;
+		private ITexture texBlack;
+		private ITexture texTable;
 		private float aspect;
 
 		private void DrawField(IGameState gameState)
@@ -131,7 +132,7 @@ namespace Reversi
 			GL.End();
 		}
 
-		static void DrawSprite(float x, float y, Texture tex, float radius = 0.5f, float repeat = 1.0f)
+		static void DrawSprite(float x, float y, ITexture tex, float radius = 0.5f, float repeat = 1.0f)
 		{
 			tex.Activate();
 			GL.Color3(Color.White);

@@ -4,6 +4,7 @@ using DMS.Geometry;
 using OpenTK.Graphics.OpenGL;
 using System;
 using System.Drawing;
+using DMS.HLGL;
 
 namespace Example
 {
@@ -13,8 +14,8 @@ namespace Example
 	/// </summary>
 	class MyVisual
 	{
-		private Texture texBackground;
-		private Texture texShip;
+		private ITexture texBackground;
+		private ITexture texShip;
 
 		[STAThread]
 		private static void Main()
@@ -50,7 +51,7 @@ namespace Example
 			GL.Disable(EnableCap.Blend);
 		}
 
-		private static void DrawTexturedRect(Box2D Rect, Texture tex)
+		private static void DrawTexturedRect(Box2D Rect, ITexture tex)
 		{
 			//the texture has to be enabled before use
 			tex.Activate();

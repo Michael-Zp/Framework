@@ -62,6 +62,7 @@ namespace Example
 		{
 			var mesh = new Mesh();
 			var sphere = Meshes.CreateSphere(1, 4);
+			sphere.SetConstantUV(new System.Numerics.Vector2(0, 0));
 			mesh.Add(sphere);
 			var suzanne = Obj2Mesh.FromObj(Resourcen.suzanne);
 			mesh.Add(suzanne.Transform(System.Numerics.Matrix4x4.CreateTranslation(2, 2, -2)));

@@ -3,6 +3,7 @@ using DMS.Geometry;
 using OpenTK.Graphics.OpenGL;
 using System.Collections.Generic;
 using System.Drawing;
+using DMS.HLGL;
 
 namespace MvcSpaceInvaders
 {
@@ -40,9 +41,9 @@ namespace MvcSpaceInvaders
 			GL.Disable(EnableCap.Blend);
 		}
 
-		private readonly Texture texEnemy;
-		private readonly Texture texPlayer;
-		private readonly Texture texBullet;
+		private readonly ITexture texEnemy;
+		private readonly ITexture texPlayer;
+		private readonly ITexture texBullet;
 
 		private void Draw(Box2D Rectanlge)
 		{

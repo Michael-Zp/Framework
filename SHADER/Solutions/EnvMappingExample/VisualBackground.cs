@@ -1,10 +1,10 @@
-﻿using DMS.OpenGL;
+﻿using DMS.HLGL;
 
 namespace Example
 {
 	public class VisualBackground
 	{
-		public VisualBackground(Texture envMap)
+		public VisualBackground(ITexture envMap)
 		{
 			this.envMap = envMap;
 		}
@@ -20,7 +20,7 @@ namespace Example
 		//	geometry = VAOLoader.FromMesh(envSphere, shader);
 		//}
 
-		private Texture envMap;
+		private ITexture envMap;
 		//private VAO geometry;
 	}
 }

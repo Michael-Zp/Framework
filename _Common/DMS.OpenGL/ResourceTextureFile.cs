@@ -4,7 +4,7 @@ using System;
 
 namespace DMS.Application
 {
-	public class ResourceTextureFile : IResource<Texture>
+	public class ResourceTextureFile : IResource<ITexture>
 	{
 		public ResourceTextureFile(string filePath)
 		{
@@ -13,10 +13,10 @@ namespace DMS.Application
 
 		public bool IsValueCreated { get { return true; } }
 
-		public Texture Value { get { return texture; } }
+		public ITexture Value { get { return texture; } }
 
-		public event EventHandler<Texture> Change { add { } remove { } }
+		public event EventHandler<ITexture> Change { add { } remove { } }
 
-		private Texture texture;
+		private ITexture texture;
 	}
 }

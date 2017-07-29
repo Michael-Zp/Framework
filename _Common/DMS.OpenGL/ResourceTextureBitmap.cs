@@ -5,7 +5,7 @@ using System.Drawing;
 
 namespace DMS.Application
 {
-	public class ResourceTextureBitmap : IResource<Texture>
+	public class ResourceTextureBitmap : IResource<ITexture>
 	{
 		public ResourceTextureBitmap(Bitmap bitmap)
 		{
@@ -14,10 +14,10 @@ namespace DMS.Application
 
 		public bool IsValueCreated { get { return true;  } }
 
-		public Texture Value { get { return texture; } }
+		public ITexture Value { get { return texture; } }
 
-		public event EventHandler<Texture> Change {  add { } remove { } }
+		public event EventHandler<ITexture> Change {  add { } remove { } }
 
-		private Texture texture;
+		private ITexture texture;
 	}
 }

@@ -12,7 +12,7 @@ namespace Example
 		{
 			envMap = TextureLoader.FromBitmap(Resourcen.beach);
 			envMap.WrapFunction = TextureWrapFunction.MirroredRepeat;
-			envMap.FilterLinear();
+			envMap.Filter = TextureFilterMode.Linear;
 
 			camera.NearClip = 0.01f;
 			camera.FarClip = 50;
@@ -56,7 +56,7 @@ namespace Example
 		private CameraOrbit camera = new CameraOrbit();
 
 		private IShader shader;
-		private Texture envMap;
+		private ITexture envMap;
 		private VAO geometry;
 	}
 }

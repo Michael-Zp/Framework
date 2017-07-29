@@ -92,7 +92,7 @@ namespace Example
 		public static readonly string ShaderName = nameof(shaderSmoke);
 		private IShader shaderSmoke;
 
-		private Texture texStar;
+		private ITexture texStar;
 		private VAO particles = new VAO();
 		private ParticleSystem<Particle> particleSystem = new ParticleSystem<Particle>(1000);
 		private Random random = new Random();

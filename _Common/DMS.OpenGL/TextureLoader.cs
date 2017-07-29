@@ -1,4 +1,5 @@
-﻿using OpenTK.Graphics.OpenGL4;
+﻿using DMS.HLGL;
+using OpenTK.Graphics.OpenGL4;
 using System;
 using System.Drawing;
 using System.IO;
@@ -11,7 +12,7 @@ namespace DMS.OpenGL
 
 	public static class TextureLoader
 	{
-		public static Texture FromArray<TYPE>(TYPE[,] data, PixelInternalFormat internalFormat, PixelFormat format, PixelType type)
+		public static ITexture FromArray<TYPE>(TYPE[,] data, PixelInternalFormat internalFormat, PixelFormat format, PixelType type)
 		{
 			GCHandle pinnedArray = GCHandle.Alloc(data, GCHandleType.Pinned);
 			try
@@ -32,7 +33,7 @@ namespace DMS.OpenGL
 			}
 		}
 
-		public static Texture FromBitmap(Bitmap bitmap)
+		public static ITexture FromBitmap(Bitmap bitmap)
 		{
 			Texture texture = new Texture();
 			texture.FilterMipmap();
@@ -51,7 +52,7 @@ namespace DMS.OpenGL
 			return texture;
 		}
 
-		public static Texture FromStream(Stream stream)
+		public static ITexture FromStream(Stream stream)
 		{
 			Texture texture = new Texture();
 			texture.FilterMipmap();
@@ -70,7 +71,7 @@ namespace DMS.OpenGL
 			return texture;
 		}
 
-		public static Texture FromFile(string fileName)
+		public static ITexture FromFile(string fileName)
 		{
 			if (String.IsNullOrEmpty(fileName))
 			{
@@ -83,7 +84,7 @@ namespace DMS.OpenGL
 			return FromBitmap(new Bitmap(fileName));
 		}
 
-		public static void SaveToFile(Texture texture, string fileName, SysDraw.PixelFormat format = SysDraw.PixelFormat.Format32bppArgb)
+		public static void SaveToFile(ITexture texture, string fileName, SysDraw.PixelFormat format = SysDraw.PixelFormat.Format32bppArgb)
 		{
 			using (var bitmap = SaveToBitmap(texture, format))
 			{
@@ -91,7 +92,7 @@ namespace DMS.OpenGL
 			}
 		}
 
-		public static Bitmap SaveToBitmap(Texture texture, SysDraw.PixelFormat format = SysDraw.PixelFormat.Format32bppArgb)
+		public static Bitmap SaveToBitmap(ITexture texture, SysDraw.PixelFormat format = SysDraw.PixelFormat.Format32bppArgb)
 		{
 			try
 			{ 

@@ -35,8 +35,16 @@ namespace DMS.Geometry
 		{
 			var count = (uint)a.position.List.Count;
 			a.position.List.AddRange(b.position.List);
-			a.normal.List.AddRange(b.normal.List);
-			a.uv.List.AddRange(b.uv.List);
+			if(b.normal.List.Count > 0)
+			{
+				if (a.normal.List.Count != count) throw new ArgumentException("Original mesh has no normals, but added mesh has normals");
+				a.normal.List.AddRange(b.normal.List);
+			}
+			if (b.uv.List.Count > 0)
+			{
+				if (a.uv.List.Count != count) throw new ArgumentException("Original mesh has no uvs, but added mesh has uvs");
+				a.uv.List.AddRange(b.uv.List);
+			}
 			foreach(var id in b.IDs)
 			{
 				a.IDs.Add(id + count);
@@ -113,7 +121,7 @@ namespace DMS.Geometry
 		public static Mesh CreateCornellBox(float roomSize = 2, float sphereRadius = 0.3f, float cubeSize = 0.6f)
 		{
 			Mesh mesh = new Mesh();
-			var plane = Meshes.CreateQuad(roomSize, roomSize, 2, 2);
+			var plane = Meshes.CreatePlane(roomSize, roomSize, 2, 2);
 			
 			var xform = new Transformation();
 			xform.TranslateGlobal(0, -roomSize / 2, 0);
@@ -340,7 +348,7 @@ namespace DMS.Geometry
 			return CreateSphere(radius, 0);
 		}
 
-		public static Mesh CreateQuad(float sizeX, float sizeZ, uint segmentsX, uint segmentsZ)
+		public static Mesh CreatePlane(float sizeX, float sizeZ, uint segmentsX, uint segmentsZ)
 		{
 			float deltaX = (1.0f / segmentsX) * sizeX;
 			float deltaZ = (1.0f / segmentsZ) * sizeZ;
@@ -374,6 +382,39 @@ namespace DMS.Geometry
 			}
 			return m;
 		}
+
+		//public static Mesh CreateQuad(Box2D rect)
+		//{
+		//	Mesh mesh = new Mesh();
+
+		//	//add vertices
+		//	for (uint u = 0; u <= 1; ++u)
+		//	{
+		//		for (uint v = 0; v <= 1; ++v)
+		//		{
+		//			float x = rect.X + u * rect.SizeX;
+		//			float y = rect.Y + v * rect.SizeY;
+		//			mesh.position.List.Add(new Vector3(x, y, 0));
+		//			mesh.uv.List.Add(new Vector2(u, v));
+		//		}
+		//	}
+		//	uint verticesZ = segmentsZ + 1;
+		//	//add ids
+		//	for (uint u = 0; u < segmentsX; ++u)
+		//	{
+		//		for (uint v = 0; v < segmentsZ; ++v)
+		//		{
+		//			m.IDs.Add(u * verticesZ + v);
+		//			m.IDs.Add(u * verticesZ + v + 1);
+		//			m.IDs.Add((u + 1) * verticesZ + v);
+
+		//			m.IDs.Add((u + 1) * verticesZ + v);
+		//			m.IDs.Add(u * verticesZ + v + 1);
+		//			m.IDs.Add((u + 1) * verticesZ + v + 1);
+		//		}
+		//	}
+		//	return m;
+		//}
 
 		private static uint CreateID(Mesh m, uint id1, uint id2)
 		{
