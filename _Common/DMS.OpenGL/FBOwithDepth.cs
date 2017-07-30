@@ -1,10 +1,11 @@
-﻿using OpenTK.Graphics.OpenGL4;
+﻿using DMS.HLGL;
+using OpenTK.Graphics.OpenGL4;
 
 namespace DMS.OpenGL
 {
 	public class FBOwithDepth : FBO
 	{
-		public FBOwithDepth(Texture texture) : base(texture)
+		public FBOwithDepth(ITexture texture) : base(texture)
 		{
 			Activate();
 			depth = new RenderBuffer(RenderbufferStorage.DepthComponent32, texture.Width, texture.Height);

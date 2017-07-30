@@ -57,7 +57,7 @@ namespace DMS.Application
 
 		public void SetInputTexture(string name)
 		{
-			textures[name] = ResourceManager.Instance.Get<Texture>(name).Value;
+			textures[name] = ResourceManager.Instance.Get<ITexture>(name).Value;
 		}
 
 		public void UpdateInstanceAttribute(string name, int[] data)

@@ -21,7 +21,7 @@ namespace Example
 
 			GL.Enable(EnableCap.DepthTest);
 			GL.Enable(EnableCap.CullFace);
-			fboShadowMap.Texture.FilterNearest();
+			fboShadowMap.Texture.Filter = TextureFilterMode.Nearest;
 		}
 
 		public static readonly string ShaderName = nameof(shader);

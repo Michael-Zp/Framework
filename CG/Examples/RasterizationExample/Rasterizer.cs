@@ -1,4 +1,5 @@
-﻿using DMS.OpenGL;
+﻿using DMS.HLGL;
+using DMS.OpenGL;
 using System;
 
 namespace Example
@@ -13,11 +14,11 @@ namespace Example
 			this.drawHandler = drawHandler;
 			copyToFrameBuffer = new TextureToFrameBuffer();
 			texRenderSurface = Texture.Create(resolutionX, resolutionY);
-			texRenderSurface.FilterNearest();
+			texRenderSurface.Filter = TextureFilterMode.Nearest;
 			renderToTexture = new FBO(texRenderSurface);
 		}
 
-		private Texture texRenderSurface;
+		private ITexture texRenderSurface;
 		private FBO renderToTexture;
 		private TextureToFrameBuffer copyToFrameBuffer;
 		private DrawHandler drawHandler;

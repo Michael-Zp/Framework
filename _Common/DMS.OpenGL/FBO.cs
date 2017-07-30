@@ -1,4 +1,5 @@
 ﻿using DMS.Base;
+using DMS.HLGL;
 using OpenTK.Graphics.OpenGL;
 using System;
 
@@ -16,7 +17,7 @@ namespace DMS.OpenGL
 
 	public class FBO : Disposable
 	{
-		public FBO(Texture texture)
+		public FBO(ITexture texture)
 		{
 			if (ReferenceEquals(null, texture)) throw new FBOException("Texture is null");
 			this.texture = texture;
@@ -36,7 +37,7 @@ namespace DMS.OpenGL
 		}
 
 		public bool IsActive {  get { return currentFrameBufferHandle == m_FBOHandle; } }
-		public Texture Texture { get { return texture; } }
+		public ITexture Texture { get { return texture; } }
 
 		public void Activate()
 		{
@@ -54,7 +55,7 @@ namespace DMS.OpenGL
 			currentFrameBufferHandle = lastFBO;
 		}
 
-		private Texture texture;
+		private ITexture texture;
 		private uint m_FBOHandle = 0;
 		private uint lastFBO = 0;
 		private static uint currentFrameBufferHandle = 0;

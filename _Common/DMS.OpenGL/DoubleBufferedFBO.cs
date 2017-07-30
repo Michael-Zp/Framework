@@ -1,4 +1,5 @@
-﻿using System;
+﻿using DMS.HLGL;
+using System;
 
 namespace DMS.OpenGL
 {
@@ -7,7 +8,7 @@ namespace DMS.OpenGL
 		public FBO ActiveFBO { get; private set; }
 		public FBO InactiveFBO { get; private set; }
 
-		public DoubleBufferedFBO(Func<Texture> creator)
+		public DoubleBufferedFBO(Func<ITexture> creator)
 		{
 			ActiveFBO = new FBO(creator());
 			InactiveFBO = new FBO(creator());

@@ -1,4 +1,5 @@
 ﻿using DMS.Base;
+using DMS.HLGL;
 using DMS.OpenGL;
 using OpenTK.Graphics.OpenGL4;
 
@@ -13,8 +14,8 @@ namespace ShaderForm.Visual
 			activeFBO = fboA;
 		}
 
-		public Texture Active { get { return activeFBO.Texture; } }
-		public Texture Last {  get {  return LastFBO.Texture; } }
+		public ITexture Active { get { return activeFBO.Texture; } }
+		public ITexture Last {  get {  return LastFBO.Texture; } }
 
 		public void Render()
 		{

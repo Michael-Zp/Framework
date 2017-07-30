@@ -13,7 +13,7 @@ namespace DMS.OpenGL
 			shader = ShaderLoader.FromStrings(vertexShader, fragmentShader);
 		}
 
-		public void Draw(Texture texture, SetUniforms setUniformsHandler = null)
+		public void Draw(ITexture texture, SetUniforms setUniformsHandler = null)
 		{
 			shader.Activate();
 			texture.Activate();
