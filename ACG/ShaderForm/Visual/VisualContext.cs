@@ -26,19 +26,19 @@ namespace ShaderForm.Visual
 		public void SetUniform(string uniformName, float value)
 		{
 			Debug.Assert(!ReferenceEquals(null,  shaderCurrent));
-			GL.Uniform1(shaderCurrent.GetUniformLocation(uniformName), value);
+			GL.Uniform1(shaderCurrent.GetResourceLocation(ShaderResourceType.Uniform, uniformName), value);
 		}
 
 		public void SetUniform(string uniformName, float valueX, float valueY)
 		{
 			Debug.Assert(!ReferenceEquals(null,  shaderCurrent));
-			GL.Uniform2(shaderCurrent.GetUniformLocation(uniformName), valueX, valueY);
+			GL.Uniform2(shaderCurrent.GetResourceLocation(ShaderResourceType.Uniform, uniformName), valueX, valueY);
 		}
 
 		public void SetUniform(string uniformName, float valueX, float valueY, float valueZ)
 		{
 			Debug.Assert(!ReferenceEquals(null,  shaderCurrent));
-			GL.Uniform3(shaderCurrent.GetUniformLocation(uniformName), valueX, valueY, valueZ);
+			GL.Uniform3(shaderCurrent.GetResourceLocation(ShaderResourceType.Uniform, uniformName), valueX, valueY, valueZ);
 		}
 
 		public bool SetShader(string shaderFileName)
@@ -67,14 +67,14 @@ namespace ShaderForm.Visual
 			{
 				GL.ActiveTexture(TextureUnit.Texture0 + id);
 				tex.Activate();
-				GL.Uniform1(shaderCurrent.GetUniformLocation("tex" + id.ToString()), id);
+				GL.Uniform1(shaderCurrent.GetResourceLocation(ShaderResourceType.Uniform, "tex" + id.ToString()), id);
 				++id;
 			}
 			//bind last frame as texture
 			var last = surface.Last;
 			GL.ActiveTexture(TextureUnit.Texture0 + id);
 			last.Activate();
-			GL.Uniform1(shaderCurrent.GetUniformLocation("texLastFrame"), id);
+			GL.Uniform1(shaderCurrent.GetResourceLocation(ShaderResourceType.Uniform, "texLastFrame"), id);
 
 			surface.Render();
 
@@ -173,7 +173,7 @@ namespace ShaderForm.Visual
 
 		public void RemoveShader(string shaderFileName)
 		{
-			if (shaders.TryGetValue(shaderFileName, out Shader shader))
+			if (shaders.TryGetValue(shaderFileName, out IShader shader))
 			{
 				shader.Dispose();
 				shaders.Remove(shaderFileName);
@@ -198,11 +198,11 @@ namespace ShaderForm.Visual
 
 		private List<string> textureNames = new List<string>();
 		private List<ITexture> textures = new List<ITexture>();
-		private Dictionary<string, Shader> shaders = new Dictionary<string, Shader>();
+		private Dictionary<string, IShader> shaders = new Dictionary<string, IShader>();
 		private RenderSurfacePingPong surface;
 		private TextureToFrameBuffer copyToScreen;
-		private Shader shaderCurrent;
-		private Shader shaderDefault;
+		private IShader shaderCurrent;
+		private IShader shaderDefault;
 		private QueryObject glTimer = new QueryObject();
 
 		protected override void DisposeResources()

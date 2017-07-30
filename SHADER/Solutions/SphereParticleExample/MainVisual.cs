@@ -47,14 +47,14 @@ namespace Example
 				}
 				instanceRotation[i] += 0.2f;
 			}
-			geometry.SetAttribute(shader.GetAttributeLocation("instancePosition"), instancePosition, VertexAttribPointerType.Float, 3, true);
-			geometry.SetAttribute(shader.GetAttributeLocation("instanceRotation"), instanceRotation, VertexAttribPointerType.Float, 1, true);
+			geometry.SetAttribute(shader.GetResourceLocation(ShaderResourceType.Attribute, "instancePosition"), instancePosition, VertexAttribPointerType.Float, 3, true);
+			geometry.SetAttribute(shader.GetResourceLocation(ShaderResourceType.Attribute, "instanceRotation"), instanceRotation, VertexAttribPointerType.Float, 1, true);
 
 
 			GL.Clear(ClearBufferMask.ColorBufferBit | ClearBufferMask.DepthBufferBit);
 			shader.Activate();
 			var cam = camera.CalcMatrix().ToOpenTK();
-			GL.UniformMatrix4(shader.GetUniformLocation("camera"), true, ref cam);
+			GL.UniformMatrix4(shader.GetResourceLocation(ShaderResourceType.Uniform, "camera"), true, ref cam);
 			geometry.Draw(instanceCount);
 			shader.Deactivate();
 		}
@@ -85,8 +85,8 @@ namespace Example
 				instanceVelocity[i] = new Vector3(RndSpeed(), RndSpeed(), RndSpeed());
 				instanceColor[i] = new Vector3(0.5f) + instancePosition[i] * 0.5f;
 			}
-			geometry.SetAttribute(shader.GetAttributeLocation("instancePosition"), instancePosition, VertexAttribPointerType.Float, 3, true);
-			geometry.SetAttribute(shader.GetAttributeLocation("instanceColor"), instanceColor, VertexAttribPointerType.Float, 3, true);
+			geometry.SetAttribute(shader.GetResourceLocation(ShaderResourceType.Attribute, "instancePosition"), instancePosition, VertexAttribPointerType.Float, 3, true);
+			geometry.SetAttribute(shader.GetResourceLocation(ShaderResourceType.Attribute, "instanceColor"), instanceColor, VertexAttribPointerType.Float, 3, true);
 		}
 	}
 }

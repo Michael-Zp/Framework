@@ -49,9 +49,9 @@ namespace Example
 			GL.PointSize(1.0f);
 			GL.Clear(ClearBufferMask.ColorBufferBit);
 			shader.Activate();
-			GL.Uniform1(shader.GetUniformLocation("deltaTime"), deltaTime);
-			GL.Uniform1(shader.GetUniformLocation("particelCount"), particelCount);
-			var bindingIndex = shader.GetShaderStorageBufferBindingIndex("BufferParticle");
+			GL.Uniform1(shader.GetResourceLocation(ShaderResourceType.Uniform, "deltaTime"), deltaTime);
+			GL.Uniform1(shader.GetResourceLocation(ShaderResourceType.Uniform, "particelCount"), particelCount);
+			var bindingIndex = shader.GetResourceLocation(ShaderResourceType.RWBuffer, "BufferParticle");
 			bufferParticles.ActivateBind(bindingIndex);
 			GL.DrawArrays(PrimitiveType.Points, 0, particelCount);
 			bufferParticles.Deactivate();

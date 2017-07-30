@@ -63,9 +63,9 @@ namespace Example
 			GL.Clear(ClearBufferMask.ColorBufferBit | ClearBufferMask.DepthBufferBit);
 			shader.Activate();
 			fboShadowMap.Texture.Activate();
-			GL.Uniform3(shader.GetUniformLocation("ambient"), new Vector3(0.1f));
+			GL.Uniform3(shader.GetResourceLocation(ShaderResourceType.Uniform, "ambient"), new Vector3(0.1f));
 			var cam = camera.CalcMatrix().ToOpenTK();
-			GL.UniformMatrix4(shader.GetUniformLocation("camera"), true, ref cam);
+			GL.UniformMatrix4(shader.GetResourceLocation(ShaderResourceType.Uniform, "camera"), true, ref cam);
 			geometry.Draw();
 			fboShadowMap.Texture.Deactivate();
 			shader.Deactivate();

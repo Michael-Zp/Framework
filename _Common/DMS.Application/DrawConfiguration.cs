@@ -13,7 +13,7 @@ namespace DMS.Application
 		public bool BackfaceCulling { get; set; } = false;
 		public int InstanceCount { get; set; } = 1;
 		public bool ShaderPointSize { get; set; } = false;
-		public Shader Shader { get; private set; }
+		public IShader Shader { get; private set; }
 		public VAO Vao { get; private set; }
 		public bool ZBufferTest { get; set; } = false;
 
@@ -93,7 +93,7 @@ namespace DMS.Application
 		public void UpdateMeshShader(Mesh mesh, string shaderName)
 		{
 			if (string.IsNullOrWhiteSpace(shaderName)) throw new ArgumentException("A shaderName is required");
-			var resShader = ResourceManager.Instance.Get<Shader>(shaderName);
+			var resShader = ResourceManager.Instance.Get<IShader>(shaderName);
 			if (ReferenceEquals(null, resShader)) throw new ArgumentException("Shader '" + shaderName + "' does not exist");
 			Shader = resShader.Value;
 			//if (ReferenceEquals(null, mesh)) throw new ArgumentException("A mesh is required");
@@ -129,7 +129,7 @@ namespace DMS.Application
 		{
 			foreach (var uBuffer in buffers)
 			{
-				var bindingIndex = Shader.GetResourceIndex(uBuffer.Key, uBuffer.Value.Type);
+				var bindingIndex = Shader.GetResourceLocation(uBuffer.Value.Type, uBuffer.Key);
 				if (-1 == bindingIndex) throw new ArgumentException("Could not find shader parameters '" + uBuffer.Key + "'");
 				uBuffer.Value.ActivateBind(bindingIndex);
 			}
@@ -161,7 +161,7 @@ namespace DMS.Application
 				{
 					GL.ActiveTexture(TextureUnit.Texture0 + id);
 					namedTex.Value.Activate();
-					GL.Uniform1(Shader.GetUniformLocation(namedTex.Key), id);
+					GL.Uniform1(Shader.GetResourceLocation(ShaderResourceType.Uniform, namedTex.Key), id);
 					++id;
 				}
 			}
@@ -182,7 +182,7 @@ namespace DMS.Application
 		private int GetAttributeShaderLocationAndCheckVao(string name)
 		{
 			if (ReferenceEquals(null, Vao)) throw new InvalidOperationException("Specify mesh before setting instance attributes");
-			return Shader.GetAttributeLocation(name);
+			return Shader.GetResourceLocation(ShaderResourceType.Attribute, name);
 		}
 	}
 }

@@ -48,8 +48,8 @@ namespace Example
 			envMap.Activate();
 			camera.FovY = MathHelper.Clamp(camera.FovY, 0.1f, 175f);
 			var cam = camera.CalcMatrix().ToOpenTK();
-			GL.UniformMatrix4(shader.GetUniformLocation("camera"), true, ref cam);
-			GL.Uniform3(shader.GetUniformLocation("cameraPosition"), camera.CalcPosition().ToOpenTK());
+			GL.UniformMatrix4(shader.GetResourceLocation(ShaderResourceType.Uniform, "camera"), true, ref cam);
+			GL.Uniform3(shader.GetResourceLocation(ShaderResourceType.Uniform, "cameraPosition"), camera.CalcPosition().ToOpenTK());
 			geometry.Draw();
 			envMap.Deactivate();
 			shader.Deactivate();

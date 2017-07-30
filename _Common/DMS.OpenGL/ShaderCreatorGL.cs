@@ -13,15 +13,15 @@ namespace DMS.OpenGL
 			return new TypedHandle<IShader>(shader.ProgramID);
 		}
 
-		public Shader Get(TypedHandle<IShader> handle)
+		public IShader Get(TypedHandle<IShader> handle)
 		{
-			if(shaders.TryGetValue(handle.ID, out Shader shader))
+			if(shaders.TryGetValue(handle.ID, out IShader shader))
 			{
 				return shader;
 			}
 			throw new ArgumentException("Invalid Handle id given");
 		}
 
-		private Dictionary<int, Shader> shaders = new Dictionary<int, Shader>();
+		private Dictionary<int, IShader> shaders = new Dictionary<int, IShader>();
 	}
 }

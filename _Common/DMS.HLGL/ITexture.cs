@@ -15,6 +15,6 @@ namespace DMS.HLGL
 
 		void Activate();
 		void Deactivate();
-		void LoadPixels(IntPtr pixels, int width, int height, byte components = 4, bool floatingPoint = false);
+		void LoadPixels(IntPtr pixels, int idth, int height, byte components = 4, bool floatingPoint = false);
 	}
 }

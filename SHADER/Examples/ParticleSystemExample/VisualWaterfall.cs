@@ -71,8 +71,8 @@ namespace Example
 				++i;
 			}
 
-			particles.SetAttribute(shaderWaterfall.GetAttributeLocation("position"), positions, VertexAttribPointerType.Float, 3);
-			particles.SetAttribute(shaderWaterfall.GetAttributeLocation("fade"), fade, VertexAttribPointerType.Float, 1);
+			particles.SetAttribute(shaderWaterfall.GetResourceLocation(ShaderResourceType.Attribute, "position"), positions, VertexAttribPointerType.Float, 3);
+			particles.SetAttribute(shaderWaterfall.GetResourceLocation(ShaderResourceType.Attribute, "fade"), fade, VertexAttribPointerType.Float, 1);
 		}
 
 		public void Render(Matrix4 camera)
@@ -87,9 +87,9 @@ namespace Example
 			GL.Enable(EnableCap.VertexProgramPointSize);
 
 			shaderWaterfall.Activate();
-			GL.UniformMatrix4(shaderWaterfall.GetUniformLocation("camera"), true, ref camera);
-			GL.Uniform1(shaderWaterfall.GetUniformLocation("pointSize"), 0.3f);
-			//GL.Uniform1(shader.GetUniformLocation("texParticle"), 0);
+			GL.UniformMatrix4(shaderWaterfall.GetResourceLocation(ShaderResourceType.Uniform, "camera"), true, ref camera);
+			GL.Uniform1(shaderWaterfall.GetResourceLocation(ShaderResourceType.Uniform, "pointSize"), 0.3f);
+			//GL.Uniform1(shader.GetResourceLocation(ShaderResourceType.Uniform, "texParticle"), 0);
 			texStar.Activate();
 			particles.DrawArrays(PrimitiveType.Points, particleSystem.ParticleCount);
 			texStar.Deactivate();

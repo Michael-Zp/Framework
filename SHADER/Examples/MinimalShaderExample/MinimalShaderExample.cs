@@ -1,6 +1,6 @@
 ﻿using DMS.Application;
+using DMS.HLGL;
 using DMS.OpenGL;
-using OpenTK;
 using OpenTK.Graphics.OpenGL4;
 using System;
 
@@ -42,7 +42,7 @@ namespace Example
 			shader = ShaderLoader.FromStrings(sVertexShader, sFragmentShd);
 		}
 
-		private Shader shader;
+		private IShader shader;
 
 		private void Render()
 		{

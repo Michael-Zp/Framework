@@ -57,7 +57,7 @@ namespace DMS.OpenGL
 					discard;		
 				color = vec4(1, 1, 0, 0);
 			}";
-		private Shader shader;
+		private IShader shader;
 
 		protected override void DisposeResources()
 		{

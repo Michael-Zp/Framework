@@ -41,7 +41,7 @@ namespace Example
 			{
 				instancePositions[i] = new Vector3(RndCoord(), RndCoord(), RndCoord());
 			}
-			geometry.SetAttribute(shader.GetAttributeLocation("instancePosition"), instancePositions, VertexAttribPointerType.Float, 3, true);
+			geometry.SetAttribute(shader.GetResourceLocation(ShaderResourceType.Attribute, "instancePosition"), instancePositions, VertexAttribPointerType.Float, 3, true);
 		}
 
 		public void Render()
@@ -50,7 +50,7 @@ namespace Example
 			var time = (float)timeSource.Elapsed.TotalSeconds;
 			GL.Clear(ClearBufferMask.ColorBufferBit | ClearBufferMask.DepthBufferBit);
 			shader.Activate();
-			GL.UniformMatrix4(shader.GetUniformLocation("camera"), true, ref camera);
+			GL.UniformMatrix4(shader.GetResourceLocation(ShaderResourceType.Uniform, "camera"), true, ref camera);
 			geometry.Draw(particelCount);
 			shader.Deactivate();
 		}

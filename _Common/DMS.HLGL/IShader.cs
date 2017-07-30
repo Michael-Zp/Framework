@@ -1,4 +1,6 @@
-﻿namespace DMS.HLGL
+﻿using System;
+
+namespace DMS.HLGL
 {
 	public enum ShaderType
 	{
@@ -6,7 +8,12 @@
 		TessEvaluationShader, TessControlShader, ComputeShader
 	}
 
-	public interface IShader
+	public enum ShaderResourceType
+	{
+		Uniform, Attribute, UniformBuffer, RWBuffer
+	}
+
+	public interface IShader : IDisposable
 	{
 		bool IsLinked { get; }
 		string LastLog { get; }
@@ -15,10 +22,7 @@
 		void Activate();
 		void Compile(string sShader, ShaderType type);
 		void Deactivate();
-		int GetAttributeLocation(string name);
-		int GetShaderStorageBufferBindingIndex(string name);
-		int GetUniformBufferBindingIndex(string name);
-		int GetUniformLocation(string name);
+		int GetResourceLocation(ShaderResourceType resourceType, string name);
 		void Link();
 	}
 }

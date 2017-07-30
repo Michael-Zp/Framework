@@ -1,4 +1,5 @@
-﻿using DMS.OpenGL;
+﻿using DMS.HLGL;
+using DMS.OpenGL;
 using OpenTK.Graphics.OpenGL4;
 
 namespace Example
@@ -21,9 +22,9 @@ namespace Example
 			renderToTexture.Deactivate();
 			t2fb.Draw(renderToTexture.Texture, (shader) =>
 				{
-					GL.Uniform2(shader.GetUniformLocation("iResolution"), (float)width, (float)height);
-					GL.Uniform1(shader.GetUniformLocation("iGlobalTime"), time);
-					//GL.Uniform1(shader.GetUniformLocation("amplitude"), 0.01f);
+					GL.Uniform2(shader.GetResourceLocation(ShaderResourceType.Uniform, "iResolution"), (float)width, (float)height);
+					GL.Uniform1(shader.GetResourceLocation(ShaderResourceType.Uniform, "iGlobalTime"), time);
+					//GL.Uniform1(shader.GetResourceLocation(ShaderResourceType.Uniform, "amplitude"), 0.01f);
 				}
 			);
 		}

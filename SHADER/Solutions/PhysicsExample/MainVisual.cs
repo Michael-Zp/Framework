@@ -43,16 +43,16 @@ namespace Example
 				instancePositions.Add(body.Location);
 				instanceScale.Add((float)Math.Pow(body.Mass, 0.33f));
 			}
-			geometry.SetAttribute(shader.GetAttributeLocation("instancePosition"), instancePositions.ToArray(), VertexAttribPointerType.Float, 3, true);
-			geometry.SetAttribute(shader.GetAttributeLocation("instanceScale"), instanceScale.ToArray(), VertexAttribPointerType.Float, 1, true);
+			geometry.SetAttribute(shader.GetResourceLocation(ShaderResourceType.Attribute, "instancePosition"), instancePositions.ToArray(), VertexAttribPointerType.Float, 3, true);
+			geometry.SetAttribute(shader.GetResourceLocation(ShaderResourceType.Attribute, "instanceScale"), instanceScale.ToArray(), VertexAttribPointerType.Float, 1, true);
 
 			var time = (float)timeSource.Elapsed.TotalSeconds;
 
 			GL.Clear(ClearBufferMask.ColorBufferBit | ClearBufferMask.DepthBufferBit);
 			shader.Activate();
-			GL.Uniform1(shader.GetUniformLocation("time"), time);
+			GL.Uniform1(shader.GetResourceLocation(ShaderResourceType.Uniform, "time"), time);
 			Matrix4 cam = camera.CalcMatrix().ToOpenTK();
-			GL.UniformMatrix4(shader.GetUniformLocation("camera"), true, ref cam);
+			GL.UniformMatrix4(shader.GetResourceLocation(ShaderResourceType.Uniform, "camera"), true, ref cam);
 			geometry.Draw(instancePositions.Count);
 			shader.Deactivate();
 		}

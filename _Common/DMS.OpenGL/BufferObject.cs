@@ -1,4 +1,5 @@
 ﻿using DMS.Base;
+using DMS.HLGL;
 using OpenTK.Graphics.OpenGL4;
 using System;
 using System.Runtime.InteropServices;
@@ -12,14 +13,15 @@ namespace DMS.OpenGL
 			BufferTarget = bufferTarget;
 			switch(bufferTarget)
 			{
-				case BufferTarget.UniformBuffer: Type = ProgramInterface.UniformBlock; break;
-				case BufferTarget.ShaderStorageBuffer: Type = ProgramInterface.ShaderStorageBlock; break;
+				case BufferTarget.ArrayBuffer: Type = ShaderResourceType.Attribute; break;
+				case BufferTarget.UniformBuffer: Type = ShaderResourceType.UniformBuffer; break;
+				case BufferTarget.ShaderStorageBuffer: Type = ShaderResourceType.RWBuffer; break;
 			}
 			GL.GenBuffers​(1, out bufferID);
 		}
 
 		public BufferTarget BufferTarget { get; private set; }
-		public ProgramInterface Type { get; private set; }
+		public ShaderResourceType Type { get; private set; }
 
 		public void Activate()
 		{

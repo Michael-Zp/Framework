@@ -34,7 +34,7 @@ namespace Example
 			GL.Clear(ClearBufferMask.ColorBufferBit);
 			shader.Activate();
 			////ATTENTION: always give the time as a float if the uniform in the shader is a float
-			GL.Uniform1(shader.GetUniformLocation("time"), (float)timeSource.Elapsed.TotalSeconds);
+			GL.Uniform1(shader.GetResourceLocation(ShaderResourceType.Uniform, "time"), (float)timeSource.Elapsed.TotalSeconds);
 			geometry.Activate();
 			GL.DrawArrays(PrimitiveType.Points, 0, pointCount);
 			geometry.Deactivate();
@@ -59,7 +59,7 @@ namespace Example
 				positions[i] = new Vector2(RndCoord(), RndCoord());
 			}
 			//copy positions to GPU
-			geometry.SetAttribute(shader.GetAttributeLocation("in_position"), positions, VertexAttribPointerType.Float, 2);
+			geometry.SetAttribute(shader.GetResourceLocation(ShaderResourceType.Attribute, "in_position"), positions, VertexAttribPointerType.Float, 2);
 			//generate velocity arrray on CPU
 			Func<float> RndSpeed = () => (Rnd01() - 0.5f) * 0.1f;
 			var velocities = new Vector2[pointCount];
@@ -68,7 +68,7 @@ namespace Example
 				velocities[i] = new Vector2(RndSpeed(), RndSpeed());
 			}
 			//copy velocities to GPU
-			geometry.SetAttribute(shader.GetAttributeLocation("in_velocity"), velocities, VertexAttribPointerType.Float, 2);
+			geometry.SetAttribute(shader.GetResourceLocation(ShaderResourceType.Attribute, "in_velocity"), velocities, VertexAttribPointerType.Float, 2);
 		}
 	}
 }

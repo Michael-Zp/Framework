@@ -4,7 +4,7 @@ using System;
 
 namespace DMS.Application
 {
-	public class ResourceVertFragShaderFile : IResource<Shader>
+	public class ResourceVertFragShaderFile : IResource<IShader>
 	{
 		public ResourceVertFragShaderFile(string sVertexShdFile_, string sFragmentShdFile_)
 		{
@@ -13,10 +13,10 @@ namespace DMS.Application
 
 		public bool IsValueCreated { get { return !ReferenceEquals(null, shader); } }
 
-		public Shader Value { get { return shader; } }
+		public IShader Value { get { return shader; } }
 
-		public event EventHandler<Shader> Change { add { } remove { } }
+		public event EventHandler<IShader> Change { add { } remove { } }
 
-		private Shader shader;
+		private IShader shader;
 	}
 }

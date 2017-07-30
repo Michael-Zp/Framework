@@ -42,7 +42,7 @@ namespace Example
 			GL.Enable(EnableCap.CullFace);
 			shader.Activate();
 			var cam = camera.CalcMatrix().ToOpenTK();
-			GL.UniformMatrix4(shader.GetUniformLocation("camera"), true, ref cam);
+			GL.UniformMatrix4(shader.GetResourceLocation(ShaderResourceType.Uniform, "camera"), true, ref cam);
 			geometry.Draw();
 			shader.Deactivate();
 			GL.Disable(EnableCap.CullFace);
@@ -57,7 +57,7 @@ namespace Example
 			renderToTexture.Texture.Activate(); //us this new texture
 			if (ReferenceEquals(shaderPostProcess, null)) return;
 			shaderPostProcess.Activate(); //activate post processing shader
-			GL.Uniform1(shaderPostProcess.GetUniformLocation("iGlobalTime"), time);
+			GL.Uniform1(shaderPostProcess.GetResourceLocation(ShaderResourceType.Uniform, "iGlobalTime"), time);
 			GL.DrawArrays(PrimitiveType.Quads, 0, 4); //draw quad
 			shaderPostProcess.Deactivate();
 			renderToTexture.Texture.Deactivate();

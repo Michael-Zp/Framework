@@ -64,30 +64,16 @@ namespace DMS.OpenGL
 			GL.UseProgram(0);
 		}
 
-		public int GetAttributeLocation(string name)
+		public int GetResourceLocation(ShaderResourceType resourceType, string name)
 		{
-			return GL.GetAttribLocation(ProgramID, name);
-		}
-
-		public int GetUniformLocation(string name)
-		{
-			return GL.GetUniformLocation(ProgramID, name);
-			//return GL.GetProgramResourceIndex(ProgramID, ProgramInterface.Uniform, name); //alternative
-		}
-
-		public int GetShaderStorageBufferBindingIndex(string name)
-		{
-			return GetResourceIndex(name, ProgramInterface.ShaderStorageBlock);
-		}
-
-		public int GetResourceIndex(string name, ProgramInterface type)
-		{
-			return GL.GetProgramResourceIndex(ProgramID, type, name);
-		}
-
-		public int GetUniformBufferBindingIndex(string name)
-		{
-			return GetResourceIndex(name, ProgramInterface.UniformBlock);
+			switch(resourceType)
+			{
+				case ShaderResourceType.Attribute: return GL.GetAttribLocation(ProgramID, name);
+				case ShaderResourceType.UniformBuffer: return GetResourceIndex(name, ProgramInterface.UniformBlock);
+				case ShaderResourceType.RWBuffer: return GetResourceIndex(name, ProgramInterface.ShaderStorageBlock);
+				case ShaderResourceType.Uniform: return GetResourceIndex(name, ProgramInterface.Uniform);
+				default: throw new ArgumentOutOfRangeException("Unknown ShaderResourceType");
+			}
 		}
 
 		public void Link()
@@ -131,6 +117,11 @@ namespace DMS.OpenGL
 				case ShaderType.VertexShader: return TKShaderType.VertexShader;
 				default: throw new ArgumentOutOfRangeException("Unknown Shader type");
 			}
+		}
+
+		private int GetResourceIndex(string name, ProgramInterface type)
+		{
+			return GL.GetProgramResourceIndex(ProgramID, type, name);
 		}
 
 		private void RemoveShaders()

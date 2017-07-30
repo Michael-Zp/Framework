@@ -36,13 +36,13 @@ namespace Example
 			if (ReferenceEquals(shader, null)) return;
 			GL.Clear(ClearBufferMask.ColorBufferBit | ClearBufferMask.DepthBufferBit);
 			shader.Activate();
-			GL.Uniform4(shader.GetUniformLocation("lightColor"), new Color4(1f, 1f, 1f, 1f));
-			GL.Uniform3(shader.GetUniformLocation("lightPosition"), new Vector3(1, 1, 4));
-			GL.Uniform4(shader.GetUniformLocation("ambientLightColor"), new Color4(.2f, .2f, .2f, 1f));
-			GL.Uniform4(shader.GetUniformLocation("materialColor"), new Color4(1f, .5f, .5f, 1f));
+			GL.Uniform4(shader.GetResourceLocation(ShaderResourceType.Uniform, "lightColor"), new Color4(1f, 1f, 1f, 1f));
+			GL.Uniform3(shader.GetResourceLocation(ShaderResourceType.Uniform, "lightPosition"), new Vector3(1, 1, 4));
+			GL.Uniform4(shader.GetResourceLocation(ShaderResourceType.Uniform, "ambientLightColor"), new Color4(.2f, .2f, .2f, 1f));
+			GL.Uniform4(shader.GetResourceLocation(ShaderResourceType.Uniform, "materialColor"), new Color4(1f, .5f, .5f, 1f));
 			Matrix4 cam = camera.CalcMatrix().ToOpenTK();
-			GL.UniformMatrix4(shader.GetUniformLocation("camera"), true, ref cam);
-			GL.Uniform3(shader.GetUniformLocation("cameraPosition"), camera.CalcPosition().ToOpenTK());
+			GL.UniformMatrix4(shader.GetResourceLocation(ShaderResourceType.Uniform, "camera"), true, ref cam);
+			GL.Uniform3(shader.GetResourceLocation(ShaderResourceType.Uniform, "cameraPosition"), camera.CalcPosition().ToOpenTK());
 
 			geometry.Draw();
 			shader.Deactivate();

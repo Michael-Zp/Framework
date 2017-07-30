@@ -65,12 +65,12 @@ namespace Example
 			GL.Clear(ClearBufferMask.ColorBufferBit | ClearBufferMask.DepthBufferBit);
 			shader.Activate();
 			var cam = camera.CalcMatrix().ToOpenTK();
-			GL.UniformMatrix4(shader.GetUniformLocation("camera"), true, ref cam);
-			GL.Uniform1(shader.GetUniformLocation("deltaTime"), deltaTime);
-			GL.Uniform3(shader.GetUniformLocation("source"), source.ToOpenTK());
-			GL.Uniform3(shader.GetUniformLocation("acceleration"), acceleration.ToOpenTK());
-			GL.Uniform1(shader.GetUniformLocation("particelCount"), particelCount);
-			var bindingIndex = shader.GetShaderStorageBufferBindingIndex("BufferParticle");
+			GL.UniformMatrix4(shader.GetResourceLocation(ShaderResourceType.Uniform, "camera"), true, ref cam);
+			GL.Uniform1(shader.GetResourceLocation(ShaderResourceType.Uniform, "deltaTime"), deltaTime);
+			GL.Uniform3(shader.GetResourceLocation(ShaderResourceType.Uniform, "source"), source.ToOpenTK());
+			GL.Uniform3(shader.GetResourceLocation(ShaderResourceType.Uniform, "acceleration"), acceleration.ToOpenTK());
+			GL.Uniform1(shader.GetResourceLocation(ShaderResourceType.Uniform, "particelCount"), particelCount);
+			var bindingIndex = shader.GetResourceLocation(ShaderResourceType.RWBuffer, "BufferParticle");
 			bufferParticles.ActivateBind(bindingIndex);
 			GL.DrawArrays(PrimitiveType.Points, 0, particelCount);
 			bufferParticles.Deactivate();
