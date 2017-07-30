@@ -75,7 +75,6 @@
     <Compile Include="Visual.cs" />
   </ItemGroup>
   <ItemGroup>
-    <Reference Include="System.Drawing" />
   </ItemGroup>
   <ItemGroup>
     <BootstrapperPackage Include=".NETFramework,Version=v4.5">

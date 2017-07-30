@@ -34,14 +34,20 @@
     <Folder Include="Properties\" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="CommandGL.cs" />
+    <Compile Include="DoubleBufferedFBO.cs" />
     <Compile Include="DrawConfiguration.cs" />
     <Compile Include="ExampleApplication.cs" />
     <Compile Include="Framebuffer.cs" />
     <Compile Include="GameWindowExtensions.cs" />
+    <Compile Include="ICommand.cs" />
+    <Compile Include="ICreator.cs" />
     <Compile Include="IExample.cs" />
     <Compile Include="IShaderProvider.cs" />
     <Compile Include="Reference.cs" />
     <Compile Include="ResourceManager.cs" />
+    <Compile Include="ShaderCreatorGL.cs" />
+    <Compile Include="ShaderManagerGL.cs" />
   </ItemGroup>
   <ItemGroup>
     <Reference Include="System" />

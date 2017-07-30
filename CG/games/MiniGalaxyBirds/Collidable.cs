@@ -1,5 +1,4 @@
-﻿using DMS.OpenGL;
-using DMS.Geometry;
+﻿using DMS.Geometry;
 
 namespace MiniGalaxyBirds
 {

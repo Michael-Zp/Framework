@@ -1,7 +1,6 @@
 ﻿using System;
-using DMS.HLGL;
 
-namespace DMS.OpenGL
+namespace DMS.HLGL
 {
 	public class StateCommandGL<TYPE> : IStateTyped<TYPE> where TYPE : IEquatable<TYPE>
 	{

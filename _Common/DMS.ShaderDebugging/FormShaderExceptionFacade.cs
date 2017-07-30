@@ -1,4 +1,5 @@
-﻿using DMS.OpenGL;
+﻿using DMS.HLGL;
+using DMS.OpenGL;
 using System.Diagnostics;
 using System.IO;
 using System.Windows.Forms;

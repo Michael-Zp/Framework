@@ -34,7 +34,6 @@
   <ItemGroup>
     <Reference Include="PresentationCore" />
     <Reference Include="System" />
-    <Reference Include="System.ComponentModel.Composition" />
     <Reference Include="System.Drawing" />
     <Reference Include="System.Numerics" />
     <Reference Include="WindowsBase" />
@@ -43,14 +42,11 @@
     <Compile Include="AnimationTextures.cs" />
     <Compile Include="ColorSystems.cs" />
     <Compile Include="BufferObject.cs" />
-    <Compile Include="CommandGL.cs" />
     <Compile Include="RenderContextGL.cs" />
-    <Compile Include="DoubleBufferedFBO.cs" />
     <Compile Include="FBOwithDepth.cs" />
     <Compile Include="IAnimation.cs" />
     <Compile Include="DrawTools.cs" />
     <Compile Include="RenderSurfaceGL.cs" />
-    <Compile Include="ShaderManagerGL.cs" />
     <Compile Include="QueryObject.cs" />
     <Compile Include="ReadBack.cs" />
     <Compile Include="RenderBuffer.cs" />
@@ -58,8 +54,6 @@
     <Compile Include="ResourceTextureFile.cs" />
     <Compile Include="ResourceVertFragShaderFile.cs" />
     <Compile Include="ResourceVertFragShaderString.cs" />
-    <Compile Include="ShaderCreatorGL.cs" />
-    <Compile Include="ShaderException.cs" />
     <Compile Include="SpriteSheetAnimation.cs" />
     <Compile Include="FBO.cs" />
     <Compile Include="Shader.cs" />
@@ -68,7 +62,6 @@
     <Compile Include="StateActiveFboGL.cs" />
     <Compile Include="StateActiveShaderGL.cs" />
     <Compile Include="StateBoolGL.cs" />
-    <Compile Include="StateCommandGL.cs" />
     <Compile Include="TextureFont.cs" />
     <Compile Include="Texture.cs" />
     <Compile Include="TextureLoader.cs" />
