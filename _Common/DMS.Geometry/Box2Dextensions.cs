@@ -108,5 +108,22 @@ namespace DMS.Geometry
 			rectangleA.X += directions[minId].X;
 			rectangleA.Y += directions[minId].Y;
 		}
+
+		public static Box2D CreateFitBox(float inputWidth, float inputHeight, float newWidth2heigth)
+		{
+			var aspect = inputWidth / inputHeight;
+			if(aspect > newWidth2heigth)
+			{
+				var ratio = aspect / newWidth2heigth;
+				var delta = 0.5f * (aspect - newWidth2heigth) * inputHeight * ratio;
+				return CreateFromMinMax(0, -delta, inputWidth, inputHeight * ratio - delta);
+			}
+			else
+			{
+				var ratio = newWidth2heigth / aspect;
+				var delta = 0.5f * (1 / aspect - 1 / newWidth2heigth) * inputWidth * ratio;
+				return CreateFromMinMax(-delta, 0, inputWidth * ratio - delta, inputHeight);
+			}
+		}
 	}
 }
