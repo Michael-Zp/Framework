@@ -52,10 +52,6 @@
     <CodeAnalysisRuleSet>AllRules.ruleset</CodeAnalysisRuleSet>
   </PropertyGroup>
   <ItemGroup>
-    <Reference Include="OpenTK, Version=2.0.0.0, Culture=neutral, PublicKeyToken=bad199fe84eb3df4, processorArchitecture=MSIL">
-      <HintPath>..\..\..\packages\OpenTK.2.0.0\lib\net20\OpenTK.dll</HintPath>
-      <Private>True</Private>
-    </Reference>
     <Reference Include="System" />
     <Reference Include="System.Drawing" />
   </ItemGroup>
@@ -75,6 +71,7 @@
     <Compile Include="Visual.cs" />
   </ItemGroup>
   <ItemGroup>
+    <None Include="Resources\GroundGravel_Grass.png" />
   </ItemGroup>
   <ItemGroup>
     <BootstrapperPackage Include=".NETFramework,Version=v4.5">
@@ -100,37 +97,10 @@
     </EmbeddedResource>
   </ItemGroup>
   <ItemGroup>
-    <None Include="media\borgar.png" />
-    <None Include="packages.config" />
-  </ItemGroup>
-  <ItemGroup>
-    <None Include="media\skin36.png" />
-  </ItemGroup>
-  <ItemGroup>
-    <None Include="media\level1.txt" />
-  </ItemGroup>
-  <ItemGroup>
-    <None Include="media\level2.txt" />
-  </ItemGroup>
-  <ItemGroup>
-    <None Include="media\level3.txt" />
-  </ItemGroup>
-  <ItemGroup>
-    <None Include="media\level4.txt" />
-  </ItemGroup>
-  <ItemGroup>
-    <None Include="media\level5.txt" />
-  </ItemGroup>
-  <ItemGroup>
-    <None Include="media\level6.txt" />
-  </ItemGroup>
-  <ItemGroup>
-    <None Include="media\level7.txt" />
-  </ItemGroup>
-  <ItemGroup>
-    <None Include="media\level8.txt" />
-  </ItemGroup>
-  <ItemGroup>
+    <ProjectReference Include="..\..\..\_Common\DMS.Application\DMS.Application.csproj">
+      <Project>{911C6DFF-BE3E-4EA5-ADF2-A363DF797F23}</Project>
+      <Name>DMS.Application</Name>
+    </ProjectReference>
     <ProjectReference Include="..\..\..\_Common\DMS.HLGL\DMS.HLGL.csproj">
       <Project>{227D6BE1-BA08-4030-A755-07288540931F}</Project>
       <Name>DMS.HLGL</Name>
@@ -143,6 +113,59 @@
       <Project>{B37B7DDE-435B-4F27-9A9B-9B6DF8744EBE}</Project>
       <Name>DMS.Geometry</Name>
     </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\Character4.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\Crate_Brown.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\EndPoint_Red.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\Wall_Beige.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <PackageReference Include="OpenTK">
+      <Version>2.0.0</Version>
+    </PackageReference>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\borgar.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\level1.txt" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\level2.txt" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\level3.txt" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\level4.txt" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\level5.txt" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\level6.txt" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\level7.txt" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\level8.txt" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\skin36.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\EndPointCharacter.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\EndPointCrate_Brown.png" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
