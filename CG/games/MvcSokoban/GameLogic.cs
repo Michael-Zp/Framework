@@ -1,64 +1,57 @@
-﻿using System.Drawing;
+﻿using System;
+using System.Collections.Generic;
 
 namespace MvcSokoban
 {
-	class GameLogic
+	public class GameLogic
 	{
-		public enum Movement { NONE = 0, UP, DOWN, LEFT, RIGHT };
-
-		private Point playerPos;
-		private Level level;
-
-		public GameLogic(Level level)
+		public GameLogic()
 		{
-			this.level = level;
-			Point? playerPos = level.FindPlayerPos();
-			if (playerPos.HasValue)
+			levels = Resourcen.levels.Split(new string[] { Environment.NewLine + Environment.NewLine, "\n\n" }, StringSplitOptions.RemoveEmptyEntries);
+			LoadLevel();
+		}
+
+		public ILevel GetLevel()
+		{
+			return levelLogic.GetLevel();
+		}
+
+		public void NextLevel()
+		{
+			++levelNr;
+			if (levelNr >= levels.Length) --levelNr;
+			LoadLevel();
+		}
+
+		public void ResetLevel()
+		{
+			LoadLevel();
+		}
+
+		public void Undo()
+		{
+			levelLogic.Undo();
+		}
+
+		public void Update(LevelLogic.Movement movement)
+		{
+			levelLogic.Update(movement);
+			if (levelLogic.GetLevel().IsWon())
 			{
-				this.playerPos = playerPos.Value;
+				NextLevel();
 			}
 		}
 
-		public ILevel GetLevel() { return level; }
+		private uint levelNr = 1;
+		private LevelLogic levelLogic;
+		private string[] levels;
 
-		public void Update(Movement movement)
+		private void LoadLevel()
 		{
-			UpdateMovables(movement);
-		}
-
-		private void UpdateMovables(Movement movement)
-		{
-			Point newPlayerPos = playerPos;
-			newPlayerPos = CalcNewPosition(newPlayerPos, movement);
-			ElementType type = level.GetElement(newPlayerPos.X, newPlayerPos.Y);
-			if (ElementType.Wall == type) return;
-			if (ElementType.Box == type ||ElementType.BoxOnGoal == type)
-			{
-				//box will be moved
-				Point newBoxPos = CalcNewPosition(newPlayerPos, movement);
-				ElementType type2 = level.GetElement(newBoxPos.X, newBoxPos.Y);
-				//is new box position invalid
-				if (ElementType.Floor != type2 && ElementType.Goal != type2) return;
-				//moving box
-				level.MoveBox(newPlayerPos, newBoxPos);
-			}
-			Point oldPlayerPos = playerPos;
-			playerPos = newPlayerPos;
-			level.MovePlayer(oldPlayerPos, playerPos);
-		}
-
-		private static Point CalcNewPosition(Point pos, Movement movement)
-		{
-			Point newPos = pos;
-			switch (movement)
-			{
-				case Movement.DOWN: newPos = new Point(pos.X, pos.Y - 1); break;
-				case Movement.UP: newPos = new Point(pos.X, pos.Y + 1); break;
-				case Movement.LEFT: newPos = new Point(pos.X - 1, pos.Y); break;
-				case Movement.RIGHT: newPos = new Point(pos.X + 1, pos.Y); break;
-			}
-
-			return newPos;
+			//var levelString = Resourcen.ResourceManager.GetString("level" + levelNr.ToString());
+			var level = LevelLoader.FromString(levels[levelNr]);
+			if (ReferenceEquals(null, level)) return;
+			levelLogic = new LevelLogic(level);
 		}
 	}
 }

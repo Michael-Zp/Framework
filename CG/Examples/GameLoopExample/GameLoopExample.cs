@@ -34,7 +34,7 @@ namespace Example
 				GL.Vertex2(x + 0.0f, 0.5f);
 				GL.End();
 
-				wnd.Context.SwapBuffers();
+				wnd.SwapBuffers();
 				wnd.ProcessEvents(); //this call could destroy window, so do all stuff that needs the window (like gl) before
 			}
 		}

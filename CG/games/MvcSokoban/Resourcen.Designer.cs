@@ -140,34 +140,8 @@ namespace MvcSokoban {
         ///# $$# ###
         ///#@  #
         ///#####
-        ///.
-        /// </summary>
-        internal static string level1 {
-            get {
-                return ResourceManager.GetString("level1", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to #####
-        /// #   ####
-        /// #   #  #
-        /// ##    .#
-        ///### ###.#
-        ///# $ # #.#
-        ///# $$# ###
-        ///#@  #
-        ///#####
-        ///.
-        /// </summary>
-        internal static string level11 {
-            get {
-                return ResourceManager.GetString("level11", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to   #######
+        ///
+        ///  #######
         ///  #     #
         ///  # $ @ #
         ///##### # #
@@ -175,226 +149,42 @@ namespace MvcSokoban {
         ///#  #$## ##
         ///#..$  #  #
         ///#..      #
-        ///##########.
-        /// </summary>
-        internal static string level2 {
-            get {
-                return ResourceManager.GetString("level2", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to   #######
-        ///  #     #
-        ///  # $ @ #
-        ///##### # #
-        ///# $     #
-        ///#  #$## ##
-        ///#..$  #  #
-        ///#..      #
-        ///##########.
-        /// </summary>
-        internal static string level21 {
-            get {
-                return ResourceManager.GetString("level21", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to   ######
+        ///##########
+        ///
+        ///  ######
         ///  #..*.#
         ///  #.$  #
         ///  ## $ #
         ///  ##$ ##
         ///  #@$ #
         ///  ##  #
-        ///   ####.
-        /// </summary>
-        internal static string level3 {
-            get {
-                return ResourceManager.GetString("level3", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to   ######
-        ///  #..*.#
-        ///  #.$  #
-        ///  ## $ #
-        ///  ##$ ##
-        ///  #@$ #
-        ///  ##  #
-        ///   ####.
-        /// </summary>
-        internal static string level31 {
-            get {
-                return ResourceManager.GetString("level31", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to   ########
+        ///   ####
+        ///
+        ///  ########
         ///  #.   $ #
         ///  #.$  # #
         ///  #.# #  #
         ///  ### # ##
         ///   # $  #
         ///   #@ ###
-        ///   #####.
-        /// </summary>
-        internal static string level4 {
-            get {
-                return ResourceManager.GetString("level4", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to   ########
-        ///  #.   $ #
-        ///  #.$  # #
-        ///  #.# #  #
-        ///  ### # ##
-        ///   # $  #
-        ///   #@ ###
-        ///   #####.
-        /// </summary>
-        internal static string level41 {
-            get {
-                return ResourceManager.GetString("level41", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to    ########
+        ///   #####
+        ///
+        ///   ########
         ///  ##..#   #
         ///  # ..# $ ##
         ///  # @ $  $ #
         ///  ##$###   #
         ///   #     ###
-        ///   #######.
-        /// </summary>
-        internal static string level5 {
-            get {
-                return ResourceManager.GetString("level5", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to    ########
-        ///  ##..#   #
-        ///  # ..# $ ##
-        ///  # @ $  $ #
-        ///  ##$###   #
-        ///   #     ###
-        ///   #######.
-        /// </summary>
-        internal static string level51 {
-            get {
-                return ResourceManager.GetString("level51", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to    #######
+        ///   #######
+        ///
+        ///   #######
         ///   #     ####
         ///   # ###.   #
-        ///  ##    # # #
-        ///  # .#$ $ # #
-        ///  # #  *  # #
-        ///  # # $ $#. #
-        ///  # # #    ##
-        ///  #   .### ##
-        ///  ####      #
-        ///     #####  #
-        ///         #@ #
-        ///         ####.
+        ///  ##    [rest of string was truncated]&quot;;.
         /// </summary>
-        internal static string level6 {
+        internal static string levels {
             get {
-                return ResourceManager.GetString("level6", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to    #######
-        ///   #     ####
-        ///   # ###.   #
-        ///  ##    # # #
-        ///  # .#$ $ # #
-        ///  # #  *  # #
-        ///  # # $ $#. #
-        ///  # # #    ##
-        ///  #   .### ##
-        ///  ####      #
-        ///     #####  #
-        ///         #@ #
-        ///         ####.
-        /// </summary>
-        internal static string level61 {
-            get {
-                return ResourceManager.GetString("level61", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to --#########
-        ///--#.....  #
-        ///--### $ # ##
-        ///----# $##  #
-        ///----#$ $ $ #
-        ///----#   #  #
-        ///----##  # @#
-        ///-----#######.
-        /// </summary>
-        internal static string level7 {
-            get {
-                return ResourceManager.GetString("level7", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to --#########
-        ///--#.....  #
-        ///--### $ # ##
-        ///----# $##  #
-        ///----#$ $ $ #
-        ///----#   #  #
-        ///----##  # @#
-        ///-----#######.
-        /// </summary>
-        internal static string level71 {
-            get {
-                return ResourceManager.GetString("level71", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to       #####
-        ///  #####   #
-        ///  #.. $ $ ##
-        ///  #..$ $  @#
-        ///  ##. $## ##
-        ///   ###    #
-        ///     ######.
-        /// </summary>
-        internal static string level8 {
-            get {
-                return ResourceManager.GetString("level8", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to       #####
-        ///  #####   #
-        ///  #.. $ $ ##
-        ///  #..$ $  @#
-        ///  ##. $## ##
-        ///   ###    #
-        ///     ######.
-        /// </summary>
-        internal static string level81 {
-            get {
-                return ResourceManager.GetString("level81", resourceCulture);
+                return ResourceManager.GetString("levels", resourceCulture);
             }
         }
         

@@ -57,6 +57,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="GameLogic.cs" />
+    <Compile Include="LevelLogic.cs" />
     <Compile Include="Drawable.cs" />
     <Compile Include="ILevel.cs" />
     <Compile Include="Level.cs" />
@@ -135,30 +136,6 @@
     <None Include="Resources\borgar.png" />
   </ItemGroup>
   <ItemGroup>
-    <None Include="Resources\level1.txt" />
-  </ItemGroup>
-  <ItemGroup>
-    <None Include="Resources\level2.txt" />
-  </ItemGroup>
-  <ItemGroup>
-    <None Include="Resources\level3.txt" />
-  </ItemGroup>
-  <ItemGroup>
-    <None Include="Resources\level4.txt" />
-  </ItemGroup>
-  <ItemGroup>
-    <None Include="Resources\level5.txt" />
-  </ItemGroup>
-  <ItemGroup>
-    <None Include="Resources\level6.txt" />
-  </ItemGroup>
-  <ItemGroup>
-    <None Include="Resources\level7.txt" />
-  </ItemGroup>
-  <ItemGroup>
-    <None Include="Resources\level8.txt" />
-  </ItemGroup>
-  <ItemGroup>
     <None Include="Resources\skin36.png" />
   </ItemGroup>
   <ItemGroup>
@@ -166,6 +143,9 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="Resources\EndPointCrate_Brown.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\levels.txt" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

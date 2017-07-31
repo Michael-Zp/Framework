@@ -4,6 +4,18 @@ namespace MvcSokoban
 {
 	public static class LevelHelper
 	{
+		public static Level Copy(this ILevel level)
+		{
+			var copy = new Level(level.Width, level.Height);
+			for(int x = 0; x < level.Width; ++x)
+			{
+				for (int y = 0; y < level.Height; ++y)
+				{
+					copy.SetElement(x, y, level.GetElement(x, y));
+				}
+			}
+			return copy;
+		}
 		public static ElementType GetElement(this ILevel level, Point position)
 		{
 			return level.GetElement(position.X, position.Y);
