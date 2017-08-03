@@ -5,7 +5,7 @@
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
     <ProjectGuid>{CEF63B7C-D944-4EAA-8FCA-45C8160F3711}</ProjectGuid>
-    <OutputType>Exe</OutputType>
+    <OutputType>WinExe</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
     <RootNamespace>MvcSokoban</RootNamespace>
     <AssemblyName>MvcSokoban</AssemblyName>
@@ -51,9 +51,13 @@
     <RunCodeAnalysis>true</RunCodeAnalysis>
     <CodeAnalysisRuleSet>AllRules.ruleset</CodeAnalysisRuleSet>
   </PropertyGroup>
+  <PropertyGroup>
+    <StartupObject />
+  </PropertyGroup>
   <ItemGroup>
     <Reference Include="System" />
     <Reference Include="System.Drawing" />
+    <Reference Include="System.Windows.Forms" />
   </ItemGroup>
   <ItemGroup>
     <Compile Include="GameLogic.cs" />
@@ -63,7 +67,7 @@
     <Compile Include="Level.cs" />
     <Compile Include="LevelHelper.cs" />
     <Compile Include="LevelLoader.cs" />
-    <Compile Include="Program.cs" />
+    <Compile Include="Sokoban.cs" />
     <Compile Include="Resourcen.Designer.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
@@ -101,6 +105,10 @@
     <ProjectReference Include="..\..\..\_Common\DMS.Application\DMS.Application.csproj">
       <Project>{911C6DFF-BE3E-4EA5-ADF2-A363DF797F23}</Project>
       <Name>DMS.Application</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\..\_Common\DMS.Base\DMS.Base.csproj">
+      <Project>{E5FF60A4-46FB-42D2-9430-BC523315C2E0}</Project>
+      <Name>DMS.Base</Name>
     </ProjectReference>
     <ProjectReference Include="..\..\..\_Common\DMS.HLGL\DMS.HLGL.csproj">
       <Project>{227D6BE1-BA08-4030-A755-07288540931F}</Project>
@@ -146,6 +154,9 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="Resources\levels.txt" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\video phreak.png" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

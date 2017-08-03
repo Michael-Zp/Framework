@@ -1,12 +1,26 @@
 ﻿using System;
-using System.Collections.Generic;
 
 namespace MvcSokoban
 {
+	[Serializable]
 	public class GameLogic
 	{
+		public int LevelNr
+		{
+			get { return levelNr; }
+			set
+			{
+				if (value == levelNr) return;
+				levelNr = Math.Min(value, levels.Length);
+				levelNr = Math.Max(levelNr, 1);
+				LoadLevel();
+			}
+		}
+		public int Moves { get { return levelLogic.Moves; } }
+
 		public GameLogic()
 		{
+			levelNr = 1;
 			levels = Resourcen.levels.Split(new string[] { Environment.NewLine + Environment.NewLine, "\n\n" }, StringSplitOptions.RemoveEmptyEntries);
 			LoadLevel();
 		}
@@ -14,13 +28,6 @@ namespace MvcSokoban
 		public ILevel GetLevel()
 		{
 			return levelLogic.GetLevel();
-		}
-
-		public void NextLevel()
-		{
-			++levelNr;
-			if (levelNr >= levels.Length) --levelNr;
-			LoadLevel();
 		}
 
 		public void ResetLevel()
@@ -38,18 +45,17 @@ namespace MvcSokoban
 			levelLogic.Update(movement);
 			if (levelLogic.GetLevel().IsWon())
 			{
-				NextLevel();
+				++LevelNr;
 			}
 		}
 
-		private uint levelNr = 1;
 		private LevelLogic levelLogic;
 		private string[] levels;
+		private int levelNr;
 
 		private void LoadLevel()
 		{
-			//var levelString = Resourcen.ResourceManager.GetString("level" + levelNr.ToString());
-			var level = LevelLoader.FromString(levels[levelNr]);
+			var level = LevelLoader.FromString(levels[LevelNr - 1]);
 			if (ReferenceEquals(null, level)) return;
 			levelLogic = new LevelLogic(level);
 		}

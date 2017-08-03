@@ -1,4 +1,5 @@
-﻿using Microsoft.VisualStudio.TestTools.UnitTesting;
+﻿using DMS.Geometry;
+using Microsoft.VisualStudio.TestTools.UnitTesting;
 using System.Numerics;
 
 namespace DMS.Geometry.Tests
@@ -197,6 +198,26 @@ namespace DMS.Geometry.Tests
 			a.PushYRangeInside(b);
 			Assert.AreEqual(expectedA, a);
 			Assert.IsTrue(a.Intersects(b));
+		}
+
+		[TestMethod()]
+		public void CreateContainingBoxTest()
+		{
+			var width = 10f;
+			var height = 10f;
+			var aspect = width / height;
+			var fitBox = Box2dExtensions.CreateContainingBox(width, height, aspect);
+			Assert.AreEqual(new Box2D(0, 0, width, height), fitBox);
+		}
+
+		[TestMethod()]
+		public void CreateContainingBoxTest2()
+		{
+			var width = 4f;
+			var height = 3f;
+			var aspect = 16f / 9f;
+			var fitBox = Box2dExtensions.CreateContainingBox(width, height, aspect);
+			Assert.AreEqual(new Box2D(0, 0, height * aspect, height), fitBox);
 		}
 	}
 }

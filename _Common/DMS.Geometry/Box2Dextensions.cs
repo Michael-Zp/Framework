@@ -109,7 +109,14 @@ namespace DMS.Geometry
 			rectangleA.Y += directions[minId].Y;
 		}
 
-		public static Box2D CreateFitBox(float inputWidth, float inputHeight, float newWidth2heigth)
+		/// <summary>
+		/// Create a box that is at least size <see cref="inputWith"/> x <see cref="inputHeight"/>, but has aspect ratio <see cref="newWidth2heigth"/>
+		/// </summary>
+		/// <param name="inputWidth"></param>
+		/// <param name="inputHeight"></param>
+		/// <param name="newWidth2heigth"></param>
+		/// <returns></returns>
+		public static Box2D CreateContainingBox(float inputWidth, float inputHeight, float newWidth2heigth)
 		{
 			var aspect = inputWidth / inputHeight;
 			if(aspect > newWidth2heigth)

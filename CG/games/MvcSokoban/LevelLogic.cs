@@ -5,6 +5,7 @@ using System.Linq;
 
 namespace MvcSokoban
 {
+	[Serializable]
 	public class LevelLogic
 	{
 		public enum Movement { NONE = 0, UP, DOWN, LEFT, RIGHT };
@@ -15,23 +16,33 @@ namespace MvcSokoban
 		public LevelLogic(Level level)
 		{
 			levelStates.Add(level);
-			Point? playerPos = level.FindPlayerPos();
-			if (playerPos.HasValue)
-			{
-				this.playerPos = playerPos.Value;
-			}
+			SetPlayerPos();
 		}
 
 		public ILevel GetLevel() { return levelStates.Last(); }
+		public int Moves { get { return levelStates.Count - 1; } }
 
 		public void Undo()
 		{
-			if (levelStates.Count > 1) levelStates.RemoveAt(levelStates.Count - 1);
+			if (levelStates.Count > 1)
+			{
+				levelStates.RemoveAt(levelStates.Count - 1);
+				SetPlayerPos();
+			}
 		}
 
 		public void Update(Movement movement)
 		{
 			UpdateMovables(movement);
+		}
+
+		private void SetPlayerPos()
+		{
+			Point? playerPos = GetLevel().FindPlayerPos();
+			if (playerPos.HasValue)
+			{
+				this.playerPos = playerPos.Value;
+			}
 		}
 
 		private void UpdateMovables(Movement movement)

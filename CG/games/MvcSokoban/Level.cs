@@ -1,5 +1,8 @@
-﻿namespace MvcSokoban
+﻿using System;
+
+namespace MvcSokoban
 {
+	[Serializable]
 	public class Level : ILevel
 	{
 		public Level(int width, int height)

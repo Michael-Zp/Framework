@@ -74,6 +74,18 @@ namespace MvcSokoban
 			}
 		}
 
+		public static bool IsEmpty(this ILevel level)
+		{
+			for (int x = 0; x < level.Width; ++x)
+			{
+				for (int y = 0; y < level.Height; ++y)
+				{
+					if (ElementType.Box == level.GetElement(x, y)) return false;
+				}
+			}
+			return true;
+		}
+
 		public static Point? FindPlayerPos(this ILevel level)
 		{
 			for (int x = 0; x < level.Width; ++x)

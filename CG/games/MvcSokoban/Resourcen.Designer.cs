@@ -201,6 +201,16 @@ namespace MvcSokoban {
         /// <summary>
         ///   Looks up a localized resource of type System.Drawing.Bitmap.
         /// </summary>
+        internal static System.Drawing.Bitmap Video_Phreak {
+            get {
+                object obj = ResourceManager.GetObject("Video_Phreak", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
         internal static System.Drawing.Bitmap Wall_Beige {
             get {
                 object obj = ResourceManager.GetObject("Wall_Beige", resourceCulture);
