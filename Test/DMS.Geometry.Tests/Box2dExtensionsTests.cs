@@ -201,7 +201,7 @@ namespace DMS.Geometry.Tests
 		}
 
 		[TestMethod()]
-		public void CreateContainingBoxTest()
+		public void CreateContainingBoxSquareTest()
 		{
 			var width = 10f;
 			var height = 10f;
@@ -211,13 +211,45 @@ namespace DMS.Geometry.Tests
 		}
 
 		[TestMethod()]
-		public void CreateContainingBoxTest2()
+		public void CreateContainingBoxPortraitTest()
 		{
-			var width = 4f;
-			var height = 3f;
-			var aspect = 16f / 9f;
+			PortraitTest(1f, 3f, 3f / 3f);
+			PortraitTest(2f, 3f, 3f / 3f);
+			PortraitTest(3f, 3f, 3f / 3f);
+			PortraitTest(3f, 3f, 8f / 3f);
+			PortraitTest(4f, 3f, 8f / 3f);
+			PortraitTest(5f, 3f, 8f / 3f);
+			PortraitTest(6f, 3f, 8f / 3f);
+			PortraitTest(7f, 3f, 8f / 3f);
+			PortraitTest(8f, 3f, 8f / 3f);
+		}
+
+		[TestMethod()]
+		public void CreateContainingBoxLandscapeTest()
+		{
+			LandscapeTest(3f, 3f, 3f / 3f);
+			LandscapeTest(3f, 2f, 3f / 3f);
+			LandscapeTest(3f, 1f, 3f / 3f);
+		}
+
+		private static void PortraitTest(float width, float height, float aspect)
+		{
 			var fitBox = Box2dExtensions.CreateContainingBox(width, height, aspect);
-			Assert.AreEqual(new Box2D(0, 0, height * aspect, height), fitBox);
+			var delta = .0001f;
+			Assert.AreEqual(-.5f * (aspect * height - width), fitBox.X, delta);
+			Assert.AreEqual(0f, fitBox.Y, delta);
+			Assert.AreEqual(height * aspect, fitBox.SizeX, delta);
+			Assert.AreEqual(height, fitBox.SizeY, delta);
+		}
+
+		private static void LandscapeTest(float width, float height, float aspect)
+		{
+			var fitBox = Box2dExtensions.CreateContainingBox(width, height, aspect);
+			var delta = .0001f;
+			Assert.AreEqual(0f, fitBox.X, delta);
+			Assert.AreEqual(-.5f * (aspect * width - height), fitBox.Y, delta);
+			Assert.AreEqual(width, fitBox.SizeX, delta);
+			Assert.AreEqual(width / aspect, fitBox.SizeY, delta);
 		}
 	}
 }

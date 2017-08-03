@@ -23,6 +23,7 @@ namespace MvcSokoban
 				logic = new GameLogic(); //loading failed -> reset
 			}
 			app.GameWindow.Title = "Sokoban";
+			app.GameWindow.CursorVisible = false;
 			app.GameWindow.Closing += (s, e) => logic.ObjIntoBinFile(GetGameStateFilePath()); //save game state at end of program
 			app.GameWindow.KeyDown += (s, e) =>
 			{
@@ -42,7 +43,6 @@ namespace MvcSokoban
 			var visual = new Visual();
 			app.Resize += (w, h) => visual.ResizeWindow(w, h);
 			app.Render += () => visual.DrawScreen(logic.GetLevel(), logic.LevelNr + "/" + logic.Moves);
-			app.GameWindow.CursorVisible = false;
 			app.Run();
 		}
 

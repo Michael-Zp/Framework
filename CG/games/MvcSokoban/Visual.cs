@@ -40,19 +40,19 @@ namespace MvcSokoban
 			{
 				for (int y = 0; y < level.Height; ++y)
 				{
-					var rect = new Box2D(x, y, 1.0f, 1.0f);
+					var tile = new Box2D(x, y, 1.0f, 1.0f);
 					//spriteSheet.Draw((uint)level.GetElement(x, y), rect);
 					var element = level.GetElement(x, y);
 					var tex = tileSet[element];
 					tex.Activate();
-					rect.DrawTexturedRect(Box2D.BOX01);
+					tile.DrawTexturedRect(Box2D.BOX01);
 					tex.Deactivate();
 				}
 			}
-			var size = .8f;
-			var rightjustifiedDelta = fitBox.MaxX - font.Width(message, size) - size;
-			font.Print(rightjustifiedDelta, 0, 0, size, message);
 			//spriteSheet.Deactivate();
+			var size = 1f;
+			var rightjustifiedDelta = level.Width - font.Width(message, size) - .5f * size;
+			font.Print(rightjustifiedDelta, 0, 0, size, message);
 			GL.Disable(EnableCap.Blend);
 		}
 

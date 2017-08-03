@@ -20,19 +20,8 @@ namespace Reversi
 
 		public void Resize(IGameState gameState, int width, int height)
 		{
-			var size = Math.Max(gameState.GridWidth, gameState.GridHeight);
-			aspect = width / (float)height;
-
-			if (width >= height)
-			{
-				var emptyPart = (width / (float)height - 1.0f) * size * 0.5f;
-				toClipSpace = Matrix4.CreateOrthographicOffCenter(-emptyPart, emptyPart + size, 0.0f, size, 0.0f, 1.0f);
-			}
-			else
-			{
-				var emptyPart = (height / (float)width - 1.0f) * size * 0.5f;
-				toClipSpace = Matrix4.CreateOrthographicOffCenter(0.0f, size, -emptyPart, emptyPart + size, 0.0f, 1.0f);
-			}
+			var fitBox = Box2dExtensions.CreateContainingBox(gameState.GridWidth, gameState.GridHeight, width / (float)height);
+			toClipSpace = Matrix4.CreateOrthographicOffCenter(fitBox.X, fitBox.MaxX, fitBox.Y, fitBox.MaxY, 0f, 1f);
 		}
 
 		public Point CalcGridPosFromNormalized(Vector2 coord)

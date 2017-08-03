@@ -1,4 +1,5 @@
-﻿using System.Numerics;
+﻿using System;
+using System.Numerics;
 
 namespace DMS.Geometry
 {
@@ -110,27 +111,21 @@ namespace DMS.Geometry
 		}
 
 		/// <summary>
-		/// Create a box that is at least size <see cref="inputWith"/> x <see cref="inputHeight"/>, but has aspect ratio <see cref="newWidth2heigth"/>
+		/// Create a box that is at least size <see cref="with"/> x <see cref="height"/>, but has aspect ratio <see cref="newWidth2heigth"/>
 		/// </summary>
-		/// <param name="inputWidth"></param>
-		/// <param name="inputHeight"></param>
+		/// <param name="width"></param>
+		/// <param name="height"></param>
 		/// <param name="newWidth2heigth"></param>
 		/// <returns></returns>
-		public static Box2D CreateContainingBox(float inputWidth, float inputHeight, float newWidth2heigth)
+		public static Box2D CreateContainingBox(float width, float height, float newWidth2heigth)
 		{
-			var aspect = inputWidth / inputHeight;
-			if(aspect > newWidth2heigth)
-			{
-				var ratio = aspect / newWidth2heigth;
-				var delta = 0.5f * (aspect - newWidth2heigth) * inputHeight * ratio;
-				return CreateFromMinMax(0, -delta, inputWidth, inputHeight * ratio - delta);
-			}
-			else
-			{
-				var ratio = newWidth2heigth / aspect;
-				var delta = 0.5f * (1 / aspect - 1 / newWidth2heigth) * inputWidth * ratio;
-				return CreateFromMinMax(-delta, 0, inputWidth * ratio - delta, inputHeight);
-			}
+			float fWinAspect = width / height;
+			bool isLandscape = newWidth2heigth < fWinAspect;
+			float outputWidth = isLandscape ? width : height * newWidth2heigth;
+			float outputHeight = isLandscape ? width / newWidth2heigth : height;
+			var x = isLandscape ? 0f : (width - outputWidth) * .5f;
+			var y = isLandscape ? (height - outputHeight) * .5f : 0f;
+			return new Box2D(x, y, outputWidth, outputHeight);
 		}
 	}
 }
