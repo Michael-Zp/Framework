@@ -21,7 +21,7 @@ namespace Reversi
 		public void Resize(IGameState gameState, int width, int height)
 		{
 			var fitBox = Box2dExtensions.CreateContainingBox(gameState.GridWidth, gameState.GridHeight, width / (float)height);
-			toClipSpace = Matrix4.CreateOrthographicOffCenter(fitBox.X, fitBox.MaxX, fitBox.Y, fitBox.MaxY, 0f, 1f);
+			toClipSpace = Matrix4.CreateOrthographicOffCenter(fitBox.MinX, fitBox.MaxX, fitBox.MinY, fitBox.MaxY, 0f, 1f);
 		}
 
 		public Point CalcGridPosFromNormalized(Vector2 coord)
@@ -50,7 +50,7 @@ namespace Reversi
 		public void PrintMessage(string message)
 		{
 			GL.MatrixMode(MatrixMode.Projection);
-			var mtxAspect = Matrix4.CreateOrthographic(1 * aspect, 1, 0, 1);
+			var mtxAspect = Matrix4.CreateOrthographic(1, 1, 0, 1);
 			GL.LoadMatrix(ref mtxAspect);
 			GL.MatrixMode(MatrixMode.Modelview);
 			GL.Enable(EnableCap.Blend);
@@ -66,7 +66,6 @@ namespace Reversi
 		private ITexture texWhite;
 		private ITexture texBlack;
 		private ITexture texTable;
-		private float aspect;
 
 		private void DrawField(IGameState gameState)
 		{

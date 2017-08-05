@@ -2,7 +2,6 @@
 using DMS.Geometry;
 using System.Collections.Generic;
 using OpenTK.Graphics.OpenGL;
-using System;
 using System.Drawing;
 using DMS.HLGL;
 
@@ -37,9 +36,9 @@ namespace Example
 		{
 			GL.Clear(ClearBufferMask.ColorBufferBit);
 			GL.MatrixMode(MatrixMode.Projection);
-			var size = Math.Max(bounds.SizeX, bounds.SizeY);
 			GL.LoadIdentity();
-			GL.Ortho(0, size * aspect, 0, size, 0, 1);
+			var fitBox = Box2dExtensions.CreateContainingBox(bounds.SizeX, bounds.SizeY, aspect);
+			GL.Ortho(fitBox.MinX, fitBox.MaxX, fitBox.MinY, fitBox.MaxY, 0, 1);
 			GL.MatrixMode(MatrixMode.Modelview);
 			foreach (var layer in layers)
 			{
@@ -52,7 +51,7 @@ namespace Example
 			var sprites = FindNamedSprites(name);
 			foreach (var sprite in sprites)
 			{
-				//todo: do some hierarchical transform, otherwise all sprites have same position
+				//todo: do some hierarchical transform, otherwise all hierarchical sprites have same position
 				sprite.CenterX = x;
 				sprite.CenterY = y;
 			}
@@ -114,8 +113,7 @@ namespace Example
 
 		private ITexture GetTexture(string textureName, Bitmap bitmap)
 		{
-			ITexture texture;
-			if (!textures.TryGetValue(textureName, out texture))
+			if (!textures.TryGetValue(textureName, out ITexture texture))
 			{
 				texture = TextureLoader.FromBitmap(bitmap);
 				texture.Filter = TextureFilterMode.Mipmap;

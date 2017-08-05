@@ -1,6 +1,5 @@
 ﻿using DMS.OpenGL;
 using DMS.Geometry;
-using OpenTK;
 using OpenTK.Graphics.OpenGL;
 using System;
 using System.Collections.Generic;
@@ -8,6 +7,7 @@ using System.Diagnostics;
 using System.Drawing;
 using DMS.Application;
 using DMS.HLGL;
+using System.Numerics;
 
 namespace Example
 {
@@ -59,9 +59,8 @@ namespace Example
 				, wayTangents[activeSegment.Item1]
 				, wayTangents[activeSegment.Item2]
 				, seconds - (float)Math.Floor(seconds));
-
-			bird.CenterX = pos.X;
-			bird.CenterY = pos.Y;
+			
+			bird = bird.MoveTo(pos);
 		}
 
 		private static void DrawTexturedRect(Box2D Rectangle, ITexture tex)
@@ -69,10 +68,10 @@ namespace Example
 			GL.Color3(Color.White);
 			tex.Activate();
 			GL.Begin(PrimitiveType.Quads);
-			GL.TexCoord2(0.0f, 0.0f); GL.Vertex2(Rectangle.X, Rectangle.Y);
-			GL.TexCoord2(1.0f, 0.0f); GL.Vertex2(Rectangle.MaxX, Rectangle.Y);
+			GL.TexCoord2(0.0f, 0.0f); GL.Vertex2(Rectangle.MinX, Rectangle.MinY);
+			GL.TexCoord2(1.0f, 0.0f); GL.Vertex2(Rectangle.MaxX, Rectangle.MinY);
 			GL.TexCoord2(1.0f, 1.0f); GL.Vertex2(Rectangle.MaxX, Rectangle.MaxY);
-			GL.TexCoord2(0.0f, 1.0f); GL.Vertex2(Rectangle.X, Rectangle.MaxY);
+			GL.TexCoord2(0.0f, 1.0f); GL.Vertex2(Rectangle.MinX, Rectangle.MaxY);
 			GL.End();
 			tex.Deactivate();
 		}

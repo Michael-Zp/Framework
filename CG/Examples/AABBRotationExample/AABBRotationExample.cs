@@ -50,10 +50,10 @@ namespace Example
 		private void DrawAABB(Box2D rect)
 		{
 			GL.Begin(PrimitiveType.LineLoop);
-			GL.Vertex2(rect.X, rect.Y);
-			GL.Vertex2(rect.MaxX, rect.Y);
+			GL.Vertex2(rect.MinX, rect.MinY);
+			GL.Vertex2(rect.MaxX, rect.MinY);
 			GL.Vertex2(rect.MaxX, rect.MaxY);
-			GL.Vertex2(rect.X, rect.MaxY);
+			GL.Vertex2(rect.MinX, rect.MaxY);
 			GL.End();
 		}
 

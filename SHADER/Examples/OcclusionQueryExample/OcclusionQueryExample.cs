@@ -48,16 +48,16 @@ namespace Example
 		{
 			moveDelta = (boxB.CenterX > 0.5f) ? -Math.Abs(moveDelta) : (boxB.CenterX < -0.5f) ? Math.Abs(moveDelta) : moveDelta;
 
-			boxB.X += moveDelta;
+			boxB.MinX += moveDelta;
 		}
 
 		private static void DrawBox(Box2D rect, float depth)
 		{
 			GL.Begin(PrimitiveType.Quads);
-			GL.Vertex3(rect.X, rect.Y, depth);
-			GL.Vertex3(rect.MaxX, rect.Y, depth);
+			GL.Vertex3(rect.MinX, rect.MinY, depth);
+			GL.Vertex3(rect.MaxX, rect.MinY, depth);
 			GL.Vertex3(rect.MaxX, rect.MaxY, depth);
-			GL.Vertex3(rect.X, rect.MaxY, depth);
+			GL.Vertex3(rect.MinX, rect.MaxY, depth);
 			GL.End();
 		}
 

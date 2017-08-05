@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Diagnostics;
 
 namespace DMS.Geometry
 {
@@ -11,22 +12,24 @@ namespace DMS.Geometry
 		/// <summary>
 		/// creates an AABR, an 2D axis aligned bounding box
 		/// </summary>
-		/// <param name="x">left side x coordinate</param>
-		/// <param name="y">bottom side y coordinate</param>
+		/// <param name="minX">minimal x coordinate</param>
+		/// <param name="minY">minimal y coordinate</param>
 		/// <param name="sizeX">width</param>
 		/// <param name="sizeY">height</param>
-		public Box2D(float x, float y, float sizeX, float sizeY)
+		public Box2D(float minX, float minY, float sizeX, float sizeY)
 		{
-			this.X = x;
-			this.Y = y;
+			Debug.Assert(sizeX >= 0);
+			Debug.Assert(sizeY >= 0);
+			this.MinX = minX;
+			this.MinY = minY;
 			this.SizeX = sizeX;
 			this.SizeY = sizeY;
 		}
 
 		public Box2D(Box2D rectangle)
 		{
-			this.X = rectangle.X;
-			this.Y = rectangle.Y;
+			this.MinX = rectangle.MinX;
+			this.MinY = rectangle.MinY;
 			this.SizeX = rectangle.SizeX;
 			this.SizeY = rectangle.SizeY;
 		}
@@ -38,17 +41,17 @@ namespace DMS.Geometry
 
 		public float SizeY { get; set; }
 
-		public float X { get; set; }
+		public float MinX { get; set; }
 
-		public float Y { get; set; }
+		public float MinY { get; set; }
 
-		public float MaxX { get { return X + SizeX; } set { SizeX = value - X; } }
+		public float MaxX { get { return MinX + SizeX; } set { SizeX = value - MinX; } }
 
-		public float MaxY { get { return Y + SizeY; } set { SizeY = value - Y; } }
+		public float MaxY { get { return MinY + SizeY; } set { SizeY = value - MinY; } }
 
-		public float CenterX { get { return X + 0.5f * SizeX; } set { X = value - 0.5f * SizeX; } }
+		public float CenterX { get { return MinX + 0.5f * SizeX; } set { MinX = value - 0.5f * SizeX; } }
 
-		public float CenterY { get { return Y + 0.5f * SizeY; } set { Y = value - 0.5f * SizeY; } }
+		public float CenterY { get { return MinY + 0.5f * SizeY; } set { MinY = value - 0.5f * SizeY; } }
 
 		public static bool operator==(Box2D a, Box2D b)
 		{
@@ -60,10 +63,19 @@ namespace DMS.Geometry
 			return !a.Equals(b);
 		}
 
+		public bool Contains(Box2D rectangle)
+		{
+			if (MinX > rectangle.MinX) return false;
+			if (MaxX < rectangle.MaxX) return false;
+			if (MinY > rectangle.MinY) return false;
+			if (MaxY < rectangle.MaxY) return false;
+			return true;
+		}
+
 		public bool Equals(Box2D other)
 		{
 			if (ReferenceEquals(null, other)) return false;
-			return X == other.X && Y == other.Y && SizeX == other.SizeX && SizeY == other.SizeY;
+			return MinX == other.MinX && MinY == other.MinY && SizeX == other.SizeX && SizeY == other.SizeY;
 		}
 
 		public override bool Equals(object other)
@@ -78,23 +90,14 @@ namespace DMS.Geometry
 
 		public bool Intersects(Box2D rectangle)
 		{
-			bool noXintersect = (MaxX <= rectangle.X) || (X >= rectangle.MaxX);
-			bool noYintersect = (MaxY <= rectangle.Y) || (Y >= rectangle.MaxY);
+			bool noXintersect = (MaxX <= rectangle.MinX) || (MinX >= rectangle.MaxX);
+			bool noYintersect = (MaxY <= rectangle.MinY) || (MinY >= rectangle.MaxY);
 			return !(noXintersect || noYintersect);
-		}
-
-		public bool Inside(Box2D rectangle)
-		{
-			if (X < rectangle.X) return false;
-			if (MaxX > rectangle.MaxX) return false;
-			if (Y < rectangle.Y) return false;
-			if (MaxY > rectangle.MaxY) return false;
-			return true;
 		}
 
 		public override string ToString()
 		{
-			return '(' + X.ToString() + ';' + Y.ToString() + ';' + SizeX.ToString() + ';' + SizeY.ToString() + ')';
+			return '(' + MinX.ToString() + ';' + MinY.ToString() + ';' + SizeX.ToString() + ';' + SizeY.ToString() + ')';
 		}
 	}
 }

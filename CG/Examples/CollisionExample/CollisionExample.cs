@@ -17,11 +17,11 @@ namespace Example
 			//player movement
 			if(Keyboard.GetState()[Key.Left])
 			{
-				player.X -= updatePeriod;
+				player.MinX -= updatePeriod;
 			}
 			else if (Keyboard.GetState()[Key.Right])
 			{
-				player.X += updatePeriod;
+				player.MinX += updatePeriod;
 			}
 			//todo student: let the player also move up and down
 			//todo student:Limit player movements to window
@@ -29,12 +29,12 @@ namespace Example
 			//no intersection -> move obstacle
 			if (!obstacle.Intersects(player))
 			{
-				obstacle.Y -= 0.5f * updatePeriod;
+				obstacle.MinY -= 0.5f * updatePeriod;
 			}
 
 			if(obstacle.MaxY < -1)
 			{
-				obstacle.Y = 1;
+				obstacle.MinY = 1;
 			}
 		}
 
@@ -55,29 +55,29 @@ namespace Example
 		private void DrawBoxOutline(Box2D rect)
 		{
 			GL.Begin(PrimitiveType.LineLoop);
-			GL.Vertex2(rect.X, rect.Y);
-			GL.Vertex2(rect.MaxX, rect.Y);
+			GL.Vertex2(rect.MinX, rect.MinY);
+			GL.Vertex2(rect.MaxX, rect.MinY);
 			GL.Vertex2(rect.MaxX, rect.MaxY);
-			GL.Vertex2(rect.X, rect.MaxY);
+			GL.Vertex2(rect.MinX, rect.MaxY);
 			GL.End();
 		}
 
 		private void DrawComplex(Box2D rect)
 		{
-			var xQuarter = rect.X + rect.SizeX * 0.25f;
-			var x3Quarter = rect.X + rect.SizeX * 0.75f;
-			var yThird = rect.Y + rect.SizeY * 0.33f;
-			var y2Third = rect.Y + rect.SizeY * 0.66f;
+			var xQuarter = rect.MinX + rect.SizeX * 0.25f;
+			var x3Quarter = rect.MinX + rect.SizeX * 0.75f;
+			var yThird = rect.MinY + rect.SizeY * 0.33f;
+			var y2Third = rect.MinY + rect.SizeY * 0.66f;
 			GL.Begin(PrimitiveType.Polygon);
 			GL.Vertex2(rect.CenterX, rect.MaxY);
 			GL.Vertex2(x3Quarter, y2Third);
 			GL.Vertex2(rect.MaxX, rect.CenterY);
 			GL.Vertex2(x3Quarter, yThird);
-			GL.Vertex2(rect.MaxX, rect.Y);
+			GL.Vertex2(rect.MaxX, rect.MinY);
 			GL.Vertex2(rect.CenterX, yThird);
-			GL.Vertex2(rect.X, rect.Y);
+			GL.Vertex2(rect.MinX, rect.MinY);
 			GL.Vertex2(xQuarter, yThird);
-			GL.Vertex2(rect.X, rect.CenterY);
+			GL.Vertex2(rect.MinX, rect.CenterY);
 			GL.Vertex2(xQuarter, y2Third);
 			GL.End();
 		}

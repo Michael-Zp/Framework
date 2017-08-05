@@ -58,10 +58,10 @@ namespace Example
 			GL.Begin(PrimitiveType.Quads);
 			//when using textures we have to set a texture coordinate for each vertex
 			//by using the TexCoord command BEFORE the Vertex command
-			GL.TexCoord2(0.0f, 0.0f); GL.Vertex2(Rect.X, Rect.Y);
-			GL.TexCoord2(1.0f, 0.0f); GL.Vertex2(Rect.MaxX, Rect.Y);
+			GL.TexCoord2(0.0f, 0.0f); GL.Vertex2(Rect.MinX, Rect.MinY);
+			GL.TexCoord2(1.0f, 0.0f); GL.Vertex2(Rect.MaxX, Rect.MinY);
 			GL.TexCoord2(1.0f, 1.0f); GL.Vertex2(Rect.MaxX, Rect.MaxY);
-			GL.TexCoord2(0.0f, 1.0f); GL.Vertex2(Rect.X, Rect.MaxY);
+			GL.TexCoord2(0.0f, 1.0f); GL.Vertex2(Rect.MinX, Rect.MaxY);
 			GL.End();
 			//the texture is disabled, so no other draw calls use this texture
 			tex.Deactivate();

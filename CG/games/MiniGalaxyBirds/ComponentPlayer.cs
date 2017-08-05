@@ -21,16 +21,16 @@ namespace MiniGalaxyBirds
 			float timeDelta = absoluteTime - lastUpdate;
 			lastUpdate = absoluteTime;
 			//player movement
-			frame.X += 0.9f * axisLeftRight * timeDelta;
-			frame.Y -= 0.5f * axisUpDown * timeDelta;
+			frame.MinX += 0.9f * axisLeftRight * timeDelta;
+			frame.MinY -= 0.5f * axisUpDown * timeDelta;
 			//limit player position
 			frame.PushXRangeInside(clipFrame);
 			frame.PushYRangeInside(clipFrame);
 
 			if (Shoot && shootCoolDown < 0.0f && !ReferenceEquals(null, OnCreateBullet))
 			{
-				OnCreateBullet(absoluteTime, frame.X, frame.Y);
-				OnCreateBullet(absoluteTime, frame.MaxX, frame.Y);
+				OnCreateBullet(absoluteTime, frame.MinX, frame.MinY);
+				OnCreateBullet(absoluteTime, frame.MaxX, frame.MinY);
 				shootCoolDown = 0.1f;
 			}
 			else

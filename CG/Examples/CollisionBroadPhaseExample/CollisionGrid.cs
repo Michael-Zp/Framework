@@ -36,10 +36,10 @@ namespace Example
 		{
 			// Convert the object's AABB to integer grid coordinates.
 			// Objects outside of the grid are clamped to the edge.
-			int minX = Math.Max((int)Math.Floor((objectBounds.MinX - Bounds.X) / CellSize.X), 0);
-			int maxX = Math.Min((int)Math.Floor((objectBounds.MaxX - Bounds.X) / CellSize.X), CellCountX - 1);
-			int minY = Math.Max((int)Math.Floor((objectBounds.MinY - Bounds.Y) / CellSize.Y), 0);
-			int maxY = Math.Min((int)Math.Floor((objectBounds.MaxY - Bounds.Y) / CellSize.Y), CellCountY - 1);
+			int minX = Math.Max((int)Math.Floor((objectBounds.MinX - Bounds.MinX) / CellSize.X), 0);
+			int maxX = Math.Min((int)Math.Floor((objectBounds.MaxX - Bounds.MinX) / CellSize.X), CellCountX - 1);
+			int minY = Math.Max((int)Math.Floor((objectBounds.MinY - Bounds.MinY) / CellSize.Y), 0);
+			int maxY = Math.Min((int)Math.Floor((objectBounds.MaxY - Bounds.MinY) / CellSize.Y), CellCountY - 1);
 
 			// Loop over the cells the object overlaps and insert the object.
 			for (int y = minY; y <= maxY; ++y)

@@ -19,8 +19,8 @@ namespace MiniGalaxyBirds
 		public void Update(float absoluteTime)
 		{
 			float timeDelta = absoluteTime - lastUpdate;
-			this.Frame.X += SpeedX * timeDelta;
-			this.Frame.Y += SpeedY * timeDelta;
+			this.Frame.MinX += SpeedX * timeDelta;
+			this.Frame.MinY += SpeedY * timeDelta;
 			lastUpdate = absoluteTime;
 		}
 

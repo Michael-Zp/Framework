@@ -75,7 +75,7 @@ namespace DMS.Geometry.Tests
 			var a = new Box2D(aX + 0.1f, 0, 2, 2);
 			var b = new Box2D(1, 0, 2, 2);
 			a.UndoOverlap(b);
-			Assert.AreEqual(aX, a.X);
+			Assert.AreEqual(aX, a.MinX);
 			Assert.IsFalse(a.Intersects(b));
 		}
 
@@ -95,8 +95,8 @@ namespace DMS.Geometry.Tests
 			var a = new Box2D(-1, -1, 2, 3);
 			var b = new Box2D(a);
 			var expectedA = new Box2D(a);
-			expectedA.X += 2f;
-			a.X += 0.01f; //to make it unambiguous in which direction to push
+			expectedA.MinX += 2f;
+			a.MinX += 0.01f; //to make it unambiguous in which direction to push
 			a.UndoOverlap(b);
 			Assert.AreEqual(expectedA, a);
 			Assert.IsFalse(a.Intersects(b));
@@ -108,8 +108,8 @@ namespace DMS.Geometry.Tests
 			var a = new Box2D(-1, -1, 3, 2);
 			var b = new Box2D(a);
 			var expectedA = new Box2D(a);
-			expectedA.Y += 2f;
-			a.Y += 0.01f; //to make it unambiguous in which direction to push
+			expectedA.MinY += 2f;
+			a.MinY += 0.01f; //to make it unambiguous in which direction to push
 			a.UndoOverlap(b);
 			Assert.AreEqual(expectedA, a);
 			Assert.IsFalse(a.Intersects(b));
@@ -121,8 +121,8 @@ namespace DMS.Geometry.Tests
 			var a = new Box2D(-1, -1, 2, 3);
 			var b = new Box2D(a);
 			var expectedA = new Box2D(a);
-			expectedA.X -= 2f;
-			a.X -= 0.01f; //to make it unambiguous in which direction to push
+			expectedA.MinX -= 2f;
+			a.MinX -= 0.01f; //to make it unambiguous in which direction to push
 			a.UndoOverlap(b);
 			Assert.AreEqual(expectedA, a);
 			Assert.IsFalse(a.Intersects(b));
@@ -134,8 +134,8 @@ namespace DMS.Geometry.Tests
 			var a = new Box2D(-1, -1, 3, 2);
 			var b = new Box2D(a);
 			var expectedA = new Box2D(a);
-			expectedA.Y = -3f;
-			a.Y -= 0.01f; //to make it unambiguous in which direction to push
+			expectedA.MinY = -3f;
+			a.MinY -= 0.01f; //to make it unambiguous in which direction to push
 			a.UndoOverlap(b);
 			Assert.AreEqual(expectedA, a);
 			Assert.IsFalse(a.Intersects(b));
@@ -146,7 +146,7 @@ namespace DMS.Geometry.Tests
 			var a = new Box2D(-1, -1, 3, 2);
 			var b = new Box2D(-4, -4, 10, 10);
 			var expectedA = new Box2D(a);
-			expectedA.Y = -6f;
+			expectedA.MinY = -6f;
 			a.UndoOverlap(b);
 			Assert.AreEqual(expectedA, a);
 			Assert.IsFalse(a.Intersects(b));
@@ -158,7 +158,7 @@ namespace DMS.Geometry.Tests
 			var a = new Box2D(-0.1f, 0, 0.5f, 0.5f);
 			var b = new Box2D(0, 0, 2, 2);
 			var expectedA = new Box2D(a);
-			expectedA.X = 0;
+			expectedA.MinX = 0;
 			a.PushXRangeInside(b);
 			Assert.AreEqual(expectedA, a);
 			Assert.IsTrue(a.Intersects(b));
@@ -170,7 +170,7 @@ namespace DMS.Geometry.Tests
 			var a = new Box2D(1.6f, 0, 0.5f, 0.5f);
 			var b = new Box2D(0, 0, 2, 2);
 			var expectedA = new Box2D(a);
-			expectedA.X = 1.5f;
+			expectedA.MinX = 1.5f;
 			a.PushXRangeInside(b);
 			Assert.AreEqual(expectedA, a);
 			Assert.IsTrue(a.Intersects(b));
@@ -182,7 +182,7 @@ namespace DMS.Geometry.Tests
 			var a = new Box2D(0, -0.1f, 0.5f, 0.5f);
 			var b = new Box2D(0, 0, 2, 2);
 			var expectedA = new Box2D(a);
-			expectedA.Y = 0;
+			expectedA.MinY = 0;
 			a.PushYRangeInside(b);
 			Assert.AreEqual(expectedA, a);
 			Assert.IsTrue(a.Intersects(b));
@@ -194,7 +194,7 @@ namespace DMS.Geometry.Tests
 			var a = new Box2D(0, 1.6f, 0.5f, 0.5f);
 			var b = new Box2D(0, 0, 2, 2);
 			var expectedA = new Box2D(a);
-			expectedA.Y = 1.5f;
+			expectedA.MinY = 1.5f;
 			a.PushYRangeInside(b);
 			Assert.AreEqual(expectedA, a);
 			Assert.IsTrue(a.Intersects(b));
@@ -236,8 +236,8 @@ namespace DMS.Geometry.Tests
 		{
 			var fitBox = Box2dExtensions.CreateContainingBox(width, height, aspect);
 			var delta = .0001f;
-			Assert.AreEqual(-.5f * (aspect * height - width), fitBox.X, delta);
-			Assert.AreEqual(0f, fitBox.Y, delta);
+			Assert.AreEqual(-.5f * (aspect * height - width), fitBox.MinX, delta);
+			Assert.AreEqual(0f, fitBox.MinY, delta);
 			Assert.AreEqual(height * aspect, fitBox.SizeX, delta);
 			Assert.AreEqual(height, fitBox.SizeY, delta);
 		}
@@ -246,8 +246,8 @@ namespace DMS.Geometry.Tests
 		{
 			var fitBox = Box2dExtensions.CreateContainingBox(width, height, aspect);
 			var delta = .0001f;
-			Assert.AreEqual(0f, fitBox.X, delta);
-			Assert.AreEqual(-.5f * (aspect * width - height), fitBox.Y, delta);
+			Assert.AreEqual(0f, fitBox.MinX, delta);
+			Assert.AreEqual(-.5f * (aspect * width - height), fitBox.MinY, delta);
 			Assert.AreEqual(width, fitBox.SizeX, delta);
 			Assert.AreEqual(width / aspect, fitBox.SizeY, delta);
 		}

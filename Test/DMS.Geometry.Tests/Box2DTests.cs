@@ -61,7 +61,7 @@ namespace DMS.Geometry.Tests
 		{
 			var a = new Box2D(-4, -7, 1, 2);
 			var b = new Box2D(a);
-			b.X += b.SizeX - 0.001f;
+			b.MinX += b.SizeX - 0.001f;
 			Assert.IsTrue(a.Intersects(b));
 			Assert.IsNotNull(a);
 			Assert.IsNotNull(b);
@@ -72,7 +72,7 @@ namespace DMS.Geometry.Tests
 		{
 			var a = new Box2D(-4, -7, 1, 2);
 			var b = new Box2D(a);
-			b.Y += b.SizeY - 0.001f;
+			b.MinY += b.SizeY - 0.001f;
 			Assert.IsTrue(a.Intersects(b));
 			Assert.IsNotNull(a);
 			Assert.IsNotNull(b);

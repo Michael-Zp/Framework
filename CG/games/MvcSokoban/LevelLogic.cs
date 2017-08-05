@@ -6,10 +6,8 @@ using System.Linq;
 namespace MvcSokoban
 {
 	[Serializable]
-	public class LevelLogic
+	public partial class LevelLogic
 	{
-		public enum Movement { NONE = 0, UP, DOWN, LEFT, RIGHT };
-
 		private Point playerPos;
 		private List<Level> levelStates = new List<Level>();
 
@@ -51,8 +49,8 @@ namespace MvcSokoban
 			newPlayerPos = CalcNewPosition(newPlayerPos, movement);
 			ElementType type = GetLevel().GetElement(newPlayerPos.X, newPlayerPos.Y);
 			if (ElementType.Wall == type) return;
-			levelStates.Add(levelStates.Last().Copy());
-			if (ElementType.Box == type ||ElementType.BoxOnGoal == type)
+			SaveUndoState();
+			if (ElementType.Box == type || ElementType.BoxOnGoal == type)
 			{
 				//box will be moved
 				Point newBoxPos = CalcNewPosition(newPlayerPos, movement);
@@ -65,6 +63,11 @@ namespace MvcSokoban
 			Point oldPlayerPos = playerPos;
 			playerPos = newPlayerPos;
 			levelStates.Last().MovePlayer(oldPlayerPos, playerPos);
+		}
+
+		private void SaveUndoState()
+		{
+			levelStates.Add(levelStates.Last().Copy());
 		}
 
 		private static Point CalcNewPosition(Point pos, Movement movement)

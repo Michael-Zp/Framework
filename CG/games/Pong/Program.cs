@@ -37,8 +37,8 @@ namespace Pong
 
 		private void ResetBall(bool toPlayer2)
 		{
-			ball.X = 0.0f;
-			ball.Y = 0.0f;
+			ball.MinX = 0.0f;
+			ball.MinY = 0.0f;
 			ballV = new Vector2(toPlayer2 ? 1.0f : -1.0f, 0.0f);
 		}
 
@@ -84,18 +84,18 @@ namespace Pong
 				ResetBall(true);
 			}
 
-			paddle1.Y = MovePaddle(paddle1.Y, updatePeriod, Keyboard.GetState()[Key.Q], Keyboard.GetState()[Key.A]);
-			paddle2.Y = MovePaddle(paddle2.Y, updatePeriod, Keyboard.GetState()[Key.O], Keyboard.GetState()[Key.L]);
+			paddle1.MinY = MovePaddle(paddle1.MinY, updatePeriod, Keyboard.GetState()[Key.Q], Keyboard.GetState()[Key.A]);
+			paddle2.MinY = MovePaddle(paddle2.MinY, updatePeriod, Keyboard.GetState()[Key.O], Keyboard.GetState()[Key.L]);
 			//move ball
-			ball.X += updatePeriod * ballV.X;
-			ball.Y += updatePeriod * ballV.Y;
+			ball.MinX += updatePeriod * ballV.X;
+			ball.MinY += updatePeriod * ballV.Y;
 			//reflect ball
-			if (ball.MaxY > 1.0f || ball.Y < -1.0)
+			if (ball.MaxY > 1.0f || ball.MinY < -1.0)
 			{
 				ballV.Y = -ballV.Y;
 			}
 			//points
-			if (ball.X > 1.0f) 
+			if (ball.MinX > 1.0f) 
 			{
 				++player1Points;
 				ResetBall(false);
@@ -135,10 +135,10 @@ namespace Pong
 		{
 			GL.Begin(PrimitiveType.Quads);
 			GL.Color3(Color.Green);
-			GL.Vertex2(frame.X, frame.Y);
-			GL.Vertex2(frame.MaxX, frame.Y);
+			GL.Vertex2(frame.MinX, frame.MinY);
+			GL.Vertex2(frame.MaxX, frame.MinY);
 			GL.Vertex2(frame.MaxX, frame.MaxY);
-			GL.Vertex2(frame.X, frame.MaxY);
+			GL.Vertex2(frame.MinX, frame.MaxY);
 			GL.End();
 		}
 	}

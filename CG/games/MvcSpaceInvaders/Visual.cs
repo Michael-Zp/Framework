@@ -49,10 +49,10 @@ namespace MvcSpaceInvaders
 		{
 			GL.Color3(Color.White);
 			GL.Begin(PrimitiveType.Quads);
-				GL.TexCoord2(0.0f, 0.0f); GL.Vertex2(Rectanlge.X, Rectanlge.Y);
-				GL.TexCoord2(1.0f, 0.0f); GL.Vertex2(Rectanlge.MaxX, Rectanlge.Y);
+				GL.TexCoord2(0.0f, 0.0f); GL.Vertex2(Rectanlge.MinX, Rectanlge.MinY);
+				GL.TexCoord2(1.0f, 0.0f); GL.Vertex2(Rectanlge.MaxX, Rectanlge.MinY);
 				GL.TexCoord2(1.0f, 1.0f); GL.Vertex2(Rectanlge.MaxX, Rectanlge.MaxY);
-				GL.TexCoord2(0.0f, 1.0f); GL.Vertex2(Rectanlge.X, Rectanlge.MaxY);
+				GL.TexCoord2(0.0f, 1.0f); GL.Vertex2(Rectanlge.MinX, Rectanlge.MaxY);
 			GL.End();
 		}
 	}

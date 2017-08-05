@@ -49,9 +49,9 @@ namespace Example
 			foreach (var collider in colliders)
 			{
 				collider.SaveBox();
-				collider.Box.X += collider.Velocity.X * updatePeriod;
-				collider.Box.Y += collider.Velocity.Y * updatePeriod;
-				if (!collider.Box.Inside(windowBorders))
+				collider.Box.MinX += collider.Velocity.X * updatePeriod;
+				collider.Box.MinY += collider.Velocity.Y * updatePeriod;
+				if (!windowBorders.Contains(collider.Box))
 				{
 					collider.Box.PushXRangeInside(windowBorders);
 					collider.Box.PushYRangeInside(windowBorders);
@@ -122,10 +122,10 @@ namespace Example
 		private void DrawBox(Box2D rect)
 		{
 			GL.Begin(PrimitiveType.Quads);
-			GL.Vertex2(rect.X, rect.Y);
-			GL.Vertex2(rect.MaxX, rect.Y);
+			GL.Vertex2(rect.MinX, rect.MinY);
+			GL.Vertex2(rect.MaxX, rect.MinY);
 			GL.Vertex2(rect.MaxX, rect.MaxY);
-			GL.Vertex2(rect.X, rect.MaxY);
+			GL.Vertex2(rect.MinX, rect.MaxY);
 			GL.End();
 		}
 

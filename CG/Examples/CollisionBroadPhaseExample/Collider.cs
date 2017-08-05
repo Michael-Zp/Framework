@@ -21,9 +21,9 @@ namespace Example
 		public Color Color { get; private set; }
 		public Vector2 Velocity { get; set; }
 
-		public float MinX { get	{ return Box.X;	} }
+		public float MinX { get	{ return Box.MinX;	} }
 
-		public float MinY { get { return Box.Y; } }
+		public float MinY { get { return Box.MinY; } }
 
 		public float MaxX { get { return Box.MaxX; } }
 

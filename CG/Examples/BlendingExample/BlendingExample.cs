@@ -26,17 +26,17 @@ namespace Example
 
 			var rect = new Box2D(-.75f, -.75f, .5f, .5f);
 			DrawRect(rect, new Color4(.5f, .7f, .1f, 1));
-			rect.X += .25f;
-			rect.Y += .25f;
+			rect.MinX += .25f;
+			rect.MinY += .25f;
 			DrawRect(rect, new Color4(.7f, .5f, .9f, .5f));
-			rect.X += .25f;
-			rect.Y += .25f;
+			rect.MinX += .25f;
+			rect.MinY += .25f;
 			DrawRect(rect, new Color4(.7f, .5f, .9f, .5f));
-			rect.X += .25f;
-			rect.Y += .25f;
+			rect.MinX += .25f;
+			rect.MinY += .25f;
 			DrawRect(rect, new Color4(.5f, .7f, 1, .5f));
-			rect.X += .25f;
-			rect.Y += .25f;
+			rect.MinX += .25f;
+			rect.MinY += .25f;
 			DrawRect(rect, new Color4(.5f, .7f, 1, .5f));
 		}
 
@@ -53,10 +53,10 @@ namespace Example
 		{
 			GL.Color4(color);
 			GL.Begin(PrimitiveType.Quads);
-			GL.Vertex2(rectangle.X, rectangle.Y);
-			GL.Vertex2(rectangle.MaxX, rectangle.Y);
+			GL.Vertex2(rectangle.MinX, rectangle.MinY);
+			GL.Vertex2(rectangle.MaxX, rectangle.MinY);
 			GL.Vertex2(rectangle.MaxX, rectangle.MaxY);
-			GL.Vertex2(rectangle.X, rectangle.MaxY);
+			GL.Vertex2(rectangle.MinX, rectangle.MaxY);
 			GL.End();
 		}
 

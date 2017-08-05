@@ -40,7 +40,7 @@ namespace MvcSokoban
 			levelLogic.Undo();
 		}
 
-		public void Update(LevelLogic.Movement movement)
+		public void Update(Movement movement)
 		{
 			levelLogic.Update(movement);
 			if (levelLogic.GetLevel().IsWon())

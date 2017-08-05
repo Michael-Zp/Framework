@@ -30,7 +30,7 @@ namespace MvcSpaceInvaders
 			//remove outside bullet - lazy remove
 			foreach (Box2D bullet in bullets)
 			{
-				if (bullet.Y > 1.0f)
+				if (bullet.MinY > 1.0f)
 				{
 					bullets.Remove(bullet);
 					return;
@@ -76,15 +76,15 @@ namespace MvcSpaceInvaders
 		
 		private void UpdatePlayer(float absoluteTime, float timeDelta, float axisUpDown, bool shoot)
 		{
-			player.X += timeDelta * axisUpDown;
+			player.MinX += timeDelta * axisUpDown;
 			//limit player position [left, right]
-			player.X = Math.Min(1.0f - player.SizeX, Math.Max(-1.0f, player.X));
+			player.MinX = Math.Min(1.0f - player.SizeX, Math.Max(-1.0f, player.MinX));
 
 			if (shoot && !shootCoolDown.Enabled)
 			{
 				OnShoot?.Invoke(this, null);
-				bullets.Add(new Box2D(player.X, player.Y, 0.02f, 0.04f));
-				bullets.Add(new Box2D(player.MaxX, player.Y, 0.02f, 0.04f));
+				bullets.Add(new Box2D(player.MinX, player.MinY, 0.02f, 0.04f));
+				bullets.Add(new Box2D(player.MaxX, player.MinY, 0.02f, 0.04f));
 				shootCoolDown.Start(absoluteTime);
 			}
 		}
@@ -94,7 +94,7 @@ namespace MvcSpaceInvaders
 			//intersections
 			foreach (Box2D enemy in enemies)
 			{
-				if (enemy.Y < - 0.8f)
+				if (enemy.MinY < - 0.8f)
 				{
 					//game lost
 					Lost = true;
@@ -118,7 +118,7 @@ namespace MvcSpaceInvaders
 		{
 			foreach (Box2D enemy in enemies)
 			{
-				enemy.Y -= enemySpeed * timeDelta;
+				enemy.MinY -= enemySpeed * timeDelta;
 			}
 		}
 
@@ -126,7 +126,7 @@ namespace MvcSpaceInvaders
 		{
 			foreach (Box2D bullet in bullets)
 			{
-				bullet.Y += timeDelta;
+				bullet.MinY += timeDelta;
 			}
 		}
 	}

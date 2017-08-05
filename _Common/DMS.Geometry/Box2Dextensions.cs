@@ -1,5 +1,4 @@
-﻿using System;
-using System.Numerics;
+﻿using System.Numerics;
 
 namespace DMS.Geometry
 {
@@ -13,22 +12,24 @@ namespace DMS.Geometry
 
 		public static Box2D CreateFromCenterSize(float centerX, float centerY, float sizeX, float sizeY)
 		{
-			var rectangle = new Box2D(0, 0, sizeX, sizeY);
-			rectangle.CenterX = centerX;
-			rectangle.CenterY = centerY;
+			var rectangle = new Box2D(0, 0, sizeX, sizeY)
+			{
+				CenterX = centerX,
+				CenterY = centerY
+			};
 			return rectangle;
 		}
 
 		public static bool PushXRangeInside(this Box2D rectangleA, Box2D rectangleB)
 		{
 			if (rectangleA.SizeX > rectangleB.SizeX) return false;
-			if (rectangleA.X < rectangleB.X)
+			if (rectangleA.MinX < rectangleB.MinX)
 			{
-				rectangleA.X = rectangleB.X;
+				rectangleA.MinX = rectangleB.MinX;
 			}
 			if (rectangleA.MaxX > rectangleB.MaxX)
 			{
-				rectangleA.X = rectangleB.MaxX - rectangleA.SizeX;
+				rectangleA.MinX = rectangleB.MaxX - rectangleA.SizeX;
 			}
 			return true;
 		}
@@ -36,13 +37,13 @@ namespace DMS.Geometry
 		public static bool PushYRangeInside(this Box2D rectangleA, Box2D rectangleB)
 		{
 			if (rectangleA.SizeY > rectangleB.SizeY) return false;
-			if (rectangleA.Y < rectangleB.Y)
+			if (rectangleA.MinY < rectangleB.MinY)
 			{
-				rectangleA.Y = rectangleB.Y;
+				rectangleA.MinY = rectangleB.MinY;
 			}
 			if (rectangleA.MaxY > rectangleB.MaxY)
 			{
-				rectangleA.Y = rectangleB.MaxY - rectangleA.SizeY;
+				rectangleA.MinY = rectangleB.MaxY - rectangleA.SizeY;
 			}
 			return true;
 		}
@@ -59,13 +60,13 @@ namespace DMS.Geometry
 
 			if (rectangleA.Intersects(rectangleB))
 			{
-				overlap = new Box2D(0.0f, 0.0f, 0.0f, 0.0f);
-
-				overlap.X = (rectangleA.X < rectangleB.X) ? rectangleB.X : rectangleA.X;
-				overlap.Y = (rectangleA.Y < rectangleB.Y) ? rectangleB.Y : rectangleA.Y;
-
-				overlap.SizeX = (rectangleA.MaxX < rectangleB.MaxX) ? rectangleA.MaxX - overlap.X : rectangleB.MaxX - overlap.X;
-				overlap.SizeY = (rectangleA.MaxY < rectangleB.MaxY) ? rectangleA.MaxY - overlap.Y : rectangleB.MaxY - overlap.Y;
+				overlap = new Box2D(0.0f, 0.0f, 0.0f, 0.0f)
+				{
+					MinX = (rectangleA.MinX < rectangleB.MinX) ? rectangleB.MinX : rectangleA.MinX,
+					MinY = (rectangleA.MinY < rectangleB.MinY) ? rectangleB.MinY : rectangleA.MinY
+				};
+				overlap.SizeX = (rectangleA.MaxX < rectangleB.MaxX) ? rectangleA.MaxX - overlap.MinX : rectangleB.MaxX - overlap.MinX;
+				overlap.SizeY = (rectangleA.MaxY < rectangleB.MaxY) ? rectangleA.MaxY - overlap.MinY : rectangleB.MaxY - overlap.MinY;
 			}
 
 			return overlap;
@@ -89,10 +90,10 @@ namespace DMS.Geometry
 
 			Vector2[] directions = new Vector2[]
 			{
-				new Vector2(rectangleB.MaxX - rectangleA.X, 0), // push distance A in positive X-direction
-				new Vector2(rectangleB.X - rectangleA.MaxX, 0), // push distance A in negative X-direction
-				new Vector2(0, rectangleB.MaxY - rectangleA.Y), // push distance A in positive Y-direction
-				new Vector2(0, rectangleB.Y - rectangleA.MaxY)  // push distance A in negative Y-direction
+				new Vector2(rectangleB.MaxX - rectangleA.MinX, 0), // push distance A in positive X-direction
+				new Vector2(rectangleB.MinX - rectangleA.MaxX, 0), // push distance A in negative X-direction
+				new Vector2(0, rectangleB.MaxY - rectangleA.MinY), // push distance A in positive Y-direction
+				new Vector2(0, rectangleB.MinY - rectangleA.MaxY)  // push distance A in negative Y-direction
 			};
 			float[] pushDistSqrd = new float[4];
 			for (int i = 0; i < 4; ++i)
@@ -106,8 +107,8 @@ namespace DMS.Geometry
 				minId = pushDistSqrd[i] < pushDistSqrd[minId] ? i : minId;
 			}
 
-			rectangleA.X += directions[minId].X;
-			rectangleA.Y += directions[minId].Y;
+			rectangleA.MinX += directions[minId].X;
+			rectangleA.MinY += directions[minId].Y;
 		}
 
 		/// <summary>
@@ -126,6 +127,20 @@ namespace DMS.Geometry
 			var x = isLandscape ? 0f : (width - outputWidth) * .5f;
 			var y = isLandscape ? (height - outputHeight) * .5f : 0f;
 			return new Box2D(x, y, outputWidth, outputHeight);
+		}
+
+		public static Box2D MoveTo(this Box2D input, float minX, float minY)
+		{
+			return new Box2D(minX, minY, input.SizeX, input.SizeY);
+		}
+		public static Box2D MoveTo(this Box2D input, Vector2 min)
+		{
+			return new Box2D(min.X, min.Y, input.SizeX, input.SizeY);
+		}
+
+		public static Box2D Translate(this Box2D input, float tx, float ty)
+		{
+			return new Box2D(input.MinX + tx, input.MinY + ty, input.SizeX, input.SizeY);
 		}
 	}
 }
