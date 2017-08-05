@@ -61,6 +61,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="GameLogic.cs" />
+    <Compile Include="IScene.cs" />
     <Compile Include="LevelLogic.cs" />
     <Compile Include="Drawable.cs" />
     <Compile Include="ILevel.cs" />
@@ -68,6 +69,8 @@
     <Compile Include="LevelHelper.cs" />
     <Compile Include="LevelLoader.cs" />
     <Compile Include="Movement.cs" />
+    <Compile Include="SceneGame.cs" />
+    <Compile Include="SceneMenu.cs" />
     <Compile Include="Sokoban.cs" />
     <Compile Include="Resourcen.Designer.cs">
       <AutoGen>True</AutoGen>

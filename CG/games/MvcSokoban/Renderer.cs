@@ -6,7 +6,8 @@ using System.Collections.Generic;
 
 namespace MvcSokoban
 {
-	class Renderer
+	public enum TextAlignment { Left, Center, Right };
+	public class Renderer
 	{
 		public Renderer()
 		{
@@ -24,17 +25,16 @@ namespace MvcSokoban
 			//this.spriteSheet = new SpriteSheet(TextureLoader.FromBitmap(Resourcen.borgar), 4, 0.95f, 0.95f);
 		}
 
-		public void DrawScreen(ILevel level, string message)
+		public void Clear()
 		{
 			GL.Clear(ClearBufferMask.ColorBufferBit);
-			GL.MatrixMode(MatrixMode.Projection);
+		}
+
+		public void DrawLevel(ILevel level)
+		{
 			GL.LoadIdentity();
 			var fitBox = Box2dExtensions.CreateContainingBox(level.Width, level.Height, windowAspect);
 			GL.Ortho(fitBox.MinX, fitBox.MaxX, fitBox.MinY, fitBox.MaxY, 0.0, 1.0);
-			GL.MatrixMode(MatrixMode.Modelview);
-			GL.LoadIdentity();
-			GL.Enable(EnableCap.Blend);
-			GL.BlendFunc(BlendingFactorSrc.SrcAlpha, BlendingFactorDest.OneMinusSrcAlpha);
 			//spriteSheet.Activate();
 			for (int x = 0; x < level.Width; ++x)
 			{
@@ -50,9 +50,21 @@ namespace MvcSokoban
 				}
 			}
 			//spriteSheet.Deactivate();
-			var size = 1f;
-			var rightjustifiedDelta = level.Width - font.Width(message, size) - .5f * size;
-			font.Print(rightjustifiedDelta, 0, 0, size, message);
+		}
+
+		public void Print(string message, float size, TextAlignment alignment = TextAlignment.Left)
+		{
+			GL.LoadIdentity();
+			GL.Ortho(0, windowAspect, 0, 1, 0, 1);
+			GL.Enable(EnableCap.Blend);
+			GL.BlendFunc(BlendingFactorSrc.SrcAlpha, BlendingFactorDest.OneMinusSrcAlpha);
+			var alignmentDelta = 0f;
+			switch(alignment)
+			{
+				case TextAlignment.Right: alignmentDelta = windowAspect - font.Width(message, size); break;
+				case TextAlignment.Center: alignmentDelta = .5f * (windowAspect - font.Width(message, size)); break;
+			}
+			font.Print(alignmentDelta, 0, 0, size, message);
 			GL.Disable(EnableCap.Blend);
 		}
 

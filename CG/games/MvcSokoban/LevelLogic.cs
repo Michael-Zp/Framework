@@ -36,7 +36,7 @@ namespace MvcSokoban
 
 		private void SetPlayerPos()
 		{
-			Point? playerPos = GetLevel().FindPlayerPos();
+			var playerPos = GetLevel().FindPlayerPos();
 			if (playerPos.HasValue)
 			{
 				this.playerPos = playerPos.Value;
@@ -45,43 +45,26 @@ namespace MvcSokoban
 
 		private void UpdateMovables(Movement movement)
 		{
-			Point newPlayerPos = playerPos;
-			newPlayerPos = CalcNewPosition(newPlayerPos, movement);
-			ElementType type = GetLevel().GetElement(newPlayerPos.X, newPlayerPos.Y);
-			if (ElementType.Wall == type) return;
-			SaveUndoState();
-			if (ElementType.Box == type || ElementType.BoxOnGoal == type)
+			var newPlayerPos = playerPos;
+			newPlayerPos = newPlayerPos.Move(movement);
+			var newPlayerPosTileType = GetLevel().GetElement(newPlayerPos.X, newPlayerPos.Y);
+			if (ElementType.Wall == newPlayerPosTileType) return;
+			var newLevelState = levelStates.Last().Copy();
+			if (newPlayerPosTileType.ContainsBox())
 			{
-				//box will be moved
-				Point newBoxPos = CalcNewPosition(newPlayerPos, movement);
-				ElementType type2 = GetLevel().GetElement(newBoxPos.X, newBoxPos.Y);
+				//player tries to move a box
+				var newBoxPos = newPlayerPos.Move(movement);
+				var newBoxPosTileType = GetLevel().GetElement(newBoxPos.X, newBoxPos.Y);
 				//is new box position invalid
-				if (ElementType.Floor != type2 && ElementType.Goal != type2) return;
-				//moving box
-				levelStates.Last().MoveBox(newPlayerPos, newBoxPos);
+				if (ElementType.Floor != newBoxPosTileType && ElementType.Goal != newBoxPosTileType) return;
+				//move box
+				newLevelState.MoveBox(newPlayerPos, newBoxPos);
 			}
-			Point oldPlayerPos = playerPos;
+			var oldPlayerPos = playerPos;
 			playerPos = newPlayerPos;
-			levelStates.Last().MovePlayer(oldPlayerPos, playerPos);
-		}
-
-		private void SaveUndoState()
-		{
-			levelStates.Add(levelStates.Last().Copy());
-		}
-
-		private static Point CalcNewPosition(Point pos, Movement movement)
-		{
-			Point newPos = pos;
-			switch (movement)
-			{
-				case Movement.DOWN: newPos = new Point(pos.X, pos.Y - 1); break;
-				case Movement.UP: newPos = new Point(pos.X, pos.Y + 1); break;
-				case Movement.LEFT: newPos = new Point(pos.X - 1, pos.Y); break;
-				case Movement.RIGHT: newPos = new Point(pos.X + 1, pos.Y); break;
-			}
-
-			return newPos;
+			newLevelState.MovePlayer(oldPlayerPos, playerPos);
+			//add new state to undo
+			levelStates.Add(newLevelState);
 		}
 	}
 }
