@@ -3,6 +3,7 @@ using DMS.Geometry;
 using OpenTK.Graphics.OpenGL;
 using DMS.HLGL;
 using System.Collections.Generic;
+using System.Drawing;
 
 namespace MvcSokoban
 {
@@ -30,8 +31,9 @@ namespace MvcSokoban
 			GL.Clear(ClearBufferMask.ColorBufferBit);
 		}
 
-		public void DrawLevel(ILevel level)
+		public void DrawLevel(ILevel level, Color tint)
 		{
+			GL.Color3(tint);
 			GL.LoadIdentity();
 			var fitBox = Box2dExtensions.CreateContainingBox(level.Width, level.Height, windowAspect);
 			GL.Ortho(fitBox.MinX, fitBox.MaxX, fitBox.MinY, fitBox.MaxY, 0.0, 1.0);

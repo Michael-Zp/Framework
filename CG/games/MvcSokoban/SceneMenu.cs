@@ -1,5 +1,4 @@
-﻿using OpenTK.Graphics.OpenGL;
-using OpenTK.Input;
+﻿using System.Drawing;
 
 namespace MvcSokoban
 {
@@ -11,13 +10,13 @@ namespace MvcSokoban
 			this.renderer = renderer;
 		}
 
-		public bool HandleInput(Key key)
+		public bool HandleInput(GameKey key)
 		{
 			switch (key)
 			{
-				case Key.Right: ++logic.LevelNr; break;
-				case Key.Left: --logic.LevelNr; break;
-				case Key.Enter: return false;
+				case GameKey.Right: ++logic.LevelNr; break;
+				case GameKey.Left: --logic.LevelNr; break;
+				case GameKey.Accept: return false;
 			};
 			return true;
 		}
@@ -25,9 +24,15 @@ namespace MvcSokoban
 		public void Render()
 		{
 			renderer.Clear();
-			GL.Color3(.5f, .5f, .5f);
-			renderer.DrawLevel(logic.GetLevel());
-			renderer.Print("Level " + logic.LevelNr, .1f, TextAlignment.Center);
+			renderer.DrawLevel(logic.GetLevel(), Color.Gray);
+			if(logic.HasLevelBeenWon(logic.LevelNr))
+			{
+				renderer.Print("Level " + logic.LevelNr + " (WON)", .1f, TextAlignment.Center);
+			}
+			else
+			{
+				renderer.Print("Level " + logic.LevelNr, .1f, TextAlignment.Center);
+			}
 		}
 
 		private readonly GameLogic logic;

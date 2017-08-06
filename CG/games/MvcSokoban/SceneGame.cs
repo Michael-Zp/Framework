@@ -1,5 +1,4 @@
-﻿using OpenTK.Graphics.OpenGL;
-using OpenTK.Input;
+﻿using System.Drawing;
 
 namespace MvcSokoban
 {
@@ -11,17 +10,17 @@ namespace MvcSokoban
 			this.renderer = renderer;
 		}
 
-		public bool HandleInput(Key key)
+		public bool HandleInput(GameKey key)
 		{
 			switch (key)
 			{
-				case Key.BackSpace: return false;
-				case Key.R: logic.ResetLevel(); break;
-				case Key.B: logic.Undo(); break;
-				case Key.Left: logic.Update(Movement.LEFT); break;
-				case Key.Right: logic.Update(Movement.RIGHT); break;
-				case Key.Up: logic.Update(Movement.UP); break;
-				case Key.Down: logic.Update(Movement.DOWN); break;
+				case GameKey.Menu: return false;
+				case GameKey.Reset: logic.ResetLevel(); break;
+				case GameKey.Back: logic.Undo(); break;
+				case GameKey.Left: logic.Update(Movement.LEFT); break;
+				case GameKey.Right: logic.Update(Movement.RIGHT); break;
+				case GameKey.Up: logic.Update(Movement.UP); break;
+				case GameKey.Down: logic.Update(Movement.DOWN); break;
 			};
 			return true;
 		}
@@ -29,8 +28,7 @@ namespace MvcSokoban
 		public void Render()
 		{
 			renderer.Clear();
-			GL.Color3(1f, 1f, 1f);
-			renderer.DrawLevel(logic.GetLevel());
+			renderer.DrawLevel(logic.GetLevel(), Color.White);
 			renderer.Print(logic.LevelNr + "/" + logic.Moves, .05f);
 		}
 
