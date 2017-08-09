@@ -2,6 +2,7 @@
 using System.Text.RegularExpressions;
 using System;
 using DMS.HLGL;
+using System.Text;
 
 namespace DMS.OpenGL
 {
@@ -32,6 +33,7 @@ namespace DMS.OpenGL
 			}
 			return shd;
 		}
+
 		public static string FromStrings(this IShader shader, string sVertexShd_, string sFragmentShd_)
 		{
 			shader.Compile(sVertexShd_, ShaderType.VertexShader);

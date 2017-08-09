@@ -199,6 +199,26 @@ namespace MvcSokoban {
         }
         
         /// <summary>
+        ///   Looks up a localized resource of type System.Byte[].
+        /// </summary>
+        internal static byte[] texColorFrag {
+            get {
+                object obj = ResourceManager.GetObject("texColorFrag", resourceCulture);
+                return ((byte[])(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Byte[].
+        /// </summary>
+        internal static byte[] texColorVert {
+            get {
+                object obj = ResourceManager.GetObject("texColorVert", resourceCulture);
+                return ((byte[])(obj));
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized resource of type System.Drawing.Bitmap.
         /// </summary>
         internal static System.Drawing.Bitmap Video_Phreak {

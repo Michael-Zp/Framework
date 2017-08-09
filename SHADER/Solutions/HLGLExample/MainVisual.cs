@@ -21,7 +21,6 @@ namespace Example
 			this.context = context;
 			frameBuffer = context.GetFrameBuffer();
 			surfaceGeometry = context.CreateRenderSurface(512, 512, true);
-			//var context = imageBase.Context;
 			//suzanne = context.CreateDrawConfiguration();
 			suzanne.BackfaceCulling = true;
 			suzanne.SetInputTexture(Resources.TextureDiffuse);
@@ -70,8 +69,6 @@ namespace Example
 		{
 			public Matrix4x4 camera;
 		};
-		struct Translate { public Vector4 translate; };
-		private Translate t = new Translate() { translate = Vector4.Zero };
 
 		private IRenderContext context;
 		private IRenderSurface frameBuffer;

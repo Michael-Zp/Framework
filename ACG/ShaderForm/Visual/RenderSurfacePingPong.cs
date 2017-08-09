@@ -59,10 +59,10 @@ namespace ShaderForm.Visual
 
 		private FBO LastFBO { get { return (activeFBO == fboA) ? fboB : fboA; } }
 
-		private Texture CreateTexture(int width, int height)
+		private Texture2D CreateTexture(int width, int height)
 		{
 			//return Texture.Create(width, height);
-			return Texture.Create(width, height, 4, true);
+			return Texture2D.Create(width, height, 4, true);
 		}
 	}
 }

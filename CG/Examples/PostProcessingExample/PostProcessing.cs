@@ -8,7 +8,7 @@ namespace Example
 	{
 		public PostProcessing(int width, int height)
 		{
-			renderToTexture = new FBO(Texture.Create(width, height));
+			renderToTexture = new FBO(Texture2D.Create(width, height));
 			SetShader(TextureToFrameBuffer.FragmentShaderCopy);
 		}
 

@@ -188,6 +188,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DMS.HLGL.Tests", "Test\DMS.
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SphereParticleExample", "SHADER\Solutions\SphereParticleExample\SphereParticleExample.csproj", "{4DA52BA5-FF51-473D-96AE-7A9FF32E5CA0}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "PointLightShadowMappingSolution", "SHADER\Solutions\PointLightShadowMappingSolution\PointLightShadowMappingSolution.csproj", "{A82BF98D-3ECB-4355-8F4E-F531FA2AFB3E}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -490,6 +492,10 @@ Global
 		{4DA52BA5-FF51-473D-96AE-7A9FF32E5CA0}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{4DA52BA5-FF51-473D-96AE-7A9FF32E5CA0}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{4DA52BA5-FF51-473D-96AE-7A9FF32E5CA0}.Release|Any CPU.Build.0 = Release|Any CPU
+		{A82BF98D-3ECB-4355-8F4E-F531FA2AFB3E}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{A82BF98D-3ECB-4355-8F4E-F531FA2AFB3E}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{A82BF98D-3ECB-4355-8F4E-F531FA2AFB3E}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{A82BF98D-3ECB-4355-8F4E-F531FA2AFB3E}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -573,5 +579,6 @@ Global
 		{7844B9B6-0977-41E9-A8F6-53F4A002D188} = {BEE08292-7C95-44EC-B228-44ED81C09610}
 		{2F1AE477-5B19-4E8D-A70E-B1B74F57560C} = {BEE08292-7C95-44EC-B228-44ED81C09610}
 		{4DA52BA5-FF51-473D-96AE-7A9FF32E5CA0} = {60690206-8C29-45FF-B353-25286A9438CE}
+		{A82BF98D-3ECB-4355-8F4E-F531FA2AFB3E} = {60690206-8C29-45FF-B353-25286A9438CE}
 	EndGlobalSection
 EndGlobal

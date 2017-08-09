@@ -350,71 +350,18 @@ namespace DMS.Geometry
 
 		public static Mesh CreatePlane(float sizeX, float sizeZ, uint segmentsX, uint segmentsZ)
 		{
-			float deltaX = (1.0f / segmentsX) * sizeX;
-			float deltaZ = (1.0f / segmentsZ) * sizeZ;
 			Mesh m = new Mesh();
-			//add vertices
-			for (uint u = 0; u < segmentsX + 1; ++u)
-			{
-				for (uint v = 0; v < segmentsZ + 1; ++v)
-				{
-					float x = -sizeX / 2.0f + u * deltaX;
-					float z = -sizeZ / 2.0f + v * deltaZ;
-					m.position.List.Add(new Vector3(x, 0.0f, z));
-					m.normal.List.Add(Vector3.UnitY);
-					m.uv.List.Add(new Vector2(u, v));
-				}
-			}
-			uint verticesZ = segmentsZ + 1;
-			//add ids
-			for (uint u = 0; u < segmentsX; ++u)
-			{
-				for (uint v = 0; v < segmentsZ; ++v)
-				{
-					m.IDs.Add(u* verticesZ + v);
-					m.IDs.Add(u* verticesZ + v + 1);
-					m.IDs.Add((u + 1) * verticesZ + v);
+			void CreateVertex(float x, float z) => m.position.List.Add(new Vector3(x, 0.0f, z));
+			void CreateID(uint id) => m.IDs.Add(id);
+			void CreateNormal() => m.normal.List.Add(Vector3.UnitY);
+			void CreateUV(float u, float v) => m.uv.List.Add(new Vector2(u, v));
 
-					m.IDs.Add((u + 1) * verticesZ + v);
-					m.IDs.Add(u* verticesZ + v + 1);
-					m.IDs.Add((u + 1) * verticesZ + v + 1);
-				}
-			}
+			var startX = -sizeX / 2f;
+			var startZ= -sizeZ / 2f;
+			Shapes.CreatePlane(startX, sizeX, startZ, sizeZ, segmentsX, segmentsZ, CreateVertex, CreateID
+				, CreateNormal, CreateUV);
 			return m;
 		}
-
-		//public static Mesh CreateQuad(Box2D rect)
-		//{
-		//	Mesh mesh = new Mesh();
-
-		//	//add vertices
-		//	for (uint u = 0; u <= 1; ++u)
-		//	{
-		//		for (uint v = 0; v <= 1; ++v)
-		//		{
-		//			float x = rect.X + u * rect.SizeX;
-		//			float y = rect.Y + v * rect.SizeY;
-		//			mesh.position.List.Add(new Vector3(x, y, 0));
-		//			mesh.uv.List.Add(new Vector2(u, v));
-		//		}
-		//	}
-		//	uint verticesZ = segmentsZ + 1;
-		//	//add ids
-		//	for (uint u = 0; u < segmentsX; ++u)
-		//	{
-		//		for (uint v = 0; v < segmentsZ; ++v)
-		//		{
-		//			m.IDs.Add(u * verticesZ + v);
-		//			m.IDs.Add(u * verticesZ + v + 1);
-		//			m.IDs.Add((u + 1) * verticesZ + v);
-
-		//			m.IDs.Add((u + 1) * verticesZ + v);
-		//			m.IDs.Add(u * verticesZ + v + 1);
-		//			m.IDs.Add((u + 1) * verticesZ + v + 1);
-		//		}
-		//	}
-		//	return m;
-		//}
 
 		private static uint CreateID(Mesh m, uint id1, uint id2)
 		{

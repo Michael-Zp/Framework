@@ -84,7 +84,7 @@ namespace Example
 		private CameraOrbit cameraLight = new CameraOrbit();
 		private IShader shader;
 		private IShader shaderDepth;
-		private FBO fboShadowMap = new FBOwithDepth(Texture.Create(512, 512, 1, true));
+		private FBO fboShadowMap = new FBOwithDepth(Texture2D.Create(512, 512, 1, true));
 		private VAO geometry;
 	}
 }

@@ -3,6 +3,9 @@ using DMS.Base;
 
 namespace MvcSpaceInvaders
 {
+	/// <summary>
+	/// All sounds should have the same sampling frequency, otherwise mixing them will throw an exception.
+	/// </summary>
 	public class Sound : Disposable
 	{
 		public Sound()

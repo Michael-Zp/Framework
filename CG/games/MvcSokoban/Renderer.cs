@@ -7,8 +7,7 @@ using System.Drawing;
 
 namespace MvcSokoban
 {
-	public enum TextAlignment { Left, Center, Right };
-	public class Renderer
+	public class Renderer : IRenderer
 	{
 		public Renderer()
 		{

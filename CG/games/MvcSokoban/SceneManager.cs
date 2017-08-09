@@ -7,7 +7,7 @@
 		private readonly GameLogic logic;
 		IScene currentScene;
 
-		public SceneManager(GameLogic logic, Renderer renderer)
+		public SceneManager(GameLogic logic, IRenderer renderer)
 		{
 			this.logic = logic;
 			game = new SceneGame(logic, renderer);

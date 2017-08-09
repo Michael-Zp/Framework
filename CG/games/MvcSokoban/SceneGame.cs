@@ -4,7 +4,7 @@ namespace MvcSokoban
 {
 	public class SceneGame : IScene
 	{
-		public SceneGame(GameLogic logic, Renderer renderer)
+		public SceneGame(GameLogic logic, IRenderer renderer)
 		{
 			this.logic = logic;
 			this.renderer = renderer;
@@ -33,6 +33,6 @@ namespace MvcSokoban
 		}
 
 		private readonly GameLogic logic;
-		private readonly Renderer renderer;
+		private readonly IRenderer renderer;
 	}
 }

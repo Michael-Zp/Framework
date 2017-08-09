@@ -20,8 +20,8 @@ namespace DMS.OpenGL
 				IntPtr pointer = pinnedArray.AddrOfPinnedObject();
 				var width = data.GetLength(0);
 				var height = data.GetLength(1);
-				Texture texture = new Texture();
-				texture.FilterMipmap();
+				var texture = new Texture2D();
+				texture.Filter = TextureFilterMode.Mipmap;
 				texture.Activate();
 				texture.LoadPixels(pointer, width, height, internalFormat, format, type);
 				texture.Deactivate();
@@ -35,8 +35,8 @@ namespace DMS.OpenGL
 
 		public static ITexture FromBitmap(Bitmap bitmap)
 		{
-			Texture texture = new Texture();
-			texture.FilterMipmap();
+			var texture = new Texture2D();
+			texture.Filter = TextureFilterMode.Mipmap;
 			texture.Activate();
 			//todo: 16bit channels
 			using (Bitmap bmp = new Bitmap(bitmap))
@@ -54,8 +54,8 @@ namespace DMS.OpenGL
 
 		public static ITexture FromStream(Stream stream)
 		{
-			Texture texture = new Texture();
-			texture.FilterMipmap();
+			var texture = new Texture2D();
+			texture.Filter = TextureFilterMode.Mipmap;
 			texture.Activate();
 			var source = new SysMedia.Imaging.BitmapImage();
 			source.BeginInit();

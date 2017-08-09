@@ -48,5 +48,10 @@ namespace DMS.OpenGL
 		{
 			return new RenderSurfaceGL(width, height, hasDepthBuffer, components, floatingPoint);
 		}
+
+		public IShader CreateShader()
+		{
+			return new Shader();
+		}
 	}
 }
