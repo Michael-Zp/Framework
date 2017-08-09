@@ -9,7 +9,7 @@ using System.Numerics;
 
 namespace MvcSokoban
 {
-	internal class RendererGL4 : IRenderer
+	public class RendererGL4 : IRenderer
 	{
 		public RendererGL4(IRenderContext context)
 		{

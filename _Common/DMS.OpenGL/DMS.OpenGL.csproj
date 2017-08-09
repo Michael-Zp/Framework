@@ -62,7 +62,8 @@
     <Compile Include="StateActiveFboGL.cs" />
     <Compile Include="StateActiveShaderGL.cs" />
     <Compile Include="StateBoolGL.cs" />
-    <Compile Include="Texture2D.cs" />
+    <Compile Include="Texture2dGL.cs" />
+    <Compile Include="TextureArrayGL.cs" />
     <Compile Include="TextureFont.cs" />
     <Compile Include="Texture.cs" />
     <Compile Include="TextureLoader.cs" />

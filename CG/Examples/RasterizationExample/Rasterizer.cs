@@ -13,7 +13,7 @@ namespace Example
 			if (ReferenceEquals(null, drawHandler)) throw new ArgumentException("Draw handler must not equal null!");
 			this.drawHandler = drawHandler;
 			copyToFrameBuffer = new TextureToFrameBuffer();
-			texRenderSurface = Texture2D.Create(resolutionX, resolutionY);
+			texRenderSurface = Texture2dGL.Create(resolutionX, resolutionY);
 			texRenderSurface.Filter = TextureFilterMode.Nearest;
 			renderToTexture = new FBO(texRenderSurface);
 		}

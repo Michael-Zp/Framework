@@ -4,24 +4,24 @@ using System;
 
 namespace DMS.OpenGL
 {
-	public class Texture2D : Texture, ITexture2D
+	public class Texture2dGL : Texture, ITexture2D
 	{
 		public int Width { get; private set; } = 0;
 		public int Height { get; private set; } = 0;
 
-		public Texture2D(): base(TextureTarget.Texture2D) { }
+		public Texture2dGL(): base(TextureTarget.Texture2D) { }
 
-		public static Texture2D Create(int width, int height, byte components = 4, bool floatingPoint = false)
+		public static Texture2dGL Create(int width, int height, byte components = 4, bool floatingPoint = false)
 		{
 			var internalFormat = Convert(components, floatingPoint);
 			var inputPixelFormat = Convert(components);
 			var type = floatingPoint ? PixelType.UnsignedByte : PixelType.Float;
-			return Texture2D.Create(width, height, internalFormat, inputPixelFormat, type);
+			return Create(width, height, internalFormat, inputPixelFormat, type);
 		}
 
-		public static Texture2D Create(int width, int height, PixelInternalFormat internalFormat, PixelFormat inputPixelFormat = PixelFormat.Rgba, PixelType type = PixelType.UnsignedByte)
+		public static Texture2dGL Create(int width, int height, PixelInternalFormat internalFormat, PixelFormat inputPixelFormat = PixelFormat.Rgba, PixelType type = PixelType.UnsignedByte)
 		{
-			var texture = new Texture2D();
+			var texture = new Texture2dGL();
 			//create empty texture of given size
 			texture.LoadPixels(IntPtr.Zero, width, height, internalFormat, inputPixelFormat, type);
 			//set default parameters for filtering and clamping

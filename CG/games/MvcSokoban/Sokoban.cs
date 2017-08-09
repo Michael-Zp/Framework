@@ -26,8 +26,8 @@ namespace MvcSokoban
 			app.GameWindow.CursorVisible = false;
 			app.GameWindow.Closing += (s, e) => logic.ObjIntoBinFile(GetGameStateFilePath()); //save game state at end of program
 
-			//var renderer = new RendererGL4(app.RenderContext);
-			var renderer = new Renderer();
+			var renderer = new RendererGL4(app.RenderContext);
+			//var renderer = new Renderer();
 			var sceneManager = new SceneManager(logic, renderer);
 			app.GameWindow.KeyDown += (s, e) => sceneManager.HandleInput(KeyBindings(e.Key));
 			app.Resize += (w, h) => renderer.ResizeWindow(w, h);

@@ -14,7 +14,7 @@ namespace DMS.OpenGL
 		public FrameListCreator(int width, int height, Imaging.PixelFormat format = Imaging.PixelFormat.Format24bppRgb, bool drawToFrameBuffer = true, bool needZbuffer = true)
 		{
 			this.format = format;
-			var tex = Texture2D.Create(width, height,	TextureLoader.SelectInternalPixelFormat(format), TextureLoader.SelectPixelFormat(format));
+			var tex = Texture2dGL.Create(width, height,	TextureLoader.SelectInternalPixelFormat(format), TextureLoader.SelectPixelFormat(format));
 			if (needZbuffer)
 			{
 				render2tex = new FBOwithDepth(tex);

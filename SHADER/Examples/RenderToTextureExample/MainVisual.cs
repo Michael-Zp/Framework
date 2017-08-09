@@ -65,7 +65,7 @@ namespace Example
 
 		public void Resize(int width, int height)
 		{
-			renderToTexture = new FBOwithDepth(Texture2D.Create(width, height));
+			renderToTexture = new FBOwithDepth(Texture2dGL.Create(width, height));
 		}
 
 		private CameraOrbit camera = new CameraOrbit();
