@@ -34,21 +34,19 @@ namespace Example
 			GL.ClearColor(Color.White);
 			//for transparency in textures we use blending
 			GL.BlendFunc(BlendingFactorSrc.SrcAlpha, BlendingFactorDest.OneMinusSrcAlpha);
+			GL.Enable(EnableCap.Blend); // for transparency in textures we use blending
+			GL.Enable(EnableCap.Texture2D); //todo: only for non shader pipeline relevant -> remove at some point
 		}
 
-		private void Render()
+			private void Render()
 		{
 			GL.Clear(ClearBufferMask.ColorBufferBit);
 			//color is multiplied with texture color => white == no change to texture color
 			GL.Color3(Color.White);
 			//draw background
 			DrawTexturedRect(new Box2D(-1, -1, 2, 2), texBackground);
-			// for transparency in textures we use blending
-			GL.Enable(EnableCap.Blend);
 			//draw ship
 			DrawTexturedRect(new Box2D(-.25f, -.25f, .5f, .5f), texShip);
-			// for transparency in textures we use blending
-			GL.Disable(EnableCap.Blend);
 		}
 
 		private static void DrawTexturedRect(Box2D Rect, ITexture tex)

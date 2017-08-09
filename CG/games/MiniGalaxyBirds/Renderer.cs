@@ -9,7 +9,12 @@ namespace MiniGalaxyBirds
 {
 	public class Renderer : IRenderer
 	{
-		public Renderer() { }
+		public Renderer()
+		{
+			GL.Enable(EnableCap.Blend);
+			GL.BlendFunc(BlendingFactorSrc.SrcAlpha, BlendingFactorDest.OneMinusSrcAlpha);
+			GL.Enable(EnableCap.Texture2D); //todo: only for non shader pipeline relevant -> remove at some point
+		}
 
 		public void Register(string type, ITexture texture)
 		{
@@ -62,8 +67,6 @@ namespace MiniGalaxyBirds
 		{
 			GL.Clear(ClearBufferMask.ColorBufferBit);
 			GL.LoadIdentity();
-			GL.Enable(EnableCap.Blend);
-			GL.BlendFunc(BlendingFactorSrc.SrcAlpha, BlendingFactorDest.OneMinusSrcAlpha);
 			if (!ReferenceEquals(null,  clipFrame))
 			{
 				foreach (IDrawable drawable in drawables)
@@ -82,7 +85,6 @@ namespace MiniGalaxyBirds
 				}
 			}
 			Print(-0.15f, 0.0f, 0.0f, 0.04f, points.ToString());
-			GL.Disable(EnableCap.Blend);
 		}
 
 		public void Print(float x, float y, float z, float size, string text)

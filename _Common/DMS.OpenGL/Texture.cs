@@ -18,12 +18,11 @@ namespace DMS.OpenGL
 			//generate one texture and put its ID number into the "m_uTextureID" variable
 			GL.GenTextures(1, out m_uTextureID);
 			//GL.CreateTextures(target, 1, out m_uTextureID); //DSA not supported by intel
-			this.Target = target;
+			Target = target;
 		}
 
 		public TextureTarget Target { get; }
-		public int Width { get; private set; } = 0;
-		public int Height { get; private set; } = 0;
+
 		public uint ID { get { return m_uTextureID; } }
 
 		public TextureFilterMode Filter
@@ -40,35 +39,12 @@ namespace DMS.OpenGL
 
 		public void Activate()
 		{
-			GL.Enable(EnableCap.Texture2D);
 			GL.BindTexture(Target, m_uTextureID);
 		}
 
 		public void Deactivate()
 		{
 			GL.BindTexture(Target, 0);
-			GL.Disable(EnableCap.Texture2D);
-		}
-
-		public void LoadPixels(IntPtr pixels, int width, int height, PixelInternalFormat internalFormat, PixelFormat inputPixelFormat, PixelType type)
-		{
-			Activate();
-			GL.TexImage2D(Target, 0, internalFormat, width, height, 0, inputPixelFormat, type, pixels);
-			this.Width = width;
-			this.Height = height;
-			Deactivate();
-		}
-
-		public void LoadPixels(IntPtr pixels, int width, int height, byte components = 4, bool floatingPoint = false)
-		{
-			var internalFormat = Convert(components, floatingPoint);
-			var inputPixelFormat = Convert(components);
-			var type = floatingPoint ? PixelType.UnsignedByte : PixelType.Float;
-			Activate();
-			GL.TexImage2D(Target, 0, internalFormat, width, height, 0, inputPixelFormat, type, pixels);
-			this.Width = width;
-			this.Height = height;
-			Deactivate();
 		}
 
 		public static PixelInternalFormat Convert(byte components = 4, bool floatingPoint = false)
@@ -93,25 +69,6 @@ namespace DMS.OpenGL
 				case 4: return PixelFormat.Rgba;
 			}
 			throw new ArgumentOutOfRangeException("Invalid Format only 1-4 components allowed");
-		}
-
-		public static Texture2D Create(int width, int height, byte components = 4, bool floatingPoint = false)
-		{
-			var internalFormat = Convert(components, floatingPoint);
-			var inputPixelFormat = Convert(components);
-			var type = floatingPoint ? PixelType.UnsignedByte : PixelType.Float;
-			return Texture2D.Create(width, height, internalFormat, inputPixelFormat, type);
-		}
-
-		public static Texture2D Create(int width, int height, PixelInternalFormat internalFormat, PixelFormat inputPixelFormat = PixelFormat.Rgba, PixelType type = PixelType.UnsignedByte)
-		{
-			var texture = new Texture2D();
-			//create empty texture of given size
-			texture.LoadPixels(IntPtr.Zero, width, height, internalFormat, inputPixelFormat, type);
-			//set default parameters for filtering and clamping
-			texture.Filter = TextureFilterMode.Linear;
-			texture.SetWrapMode(TextureWrapFunction.Repeat);
-			return texture;
 		}
 
 		protected override void DisposeResources()

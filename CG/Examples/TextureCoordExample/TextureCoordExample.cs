@@ -28,6 +28,8 @@ namespace Example
 			GL.ClearColor(Color.White);
 			//for transparency in textures
 			GL.BlendFunc(BlendingFactorSrc.SrcAlpha, BlendingFactorDest.OneMinusSrcAlpha);
+			GL.Enable(EnableCap.Texture2D); //todo: only for non shader pipeline relevant -> remove at some point
+			GL.Enable(EnableCap.Blend); // enable transparency
 		}
 
 		private void Render()
@@ -38,10 +40,7 @@ namespace Example
 			//draw background with changing texture coordinates
 			DrawTexturedRect(new Box2D(-1, -1, 2, 2), texBackground, texCoord);
 
-			GL.Enable(EnableCap.Blend); // enable transparency
-
 			DrawTexturedRect(new Box2D(-.25f, -.1f, .2f, .2f), texPlayer, new Box2D(0, 0, 1, 1)); // draw player
-			GL.Disable(EnableCap.Blend); // disable transparency
 		}
 
 		private void Update(float updatePeriod)

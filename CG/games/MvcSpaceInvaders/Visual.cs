@@ -14,14 +14,16 @@ namespace MvcSpaceInvaders
 			texPlayer = TextureLoader.FromBitmap(Resourcen.blueships1);
 			texEnemy = TextureLoader.FromBitmap(Resourcen.redship4);
 			texBullet = TextureLoader.FromBitmap(Resourcen.blueLaserRay);
+
+			GL.Enable(EnableCap.Blend);
+			GL.BlendFunc(BlendingFactorSrc.SrcAlpha, BlendingFactorDest.OneMinusSrcAlpha);
+			GL.Enable(EnableCap.Texture2D); //todo: only for non shader pipeline relevant -> remove at some point
 		}
 
-        public void DrawScreen(IEnumerable<Box2D> enemies, IEnumerable<Box2D> bullets, Box2D player)
+		public void DrawScreen(IEnumerable<Box2D> enemies, IEnumerable<Box2D> bullets, Box2D player)
 		{
 			GL.Clear(ClearBufferMask.ColorBufferBit);
 			GL.LoadIdentity();
-			GL.Enable(EnableCap.Blend);
-			GL.BlendFunc(BlendingFactorSrc.SrcAlpha, BlendingFactorDest.OneMinusSrcAlpha);
 
 			texEnemy.Activate();
 			foreach (Box2D enemy in enemies)
@@ -38,7 +40,6 @@ namespace MvcSpaceInvaders
 			texPlayer.Activate();
 			Draw(player);
 			texPlayer.Deactivate();
-			GL.Disable(EnableCap.Blend);
 		}
 
 		private readonly ITexture texEnemy;

@@ -54,6 +54,7 @@
     <Compile Include="IShaderProgram.cs" />
     <Compile Include="IStateManager.cs" />
     <Compile Include="ITexture.cs" />
+    <Compile Include="ITexture2D.cs" />
     <Compile Include="ShaderException.cs" />
     <Compile Include="StateCommand.cs" />
     <Compile Include="TypedHandle.cs" />

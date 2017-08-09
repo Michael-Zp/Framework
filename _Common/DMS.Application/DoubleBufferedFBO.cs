@@ -8,7 +8,7 @@ namespace DMS.OpenGL
 		public FBO ActiveFBO { get; private set; }
 		public FBO InactiveFBO { get; private set; }
 
-		public DoubleBufferedFBO(Func<ITexture> creator)
+		public DoubleBufferedFBO(Func<ITexture2D> creator)
 		{
 			ActiveFBO = new FBO(creator());
 			InactiveFBO = new FBO(creator());

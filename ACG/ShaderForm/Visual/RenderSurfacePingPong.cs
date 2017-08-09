@@ -14,8 +14,8 @@ namespace ShaderForm.Visual
 			activeFBO = fboA;
 		}
 
-		public ITexture Active { get { return activeFBO.Texture; } }
-		public ITexture Last {  get {  return LastFBO.Texture; } }
+		public ITexture2D Active { get { return activeFBO.Texture; } }
+		public ITexture2D Last {  get {  return LastFBO.Texture; } }
 
 		public void Render()
 		{

@@ -25,6 +25,7 @@ namespace Example
 			//for transparency in textures
 			GL.BlendFunc(BlendingFactorSrc.SrcAlpha, BlendingFactorDest.OneMinusSrcAlpha);
 			GL.Enable(EnableCap.Blend); // for transparency in textures
+			GL.Enable(EnableCap.Texture2D); //todo: only for non shader pipeline relevant -> remove at some point
 			//generate birds
 			for (float delta = .1f; delta < .5f; delta += .1f)
 			{

@@ -21,6 +21,7 @@ namespace Example
 			texBackground = TextureLoader.FromBitmap(Resourcen.mountains);
 			//background clear color
 			GL.ClearColor(Color.Black);
+			GL.Enable(EnableCap.Texture2D); //todo: only for non shader pipeline relevant -> remove at some point
 		}
 
 		private void Render()

@@ -5,7 +5,7 @@ namespace DMS.OpenGL
 {
 	public class FBOwithDepth : FBO
 	{
-		public FBOwithDepth(ITexture texture) : base(texture)
+		public FBOwithDepth(ITexture2D texture) : base(texture)
 		{
 			Activate();
 			depth = new RenderBuffer(RenderbufferStorage.DepthComponent32, texture.Width, texture.Height);

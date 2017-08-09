@@ -71,6 +71,7 @@ namespace Pong
 			DrawCircle(ball.CenterX, ball.CenterY, 0.5f * ball.SizeX);
 			GL.Enable(EnableCap.Blend);
 			GL.BlendFunc(BlendingFactorSrc.SrcAlpha, BlendingFactorDest.OneMinusSrcAlpha);
+			GL.Enable(EnableCap.Texture2D); //todo: only for non shader pipeline relevant -> remove at some point
 			GL.Color4(1.0, 1.0, 1.0, 1.0);
 			string score = player1Points.ToString() + '-' + player2Points.ToString();
 			font.Print(-0.5f * font.Width(score, 0.1f), -0.9f, 0.0f, 0.1f, score);

@@ -54,6 +54,7 @@ namespace Example
 			//for transparency in textures
 			GL.BlendFunc(BlendingFactorSrc.SrcAlpha, BlendingFactorDest.OneMinusSrcAlpha);
 			GL.Enable(EnableCap.Blend);
+			GL.Enable(EnableCap.Texture2D); //todo: remove if shader is used
 								
 			timeSource.Start();//start game time
 		}

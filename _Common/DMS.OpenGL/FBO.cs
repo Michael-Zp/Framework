@@ -17,7 +17,7 @@ namespace DMS.OpenGL
 
 	public class FBO : Disposable
 	{
-		public FBO(ITexture texture)
+		public FBO(ITexture2D texture)
 		{
 			if (ReferenceEquals(null, texture)) throw new FBOException("Texture is null");
 			this.texture = texture;
@@ -37,7 +37,7 @@ namespace DMS.OpenGL
 		}
 
 		public bool IsActive {  get { return currentFrameBufferHandle == m_FBOHandle; } }
-		public ITexture Texture { get { return texture; } }
+		public ITexture2D Texture { get { return texture; } }
 
 		public void Activate()
 		{
@@ -55,7 +55,7 @@ namespace DMS.OpenGL
 			currentFrameBufferHandle = lastFBO;
 		}
 
-		private ITexture texture;
+		private ITexture2D texture;
 		private uint m_FBOHandle = 0;
 		private uint lastFBO = 0;
 		private static uint currentFrameBufferHandle = 0;

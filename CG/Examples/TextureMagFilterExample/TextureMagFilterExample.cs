@@ -28,6 +28,7 @@ namespace Example
 			texBackgroundLinear.WrapFunction = TextureWrapFunction.ClampToBorder;
 			//background clear color
 			GL.ClearColor(Color.Black);
+			GL.Enable(EnableCap.Texture2D); //todo: only for non shader pipeline relevant -> remove at some point
 		}
 
 		private void Render()

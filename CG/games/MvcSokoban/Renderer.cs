@@ -11,6 +11,10 @@ namespace MvcSokoban
 	{
 		public Renderer()
 		{
+			GL.Enable(EnableCap.Blend);
+			GL.BlendFunc(BlendingFactorSrc.SrcAlpha, BlendingFactorDest.OneMinusSrcAlpha);
+			GL.Enable(EnableCap.Texture2D); //todo: only for non shader pipeline relevant -> remove at some point
+
 			font = new TextureFont(TextureLoader.FromBitmap(Resourcen.Video_Phreak), 10, 32, 1, 1, .7f);
 
 			tileSet.Add(ElementType.Floor, TextureLoader.FromBitmap(Resourcen.GroundGravel_Grass));
@@ -57,8 +61,6 @@ namespace MvcSokoban
 		{
 			GL.LoadIdentity();
 			GL.Ortho(0, windowAspect, 0, 1, 0, 1);
-			GL.Enable(EnableCap.Blend);
-			GL.BlendFunc(BlendingFactorSrc.SrcAlpha, BlendingFactorDest.OneMinusSrcAlpha);
 			var alignmentDelta = 0f;
 			switch(alignment)
 			{
@@ -66,7 +68,6 @@ namespace MvcSokoban
 				case TextAlignment.Center: alignmentDelta = .5f * (windowAspect - font.Width(message, size)); break;
 			}
 			font.Print(alignmentDelta, 0, 0, size, message);
-			GL.Disable(EnableCap.Blend);
 		}
 
 		public void ResizeWindow(int width, int height)

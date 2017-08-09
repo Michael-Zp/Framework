@@ -18,7 +18,7 @@ namespace Example
 			renderToTexture = new FBO(texRenderSurface);
 		}
 
-		private ITexture texRenderSurface;
+		private ITexture2D texRenderSurface;
 		private FBO renderToTexture;
 		private TextureToFrameBuffer copyToFrameBuffer;
 		private DrawHandler drawHandler;

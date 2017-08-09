@@ -16,6 +16,9 @@ namespace Reversi
 			texWhite = TextureLoader.FromBitmap(Resourcen.white);
 			texBlack = TextureLoader.FromBitmap(Resourcen.black);
 			texTable = TextureLoader.FromBitmap(Resourcen.pool_table);
+			GL.Enable(EnableCap.Texture2D); //todo: only for non shader pipeline relevant -> remove at some point
+			GL.Enable(EnableCap.Blend);
+			GL.BlendFunc(BlendingFactorSrc.SrcAlpha, BlendingFactorDest.OneMinusSrcAlpha);
 		}
 
 		public void Resize(IGameState gameState, int width, int height)
@@ -40,11 +43,6 @@ namespace Reversi
 			GL.MatrixMode(MatrixMode.Modelview);
 			GL.Clear(ClearBufferMask.ColorBufferBit);
 			DrawField(gameState);
-			//which player moves?
-			GL.Enable(EnableCap.Blend);
-			GL.BlendFunc(BlendingFactorSrc.SrcAlpha, BlendingFactorDest.OneMinusSrcAlpha);
-			GL.Color4(1.0, 1.0, 1.0, 1.0);
-			GL.Disable(EnableCap.Blend);
 		}
 
 		public void PrintMessage(string message)
@@ -53,12 +51,9 @@ namespace Reversi
 			var mtxAspect = Matrix4.CreateOrthographic(1, 1, 0, 1);
 			GL.LoadMatrix(ref mtxAspect);
 			GL.MatrixMode(MatrixMode.Modelview);
-			GL.Enable(EnableCap.Blend);
-			GL.BlendFunc(BlendingFactorSrc.SrcAlpha, BlendingFactorDest.OneMinusSrcAlpha);
 			GL.Color3(Color.White);
 			var size = 0.1f;
 			font.Print(-0.5f * font.Width(message, size), 0, 0, size, message);
-			GL.Disable(EnableCap.Blend);
 		}
 
 		private Matrix4 toClipSpace = new Matrix4();
@@ -70,6 +65,7 @@ namespace Reversi
 		private void DrawField(IGameState gameState)
 		{
 			//background
+			GL.Color3(Color.White);
 			var field = new Box2D(0, 0, gameState.GridWidth, gameState.GridHeight);
 			texTable.Activate();
 			field.DrawTexturedRect(new Box2D(0, 0, 8, 8));
@@ -90,8 +86,7 @@ namespace Reversi
 			}
 			GL.End();
 			//chips
-			GL.Enable(EnableCap.Blend);
-			GL.BlendFunc(BlendingFactorSrc.SrcAlpha, BlendingFactorDest.OneMinusSrcAlpha);
+			GL.Color3(Color.White);
 			for (int x = 0; x < gameState.GridWidth; ++x)
 			{
 				for (int y = 0; y < gameState.GridHeight; ++y)
@@ -101,7 +96,7 @@ namespace Reversi
 					DrawSprite(x + 0.5f, y + 0.5f, FieldType.BLACK == type ? texBlack : texWhite, 0.45f);
 				}
 			}
-			GL.Disable(EnableCap.Blend);
+			GL.Color3(Color.Blue);
 			DrawSelection(gameState.LastMoveX, gameState.LastMoveY);
 		}
 
@@ -110,7 +105,6 @@ namespace Reversi
 			float x = x_ + 0.5f;
 			float y = y_ + 0.5f;
 			float radius = 0.48f;
-			GL.Color3(Color.Blue);
 			GL.LineWidth(4.0f);
 			GL.Begin(PrimitiveType.LineLoop);
 			GL.Vertex2(x - radius, y - radius);
@@ -123,7 +117,6 @@ namespace Reversi
 		static void DrawSprite(float x, float y, ITexture tex, float radius = 0.5f, float repeat = 1.0f)
 		{
 			tex.Activate();
-			GL.Color3(Color.White);
 			GL.Begin(PrimitiveType.Quads);
 			GL.TexCoord2(0.0f, 0.0f); GL.Vertex2(x - radius, y - radius);
 			GL.TexCoord2(repeat, 0.0f); GL.Vertex2(x + radius, y - radius);

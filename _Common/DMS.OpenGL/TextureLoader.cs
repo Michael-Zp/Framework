@@ -84,7 +84,7 @@ namespace DMS.OpenGL
 			return FromBitmap(new Bitmap(fileName));
 		}
 
-		public static void SaveToFile(ITexture texture, string fileName, SysDraw.PixelFormat format = SysDraw.PixelFormat.Format32bppArgb)
+		public static void SaveToFile(ITexture2D texture, string fileName, SysDraw.PixelFormat format = SysDraw.PixelFormat.Format32bppArgb)
 		{
 			using (var bitmap = SaveToBitmap(texture, format))
 			{
@@ -92,7 +92,7 @@ namespace DMS.OpenGL
 			}
 		}
 
-		public static Bitmap SaveToBitmap(ITexture texture, SysDraw.PixelFormat format = SysDraw.PixelFormat.Format32bppArgb)
+		public static Bitmap SaveToBitmap(ITexture2D texture, SysDraw.PixelFormat format = SysDraw.PixelFormat.Format32bppArgb)
 		{
 			try
 			{ 
