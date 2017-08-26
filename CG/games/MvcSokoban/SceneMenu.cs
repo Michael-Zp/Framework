@@ -24,7 +24,7 @@ namespace MvcSokoban
 		public void Render()
 		{
 			renderer.Clear();
-			renderer.DrawLevel(logic.GetLevel(), Color.Gray);
+			renderer.DrawLevelState(logic.GetLevelState(), Color.Gray);
 			if(logic.HasLevelBeenWon(logic.LevelNr))
 			{
 				renderer.Print("Level " + logic.LevelNr + " (WON)", .1f, TextAlignment.Center);

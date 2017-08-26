@@ -12,7 +12,7 @@ namespace MvcSokoban
 		[STAThread]
 		private static void Main()
 		{
-			var app = new ExampleApplication();
+			var window = new ExampleWindow();
 			GameLogic logic;
 			try
 			{
@@ -22,17 +22,17 @@ namespace MvcSokoban
 			{
 				logic = new GameLogic(); //loading failed -> default game state
 			}
-			app.GameWindow.Title = "Sokoban";
-			app.GameWindow.CursorVisible = false;
-			app.GameWindow.Closing += (s, e) => logic.ObjIntoBinFile(GetGameStateFilePath()); //save game state at end of program
+			window.GameWindow.Title = "Sokoban";
+			//app.GameWindow.CursorVisible = false;
+			window.GameWindow.Closing += (s, e) => logic.ObjIntoBinFile(GetGameStateFilePath()); //save game state at end of program
 
-			var renderer = new RendererGL4(app.RenderContext);
+			var renderer = new RendererGL4(window.RenderContext);
 			//var renderer = new Renderer();
 			var sceneManager = new SceneManager(logic, renderer);
-			app.GameWindow.KeyDown += (s, e) => sceneManager.HandleInput(KeyBindings(e.Key));
-			app.Resize += (w, h) => renderer.ResizeWindow(w, h);
-			app.Render += () => sceneManager.Render();
-			app.Run();
+			window.GameWindow.KeyDown += (s, e) => sceneManager.HandleInput(KeyBindings(e.Key));
+			window.Resize += (w, h) => renderer.ResizeWindow(w, h);
+			window.Render += () => sceneManager.Render();
+			window.Run();
 		}
 
 		private static GameKey KeyBindings(Key key)

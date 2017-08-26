@@ -10,15 +10,15 @@ namespace Example
 		[STAThread]
 		private static void Main()
 		{
-			var app = new ExampleApplication();
+			var window = new ExampleWindow();
 			//app.IsRecording = true;
 			var visual = new MainVisual();
-			app.ResourceManager.ShaderChanged += visual.ShaderChanged;
-			LoadResources(app.ResourceManager);
+			window.ResourceManager.ShaderChanged += visual.ShaderChanged;
+			LoadResources(window.ResourceManager);
 
-			app.Render += visual.Render;
-			app.Update += visual.Update;
-			app.Run();
+			window.Render += visual.Render;
+			window.Update += visual.Update;
+			window.Run();
 		}
 
 		private static void LoadResources(ResourceManager resourceManager)

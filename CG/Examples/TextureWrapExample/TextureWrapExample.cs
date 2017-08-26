@@ -43,7 +43,7 @@ namespace Example
 		[STAThread]
 		private static void Main()
 		{
-			var app = new ExampleApplication();
+			var app = new ExampleWindow();
 			var visual = new MyVisual();
 			app.Render += visual.Render;
 			app.Run();

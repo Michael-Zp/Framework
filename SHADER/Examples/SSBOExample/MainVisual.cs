@@ -43,9 +43,6 @@ namespace Example
 			var time = (float)timeSource.Elapsed.TotalSeconds;
 			var deltaTime = time - lastRenderTime;
 			lastRenderTime = time;
-			Console.Write(Math.Round(timeQuery.ResultLong * 1e-6, 2));
-			Console.WriteLine("msec");
-			timeQuery.Activate(QueryTarget.TimeElapsed);
 			GL.PointSize(1.0f);
 			GL.Clear(ClearBufferMask.ColorBufferBit);
 			shader.Activate();
@@ -56,12 +53,10 @@ namespace Example
 			GL.DrawArrays(PrimitiveType.Points, 0, particelCount);
 			bufferParticles.Deactivate();
 			shader.Deactivate();
-			timeQuery.Deactivate();
 		}
 
 		private IShader shader;
 		private BufferObject bufferParticles;
-		private QueryObject timeQuery = new QueryObject();
 		private Stopwatch timeSource = new Stopwatch();
 		private float lastRenderTime = 0f;
 		private const int particelCount = (int)1e4;

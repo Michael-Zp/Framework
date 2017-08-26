@@ -1,4 +1,6 @@
-﻿using System.IO;
+﻿using System;
+using System.Diagnostics;
+using System.IO;
 using System.Runtime.CompilerServices;
 using System.Runtime.InteropServices;
 using System.Text;
@@ -7,6 +9,15 @@ namespace DMS.Base
 {
 	public static class PathTools
 	{
+		public static string GetNewAssemblyOutputDataPath()
+		{
+			var saveDirectory = Path.GetDirectoryName(Process.GetCurrentProcess().MainModule.FileName);
+			saveDirectory += Path.DirectorySeparatorChar;
+			saveDirectory += DateTime.Now.ToString("yyyyMMdd HHmmss");
+			saveDirectory += Path.DirectorySeparatorChar;
+			return saveDirectory;
+		}
+
 		public static string GetFullPath(string fileName)
 		{
 			try

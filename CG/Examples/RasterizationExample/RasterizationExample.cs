@@ -1,6 +1,9 @@
 ﻿using DMS.Application;
+using DMS.Base;
 using DMS.OpenGL;
 using System;
+using System.Drawing;
+using System.IO;
 using System.Windows.Forms;
 
 namespace Example
@@ -10,20 +13,21 @@ namespace Example
 		[STAThread]
 		public static void Main()
 		{
-			var app = new ExampleApplication();
+			var window = new ExampleWindow();
 			var canvas = new Canvas();
+			Bitmap screenshot = null; 
 			var rasterizer = new Rasterizer(10, 10, canvas.Draw);
-			app.Render += rasterizer.Render;
-			//app.Render += () => Screenshot();
-			app.Run();
-		}
+			window.Render += rasterizer.Render;
+			window.Render += () => screenshot = ReadBack.FrameBuffer();
+			window.Run();
+			if(!ReferenceEquals(null, screenshot))
+			{
+				var saveDirectory = PathTools.GetNewAssemblyOutputDataPath();
+				Directory.CreateDirectory(saveDirectory);
+				screenshot.Save(saveDirectory + "output.png");
+				Clipboard.SetImage(screenshot);
 
-		private static void Screenshot()
-		{
-			var name = System.Reflection.Assembly.GetExecutingAssembly().GetName().Name;
-			var bmp = ReadBack.FrameBuffer();
-			Clipboard.SetImage(bmp);
-			bmp.Save(@"d:\" + name + ".png");
+			}
 		}
 	}
 }

@@ -11,7 +11,7 @@ namespace Example
 		[STAThread]
 		private static void Main()
 		{
-			var app = new ExampleApplication();
+			var app = new ExampleWindow();
 			LoadResources(app.ResourceManager);
 			var controller = new Controller();
 			var visual = new MainVisual();

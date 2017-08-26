@@ -1,5 +1,4 @@
-﻿using DMS.Application;
-using OpenTK.Graphics.OpenGL;
+﻿using OpenTK.Graphics.OpenGL;
 using System;
 using System.Drawing;
 
@@ -23,7 +22,6 @@ namespace Example
 					GL.Color3(Color.Cyan);
 					GL.Vertex2(0.0f, 0.0f); //draw first quad corner
 					GL.Vertex2(0.5f, 0.0f);
-					GL.Color3(Color.White);
 					GL.Vertex2(0.5f, 0.5f);
 					GL.Vertex2(0.0f, 0.5f);
 				GL.End();

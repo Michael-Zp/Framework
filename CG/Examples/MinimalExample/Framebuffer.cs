@@ -1,6 +1,6 @@
 ﻿using OpenTK;
 
-namespace DMS.Application
+namespace Example
 {
 	public class Framebuffer
 	{

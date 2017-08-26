@@ -1,7 +1,7 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio 15
-VisualStudioVersion = 15.0.26430.16
+VisualStudioVersion = 15.0.26730.10
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{6DE0AA68-F375-4C8C-B207-141BF71DF96F}"
 	ProjectSection(SolutionItems) = preProject
@@ -185,8 +185,6 @@ EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DMS.HLGL.Tests", "Test\DMS.HLGL.Tests\DMS.HLGL.Tests.csproj", "{2F1AE477-5B19-4E8D-A70E-B1B74F57560C}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SphereParticleExample", "SHADER\Solutions\SphereParticleExample\SphereParticleExample.csproj", "{4DA52BA5-FF51-473D-96AE-7A9FF32E5CA0}"
-EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "PointLightShadowMappingSolution", "SHADER\Solutions\PointLightShadowMappingSolution\PointLightShadowMappingSolution.csproj", "{A82BF98D-3ECB-4355-8F4E-F531FA2AFB3E}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CompoundTransformationExample", "CG\Examples\CompoundTransformationExample\CompoundTransformationExample.csproj", "{97D9BF95-9CB1-47FC-8F8E-E6FA05351133}"
 EndProject
@@ -488,10 +486,6 @@ Global
 		{4DA52BA5-FF51-473D-96AE-7A9FF32E5CA0}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{4DA52BA5-FF51-473D-96AE-7A9FF32E5CA0}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{4DA52BA5-FF51-473D-96AE-7A9FF32E5CA0}.Release|Any CPU.Build.0 = Release|Any CPU
-		{A82BF98D-3ECB-4355-8F4E-F531FA2AFB3E}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{A82BF98D-3ECB-4355-8F4E-F531FA2AFB3E}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{A82BF98D-3ECB-4355-8F4E-F531FA2AFB3E}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{A82BF98D-3ECB-4355-8F4E-F531FA2AFB3E}.Release|Any CPU.Build.0 = Release|Any CPU
 		{97D9BF95-9CB1-47FC-8F8E-E6FA05351133}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{97D9BF95-9CB1-47FC-8F8E-E6FA05351133}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{97D9BF95-9CB1-47FC-8F8E-E6FA05351133}.Release|Any CPU.ActiveCfg = Release|Any CPU
@@ -578,7 +572,9 @@ Global
 		{7844B9B6-0977-41E9-A8F6-53F4A002D188} = {BEE08292-7C95-44EC-B228-44ED81C09610}
 		{2F1AE477-5B19-4E8D-A70E-B1B74F57560C} = {BEE08292-7C95-44EC-B228-44ED81C09610}
 		{4DA52BA5-FF51-473D-96AE-7A9FF32E5CA0} = {60690206-8C29-45FF-B353-25286A9438CE}
-		{A82BF98D-3ECB-4355-8F4E-F531FA2AFB3E} = {60690206-8C29-45FF-B353-25286A9438CE}
 		{97D9BF95-9CB1-47FC-8F8E-E6FA05351133} = {7784E3B6-CA36-4515-BC9D-7BEC5556D51E}
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {1CA293D8-FC78-4BF1-BA73-543451A6B7AB}
 	EndGlobalSection
 EndGlobal

@@ -11,7 +11,7 @@ namespace DMS.OpenGL
 
 		public TextureArrayGL(): base(TextureTarget.Texture2DArray) { }
 
-		public void LoadPixels(IntPtr pixels, int element, byte components = 4, bool floatingPoint = false)
+		public void Load(IntPtr pixels, int element, byte components = 4, bool floatingPoint = false)
 		{
 			var inputPixelFormat = Convert(components);
 			var type = floatingPoint ? PixelType.UnsignedByte : PixelType.Float;

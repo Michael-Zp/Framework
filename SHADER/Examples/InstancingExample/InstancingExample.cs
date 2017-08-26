@@ -11,12 +11,12 @@ namespace Example
 		[STAThread]
 		private static void Main()
 		{
-			var app = new ExampleApplication();
+			var window = new ExampleWindow();
 			var visual = new MainVisual();
-			app.ResourceManager.ShaderChanged += visual.ShaderChanged;
-			LoadResources(app.ResourceManager);
-			app.Render += visual.Render;
-			app.Run();
+			window.ResourceManager.ShaderChanged += visual.ShaderChanged;
+			LoadResources(window.ResourceManager);
+			window.Render += visual.Render;
+			window.Run();
 		}
 
 		private static void LoadResources(ResourceManager resourceManager)

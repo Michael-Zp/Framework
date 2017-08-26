@@ -12,20 +12,20 @@ namespace Example
 		[STAThread]
 		private static void Main()
 		{
-			var app = new ExampleApplication();
+			var window = new ExampleWindow();
 			var controller = new Controller();
 			var logic = new GameLogic();
-			var renderer = new Renderer();
+			var renderer = new View();
 			logic.NewPosition += (name, x, y) => renderer.UpdateSprites(name, x, y);
 			LoadLevelData(LevelData.level1, logic, renderer);
 
-			app.Resize += (width, height) => renderer.Resize(width, height);
-			app.Render += () => renderer.Render(logic.Bounds);
-			app.Update += (updatePeriod) => HandleInput(updatePeriod, logic);
-			app.Run();
+			window.Resize += (width, height) => renderer.Resize(width, height);
+			window.Render += () => renderer.Render(logic.Bounds);
+			window.Update += (updatePeriod) => HandleInput(updatePeriod, logic);
+			window.Run();
 		}
 
-		private static void LoadLevelData(byte[] levelData, GameLogic logic, Renderer renderer)
+		private static void LoadLevelData(byte[] levelData, GameLogic logic, View renderer)
 		{
 			using (var stream = new MemoryStream(levelData))
 			{

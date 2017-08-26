@@ -43,10 +43,10 @@ namespace Example
 		[STAThread]
 		private static void Main()
 		{
-			var app = new ExampleApplication();
+			var window = new ExampleWindow();
 			var visual = new MyVisual();
-			app.Render += visual.Render;
-			app.Run();
+			window.Render += visual.Render;
+			window.Run();
 		}
 
 		private void DrawRect(Box2D rectangle, Color4 color)

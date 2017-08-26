@@ -43,7 +43,7 @@ namespace Example
 			collisionGrid = new CollisionGrid(windowBorders, size * scale, size * scale);
 		}
 
-		private void Update(float updatePeriod)
+		private void Update(float updatePeriod, Action<double> actionBenchmark)
 		{
 			//movement
 			foreach (var collider in colliders)
@@ -73,7 +73,7 @@ namespace Example
 
 			if (t2 > lastBenchmark + 500.0)
 			{
-				Console.WriteLine((t2 - t1).ToString());
+				actionBenchmark?.Invoke(t2 - t1);
 				lastBenchmark = t2;
 			}
 		}
@@ -119,7 +119,7 @@ namespace Example
 			}
 		}
 		
-		private void DrawBox(Box2D rect)
+		private static void DrawBox(Box2D rect)
 		{
 			GL.Begin(PrimitiveType.Quads);
 			GL.Vertex2(rect.MinX, rect.MinY);
@@ -132,11 +132,11 @@ namespace Example
 		[STAThread]
 		private static void Main()
 		{
-			var app = new ExampleApplication();
+			var window = new ExampleWindow();
 			var controller = new Controller();
-			app.Render += controller.Render;
-			app.Update += controller.Update;
-			app.Run();
+			window.Render += controller.Render;
+			window.Update += (t) => controller.Update(t, (timing) => window.GameWindow.Title = Math.Round(timing).ToString() + "ms");
+			window.Run();
 		}
 	}
 }

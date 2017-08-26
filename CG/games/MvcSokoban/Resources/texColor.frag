@@ -1,13 +1,13 @@
 #version 430 core
 uniform vec4 tint = vec4(1);
-uniform sampler2D texDiffuse;
+uniform sampler2DArray texArray;
 
-in vec2 pos;
-in vec2 uvs;
+in vec2 uv;
+in float tileType;
+
 out vec4 fragColor;
 
 void main() 
 {
-	fragColor = tint * texture(texDiffuse, uvs);
-	fragColor = tint * vec4(fract(pos), 0, 1);
+	fragColor = tint * texture(texArray, vec3(uv, tileType));
 }

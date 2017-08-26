@@ -8,9 +8,9 @@ using DMS.HLGL;
 
 namespace Reversi
 {
-	public class Visual
+	public class View
 	{
-		public Visual()
+		public View()
 		{
 			GL.ClearColor(Color.DarkGreen);
 			texWhite = TextureLoader.FromBitmap(Resourcen.white);

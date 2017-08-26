@@ -7,9 +7,9 @@ using System.Drawing;
 
 namespace MvcSokoban
 {
-	public class Renderer : IRenderer
+	public class View : IRenderer
 	{
-		public Renderer()
+		public View()
 		{
 			GL.Enable(EnableCap.Blend);
 			GL.BlendFunc(BlendingFactorSrc.SrcAlpha, BlendingFactorDest.OneMinusSrcAlpha);
@@ -34,7 +34,7 @@ namespace MvcSokoban
 			GL.Clear(ClearBufferMask.ColorBufferBit);
 		}
 
-		public void DrawLevel(ILevel level, Color tint)
+		public void DrawLevelState(ILevel level, Color tint)
 		{
 			GL.Color3(tint);
 			GL.LoadIdentity();

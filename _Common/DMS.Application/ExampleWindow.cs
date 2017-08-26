@@ -1,5 +1,4 @@
-﻿using DMS.Base;
-using DMS.HLGL;
+﻿using DMS.HLGL;
 using DMS.OpenGL;
 using OpenTK;
 using OpenTK.Graphics.OpenGL4;
@@ -11,15 +10,17 @@ using System.ComponentModel.Composition.Hosting;
 
 namespace DMS.Application
 {
-	public class ExampleApplication
+	public class ExampleWindow
 	{
-		public ExampleApplication(int width = 512, int height = 512, double updateRate = 60)
+		public ExampleWindow(int width = 512, int height = 512, double updateRate = 60)
 		{
+			//var mode = new OpenTK.Graphics.GraphicsMode(new OpenTK.Graphics.ColorFormat(32), 24);
+			//gameWindow = new GameWindow(width, height, mode, "", GameWindowFlags.Default, DisplayDevice.Default, 3, 0, OpenTK.Graphics.GraphicsContextFlags.Default);
 			gameWindow = new GameWindow(width, height);
 			RenderContext = new RenderContextGL();
 
 			var catalog = new AggregateCatalog();
-			catalog.Catalogs.Add(new AssemblyCatalog(typeof(ExampleApplication).Assembly));
+			catalog.Catalogs.Add(new AssemblyCatalog(typeof(ExampleWindow).Assembly));
 			_container = new CompositionContainer(catalog);
 			try
 			{
@@ -52,16 +53,6 @@ namespace DMS.Application
 		public delegate void UpdateHandler(float updatePeriod);
 		public event UpdateHandler Update;
 
-		public bool IsRecording
-		{
-			get { return !ReferenceEquals(null, frameListCreator); }
-			set
-			{
-				if (!ReferenceEquals(null, frameListCreator)) return;
-				frameListCreator = value ? new FrameListCreator(gameWindow.Width, gameWindow.Height) : null;
-			}
-		}
-
 		public ResourceManager ResourceManager { get; private set; }
 
 		public System.Numerics.Vector2 CalcNormalized(int pixelX, int pixelY)
@@ -81,7 +72,6 @@ namespace DMS.Application
 
 		private CompositionContainer _container;
 		private GameWindow gameWindow;
-		private FrameListCreator frameListCreator;
 
 		[Import]
 		private IResourceProvider resourceProvider = null;
@@ -89,16 +79,10 @@ namespace DMS.Application
 		private void GameWindowRender()
 		{
 			ResourceManager?.CheckForShaderChange();
-			//record frame
-			frameListCreator?.Activate();
 			//render
 			Render?.Invoke();
-			//stop recording frame
-			frameListCreator?.Deactivate();
 			//buffer swap of double buffering (http://gameprogrammingpatterns.com/double-buffer.html)
 			gameWindow.SwapBuffers();
-			//save frame
-			frameListCreator?.SaveFrame();
 		}
 
 		private void GameWindow_KeyDown(object sender, KeyboardKeyEventArgs e)
@@ -106,7 +90,6 @@ namespace DMS.Application
 			switch (e.Key)
 			{
 				case Key.Escape:
-					if (!ReferenceEquals(null, frameListCreator)) frameListCreator.Frames.SaveToDefaultDir();
 					gameWindow.Exit();
 					break;
 				case Key.F11:
@@ -118,11 +101,6 @@ namespace DMS.Application
 		private void GameWindow_Resize(object sender, EventArgs e)
 		{
 			GL.Viewport(0, 0, gameWindow.Width, gameWindow.Height);
-			if (!ReferenceEquals(null, frameListCreator))
-			{
-				frameListCreator.Dispose();
-				frameListCreator = new FrameListCreator(gameWindow.Width, gameWindow.Height);
-			}
 			Resize?.Invoke(gameWindow.Width, gameWindow.Height);
 		}
 	}

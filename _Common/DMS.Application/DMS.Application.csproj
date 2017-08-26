@@ -37,8 +37,7 @@
     <Compile Include="CommandGL.cs" />
     <Compile Include="DoubleBufferedFBO.cs" />
     <Compile Include="DrawConfiguration.cs" />
-    <Compile Include="ExampleApplication.cs" />
-    <Compile Include="Framebuffer.cs" />
+    <Compile Include="ExampleWindow.cs" />
     <Compile Include="GameWindowExtensions.cs" />
     <Compile Include="ICommand.cs" />
     <Compile Include="ICreator.cs" />

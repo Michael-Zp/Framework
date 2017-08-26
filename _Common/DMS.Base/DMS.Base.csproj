@@ -41,7 +41,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Disposable.cs" />
-    <Compile Include="ImageListSaver.cs" />
+    <Compile Include="BitmapTools.cs" />
     <Compile Include="PathTools.cs" />
     <Compile Include="Serialize.cs" />
     <Compile Include="Tools.cs" />

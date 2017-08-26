@@ -27,7 +27,7 @@ namespace Example
 			GL.BlendEquation(BlendEquationMode.FuncAdd);
 		}
 
-		private Line RotateLine(Line stick, float rotationAngle)
+		private static Line RotateLine(Line stick, float rotationAngle)
 		{
 			var mtxRotation = Matrix2.CreateRotation(rotationAngle);
 			Vector2 a;
@@ -39,7 +39,7 @@ namespace Example
 			return new Line(a, b);
 		}
 
-		private void DrawLine(Line stick)
+		private static void DrawLine(Line stick)
 		{
 			GL.Begin(PrimitiveType.Lines);
 			GL.Vertex2(stick.Item1);
@@ -47,7 +47,7 @@ namespace Example
 			GL.End();
 		}
 
-		private void DrawAABB(Box2D rect)
+		private static void DrawAABB(Box2D rect)
 		{
 			GL.Begin(PrimitiveType.LineLoop);
 			GL.Vertex2(rect.MinX, rect.MinY);
@@ -86,11 +86,11 @@ namespace Example
 		[STAThread]
 		private static void Main()
 		{
-			var app = new ExampleApplication();
+			var window = new ExampleWindow();
 			var visual = new Visual();
-			app.Render += visual.Render;
-			app.Update += visual.Update;
-			app.Run();
+			window.Render += visual.Render;
+			window.Update += visual.Update;
+			window.Run();
 		}
 	}
 }

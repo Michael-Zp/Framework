@@ -43,14 +43,13 @@ namespace Example
 			this.shader = shader;
 		}
 
-		public void Render()
+		public double Render()
 		{
-			if (ReferenceEquals(null, shader)) return;
+			if (ReferenceEquals(null, shader)) return 0;
 			var time = (float)timeSource.Elapsed.TotalSeconds;
 			var deltaTime = time - lastRenderTime;
 			lastRenderTime = time;
-			Console.Write(Math.Round(timeQuery.ResultLong * 1e-6, 2));
-			Console.WriteLine("msec");
+			var timerQueryResult = timeQuery.ResultLong * 1e-6;
 			timeQuery.Activate(QueryTarget.TimeElapsed);
 			GL.Clear(ClearBufferMask.ColorBufferBit | ClearBufferMask.DepthBufferBit);
 			shader.Activate();
@@ -64,6 +63,7 @@ namespace Example
 			bufferParticles.Deactivate();
 			shader.Deactivate();
 			timeQuery.Deactivate();
+			return timerQueryResult;
 		}
 
 		private IShader shader;

@@ -27,9 +27,9 @@ namespace MvcSokoban
 			LoadLevel();
 		}
 
-		public ILevel GetLevel()
+		public ILevel GetLevelState()
 		{
-			return levelLogic.GetLevel();
+			return levelLogic.GetLevelState();
 		}
 
 		public bool HasLevelBeenWon(int levelNr)
@@ -50,7 +50,7 @@ namespace MvcSokoban
 		public void Update(Movement movement)
 		{
 			levelLogic.Update(movement);
-			if (levelLogic.GetLevel().IsWon())
+			if (levelLogic.GetLevelState().IsWon())
 			{
 				won.Add(LevelNr);
 				++LevelNr;

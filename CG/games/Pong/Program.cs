@@ -14,11 +14,11 @@ namespace Pong
 		[STAThread]
 		private static void Main()
 		{
-			var app = new ExampleApplication();
+			var window = new ExampleWindow();
 			var game = new Game();
-			app.Update += game.Update;
-			app.Render += game.Render;
-			app.Run();
+			window.Update += game.Update;
+			window.Render += game.Render;
+			window.Run();
 		}
 
 		private Game()
@@ -59,7 +59,6 @@ namespace Pong
 		{
 			float vY = (paddle.CenterY - ball.CenterY) / (0.5f * paddle.SizeY);
 			vY = OpenTK.MathHelper.Clamp(vY, -2.0f, 2.0f);
-			Console.WriteLine(vY);
 			return vY;
 		}
 

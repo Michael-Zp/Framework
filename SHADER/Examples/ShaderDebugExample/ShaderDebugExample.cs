@@ -42,14 +42,14 @@ namespace Example
 			shader.Deactivate();
 			glTimerRender.Deactivate();
 			Console.Write("Rendertime:");
-			Console.Write(glTimerRender.ResultLong / 1e6);
+			Console.Write(glTimerRender.ResultLong * 1e-6);
 			Console.WriteLine("msec");
 		}
 
 		[STAThread]
 		private static void Main()
 		{
-			var app = new ExampleApplication();
+			var app = new ExampleWindow();
 			var visual = new MyVisual();
 			app.Render += visual.Render;
 			app.Run();

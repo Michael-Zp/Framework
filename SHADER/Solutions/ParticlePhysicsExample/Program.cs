@@ -9,7 +9,7 @@ namespace Example
 		[STAThread]
 		private static void Main()
 		{
-			var app = new ExampleApplication();
+			var app = new ExampleWindow();
 			Resources.LoadResources(app.ResourceManager);
 			var visual = new MainVisual(app.RenderContext);
 			Action<MouseEventArgs> updateMouseState = (a) => 

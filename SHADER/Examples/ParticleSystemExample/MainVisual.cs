@@ -2,7 +2,6 @@
 using DMS.Geometry;
 using OpenTK;
 using OpenTK.Graphics.OpenGL4;
-using System;
 using DMS.HLGL;
 
 namespace Example
@@ -34,36 +33,23 @@ namespace Example
 
 		public void Update(float time)
 		{
-			glTimerUpdate.Activate(QueryTarget.TimeElapsed);
 			visualSmoke.Update(time);
 			visualWaterfall.Update(time);
-			glTimerUpdate.Deactivate();
 		}
 
 		public void Render()
 		{
-			glTimerRender.Activate(QueryTarget.TimeElapsed);
 			GL.Clear(ClearBufferMask.ColorBufferBit | ClearBufferMask.DepthBufferBit);
 
 			var cam = camera.CalcMatrix().ToOpenTK();
 			plane.Draw(cam);
 			visualSmoke.Render(cam);
 			visualWaterfall.Render(cam);
-			glTimerRender.Deactivate();
-
-			Console.Write("Update:");
-			Console.Write(glTimerUpdate.ResultLong / 1e6);
-			Console.Write("msec  Render:");
-			Console.Write(glTimerRender.ResultLong / 1e6);
-			Console.WriteLine("msec");
 		}
 
 		private CameraOrbit camera = new CameraOrbit();
-
 		private VisualPlane plane;
 		private readonly VisualSmoke visualSmoke;
 		private readonly VisualWaterfall visualWaterfall;
-		private QueryObject glTimerRender = new QueryObject();
-		private QueryObject glTimerUpdate = new QueryObject();
 	}
 }

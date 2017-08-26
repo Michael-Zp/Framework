@@ -6,14 +6,11 @@ using System.IO;
 
 namespace DMS.Base
 {
-	public static class ImageListSaver
+	public static class BitmapTools
 	{
 		public static void SaveToDefaultDir(this IEnumerable<Bitmap> imageList)
 		{
-			var saveDirectory = Path.GetDirectoryName(Process.GetCurrentProcess().MainModule.FileName);
-			saveDirectory += Path.DirectorySeparatorChar;
-			saveDirectory += DateTime.Now.ToString("yyyyMMdd HHmmss");
-			saveDirectory += Path.DirectorySeparatorChar;
+			var saveDirectory = PathTools.GetNewAssemblyOutputDataPath();
 			Directory.CreateDirectory(saveDirectory);
 			int fileNumber = 0;
 			foreach (var bmp in imageList)
@@ -22,7 +19,6 @@ namespace DMS.Base
 				bmp?.Save(saveDirectory + fileNumber.ToString("00000") + ".png");
 				++fileNumber;
 			}
-
 		}
 	}
 }

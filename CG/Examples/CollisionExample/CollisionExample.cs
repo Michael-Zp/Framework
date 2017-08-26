@@ -85,11 +85,11 @@ namespace Example
 		[STAThread]
 		private static void Main()
 		{
-			var app = new ExampleApplication();
+			var window = new ExampleWindow();
 			var controller = new Controller();
-			app.Render += controller.Render;
-			app.Update += controller.Update;
-			app.Run();
+			window.Render += controller.Render;
+			window.Update += controller.Update;
+			window.Run();
 		}
 	}
 }

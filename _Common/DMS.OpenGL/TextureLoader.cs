@@ -52,6 +52,20 @@ namespace DMS.OpenGL
 			return texture;
 		}
 
+		public static byte[] ToBuffer(this Bitmap bitmap)
+		{
+			using (Bitmap bmp = new Bitmap(bitmap))
+			{
+				bmp.RotateFlip(RotateFlipType.RotateNoneFlipY);
+				var bmpData = bmp.LockBits(new Rectangle(0, 0, bmp.Width, bmp.Height), SysDraw.ImageLockMode.ReadOnly, bmp.PixelFormat);
+				var size = bmpData.Width * bmpData.Height * 4;
+				var buffer = new byte[size];
+				Marshal.Copy(bmpData.Scan0, buffer, 0, size);
+				bmp.UnlockBits(bmpData);
+				return buffer;
+			}
+		}
+
 		public static ITexture FromStream(Stream stream)
 		{
 			var texture = new Texture2dGL();

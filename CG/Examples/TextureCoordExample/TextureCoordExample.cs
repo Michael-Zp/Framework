@@ -63,11 +63,11 @@ namespace Example
 		[STAThread]
 		private static void Main()
 		{
-			var app = new ExampleApplication();
+			var window = new ExampleWindow();
 			var visual = new MyVisual();
-			app.Render += visual.Render;
-			app.Update += visual.Update;
-			app.Run();
+			window.Render += visual.Render;
+			window.Update += visual.Update;
+			window.Run();
 		}
 	}
 }

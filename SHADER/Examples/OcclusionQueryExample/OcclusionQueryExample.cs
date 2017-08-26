@@ -64,7 +64,7 @@ namespace Example
 		[STAThread]
 		private static void Main()
 		{
-			var app = new ExampleApplication();
+			var app = new ExampleWindow();
 			var visual = new MyVisual();
 			app.Update += visual.Update;
 			app.Render += visual.Render;

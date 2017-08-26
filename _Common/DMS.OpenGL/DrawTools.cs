@@ -1,6 +1,7 @@
 ﻿using DMS.Geometry;
 using OpenTK;
 using OpenTK.Graphics.OpenGL;
+using System.Diagnostics;
 
 namespace DMS.OpenGL
 {
@@ -15,10 +16,22 @@ namespace DMS.OpenGL
 			GL.TexCoord2(texCoords.MinX, texCoords.MaxY); GL.Vertex2(rect.MinX, rect.MaxY);
 			GL.End();
 		}
+
+		public static void WriteErrors()
+		{
+			//check errors
+			ErrorCode error;
+			while (ErrorCode.NoError != (error = GL.GetError()))
+			{
+				Debug.WriteLine(error);
+			}
+		}
+
 		public static Vector3 ToOpenTK(this global::System.Numerics.Vector3 v)
 		{
 			return new Vector3(v.X, v.Y, v.Z);
 		}
+
 		public static Matrix4 ToOpenTK(this global::System.Numerics.Matrix4x4 m)
 		{
 			return new Matrix4(m.M11, m.M12, m.M13, m.M14,

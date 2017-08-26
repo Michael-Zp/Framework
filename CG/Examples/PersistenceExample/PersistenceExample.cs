@@ -11,7 +11,7 @@ namespace Example
 		[STAThread]
 		private static void Main()
 		{
-			var app = new ExampleApplication();
+			var window = new ExampleWindow();
 			GameState gameState;
 			try
 			{
@@ -22,17 +22,17 @@ namespace Example
 				gameState = new GameState(); //loading failed -> reset
 			}
 
-			app.GameWindow.Closing += (s, e) => gameState.ObjIntoBinFile(GetGameStateFilePath()); //save game state at end of program
-			app.GameWindow.KeyDown += (s, e) => { if (e.Key == OpenTK.Input.Key.R) gameState = new GameState(); }; //reset
-			app.GameWindow.MouseDown += (s, e) => 
+			window.GameWindow.Closing += (s, e) => gameState.ObjIntoBinFile(GetGameStateFilePath()); //save game state at end of program
+			window.GameWindow.KeyDown += (s, e) => { if (e.Key == OpenTK.Input.Key.R) gameState = new GameState(); }; //reset
+			window.GameWindow.MouseDown += (s, e) => 
 			{
-				var coord = app.CalcNormalized(e.X, e.Y); //convert mouse coordinates from pixel to [0,1]²
+				var coord = window.CalcNormalized(e.X, e.Y); //convert mouse coordinates from pixel to [0,1]²
 				HandleInput(gameState, (int)e.Button, coord.X, coord.Y);
 			};
 			//todo student: app.Resize += (width, height) => //todo student: react on window changes (update apsect ratio of game)
-			app.Render += () => Visual.DrawScreen(gameState); //this draws the game using OpenGL
+			window.Render += () => Visual.DrawScreen(gameState); //this draws the game using OpenGL
 			//app.Render += () => VisualConsole.DrawScreen(gameState); //this draws the game to the console
-			app.Run();
+			window.Run();
 		}
 
 		private static void HandleInput(GameState gameState, int button, float x, float y)

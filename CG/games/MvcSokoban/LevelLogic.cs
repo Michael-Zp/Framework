@@ -17,7 +17,7 @@ namespace MvcSokoban
 			SetPlayerPos();
 		}
 
-		public ILevel GetLevel() { return levelStates.Last(); }
+		public ILevel GetLevelState() { return levelStates.Last(); }
 		public int Moves { get { return levelStates.Count - 1; } }
 
 		public void Undo()
@@ -36,7 +36,7 @@ namespace MvcSokoban
 
 		private void SetPlayerPos()
 		{
-			var playerPos = GetLevel().FindPlayerPos();
+			var playerPos = GetLevelState().FindPlayerPos();
 			if (playerPos.HasValue)
 			{
 				this.playerPos = playerPos.Value;
@@ -47,14 +47,14 @@ namespace MvcSokoban
 		{
 			var newPlayerPos = playerPos;
 			newPlayerPos = newPlayerPos.Move(movement);
-			var newPlayerPosTileType = GetLevel().GetElement(newPlayerPos.X, newPlayerPos.Y);
+			var newPlayerPosTileType = GetLevelState().GetElement(newPlayerPos.X, newPlayerPos.Y);
 			if (ElementType.Wall == newPlayerPosTileType) return;
 			var newLevelState = levelStates.Last().Copy();
 			if (newPlayerPosTileType.ContainsBox())
 			{
 				//player tries to move a box
 				var newBoxPos = newPlayerPos.Move(movement);
-				var newBoxPosTileType = GetLevel().GetElement(newBoxPos.X, newBoxPos.Y);
+				var newBoxPosTileType = GetLevelState().GetElement(newBoxPos.X, newBoxPos.Y);
 				//is new box position invalid
 				if (ElementType.Floor != newBoxPosTileType && ElementType.Goal != newBoxPosTileType) return;
 				//move box

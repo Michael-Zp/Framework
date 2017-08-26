@@ -10,14 +10,14 @@ namespace Example
 		[STAThread]
 		private static void Main()
 		{
-			var app = new ExampleApplication();
+			var window = new ExampleWindow();
 			var visual = new MainVisual();
-			app.ResourceManager.ShaderChanged += visual.ShaderChanged;
-			LoadResources(app.ResourceManager);
+			window.ResourceManager.ShaderChanged += visual.ShaderChanged;
+			LoadResources(window.ResourceManager);
 
-			app.GameWindow.ConnectEvents(visual.OrbitCamera);
-			app.Render += visual.Render;
-			app.Run();
+			window.GameWindow.ConnectEvents(visual.OrbitCamera);
+			window.Render += visual.Render;
+			window.Run();
 		}
 
 		private static void LoadResources(ResourceManager resourceManager)

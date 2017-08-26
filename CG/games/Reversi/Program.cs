@@ -9,30 +9,30 @@ namespace Reversi
 		[STAThread]
 		private static void Main()
 		{
-			var app = new ExampleApplication();
+			var window = new ExampleWindow();
 			var logic = new GameLogic(); //todo student: load the game state
-			var visual = new Visual();
-			app.GameWindow.Closing += (s, e) => { /*todo student: save the game state */ };
-			app.Resize += (w, h) => visual.Resize(logic.GameState, w, h);
-			app.Render += () =>
+			var view = new View();
+			window.GameWindow.Closing += (s, e) => { /*todo student: save the game state */ };
+			window.Resize += (w, h) => view.Resize(logic.GameState, w, h);
+			window.Render += () =>
 			{
 				var score = "white:" + logic.CountWhite.ToString() + " black:" + logic.CountBlack.ToString(); ;
-				app.GameWindow.Title = score;
-				visual.Render(logic.GameState);
+				window.GameWindow.Title = score;
+				view.Render(logic.GameState);
 				if (GameLogic.Result.PLAYING != logic.CurrentGameResult)
 				{
 					var winner = logic.CurrentGameResult.ToString();
-					visual.PrintMessage(winner);
+					view.PrintMessage(winner);
 				}
 			};
-			app.GameWindow.MouseDown += (s, e) =>
+			window.GameWindow.MouseDown += (s, e) =>
 			{
 				if (e.Button != MouseButton.Left) return; //only accept left mouse button
-				var coord = app.CalcNormalized(e.X, e.Y); //convert mouse coordinates from pixel to [0,1]²
-				var gridPos = visual.CalcGridPosFromNormalized(new OpenTK.Vector2(coord.X, coord.Y)); //convert normalized mouse coordinates into grid coordinates
+				var coord = window.CalcNormalized(e.X, e.Y); //convert mouse coordinates from pixel to [0,1]²
+				var gridPos = view.CalcGridPosFromNormalized(new OpenTK.Vector2(coord.X, coord.Y)); //convert normalized mouse coordinates into grid coordinates
 				logic.Move(gridPos); //do move
 			};
-			app.Run();
+			window.Run();
 		}
 	}
 }

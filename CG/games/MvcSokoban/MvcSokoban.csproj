@@ -61,9 +61,11 @@
     <Reference Include="System.Windows.Forms" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="FontGL.cs" />
     <Compile Include="GameLogic.cs" />
     <Compile Include="IRenderer.cs" />
     <Compile Include="IScene.cs" />
+    <Compile Include="VisualLevel.cs" />
     <Compile Include="LevelLogic.cs" />
     <Compile Include="Drawable.cs" />
     <Compile Include="ILevel.cs" />
@@ -81,7 +83,7 @@
       <DesignTime>True</DesignTime>
       <DependentUpon>Resourcen.resx</DependentUpon>
     </Compile>
-    <Compile Include="Renderer.cs" />
+    <Compile Include="View.cs" />
     <Compile Include="TextAlignment.cs" />
   </ItemGroup>
   <ItemGroup>

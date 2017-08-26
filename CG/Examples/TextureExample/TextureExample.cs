@@ -20,10 +20,10 @@ namespace Example
 		[STAThread]
 		private static void Main()
 		{
-			var app = new ExampleApplication();
+			var window = new ExampleWindow();
 			var visual = new MyVisual();
-			app.Render += visual.Render;
-			app.Run();
+			window.Render += visual.Render;
+			window.Run();
 		}
 
 		private MyVisual()
@@ -38,7 +38,7 @@ namespace Example
 			GL.Enable(EnableCap.Texture2D); //todo: only for non shader pipeline relevant -> remove at some point
 		}
 
-			private void Render()
+		private void Render()
 		{
 			GL.Clear(ClearBufferMask.ColorBufferBit);
 			//color is multiplied with texture color => white == no change to texture color

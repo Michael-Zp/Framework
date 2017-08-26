@@ -28,7 +28,7 @@ namespace MvcSokoban
 		public void Render()
 		{
 			renderer.Clear();
-			renderer.DrawLevel(logic.GetLevel(), Color.White);
+			renderer.DrawLevelState(logic.GetLevelState(), Color.White);
 			renderer.Print(logic.LevelNr + "/" + logic.Moves, .05f);
 		}
 

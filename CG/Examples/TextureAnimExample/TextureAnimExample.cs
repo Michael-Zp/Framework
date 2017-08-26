@@ -79,11 +79,11 @@ namespace Example
 		[STAThread]
 		private static void Main()
 		{
-			var app = new ExampleApplication();
+			var window = new ExampleWindow();
 			//run the update loop, which calls our registered callbacks
 			var visual = new MyVisual();
-			app.Render += visual.Render;
-			app.Run();
+			window.Render += visual.Render;
+			window.Run();
 		}
 	}
 }

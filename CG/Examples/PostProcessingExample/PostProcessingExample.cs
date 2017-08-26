@@ -73,11 +73,11 @@ namespace Example
 		[STAThread]
 		private static void Main()
 		{
-			var app = new ExampleApplication();
-			var visual = new MyVisual(app.GameWindow.Width, app.GameWindow.Height);
-			app.Render += visual.Render;
-			app.Update += visual.Update;
-			app.Run();
+			var window = new ExampleWindow();
+			var visual = new MyVisual(window.GameWindow.Width, window.GameWindow.Height);
+			window.Render += visual.Render;
+			window.Update += visual.Update;
+			window.Run();
 		}
 	}
 }
