@@ -7,8 +7,8 @@
     <ProjectGuid>{54156018-0F41-4EEF-AEB4-F1C99CF7A2AB}</ProjectGuid>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>DMS.TimerTools</RootNamespace>
-    <AssemblyName>DMS.TimerTools</AssemblyName>
+    <RootNamespace>DMS.TimeTools</RootNamespace>
+    <AssemblyName>DMS.TimeTools</AssemblyName>
     <TargetFrameworkVersion>v4.6</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
     <TargetFrameworkProfile />

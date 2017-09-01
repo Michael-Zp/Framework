@@ -1,0 +1,29 @@
+<?xml version="1.0"?>
+<package >
+	<metadata>
+		<id>DMS.Common</id>
+		<version>0.2.2</version>
+		<authors>Daniel Scherzer</authors>
+		<owners>Scherzer</owners>
+		<projectUrl>https://github.com/danielscherzer/Framework</projectUrl>
+		<requireLicenseAcceptance>false</requireLicenseAcceptance>
+		<description>Framework for real-time computer graphics using OpenGL</description>
+		<releaseNotes>Initial release</releaseNotes>
+		<copyright>Copyright 2017 Daniel Scherzer</copyright>
+		<tags>computergraphics real-time geometry mathematic vector matrix .net OpenGL GLSL</tags>
+		<dependencies>
+      <dependency id="OpenTK" version="2.0" />
+			<dependency id="NAudio" version="1.8.2" />
+		</dependencies>
+	</metadata>
+	<files>
+		<file src="..\bin\Debug\DMS.Application.dll" target="lib\net46" />
+		<file src="..\bin\Debug\DMS.Base.dll" target="lib\net46" />
+		<file src="..\bin\Debug\DMS.Geometry.dll" target="lib\net46" />
+		<file src="..\bin\Debug\DMS.HLGL.dll" target="lib\net46" />
+		<file src="..\bin\Debug\DMS.OpenGL.dll" target="lib\net46" />
+		<file src="..\bin\Debug\DMS.ShaderDebugging.dll" target="lib\net46" />
+		<file src="..\bin\Debug\DMS.Sound.dll" target="lib\net46" />
+		<file src="..\bin\Debug\DMS.TimeTools.dll" target="lib\net46" />
+	</files>
+</package>
