@@ -4,10 +4,10 @@
   <PropertyGroup>
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
-    <ProjectGuid>{CA13BC5E-6B15-40FC-8471-33748D51F2F9}</ProjectGuid>
+    <ProjectGuid>{B8CD6CA8-5177-4355-A0D8-939B7FD15A32}</ProjectGuid>
     <OutputType>Exe</OutputType>
     <RootNamespace>Tools</RootNamespace>
-    <AssemblyName>ProjToTemplate</AssemblyName>
+    <AssemblyName>PrepareExampleTemplates</AssemblyName>
     <TargetFrameworkVersion>v4.6</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
     <AutoGenerateBindingRedirects>true</AutoGenerateBindingRedirects>
@@ -33,38 +33,23 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
-    <Reference Include="Microsoft.Build" />
     <Reference Include="System" />
-    <Reference Include="System.Drawing" />
-    <Reference Include="System.IO.Compression" />
-    <Reference Include="System.IO.Compression.FileSystem" />
-    <Reference Include="System.Xml" />
-    <Reference Include="System.Xml.Linq" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="ProjToTemplate.cs" />
-    <Compile Include="ResTemplate.Designer.cs">
-      <AutoGen>True</AutoGen>
-      <DesignTime>True</DesignTime>
-      <DependentUpon>ResTemplate.resx</DependentUpon>
-    </Compile>
+    <Compile Include="PrepareExampleTemplates.cs" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Properties\" />
   </ItemGroup>
   <ItemGroup>
-    <None Include="Resources\MyTemplate.vstemplate">
-      <SubType>Designer</SubType>
-    </None>
-  </ItemGroup>
-  <ItemGroup>
-    <None Include="Resources\__TemplateIcon.ico" />
-  </ItemGroup>
-  <ItemGroup>
-    <EmbeddedResource Include="ResTemplate.resx">
-      <Generator>ResXFileCodeGenerator</Generator>
-      <LastGenOutput>ResTemplate.Designer.cs</LastGenOutput>
-    </EmbeddedResource>
+    <ProjectReference Include="..\ProjectResolveDMSDependencies\ProjectResolveDMSDependencies.csproj">
+      <Project>{37cee1e7-20b0-4719-8beb-e1a450cd530e}</Project>
+      <Name>ProjectResolveDMSDependencies</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\ProjToTemplate\ProjToTemplate.csproj">
+      <Project>{ca13bc5e-6b15-40fc-8471-33748d51f2f9}</Project>
+      <Name>ProjToTemplate</Name>
+    </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

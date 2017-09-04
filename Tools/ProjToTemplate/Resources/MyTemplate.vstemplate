@@ -6,5 +6,8 @@
     <Icon>__TemplateIcon.ico</Icon>
   </TemplateData>
   <TemplateContent>
+		<Project>
+			
+		</Project>
   </TemplateContent>
 </VSTemplate>

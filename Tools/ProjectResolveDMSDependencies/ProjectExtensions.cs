@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 
-namespace ProjectResolveDMSDependencies
+namespace Tools
 {
 	public static class ProjectExtensions
 	{
