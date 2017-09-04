@@ -1,4 +1,4 @@
-﻿using DMS.Geometry;
+﻿using Zenseless.Geometry;
 using OpenTK;
 
 namespace Example

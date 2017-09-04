@@ -3,7 +3,7 @@ using System.Globalization;
 using System.IO;
 using System.Numerics;
 
-namespace DMS.Geometry
+namespace Zenseless.Geometry
 {
 	public class ObjParser
 	{

@@ -1,6 +1,6 @@
-﻿using DMS.OpenGL;
-using DMS.Geometry;
-using DMS.HLGL;
+﻿using Zenseless.OpenGL;
+using Zenseless.Geometry;
+using Zenseless.HLGL;
 
 namespace MiniGalaxyBirds
 {

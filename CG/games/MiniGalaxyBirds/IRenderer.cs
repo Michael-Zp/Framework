@@ -1,4 +1,4 @@
-﻿using DMS.Geometry;
+﻿using Zenseless.Geometry;
 namespace MiniGalaxyBirds
 {
 	public interface IRenderer

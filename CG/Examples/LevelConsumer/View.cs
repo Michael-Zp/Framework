@@ -1,9 +1,9 @@
-﻿using DMS.OpenGL;
-using DMS.Geometry;
+﻿using Zenseless.OpenGL;
+using Zenseless.Geometry;
 using System.Collections.Generic;
 using OpenTK.Graphics.OpenGL;
 using System.Drawing;
-using DMS.HLGL;
+using Zenseless.HLGL;
 
 namespace Example
 {

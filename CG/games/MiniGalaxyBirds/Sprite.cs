@@ -1,7 +1,7 @@
-﻿using DMS.Geometry;
+﻿using Zenseless.Geometry;
 using OpenTK.Graphics.OpenGL;
 using System.Drawing;
-using DMS.HLGL;
+using Zenseless.HLGL;
 
 namespace MiniGalaxyBirds
 {

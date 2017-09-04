@@ -1,5 +1,5 @@
-﻿using DMS.HLGL;
-using DMS.OpenGL;
+﻿using Zenseless.HLGL;
+using Zenseless.OpenGL;
 using OpenTK.Graphics.OpenGL4;
 
 namespace Example

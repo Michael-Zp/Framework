@@ -1,8 +1,8 @@
-﻿using DMS.Geometry;
+﻿using Zenseless.Geometry;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using System.Numerics;
 
-namespace DMS.Geometry.Tests
+namespace Zenseless.Geometry.Tests
 {
 	[TestClass()]
 	public class Box2dExtensionsTests

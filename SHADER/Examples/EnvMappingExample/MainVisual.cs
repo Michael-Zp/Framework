@@ -1,6 +1,6 @@
-﻿using DMS.Geometry;
-using DMS.HLGL;
-using DMS.OpenGL;
+﻿using Zenseless.Geometry;
+using Zenseless.HLGL;
+using Zenseless.OpenGL;
 using OpenTK.Graphics;
 using OpenTK.Graphics.OpenGL4;
 

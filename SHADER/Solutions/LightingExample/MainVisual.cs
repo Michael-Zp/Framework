@@ -1,9 +1,9 @@
-﻿using DMS.OpenGL;
-using DMS.Geometry;
+﻿using Zenseless.OpenGL;
+using Zenseless.Geometry;
 using OpenTK;
 using OpenTK.Graphics;
 using OpenTK.Graphics.OpenGL4;
-using DMS.HLGL;
+using Zenseless.HLGL;
 
 namespace Example
 {
@@ -41,7 +41,7 @@ namespace Example
 			GL.Uniform4(shader.GetResourceLocation(ShaderResourceType.Uniform, "light2Color"), new Color4(1f, .1f, .1f, 1f));
 			GL.Uniform3(shader.GetResourceLocation(ShaderResourceType.Uniform, "light3Position"), new Vector3(-2, 2, 2));
 			GL.Uniform3(shader.GetResourceLocation(ShaderResourceType.Uniform, "light3Direction"), new Vector3(1, -1, -1).Normalized());
-			GL.Uniform1(shader.GetResourceLocation(ShaderResourceType.Uniform, "light3Angle"), DMS.Geometry.MathHelper.DegreesToRadians(10f));
+			GL.Uniform1(shader.GetResourceLocation(ShaderResourceType.Uniform, "light3Angle"), Zenseless.Geometry.MathHelper.DegreesToRadians(10f));
 			GL.Uniform4(shader.GetResourceLocation(ShaderResourceType.Uniform, "light3Color"), new Color4(0, 0, 1f, 1f));
 			GL.Uniform4(shader.GetResourceLocation(ShaderResourceType.Uniform, "ambientLightColor"), new Color4(.3f, .3f, .1f, 1f));
 			GL.Uniform4(shader.GetResourceLocation(ShaderResourceType.Uniform, "materialColor"), new Color4(.7f, .7f, .7f, 1f));

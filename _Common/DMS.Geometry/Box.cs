@@ -1,4 +1,4 @@
-﻿namespace DMS.Geometry
+﻿namespace Zenseless.Geometry
 {
 	/// <summary>
 	/// Represents an axis aligned bounding box

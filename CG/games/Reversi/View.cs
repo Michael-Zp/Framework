@@ -1,10 +1,10 @@
-﻿using DMS.Geometry;
-using DMS.OpenGL;
+﻿using Zenseless.Geometry;
+using Zenseless.OpenGL;
 using OpenTK;
 using OpenTK.Graphics.OpenGL;
 using System.Drawing;
 using System;
-using DMS.HLGL;
+using Zenseless.HLGL;
 
 namespace Reversi
 {

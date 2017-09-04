@@ -1,7 +1,7 @@
 ﻿using Microsoft.VisualStudio.TestTools.UnitTesting;
 using System;
 
-namespace DMS.Geometry.Tests
+namespace Zenseless.Geometry.Tests
 {
 	[TestClass()]
 	public class CircleExtensionsTests

@@ -1,6 +1,6 @@
 ﻿using Microsoft.VisualStudio.TestTools.UnitTesting;
 
-namespace DMS.Geometry.Tests
+namespace Zenseless.Geometry.Tests
 {
 	[TestClass()]
 	public class Box2DTests

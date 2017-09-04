@@ -1,7 +1,7 @@
 ﻿using Microsoft.VisualStudio.TestTools.UnitTesting;
 using System.Numerics;
 
-namespace DMS.Geometry.Tests
+namespace Zenseless.Geometry.Tests
 {
 	[TestClass()]
 	public class Transform2DTests

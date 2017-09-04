@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Diagnostics;
 
-namespace DMS.Geometry
+namespace Zenseless.Geometry
 {
 	/// <summary>
 	/// Represents an 2D axis aligned bounding box

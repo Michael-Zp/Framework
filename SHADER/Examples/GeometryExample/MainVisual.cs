@@ -1,5 +1,5 @@
-﻿using DMS.HLGL;
-using DMS.OpenGL;
+﻿using Zenseless.HLGL;
+using Zenseless.OpenGL;
 using OpenTK;
 using OpenTK.Graphics.OpenGL4;
 using System;

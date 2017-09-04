@@ -1,12 +1,12 @@
-﻿using DMS.OpenGL;
-using DMS.Base;
+﻿using Zenseless.OpenGL;
+using Zenseless.Base;
 using OpenTK.Graphics.OpenGL4;
 using System;
 using System.Collections.Generic;
 using System.Diagnostics;
 using System.IO;
 using ShaderForm.Interfaces;
-using DMS.HLGL;
+using Zenseless.HLGL;
 
 namespace ShaderForm.Visual
 {

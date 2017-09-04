@@ -2,7 +2,7 @@
 using System;
 using System.Numerics;
 
-namespace DMS.Geometry.Tests
+namespace Zenseless.Geometry.Tests
 {
 	[TestClass()]
 	public class MathHelperTests

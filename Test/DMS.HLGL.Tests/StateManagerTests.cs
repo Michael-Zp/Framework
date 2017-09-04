@@ -1,7 +1,7 @@
 ﻿using Microsoft.VisualStudio.TestTools.UnitTesting;
 using System;
 
-namespace DMS.HLGL.Tests
+namespace Zenseless.HLGL.Tests
 {
 	using static States;
 

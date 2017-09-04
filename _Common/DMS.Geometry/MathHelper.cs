@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Numerics;
 
-namespace DMS.Geometry
+namespace Zenseless.Geometry
 {
 	public static class MathHelper
 	{

@@ -1,7 +1,7 @@
 ﻿using Microsoft.VisualStudio.TestTools.UnitTesting;
 using System.Drawing;
 
-namespace DMS.OpenGL.Tests
+namespace Zenseless.OpenGL.Tests
 {
 	[TestClass()]
 	public class ColorSystemsTests

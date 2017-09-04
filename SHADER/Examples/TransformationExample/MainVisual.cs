@@ -1,10 +1,10 @@
-﻿using DMS.OpenGL;
-using DMS.Geometry;
+﻿using Zenseless.OpenGL;
+using Zenseless.Geometry;
 using OpenTK;
 using OpenTK.Graphics.OpenGL4;
 using System;
 using System.Diagnostics;
-using DMS.HLGL;
+using Zenseless.HLGL;
 
 namespace Example
 {

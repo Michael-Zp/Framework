@@ -1,5 +1,5 @@
-﻿using DMS.TimeTools;
-using DMS.Sound;
+﻿using Zenseless.TimeTools;
+using Zenseless.Sound;
 using System;
 using System.Diagnostics;
 using System.IO;

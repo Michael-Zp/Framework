@@ -1,4 +1,4 @@
-﻿using DMS.OpenGL;
+﻿using Zenseless.OpenGL;
 using OpenTK;
 using System.Drawing;
 

@@ -1,5 +1,5 @@
-﻿using DMS.Application;
-using DMS.Geometry;
+﻿using Zenseless.Application;
+using Zenseless.Geometry;
 using OpenTK.Graphics;
 using OpenTK.Graphics.OpenGL;
 using System;

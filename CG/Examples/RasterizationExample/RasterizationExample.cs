@@ -1,6 +1,6 @@
-﻿using DMS.Application;
-using DMS.Base;
-using DMS.OpenGL;
+﻿using Zenseless.Application;
+using Zenseless.Base;
+using Zenseless.OpenGL;
 using System;
 using System.Drawing;
 using System.IO;

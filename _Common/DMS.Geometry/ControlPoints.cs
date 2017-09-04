@@ -3,7 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 
-namespace DMS.Geometry
+namespace Zenseless.Geometry
 {
 	public class ControlPoints<T>  : IEnumerable<KeyValuePair<float, T>>
 	{

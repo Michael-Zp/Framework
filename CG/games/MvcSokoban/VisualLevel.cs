@@ -1,7 +1,7 @@
-﻿using DMS.Base;
-using DMS.Geometry;
-using DMS.HLGL;
-using DMS.OpenGL;
+﻿using Zenseless.Base;
+using Zenseless.Geometry;
+using Zenseless.HLGL;
+using Zenseless.OpenGL;
 using OpenTK.Graphics.OpenGL4;
 using System;
 using System.Collections.Generic;

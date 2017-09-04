@@ -1,7 +1,7 @@
 ﻿using System.Collections.Generic;
 using System.Numerics;
 
-namespace DMS.Geometry
+namespace Zenseless.Geometry
 {
 	public class Mesh
 	{

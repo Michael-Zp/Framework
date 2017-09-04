@@ -1,6 +1,6 @@
-﻿using DMS.Base;
-using DMS.HLGL;
-using DMS.OpenGL;
+﻿using Zenseless.Base;
+using Zenseless.HLGL;
+using Zenseless.OpenGL;
 using OpenTK.Graphics.OpenGL4;
 
 namespace ShaderForm.Visual

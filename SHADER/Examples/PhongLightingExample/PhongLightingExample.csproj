@@ -1,4 +1,4 @@
-﻿<?xml version="1.0" encoding="utf-8"?>
+<?xml version="1.0" encoding="utf-8"?>
 <Project ToolsVersion="12.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
   <PropertyGroup>
@@ -83,29 +83,29 @@
     </BootstrapperPackage>
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\..\..\_Common\DMS.Application\DMS.Application.csproj">
+    <ProjectReference Include="..\..\..\_Common\Zenseless.Application\Zenseless.Application.csproj">
       <Project>{911C6DFF-BE3E-4EA5-ADF2-A363DF797F23}</Project>
-      <Name>DMS.Application</Name>
+      <Name>Zenseless.Application</Name>
     </ProjectReference>
-    <ProjectReference Include="..\..\..\_Common\DMS.HLGL\DMS.HLGL.csproj">
+    <ProjectReference Include="..\..\..\_Common\Zenseless.HLGL\Zenseless.HLGL.csproj">
       <Project>{227D6BE1-BA08-4030-A755-07288540931F}</Project>
-      <Name>DMS.HLGL</Name>
+      <Name>Zenseless.HLGL</Name>
     </ProjectReference>
-    <ProjectReference Include="..\..\..\_Common\DMS.OpenGL\DMS.OpenGL.csproj">
+    <ProjectReference Include="..\..\..\_Common\Zenseless.OpenGL\Zenseless.OpenGL.csproj">
       <Project>{c660f6af-c100-4169-a9fb-61e1ebe87f34}</Project>
-      <Name>DMS.OpenGL</Name>
+      <Name>Zenseless.OpenGL</Name>
     </ProjectReference>
-    <ProjectReference Include="..\..\..\_Common\DMS.Geometry\DMS.Geometry.csproj">
+    <ProjectReference Include="..\..\..\_Common\Zenseless.Geometry\Zenseless.Geometry.csproj">
       <Project>{B37B7DDE-435B-4F27-9A9B-9B6DF8744EBE}</Project>
-      <Name>DMS.Geometry</Name>
+      <Name>Zenseless.Geometry</Name>
     </ProjectReference>
-    <ProjectReference Include="..\..\..\_Common\DMS.ShaderDebugging\DMS.ShaderDebugging.csproj">
+    <ProjectReference Include="..\..\..\_Common\Zenseless.ShaderDebugging\Zenseless.ShaderDebugging.csproj">
       <Project>{3c8bcf2c-1019-4a8d-b986-afd6bb80e917}</Project>
-      <Name>DMS.ShaderDebugging</Name>
+      <Name>Zenseless.ShaderDebugging</Name>
     </ProjectReference>
-    <ProjectReference Include="..\..\..\_Common\DMS.Base\DMS.Base.csproj">
+    <ProjectReference Include="..\..\..\_Common\Zenseless.Base\Zenseless.Base.csproj">
       <Project>{E5FF60A4-46FB-42D2-9430-BC523315C2E0}</Project>
-      <Name>DMS.Base</Name>
+      <Name>Zenseless.Base</Name>
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>

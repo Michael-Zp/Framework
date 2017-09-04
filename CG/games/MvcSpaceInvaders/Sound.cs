@@ -1,5 +1,5 @@
-﻿using DMS.Sound;
-using DMS.Base;
+﻿using Zenseless.Sound;
+using Zenseless.Base;
 
 namespace MvcSpaceInvaders
 {

@@ -1,6 +1,6 @@
-﻿using DMS.Application;
-using DMS.Geometry;
-using DMS.HLGL;
+﻿using Zenseless.Application;
+using Zenseless.Geometry;
+using Zenseless.HLGL;
 using System.Collections.Generic;
 using System.Numerics;
 

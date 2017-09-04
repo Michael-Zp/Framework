@@ -1,6 +1,6 @@
 ﻿using OpenTK.Graphics.OpenGL4;
-using DMS.OpenGL;
-using DMS.HLGL;
+using Zenseless.OpenGL;
+using Zenseless.HLGL;
 
 namespace Example
 {

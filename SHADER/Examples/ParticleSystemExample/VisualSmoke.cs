@@ -1,6 +1,6 @@
-﻿using DMS.Application;
-using DMS.HLGL;
-using DMS.OpenGL;
+﻿using Zenseless.Application;
+using Zenseless.HLGL;
+using Zenseless.OpenGL;
 using OpenTK;
 using OpenTK.Graphics.OpenGL4;
 using System;

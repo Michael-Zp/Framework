@@ -2,8 +2,8 @@
 using System.Windows.Controls;
 using System;
 using System.Windows.Shapes;
-using DMS.Base;
-using DMS.Geometry;
+using Zenseless.Base;
+using Zenseless.Geometry;
 using LevelData;
 
 namespace LevelEditor

@@ -1,6 +1,6 @@
-﻿using DMS.Application;
-using DMS.Geometry;
-using DMS.TimeTools;
+﻿using Zenseless.Application;
+using Zenseless.Geometry;
+using Zenseless.TimeTools;
 using OpenTK.Graphics.OpenGL;
 using OpenTK.Input;
 using System;

@@ -1,6 +1,6 @@
 ﻿using System.Collections.Generic;
 
-namespace DMS.Geometry
+namespace Zenseless.Geometry
 {
 	public class Obj2Mesh
 	{

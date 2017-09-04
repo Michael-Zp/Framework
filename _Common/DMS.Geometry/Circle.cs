@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace DMS.Geometry
+namespace Zenseless.Geometry
 {
 	/// <summary>
 	/// Represents a circle
