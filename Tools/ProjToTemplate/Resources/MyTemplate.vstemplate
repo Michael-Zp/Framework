@@ -1,28 +1,10 @@
 <VSTemplate Version="3.0.0" xmlns="http://schemas.microsoft.com/developer/vstemplate/2005" Type="Project">
   <TemplateData>
-    <Name>Example1</Name>
-    <Description>&lt;Keine Beschreibung verfügbar&gt;</Description>
+    <Name></Name>
+    <Description></Description>
     <ProjectType>CSharp</ProjectType>
-    <ProjectSubType>
-    </ProjectSubType>
-    <SortOrder>1000</SortOrder>
-    <CreateNewFolder>true</CreateNewFolder>
-    <DefaultName>Example1</DefaultName>
-    <ProvideDefaultName>true</ProvideDefaultName>
-    <LocationField>Enabled</LocationField>
-    <EnableLocationBrowseButton>true</EnableLocationBrowseButton>
     <Icon>__TemplateIcon.ico</Icon>
   </TemplateData>
   <TemplateContent>
-    <Project TargetFileName="Example1.csproj" File="Example1.csproj" ReplaceParameters="true">
-      <ProjectItem ReplaceParameters="false" TargetFileName="readme.md">readme.md</ProjectItem>
-      <ProjectItem ReplaceParameters="true" TargetFileName="Resourcen.resx">Resourcen.resx</ProjectItem>
-      <ProjectItem ReplaceParameters="true" TargetFileName="Resourcen.Designer.cs">Resourcen.Designer.cs</ProjectItem>
-      <Folder Name="Resources" TargetFolderName="Resources">
-        <ProjectItem ReplaceParameters="false" TargetFileName="redship4.png">redship4.png</ProjectItem>
-        <ProjectItem ReplaceParameters="false" TargetFileName="water.jpg">water.jpg</ProjectItem>
-      </Folder>
-      <ProjectItem ReplaceParameters="true" TargetFileName="TextureExample.cs">TextureExample.cs</ProjectItem>
-    </Project>
   </TemplateContent>
 </VSTemplate>
