@@ -21,7 +21,7 @@ namespace Tools
 			proj.RemoveProjRefs();
 			proj.RemovePackRef("OpenTK");
 			proj.RemovePackRef("NAudio");
-			proj.AddPackage("Zenseless", "0.2.2");
+			proj.AddPackage("Zenseless", "0.1");
 			proj.Save(destProjPath);
 			proj.ProjectCollection.UnloadProject(proj);
 		}

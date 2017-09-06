@@ -4,6 +4,7 @@
         <Identity Id="59915f29-4ddf-4026-b6af-4edfa898fc12" Version="0.1" Language="en-US" Publisher="Daniel Scherzer" />
         <DisplayName>Zenseless</DisplayName>
         <Description xml:space="preserve">Collection of project templates for the lecture computer graphics at the University of Applied Science Ravensburg-Weingarten.</Description>
+        <License>LICENSE</License>
         <Icon>ShaderIcon.png</Icon>
         <PreviewImage>ShaderPreview.png</PreviewImage>
         <Tags>computergraphics, real-time, geometry, mathematic, vector, matrix, .net, OpenGL, GLSL</Tags>
