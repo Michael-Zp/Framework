@@ -36,12 +36,12 @@ namespace Tools
 				zip.CreateEntryFromFile(sourceProjPath, projFileName);
 
 				//update template manifest
-				var xml = XDocument.Parse(Encoding.UTF8.GetString(ResTemplate.MyTemplate));
-				var ns = xml.Root.Name.Namespace;
-				xml.Descendants(ns + "Name").First().SetValue(Path.GetFileNameWithoutExtension(projFileName));
-				xml.Descendants(ns + "Description").First().SetValue("Example for lecture CG");
-				var xmlProj = xml.Descendants(ns + "Project").First();
-				xmlProj.Add(new XAttribute("File", projFileName));
+				var xmlDoc = XDocument.Parse(Encoding.UTF8.GetString(ResTemplate.MyTemplate));
+				var ns = xmlDoc.Root.Name.Namespace;
+				xmlDoc.Descendants(ns + "Name").First().SetValue(Path.GetFileNameWithoutExtension(projFileName));
+				xmlDoc.Descendants(ns + "Description").First().SetValue("Example for lecture CG");
+				var xmlProjNode = xmlDoc.Descendants(ns + "Project").First();
+				xmlProjNode.Add(new XAttribute("File", projFileName));
 
 				//add files
 				var dir = Path.GetDirectoryName(sourceProjPath) + Path.DirectorySeparatorChar;
@@ -49,12 +49,12 @@ namespace Tools
 				foreach (var file in Files(proj))
 				{
 					zip.CreateEntryFromFile(dir + file, file);
-					xmlProj.Add(new XElement(ns + "ProjectItem", file));
+					xmlProjNode.Add(new XElement(ns + "ProjectItem", file));
 				}
 				//add vstemplate
 				using (var entryVsTemplate = zip.CreateEntry("MyTemplate.vstemplate").Open())
 				{
-					xml.Save(entryVsTemplate);
+					xmlDoc.Save(entryVsTemplate);
 				}
 			}
 		}
