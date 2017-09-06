@@ -30,7 +30,9 @@ namespace Tools
 
 		static void Execute(string sourceProjPath, string destTemplateZipPath)
 		{
-			Console.WriteLine($"Processing {sourceProjPath} and creating {destTemplateZipPath}");
+			var output = $"Processing {sourceProjPath} and creating {destTemplateZipPath}";
+			Console.WriteLine(output);
+			Debug.WriteLine(output);
 			var dir = Path.GetDirectoryName(sourceProjPath) + "/";
 			var newProj = dir + Path.GetFileNameWithoutExtension(destTemplateZipPath) + ".csproj";
 			ProjectResolveDMSDependencies.Execute(sourceProjPath, newProj);
