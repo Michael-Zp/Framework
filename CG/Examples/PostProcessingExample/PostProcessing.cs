@@ -9,7 +9,7 @@ namespace Example
 		public PostProcessing(int width, int height)
 		{
 			renderToTexture = new FBO(Texture2dGL.Create(width, height));
-			SetShader(TextureToFrameBuffer.FragmentShaderCopy);
+			SetShader(DefaultShader.FragmentShaderCopy);
 		}
 
 		public void Start()

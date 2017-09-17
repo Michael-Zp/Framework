@@ -49,9 +49,10 @@ namespace Zenseless.Geometry
 		}
 
 		/// <summary>
-		/// Calculates the AABR in the overlap
-		/// Returns null if no intersection
+		/// Calculates the overlap Box
+		/// Returns null if no overlap
 		/// </summary>
+		/// <param name="rectangleA"></param>
 		/// <param name="rectangleB"></param>
 		/// <returns>AABR in the overlap</returns>
 		public static Box2D Overlap(this Box2D rectangleA, Box2D rectangleB)

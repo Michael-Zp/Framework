@@ -20,7 +20,7 @@ namespace Example
 			//var dir = Path.GetDirectoryName(PathTools.GetSourceFilePath()) + @"\Resources\";
 			//resourceManager.Add<Shader>("shader", new ResourceVertFragShaderFile(dir + "vertex.vert", dir + "fragment.frag"));
 			resourceProvider.Add(ShaderDefault, new ResourceVertFragShaderString(Encoding.UTF8.GetString(Resourcen.vertex), Encoding.UTF8.GetString(Resourcen.fragment)));
-			resourceProvider.Add(ShaderCopy, new ResourceVertFragShaderString(TextureToFrameBuffer.VertexShaderScreenQuad, TextureToFrameBuffer.FragmentShaderCopy));
+			resourceProvider.Add(ShaderCopy, new ResourceVertFragShaderString(DefaultShader.VertexShaderScreenQuad, DefaultShader.FragmentShaderCopy));
 			//resourceManager.AddShader("shader", dir + "vertex.vert", dir + "fragment.frag"
 			//	, Resourcen.vertex, Resourcen.fragment);
 			resourceProvider.Add(TextureDiffuse, new ResourceTextureBitmap(Resourcen.chalet));

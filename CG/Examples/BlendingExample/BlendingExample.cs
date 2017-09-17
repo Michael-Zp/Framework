@@ -3,12 +3,10 @@ using Zenseless.Geometry;
 using OpenTK.Graphics;
 using OpenTK.Graphics.OpenGL;
 using System;
-using System.ComponentModel.Composition;
 
 namespace Example
 {
-	[Export(typeof(IExample))]
-	class MyVisual : IExample
+	class MyVisual
 	{
 		private MyVisual()
 		{

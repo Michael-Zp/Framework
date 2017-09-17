@@ -22,7 +22,7 @@ namespace Zenseless.Geometry
 		/// </summary>
 		/// <param name="pivotX">rotation center x</param>
 		/// <param name="pivotY">rotation center y</param>
-		/// <param name="angle">radiant</param>
+		/// <param name="degrees">rotation in degrees</param>
 		/// <returns></returns>
 		public static Transformation2D CreateRotationAround(float pivotX, float pivotY, float degrees)
 		{

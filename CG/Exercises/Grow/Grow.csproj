@@ -1,72 +1,79 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
-<Project ToolsVersion="14.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+<Project ToolsVersion="12.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
   <PropertyGroup>
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
-    <ProjectGuid>{227D6BE1-BA08-4030-A755-07288540931F}</ProjectGuid>
-    <OutputType>Library</OutputType>
+    <ProjectGuid>{897591CD-CEC3-42B6-9207-0A23E92C0E5A}</ProjectGuid>
+    <OutputType>WinExe</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>Zenseless.HLGL</RootNamespace>
-    <AssemblyName>Zenseless.HLGL</AssemblyName>
+    <RootNamespace>Example</RootNamespace>
+    <AssemblyName>Grow</AssemblyName>
     <TargetFrameworkVersion>v4.6</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
     <TargetFrameworkProfile />
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <PlatformTarget>AnyCPU</PlatformTarget>
     <DebugSymbols>true</DebugSymbols>
     <DebugType>full</DebugType>
     <Optimize>false</Optimize>
-    <OutputPath>bin\Debug\</OutputPath>
+    <OutputPath>..\..\..\bin\Debug\</OutputPath>
     <DefineConstants>DEBUG;TRACE</DefineConstants>
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
-    <DocumentationFile>bin\Debug\Zenseless.HLGL.xml</DocumentationFile>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <PlatformTarget>AnyCPU</PlatformTarget>
     <DebugType>pdbonly</DebugType>
     <Optimize>true</Optimize>
-    <OutputPath>bin\Release\</OutputPath>
+    <OutputPath>..\..\..\bin\Release\</OutputPath>
     <DefineConstants>TRACE</DefineConstants>
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
+  <PropertyGroup>
+    <StartupObject />
+  </PropertyGroup>
   <ItemGroup>
+    <Compile Include="Element.cs" />
+    <Compile Include="Grow.cs" />
+    <Compile Include="IElement.cs" />
+    <Compile Include="Model.cs" />
+    <Compile Include="Renderer.cs" />
+    <Compile Include="RendererPoints.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <Reference Include="System" />
+    <Reference Include="System.Drawing" />
     <Reference Include="System.Numerics" />
   </ItemGroup>
   <ItemGroup>
-    <Folder Include="Properties\" />
+    <PackageReference Include="OpenTK">
+      <Version>2.0.0</Version>
+    </PackageReference>
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\Zenseless.Base\Zenseless.Base.csproj">
+    <ProjectReference Include="..\..\..\_Common\Zenseless.Application\Zenseless.Application.csproj">
+      <Project>{911C6DFF-BE3E-4EA5-ADF2-A363DF797F23}</Project>
+      <Name>Zenseless.Application</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\..\_Common\Zenseless.Base\Zenseless.Base.csproj">
       <Project>{e5ff60a4-46fb-42d2-9430-bc523315c2e0}</Project>
       <Name>Zenseless.Base</Name>
     </ProjectReference>
-    <ProjectReference Include="..\Zenseless.Geometry\Zenseless.Geometry.csproj">
+    <ProjectReference Include="..\..\..\_Common\Zenseless.Geometry\Zenseless.Geometry.csproj">
       <Project>{B37B7DDE-435B-4F27-9A9B-9B6DF8744EBE}</Project>
       <Name>Zenseless.Geometry</Name>
     </ProjectReference>
-  </ItemGroup>
-  <ItemGroup>
-    <Compile Include="DefaultShader.cs" />
-    <Compile Include="IRenderContext.cs" />
-    <Compile Include="IDrawConfiguration.cs" />
-    <Compile Include="IRenderSurface.cs" />
-    <Compile Include="IShader.cs" />
-    <Compile Include="IShaderProgram.cs" />
-    <Compile Include="IStateManager.cs" />
-    <Compile Include="ITexture.cs" />
-    <Compile Include="ITexture2D.cs" />
-    <Compile Include="ShaderException.cs" />
-    <Compile Include="StateCommand.cs" />
-    <Compile Include="TypedHandle.cs" />
-    <Compile Include="IResource.cs" />
-    <Compile Include="IResourceProvider.cs" />
-    <Compile Include="IState.cs" />
-    <Compile Include="IStateBool.cs" />
-    <Compile Include="IStateTyped.cs" />
-    <Compile Include="StateManager.cs" />
-    <Compile Include="States.cs" />
+    <ProjectReference Include="..\..\..\_Common\Zenseless.HLGL\Zenseless.HLGL.csproj">
+      <Project>{227D6BE1-BA08-4030-A755-07288540931F}</Project>
+      <Name>Zenseless.HLGL</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\..\_Common\Zenseless.OpenGL\Zenseless.OpenGL.csproj">
+      <Project>{C660F6AF-C100-4169-A9FB-61E1EBE87F34}</Project>
+      <Name>Zenseless.OpenGL</Name>
+    </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

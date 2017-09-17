@@ -1,4 +1,4 @@
-﻿namespace Zenseless.Application
+﻿namespace Screenshots
 {
 	public interface IExample
 	{

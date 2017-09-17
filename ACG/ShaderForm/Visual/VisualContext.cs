@@ -20,7 +20,7 @@ namespace ShaderForm.Visual
 			surface = new RenderSurfacePingPong();
 
 			copyToScreen = new TextureToFrameBuffer();
-			shaderDefault = ShaderLoader.FromStrings(TextureToFrameBuffer.VertexShaderScreenQuad, TextureToFrameBuffer.FragmentShaderChecker);
+			shaderDefault = ShaderLoader.FromStrings(DefaultShader.VertexShaderScreenQuad, DefaultShader.FragmentShaderChecker);
 		}
 
 		public void SetUniform(string uniformName, float value)
@@ -151,7 +151,7 @@ namespace ShaderForm.Visual
 					}
 				}
 				var sFragmentShd = ShaderLoader.ShaderStringFromFileWithIncludes(fileName, false);
-				var shader = ShaderLoader.FromStrings(TextureToFrameBuffer.VertexShaderScreenQuad, sFragmentShd);
+				var shader = ShaderLoader.FromStrings(DefaultShader.VertexShaderScreenQuad, sFragmentShd);
 				shaders[fileName] = shader;
 				return shader.LastLog;
 			}
@@ -160,7 +160,7 @@ namespace ShaderForm.Visual
 				try
 				{
 					var sFragmentShd = ShaderLoader.ShaderStringFromFileWithIncludes(fileName, true);
-					var shader = ShaderLoader.FromStrings(TextureToFrameBuffer.VertexShaderScreenQuad, sFragmentShd);
+					var shader = ShaderLoader.FromStrings(DefaultShader.VertexShaderScreenQuad, sFragmentShd);
 					shaders[fileName] = shader;
 					return shader.LastLog;
 				}

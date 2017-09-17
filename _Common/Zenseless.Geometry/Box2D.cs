@@ -63,6 +63,13 @@ namespace Zenseless.Geometry
 			return !a.Equals(b);
 		}
 
+		public bool Contains(float x, float y)
+		{
+			if (x < MinX || MaxX < x) return false;
+			if (y < MinY || MaxY < y) return false;
+			return true;
+		}
+
 		public bool Contains(Box2D rectangle)
 		{
 			if (MinX > rectangle.MinX) return false;

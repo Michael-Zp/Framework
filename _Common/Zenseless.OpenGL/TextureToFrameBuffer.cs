@@ -8,7 +8,7 @@ namespace Zenseless.OpenGL
 	{
 		public delegate void SetUniforms(IShader currentShader);
 
-		public TextureToFrameBuffer(string fragmentShader = FragmentShaderCopy, string vertexShader = VertexShaderScreenQuad)
+		public TextureToFrameBuffer(string fragmentShader = DefaultShader.FragmentShaderCopy, string vertexShader = DefaultShader.VertexShaderScreenQuad)
 		{
 			shader = ShaderLoader.FromStrings(vertexShader, fragmentShader);
 		}
@@ -23,40 +23,6 @@ namespace Zenseless.OpenGL
 			shader.Deactivate();
 		}
 
-		public const string VertexShaderScreenQuad = @"
-				#version 130		
-				uniform vec2 iResolution;		
-				out vec2 uv; 
-				out vec2 fragCoord;
-				void main() {
-					const vec2 vertices[4] = vec2[4](vec2(-1.0, -1.0),
-                                    vec2( 1.0, -1.0),
-                                    vec2( 1.0,  1.0),
-                                    vec2(-1.0,  1.0));
-					vec2 pos = vertices[gl_VertexID];
-					uv = pos * 0.5 + 0.5;
-					fragCoord = uv * iResolution;
-					gl_Position = vec4(pos, 0.0, 1.0);
-				}";
-
-		public const string FragmentShaderCopy = @"
-			#version 430 core
-			uniform sampler2D image;
-			in vec2 uv;
-			void main() {
-				gl_FragColor = texture(image, uv);
-			}";
-
-		public const string FragmentShaderChecker = @"
-			#version 430 core
-			in vec2 uv;
-			out vec4 color;
-			void main() {
-				vec2 uv10 = floor(uv * 10.0f);
-				if(1.0 > mod(uv10.x + uv10.y, 2.0f))
-					discard;		
-				color = vec4(1, 1, 0, 0);
-			}";
 		private IShader shader;
 
 		protected override void DisposeResources()

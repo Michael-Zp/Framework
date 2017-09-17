@@ -44,7 +44,6 @@ namespace Zenseless.Base
 		/// Serializes the obj into XML string.
 		/// </summary>
 		/// <param name="serializableObject">The object to be serialized.</param>
-		/// <param name="fileName_">The file name_.</param>
 		public static string ObjIntoXmlString(this object serializableObject)
 		{
 			if (ReferenceEquals(null,  serializableObject)) new ArgumentNullException("Null object given!");

@@ -10,7 +10,6 @@ namespace Zenseless.OpenGL
 	{
 		public const string ExceptionDataFileName = "fileName";
 
-
 		/// <summary>
 		/// Compiles and links vertex and fragment shaders from strings.
 		/// </summary>

@@ -9,7 +9,8 @@ namespace Zenseless.HLGL
 		/// <summary>
 		/// Initializes a new instance of the <see cref="ShaderException"/> class.
 		/// </summary>
-		/// <param name="msg">The error msg.</param>
+		/// <param name="msg">The error msg</param>
+		/// <param name="log">The shader log</param>
 		public ShaderException(string msg, string log) : base(msg)
 		{
 			ShaderLog = log;
@@ -24,7 +25,10 @@ namespace Zenseless.HLGL
 		/// <summary>
 		/// Initializes a new instance of the <see cref="ShaderException"/> class.
 		/// </summary>
+		/// <param name="shaderType">The type of the shader</param>
 		/// <param name="msg">The error msg.</param>
+		/// <param name="log">The shader log</param>
+		/// <param name="shaderCode">The source code of the shader</param>
 		public ShaderCompileException(ShaderType shaderType, string msg, string log, string shaderCode) : base(msg, log)
 		{
 			ShaderType = shaderType;

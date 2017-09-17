@@ -1,5 +1,4 @@
-﻿using Zenseless.Application;
-using Zenseless.Base;
+﻿using Zenseless.Base;
 using System.Collections.Generic;
 using System.ComponentModel.Composition;
 using System.ComponentModel.Composition.Hosting;
