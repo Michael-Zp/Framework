@@ -29,8 +29,11 @@ namespace LevelEditor
 				{
 					SaveLevelData(args[2]);
 					Close();
+					return;
 				}
 			}
+			var exe = this.GetType().Assembly.Location;
+			SaveLevelData(System.IO.Path.GetDirectoryName(exe) + "/level.data");
 		}
 
 		private void SaveLevelData(string fileName)

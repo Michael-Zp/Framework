@@ -17,17 +17,22 @@ namespace Example
 			var logic = new GameLogic();
 			var renderer = new View();
 			logic.NewPosition += (name, x, y) => renderer.UpdateSprites(name, x, y);
-			LoadLevelData(LevelData.level1, logic, renderer);
-
-			window.Resize += (width, height) => renderer.Resize(width, height);
-			window.Render += () => renderer.Render(logic.Bounds);
-			window.Update += (updatePeriod) => HandleInput(updatePeriod, logic);
+			try
+			{
+				LoadLevelData("level.data", logic, renderer);
+				window.Resize += (width, height) => renderer.Resize(width, height);
+				window.Render += () => renderer.Render(logic.Bounds);
+				window.Update += (updatePeriod) => HandleInput(updatePeriod, logic);
+			}
+			catch
+			{
+			}
 			window.Run();
 		}
 
-		private static void LoadLevelData(byte[] levelData, GameLogic logic, View renderer)
+		private static void LoadLevelData(string levelFile, GameLogic logic, View renderer)
 		{
-			using (var stream = new MemoryStream(levelData))
+			using (var stream = new FileStream(levelFile, FileMode.Open))
 			{
 				Level level = Serialize.ObjFromBinStream(stream) as Level;
 				//set level bounds
