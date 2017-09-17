@@ -1,10 +1,10 @@
-﻿using System.Windows;
-using System.Windows.Controls;
+﻿using LevelData;
 using System;
+using System.Windows;
+using System.Windows.Controls;
 using System.Windows.Shapes;
 using Zenseless.Base;
 using Zenseless.Geometry;
-using LevelData;
 
 namespace LevelEditor
 {
@@ -38,11 +38,11 @@ namespace LevelEditor
 			//do not use autosize for canvas -> set a fixed size
 			levelData.Bounds.SizeX = (float)canvas.ActualWidth;
 			levelData.Bounds.SizeY = (float)canvas.ActualHeight;
-			TraverseLogicalTree(canvas, string.Empty);
+			TraverseLogicalTree(canvas, canvas, string.Empty);
 			levelData.ObjIntoBinFile(fileName);
 		}
 
-		private void TraverseLogicalTree(DependencyObject dependencyObject, string parentName) //todo: move to tools class
+		private void TraverseLogicalTree(DependencyObject dependencyObject, Canvas canvas, string parentName) //todo: move to tools class
 		{
 			if (ReferenceEquals(null, dependencyObject)) return;
 			var childern = LogicalTreeHelper.GetChildren(dependencyObject);
@@ -52,34 +52,36 @@ namespace LevelEditor
 				if (typeof(Image) == type)
 				{
 					var image = child as Image;
-					Convert(image, canvas, parentName);
+					var sprite = CreateSprite(image, canvas, parentName);
+					levelData.Sprites.Add(sprite);
 				}
 				else if (typeof(Ellipse) == type)
 				{
-					var collider = child as Ellipse;
-					Convert(collider, parentName);
+					var collider = CreateCollider(child as Ellipse, canvas, parentName);
+					levelData.Add(collider);
 				}
 				var logicalChild = child as FrameworkElement;
-				TraverseLogicalTree(logicalChild, EditorTools.ResolveName(logicalChild.Name, parentName));
+				TraverseLogicalTree(logicalChild, canvas, EditorTools.ResolveName(logicalChild.Name, parentName));
 			}
 		}
 
-		private void Convert(Ellipse collider, string parentName)
+		private static ColliderCircle CreateCollider(Ellipse collider, Canvas canvas, string parentName)
 		{
 			var bounds = collider.ConvertBounds(canvas);
 			var circle = CircleExtensions.CreateFromBox(bounds);
-			levelData.Add(new ColliderCircle(EditorTools.ResolveName(collider.Name, parentName), circle));
+			return new ColliderCircle(EditorTools.ResolveName(collider.Name, parentName), circle);
 		}
 
-		private void Convert(Image image, Canvas canvas, string parentName)
+		private static Sprite CreateSprite(Image image, Canvas canvas, string parentName)
 		{
 			var bounds = image.ConvertBounds(canvas);
 			var layer = Canvas.GetZIndex(image);
-			var sprite = new Sprite(EditorTools.ResolveName(image.Name, parentName), bounds, layer);
-			sprite.TextureName = image.Source?.ToString();
-			//todo: register bitmap list
-			sprite.Bitmap = image.Source.ToBitmap();
-			levelData.Sprites.Add(sprite);
+			var sprite = new Sprite(EditorTools.ResolveName(image.Name, parentName), bounds, layer)
+			{
+				TextureName = image.Source?.ToString(),
+				Bitmap = image.Source.ToBitmap() //todo: register bitmap list
+			};
+			return sprite;
 		}
 	}
 }
