@@ -13,17 +13,25 @@
 		<tags>computergraphics real-time geometry mathematic vector matrix .net OpenGL GLSL</tags>
 		<dependencies>
       <dependency id="OpenTK" version="2.0" />
-			<dependency id="NAudio" version="1.8.2" />
+			<dependency id="NAudio" version="1.8.3" />
 		</dependencies>
 	</metadata>
 	<files>
 		<file src="..\bin\Debug\Zenseless.Application.dll" target="lib\net46" />
+		<file src="..\bin\Debug\Zenseless.Application.xml" target="lib\net46" />
 		<file src="..\bin\Debug\Zenseless.Base.dll" target="lib\net46" />
+		<file src="..\bin\Debug\Zenseless.Base.xml" target="lib\net46" />
 		<file src="..\bin\Debug\Zenseless.Geometry.dll" target="lib\net46" />
+		<file src="..\bin\Debug\Zenseless.Geometry.xml" target="lib\net46" />
 		<file src="..\bin\Debug\Zenseless.HLGL.dll" target="lib\net46" />
+		<file src="..\bin\Debug\Zenseless.HLGL.xml" target="lib\net46" />
 		<file src="..\bin\Debug\Zenseless.OpenGL.dll" target="lib\net46" />
+		<file src="..\bin\Debug\Zenseless.OpenGL.xml" target="lib\net46" />
 		<file src="..\bin\Debug\Zenseless.ShaderDebugging.dll" target="lib\net46" />
+		<file src="..\bin\Debug\Zenseless.ShaderDebugging.xml" target="lib\net46" />
 		<file src="..\bin\Debug\Zenseless.Sound.dll" target="lib\net46" />
+		<file src="..\bin\Debug\Zenseless.Sound.xml" target="lib\net46" />
 		<file src="..\bin\Debug\Zenseless.TimeTools.dll" target="lib\net46" />
+		<file src="..\bin\Debug\Zenseless.TimeTools.xml" target="lib\net46" />
 	</files>
 </package>
