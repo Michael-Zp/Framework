@@ -22,9 +22,8 @@ namespace Example
 			window.Run();
 			if(!ReferenceEquals(null, screenshot))
 			{
-				var saveDirectory = PathTools.GetNewAssemblyOutputDataPath();
-				Directory.CreateDirectory(saveDirectory);
-				screenshot.Save(saveDirectory + "output.png");
+				var name = Path.ChangeExtension(PathTools.GetCurrentProcessPath(), ".png");
+				screenshot.Save(name);
 				Clipboard.SetImage(screenshot);
 
 			}

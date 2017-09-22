@@ -8,10 +8,13 @@ using System.Xml.Serialization;
 
 namespace Zenseless.Base
 {
+	/// <summary>
+	/// Object serialization methods
+	/// </summary>
 	public static class Serialize
 	{
 		/// <summary>
-		/// Serializes the obj into SOAP format file.
+		/// Serializes the given instance into SOAP format file.
 		/// </summary>
 		/// <param name="serializableObject">The object to be serialized.</param>
 		/// <param name="fileName">The file name_.</param>
@@ -26,7 +29,7 @@ namespace Zenseless.Base
 		}
 
 		/// <summary>
-		/// Serializes the obj into XML file.
+		/// Serializes the given instance into XML file.
 		/// </summary>
 		/// <param name="serializableObject">The object to be serialized.</param>
 		/// <param name="fileName">The file name_.</param>
@@ -41,7 +44,7 @@ namespace Zenseless.Base
 		}
 
 		/// <summary>
-		/// Serializes the obj into XML string.
+		/// Serializes the given instance into XML string.
 		/// </summary>
 		/// <param name="serializableObject">The object to be serialized.</param>
 		public static string ObjIntoXmlString(this object serializableObject)
@@ -63,7 +66,7 @@ namespace Zenseless.Base
 		}
 
 		/// <summary>
-		/// Serializes the obj into binary file.
+		/// Serializes the given instance into  binary file.
 		/// </summary>
 		/// <param name="serializableObject">The object to be serialized.</param>
 		/// <param name="fileName">File name of the file to serialize to.</param>
@@ -76,7 +79,7 @@ namespace Zenseless.Base
 		}
 
 		/// <summary>
-		/// 
+		/// Serializes the given instance into the given stream.
 		/// </summary>
 		/// <param name="serializableObject">The object to be serialized.</param>
 		/// <param name="output">Stream to serialize to</param>
@@ -92,7 +95,7 @@ namespace Zenseless.Base
 		/// </summary>
 		/// <param name="fileName">The file name.</param>
 		/// <param name="type">The type of the class that will be deserialized.</param>
-		/// <returns>object if successfull</returns>
+		/// <returns>Deserializes class instance</returns>
 		public static object ObjFromXMLFile(string fileName, Type type)
 		{
 			using (StreamReader inFile = new StreamReader(fileName))
@@ -102,6 +105,12 @@ namespace Zenseless.Base
 			}
 		}
 
+		/// <summary>
+		/// Deserializes an new obj instance from an XML string.
+		/// </summary>
+		/// <param name="xmlString">XML string from which to deserialize.</param>
+		/// <param name="type">The type of the class that will be deserialized.</param>
+		/// <returns>Deserializes class instance</returns>
 		public static object ObjFromXmlString(string xmlString, Type type)
 		{
 			using (StringReader input = new StringReader(xmlString))
@@ -115,7 +124,7 @@ namespace Zenseless.Base
 		/// Deserializes an new obj instance from a binary file.
 		/// </summary>
 		/// <param name="fileName">The file name.</param>
-		/// <returns>object if successfull</returns>
+		/// <returns>Deserializes class instance</returns>
 		public static object ObjFromBinFile(string fileName)
 		{
 			using (FileStream inFile = new FileStream(fileName, FileMode.Open, FileAccess.Read))

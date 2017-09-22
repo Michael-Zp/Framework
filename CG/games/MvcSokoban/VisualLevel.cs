@@ -24,7 +24,7 @@ namespace MvcSokoban
 			tileTypes.Add(ElementType.Wall, new Tuple<Bitmap, int>(Resourcen.Wall_Beige, i++));
 
 			shdTexColor = context.CreateShader();
-			shdTexColor.FromStrings(Tools.ToString(Resourcen.texColorVert), Tools.ToString(Resourcen.texColorFrag));
+			shdTexColor.FromStrings(Converter.BytesToString(Resourcen.texColorVert), Converter.BytesToString(Resourcen.texColorFrag));
 
 			levelGeometry = new VAO();
 			var quadPos = new Vector2[4]

@@ -2,10 +2,19 @@
 
 namespace Zenseless.Base
 {
+	/// <summary>
+	/// Implements a default disposing behaviour as recommended by Microsoft.
+	/// </summary>
 	public abstract class Disposable : IDisposable
 	{
+		/// <summary>
+		/// Will be called from the default Dispose method.
+		/// </summary>
 		protected abstract void DisposeResources();
 
+		/// <summary>
+		/// Dispose status of the instance.
+		/// </summary>
 		public bool Disposed { get{ return disposed; } }
 
 		/// <summary>
