@@ -5,13 +5,13 @@ using System.Linq;
 
 namespace Tools
 {
-	public class ProjectResolveDMSDependencies
+	public class ProjectResolveZenselessDependencies
 	{
 		static void Main(string[] args)
 		{
 			if (args.Length != 2)
 			{
-				Console.WriteLine(nameof(ProjectResolveDMSDependencies) + " <sourceProjPath> <destProjPath>");
+				Console.WriteLine(nameof(ProjectResolveZenselessDependencies) + " <sourceProjPath> <destProjPath>");
 				return;
 			}
 			Execute(args[0], args[1]);

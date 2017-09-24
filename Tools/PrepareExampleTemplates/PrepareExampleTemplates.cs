@@ -35,7 +35,7 @@ namespace Tools
 			Debug.WriteLine(output);
 			var dir = Path.GetDirectoryName(sourceProjPath) + "/";
 			var newProj = dir + Path.GetFileNameWithoutExtension(destTemplateZipPath) + ".csproj";
-			ProjectResolveDMSDependencies.Execute(sourceProjPath, newProj);
+			ProjectResolveZenselessDependencies.Execute(sourceProjPath, newProj);
 			ProjToTemplate.Execute(newProj, destTemplateZipPath);
 			File.Delete(newProj);
 		}
