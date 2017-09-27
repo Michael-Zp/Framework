@@ -9,7 +9,7 @@ using System.Xml.Linq;
 
 namespace Tools
 {
-	public class ProjToTemplate
+	public static class ProjToTemplate
 	{
 		static void Main(string[] args)
 		{
@@ -45,8 +45,7 @@ namespace Tools
 
 				//add files
 				var dir = Path.GetDirectoryName(sourceProjPath) + Path.DirectorySeparatorChar;
-				var proj = new Project(sourceProjPath);
-				foreach (var file in Files(proj))
+				foreach (var file in Files(sourceProjPath))
 				{
 					zip.CreateEntryFromFile(dir + file, file);
 					xmlProjNode.Add(new XElement(ns + "ProjectItem", file));
@@ -59,8 +58,9 @@ namespace Tools
 			}
 		}
 
-		static IEnumerable<string> Files(Project proj)
+		static IEnumerable<string> Files(string projectFilePath)
 		{
+			var proj = new Project(projectFilePath);
 			return from item in proj.Items
 						   where IsFile(item.ItemType)
 						   select item.UnevaluatedInclude;

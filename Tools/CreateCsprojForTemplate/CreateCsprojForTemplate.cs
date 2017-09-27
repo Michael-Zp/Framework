@@ -1,17 +1,20 @@
 ﻿using Microsoft.Build.Evaluation;
 using NuGet;
 using System;
+using System.Collections.Generic;
+using System.IO;
 using System.Linq;
+using System.Xml.Linq;
 
 namespace Tools
 {
-	public class ProjectResolveZenselessDependencies
+	public static class CreateCsprojForTemplate
 	{
 		static void Main(string[] args)
 		{
 			if (args.Length != 2)
 			{
-				Console.WriteLine(nameof(ProjectResolveZenselessDependencies) + " <sourceProjPath> <destProjPath>");
+				Console.WriteLine($"{nameof(CreateCsprojForTemplate)} <sourceProjPath> <destProjPath>");
 				return;
 			}
 			Execute(args[0], args[1]);
@@ -26,6 +29,29 @@ namespace Tools
 			proj.AddPackage("Zenseless", GetLatestPackageVersion("Zenseless"));
 			proj.Save(destProjPath);
 			proj.ProjectCollection.UnloadProject(proj);
+			var xmlProj = XDocument.Load(destProjPath);
+			xmlProj.Set("ProjectGuid", "$guid1$");
+			xmlProj.Replace("OutputPath", $"..{Path.DirectorySeparatorChar}", "");
+			xmlProj.Save(destProjPath);
+		}
+
+		private static void Replace(this XDocument xmlProj, string element, string input, string output)
+		{
+			var ns = xmlProj.Root.Name.Namespace;
+			foreach (var xmlOutputPath in xmlProj.Descendants(ns + element))
+			{
+				var newValue = xmlOutputPath.Value.Replace(input, output);
+				xmlOutputPath.SetValue(newValue);
+			}
+		}
+
+		private static void Set(this XDocument xmlProj, string element, string value)
+		{
+			var ns = xmlProj.Root.Name.Namespace;
+			foreach (var xmlOutputPath in xmlProj.Descendants(ns + element))
+			{
+				xmlOutputPath.SetValue(value);
+			}
 		}
 
 		//private static string GetPackageVersion()

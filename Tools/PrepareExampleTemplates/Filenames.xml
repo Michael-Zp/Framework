@@ -2,10 +2,10 @@
 <FileNames>
 	<FromTo>
 		<Source>..\..\CG\Examples\MinimalExample\MinimalExample.csproj</Source>
-		<Destination>..\..\Tools\Zenseless.VSX\ProjectTemplates\CG Exercise 1.zip</Destination>
+		<Destination>..\..\Tools\Zenseless.VSX\ProjectTemplates\CG 1. Exercise.zip</Destination>
 	</FromTo>
 	<FromTo>
 		<Source>..\..\CG\Examples\CollisionExample\CollisionExample.csproj</Source>
-		<Destination>..\..\Tools\Zenseless.VSX\ProjectTemplates\CG Exercise 2.zip</Destination>
+		<Destination>..\..\Tools\Zenseless.VSX\ProjectTemplates\CG 2. Exercise.zip</Destination>
 	</FromTo>
 </FileNames>
