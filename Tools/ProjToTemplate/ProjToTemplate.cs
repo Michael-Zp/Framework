@@ -39,7 +39,7 @@ namespace Tools
 				var xmlDoc = XDocument.Parse(Encoding.UTF8.GetString(ResTemplate.MyTemplate));
 				var ns = xmlDoc.Root.Name.Namespace;
 				xmlDoc.Descendants(ns + "Name").First().SetValue(Path.GetFileNameWithoutExtension(projFileName));
-				xmlDoc.Descendants(ns + "Description").First().SetValue("Example for lecture CG");
+				xmlDoc.Descendants(ns + "Description").First().SetValue("Exercise for lecture CG");
 				var xmlProjNode = xmlDoc.Descendants(ns + "Project").First();
 				xmlProjNode.Add(new XAttribute("File", projFileName));
 

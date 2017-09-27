@@ -28,18 +28,18 @@ namespace Tools
 			proj.ProjectCollection.UnloadProject(proj);
 		}
 
-		private static string GetPackageVersion()
-		{
-			//var xmlDoc = XDocument.Load(@"..\..\_common\Zenseless.nuspec");
-			//var version = xmlDoc.Descendants("version").First();
-			//return version.ToString();
-			return "0.1";
-		}
+		//private static string GetPackageVersion()
+		//{
+		//	var xmlDoc = XDocument.Load(@"..\..\_common\Zenseless.nuspec"); //todo: resolve path when run from cmd; currently path error;
+		//	var version = xmlDoc.Descendants("version").First();
+		//	return version.ToString();
+		//}
 
 		private static string GetLatestPackageVersion(string packageID)
 		{
 			IPackageRepository repo = PackageRepositoryFactory.Default.CreateRepository("https://packages.nuget.org/api/v2");
 			var version = repo.FindPackagesById(packageID).Max(p => p.Version);
+			Console.WriteLine($"Using {packageID} version {version}");
 			return version.ToString();
 		}
 	}

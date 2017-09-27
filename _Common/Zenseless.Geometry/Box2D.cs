@@ -10,7 +10,7 @@ namespace Zenseless.Geometry
 	public class Box2D : IEquatable<Box2D>
 	{
 		/// <summary>
-		/// creates an AABR, an 2D axis aligned bounding box
+		/// Creates an 2D axis aligned bounding box
 		/// </summary>
 		/// <param name="minX">minimal x coordinate</param>
 		/// <param name="minY">minimal y coordinate</param>
@@ -26,6 +26,10 @@ namespace Zenseless.Geometry
 			this.SizeY = sizeY;
 		}
 
+		/// <summary>
+		/// Creates an 2D axis aligned bounding box.
+		/// </summary>
+		/// <param name="rectangle">Source to copy.</param>
 		public Box2D(Box2D rectangle)
 		{
 			this.MinX = rectangle.MinX;
@@ -34,23 +38,46 @@ namespace Zenseless.Geometry
 			this.SizeY = rectangle.SizeY;
 		}
 
+		/// <summary>
+		/// Box from coordinates [0,0] to [1,1].
+		/// </summary>
 		public static readonly Box2D BOX01 = new Box2D(0, 0, 1, 1);
+		/// <summary>
+		/// Box from coordinates [0,0] to [0,0].
+		/// </summary>
 		public static readonly Box2D EMPTY = new Box2D(0, 0, 0, 0);
 
+		/// <summary>
+		/// Size of the box in x-direction.
+		/// </summary>
 		public float SizeX { get; set; }
-
+		/// <summary>
+		/// Size of the box in y-direction.
+		/// </summary>
 		public float SizeY { get; set; }
-
+		/// <summary>
+		/// Minimal x coordinate
+		/// </summary>
 		public float MinX { get; set; }
-
+		/// <summary>
+		/// Minimal y coordinate
+		/// </summary>
 		public float MinY { get; set; }
-
+		/// <summary>
+		/// Maximal x coordinate
+		/// </summary>
 		public float MaxX { get { return MinX + SizeX; } set { SizeX = value - MinX; } }
-
+		/// <summary>
+		/// Maximal y coordinate
+		/// </summary>
 		public float MaxY { get { return MinY + SizeY; } set { SizeY = value - MinY; } }
-
+		/// <summary>
+		/// X-coordinate of the center of the box
+		/// </summary>
 		public float CenterX { get { return MinX + 0.5f * SizeX; } set { MinX = value - 0.5f * SizeX; } }
-
+		/// <summary>
+		/// Y-coordinate of the center of the box
+		/// </summary>
 		public float CenterY { get { return MinY + 0.5f * SizeY; } set { MinY = value - 0.5f * SizeY; } }
 
 		public static bool operator==(Box2D a, Box2D b)

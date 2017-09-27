@@ -1,43 +1,49 @@
 ﻿using System;
 using System.Diagnostics;
 using System.IO;
-using System.Runtime.CompilerServices;
+using System.Linq;
+using System.Xml.Linq;
 
 namespace Tools
 {
 	class PrepareExampleTemplates
 	{
-		public static string GetSourceFilePath([CallerFilePath] string doNotAssignCallerFilePath = "")
-		{
-			return doNotAssignCallerFilePath;
-		}
-
 		static void Main(string[] args)
 		{
-			var thisDir = Path.GetDirectoryName(GetSourceFilePath()) + "/";
-			var srcDir = thisDir + "../../CG/Examples/";
-			var dstDir = thisDir + "../Zenseless.VSX/ProjectTemplates/";
-			var examples = new string[] {
-				"MinimalExample", "CollisionExample", "TextureExample", "TextureWrapExample",
-				"TextureCoordExample", "TextureFontExample", "TextureAnimExample"};
-			int i = 1;
-			foreach(var example in examples)
+			var path = Path.GetFullPath(args[0]);
+			var xmlExamples = XDocument.Load(path);
+			var dir = Path.GetDirectoryName(path) + Path.DirectorySeparatorChar;
+			foreach(var xmlFromTo in xmlExamples.Descendants("FromTo"))
 			{
-				Execute(srcDir + example + "/" + example + ".csproj", dstDir + "CG " + i + ". Example.zip");
-				i++;
+				var source = xmlFromTo.Descendants("Source").First().Value;
+				var destination = xmlFromTo.Descendants("Destination").First().Value;
+				Execute(Path.GetFullPath(dir + source), Path.GetFullPath(dir + destination));
 			}
 		}
 
 		static void Execute(string sourceProjPath, string destTemplateZipPath)
 		{
 			var output = $"Processing {sourceProjPath} and creating {destTemplateZipPath}";
+			Log(output);
+			var dir = Path.GetDirectoryName(sourceProjPath) + Path.DirectorySeparatorChar;
+			var newProj = dir + Path.GetFileNameWithoutExtension(destTemplateZipPath) + ".csproj";
+			try
+			{
+				if (newProj == sourceProjPath) throw new ArgumentException($"{nameof(sourceProjPath)} and {nameof(destTemplateZipPath)} are required to have different file names");
+				ProjectResolveZenselessDependencies.Execute(sourceProjPath, newProj);
+				ProjToTemplate.Execute(newProj, destTemplateZipPath);
+				File.Delete(newProj);
+			}
+			catch (Exception e)
+			{
+				Log(e.Message);
+			}
+		}
+
+		private static void Log(string output)
+		{
 			Console.WriteLine(output);
 			Debug.WriteLine(output);
-			var dir = Path.GetDirectoryName(sourceProjPath) + "/";
-			var newProj = dir + Path.GetFileNameWithoutExtension(destTemplateZipPath) + ".csproj";
-			ProjectResolveZenselessDependencies.Execute(sourceProjPath, newProj);
-			ProjToTemplate.Execute(newProj, destTemplateZipPath);
-			File.Delete(newProj);
 		}
 	}
 }
