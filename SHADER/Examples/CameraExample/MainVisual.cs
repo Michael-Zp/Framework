@@ -1,7 +1,8 @@
-﻿using DMS.Geometry;
-using DMS.OpenGL;
+﻿using Zenseless.Geometry;
+using Zenseless.HLGL;
+using Zenseless.OpenGL;
 using OpenTK;
-using OpenTK.Graphics.OpenGL;
+using OpenTK.Graphics.OpenGL4;
 using System;
 using System.Diagnostics;
 
@@ -21,7 +22,7 @@ namespace Example
 			timeSource.Start();
 		}
 
-		public void ShaderChanged(string name, Shader shader)
+		public void ShaderChanged(string name, IShader shader)
 		{
 			if (ShaderName != name) return;
 			this.shader = shader;
@@ -35,9 +36,9 @@ namespace Example
 			var time = (float)timeSource.Elapsed.TotalSeconds;
 			GL.Clear(ClearBufferMask.ColorBufferBit | ClearBufferMask.DepthBufferBit);
 			shader.Activate();
-			GL.Uniform1(shader.GetUniformLocation("time"), time);
+			GL.Uniform1(shader.GetResourceLocation(ShaderResourceType.Uniform, "time"), time);
 			float[] cam = camera.CalcMatrix().ToArray();
-			GL.UniformMatrix4(shader.GetUniformLocation("camera"), 1, false, cam);
+			GL.UniformMatrix4(shader.GetResourceLocation(ShaderResourceType.Uniform, "camera"), 1, false, cam);
 			geometry.Draw(particelCount);
 			shader.Deactivate();
 		}
@@ -46,11 +47,11 @@ namespace Example
 		private CameraOrbit camera = new CameraOrbit();
 		private const int particelCount = 500;
 
-		private Shader shader;
+		private IShader shader;
 		private Stopwatch timeSource = new Stopwatch();
 		private VAO geometry;
 
-		private void UpdateMesh(Shader shader)
+		private void UpdateMesh(IShader shader)
 		{
 			Mesh mesh = Obj2Mesh.FromObj(Resourcen.suzanne);
 			geometry = VAOLoader.FromMesh(mesh, shader);
@@ -64,7 +65,7 @@ namespace Example
 			{
 				instancePositions[i] = new Vector3(RndCoord(), RndCoord(), RndCoord());
 			}
-			geometry.SetAttribute(shader.GetAttributeLocation("instancePosition"), instancePositions, VertexAttribPointerType.Float, 3, true);
+			geometry.SetAttribute(shader.GetResourceLocation(ShaderResourceType.Attribute, "instancePosition"), instancePositions, VertexAttribPointerType.Float, 3, true);
 
 			Func<float> RndSpeed = () => (Rnd01() - 0.5f);
 			var instanceSpeeds = new Vector3[particelCount];
@@ -72,7 +73,7 @@ namespace Example
 			{
 				instanceSpeeds[i] = new Vector3(RndSpeed(), RndSpeed(), RndSpeed());
 			}
-			geometry.SetAttribute(shader.GetAttributeLocation("instanceSpeed"), instanceSpeeds, VertexAttribPointerType.Float, 3, true);
+			geometry.SetAttribute(shader.GetResourceLocation(ShaderResourceType.Attribute, "instanceSpeed"), instanceSpeeds, VertexAttribPointerType.Float, 3, true);
 		}
 	}
 }

@@ -1,10 +1,11 @@
-﻿using DMS.OpenGL;
-using DMS.Geometry;
+﻿using Zenseless.OpenGL;
+using Zenseless.Geometry;
 using OpenTK;
-using OpenTK.Graphics.OpenGL;
+using OpenTK.Graphics.OpenGL4;
 using System;
 using System.Collections.Generic;
 using System.Diagnostics;
+using Zenseless.HLGL;
 
 namespace Example
 {
@@ -21,7 +22,7 @@ namespace Example
 
 		public static readonly string ShaderName = nameof(shader);
 
-		public void ShaderChanged(string name, Shader shader)
+		public void ShaderChanged(string name, IShader shader)
 		{
 			if (ShaderName != name) return;
 			this.shader = shader;
@@ -29,13 +30,13 @@ namespace Example
 			Mesh mesh = Obj2Mesh.FromObj(Resourcen.suzanne);
 			geometryBody = VAOLoader.FromMesh(mesh, shader);
 
-			var plane = Meshes.CreateQuad(100, 100, 10, 10);
+			var plane = Meshes.CreatePlane(100, 100, 10, 10);
 			var xForm = new Transformation();
 			xForm.TranslateLocal(0, -20, 0);
 			geometryPlane = VAOLoader.FromMesh(plane.Transform(xForm), shader);
 			//for AMD graphics cards
-			geometryPlane.SetAttribute(shader.GetAttributeLocation("instancePosition"), new Vector3[] { Vector3.Zero }, VertexAttribPointerType.Float, 3, true);
-			geometryPlane.SetAttribute(shader.GetAttributeLocation("instanceScale"), new float[] { 1 }, VertexAttribPointerType.Float, 1, true);
+			geometryPlane.SetAttribute(shader.GetResourceLocation(ShaderResourceType.Attribute, "instancePosition"), new Vector3[] { Vector3.Zero }, VertexAttribPointerType.Float, 3, true);
+			geometryPlane.SetAttribute(shader.GetResourceLocation(ShaderResourceType.Attribute, "instanceScale"), new float[] { 1 }, VertexAttribPointerType.Float, 1, true);
 
 		}
 
@@ -51,22 +52,22 @@ namespace Example
 				instancePositions.Add(body.Location);
 				instanceScale.Add((float)Math.Pow(body.Mass, 0.33f));
 			}
-			geometryBody.SetAttribute(shader.GetAttributeLocation("instancePosition"), instancePositions.ToArray(), VertexAttribPointerType.Float, 3, true);
-			geometryBody.SetAttribute(shader.GetAttributeLocation("instanceScale"), instanceScale.ToArray(), VertexAttribPointerType.Float, 1, true);
+			geometryBody.SetAttribute(shader.GetResourceLocation(ShaderResourceType.Attribute, "instancePosition"), instancePositions.ToArray(), VertexAttribPointerType.Float, 3, true);
+			geometryBody.SetAttribute(shader.GetResourceLocation(ShaderResourceType.Attribute, "instanceScale"), instanceScale.ToArray(), VertexAttribPointerType.Float, 1, true);
 
 			var time = (float)timeSource.Elapsed.TotalSeconds;
 
 			GL.Clear(ClearBufferMask.ColorBufferBit | ClearBufferMask.DepthBufferBit);
 			shader.Activate();
-			GL.Uniform1(shader.GetUniformLocation("time"), time);
+			GL.Uniform1(shader.GetResourceLocation(ShaderResourceType.Uniform, "time"), time);
 			Matrix4 cam = camera.CalcMatrix().ToOpenTK();
-			GL.UniformMatrix4(shader.GetUniformLocation("camera"), true, ref cam);
+			GL.UniformMatrix4(shader.GetResourceLocation(ShaderResourceType.Uniform, "camera"), true, ref cam);
 			geometryBody.Draw(instancePositions.Count);
 			//geometryPlane.Draw(); //todo student: uncomment for gravity
 			shader.Deactivate();
 		}
 
-		private Shader shader;
+		private IShader shader;
 		private Stopwatch timeSource = new Stopwatch();
 		private VAO geometryBody, geometryPlane;
 		private CameraOrbit camera = new CameraOrbit();

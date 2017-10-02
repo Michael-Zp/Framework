@@ -1,7 +1,8 @@
-﻿using DMS.OpenGL;
-using DMS.Geometry;
+﻿using Zenseless.OpenGL;
+using Zenseless.Geometry;
 using OpenTK;
-using OpenTK.Graphics.OpenGL;
+using OpenTK.Graphics.OpenGL4;
+using Zenseless.HLGL;
 
 namespace Example
 {
@@ -21,7 +22,7 @@ namespace Example
 		public static readonly string ShaderName = nameof(shader);
 		public CameraOrbit OrbitCamera { get { return camera; } }
 
-		public void ShaderChanged(string name, Shader shader)
+		public void ShaderChanged(string name, IShader shader)
 		{
 			if (ShaderName != name) return;
 			this.shader = shader;
@@ -36,13 +37,13 @@ namespace Example
 			if (ReferenceEquals(shader, null)) return;
 			GL.Clear(ClearBufferMask.ColorBufferBit | ClearBufferMask.DepthBufferBit);
 			shader.Activate();
-			GL.Uniform3(shader.GetUniformLocation("ambient"), new Vector3(0.1f));
-			GL.Uniform3(shader.GetUniformLocation("lightPosition"), new Vector3(0, 0.9f, -0.5f));
-			GL.Uniform3(shader.GetUniformLocation("lightColor"), new Vector3(0.8f));
+			GL.Uniform3(shader.GetResourceLocation(ShaderResourceType.Uniform, "ambient"), new Vector3(0.1f));
+			GL.Uniform3(shader.GetResourceLocation(ShaderResourceType.Uniform, "lightPosition"), new Vector3(0, 0.9f, -0.5f));
+			GL.Uniform3(shader.GetResourceLocation(ShaderResourceType.Uniform, "lightColor"), new Vector3(0.8f));
 			var cam = camera.CalcMatrix().ToOpenTK();
-			GL.UniformMatrix4(shader.GetUniformLocation("camera"), true, ref cam);
-			GL.Uniform3(shader.GetUniformLocation("cameraPosition"), camera.CalcPosition().ToOpenTK());
-			var bindingIndex = shader.GetUniformBufferBindingIndex("bufferMaterials");
+			GL.UniformMatrix4(shader.GetResourceLocation(ShaderResourceType.Uniform, "camera"), true, ref cam);
+			GL.Uniform3(shader.GetResourceLocation(ShaderResourceType.Uniform, "cameraPosition"), camera.CalcPosition().ToOpenTK());
+			var bindingIndex = shader.GetResourceLocation(ShaderResourceType.UniformBuffer, "bufferMaterials");
 			bufferMaterials.ActivateBind(bindingIndex);
 			geometry.Draw();
 			bufferMaterials.Deactivate();
@@ -51,7 +52,7 @@ namespace Example
 
 		private CameraOrbit camera = new CameraOrbit();
 		private BufferObject bufferMaterials = new BufferObject(BufferTarget.UniformBuffer);
-		private Shader shader;
+		private IShader shader;
 		private VAO geometry;
 	}
 }

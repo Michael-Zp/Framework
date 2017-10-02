@@ -1,16 +1,22 @@
-﻿using DMS.OpenGL;
-using DMS.Geometry;
+﻿using Zenseless.OpenGL;
+using Zenseless.Geometry;
 using OpenTK.Graphics.OpenGL;
 using System;
 using System.Collections.Generic;
+using Zenseless.HLGL;
 
 namespace MiniGalaxyBirds
 {
 	public class Renderer : IRenderer
 	{
-		public Renderer() { }
+		public Renderer()
+		{
+			GL.Enable(EnableCap.Blend);
+			GL.BlendFunc(BlendingFactorSrc.SrcAlpha, BlendingFactorDest.OneMinusSrcAlpha);
+			GL.Enable(EnableCap.Texture2D); //todo: only for non shader pipeline relevant -> remove at some point
+		}
 
-		public void Register(string type, Texture texture)
+		public void Register(string type, ITexture texture)
 		{
 			this.registeredTypes[type] = texture;
 		}
@@ -32,8 +38,7 @@ namespace MiniGalaxyBirds
 
 		public IDrawable CreateDrawable(string type, Box2D frame)
 		{
-			Texture tex;
-			if (this.registeredTypes.TryGetValue(type, out tex))
+			if (this.registeredTypes.TryGetValue(type, out ITexture tex))
 			{
 				IDrawable drawable = new Sprite(tex, frame);
 				drawables.Add(drawable);
@@ -44,8 +49,7 @@ namespace MiniGalaxyBirds
 
 		public IDrawable CreateDrawable(string type, Box2D frame, IAnimation animation)
 		{
-			Texture tex;
-			if (this.registeredTypes.TryGetValue(type, out tex))
+			if (this.registeredTypes.TryGetValue(type, out ITexture tex))
 			{
 				IDrawable drawable = new AnimatedSprite(tex, frame, animation);
 				drawables.Add(drawable);
@@ -63,8 +67,6 @@ namespace MiniGalaxyBirds
 		{
 			GL.Clear(ClearBufferMask.ColorBufferBit);
 			GL.LoadIdentity();
-			GL.Enable(EnableCap.Blend);
-			GL.BlendFunc(BlendingFactorSrc.SrcAlpha, BlendingFactorDest.OneMinusSrcAlpha);
 			if (!ReferenceEquals(null,  clipFrame))
 			{
 				foreach (IDrawable drawable in drawables)
@@ -83,7 +85,6 @@ namespace MiniGalaxyBirds
 				}
 			}
 			Print(-0.15f, 0.0f, 0.0f, 0.04f, points.ToString());
-			GL.Disable(EnableCap.Blend);
 		}
 
 		public void Print(float x, float y, float z, float size, string text)
@@ -95,7 +96,7 @@ namespace MiniGalaxyBirds
 			font.Print(x, y, z, size, text);
 		}
 
-		private readonly Dictionary<string, Texture> registeredTypes = new Dictionary<string, Texture>();
+		private readonly Dictionary<string, ITexture> registeredTypes = new Dictionary<string, ITexture>();
 		private readonly HashSet<IDrawable> drawables = new HashSet<IDrawable>();
 
 		private TextureFont font = null;

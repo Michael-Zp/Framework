@@ -1,11 +1,11 @@
-﻿using DMS.OpenGL;
-using DMS.Geometry;
+﻿using Zenseless.OpenGL;
+using Zenseless.Geometry;
 using OpenTK;
 using OpenTK.Graphics.OpenGL;
 using OpenTK.Input;
 using System;
 using System.Drawing;
-using DMS.Application;
+using Zenseless.Application;
 
 namespace Pong
 {
@@ -14,11 +14,11 @@ namespace Pong
 		[STAThread]
 		private static void Main()
 		{
-			var app = new ExampleApplication();
+			var window = new ExampleWindow();
 			var game = new Game();
-			app.Update += game.Update;
-			app.Render += game.Render;
-			app.Run();
+			window.Update += game.Update;
+			window.Render += game.Render;
+			window.Run();
 		}
 
 		private Game()
@@ -37,8 +37,8 @@ namespace Pong
 
 		private void ResetBall(bool toPlayer2)
 		{
-			ball.X = 0.0f;
-			ball.Y = 0.0f;
+			ball.MinX = 0.0f;
+			ball.MinY = 0.0f;
 			ballV = new Vector2(toPlayer2 ? 1.0f : -1.0f, 0.0f);
 		}
 
@@ -59,7 +59,6 @@ namespace Pong
 		{
 			float vY = (paddle.CenterY - ball.CenterY) / (0.5f * paddle.SizeY);
 			vY = OpenTK.MathHelper.Clamp(vY, -2.0f, 2.0f);
-			Console.WriteLine(vY);
 			return vY;
 		}
 
@@ -71,6 +70,7 @@ namespace Pong
 			DrawCircle(ball.CenterX, ball.CenterY, 0.5f * ball.SizeX);
 			GL.Enable(EnableCap.Blend);
 			GL.BlendFunc(BlendingFactorSrc.SrcAlpha, BlendingFactorDest.OneMinusSrcAlpha);
+			GL.Enable(EnableCap.Texture2D); //todo: only for non shader pipeline relevant -> remove at some point
 			GL.Color4(1.0, 1.0, 1.0, 1.0);
 			string score = player1Points.ToString() + '-' + player2Points.ToString();
 			font.Print(-0.5f * font.Width(score, 0.1f), -0.9f, 0.0f, 0.1f, score);
@@ -84,18 +84,18 @@ namespace Pong
 				ResetBall(true);
 			}
 
-			paddle1.Y = MovePaddle(paddle1.Y, updatePeriod, Keyboard.GetState()[Key.Q], Keyboard.GetState()[Key.A]);
-			paddle2.Y = MovePaddle(paddle2.Y, updatePeriod, Keyboard.GetState()[Key.O], Keyboard.GetState()[Key.L]);
+			paddle1.MinY = MovePaddle(paddle1.MinY, updatePeriod, Keyboard.GetState()[Key.Q], Keyboard.GetState()[Key.A]);
+			paddle2.MinY = MovePaddle(paddle2.MinY, updatePeriod, Keyboard.GetState()[Key.O], Keyboard.GetState()[Key.L]);
 			//move ball
-			ball.X += updatePeriod * ballV.X;
-			ball.Y += updatePeriod * ballV.Y;
+			ball.MinX += updatePeriod * ballV.X;
+			ball.MinY += updatePeriod * ballV.Y;
 			//reflect ball
-			if (ball.MaxY > 1.0f || ball.Y < -1.0)
+			if (ball.MaxY > 1.0f || ball.MinY < -1.0)
 			{
 				ballV.Y = -ballV.Y;
 			}
 			//points
-			if (ball.X > 1.0f) 
+			if (ball.MinX > 1.0f) 
 			{
 				++player1Points;
 				ResetBall(false);
@@ -135,10 +135,10 @@ namespace Pong
 		{
 			GL.Begin(PrimitiveType.Quads);
 			GL.Color3(Color.Green);
-			GL.Vertex2(frame.X, frame.Y);
-			GL.Vertex2(frame.MaxX, frame.Y);
+			GL.Vertex2(frame.MinX, frame.MinY);
+			GL.Vertex2(frame.MaxX, frame.MinY);
 			GL.Vertex2(frame.MaxX, frame.MaxY);
-			GL.Vertex2(frame.X, frame.MaxY);
+			GL.Vertex2(frame.MinX, frame.MaxY);
 			GL.End();
 		}
 	}

@@ -1,9 +1,10 @@
-﻿using DMS.OpenGL;
-using OpenTK.Graphics.OpenGL;
+﻿using Zenseless.OpenGL;
+using OpenTK.Graphics.OpenGL4;
 using System;
 using System.Numerics;
 using System.Diagnostics;
-using DMS.Geometry;
+using Zenseless.Geometry;
+using Zenseless.HLGL;
 
 namespace Example
 {
@@ -36,36 +37,36 @@ namespace Example
 
 		public CameraOrbit OrbitCamera { get { return camera; } }
 
-		public void ShaderChanged(string name, Shader shader)
+		public void ShaderChanged(string name, IShader shader)
 		{
 			if (ShaderName != name) return;
 			this.shader = shader;
 		}
 
-		public void Render()
+		public double Render()
 		{
-			if (ReferenceEquals(null, shader)) return;
+			if (ReferenceEquals(null, shader)) return 0;
 			var time = (float)timeSource.Elapsed.TotalSeconds;
 			var deltaTime = time - lastRenderTime;
 			lastRenderTime = time;
-			Console.Write(Math.Round(timeQuery.ResultLong * 1e-6, 2));
-			Console.WriteLine("msec");
+			var timerQueryResult = timeQuery.ResultLong * 1e-6;
 			timeQuery.Activate(QueryTarget.TimeElapsed);
 			GL.Clear(ClearBufferMask.ColorBufferBit | ClearBufferMask.DepthBufferBit);
 			shader.Activate();
 			var cam = camera.CalcMatrix().ToOpenTK();
-			GL.UniformMatrix4(shader.GetUniformLocation("camera"), true, ref cam);
-			GL.Uniform1(shader.GetUniformLocation("deltaTime"), deltaTime);
-			GL.Uniform1(shader.GetUniformLocation("particelCount"), particelCount);
-			var bindingIndex = shader.GetShaderStorageBufferBindingIndex("BufferParticle");
+			GL.UniformMatrix4(shader.GetResourceLocation(ShaderResourceType.Uniform, "camera"), true, ref cam);
+			GL.Uniform1(shader.GetResourceLocation(ShaderResourceType.Uniform, "deltaTime"), deltaTime);
+			GL.Uniform1(shader.GetResourceLocation(ShaderResourceType.Uniform, "particelCount"), particelCount);
+			var bindingIndex = shader.GetResourceLocation(ShaderResourceType.RWBuffer, "BufferParticle");
 			bufferParticles.ActivateBind(bindingIndex);
 			GL.DrawArrays(PrimitiveType.Points, 0, particelCount);
 			bufferParticles.Deactivate();
 			shader.Deactivate();
 			timeQuery.Deactivate();
+			return timerQueryResult;
 		}
 
-		private Shader shader;
+		private IShader shader;
 		private BufferObject bufferParticles;
 		private QueryObject timeQuery = new QueryObject();
 		private Stopwatch timeSource = new Stopwatch();

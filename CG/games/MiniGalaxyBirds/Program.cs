@@ -1,5 +1,5 @@
-﻿using DMS.Application;
-using DMS.OpenGL;
+﻿using Zenseless.Application;
+using Zenseless.OpenGL;
 using OpenTK.Input;
 using System;
 using System.Diagnostics;
@@ -12,19 +12,19 @@ namespace MiniGalaxyBirds
 		[STAThread]
 		private static void Main()
 		{
-			var app = new ExampleApplication();
+			var window = new ExampleWindow();
 			var renderer = new Renderer();
 			LoadResources(renderer);
 			GameLogic gameLogic = new GameLogic(renderer);
 
 			Stopwatch timeSource = new Stopwatch();
 
-			app.Update += (t) => HandleInput(gameLogic, (float)timeSource.Elapsed.TotalSeconds);
-			app.Resize += renderer.ResizeWindow;
-			app.Render += () => renderer.DrawScreen(GameLogic.visibleFrame, gameLogic.Points);
+			window.Update += (t) => HandleInput(gameLogic, (float)timeSource.Elapsed.TotalSeconds);
+			window.Resize += renderer.ResizeWindow;
+			window.Render += () => renderer.DrawScreen(GameLogic.visibleFrame, gameLogic.Points);
 
 			timeSource.Start();
-			app.Run();
+			window.Run();
 		}
 
 		private static void LoadResources(Renderer renderer)

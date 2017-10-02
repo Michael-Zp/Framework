@@ -1,7 +1,8 @@
-﻿using DMS.Geometry;
-using DMS.OpenGL;
+﻿using Zenseless.Geometry;
+using Zenseless.HLGL;
+using Zenseless.OpenGL;
 using OpenTK.Graphics;
-using OpenTK.Graphics.OpenGL;
+using OpenTK.Graphics.OpenGL4;
 
 namespace Example
 {
@@ -10,8 +11,8 @@ namespace Example
 		public MainVisual()
 		{
 			envMap = TextureLoader.FromBitmap(Resourcen.beach);
-			envMap.WrapMode(TextureWrapMode.MirroredRepeat);
-			envMap.FilterLinear();
+			envMap.WrapFunction = TextureWrapFunction.MirroredRepeat;
+			envMap.Filter = TextureFilterMode.Linear;
 
 			camera.NearClip = 0.01f;
 			camera.FarClip = 50;
@@ -25,7 +26,7 @@ namespace Example
 
 		public CameraOrbit OrbitCamera { get { return camera; } }
 
-		public void ShaderChanged(string name, Shader shader)
+		public void ShaderChanged(string name, IShader shader)
 		{
 			if (ShaderName != name) return;
 			this.shader = shader;
@@ -44,8 +45,8 @@ namespace Example
 			envMap.Activate();
 			camera.FovY = MathHelper.Clamp(camera.FovY, 0.1f, 175f);
 			var cam = camera.CalcMatrix().ToOpenTK();
-			GL.UniformMatrix4(shader.GetUniformLocation("camera"), true, ref cam);
-			GL.Uniform3(shader.GetUniformLocation("cameraPosition"), camera.CalcPosition().ToOpenTK());
+			GL.UniformMatrix4(shader.GetResourceLocation(ShaderResourceType.Uniform, "camera"), true, ref cam);
+			GL.Uniform3(shader.GetResourceLocation(ShaderResourceType.Uniform, "cameraPosition"), camera.CalcPosition().ToOpenTK());
 			geometry.Draw();
 			envMap.Deactivate();
 			shader.Deactivate();
@@ -54,8 +55,8 @@ namespace Example
 		public static readonly string ShaderName = nameof(shader);
 		private CameraOrbit camera = new CameraOrbit();
 
-		private Shader shader;
-		private Texture envMap;
+		private IShader shader;
+		private ITexture envMap;
 		private VAO geometry;
 	}
 }

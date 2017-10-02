@@ -1,4 +1,4 @@
-﻿using DMS.Application;
+﻿using Zenseless.Application;
 using OpenTK.Input;
 using System;
 
@@ -9,14 +9,16 @@ namespace Example
 		[STAThread]
 		private static void Main()
 		{
-			var app = new ExampleApplication();
+			var app = new ExampleWindow();
 			Resources.LoadResources(app.ResourceManager);
-			var visual = new MainVisual();
+			var visual = new MainVisual(app.RenderContext);
 			Action<MouseEventArgs> updateMouseState = (a) => 
 			{
-				var mouseState = new MouseState();
-				mouseState.position = app.CalcNormalized(a.X, a.Y);
-				mouseState.drawState = GetDrawState(a.Mouse);
+				var mouseState = new MouseState()
+				{
+					position = app.CalcNormalized(a.X, a.Y),
+					drawState = GetDrawState(a.Mouse)
+				};
 				visual.MouseState = mouseState;
 			};
 

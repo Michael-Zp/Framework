@@ -1,4 +1,4 @@
-﻿using DMS.Application;
+﻿using Zenseless.Application;
 using OpenTK.Input;
 using System;
 using System.Diagnostics;
@@ -10,7 +10,7 @@ namespace MvcSpaceInvaders
 		public Controller()
 		{
 			logic = new GameLogic();
-			visual = new Visual();
+			view = new View();
 			sound = new Sound();
 			logic.OnShoot += (sender, args) => { sound.Shoot(); };
 			logic.OnEnemyDestroy += (sender, args) => { sound.DestroyEnemy(); };
@@ -21,7 +21,7 @@ namespace MvcSpaceInvaders
 
 		private void Render()
 		{
-			visual.DrawScreen(logic.Enemies, logic.Bullets, logic.Player);
+			view.DrawScreen(logic.Enemies, logic.Bullets, logic.Player);
 		}
 
 		private void Update(float updatePeriod)
@@ -32,18 +32,18 @@ namespace MvcSpaceInvaders
 		}
 
 		private GameLogic logic;
-		private Visual visual;
+		private View view;
 		private Sound sound;
 		private Stopwatch timeSource = new Stopwatch();
 
 		[STAThread]
 		private static void Main()
 		{
-			var app = new ExampleApplication();
+			var window = new ExampleWindow();
 			var controller = new Controller();
-			app.Render += controller.Render;
-			app.Update += controller.Update;
-			app.Run();
+			window.Render += controller.Render;
+			window.Update += controller.Update;
+			window.Run();
 		}
 	}
 }

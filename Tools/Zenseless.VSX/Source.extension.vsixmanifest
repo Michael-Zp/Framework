@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="utf-8"?>
+<PackageManifest Version="2.0.0" xmlns="http://schemas.microsoft.com/developer/vsx-schema/2011" xmlns:d="http://schemas.microsoft.com/developer/vsx-schema-design/2011">
+    <Metadata>
+        <Identity Id="59915f29-4ddf-4026-b6af-4edfa898fc12" Version="0.1" Language="en-US" Publisher="Daniel Scherzer" />
+        <DisplayName>Zenseless</DisplayName>
+        <Description xml:space="preserve">Collection of project templates for the lecture computer graphics at the University of Applied Science Ravensburg-Weingarten. Uses a small framework for CG applications that builds on top of OpenTK (OpenGL).</Description>
+        <MoreInfo>https://github.com/danielscherzer/Framework/blob/master/readme.md</MoreInfo>
+        <License>LICENSE</License>
+        <GettingStartedGuide>https://github.com/danielscherzer/Framework/blob/master/setup.md</GettingStartedGuide>
+        <Icon>ShaderIcon.png</Icon>
+        <PreviewImage>ShaderPreview.png</PreviewImage>
+        <Tags>computergraphics, real-time, geometry, mathematic, vector, matrix, .net, OpenGL, GLSL</Tags>
+    </Metadata>
+    <Installation>
+        <InstallationTarget Id="Microsoft.VisualStudio.Community" Version="[15.0]" />
+    </Installation>
+    <Dependencies>
+        <Dependency Id="Microsoft.Framework.NDP" DisplayName="Microsoft .NET Framework" d:Source="Manual" Version="[4.6,)" />
+    </Dependencies>
+    <Assets>
+        <Asset Type="Microsoft.VisualStudio.ProjectTemplate" d:Source="File" Path="ProjectTemplates" d:TargetPath="ProjectTemplates\CG 1. Exercise.zip" />
+        <Asset Type="Microsoft.VisualStudio.ProjectTemplate" d:Source="File" Path="ProjectTemplates" d:TargetPath="ProjectTemplates\CG 2. Exercise.zip" />
+    </Assets>
+    <Prerequisites>
+        <Prerequisite Id="Microsoft.VisualStudio.Component.CoreEditor" Version="[15.0,16.0)" DisplayName="Visual Studio core editor" />
+    </Prerequisites>
+</PackageManifest>

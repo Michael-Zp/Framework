@@ -1,5 +1,5 @@
-﻿using DMS.Application;
-using DMS.Base;
+﻿using Zenseless.Application;
+using Zenseless.Base;
 using System;
 using System.IO;
 
@@ -10,7 +10,7 @@ namespace Example
 		[STAThread]
 		private static void Main()
 		{
-			var app = new ExampleApplication();
+			var app = new ExampleWindow();
 			var visual = new MainVisual();
 			app.ResourceManager.ShaderChanged += visual.ShaderChanged;
 			LoadResources(app.ResourceManager);

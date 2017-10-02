@@ -1,9 +1,10 @@
-﻿using DMS.OpenGL;
-using DMS.Geometry;
+﻿using Zenseless.OpenGL;
+using Zenseless.Geometry;
 using OpenTK;
-using OpenTK.Graphics.OpenGL;
+using OpenTK.Graphics.OpenGL4;
 using System;
 using System.Diagnostics;
+using Zenseless.HLGL;
 
 namespace Example
 {
@@ -19,7 +20,7 @@ namespace Example
 
 		public static readonly string ShaderName = nameof(shader);
 
-		public void ShaderChanged(string name, Shader shader)
+		public void ShaderChanged(string name, IShader shader)
 		{
 			if (ShaderName != name) return;
 			this.shader = shader;
@@ -33,12 +34,12 @@ namespace Example
 			if (ReferenceEquals(shader, null)) return;
 
 			//Matrix4 is stored row-major -> implies a transpose so in shader matrix is column major
-			geometry.SetAttribute(shader.GetAttributeLocation("instanceTransform"), instanceTransforms, true);
+			geometry.SetAttribute(shader.GetResourceLocation(ShaderResourceType.Attribute, "instanceTransform"), instanceTransforms, true);
 
 			GL.Clear(ClearBufferMask.ColorBufferBit | ClearBufferMask.DepthBufferBit);
 			shader.Activate();
 			Matrix4 camera = Matrix4.CreateScale(1, 1, -1);
-			GL.UniformMatrix4(shader.GetUniformLocation("camera"), true, ref camera);
+			GL.UniformMatrix4(shader.GetResourceLocation(ShaderResourceType.Uniform, "camera"), true, ref camera);
 			geometry.Draw(instanceTransforms.Length);
 			shader.Deactivate();
 		}
@@ -62,7 +63,7 @@ namespace Example
 		}
 
 		private Matrix4[] instanceTransforms = new Matrix4[3];
-		private Shader shader;
+		private IShader shader;
 		private Stopwatch timeSource = new Stopwatch();
 		private VAO geometry;
 	}

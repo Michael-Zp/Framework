@@ -1,6 +1,6 @@
-﻿using DMS.Application;
-using DMS.Geometry;
-using DMS.TimeTools;
+﻿using Zenseless.Application;
+using Zenseless.Geometry;
+using Zenseless.TimeTools;
 using OpenTK.Graphics.OpenGL;
 using OpenTK.Input;
 using System;
@@ -59,11 +59,11 @@ namespace SpaceInvaders
 		[STAThread]
 		private static void Main()
 		{
-			var app = new ExampleApplication();
+			var window = new ExampleWindow();
 			var controller = new Controller();
-			app.Render += controller.Render;
-			app.Update += controller.Update;
-			app.Run();
+			window.Render += controller.Render;
+			window.Update += controller.Update;
+			window.Run();
 		}
 
 		private void Update(float timeDelta, float axisUpDown, bool shoot)
@@ -72,7 +72,7 @@ namespace SpaceInvaders
 			//remove outside bullet
 			foreach (Box2D bullet in bullets)
 			{
-				if (bullet.Y > windowBorders.MaxX)
+				if (bullet.MinY > windowBorders.MaxX)
 				{
 					bullets.Remove(bullet);
 					return;
@@ -96,10 +96,10 @@ namespace SpaceInvaders
 		{
 			GL.Begin(PrimitiveType.Quads);
 			GL.Color3(Color.White);
-			GL.Vertex2(o.X, o.Y);
-			GL.Vertex2(o.MaxX, o.Y);
+			GL.Vertex2(o.MinX, o.MinY);
+			GL.Vertex2(o.MaxX, o.MinY);
 			GL.Vertex2(o.MaxX, o.MaxY);
-			GL.Vertex2(o.X, o.MaxY);
+			GL.Vertex2(o.MinX, o.MaxY);
 			GL.End();
 		}
 
@@ -112,8 +112,8 @@ namespace SpaceInvaders
 			GL.Vertex2(o.MaxX, o.MaxY);
 			GL.Color3(Color.Violet);
 			GL.Vertex2(o.CenterX, o.CenterY);
-			GL.Vertex2(o.X, o.CenterY);
-			GL.Vertex2(o.X, o.Y);
+			GL.Vertex2(o.MinX, o.CenterY);
+			GL.Vertex2(o.MinX, o.MinY);
 			GL.End();
 		}
 
@@ -121,8 +121,8 @@ namespace SpaceInvaders
 		{
 			GL.Begin(PrimitiveType.Triangles);
 			GL.Color3(Color.GreenYellow);
-			GL.Vertex2(o.X, o.Y);
-			GL.Vertex2(o.MaxX, o.Y);
+			GL.Vertex2(o.MinX, o.MinY);
+			GL.Vertex2(o.MaxX, o.MinY);
 			GL.Vertex2(o.CenterX, o.MaxY);
 			GL.End();
 		}
@@ -142,14 +142,14 @@ namespace SpaceInvaders
 
 		private void UpdatePlayer(float timeDelta, float axisUpDown, bool shoot)
 		{
-			player.X += timeDelta * axisUpDown;
+			player.MinX += timeDelta * axisUpDown;
 			//limit player position [left, right]
 			player.PushXRangeInside(windowBorders);
 
 			if (shoot && !shootCoolDown.Enabled)
 			{
-				bullets.Add(new Box2D(player.X, player.Y, 0.005f, 0.005f));
-				bullets.Add(new Box2D(player.MaxX, player.Y, 0.005f, 0.005f));
+				bullets.Add(new Box2D(player.MinX, player.MinY, 0.005f, 0.005f));
+				bullets.Add(new Box2D(player.MaxX, player.MinY, 0.005f, 0.005f));
 				shootCoolDown.Start((float)timeSource.Elapsed.TotalSeconds);
 			}
 		}
@@ -159,7 +159,7 @@ namespace SpaceInvaders
 			//intersections
 			foreach (Box2D enemy in enemies)
 			{
-				if (enemy.Y < windowBorders.Y)
+				if (enemy.MinY < windowBorders.MinY)
 				{
 					//game lost
 					Lost = true;
@@ -182,7 +182,7 @@ namespace SpaceInvaders
 		{
 			foreach (Box2D enemy in enemies)
 			{
-				enemy.Y -= enemySpeed * timeDelta;
+				enemy.MinY -= enemySpeed * timeDelta;
 			}
 		}
 
@@ -190,7 +190,7 @@ namespace SpaceInvaders
 		{
 			foreach (Box2D bullet in bullets)
 			{
-				bullet.Y += timeDelta;
+				bullet.MinY += timeDelta;
 			}
 		}
 	}

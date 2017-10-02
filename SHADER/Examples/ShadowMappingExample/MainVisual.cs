@@ -1,7 +1,8 @@
-﻿using DMS.OpenGL;
-using DMS.Geometry;
+﻿using Zenseless.OpenGL;
+using Zenseless.Geometry;
 using OpenTK;
-using OpenTK.Graphics.OpenGL;
+using OpenTK.Graphics.OpenGL4;
+using Zenseless.HLGL;
 
 namespace Example
 {
@@ -20,20 +21,20 @@ namespace Example
 
 			GL.Enable(EnableCap.DepthTest);
 			GL.Enable(EnableCap.CullFace);
-			fboShadowMap.Texture.FilterNearest();
+			fboShadowMap.Texture.Filter = TextureFilterMode.Nearest;
 		}
 
 		public static readonly string ShaderName = nameof(shader);
 		public static readonly string ShaderDepthName = nameof(shaderDepth);
 		public CameraOrbit OrbitCamera { get { return camera; } }
 
-		public void ShaderChanged(string name, Shader shader)
+		public void ShaderChanged(string name, IShader shader)
 		{
 			if (ShaderName == name)
 			{
 				this.shader = shader;
 				if (ReferenceEquals(shader, null)) return;
-				Mesh mesh = Meshes.CreateQuad(10, 10, 10, 10);
+				Mesh mesh = Meshes.CreatePlane(10, 10, 10, 10);
 				var sphere = Meshes.CreateSphere(0.5f, 2);
 				sphere.SetConstantUV(new System.Numerics.Vector2(0.5f, 0.5f));
 				var xform = new Transformation();
@@ -62,9 +63,9 @@ namespace Example
 			GL.Clear(ClearBufferMask.ColorBufferBit | ClearBufferMask.DepthBufferBit);
 			shader.Activate();
 			fboShadowMap.Texture.Activate();
-			GL.Uniform3(shader.GetUniformLocation("ambient"), new Vector3(0.1f));
+			GL.Uniform3(shader.GetResourceLocation(ShaderResourceType.Uniform, "ambient"), new Vector3(0.1f));
 			var cam = camera.CalcMatrix().ToOpenTK();
-			GL.UniformMatrix4(shader.GetUniformLocation("camera"), true, ref cam);
+			GL.UniformMatrix4(shader.GetResourceLocation(ShaderResourceType.Uniform, "camera"), true, ref cam);
 			geometry.Draw();
 			fboShadowMap.Texture.Deactivate();
 			shader.Deactivate();
@@ -72,9 +73,9 @@ namespace Example
 
 		private CameraOrbit camera = new CameraOrbit();
 		private CameraOrbit cameraLight = new CameraOrbit();
-		private Shader shader;
-		private Shader shaderDepth;
-		private FBO fboShadowMap = new FBOwithDepth(Texture.Create(512, 512, PixelInternalFormat.R32f, PixelFormat.Red, PixelType.Float));
+		private IShader shader;
+		private IShader shaderDepth;
+		private FBO fboShadowMap = new FBOwithDepth(Texture2dGL.Create(512, 512, 1, true));
 		private VAO geometry;
 	}
 }

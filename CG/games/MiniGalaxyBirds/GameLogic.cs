@@ -1,5 +1,5 @@
-﻿using DMS.TimeTools;
-using DMS.Geometry;
+﻿using Zenseless.TimeTools;
+using Zenseless.Geometry;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -165,8 +165,8 @@ namespace MiniGalaxyBirds
 			var periodicEnemyBullet = new ComponentPeriodicUpdate(absoluteTime, 1.5f);
 			periodicEnemyBullet.PeriodElapsed += (s, time) =>
 			{
-				CreateEnemyBullet(time, frame.X, frame.Y);
-				CreateEnemyBullet(time, frame.MaxX, frame.Y);
+				CreateEnemyBullet(time, frame.MinX, frame.MinY);
+				CreateEnemyBullet(time, frame.MaxX, frame.MinY);
 			};
 			registry.RegisterComponentTo(container, periodicEnemyBullet);
 			registry.RegisterComponentTo(container, new ComponentClipper(visibleFrame, frame, () => Remove(container)));

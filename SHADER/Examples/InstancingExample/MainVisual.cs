@@ -1,7 +1,8 @@
-﻿using DMS.Geometry;
-using DMS.OpenGL;
+﻿using Zenseless.Geometry;
+using Zenseless.HLGL;
+using Zenseless.OpenGL;
 using OpenTK;
-using OpenTK.Graphics.OpenGL;
+using OpenTK.Graphics.OpenGL4;
 using System;
 
 namespace Example
@@ -15,7 +16,7 @@ namespace Example
 
 		public static readonly string ShaderName = nameof(shader);
 
-		public void ShaderChanged(string name, Shader shader)
+		public void ShaderChanged(string name, IShader shader)
 		{
 			if (ShaderName != name) return;
 			this.shader = shader;
@@ -33,11 +34,11 @@ namespace Example
 		}
 
 		private const int instanceCount = 10000;
-		private Shader shader;
+		private IShader shader;
 
 		private VAO geometry;
 
-		private void UpdateGeometry(Shader shader)
+		private void UpdateGeometry(IShader shader)
 		{
 			Mesh mesh = Meshes.CreateSphere(0.03f, 2);
 			geometry = VAOLoader.FromMesh(mesh, shader);
@@ -51,7 +52,7 @@ namespace Example
 			{
 				instancePositions[i] = new Vector3(RndCoord(), RndCoord(), RndCoord());
 			}
-			geometry.SetAttribute(shader.GetAttributeLocation("instancePosition"), instancePositions, VertexAttribPointerType.Float, 3, true);
+			geometry.SetAttribute(shader.GetResourceLocation(ShaderResourceType.Attribute, "instancePosition"), instancePositions, VertexAttribPointerType.Float, 3, true);
 
 			//todo students: add per instance attribute speed here
 		}

@@ -1,4 +1,5 @@
-﻿using DMS.OpenGL;
+﻿using Zenseless.HLGL;
+using Zenseless.OpenGL;
 using System;
 
 namespace Example
@@ -12,12 +13,12 @@ namespace Example
 			if (ReferenceEquals(null, drawHandler)) throw new ArgumentException("Draw handler must not equal null!");
 			this.drawHandler = drawHandler;
 			copyToFrameBuffer = new TextureToFrameBuffer();
-			texRenderSurface = Texture.Create(resolutionX, resolutionY);
-			texRenderSurface.FilterNearest();
+			texRenderSurface = Texture2dGL.Create(resolutionX, resolutionY);
+			texRenderSurface.Filter = TextureFilterMode.Nearest;
 			renderToTexture = new FBO(texRenderSurface);
 		}
 
-		private Texture texRenderSurface;
+		private ITexture2D texRenderSurface;
 		private FBO renderToTexture;
 		private TextureToFrameBuffer copyToFrameBuffer;
 		private DrawHandler drawHandler;

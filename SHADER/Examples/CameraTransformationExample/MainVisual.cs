@@ -1,7 +1,8 @@
-﻿using DMS.Geometry;
-using DMS.OpenGL;
+﻿using Zenseless.Geometry;
+using Zenseless.HLGL;
+using Zenseless.OpenGL;
 using OpenTK;
-using OpenTK.Graphics.OpenGL;
+using OpenTK.Graphics.OpenGL4;
 using System;
 using System.Diagnostics;
 
@@ -23,7 +24,7 @@ namespace Example
 
 		public static readonly string ShaderName = nameof(shader);
 
-		public void ShaderChanged(string name, Shader shader)
+		public void ShaderChanged(string name, IShader shader)
 		{
 			if (ShaderName != name) return;
 			this.shader = shader;
@@ -40,7 +41,7 @@ namespace Example
 			{
 				instancePositions[i] = new Vector3(RndCoord(), RndCoord(), RndCoord());
 			}
-			geometry.SetAttribute(shader.GetAttributeLocation("instancePosition"), instancePositions, VertexAttribPointerType.Float, 3, true);
+			geometry.SetAttribute(shader.GetResourceLocation(ShaderResourceType.Attribute, "instancePosition"), instancePositions, VertexAttribPointerType.Float, 3, true);
 		}
 
 		public void Render()
@@ -49,7 +50,7 @@ namespace Example
 			var time = (float)timeSource.Elapsed.TotalSeconds;
 			GL.Clear(ClearBufferMask.ColorBufferBit | ClearBufferMask.DepthBufferBit);
 			shader.Activate();
-			GL.UniformMatrix4(shader.GetUniformLocation("camera"), true, ref camera);
+			GL.UniformMatrix4(shader.GetResourceLocation(ShaderResourceType.Uniform, "camera"), true, ref camera);
 			geometry.Draw(particelCount);
 			shader.Deactivate();
 		}
@@ -63,7 +64,7 @@ namespace Example
 
 		private const int particelCount = 500;
 
-		private Shader shader;
+		private IShader shader;
 		private Stopwatch timeSource = new Stopwatch();
 		private Matrix4 camera = Matrix4.Identity;
 		private VAO geometry;

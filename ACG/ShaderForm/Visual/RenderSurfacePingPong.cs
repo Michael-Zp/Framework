@@ -1,6 +1,7 @@
-﻿using DMS.Base;
-using DMS.OpenGL;
-using OpenTK.Graphics.OpenGL;
+﻿using Zenseless.Base;
+using Zenseless.HLGL;
+using Zenseless.OpenGL;
+using OpenTK.Graphics.OpenGL4;
 
 namespace ShaderForm.Visual
 {
@@ -13,8 +14,8 @@ namespace ShaderForm.Visual
 			activeFBO = fboA;
 		}
 
-		public Texture Active { get { return activeFBO.Texture; } }
-		public Texture Last {  get {  return LastFBO.Texture; } }
+		public ITexture2D Active { get { return activeFBO.Texture; } }
+		public ITexture2D Last {  get {  return LastFBO.Texture; } }
 
 		public void Render()
 		{
@@ -58,11 +59,10 @@ namespace ShaderForm.Visual
 
 		private FBO LastFBO { get { return (activeFBO == fboA) ? fboB : fboA; } }
 
-		private Texture CreateTexture(int width, int height)
+		private Texture2dGL CreateTexture(int width, int height)
 		{
 			//return Texture.Create(width, height);
-			//return Texture.Create(width, height, PixelInternalFormat.Rgba16f, PixelFormat.Rgba, PixelType.HalfFloat);
-			return Texture.Create(width, height, PixelInternalFormat.Rgba32f, PixelFormat.Rgba, PixelType.Float);
+			return Texture2dGL.Create(width, height, 4, true);
 		}
 	}
 }

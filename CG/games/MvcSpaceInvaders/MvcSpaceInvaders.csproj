@@ -1,14 +1,14 @@
-﻿<?xml version="1.0" encoding="utf-8"?>
+<?xml version="1.0" encoding="utf-8"?>
 <Project ToolsVersion="12.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
   <PropertyGroup>
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
     <ProjectGuid>{C5389961-2C98-4528-AFF3-99D287C62D4A}</ProjectGuid>
-    <OutputType>Exe</OutputType>
+    <OutputType>WinExe</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
     <RootNamespace>MvcSpaceInvaders</RootNamespace>
-    <AssemblyName>MvcSpaceInvader</AssemblyName>
+    <AssemblyName>MvcSpaceInvaders</AssemblyName>
     <TargetFrameworkVersion>v4.6</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
     <TargetFrameworkProfile />
@@ -18,7 +18,7 @@
     <DebugSymbols>true</DebugSymbols>
     <DebugType>full</DebugType>
     <Optimize>false</Optimize>
-    <OutputPath>bin\Debug\</OutputPath>
+    <OutputPath>..\..\..\bin\Debug\</OutputPath>
     <DefineConstants>DEBUG;TRACE</DefineConstants>
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
@@ -27,10 +27,13 @@
     <PlatformTarget>AnyCPU</PlatformTarget>
     <DebugType>pdbonly</DebugType>
     <Optimize>true</Optimize>
-    <OutputPath>bin\Release\</OutputPath>
+    <OutputPath>..\..\..\bin\Release\</OutputPath>
     <DefineConstants>TRACE</DefineConstants>
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup>
+    <StartupObject />
   </PropertyGroup>
   <ItemGroup>
     <Compile Include="Program.cs" />
@@ -41,18 +44,13 @@
       <DependentUpon>Resourcen.resx</DependentUpon>
     </Compile>
     <Compile Include="Sound.cs" />
-    <Compile Include="Visual.cs" />
+    <Compile Include="View.cs" />
   </ItemGroup>
   <ItemGroup>
-    <Reference Include="OpenTK, Version=2.0.0.0, Culture=neutral, PublicKeyToken=bad199fe84eb3df4, processorArchitecture=MSIL">
-      <HintPath>..\..\..\packages\OpenTK.2.0.0\lib\net20\OpenTK.dll</HintPath>
-      <Private>True</Private>
-    </Reference>
     <Reference Include="System" />
     <Reference Include="System.Drawing" />
   </ItemGroup>
   <ItemGroup>
-    <None Include="packages.config" />
     <None Include="Resources\laser.wav" />
     <None Include="Resources\redship4.png" />
     <None Include="Resources\blueLaserRay.png" />
@@ -66,30 +64,39 @@
     </EmbeddedResource>
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\..\..\_Common\DMS.Application\DMS.Application.csproj">
+    <ProjectReference Include="..\..\..\_Common\Zenseless.Application\Zenseless.Application.csproj">
       <Project>{911C6DFF-BE3E-4EA5-ADF2-A363DF797F23}</Project>
-      <Name>DMS.Application</Name>
+      <Name>Zenseless.Application</Name>
     </ProjectReference>
-    <ProjectReference Include="..\..\..\_Common\DMS.OpenGL\DMS.OpenGL.csproj">
+    <ProjectReference Include="..\..\..\_Common\Zenseless.HLGL\Zenseless.HLGL.csproj">
+      <Project>{227D6BE1-BA08-4030-A755-07288540931F}</Project>
+      <Name>Zenseless.HLGL</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\..\_Common\Zenseless.OpenGL\Zenseless.OpenGL.csproj">
       <Project>{c660f6af-c100-4169-a9fb-61e1ebe87f34}</Project>
-      <Name>DMS.OpenGL</Name>
+      <Name>Zenseless.OpenGL</Name>
     </ProjectReference>
-    <ProjectReference Include="..\..\..\_Common\DMS.Geometry\DMS.Geometry.csproj">
+    <ProjectReference Include="..\..\..\_Common\Zenseless.Geometry\Zenseless.Geometry.csproj">
       <Project>{B37B7DDE-435B-4F27-9A9B-9B6DF8744EBE}</Project>
-      <Name>DMS.Geometry</Name>
+      <Name>Zenseless.Geometry</Name>
     </ProjectReference>
-    <ProjectReference Include="..\..\..\_Common\DMS.Sound\DMS.Sound.csproj">
+    <ProjectReference Include="..\..\..\_Common\Zenseless.Sound\Zenseless.Sound.csproj">
       <Project>{78A88806-AD96-4821-B9AD-8FC060F6FEB6}</Project>
-      <Name>DMS.Sound</Name>
+      <Name>Zenseless.Sound</Name>
     </ProjectReference>
-    <ProjectReference Include="..\..\..\_Common\DMS.Base\DMS.Base.csproj">
+    <ProjectReference Include="..\..\..\_Common\Zenseless.Base\Zenseless.Base.csproj">
       <Project>{E5FF60A4-46FB-42D2-9430-BC523315C2E0}</Project>
-      <Name>DMS.Base</Name>
+      <Name>Zenseless.Base</Name>
     </ProjectReference>
-    <ProjectReference Include="..\..\..\_Common\DMS.TimeTools\DMS.TimeTools.csproj">
+    <ProjectReference Include="..\..\..\_Common\Zenseless.TimeTools\Zenseless.TimeTools.csproj">
       <Project>{54156018-0f41-4eef-aeb4-f1c99cf7a2ab}</Project>
-      <Name>DMS.TimeTools</Name>
+      <Name>Zenseless.TimeTools</Name>
     </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <PackageReference Include="OpenTK">
+      <Version>2.0.0</Version>
+    </PackageReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

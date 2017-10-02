@@ -1,5 +1,6 @@
-﻿using DMS.Application;
-using DMS.OpenGL;
+﻿using Zenseless.Application;
+using Zenseless.HLGL;
+using Zenseless.OpenGL;
 using System.Text;
 
 namespace Example
@@ -10,15 +11,19 @@ namespace Example
 		public const string ShaderCopy = "copy";
 		public const string TextureDiffuse = "diffuse";
 
-		public static void LoadResources(ResourceManager resourceManager)
+		public static void LoadResources(IResourceProvider resourceProvider)
 		{
+			//var assembly = Assembly.GetExecutingAssembly();
+			//var names = assembly.GetManifestResourceNames();
+			//var imageStream = assembly.GetManifestResourceStream("Example.Resources.ps8k_height.png");
+			
 			//var dir = Path.GetDirectoryName(PathTools.GetSourceFilePath()) + @"\Resources\";
 			//resourceManager.Add<Shader>("shader", new ResourceVertFragShaderFile(dir + "vertex.vert", dir + "fragment.frag"));
-			resourceManager.Add<Shader>(ShaderDefault, new ResourceVertFragShaderString(Encoding.UTF8.GetString(Resourcen.vertex), Encoding.UTF8.GetString(Resourcen.fragment)));
-			resourceManager.Add<Shader>(ShaderCopy, new ResourceVertFragShaderString(TextureToFrameBuffer.VertexShaderScreenQuad, TextureToFrameBuffer.FragmentShaderCopy));
+			resourceProvider.Add(ShaderDefault, new ResourceVertFragShaderString(Encoding.UTF8.GetString(Resourcen.vertex), Encoding.UTF8.GetString(Resourcen.fragment)));
+			resourceProvider.Add(ShaderCopy, new ResourceVertFragShaderString(DefaultShader.VertexShaderScreenQuad, DefaultShader.FragmentShaderCopy));
 			//resourceManager.AddShader("shader", dir + "vertex.vert", dir + "fragment.frag"
 			//	, Resourcen.vertex, Resourcen.fragment);
-			resourceManager.Add<Texture>(TextureDiffuse, new ResourceTextureBitmap(Resourcen.capsule0));
+			resourceProvider.Add(TextureDiffuse, new ResourceTextureBitmap(Resourcen.chalet));
 		}
 	}
 }

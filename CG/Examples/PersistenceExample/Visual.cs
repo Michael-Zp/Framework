@@ -1,4 +1,4 @@
-﻿using DMS.Geometry;
+﻿using Zenseless.Geometry;
 using OpenTK.Graphics.OpenGL;
 using System.Drawing;
 
@@ -23,8 +23,8 @@ namespace Example
 			{
 				for (int v = 0; v < state.GridHeight; ++v)
 				{
-					cell.X = deltaX * u - 1f;
-					cell.Y = deltaY * v - 1f;
+					cell.MinX = deltaX * u - 1f;
+					cell.MinY = deltaY * v - 1f;
 					switch (state[u, v])
 					{
 						case FieldType.DIAMONT:
@@ -43,21 +43,21 @@ namespace Example
 		private static void DrawDiamont(Box2D o)
 		{
 			GL.Begin(PrimitiveType.Quads);
-			GL.Vertex2(o.CenterX, o.Y);
+			GL.Vertex2(o.CenterX, o.MinY);
 			GL.Vertex2(o.MaxX, o.CenterY);
 			GL.Vertex2(o.CenterX, o.MaxY);
-			GL.Vertex2(o.X, o.CenterY);
+			GL.Vertex2(o.MinX, o.CenterY);
 			GL.End();
 		}
 
 		private static void DrawCross(Box2D o)
 		{
 			GL.Begin(PrimitiveType.Lines);
-			GL.Vertex2(o.X, o.Y);
+			GL.Vertex2(o.MinX, o.MinY);
 			GL.Vertex2(o.MaxX, o.MaxY);
 
-			GL.Vertex2(o.MaxX, o.Y);
-			GL.Vertex2(o.X, o.MaxY);
+			GL.Vertex2(o.MaxX, o.MinY);
+			GL.Vertex2(o.MinX, o.MaxY);
 			GL.End();
 		}
 

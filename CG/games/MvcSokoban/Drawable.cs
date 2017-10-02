@@ -1,4 +1,4 @@
-﻿using DMS.Geometry;
+﻿using Zenseless.Geometry;
 using OpenTK;
 using System.Drawing;
 
@@ -34,21 +34,21 @@ namespace MvcSokoban
 		{
 			if (!ReferenceEquals(null,  destination))
 			{
-				Vector2 pos = new Vector2(Rect.X, Rect.Y);
+				Vector2 pos = new Vector2(Rect.MinX, Rect.MinY);
 				Vector2 dir = destination.Value - pos;
 				float length = dir.Length;
 				if (length < 0.1f)
 				{
-					Rect.X = destination.Value.X;
-					Rect.Y = destination.Value.Y;
+					Rect.MinX = destination.Value.X;
+					Rect.MinY = destination.Value.Y;
 					destination = null;
 					return;
 				}
 				dir /= length;
 				dir *= speed * updatePeriod;
 				pos += dir;
-				Rect.X = pos.X;
-				Rect.Y = pos.Y;
+				Rect.MinX = pos.X;
+				Rect.MinY = pos.Y;
 			}
 		}
 

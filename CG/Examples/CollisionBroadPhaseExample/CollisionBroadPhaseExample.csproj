@@ -1,11 +1,11 @@
-﻿<?xml version="1.0" encoding="utf-8"?>
+<?xml version="1.0" encoding="utf-8"?>
 <Project ToolsVersion="12.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
   <PropertyGroup>
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
     <ProjectGuid>{F059451F-42CF-44E2-88D8-1DBE869D8256}</ProjectGuid>
-    <OutputType>Exe</OutputType>
+    <OutputType>WinExe</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
     <RootNamespace>Example</RootNamespace>
     <AssemblyName>CollisionBroadPhaseExample</AssemblyName>
@@ -18,7 +18,7 @@
     <DebugSymbols>true</DebugSymbols>
     <DebugType>full</DebugType>
     <Optimize>false</Optimize>
-    <OutputPath>..\bin\Debug\</OutputPath>
+    <OutputPath>..\..\..\bin\Debug\</OutputPath>
     <DefineConstants>DEBUG;TRACE</DefineConstants>
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
@@ -27,47 +27,48 @@
     <PlatformTarget>AnyCPU</PlatformTarget>
     <DebugType>pdbonly</DebugType>
     <Optimize>true</Optimize>
-    <OutputPath>..\bin\Release\</OutputPath>
+    <OutputPath>..\..\..\bin\Release\</OutputPath>
     <DefineConstants>TRACE</DefineConstants>
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup>
+    <StartupObject />
   </PropertyGroup>
   <ItemGroup>
     <Compile Include="Collider.cs" />
     <Compile Include="CollisionGrid.cs" />
     <Compile Include="IBox2DCollider.cs" />
-    <Compile Include="Program.cs" />
+    <Compile Include="CollisionBroadPhaseExample.cs" />
     <Compile Include="RandomVectors.cs" />
   </ItemGroup>
   <ItemGroup>
-    <Reference Include="OpenTK, Version=2.0.0.0, Culture=neutral, PublicKeyToken=bad199fe84eb3df4, processorArchitecture=MSIL">
-      <HintPath>..\..\..\packages\OpenTK.2.0.0\lib\net20\OpenTK.dll</HintPath>
-      <Private>True</Private>
-    </Reference>
     <Reference Include="System" />
     <Reference Include="System.Drawing" />
     <Reference Include="System.Numerics" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\..\..\_Common\DMS.Application\DMS.Application.csproj">
+    <ProjectReference Include="..\..\..\_Common\Zenseless.Application\Zenseless.Application.csproj">
       <Project>{911C6DFF-BE3E-4EA5-ADF2-A363DF797F23}</Project>
-      <Name>DMS.Application</Name>
+      <Name>Zenseless.Application</Name>
     </ProjectReference>
-    <ProjectReference Include="..\..\..\_Common\DMS.OpenGL\DMS.OpenGL.csproj">
+    <ProjectReference Include="..\..\..\_Common\Zenseless.OpenGL\Zenseless.OpenGL.csproj">
       <Project>{c660f6af-c100-4169-a9fb-61e1ebe87f34}</Project>
-      <Name>DMS.OpenGL</Name>
+      <Name>Zenseless.OpenGL</Name>
     </ProjectReference>
-    <ProjectReference Include="..\..\..\_Common\DMS.Geometry\DMS.Geometry.csproj">
+    <ProjectReference Include="..\..\..\_Common\Zenseless.Geometry\Zenseless.Geometry.csproj">
       <Project>{B37B7DDE-435B-4F27-9A9B-9B6DF8744EBE}</Project>
-      <Name>DMS.Geometry</Name>
+      <Name>Zenseless.Geometry</Name>
     </ProjectReference>
-    <ProjectReference Include="..\..\..\_Common\DMS.TimeTools\DMS.TimeTools.csproj">
+    <ProjectReference Include="..\..\..\_Common\Zenseless.TimeTools\Zenseless.TimeTools.csproj">
       <Project>{54156018-0F41-4EEF-AEB4-F1C99CF7A2AB}</Project>
-      <Name>DMS.TimeTools</Name>
+      <Name>Zenseless.TimeTools</Name>
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>
-    <None Include="packages.config" />
+    <PackageReference Include="OpenTK">
+      <Version>2.0.0</Version>
+    </PackageReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

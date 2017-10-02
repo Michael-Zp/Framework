@@ -1,7 +1,8 @@
-﻿using DMS.Application;
-using DMS.OpenGL;
+﻿using Zenseless.Application;
+using Zenseless.HLGL;
+using Zenseless.OpenGL;
 using OpenTK;
-using OpenTK.Graphics.OpenGL;
+using OpenTK.Graphics.OpenGL4;
 using System;
 
 namespace Example
@@ -36,7 +37,7 @@ namespace Example
 			return p;
 		}
 
-		public void ShaderChanged(string name, Shader shader)
+		public void ShaderChanged(string name, IShader shader)
 		{
 			if (ShaderName != name) return;
 			this.shaderSmoke = shader;
@@ -59,8 +60,8 @@ namespace Example
 				++i;
 			}
 
-			particles.SetAttribute(shaderSmoke.GetAttributeLocation("position"), positions, VertexAttribPointerType.Float, 3);
-			particles.SetAttribute(shaderSmoke.GetAttributeLocation("fade"), fade, VertexAttribPointerType.Float, 1);
+			particles.SetAttribute(shaderSmoke.GetResourceLocation(ShaderResourceType.Attribute, "position"), positions, VertexAttribPointerType.Float, 3);
+			particles.SetAttribute(shaderSmoke.GetResourceLocation(ShaderResourceType.Attribute, "fade"), fade, VertexAttribPointerType.Float, 1);
 		}
 
 		public void Render(Matrix4 camera)
@@ -75,8 +76,8 @@ namespace Example
 			GL.Enable(EnableCap.VertexProgramPointSize);
 
 			shaderSmoke.Activate();
-			GL.UniformMatrix4(shaderSmoke.GetUniformLocation("camera"), true, ref camera);
-			//GL.Uniform1(shader.GetUniformLocation("texParticle"), 0);
+			GL.UniformMatrix4(shaderSmoke.GetResourceLocation(ShaderResourceType.Uniform, "camera"), true, ref camera);
+			//GL.Uniform1(shader.GetResourceLocation(ShaderResourceType.Uniform, "texParticle"), 0);
 			texStar.Activate();
 			particles.DrawArrays(PrimitiveType.Points, particleSystem.ParticleCount);
 			texStar.Deactivate();
@@ -89,9 +90,9 @@ namespace Example
 		}
 
 		public static readonly string ShaderName = nameof(shaderSmoke);
-		private Shader shaderSmoke;
+		private IShader shaderSmoke;
 
-		private Texture texStar;
+		private ITexture texStar;
 		private VAO particles = new VAO();
 		private ParticleSystem<Particle> particleSystem = new ParticleSystem<Particle>(1000);
 		private Random random = new Random();

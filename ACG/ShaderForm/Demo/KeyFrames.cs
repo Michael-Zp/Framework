@@ -1,7 +1,7 @@
 ﻿using System.Collections.Generic;
 using System;
 using System.Collections;
-using DMS.Geometry;
+using Zenseless.Geometry;
 using ShaderForm.Interfaces;
 
 namespace ShaderForm.Demo

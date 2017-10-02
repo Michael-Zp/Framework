@@ -1,5 +1,5 @@
-﻿using DMS.TimeTools;
-using DMS.Geometry;
+﻿using Zenseless.TimeTools;
+using Zenseless.Geometry;
 
 namespace MiniGalaxyBirds
 {

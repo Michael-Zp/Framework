@@ -16,7 +16,7 @@
 	+ Game Physics (2nd Edition) by David H. Eberly 
 	+ GPGPU Programming for Games and Science by David H. Eberly 
 	+ Geometric Tools for Computer Graphics by Philip J. Schneider and David H. Eberly, The Morgan Kaufmann Series in Computer Graphics and Geometric Modeling 
-	
++ [GPU Gems Book series](https://developer.nvidia.com/gpugems) On-line version of the book series with advanced CG topics
 	
 ## Physics
 + [The Nature of Code](https://natureofcode.com) an introduction from vectors, particle systems to neural networks: "This class focuses on understanding, simulating, and incorporating motion-based elements of our physical world into the digital worlds that we create."
@@ -71,6 +71,7 @@
 + [opengameart.org](http://opengameart.org/)
 + [deviantart](http://www.deviantart.com/)
 + [mediamilitia](http://mediamilitia.com/category/freebies/)
++ [Sketchfab](https://sketchfab.com/) often free 3d content (mostly (animated) models)
 + [MillionthVector: Free Sprites](http://millionthvector.blogspot.com/p/free-sprites.html)
 + [zapsplat.com: Free sound effects](http://www.zapsplat.com/)
 + [freesound.org](http://freesound.org/)

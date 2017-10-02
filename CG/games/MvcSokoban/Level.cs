@@ -1,10 +1,10 @@
-﻿namespace MvcSokoban
+﻿using System;
+
+namespace MvcSokoban
 {
+	[Serializable]
 	public class Level : ILevel
 	{
-		public delegate void EventHandlerTypeChange(int x, int y, ElementType newType);
-		public event EventHandlerTypeChange OnTypeChange;
-
 		public Level(int width, int height)
 		{
 			this.Width = width;
@@ -19,7 +19,6 @@
 
 		public void SetElement(int x, int y, ElementType value)
 		{
-			RaiseOnTypeChange(x, y, value);
 			arrTile[x, y] = value;
 		}
 
@@ -28,13 +27,5 @@
 		public int Width { get; private set; }
 
 		private ElementType[,] arrTile;
-
-		private void RaiseOnTypeChange(int x, int y, ElementType newType)
-		{
-			if (!ReferenceEquals(null,  OnTypeChange))
-			{
-				OnTypeChange(x, y, newType);
-			}
-		}
 	}
 }

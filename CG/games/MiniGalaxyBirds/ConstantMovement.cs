@@ -1,5 +1,5 @@
-﻿using DMS.TimeTools;
-using DMS.Geometry;
+﻿using Zenseless.TimeTools;
+using Zenseless.Geometry;
 
 namespace MiniGalaxyBirds
 {
@@ -19,8 +19,8 @@ namespace MiniGalaxyBirds
 		public void Update(float absoluteTime)
 		{
 			float timeDelta = absoluteTime - lastUpdate;
-			this.Frame.X += SpeedX * timeDelta;
-			this.Frame.Y += SpeedY * timeDelta;
+			this.Frame.MinX += SpeedX * timeDelta;
+			this.Frame.MinY += SpeedY * timeDelta;
 			lastUpdate = absoluteTime;
 		}
 

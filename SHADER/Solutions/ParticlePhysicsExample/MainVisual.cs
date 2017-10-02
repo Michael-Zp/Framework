@@ -1,4 +1,5 @@
-﻿using DMS.HLGL;
+﻿using Zenseless.Application;
+using Zenseless.HLGL;
 using System;
 using System.Numerics;
 
@@ -14,10 +15,11 @@ namespace Example
 	{
 		public MouseState MouseState { get; set; }
 
-		public MainVisual()
+		public MainVisual(IRenderContext renderContext)
 		{
-			imageObstacles.Clear();
-			imageObstaclesLastFrame.Clear();
+			frameBuffer = renderContext.GetFrameBuffer();
+			imageObstacles = renderContext.CreateRenderSurface(512, 512, false, 2, true);
+			imageObstaclesLastFrame = renderContext.CreateRenderSurface(512, 512, false, 2, true);
 
 			paintObstacles.UpdateMeshShader(null, Resources.ShaderPaintObstacles);
 
@@ -53,9 +55,9 @@ namespace Example
 			public Vector2 velocity;
 		}
 
-		private Image frameBuffer = new Image();
-		private Image imageObstacles = new Image(512, 512, false, 2, true);
-		private Image imageObstaclesLastFrame = new Image(512, 512, false, 2, true);
+		private IRenderSurface frameBuffer;
+		private IRenderSurface imageObstacles;
+		private IRenderSurface imageObstaclesLastFrame;
 		private DrawConfiguration paintObstacles = new DrawConfiguration();
 		private DrawConfiguration drawParticles = new DrawConfiguration();
 		private const int particelCount = (int)1e5;

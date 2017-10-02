@@ -1,8 +1,9 @@
-﻿using DMS.Geometry;
-using DMS.OpenGL;
+﻿using Zenseless.Geometry;
+using Zenseless.HLGL;
+using Zenseless.OpenGL;
 using OpenTK;
 using OpenTK.Graphics;
-using OpenTK.Graphics.OpenGL;
+using OpenTK.Graphics.OpenGL4;
 
 namespace Example
 {
@@ -20,7 +21,7 @@ namespace Example
 
 		public CameraOrbit OrbitCamera { get { return camera; } }
 
-		public void ShaderChanged(string name, Shader shader)
+		public void ShaderChanged(string name, IShader shader)
 		{
 			if (ShaderName != name) return;
 			this.shader = shader;
@@ -33,19 +34,19 @@ namespace Example
 			if (ReferenceEquals(shader, null)) return;
 			GL.Clear(ClearBufferMask.ColorBufferBit | ClearBufferMask.DepthBufferBit);
 			shader.Activate();
-			GL.Uniform3(shader.GetUniformLocation("light1Direction"), new Vector3(-1, -1, -1).Normalized());
-			GL.Uniform4(shader.GetUniformLocation("light1Color"), new Color4(1f, 1f, 1f, 1f));
-			GL.Uniform3(shader.GetUniformLocation("light2Position"), new Vector3(-1, -1, 1));
-			GL.Uniform4(shader.GetUniformLocation("light2Color"), new Color4(1f, .1f, .1f, 1f));
-			GL.Uniform3(shader.GetUniformLocation("light3Position"), new Vector3(-2, 2, 2));
-			GL.Uniform3(shader.GetUniformLocation("light3Direction"), new Vector3(1, -1, -1).Normalized());
-			GL.Uniform1(shader.GetUniformLocation("light3Angle"), DMS.Geometry.MathHelper.DegreesToRadians(10f));
-			GL.Uniform4(shader.GetUniformLocation("light3Color"), new Color4(0, 0, 1f, 1f));
-			GL.Uniform4(shader.GetUniformLocation("ambientLightColor"), new Color4(.1f, .1f, .1f, 1f));
-			GL.Uniform4(shader.GetUniformLocation("materialColor"), new Color4(.7f, .9f, .7f, 1f));
+			GL.Uniform3(shader.GetResourceLocation(ShaderResourceType.Uniform, "light1Direction"), new Vector3(-1, -1, -1).Normalized());
+			GL.Uniform4(shader.GetResourceLocation(ShaderResourceType.Uniform, "light1Color"), new Color4(1f, 1f, 1f, 1f));
+			GL.Uniform3(shader.GetResourceLocation(ShaderResourceType.Uniform, "light2Position"), new Vector3(-1, -1, 1));
+			GL.Uniform4(shader.GetResourceLocation(ShaderResourceType.Uniform, "light2Color"), new Color4(1f, .1f, .1f, 1f));
+			GL.Uniform3(shader.GetResourceLocation(ShaderResourceType.Uniform, "light3Position"), new Vector3(-2, 2, 2));
+			GL.Uniform3(shader.GetResourceLocation(ShaderResourceType.Uniform, "light3Direction"), new Vector3(1, -1, -1).Normalized());
+			GL.Uniform1(shader.GetResourceLocation(ShaderResourceType.Uniform, "light3Angle"), Zenseless.Geometry.MathHelper.DegreesToRadians(10f));
+			GL.Uniform4(shader.GetResourceLocation(ShaderResourceType.Uniform, "light3Color"), new Color4(0, 0, 1f, 1f));
+			GL.Uniform4(shader.GetResourceLocation(ShaderResourceType.Uniform, "ambientLightColor"), new Color4(.1f, .1f, .1f, 1f));
+			GL.Uniform4(shader.GetResourceLocation(ShaderResourceType.Uniform, "materialColor"), new Color4(.7f, .9f, .7f, 1f));
 			var cam = camera.CalcMatrix().ToOpenTK();
-			GL.UniformMatrix4(shader.GetUniformLocation("camera"), true, ref cam);
-			GL.Uniform3(shader.GetUniformLocation("cameraPosition"), camera.CalcPosition().ToOpenTK());
+			GL.UniformMatrix4(shader.GetResourceLocation(ShaderResourceType.Uniform, "camera"), true, ref cam);
+			GL.Uniform3(shader.GetResourceLocation(ShaderResourceType.Uniform, "cameraPosition"), camera.CalcPosition().ToOpenTK());
 			geometry.Draw();
 			shader.Deactivate();
 		}
@@ -53,14 +54,14 @@ namespace Example
 		public static readonly string ShaderName = nameof(shader);
 		private CameraOrbit camera = new CameraOrbit();
 
-		private Shader shader;
+		private IShader shader;
 		private VAO geometry;
 
-		private void UpdateGeometry(Shader shader)
+		private void UpdateGeometry(IShader shader)
 		{
 			Mesh mesh = new Mesh();
 			var roomSize = 8;
-			var plane = Meshes.CreateQuad(roomSize, roomSize, 2, 2);
+			var plane = Meshes.CreatePlane(roomSize, roomSize, 2, 2);
 			var xform = new Transformation();
 			xform.TranslateGlobal(0, -roomSize / 2, 0);
 			mesh.Add(plane.Transform(xform));
@@ -76,6 +77,7 @@ namespace Example
 			mesh.Add(plane.Transform(xform));
 
 			var sphere = Meshes.CreateSphere(1);
+			sphere.SetConstantUV(new System.Numerics.Vector2(0, 0));
 			mesh.Add(sphere);
 			var suzanne = Obj2Mesh.FromObj(Resourcen.suzanne);
 			mesh.Add(suzanne.Transform(System.Numerics.Matrix4x4.CreateTranslation(2, 2, -2)));

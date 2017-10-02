@@ -1,9 +1,10 @@
-﻿using DMS.OpenGL;
-using OpenTK.Graphics.OpenGL;
+﻿using Zenseless.OpenGL;
+using OpenTK.Graphics.OpenGL4;
 using System;
 using System.Numerics;
 using System.Diagnostics;
-using DMS.Geometry;
+using Zenseless.Geometry;
+using Zenseless.HLGL;
 
 namespace Example
 {
@@ -30,7 +31,7 @@ namespace Example
 
 		public static readonly string ShaderName = nameof(shader);
 
-		public void ShaderChanged(string name, Shader shader)
+		public void ShaderChanged(string name, IShader shader)
 		{
 			if (ShaderName != name) return;
 			this.shader = shader;
@@ -42,25 +43,20 @@ namespace Example
 			var time = (float)timeSource.Elapsed.TotalSeconds;
 			var deltaTime = time - lastRenderTime;
 			lastRenderTime = time;
-			Console.Write(Math.Round(timeQuery.ResultLong * 1e-6, 2));
-			Console.WriteLine("msec");
-			timeQuery.Activate(QueryTarget.TimeElapsed);
 			GL.PointSize(1.0f);
 			GL.Clear(ClearBufferMask.ColorBufferBit);
 			shader.Activate();
-			GL.Uniform1(shader.GetUniformLocation("deltaTime"), deltaTime);
-			GL.Uniform1(shader.GetUniformLocation("particelCount"), particelCount);
-			var bindingIndex = shader.GetShaderStorageBufferBindingIndex("BufferParticle");
+			GL.Uniform1(shader.GetResourceLocation(ShaderResourceType.Uniform, "deltaTime"), deltaTime);
+			GL.Uniform1(shader.GetResourceLocation(ShaderResourceType.Uniform, "particelCount"), particelCount);
+			var bindingIndex = shader.GetResourceLocation(ShaderResourceType.RWBuffer, "BufferParticle");
 			bufferParticles.ActivateBind(bindingIndex);
 			GL.DrawArrays(PrimitiveType.Points, 0, particelCount);
 			bufferParticles.Deactivate();
 			shader.Deactivate();
-			timeQuery.Deactivate();
 		}
 
-		private Shader shader;
+		private IShader shader;
 		private BufferObject bufferParticles;
-		private QueryObject timeQuery = new QueryObject();
 		private Stopwatch timeSource = new Stopwatch();
 		private float lastRenderTime = 0f;
 		private const int particelCount = (int)1e4;

@@ -1,64 +1,72 @@
-﻿using System.Drawing;
+﻿using System;
+using System.Collections.Generic;
 
 namespace MvcSokoban
 {
-	class GameLogic
+	[Serializable]
+	public class GameLogic
 	{
-		public enum Movement { NONE = 0, UP, DOWN, LEFT, RIGHT };
-
-		private Point playerPos;
-		private Level level;
-
-		public GameLogic(Level level)
+		public int LevelNr
 		{
-			this.level = level;
-			Point? playerPos = level.FindPlayerPos();
-			if (playerPos.HasValue)
+			get { return levelNr; }
+			set
 			{
-				this.playerPos = playerPos.Value;
+				if (value == levelNr) return;
+				levelNr = Math.Min(value, levels.Length);
+				levelNr = Math.Max(levelNr, 1);
+				LoadLevel();
 			}
 		}
+		public int Moves { get { return levelLogic.Moves; } }
 
-		public ILevel GetLevel() { return level; }
+		public GameLogic()
+		{
+			levelNr = 1;
+			levels = Resourcen.levels.Split(new string[] { Environment.NewLine + Environment.NewLine, "\n\n" }, StringSplitOptions.RemoveEmptyEntries);
+			//for (int i = 1; i < 15; i++) won.Add(i);
+			LoadLevel();
+		}
+
+		public ILevel GetLevelState()
+		{
+			return levelLogic.GetLevelState();
+		}
+
+		public bool HasLevelBeenWon(int levelNr)
+		{
+			return won.Contains(levelNr);
+		}
+
+		public void ResetLevel()
+		{
+			LoadLevel();
+		}
+
+		public void Undo()
+		{
+			levelLogic.Undo();
+		}
 
 		public void Update(Movement movement)
 		{
-			UpdateMovables(movement);
+			levelLogic.Update(movement);
+			if (levelLogic.GetLevelState().IsWon())
+			{
+				won.Add(LevelNr);
+				++LevelNr;
+			}
 		}
 
-		private void UpdateMovables(Movement movement)
-		{
-			Point newPlayerPos = playerPos;
-			newPlayerPos = CalcNewPosition(newPlayerPos, movement);
-			ElementType type = level.GetElement(newPlayerPos.X, newPlayerPos.Y);
-			if (ElementType.Wall == type) return;
-			if (ElementType.Box == type ||ElementType.BoaxOnGoal == type)
-			{
-				//box will be moved
-				Point newBoxPos = CalcNewPosition(newPlayerPos, movement);
-				ElementType type2 = level.GetElement(newBoxPos.X, newBoxPos.Y);
-				//is new box position invalid
-				if (ElementType.Floor != type2 && ElementType.Goal != type2) return;
-				//moving box
-				level.MoveBox(newPlayerPos, newBoxPos);
-			}
-			Point oldPlayerPos = playerPos;
-			playerPos = newPlayerPos;
-			level.MovePlayer(oldPlayerPos, playerPos);
-		}
+		private LevelLogic levelLogic;
+		private string[] levels;
+		private HashSet<int> won = new HashSet<int>();
+		private int levelNr;
 
-		private static Point CalcNewPosition(Point pos, Movement movement)
+		private void LoadLevel()
 		{
-			Point newPos = pos;
-			switch (movement)
-			{
-				case Movement.DOWN: newPos = new Point(pos.X, pos.Y - 1); break;
-				case Movement.UP: newPos = new Point(pos.X, pos.Y + 1); break;
-				case Movement.LEFT: newPos = new Point(pos.X - 1, pos.Y); break;
-				case Movement.RIGHT: newPos = new Point(pos.X + 1, pos.Y); break;
-			}
-
-			return newPos;
+			var level = LevelLoader.FromString(levels[LevelNr - 1]);
+			if (ReferenceEquals(null, level)) return;
+			levelLogic = new LevelLogic(level);
 		}
 	}
 }

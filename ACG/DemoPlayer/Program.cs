@@ -14,8 +14,8 @@ namespace DemoPlayer
 		[STAThread]
 		private static void Main()
 		{
-			var app = new MyApplication();
-			app.Run();
+			var window = new MyApplication();
+			window.Run();
 		}
 
 		private GameWindow gameWindow = new GameWindow();

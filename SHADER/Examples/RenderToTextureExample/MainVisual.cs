@@ -1,6 +1,7 @@
-﻿using DMS.Geometry;
-using DMS.OpenGL;
-using OpenTK.Graphics.OpenGL;
+﻿using Zenseless.Geometry;
+using Zenseless.HLGL;
+using Zenseless.OpenGL;
+using OpenTK.Graphics.OpenGL4;
 
 namespace Example
 {
@@ -18,7 +19,7 @@ namespace Example
 		public static readonly string ShaderPostProcessName = nameof(shaderPostProcess);
 		public static readonly string ShaderName = nameof(shader);
 
-		public void ShaderChanged(string name, Shader shader)
+		public void ShaderChanged(string name, IShader shader)
 		{
 			if(ShaderPostProcessName == name)
 			{
@@ -41,7 +42,7 @@ namespace Example
 			GL.Enable(EnableCap.CullFace);
 			shader.Activate();
 			var cam = camera.CalcMatrix().ToOpenTK();
-			GL.UniformMatrix4(shader.GetUniformLocation("camera"), true, ref cam);
+			GL.UniformMatrix4(shader.GetResourceLocation(ShaderResourceType.Uniform, "camera"), true, ref cam);
 			geometry.Draw();
 			shader.Deactivate();
 			GL.Disable(EnableCap.CullFace);
@@ -56,7 +57,7 @@ namespace Example
 			renderToTexture.Texture.Activate(); //us this new texture
 			if (ReferenceEquals(shaderPostProcess, null)) return;
 			shaderPostProcess.Activate(); //activate post processing shader
-			GL.Uniform1(shaderPostProcess.GetUniformLocation("iGlobalTime"), time);
+			GL.Uniform1(shaderPostProcess.GetResourceLocation(ShaderResourceType.Uniform, "iGlobalTime"), time);
 			GL.DrawArrays(PrimitiveType.Quads, 0, 4); //draw quad
 			shaderPostProcess.Deactivate();
 			renderToTexture.Texture.Deactivate();
@@ -64,13 +65,13 @@ namespace Example
 
 		public void Resize(int width, int height)
 		{
-			renderToTexture = new FBOwithDepth(Texture.Create(width, height));
+			renderToTexture = new FBOwithDepth(Texture2dGL.Create(width, height));
 		}
 
 		private CameraOrbit camera = new CameraOrbit();
 		private FBO renderToTexture;
-		private Shader shaderPostProcess;
-		private Shader shader;
+		private IShader shaderPostProcess;
+		private IShader shader;
 		private VAO geometry;
 	}
 }

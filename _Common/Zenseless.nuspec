@@ -1,0 +1,26 @@
+<?xml version="1.0"?>
+<package >
+	<metadata>
+		<id>Zenseless</id>
+		<version>0.3.2</version>
+		<authors>Daniel Scherzer</authors>
+		<owners>Scherzer</owners>
+		<projectUrl>https://github.com/danielscherzer/Framework</projectUrl>
+		<licenseUrl>http://www.apache.org/licenses/LICENSE-2.0</licenseUrl>
+		<requireLicenseAcceptance>false</requireLicenseAcceptance>
+		<description>Framework for real-time computer graphics using OpenGL. This framework is created for a university course in computer graphics. Documentation inside the package is incomplete!</description>
+		<releaseNotes>Created symbol package</releaseNotes>
+		<copyright>Copyright 2017 Daniel Scherzer</copyright>
+		<tags>computergraphics real-time geometry mathematic vector matrix .net OpenGL GLSL</tags>
+		<dependencies>
+      <dependency id="OpenTK" version="2.0" />
+			<dependency id="NAudio" version="1.8.3" />
+		</dependencies>
+	</metadata>
+	<files>
+		<file src="..\bin\Debug\Zenseless.*.dll" target="lib\net46" />
+		<file src="..\bin\Debug\Zenseless.*.pdb" target="lib\net46" />
+		<file src="..\bin\Debug\Zenseless.*.xml" target="lib\net46" />
+		<file src="**\*.cs" target="src" />
+	</files>
+</package>

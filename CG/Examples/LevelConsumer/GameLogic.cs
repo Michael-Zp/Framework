@@ -1,4 +1,4 @@
-﻿using DMS.Geometry;
+﻿using Zenseless.Geometry;
 using System.Collections.Generic;
 using System.Linq;
 
@@ -62,8 +62,8 @@ namespace Example
 				//try handling collision
 				player.Bounds.UndoOverlap(collisions.First());
 			}
-			player.Bounds.PushXRangeInside(Bounds.X, Bounds.MaxX);
-			player.Bounds.PushYRangeInside(Bounds.Y, Bounds.MaxY);
+			player.Bounds.PushXRangeInside(Bounds.MinX, Bounds.MaxX);
+			player.Bounds.PushYRangeInside(Bounds.MinY, Bounds.MaxY);
 			NewPosition?.Invoke(player.Name, player.Bounds.CenterX, player.Bounds.CenterY);
 		}
 	}
