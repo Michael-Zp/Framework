@@ -14,7 +14,6 @@ namespace ShaderForm
         {
             Application.EnableVisualStyles();
             Application.SetCompatibleTextRenderingDefault(false);
-			Toolkit.Init(); //todo: check if newer version of glcontrol fixes this issue
 			Application.Run(new FormMain());
         }
     }

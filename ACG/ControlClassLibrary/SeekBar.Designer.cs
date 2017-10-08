@@ -84,6 +84,7 @@
 			this.AllowDrop = true;
 			this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
 			this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
+			this.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink;
 			this.Controls.Add(this.playing);
 			this.Controls.Add(this.markerBarPosition);
 			this.Margin = new System.Windows.Forms.Padding(4);

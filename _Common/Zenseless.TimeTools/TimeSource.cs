@@ -24,7 +24,7 @@ namespace Zenseless.TimeTools
 
 		private void OnTimeFinished(object sender, ElapsedEventArgs e)
 		{
-			TimeFinished?.Invoke();
+			TimeFinished?.Invoke(); //todo: is not called, unless position is set on soundBar1
 			if (IsLooping)
 			{
 				Position = 0.0f;

@@ -21,6 +21,7 @@ namespace ShaderForm
 		private MultiGraph multiGraph = new MultiGraph();
 		private FacadeFormMessages log = new FacadeFormMessages();
 		private FacadeCamera camera = new FacadeCamera();
+		private FormTracks tracks = new FormTracks();
 		private string lastMessage;
 
 		public FormMain()
@@ -36,6 +37,7 @@ namespace ShaderForm
 			addCameraUniformsToolStripMenuItem.Click += (s, e) => camera.AddKeyFrames(demo.TimeSource.Position, demo.Uniforms);
 
 			logToolStripMenuItem.Click += (s, e) => log.Show();
+			tracksWindowToolStripMenuItem.Click += (s, e) => tracks.Show();
 			soundPlayerBar1.PositionChanged += (position) => glControl.Invalidate();
 			soundPlayerBar1.PositionChanged += (position) => multiGraph.UpdatePosition(position);
 			soundPlayerBar1.PositionChanged += (position) => camera.UpdateFromUniforms(demo.Uniforms, position);
@@ -183,7 +185,7 @@ namespace ShaderForm
 			demo.Draw(glControl.Width, glControl.Height);
 			glControl.SwapBuffers();
 
-			menuFps.Text = menuFps.Checked ? string.Format("{0:0.00}FPS ", 1 / demo.UpdateTime) : string.Format("{0:0.0}MSec ", demo.UpdateTime * 1e3f);
+			menuBenchmark.Text = menuBenchmark.Checked ? string.Format("{0:0.00}FPS ", 1 / demo.UpdateTime) : string.Format("{0:0.0}ms ", demo.UpdateTime * 1e3f);
 			//System.Threading.Interlocked.Exchange(ref painting, 0);
 			if (camera.IsActive)
 			{
@@ -312,7 +314,7 @@ namespace ShaderForm
 				this.LoadLayout();
 				string granularity = Convert.ToString(RegistryLoader.LoadValue(Name, "granularity", menuSizeSetting.Text));
 				menuSizeSetting.SelectedIndex = menuSizeSetting.FindString(granularity);
-				menuFps.Checked = Convert.ToBoolean(RegistryLoader.LoadValue(Name, "showFPS", false));
+				menuBenchmark.Checked = Convert.ToBoolean(RegistryLoader.LoadValue(Name, "showFPS", false));
 				menuCompact.Checked = Convert.ToBoolean(RegistryLoader.LoadValue(Name, "compact", false));
 				menuOnTop.Checked = TopMost;
 
@@ -343,7 +345,7 @@ namespace ShaderForm
 				RegistryLoader.SaveValue(Name, "play", soundPlayerBar1.Playing);
 				RegistryLoader.SaveValue(Name, "granularity", menuSizeSetting.Text);
 				RegistryLoader.SaveValue(Name, "time", soundPlayerBar1.Position);
-				RegistryLoader.SaveValue(Name, "showFPS", menuFps.Checked);
+				RegistryLoader.SaveValue(Name, "showFPS", menuBenchmark.Checked);
 				RegistryLoader.SaveValue(Name, "compact", menuCompact.Checked);
 
 				multiGraph.SaveLayout();
