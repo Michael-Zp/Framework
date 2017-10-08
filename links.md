@@ -1,10 +1,12 @@
-## General computer graphics
+## Computer graphics
 + [www.scratchapixel.com](https://www.scratchapixel.com) an introduction to Mathematics for Computer Graphics: "Learn Computer Graphics From Scratch!" Foundations of computer graphics with an emphasis on the relationship between mathematical background and practice
 + [realtimerendering.com](http://www.realtimerendering.com/) Link repository to many real-time rendering related cites. Page to the book: MÖLLER T., HAINES E.: Real-Time Rendering, Third Edition, Peters, Wellesley, 2008, ISBN-13: 978-1568814247
 + [Computer Graphics Research Software and libraries](http://www.dgp.toronto.edu/~rms/links.html)
-+ [Physically Based Camera Rendering](https://extremeistan.wordpress.com/2014/09/24/physically-based-camera-rendering)
-+ [iquilezles.org](http://www.iquilezles.org/) Advanced topics in computer graphics and shader implementations (ray-marching tricks from the demo scene)
++ [thebookofshaders.com](https://thebookofshaders.com/) : very nice explanations "This is a gentle step-by-step guide through the abstract and complex universe of Fragment Shaders"
++ [shadertoy.com](http://www.shadertoy.com/) fragment shader community cite with 1000s of shaders
++ [iquilezles.org](http://www.iquilezles.org/) guy behind shadertoy, articels, code; advanced topics in computer graphics and shader implementations (ray-marching tricks from the demo scene)
 + [9bit Science: Raymarching Distance Fields](http://9bitscience.blogspot.com/2013/07/raymarching-distance-fields_14.html)
++ [Physically Based Camera Rendering](https://extremeistan.wordpress.com/2014/09/24/physically-based-camera-rendering)
 + [Let's make a voxel engine](https://sites.google.com/site/letsmakeavoxelengine/)
 + [Compute Shader HDR and Bloom](https://software.intel.com/en-us/articles/compute-shader-hdr-and-bloom)
 + [Light scattering with openGL shader](http://fabiensanglard.net/lightScattering/)
