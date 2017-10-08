@@ -2,6 +2,7 @@
 using Zenseless.Base;
 using System;
 using System.IO;
+using Zenseless.OpenGL;
 
 namespace Example
 {
@@ -12,7 +13,7 @@ namespace Example
 		{
 			var window = new ExampleWindow();
 			var visual = new MainVisual();
-			window.GameWindow.ConnectEvents(visual.OrbitCamera);
+			window.GameWindow.AddMayaCameraEvents(visual.OrbitCamera);
 			window.ResourceManager.ShaderChanged += visual.ShaderChanged;
 			LoadResources(window.ResourceManager);
 			window.Render += () => window.GameWindow.Title = Math.Round(visual.Render()).ToString() + "msec";

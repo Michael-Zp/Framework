@@ -1,6 +1,7 @@
 ﻿using Zenseless.Application;
 using OpenTK.Input;
 using System;
+using Zenseless.OpenGL;
 
 namespace Example
 {
@@ -12,12 +13,12 @@ namespace Example
 			var app = new ExampleWindow();
 			Resources.LoadResources(app.ResourceManager);
 			var visual = new MainVisual(app.RenderContext);
-			Action<MouseEventArgs> updateMouseState = (a) => 
+			Action<MouseEventArgs> updateMouseState = (e) => 
 			{
 				var mouseState = new MouseState()
 				{
-					position = app.CalcNormalized(a.X, a.Y),
-					drawState = GetDrawState(a.Mouse)
+					position = app.GameWindow.ConvertCoords(e.X, e.Y), //convert pixel coordinates to [0,1]²
+					drawState = GetDrawState(e.Mouse)
 				};
 				visual.MouseState = mouseState;
 			};

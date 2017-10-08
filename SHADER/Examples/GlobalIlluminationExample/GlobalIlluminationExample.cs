@@ -2,6 +2,7 @@
 using Zenseless.Base;
 using System;
 using System.IO;
+using Zenseless.OpenGL;
 
 namespace Example
 {
@@ -16,7 +17,7 @@ namespace Example
 
 			LoadResources(app.ResourceManager);
 			app.Render += visual.Render;
-			app.GameWindow.ConnectEvents(visual.OrbitCamera);
+			app.GameWindow.AddMayaCameraEvents(visual.OrbitCamera);
 			app.Run();
 		}
 

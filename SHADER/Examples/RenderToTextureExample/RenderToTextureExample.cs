@@ -4,6 +4,7 @@ using OpenTK.Input;
 using System;
 using System.Diagnostics;
 using System.IO;
+using Zenseless.OpenGL;
 
 namespace Example
 {
@@ -35,7 +36,7 @@ namespace Example
 
 			app.Update += (t) => doPostProcessing = !Keyboard.GetState()[Key.Space];
 			app.Resize += visual.Resize;
-			app.GameWindow.ConnectEvents(visual.OrbitCamera);
+			app.GameWindow.AddMayaCameraEvents(visual.OrbitCamera);
 
 			globalTime.Start();
 			app.Run();

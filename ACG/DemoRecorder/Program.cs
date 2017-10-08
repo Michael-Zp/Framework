@@ -45,6 +45,7 @@ namespace DemoRecorder
 					+ Environment.NewLine 
 					+ " Please give the demo config file name as application parameter followed by the render buffer resolution.");
 				gameWindow.Close();
+				return;
 			}
 			bufferWidth = gameWindow.Width;
 			bufferHeight = gameWindow.Height;

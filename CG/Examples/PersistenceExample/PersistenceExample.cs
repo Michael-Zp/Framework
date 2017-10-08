@@ -3,6 +3,7 @@ using Zenseless.Base;
 using System;
 using System.IO;
 using System.Windows.Forms;
+using Zenseless.OpenGL;
 
 namespace Example
 {
@@ -26,7 +27,7 @@ namespace Example
 			window.GameWindow.KeyDown += (s, e) => { if (e.Key == OpenTK.Input.Key.R) gameState = new GameState(); }; //reset
 			window.GameWindow.MouseDown += (s, e) => 
 			{
-				var coord = window.CalcNormalized(e.X, e.Y); //convert mouse coordinates from pixel to [0,1]²
+				var coord = window.GameWindow.ConvertCoords(e.X, e.Y); //convert pixel coordinates to [0,1]²
 				HandleInput(gameState, (int)e.Button, coord.X, coord.Y);
 			};
 			//todo student: app.Resize += (width, height) => //todo student: react on window changes (update apsect ratio of game)

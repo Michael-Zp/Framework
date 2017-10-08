@@ -5,6 +5,7 @@ using System;
 using System.Diagnostics;
 using System.Drawing;
 using Zenseless.Application;
+using Zenseless.HLGL;
 
 namespace Example
 {
@@ -22,7 +23,7 @@ namespace Example
 		private MyVisual()
 		{
 			//animation using a single SpriteSheet
-			explosion = new SpriteSheetAnimation(new SpriteSheet(TextureLoader.FromBitmap(Resourcen.explosion), 5), 0, 24, 1f);
+			explosion = new SpriteSheetAnimation(new SpriteSheet(TextureLoader.FromBitmap(Resourcen.explosion), 5, 5), 0, 24, 1f);
 
 			//art from https://github.com/sparklinlabs/superpowers-asset-packs
 			var spriteSheetGirl = new SpriteSheet(TextureLoader.FromBitmap(Resourcen.girl_2), 6, 7);
@@ -66,21 +67,21 @@ namespace Example
 			//color is multiplied with texture color white == no change
 			GL.Color3(Color.White);
 
-			explosion.Draw(new Box2D(-.7f, .2f, .4f, .4f), (float)timeSource.Elapsed.TotalSeconds);
-			alienShip.Draw(new Box2D(.3f, .2f, .4f, .4f), (float)timeSource.Elapsed.TotalSeconds);
+			var absoluteTimeSeconds = (float)timeSource.Elapsed.TotalSeconds;
+			explosion.Draw(new Box2D(-.7f, .2f, .4f, .4f), absoluteTimeSeconds);
+			alienShip.Draw(new Box2D(.3f, .2f, .4f, .4f), absoluteTimeSeconds);
 
-			girlIdleRun.Draw(new Box2D(-1f, -.6f, .4f, .4f), (float)timeSource.Elapsed.TotalSeconds);
-			girlJumpBall.Draw(new Box2D(-.6f, -.6f, .4f, .4f), (float)timeSource.Elapsed.TotalSeconds);
-			girlFight.Draw(new Box2D( -.2f, -.6f, .4f, .4f), (float)timeSource.Elapsed.TotalSeconds);
-			girlDie.Draw(new Box2D(.2f, -.6f, .4f, .4f), (float)timeSource.Elapsed.TotalSeconds);
-			girlBack.Draw(new Box2D(.6f, -.6f, .4f, .4f), (float)timeSource.Elapsed.TotalSeconds);
+			girlIdleRun.Draw(new Box2D(-1f, -.6f, .4f, .4f), absoluteTimeSeconds);
+			girlJumpBall.Draw(new Box2D(-.6f, -.6f, .4f, .4f), absoluteTimeSeconds);
+			girlFight.Draw(new Box2D( -.2f, -.6f, .4f, .4f), absoluteTimeSeconds);
+			girlDie.Draw(new Box2D(.2f, -.6f, .4f, .4f), absoluteTimeSeconds);
+			girlBack.Draw(new Box2D(.6f, -.6f, .4f, .4f), absoluteTimeSeconds);
 		}
 
 		[STAThread]
 		private static void Main()
 		{
 			var window = new ExampleWindow();
-			//run the update loop, which calls our registered callbacks
 			var visual = new MyVisual();
 			window.Render += visual.Render;
 			window.Run();

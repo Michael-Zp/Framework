@@ -43,6 +43,7 @@
     <Compile Include="AnimationTextures.cs" />
     <Compile Include="ColorSystems.cs" />
     <Compile Include="BufferObject.cs" />
+    <Compile Include="INativeWindowExtensions.cs" />
     <Compile Include="RenderContextGL.cs" />
     <Compile Include="FBOwithDepth.cs" />
     <Compile Include="IAnimation.cs" />
@@ -59,7 +60,7 @@
     <Compile Include="FBO.cs" />
     <Compile Include="Shader.cs" />
     <Compile Include="ShaderLoader.cs" />
-    <Compile Include="SpriteSheet.cs" />
+    <Compile Include="SpriteSheetRenderer.cs" />
     <Compile Include="StateActiveFboGL.cs" />
     <Compile Include="StateActiveShaderGL.cs" />
     <Compile Include="StateBoolGL.cs" />
@@ -89,7 +90,7 @@
   </ItemGroup>
   <ItemGroup>
     <PackageReference Include="OpenTK">
-      <Version>2.0.0</Version>
+      <Version>3.0.0-pre</Version>
     </PackageReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

@@ -2,7 +2,6 @@
 using Zenseless.OpenGL;
 using OpenTK;
 using OpenTK.Graphics.OpenGL4;
-using OpenTK.Input;
 using OpenTK.Platform;
 using System;
 using System.ComponentModel.Composition;
@@ -37,8 +36,7 @@ namespace Zenseless.Application
 			//register callback for resizing of window
 			gameWindow.Resize += GameWindow_Resize;
 			//register callback for keyboard
-			gameWindow.KeyDown += GameWindow_KeyDown;
-			gameWindow.KeyDown += (sender, e) => { if (Key.Escape == e.Key) gameWindow.Exit(); };
+			gameWindow.AddDefaultExampleWindowEvents();
 			ResourceManager = resourceProvider as ResourceManager;
 		}
 
@@ -54,11 +52,6 @@ namespace Zenseless.Application
 		public event UpdateHandler Update;
 
 		public ResourceManager ResourceManager { get; private set; }
-
-		public System.Numerics.Vector2 CalcNormalized(int pixelX, int pixelY)
-		{
-			return new System.Numerics.Vector2(pixelX / (gameWindow.Width - 1f), 1f - pixelY / (gameWindow.Height - 1f));
-		}
 
 		public void Run()
 		{
@@ -83,19 +76,6 @@ namespace Zenseless.Application
 			Render?.Invoke();
 			//buffer swap of double buffering (http://gameprogrammingpatterns.com/double-buffer.html)
 			gameWindow.SwapBuffers();
-		}
-
-		private void GameWindow_KeyDown(object sender, KeyboardKeyEventArgs e)
-		{
-			switch (e.Key)
-			{
-				case Key.Escape:
-					gameWindow.Exit();
-					break;
-				case Key.F11:
-					gameWindow.WindowState = WindowState.Fullscreen == gameWindow.WindowState ? WindowState.Normal : WindowState.Fullscreen;
-					break;
-			}
 		}
 
 		private void GameWindow_Resize(object sender, EventArgs e)

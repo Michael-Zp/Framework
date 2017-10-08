@@ -1,5 +1,4 @@
 ﻿using System;
-using Zenseless.OpenGL;
 using Zenseless.ShaderDebugging;
 using System.Collections.Generic;
 using System.ComponentModel.Composition;

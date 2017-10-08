@@ -8,7 +8,7 @@ namespace MiniGalaxyBirds
 	{
 		public AnimatedSprite(ITexture tex, Box2D extents, IAnimation animation)
 		{
-			this.spriteSheet = new SpriteSheetAnimation(new SpriteSheet(tex, 5), 0, 24, animation.Length);
+			this.spriteSheet = new SpriteSheetAnimation(new SpriteSheet(tex, 5, 5), 0, 24, animation.Length);
 			this.Rect = extents;
 			this.Animation = animation;
 		}

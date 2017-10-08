@@ -2,6 +2,7 @@
 using Zenseless.Base;
 using System;
 using System.IO;
+using Zenseless.OpenGL;
 
 namespace Example
 {
@@ -17,7 +18,7 @@ namespace Example
 			LoadResources(app.ResourceManager);
 			app.Render += () => visual.Render(model.Bodies);
 			app.Update += model.Update;
-			app.GameWindow.ConnectEvents(visual.Camera);
+			app.GameWindow.AddMayaCameraEvents(visual.Camera);
 			app.Run();
 		}
 

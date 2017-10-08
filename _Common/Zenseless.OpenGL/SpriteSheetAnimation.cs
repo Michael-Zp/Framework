@@ -1,5 +1,6 @@
 ﻿using Zenseless.Geometry;
 using System;
+using Zenseless.HLGL;
 
 namespace Zenseless.OpenGL
 {
@@ -8,9 +9,9 @@ namespace Zenseless.OpenGL
 		public SpriteSheetAnimation(SpriteSheet spriteSheet, uint fromID, uint toID, float animationLength)
 		{
 			this.spriteSheet = spriteSheet;
-			this.FromID = fromID;
-			this.ToID = toID;
-			this.AnimationLength = animationLength;
+			FromID = fromID;
+			ToID = toID;
+			AnimationLength = animationLength;
 		}
 
 		public float AnimationLength { get; set; }
@@ -40,9 +41,10 @@ namespace Zenseless.OpenGL
 		/// <param name="totalSeconds">animation position in seconds</param>
 		public void Draw(Box2D rectangle, float totalSeconds)
 		{
-			spriteSheet.Activate();
 			var id = CalcAnimationSpriteID(FromID, ToID, AnimationLength, totalSeconds);
-			spriteSheet.Draw(id, rectangle);
+			var texCoords = spriteSheet.CalcSpriteTexCoords(id);
+			spriteSheet.Activate();
+			rectangle.DrawTexturedRect(texCoords);
 			spriteSheet.Deactivate();
 		}
 	}

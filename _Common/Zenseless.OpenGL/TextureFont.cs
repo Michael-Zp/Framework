@@ -22,7 +22,7 @@ namespace Zenseless.OpenGL
 		public TextureFont(ITexture texture, uint charactersPerLine = 16, byte firstAsciiCode = 0
 			, float characterBoundingBoxWidth = 1.0f, float characterBoundingBoxHeight = 1.0f, float characterSpacing = 1.0f)
 		{
-			this.texFont = new SpriteSheet(texture, charactersPerLine, characterBoundingBoxWidth, characterBoundingBoxHeight);
+			this.texFont = new SpriteSheet(texture, charactersPerLine, charactersPerLine, characterBoundingBoxWidth, characterBoundingBoxHeight);
 			// Creating 256 Display Lists
 			this.baseList = (uint)GL.GenLists(256);
 			this.characterSpacing = characterSpacing;
@@ -31,7 +31,9 @@ namespace Zenseless.OpenGL
 			for (uint asciiCode = 0; asciiCode < 256; ++asciiCode)
 			{
 				GL.NewList((this.baseList + asciiCode), ListMode.Compile);
-				texFont.Draw(asciiCode - firstAsciiCode, Box2D.BOX01);
+
+				var texCoords = texFont.CalcSpriteTexCoords(asciiCode - firstAsciiCode);
+				Box2D.BOX01.DrawTexturedRect(texCoords);
 				GL.Translate(characterSpacing, 0, 0);	// Move To The next character
 				GL.EndList();
 			}

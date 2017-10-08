@@ -212,8 +212,11 @@
     <None Include="Resources\Restart_6322.png" />
   </ItemGroup>
   <ItemGroup>
+    <PackageReference Include="OpenTK">
+      <Version>3.0.0-pre</Version>
+    </PackageReference>
     <PackageReference Include="OpenTK.GLControl">
-      <Version>1.1.2349.61993</Version>
+      <Version>3.0.0-pre</Version>
     </PackageReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
