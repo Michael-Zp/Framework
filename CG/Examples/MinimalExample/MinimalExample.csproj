@@ -36,7 +36,6 @@
     <StartupObject />
   </PropertyGroup>
   <ItemGroup>
-    <Compile Include="Framebuffer.cs" />
     <Compile Include="MinimalExample.cs" />
   </ItemGroup>
   <ItemGroup>

@@ -10,32 +10,28 @@ namespace Example
 		[STAThread]
 		private static void Main()
 		{
-			var wnd = new GameWindow();
-			wnd.VSync = VSyncMode.Off;
-			wnd.Resize += (s, a) => GL.Viewport(0, 0, wnd.Width, wnd.Height); //react on window size changes
+			var wnd = new MyWindow();
+			//wnd.VSync = VSyncMode.Off; //uncomment for pc speed dependent rendering
 
 			var x = -1f;
 			GL.ClearColor(Color.CornflowerBlue);
-			wnd.Visible = true;
 			//main loop
-			while (wnd.Exists)
+			while (wnd.WaitForNextFrame())
 			{
-				if (x < 1) x += .01f; else x = -1;
+				if (x < 1) x += .01f; else x = -1; //move to right animation
+				
 				//clear screen - what happens without?
 				GL.Clear(ClearBufferMask.ColorBufferBit);
 				//draw a primitive
 				GL.Begin(PrimitiveType.Quads);
 				//color is active as long as no new color is set
 				GL.Color3(Color.Cyan);
-				GL.Vertex2(x + 0.0f, 0.0f);
-				GL.Vertex2(x + 0.5f, 0.0f);
+				GL.Vertex2(x + 0f, 0f);
+				GL.Vertex2(x + .5f, 0f);
 				GL.Color3(Color.White);
-				GL.Vertex2(x + 0.5f, 0.5f);
-				GL.Vertex2(x + 0.0f, 0.5f);
+				GL.Vertex2(x + .5f, .5f);
+				GL.Vertex2(x + .0f, .5f);
 				GL.End();
-
-				wnd.SwapBuffers();
-				wnd.ProcessEvents(); //this call could destroy window, so do all stuff that needs the window (like gl) before
 			}
 		}
 	}

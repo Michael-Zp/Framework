@@ -96,6 +96,7 @@
   </PropertyGroup>
   <ItemGroup>
     <Compile Include="GameLoopExample.cs" />
+    <Compile Include="MyWindow.cs" />
   </ItemGroup>
   <ItemGroup>
     <Reference Include="System" />
