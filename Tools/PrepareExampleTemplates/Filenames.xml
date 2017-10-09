@@ -1,7 +1,7 @@
 ﻿<?xml version="1.0" encoding="utf-8" ?>
 <FileNames>
 	<FromTo>
-		<Source>..\..\CG\Examples\MinimalExample\MinimalExample.csproj</Source>
+		<Source>..\..\CG\Examples\GameLoopExample\GameLoopExample.csproj</Source>
 		<Destination>..\..\Tools\Zenseless.VSX\ProjectTemplates\CG 1. Exercise.zip</Destination>
 	</FromTo>
 	<FromTo>
