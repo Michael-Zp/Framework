@@ -32,7 +32,8 @@ namespace MiniGalaxyBirds
 			GL.Viewport(0, 0, width, height);
 			GL.MatrixMode(MatrixMode.Projection);
 			GL.LoadIdentity();
-			GL.Ortho(-deltaX, 1.0 + deltaX, 0.0, 1.0, 0.0, 1.0);
+			minX = -deltaX;
+			GL.Ortho(minX, 1.0 + deltaX, 0.0, 1.0, 0.0, 1.0);
 			GL.MatrixMode(MatrixMode.Modelview);
 		}
 
@@ -84,7 +85,7 @@ namespace MiniGalaxyBirds
 					drawable.Draw();
 				}
 			}
-			Print(-0.15f, 0.0f, 0.0f, 0.04f, points.ToString());
+			Print(minX, 0f, 0f, .04f, points.ToString());
 		}
 
 		public void Print(float x, float y, float z, float size, string text)
@@ -100,5 +101,6 @@ namespace MiniGalaxyBirds
 		private readonly HashSet<IDrawable> drawables = new HashSet<IDrawable>();
 
 		private TextureFont font = null;
+		private float minX;
 	}
 }

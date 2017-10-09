@@ -25,6 +25,8 @@ namespace MiniGalaxyBirds
 
 			timeSource.Start();
 			window.Run();
+			//ReadBack.FrameBuffer().Save("d:/screenshot.png");
+
 		}
 
 		private static void LoadResources(Renderer renderer)
@@ -39,6 +41,8 @@ namespace MiniGalaxyBirds
 			renderer.Register("bulletPlayer", TextureLoader.FromBitmap(Resourcen.blueLaserRay));
 			renderer.Register("bulletEnemy", TextureLoader.FromBitmap(Resourcen.redLaserRay));
 			renderer.Register("explosion", TextureLoader.FromBitmap(Resourcen.explosion));
+			renderer.Register("background", TextureLoader.FromBitmap(Resourcen.background));
+			renderer.CreateDrawable("background", GameLogic.visibleFrame);
 		}
 
 		private static void HandleInput(GameLogic gameLogic, float time)
