@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <PackageManifest Version="2.0.0" xmlns="http://schemas.microsoft.com/developer/vsx-schema/2011" xmlns:d="http://schemas.microsoft.com/developer/vsx-schema-design/2011">
     <Metadata>
-        <Identity Id="59915f29-4ddf-4026-b6af-4edfa898fc12" Version="0.2" Language="en-US" Publisher="Daniel Scherzer" />
+        <Identity Id="59915f29-4ddf-4026-b6af-4edfa898fc12" Version="0.3" Language="en-US" Publisher="Daniel Scherzer" />
         <DisplayName>Zenseless</DisplayName>
         <Description xml:space="preserve">Collection of project templates for the lecture computer graphics at the University of Applied Science Ravensburg-Weingarten. Uses a small framework for CG applications that builds on top of OpenTK (OpenGL).</Description>
         <MoreInfo>https://github.com/danielscherzer/Framework/blob/master/readme.md</MoreInfo>

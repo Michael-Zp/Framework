@@ -44,12 +44,6 @@
     <Reference Include="System.Drawing" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\..\..\_Common\Zenseless.OpenGL\Zenseless.OpenGL.csproj">
-      <Project>{c660f6af-c100-4169-a9fb-61e1ebe87f34}</Project>
-      <Name>Zenseless.OpenGL</Name>
-    </ProjectReference>
-  </ItemGroup>
-  <ItemGroup>
     <PackageReference Include="OpenTK">
       <Version>3.0.0-pre</Version>
     </PackageReference>
