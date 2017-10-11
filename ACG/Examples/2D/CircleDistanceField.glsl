@@ -11,9 +11,9 @@ void main()
 	vec4 color =  vec4(1);
 
 	//coordinate system from [-2..2]²
-	uv *= 4;
-	uv -= 2;
-
+	uv *= 4.0;
+	uv -= 2.0;
+	
 	//account for window aspect
 	float aspect = iResolution.x / iResolution.y;
 	uv.x *= aspect;

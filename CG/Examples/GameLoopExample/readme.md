@@ -1,11 +1,11 @@
 This first exercise has the goal of getting to know OpenGL. Just for this exercise we will not press OOP rules.
 1. Execute program
-1. Uncomment `wnd.KeyDown += ...`. Execute. Hit `Escape`.
 1. Give each vertex a different color
 	+ Note that OpenGL is a state machine. Color stays until other color is selected.
 1. Execute and compare!
 1. Move the draw code for the quad into a function `void DrawBox(Vector2 min, Vector2 size)`.
     + When your write `Vector2` Visual Studio will give you an error. Hit the light bulb to let Visual Studio suggest fixes for your code.
+1. Uncomment `wnd.KeyDown += ...`. Execute. Hit `Escape`.
 1. Make the quad change directions when it leaves the window.
 1. Draw a number of boxes that move into different directions.
     + Each box should change direction when it hits the window border.
