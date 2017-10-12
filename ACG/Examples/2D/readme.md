@@ -2,12 +2,15 @@
 	1. Colors (line i)
 		1. Invert the colors
 		1. Make them brighter, darker
+	1. Uniforms
+		vec3 iMouse contains the mouse pixel position in xy and the state of the left mouse button in z.
 	1. Functions (line ii and iii) [detailed description](https://thebookofshaders.com/07/)
 		1. Compare the result of lines ii and iii
 		1. How can you rotate the result by 90°?
 		1. Combine results from multiple step functions like in line iv
-		1. Use the step function to draw a quad
-		1. USe smoothstep to draw soft edged quads
+		1. Use the step function to draw a rectangle
+		1. Use smoothstep to draw soft edged rectangle
+		1. Color the quad
 		1. Can you do something that resembles a Piet Mondrian painting? ![Mondrian painting](mondrian.jpg "Mondrian painting")
 1. [ShapingFunctions.glsl](ShapingFunctions.glsl)
 	1. Uncomment the different functions

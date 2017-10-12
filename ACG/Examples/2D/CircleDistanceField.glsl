@@ -30,7 +30,7 @@ void main()
 
 	color.rgb = vec3(distCircle1); // draw one circular distance field
 
-	// float distUnion = min(distCircle1, distCircle2);
+	// float distUnion = min(distCircle1, distCircle2); //todo
 	// color.rgb = vec3(distUnion); // draw union
 
 	// color.rgb = vec3(step(0.4, distUnion)); //crisp circle = cut-off distance field
