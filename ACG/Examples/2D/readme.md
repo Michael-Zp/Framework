@@ -16,10 +16,10 @@
 	1. Uncomment the different functions
 	1. How to draw the green line? Create such a function plotter!
 	1. How can we map coordinates to a bigger range than [0..1]²?
-	1. How are verticel/horizontal lines that keep their thickness realized?
+	1. How are vertical/horizontal lines that keep their thickness realized?
 	1. Choose a function with very steep parts. What happens?
 	1. How can we control the thickness of general functions?
-	1. Create your own fucntion using sin, smoothstep, mod, ...
+	1. Create your own function using sin, smoothstep, mod, ...
 1. [CircleDistanceField.glsl](CircleDistanceField.glsl)
 	1. We look at code together
 	1. Uncomment from top to bottom
@@ -59,14 +59,14 @@
 	1. Hook it to iGlobalTime
 	1. Apply it to Truchet patterns
 	1. Create your own effect [some examples](http://thebookofshaders.com/10/)
-1. [Noise.glsl](Noise.glsl) [Noise2D.glsl](Noise2D.glsl)
+1. [Noise.glsl](Noise.glsl), [Noise2D.glsl](Noise2D.glsl)
 	1. Analyse differences of rand() and noise() in [ShapingFunctions.glsl](ShapingFunctions.glsl)
 	1. Look at code together
 	1. When do rand() and noise() look the same?
 	1. Try out different interpolations
 	1. Look at quad manipulation code
 1. [NoiseExamples.glsl](NoiseExamples.glsl)
-	1. Uncomment and analyse
+	1. Uncomment and analyze
 1. [ShapingFunctions.glsl](ShapingFunctions.glsl)
 	1. Look at amplitude * sin(x * frequency + phase)
 	1. Hook phase to iMouse.x * 0.1
