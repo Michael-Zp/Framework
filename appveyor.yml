@@ -5,7 +5,7 @@ configuration:
 - Release
 
 artifacts:
-- path: bin\$(configuration)\ShaderForm.exe
+- path: bin\$(configuration)\ShaderForm
   name: ShaderForm
 
 install:
