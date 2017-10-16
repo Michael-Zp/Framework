@@ -20,4 +20,14 @@ build_script:
 - msbuild /p:configuration=Release /p:DeployExtension=false /p:ZipPackageCompressionLevel=normal /v:m
 
 after_test:
- # - ps: Vsix-PushArtifacts | Vsix-PublishToGallery
+#- ps: Vsix-PushArtifacts | Vsix-PublishToGallery
+
+deploy:
+  release: ShaderForm-v$(appveyor_build_version)
+  description: 'Release description'
+  provider: GitHub
+  auth_token:
+    secure: IGRhoLQi/yyC2ej7s79ZRU3PL3NScj4Kxh1Lyydg/CEvD/PbRwIilxmBziEHfwjJ
+  artifact: ShaderForm
+  draft: false
+  prerelease: false
