@@ -13,11 +13,15 @@ install:
 
 before_build:
 - nuget restore -Verbosity quiet
-- ps: Vsix-IncrementVsixVersion | Vsix-UpdateBuildVersion
-- ps: Vsix-TokenReplacement Tools\Zenseless.VSX\Source.extension.vsixmanifest 'Version = "([0-9\\.]+)"' 'Version = "{version}"'
+#- ps: Vsix-IncrementVsixVersion | Vsix-UpdateBuildVersion
+#- ps: Vsix-TokenReplacement Tools\Zenseless.VSX\Source.extension.vsixmanifest 'Version = "([0-9\\.]+)"' 'Version = "{version}"'
 
-build_script:
-- msbuild /p:configuration=Release /p:DeployExtension=false /p:ZipPackageCompressionLevel=normal /v:m
+
+build:
+  publish_nuget: true             # package projects with .nuspec files and push to artifacts
+  publish_nuget_symbols: true     # generate and publish NuGet symbol packages
+  include_nuget_references: true  # add -IncludeReferencedProjects option while packaging NuGet artifacts
+  verbosity: minimal              # MSBuild verbosity level
 
 after_test:
 #- ps: Vsix-PushArtifacts | Vsix-PublishToGallery
