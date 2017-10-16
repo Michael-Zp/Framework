@@ -3,6 +3,7 @@ using System;
 using System.ComponentModel;
 using System.IO;
 using System.Windows.Forms;
+using Zenseless.ShaderDebugging;
 
 namespace ShaderForm.DemoModelFactory
 {
@@ -13,31 +14,28 @@ namespace ShaderForm.DemoModelFactory
 		public ShaderFile(VisualContext visualContext, ISynchronizeInvoke syncObject)
 		{
 			this.visualContext = visualContext;
-			//establish watcher
-			shaderWatcher.Changed += (object sender, FileSystemEventArgs e) => LoadShader(e.FullPath);
-			shaderWatcher.SynchronizingObject = syncObject;
+			this.syncObject = syncObject;
 		}
 
 		public void Load(string shaderFileName)
 		{
 			if (!File.Exists(shaderFileName)) throw new ShaderLoadException("Non existent shader file '" + shaderFileName + "'!");
 			this.shaderFileName = shaderFileName;
-			shaderWatcher.Filter = Path.GetFileName(shaderFileName);
-			shaderWatcher.Path = Path.GetDirectoryName(shaderFileName);
-			shaderWatcher.EnableRaisingEvents = true;
+
+			fileWatcher = new FileWatcher(shaderFileName, syncObject);
+			fileWatcher.Changed += (s, e) => LoadShader(e.FullPath);
 			LoadShader(shaderFileName);
 		}
 
 		public void Dispose()
 		{
 			visualContext.RemoveShader(shaderFileName);
-			shaderWatcher.Dispose();
-			shaderWatcher = null;
 		}
 
 		private string shaderFileName;
-		private FileSystemWatcher shaderWatcher = new FileSystemWatcher();
+		private FileWatcher fileWatcher;
 		private VisualContext visualContext;
+		private readonly ISynchronizeInvoke syncObject;
 
 		private void LoadShader(string fileName)
 		{

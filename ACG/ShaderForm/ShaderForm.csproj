@@ -194,6 +194,10 @@
       <Project>{e5ff60a4-46fb-42d2-9430-bc523315c2e0}</Project>
       <Name>Zenseless.Base</Name>
     </ProjectReference>
+    <ProjectReference Include="..\..\_Common\Zenseless.ShaderDebugging\Zenseless.ShaderDebugging.csproj">
+      <Project>{3C8BCF2C-1019-4A8D-B986-AFD6BB80E917}</Project>
+      <Name>Zenseless.ShaderDebugging</Name>
+    </ProjectReference>
     <ProjectReference Include="..\..\_Common\Zenseless.TimeTools\Zenseless.TimeTools.csproj">
       <Project>{54156018-0f41-4eef-aeb4-f1c99cf7a2ab}</Project>
       <Name>Zenseless.TimeTools</Name>

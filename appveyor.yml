@@ -1,23 +1,23 @@
 image: Visual Studio 2017
 
 configuration:
-- Debug
+#- Debug
 - Release
 
 artifacts:
-  - path: bin\Release\ShaderForm.exe
-    name: ShaderForm
+- path: bin\$(configuration)\ShaderForm.exe
+  name: ShaderForm
 
 install:
 - ps: (new-object Net.WebClient).DownloadString("https://raw.github.com/madskristensen/ExtensionScripts/master/AppVeyor/vsix.ps1") | iex
 
 before_build:
-  - ps: Vsix-IncrementVsixVersion | Vsix-UpdateBuildVersion
-  - ps: Vsix-TokenReplacement Tools\Zenseless.VSX\Source.extension.vsixmanifest 'Version = "([0-9\\.]+)"' 'Version = "{version}"'
+- nuget restore -Verbosity quiet
+- ps: Vsix-IncrementVsixVersion | Vsix-UpdateBuildVersion
+- ps: Vsix-TokenReplacement Tools\Zenseless.VSX\Source.extension.vsixmanifest 'Version = "([0-9\\.]+)"' 'Version = "{version}"'
 
 build_script:
-  - nuget restore -Verbosity quiet
-  - msbuild /p:configuration=Release /p:DeployExtension=false /p:ZipPackageCompressionLevel=normal /v:m
+- msbuild /p:configuration=Release /p:DeployExtension=false /p:ZipPackageCompressionLevel=normal /v:m
 
 after_test:
  # - ps: Vsix-PushArtifacts | Vsix-PublishToGallery
