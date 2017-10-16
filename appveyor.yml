@@ -1,21 +1,18 @@
+skip_tags: true # avoid deploy to GitHub loop 
+
 image: Visual Studio 2017
 
 configuration:
 #- Debug
 - Release
 
-artifacts:
-- path: bin\$(configuration)\ShaderForm
-  name: ShaderForm
-
 install:
-- ps: (new-object Net.WebClient).DownloadString("https://raw.github.com/madskristensen/ExtensionScripts/master/AppVeyor/vsix.ps1") | iex
+#- ps: (new-object Net.WebClient).DownloadString("https://raw.github.com/madskristensen/ExtensionScripts/master/AppVeyor/vsix.ps1") | iex
 
 before_build:
 - nuget restore -Verbosity quiet
 #- ps: Vsix-IncrementVsixVersion | Vsix-UpdateBuildVersion
 #- ps: Vsix-TokenReplacement Tools\Zenseless.VSX\Source.extension.vsixmanifest 'Version = "([0-9\\.]+)"' 'Version = "{version}"'
-
 
 build:
   project: All.sln
@@ -27,9 +24,13 @@ build:
 after_test:
 #- ps: Vsix-PushArtifacts | Vsix-PublishToGallery
 
+artifacts:
+- path: bin\$(configuration)\ShaderForm
+  name: ShaderForm
+
 deploy:
   release: ShaderForm-v$(appveyor_build_version)
-  description: 'Release description'
+  description: 'Release auto generated from AppVeyor'
   provider: GitHub
   auth_token:
     secure: IGRhoLQi/yyC2ej7s79ZRU3PL3NScj4Kxh1Lyydg/CEvD/PbRwIilxmBziEHfwjJ
