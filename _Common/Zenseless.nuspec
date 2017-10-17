@@ -13,14 +13,14 @@
 		<copyright>Copyright 2017 Daniel Scherzer</copyright>
 		<tags>computergraphics real-time geometry mathematic vector matrix .net OpenGL GLSL</tags>
 		<dependencies>
-      <dependency id="OpenTK" version="[3.0.0-pre, )" />
+			<dependency id="OpenTK" version="[3.0.0-pre, )" />
 			<dependency id="NAudio" version="1.8.3" />
 		</dependencies>
 	</metadata>
 	<files>
-		<file src="..\bin\Debug\Zenseless.*.dll" target="lib\net46" />
-		<file src="..\bin\Debug\Zenseless.*.pdb" target="lib\net46" />
-		<file src="..\bin\Debug\Zenseless.*.xml" target="lib\net46" />
+		<file src="..\bin\$configuration$\Zenseless.*.dll" target="lib\net46" />
+		<file src="..\bin\$configuration$\Zenseless.*.pdb" target="lib\net46" />
+		<file src="..\bin\$configuration$\Zenseless.*.xml" target="lib\net46" />
 		<file src="**\*.cs" target="src" />
 	</files>
 </package>
