@@ -18,9 +18,9 @@
 		</dependencies>
 	</metadata>
 	<files>
-		<file src="..\bin\$configuration$\Zenseless.*.dll" target="lib\net46" />
-		<file src="..\bin\$configuration$\Zenseless.*.pdb" target="lib\net46" />
-		<file src="..\bin\$configuration$\Zenseless.*.xml" target="lib\net46" />
+		<file src="..\bin\release\Zenseless.*.dll" target="lib\net46" />
+		<file src="..\bin\release\Zenseless.*.pdb" target="lib\net46" />
+		<file src="..\bin\release\Zenseless.*.xml" target="lib\net46" />
 		<file src="**\*.cs" target="src" />
 	</files>
 </package>

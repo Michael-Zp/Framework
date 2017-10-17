@@ -17,7 +17,7 @@ build:
   verbosity: minimal              # MSBuild verbosity level
 
 after_test:
-    nuget pack _Common\Zenseless.nuspec
+    nuget pack _Common\Zenseless.nuspec -symbols
 
 artifacts:
 - path: bin\$(configuration)\ShaderForm
