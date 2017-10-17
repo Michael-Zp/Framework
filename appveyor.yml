@@ -16,13 +16,15 @@ build:
   include_nuget_references: true  # add -IncludeReferencedProjects option while packaging NuGet artifacts
   verbosity: minimal              # MSBuild verbosity level
 
-after_build:
+after_test:
     nuget pack _Common\Zenseless.nuspec
 
 artifacts:
 - path: bin\$(configuration)\ShaderForm
   name: ShaderForm
-
+- path: _Common\Zenseless.nuspec
+  name: Zenseless
+  
 deploy:
   release: ShaderForm-v$(appveyor_build_version)
   description: 'Release auto generated from AppVeyor'
