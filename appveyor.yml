@@ -26,17 +26,16 @@ artifacts:
   name: Zenseless
   
 deploy:
+- provider: GitHub
   release: ShaderForm-v$(appveyor_build_version)
   description: 'Release auto generated from AppVeyor'
-  provider: GitHub
   auth_token:
     secure: IGRhoLQi/yyC2ej7s79ZRU3PL3NScj4Kxh1Lyydg/CEvD/PbRwIilxmBziEHfwjJ
   artifact: ShaderForm
   draft: false
   prerelease: false
 
-deploy:
-  provider: NuGet
+- provider: NuGet
   api_key:
     secure: w5QCSXAxezmCE9sCYev5jEuL4uAicWaB5UrXtZkSMRfHVHr1nWyJnPaJO6r+rG5j
   skip_symbols: false
