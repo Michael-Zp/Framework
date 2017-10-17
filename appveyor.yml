@@ -6,13 +6,8 @@ configuration:
 #- Debug
 - Release
 
-install:
-#- ps: (new-object Net.WebClient).DownloadString("https://raw.github.com/madskristensen/ExtensionScripts/master/AppVeyor/vsix.ps1") | iex
-
 before_build:
 - nuget restore -Verbosity quiet
-#- ps: Vsix-IncrementVsixVersion | Vsix-UpdateBuildVersion
-#- ps: Vsix-TokenReplacement Tools\Zenseless.VSX\Source.extension.vsixmanifest 'Version = "([0-9\\.]+)"' 'Version = "{version}"'
 
 build:
   project: All.sln
@@ -21,8 +16,8 @@ build:
   include_nuget_references: true  # add -IncludeReferencedProjects option while packaging NuGet artifacts
   verbosity: minimal              # MSBuild verbosity level
 
-after_test:
-#- ps: Vsix-PushArtifacts | Vsix-PublishToGallery
+after_build:
+    nuget pack _Common\Zenseless.nuspec
 
 artifacts:
 - path: bin\$(configuration)\ShaderForm
