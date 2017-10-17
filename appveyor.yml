@@ -22,7 +22,7 @@ after_test:
 artifacts:
 - path: bin\$(configuration)\ShaderForm
   name: ShaderForm
-- path: _Common\Zenseless.nuspec
+- path: _Common\*.nupkg
   name: Zenseless
   
 deploy:

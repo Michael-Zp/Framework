@@ -3,8 +3,8 @@
 	<metadata>
 		<id>Zenseless</id>
 		<version>0.3.4.1</version>
-		<authors>Daniel Scherzer</authors>
-		<owners>Scherzer</owners>
+		<authors>$author$</authors>
+		<owners>$author$</owners>
 		<projectUrl>https://github.com/danielscherzer/Framework</projectUrl>
 		<licenseUrl>http://www.apache.org/licenses/LICENSE-2.0</licenseUrl>
 		<requireLicenseAcceptance>false</requireLicenseAcceptance>
