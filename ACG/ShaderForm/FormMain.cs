@@ -238,6 +238,9 @@ namespace ShaderForm
 		{
 			Text = "ShaderForm"; //initial window caption
 			while (menuShaders.DropDownItems.Count > 1) menuShaders.DropDownItems.RemoveAt(1); //recreate shader menus
+			var showSequenceBar = 1 < demo.Shaders.Count();
+			panelSequence.Visible = showSequenceBar;
+
 			foreach (var shaderPath in demo.Shaders)
 			{
 				var menu = new ToolStripMenuItem();

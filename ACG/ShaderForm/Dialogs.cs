@@ -54,7 +54,7 @@ namespace ShaderForm
 				+ "w|a|s|d \t\t camera movement\n"
 				+ "q|e \t\t camera up|down movement\n"
 				+ "mouse drag \t camera direction\n"
-				+ "+|- \t camera speed"
+				+ "+|- \t\t camera speed\n"
 				+ "Ctrl+R \t\t reset camera\n"
 
 				+ "\nActive graph form\n"

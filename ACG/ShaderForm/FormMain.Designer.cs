@@ -55,12 +55,12 @@ namespace ShaderForm
 			this.menuOnTop = new System.Windows.Forms.ToolStripMenuItem();
 			this.logToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
 			this.cameraWindowToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+			this.tracksWindowToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
 			this.panelSequence = new System.Windows.Forms.Panel();
+			this.buttonReload = new System.Windows.Forms.Button();
 			this.sequenceBar1 = new ControlClassLibrary.SequenceBar();
 			this.textBoxLastMessage = new System.Windows.Forms.TextBox();
 			this.soundPlayerBar1 = new ControlClassLibrary.SeekBar();
-			this.button1 = new System.Windows.Forms.Button();
-			this.tracksWindowToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
 			this.menuStrip.SuspendLayout();
 			this.panelSequence.SuspendLayout();
 			this.SuspendLayout();
@@ -73,7 +73,7 @@ namespace ShaderForm
 			this.glControl.Location = new System.Drawing.Point(0, 24);
 			this.glControl.Margin = new System.Windows.Forms.Padding(4);
 			this.glControl.Name = "glControl";
-			this.glControl.Size = new System.Drawing.Size(648, 468);
+			this.glControl.Size = new System.Drawing.Size(648, 475);
 			this.glControl.TabIndex = 0;
 			this.glControl.VSync = false;
 			this.glControl.Load += new System.EventHandler(this.GlControl_Load);
@@ -298,15 +298,33 @@ namespace ShaderForm
 			this.cameraWindowToolStripMenuItem.Size = new System.Drawing.Size(170, 22);
 			this.cameraWindowToolStripMenuItem.Text = "Camera Window";
 			// 
+			// tracksWindowToolStripMenuItem
+			// 
+			this.tracksWindowToolStripMenuItem.Name = "tracksWindowToolStripMenuItem";
+			this.tracksWindowToolStripMenuItem.Size = new System.Drawing.Size(170, 22);
+			this.tracksWindowToolStripMenuItem.Text = "Tracks Window";
+			// 
 			// panelSequence
 			// 
-			this.panelSequence.Controls.Add(this.button1);
+			this.panelSequence.Controls.Add(this.buttonReload);
 			this.panelSequence.Controls.Add(this.sequenceBar1);
 			this.panelSequence.Dock = System.Windows.Forms.DockStyle.Bottom;
-			this.panelSequence.Location = new System.Drawing.Point(0, 492);
+			this.panelSequence.Location = new System.Drawing.Point(0, 499);
 			this.panelSequence.Name = "panelSequence";
 			this.panelSequence.Size = new System.Drawing.Size(648, 34);
 			this.panelSequence.TabIndex = 5;
+			// 
+			// buttonReload
+			// 
+			this.buttonReload.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+			this.buttonReload.Image = global::ShaderForm.Properties.Resources.Restart_6322;
+			this.buttonReload.Location = new System.Drawing.Point(0, 0);
+			this.buttonReload.Name = "buttonReload";
+			this.buttonReload.Size = new System.Drawing.Size(29, 34);
+			this.buttonReload.TabIndex = 6;
+			this.buttonReload.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageAboveText;
+			this.buttonReload.UseVisualStyleBackColor = true;
+			this.buttonReload.Click += new System.EventHandler(this.Reload_Click);
 			// 
 			// sequenceBar1
 			// 
@@ -330,7 +348,7 @@ namespace ShaderForm
 			this.textBoxLastMessage.Multiline = true;
 			this.textBoxLastMessage.Name = "textBoxLastMessage";
 			this.textBoxLastMessage.ReadOnly = true;
-			this.textBoxLastMessage.Size = new System.Drawing.Size(648, 468);
+			this.textBoxLastMessage.Size = new System.Drawing.Size(648, 475);
 			this.textBoxLastMessage.TabIndex = 6;
 			this.textBoxLastMessage.DragDrop += new System.Windows.Forms.DragEventHandler(this.GlControl_DragDrop);
 			this.textBoxLastMessage.DragOver += new System.Windows.Forms.DragEventHandler(this.GlControl_DragOver);
@@ -341,32 +359,14 @@ namespace ShaderForm
 			this.soundPlayerBar1.AutoSize = true;
 			this.soundPlayerBar1.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink;
 			this.soundPlayerBar1.Dock = System.Windows.Forms.DockStyle.Bottom;
-			this.soundPlayerBar1.Location = new System.Drawing.Point(0, 526);
+			this.soundPlayerBar1.Location = new System.Drawing.Point(0, 533);
 			this.soundPlayerBar1.Margin = new System.Windows.Forms.Padding(4);
 			this.soundPlayerBar1.Name = "soundPlayerBar1";
 			this.soundPlayerBar1.Playing = false;
 			this.soundPlayerBar1.Position = 0.867F;
-			this.soundPlayerBar1.Size = new System.Drawing.Size(648, 34);
+			this.soundPlayerBar1.Size = new System.Drawing.Size(648, 27);
 			this.soundPlayerBar1.TabIndex = 3;
 			this.soundPlayerBar1.TabStop = false;
-			// 
-			// button1
-			// 
-			this.button1.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-			this.button1.Image = global::ShaderForm.Properties.Resources.Restart_6322;
-			this.button1.Location = new System.Drawing.Point(0, 0);
-			this.button1.Name = "button1";
-			this.button1.Size = new System.Drawing.Size(29, 34);
-			this.button1.TabIndex = 6;
-			this.button1.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageAboveText;
-			this.button1.UseVisualStyleBackColor = true;
-			this.button1.Click += new System.EventHandler(this.Reload_Click);
-			// 
-			// tracksWindowToolStripMenuItem
-			// 
-			this.tracksWindowToolStripMenuItem.Name = "tracksWindowToolStripMenuItem";
-			this.tracksWindowToolStripMenuItem.Size = new System.Drawing.Size(170, 22);
-			this.tracksWindowToolStripMenuItem.Text = "Tracks Window";
 			// 
 			// FormMain
 			// 
@@ -422,7 +422,7 @@ namespace ShaderForm
 		private Panel panelSequence;
 		private ControlClassLibrary.SequenceBar sequenceBar1;
 		private ControlClassLibrary.SeekBar soundPlayerBar1;
-		private Button button1;
+		private Button buttonReload;
 		private ToolStripMenuItem menuOnTop;
 		private TextBox textBoxLastMessage;
 		private ToolStripMenuItem logToolStripMenuItem;

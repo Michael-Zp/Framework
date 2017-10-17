@@ -34,7 +34,7 @@ namespace ControlClassLibrary
 		public SeekBar()
 		{
 			InitializeComponent();
-			defaultTimeSource =	new TimeSource(10.0f);
+			defaultTimeSource =	new TimeSource(100.0f);
 			timeSource = defaultTimeSource;
 			timeSource.IsLooping = true;
 			timeSource.TimeFinished += CallOnFinished;
