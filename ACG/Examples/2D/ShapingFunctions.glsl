@@ -61,7 +61,7 @@ float onAxis(vec2 coord, vec2 screenDelta)
 float function(float x)
 {
     float y = x;
-	// y = sin(x);
+	 // y = sin(x);
 	// y = step(-2, x) ;
 	// y = smoothstep(-3, 3, x);
 	// y = mod(x, 4);
@@ -70,7 +70,7 @@ float function(float x)
 	// y = floor(x); // nearest integer less than or equal to x
 	// y = sign(x);  // extract the sign of x
 	// y = abs(x);   // return the absolute value of x
-	// y = clamp(x,0.0,1.0); // constrain x to lie between 0.0 and 1.0
+	//y = clamp(x,0.0,1.0); // constrain x to lie between 0.0 and 1.0
 	// y = min(0.0,x);   // return the lesser of x and 0.0
 	// y = max(0.0,x);   // return the greater of x and 0.0 
 	// y = trunc(x);
@@ -83,7 +83,7 @@ float function(float x)
 	// y = abs(mod(x + 1, 2.0) - 1); // repeated tent
 	// y = step(2, mod(x, 4.0)); // repeat step
 	// y = smoothstep(-0.5, 1, cos(x)) * 2;
-	// float fact = 1; 
+	 float fact = 1; 
 	// y = floor(x / fact);
 	// y = floor(0.5 + x / fact) * fact;
 	// y = x - floor(0.5 + x / fact) * fact;
@@ -132,7 +132,7 @@ void main() {
 	//screen aspect
 	float aspect = 1;//iResolution.x / iResolution.y;
 	//coordinate system corners
-	vec2 lowerLeft = vec2(-10 * aspect, -1);
+	vec2 lowerLeft = vec2(-10 * aspect, -10);
 	vec2 upperRight = vec2(10 * aspect, 10);
 	//setup coordinate system
 	vec2 coord = map(coord01, lowerLeft, upperRight);

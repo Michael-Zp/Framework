@@ -12,6 +12,10 @@
 		1. Use smoothstep to draw soft edged rectangle
 		1. Color the quad
 		1. Can you do something that resembles a Piet Mondrian painting? ![Mondrian painting](mondrian.jpg "Mondrian painting")
+1. [CircleDistanceField.glsl](CircleDistanceField.glsl)
+	1. We look at code together
+	1. Uncomment from top to bottom
+	1. Create your own moving distance fields
 1. [ShapingFunctions.glsl](ShapingFunctions.glsl)
 	1. Uncomment the different functions
 	1. How to draw the green line? Create such a function plotter!
@@ -20,10 +24,6 @@
 	1. Choose a function with very steep parts. What happens?
 	1. How can we control the thickness of general functions?
 	1. Create your own function using sin, smoothstep, mod, ...
-1. [CircleDistanceField.glsl](CircleDistanceField.glsl)
-	1. We look at code together
-	1. Uncomment from top to bottom
-	1. Create your own moving distance fields
 1. [Polar.glsl](Polar.glsl)
 	1. We look at code together
 	1. Uncomment from top to bottom
