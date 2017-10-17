@@ -22,7 +22,7 @@ after_test:
 artifacts:
 - path: bin\$(configuration)\ShaderForm
   name: ShaderForm
-- path: _Common\*.nupkg
+- path: '*.nupkg'
   name: Zenseless
   
 deploy:
