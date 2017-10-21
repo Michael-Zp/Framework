@@ -135,7 +135,7 @@ namespace Example
 		[STAThread]
 		private static void Main()
 		{
-			var window = new ExampleWindow();
+			var window = new ExampleWindow(512, 512, 30);
 			GL.ClearColor(Color.White);
 			var controller = new Controller();
 			var frames = new List<Bitmap>();
