@@ -30,7 +30,7 @@ namespace Tools
 			try
 			{
 				if (newProj == sourceProjPath) throw new ArgumentException($"{nameof(sourceProjPath)} and {nameof(destTemplateZipPath)} are required to have different file names");
-				CreateCsprojForTemplate.Execute(sourceProjPath, newProj);
+				SwitchProjRefToPackage.Execute(sourceProjPath, newProj);
 				ProjToTemplate.Execute(newProj, destTemplateZipPath);
 				File.Delete(newProj);
 			}

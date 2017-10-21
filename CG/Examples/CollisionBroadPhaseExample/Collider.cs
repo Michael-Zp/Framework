@@ -12,7 +12,7 @@ namespace Example
 			Box = new Box2D(x, y, sizeX, sizeY);
 			//make a hsb color sweep in polar coordinates
 			var polar = MathHelper.ToPolar(new Vector2(x, y));
-			var rgb = ColorSystems.Hsb2rgb(polar.X / MathHelper.TWO_PI + 0.5f, polar.Y, 1);
+			var rgb = ColorSystems.Hsb2rgb(polar.X / MathHelper.TWO_PI + .5f, polar.Y, 1f);
 			Color = ColorSystems.ToSystemColor(rgb);
 			Velocity = Vector2.Zero;
 		}

@@ -33,26 +33,24 @@ namespace Tools
 
 				//add project file
 				var projFileName = Path.GetFileName(sourceProjPath);
-				zip.CreateEntryFromFile(sourceProjPath, projFileName);
+				using (var entryProj = zip.CreateEntry(projFileName).Open())
+				{
+					var xmlProj = PrepareProjectForTemplate(sourceProjPath);
+					xmlProj.Save(entryProj);
+				}
 
-				//update template manifest
-				var xmlDoc = XDocument.Parse(Encoding.UTF8.GetString(ResTemplate.MyTemplate));
-				var ns = xmlDoc.Root.Name.Namespace;
-				xmlDoc.Descendants(ns + "Name").First().SetValue(Path.GetFileNameWithoutExtension(projFileName));
-				xmlDoc.Descendants(ns + "Description").First().SetValue("Exercise for lecture CG");
-				var xmlProjNode = xmlDoc.Descendants(ns + "Project").First();
-				xmlProjNode.Add(new XAttribute("File", projFileName));
-
-				//add files
+				//add project files
 				var dir = Path.GetDirectoryName(sourceProjPath) + Path.DirectorySeparatorChar;
-				foreach (var file in Files(sourceProjPath))
+				var projFiles = Files(sourceProjPath);
+				foreach (var file in projFiles)
 				{
 					zip.CreateEntryFromFile(dir + file, file);
-					xmlProjNode.Add(new XElement(ns + "ProjectItem", file));
 				}
-				//add vstemplate
+
+				//add vs template manifest
 				using (var entryVsTemplate = zip.CreateEntry("MyTemplate.vstemplate").Open())
 				{
+					var xmlDoc = CreateManifest(projFileName, projFiles);
 					xmlDoc.Save(entryVsTemplate);
 				}
 			}
@@ -69,6 +67,50 @@ namespace Tools
 		static bool IsFile(string itemType)
 		{
 			return ("Compile" == itemType) || ("None" == itemType) || ("EmbeddedResource" == itemType);
+		}
+
+		static XDocument CreateManifest(string projFileName, IEnumerable<string> projFiles)
+		{
+			var xmlDoc = XDocument.Parse(Encoding.UTF8.GetString(ResTemplate.MyTemplate));
+			var ns = xmlDoc.Root.Name.Namespace;
+			xmlDoc.Descendants(ns + "Name").First().SetValue(Path.GetFileNameWithoutExtension(projFileName));
+			xmlDoc.Descendants(ns + "Description").First().SetValue("Exercise for lecture CG");
+			var xmlProjNode = xmlDoc.Descendants(ns + "Project").First();
+			xmlProjNode.Add(new XAttribute("File", projFileName));
+
+			//add files
+			foreach (var file in projFiles)
+			{
+				xmlProjNode.Add(new XElement(ns + "ProjectItem", file));
+			}
+			return xmlDoc;
+		}
+
+		static XDocument PrepareProjectForTemplate(string projectFilePath)
+		{
+			var xmlProj = XDocument.Load(projectFilePath);
+			xmlProj.Set("ProjectGuid", "$guid1$");
+			xmlProj.Replace("OutputPath", $"..{Path.DirectorySeparatorChar}", "");
+			return xmlProj;
+		}
+
+		private static void Replace(this XDocument xmlProj, string element, string input, string output)
+		{
+			var ns = xmlProj.Root.Name.Namespace;
+			foreach (var xmlOutputPath in xmlProj.Descendants(ns + element))
+			{
+				var newValue = xmlOutputPath.Value.Replace(input, output);
+				xmlOutputPath.SetValue(newValue);
+			}
+		}
+
+		private static void Set(this XDocument xmlProj, string element, string value)
+		{
+			var ns = xmlProj.Root.Name.Namespace;
+			foreach (var xmlOutputPath in xmlProj.Descendants(ns + element))
+			{
+				xmlOutputPath.SetValue(value);
+			}
 		}
 	}
 }

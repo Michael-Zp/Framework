@@ -5,6 +5,9 @@ using OpenTK.Input;
 using System;
 using System.Collections.Generic;
 using System.Diagnostics;
+using Zenseless.OpenGL;
+using System.Drawing;
+using Zenseless.Base;
 
 namespace Example
 {
@@ -133,10 +136,14 @@ namespace Example
 		private static void Main()
 		{
 			var window = new ExampleWindow();
+			GL.ClearColor(Color.White);
 			var controller = new Controller();
+			var frames = new List<Bitmap>();
+			window.Update += (t) => controller.Update(t, (timing) => window.GameWindow.Title = $"{Math.Round(timing)}ms");
 			window.Render += controller.Render;
-			window.Update += (t) => controller.Update(t, (timing) => window.GameWindow.Title = Math.Round(timing).ToString() + "ms");
+			window.Render += () => frames.Add(FrameBuffer.ToBitmap());
 			window.Run();
+			frames.SaveToDefaultDir();
 		}
 	}
 }

@@ -18,7 +18,7 @@ namespace Example
 			Bitmap screenshot = null; 
 			var rasterizer = new Rasterizer(10, 10, canvas.Draw);
 			window.Render += rasterizer.Render;
-			window.Render += () => screenshot = ReadBack.FrameBuffer();
+			window.Render += () => screenshot = FrameBuffer.ToBitmap();
 			window.Run();
 			if(!ReferenceEquals(null, screenshot))
 			{

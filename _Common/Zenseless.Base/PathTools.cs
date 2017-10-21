@@ -32,6 +32,25 @@ namespace Zenseless.Base
 		}
 
 		/// <summary>
+		/// Returns the output directory for the current process:
+		/// a sub-directory of the directory the executable resides in 
+		/// and with the name of the executable and an appended time code.
+		/// </summary>
+		/// <param name="timeCodeFormat">string format for DateTime</param>
+		/// <returns>Output directory</returns>
+		public static string GetCurrentProcessOutputDir(string timeCodeFormat = "yyyyMMdd HHmmss")
+		{
+			var path = GetCurrentProcessPath();
+			var dir = Path.GetDirectoryName(path);
+			var name = Path.GetFileNameWithoutExtension(path);
+			if(!string.IsNullOrWhiteSpace(timeCodeFormat))
+			{
+				name += $" {DateTime.Now.ToString(timeCodeFormat)}";
+			}
+			return Path.Combine(dir, name);
+		}
+
+		/// <summary>
 		/// Returns the absolute path for the specified path string by using Path.GetFullPath. If an exception is thrown the input parameter is returned.
 		/// </summary>
 		/// <param name="fileName">The file or directory for which to obtain absolute path information.</param>

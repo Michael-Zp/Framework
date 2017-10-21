@@ -6,11 +6,20 @@ using System.IO;
 
 namespace Zenseless.Sound
 {
+	/// <summary>
+	/// This class allows the mixed playing of sounds from streams or files. 
+	/// All sounds are required to have the same sampling frequency.
+	/// </summary>
 	public class AudioPlaybackEngine : Disposable
 	{
 		private readonly IWavePlayer outputDevice;
 		private readonly MixingSampleProvider mixer;
 
+		/// <summary>
+		/// Create a new instance of the playback engine.
+		/// </summary>
+		/// <param name="sampleRate">For all input sounds that will be played</param>
+		/// <param name="channelCount">Output channel count</param>
 		public AudioPlaybackEngine(int sampleRate = 44100, int channelCount = 2)
 		{
 			outputDevice = new WaveOutEvent();
@@ -20,19 +29,11 @@ namespace Zenseless.Sound
 			outputDevice.Play();
 		}
 
-		private ISampleProvider ConvertToRightChannelCount(ISampleProvider input)
-		{
-			if (input.WaveFormat.Channels == mixer.WaveFormat.Channels)
-			{
-				return input;
-			}
-			if (input.WaveFormat.Channels == 1 && mixer.WaveFormat.Channels == 2)
-			{
-				return new MonoToStereoSampleProvider(input);
-			}
-			throw new NotImplementedException("Not yet implemented this channel count conversion");
-		}
-
+		/// <summary>
+		/// Plays sound from a given file (can be compressed, like with mp3)
+		/// </summary>
+		/// <param name="fileName">input sound file name</param>
+		/// <param name="looped">should playback be looped forever</param>
 		public void PlaySound(string fileName, bool looped = false)
 		{
 			var input = new AudioFileReader(fileName);
@@ -49,10 +50,10 @@ namespace Zenseless.Sound
 		}
 
 		/// <summary>
-		/// Plays sound from a stream; you get unbuffered access if you usse a file stream 
+		/// Plays sound from a stream; you get unbuffered access if you use a file stream 
 		/// and buffered access if you use a memory stream
 		/// </summary>
-		/// <param name="stream"></param>
+		/// <param name="stream">the input stream that contains the sound (can be compressed, like mp3)</param>
 		public void PlaySound(Stream stream, bool looped = false)
 		{
 			WaveStream reader = FindCorrectWaveStream(stream);
@@ -67,6 +68,19 @@ namespace Zenseless.Sound
 				var sampleChannel = new SampleChannel(reader, false);
 				AddMixerInput(new AutoDisposeSampleProvider(sampleChannel, reader));
 			}
+		}
+
+		private ISampleProvider ConvertToRightChannelCount(ISampleProvider input)
+		{
+			if (input.WaveFormat.Channels == mixer.WaveFormat.Channels)
+			{
+				return input;
+			}
+			if (input.WaveFormat.Channels == 1 && mixer.WaveFormat.Channels == 2)
+			{
+				return new MonoToStereoSampleProvider(input);
+			}
+			throw new NotImplementedException("Not yet implemented this channel count conversion");
 		}
 
 		private static WaveStream FindCorrectWaveStream(Stream stream)

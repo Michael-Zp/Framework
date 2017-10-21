@@ -44,7 +44,7 @@
     <Folder Include="Properties\" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\CreateCsprojForTemplate\CreateCsprojForTemplate.csproj">
+    <ProjectReference Include="..\SwitchProjRefToPackage\SwitchProjRefToPackage.csproj">
       <Project>{37cee1e7-20b0-4719-8beb-e1a450cd530e}</Project>
       <Name>ProjectResolveZenselessDependencies</Name>
     </ProjectReference>

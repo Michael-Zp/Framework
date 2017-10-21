@@ -5,9 +5,9 @@ using System.Drawing.Imaging;
 namespace Zenseless.OpenGL
 {
 	/// <summary>
-	/// Contains methods for saving (rading back from the graphcis card) the frame buffer into a Bitmap
+	/// Contains methods for accessing the frame buffer 
 	/// </summary>
-	public static class ReadBack
+	public static class FrameBuffer
 	{
 		/// <summary>
 		/// Saves a rectangular area of the current frame buffer into a Bitmap
@@ -17,7 +17,7 @@ namespace Zenseless.OpenGL
 		/// <param name="width">size in x-direction</param>
 		/// <param name="height">size in y-direction</param>
 		/// <returns>Bitmap</returns>
-		public static Bitmap FrameBuffer(int x, int y, int width, int height)
+		public static Bitmap ToBitmap(int x, int y, int width, int height)
 		{
 			var format = System.Drawing.Imaging.PixelFormat.Format24bppRgb;
 			var bmp = new Bitmap(width, height);
@@ -32,11 +32,11 @@ namespace Zenseless.OpenGL
 		/// Saves the contents of the current frame buffer into a Bitmap
 		/// </summary>
 		/// <returns>Bitmap</returns>
-		public static Bitmap FrameBuffer()
+		public static Bitmap ToBitmap()
 		{
 			var viewport = new int[4];
 			GL.GetInteger(GetPName.Viewport, viewport);
-			return FrameBuffer(viewport[0], viewport[1], viewport[2], viewport[3]);
+			return ToBitmap(viewport[0], viewport[1], viewport[2], viewport[3]);
 		}
 	}
 }

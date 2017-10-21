@@ -50,7 +50,7 @@
     <Compile Include="DrawTools.cs" />
     <Compile Include="RenderSurfaceGL.cs" />
     <Compile Include="QueryObject.cs" />
-    <Compile Include="ReadBack.cs" />
+    <Compile Include="FrameBuffer.cs" />
     <Compile Include="RenderBuffer.cs" />
     <Compile Include="ResourceTextureBitmap.cs" />
     <Compile Include="ResourceTextureFile.cs" />
@@ -71,7 +71,6 @@
     <Compile Include="TextureLoader.cs" />
     <Compile Include="TextureToFrameBuffer.cs" />
     <Compile Include="VAO.cs" />
-    <Compile Include="FrameListCreator.cs" />
     <Compile Include="VAOLoader.cs" />
   </ItemGroup>
   <ItemGroup>

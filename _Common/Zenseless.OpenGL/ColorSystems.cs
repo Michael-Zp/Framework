@@ -1,6 +1,6 @@
 ﻿using Zenseless.Geometry;
 using System.Numerics;
-	using SysColor = System.Drawing.Color;
+using SysColor = System.Drawing.Color;
 
 namespace Zenseless.OpenGL
 {
