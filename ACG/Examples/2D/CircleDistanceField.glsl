@@ -33,12 +33,9 @@ void main()
 	// float distUnion = min(distCircle1, distCircle2); //todo
 	// color.rgb = vec3(distUnion); // draw union
 
-	// color.rgb = vec3(step(0.4, distUnion)); //crisp circle = cut-off distance field
-
-	// float blurryness = 0.1;
-	// color.rgb = vec3(smoothstep(0.4, 0.4 + blurryness, distUnion)); //blurry circles
+	// float blurryness = 0.031; //control sharpness of circles
+	// color.rgb = vec3(smoothstep(0.4, 0.4 + blurryness, distUnion)); 
 	
-	// blurryness = 0.1 *(sin(iGlobalTime * 0.7) + 1); // change blurryness over time
 	
 	// float distPower = pow(distCircle1, distCircle2);
 	// float moveRed = abs(sin(iGlobalTime));

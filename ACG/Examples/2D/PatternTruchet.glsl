@@ -1,4 +1,3 @@
-///idea from http://thebookofshaders.com/edit.php#09/marching_dots.frag
 #version 330
 
 uniform vec2 iResolution;
@@ -6,7 +5,6 @@ uniform float iGlobalTime;
 
 const float PI = 3.1415926535897932384626433832795;
 const float TWOPI = 2 * PI;
-const float EPSILON = 10e-4;
 
 float triangle(vec2 coord, float smoothness)
 {
@@ -38,12 +36,10 @@ float angle(vec2 coord)
 {
     float index = trunc(mod(coord.x, 5)) * 3;
     index += trunc(mod(coord.y, 3)) * 7;
-	index = 0;
 	return trunc(mod(index, 4)) * 0.5 * PI;
 }
 
-//truchet style pattern
-vec2 truchet(vec2 coord, float scale, float timeScale)
+vec2 repeatAndRotate(vec2 coord, float scale, float timeScale)
 {
 	coord *= scale; //zoom
 	float angle = angle(coord);
@@ -60,8 +56,8 @@ void main() {
 	
 	coord.x *= iResolution.x / iResolution.y; //aspect
 	
-	coord = truchet(coord, 10, 0.1);
-	// coord = truchet(coord, 4, 0.1); //rekursive pattern
+	coord = repeatAndRotate(coord, 10, 0.1);
+	// coord = repeatAndRotate(coord, 4, 0.1); //rekursive pattern
 	
 	float grid = triangle(coord, 0.01);
 	// grid = diagonal(coord, 0.05);

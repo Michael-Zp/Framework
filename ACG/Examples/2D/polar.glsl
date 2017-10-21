@@ -28,17 +28,16 @@ void main(){
     // f = abs(cos(12 * a) * sin(3 * a)) * 0.8 + 0.1;
     // f = smoothstep(-0.5, 1, cos(10 * a)) * 0.15 + 0.6;
 
+    color = vec3(f);
+    // color = vec3(smoothstep(f, f + 0.02, r));
+
 	//sides
 	int N = 3;
 	float fact = TWOPI/N;
 	// f = floor(0.5 + a / fact) * fact;
 	// f = floor(0.5 + a / fact) * fact - a;
-	// f = cos(a - floor(0.5 + a / fact) * fact);
 	// f = cos(a - floor(0.5 + a / fact) * fact) * r;
-
-    color = vec3(f);
 	// color = vec3(smoothstep(0.4, 0.401, f));	
-    // color = vec3(smoothstep(f, f + 0.02, r));
 
     gl_FragColor = vec4(color, 1.0);
 }

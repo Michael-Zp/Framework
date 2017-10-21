@@ -12,6 +12,7 @@
 		1. Use smoothstep to draw soft edged rectangle
 		1. Color the quad
 		1. Can you do something that resembles a Piet Mondrian painting? ![Mondrian painting](mondrian.jpg "Mondrian painting")
+	1. Draw a circle
 1. [CircleDistanceField.glsl](CircleDistanceField.glsl)
 	1. We look at code together
 	1. Uncomment from top to bottom
