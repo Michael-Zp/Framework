@@ -1,4 +1,4 @@
-///idea from http://thebookofshaders.com/edit.php#09/marching_dots.frag
+///idea from http://thebookofshaders.com
 #version 330
 
 uniform vec2 iResolution;

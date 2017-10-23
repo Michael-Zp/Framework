@@ -1,8 +1,6 @@
 ﻿using Microsoft.Build.Evaluation;
 using NuGet;
 using System;
-using System.Collections.Generic;
-using System.IO;
 using System.Linq;
 using System.Xml.Linq;
 
@@ -35,7 +33,7 @@ namespace Tools
 		{
 			try
 			{
-				return GetLatestPackageVersionFromNuget();
+				return GetLatestPackageVersionFromNuget(packageID);
 			}
 			catch
 			{

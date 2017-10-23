@@ -28,30 +28,31 @@
 		/// </summary>
 		private void InitializeComponent()
 		{
-			this.soundPlayerBar1 = new ControlClassLibrary.SeekBar();
+			this.soundPlayerBar = new ControlClassLibrary.SeekBar();
 			this.SuspendLayout();
 			// 
-			// soundPlayerBar1
+			// soundPlayerBar
 			// 
-			this.soundPlayerBar1.AllowDrop = true;
-			this.soundPlayerBar1.AutoSize = true;
-			this.soundPlayerBar1.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink;
-			this.soundPlayerBar1.Dock = System.Windows.Forms.DockStyle.Bottom;
-			this.soundPlayerBar1.Location = new System.Drawing.Point(0, 233);
-			this.soundPlayerBar1.Margin = new System.Windows.Forms.Padding(4);
-			this.soundPlayerBar1.Name = "soundPlayerBar1";
-			this.soundPlayerBar1.Playing = false;
-			this.soundPlayerBar1.Position = 0.867F;
-			this.soundPlayerBar1.Size = new System.Drawing.Size(284, 28);
-			this.soundPlayerBar1.TabIndex = 4;
-			this.soundPlayerBar1.TabStop = false;
+			this.soundPlayerBar.AllowDrop = true;
+			this.soundPlayerBar.AutoSize = true;
+			this.soundPlayerBar.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink;
+			this.soundPlayerBar.Dock = System.Windows.Forms.DockStyle.Bottom;
+			this.soundPlayerBar.Location = new System.Drawing.Point(0, 431);
+			this.soundPlayerBar.Margin = new System.Windows.Forms.Padding(7);
+			this.soundPlayerBar.Name = "soundPlayerBar";
+			this.soundPlayerBar.Playing = false;
+			this.soundPlayerBar.Position = 0.867F;
+			this.soundPlayerBar.Size = new System.Drawing.Size(521, 51);
+			this.soundPlayerBar.TabIndex = 4;
+			this.soundPlayerBar.TabStop = false;
 			// 
 			// FormTracks
 			// 
-			this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
+			this.AutoScaleDimensions = new System.Drawing.SizeF(11F, 24F);
 			this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-			this.ClientSize = new System.Drawing.Size(284, 261);
-			this.Controls.Add(this.soundPlayerBar1);
+			this.ClientSize = new System.Drawing.Size(521, 482);
+			this.Controls.Add(this.soundPlayerBar);
+			this.Margin = new System.Windows.Forms.Padding(6);
 			this.Name = "FormTracks";
 			this.Text = "FormTracks";
 			this.ResumeLayout(false);
@@ -61,6 +62,6 @@
 
 		#endregion
 
-		private ControlClassLibrary.SeekBar soundPlayerBar1;
+		public ControlClassLibrary.SeekBar soundPlayerBar;
 	}
 }

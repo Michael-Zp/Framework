@@ -35,18 +35,6 @@ namespace ShaderForm
 			this.menuStrip = new System.Windows.Forms.MenuStrip();
 			this.menuHelp = new System.Windows.Forms.ToolStripMenuItem();
 			this.menuBenchmark = new System.Windows.Forms.ToolStripMenuItem();
-			this.menuDemo = new System.Windows.Forms.ToolStripMenuItem();
-			this.clearToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-			this.menuLoad = new System.Windows.Forms.ToolStripMenuItem();
-			this.menuSave = new System.Windows.Forms.ToolStripMenuItem();
-			this.menuShaders = new System.Windows.Forms.ToolStripMenuItem();
-			this.MenuShaderAdd = new System.Windows.Forms.ToolStripMenuItem();
-			this.menuTextures = new System.Windows.Forms.ToolStripMenuItem();
-			this.MenuTextureAdd = new System.Windows.Forms.ToolStripMenuItem();
-			this.menuUniforms = new System.Windows.Forms.ToolStripMenuItem();
-			this.addCameraUniformsToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-			this.TextUniformAdd = new System.Windows.Forms.ToolStripTextBox();
-			this.menuSound = new System.Windows.Forms.ToolStripMenuItem();
 			this.menuWindow = new System.Windows.Forms.ToolStripMenuItem();
 			this.menuSizeSetting = new System.Windows.Forms.ToolStripComboBox();
 			this.menuScreenshot = new System.Windows.Forms.ToolStripMenuItem();
@@ -56,6 +44,18 @@ namespace ShaderForm
 			this.logToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
 			this.cameraWindowToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
 			this.tracksWindowToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+			this.menuUniforms = new System.Windows.Forms.ToolStripMenuItem();
+			this.addCameraUniformsToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+			this.TextUniformAdd = new System.Windows.Forms.ToolStripTextBox();
+			this.menuShaders = new System.Windows.Forms.ToolStripMenuItem();
+			this.MenuShaderAdd = new System.Windows.Forms.ToolStripMenuItem();
+			this.menuTextures = new System.Windows.Forms.ToolStripMenuItem();
+			this.MenuTextureAdd = new System.Windows.Forms.ToolStripMenuItem();
+			this.menuDemo = new System.Windows.Forms.ToolStripMenuItem();
+			this.clearToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+			this.menuLoad = new System.Windows.Forms.ToolStripMenuItem();
+			this.menuSave = new System.Windows.Forms.ToolStripMenuItem();
+			this.menuSound = new System.Windows.Forms.ToolStripMenuItem();
 			this.panelSequence = new System.Windows.Forms.Panel();
 			this.buttonReload = new System.Windows.Forms.Button();
 			this.sequenceBar1 = new ControlClassLibrary.SequenceBar();
@@ -70,10 +70,10 @@ namespace ShaderForm
 			this.glControl.AllowDrop = true;
 			this.glControl.BackColor = System.Drawing.Color.Gold;
 			this.glControl.Dock = System.Windows.Forms.DockStyle.Fill;
-			this.glControl.Location = new System.Drawing.Point(0, 24);
-			this.glControl.Margin = new System.Windows.Forms.Padding(4);
+			this.glControl.Location = new System.Drawing.Point(0, 42);
+			this.glControl.Margin = new System.Windows.Forms.Padding(7);
 			this.glControl.Name = "glControl";
-			this.glControl.Size = new System.Drawing.Size(648, 475);
+			this.glControl.Size = new System.Drawing.Size(955, 842);
 			this.glControl.TabIndex = 0;
 			this.glControl.VSync = false;
 			this.glControl.Load += new System.EventHandler(this.GlControl_Load);
@@ -90,17 +90,18 @@ namespace ShaderForm
 			this.menuStrip.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.menuHelp,
             this.menuBenchmark,
-            this.menuDemo,
+            this.menuWindow,
+            this.menuUniforms,
             this.menuShaders,
             this.menuTextures,
-            this.menuUniforms,
-            this.menuSound,
-            this.menuWindow});
+            this.menuDemo,
+            this.menuSound});
 			this.menuStrip.LayoutStyle = System.Windows.Forms.ToolStripLayoutStyle.HorizontalStackWithOverflow;
 			this.menuStrip.Location = new System.Drawing.Point(0, 0);
 			this.menuStrip.Name = "menuStrip";
+			this.menuStrip.Padding = new System.Windows.Forms.Padding(11, 4, 0, 4);
 			this.menuStrip.ShowItemToolTips = true;
-			this.menuStrip.Size = new System.Drawing.Size(648, 24);
+			this.menuStrip.Size = new System.Drawing.Size(955, 42);
 			this.menuStrip.TabIndex = 2;
 			this.menuStrip.Tag = "1";
 			this.menuStrip.Text = "menuStrip1";
@@ -110,7 +111,7 @@ namespace ShaderForm
 			this.menuHelp.Alignment = System.Windows.Forms.ToolStripItemAlignment.Right;
 			this.menuHelp.Name = "menuHelp";
 			this.menuHelp.ShortcutKeys = System.Windows.Forms.Keys.F1;
-			this.menuHelp.Size = new System.Drawing.Size(24, 20);
+			this.menuHelp.Size = new System.Drawing.Size(34, 34);
 			this.menuHelp.Text = "?";
 			// 
 			// menuBenchmark
@@ -118,101 +119,8 @@ namespace ShaderForm
 			this.menuBenchmark.Alignment = System.Windows.Forms.ToolStripItemAlignment.Right;
 			this.menuBenchmark.CheckOnClick = true;
 			this.menuBenchmark.Name = "menuBenchmark";
-			this.menuBenchmark.Size = new System.Drawing.Size(38, 20);
+			this.menuBenchmark.Size = new System.Drawing.Size(58, 34);
 			this.menuBenchmark.Text = "FPS";
-			// 
-			// menuDemo
-			// 
-			this.menuDemo.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.clearToolStripMenuItem,
-            this.menuLoad,
-            this.menuSave});
-			this.menuDemo.Name = "menuDemo";
-			this.menuDemo.Size = new System.Drawing.Size(51, 20);
-			this.menuDemo.Text = "Demo";
-			// 
-			// clearToolStripMenuItem
-			// 
-			this.clearToolStripMenuItem.Name = "clearToolStripMenuItem";
-			this.clearToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
-			this.clearToolStripMenuItem.Text = "Clear";
-			this.clearToolStripMenuItem.Click += new System.EventHandler(this.clearToolStripMenuItem_Click);
-			// 
-			// menuLoad
-			// 
-			this.menuLoad.Name = "menuLoad";
-			this.menuLoad.ShortcutKeys = ((System.Windows.Forms.Keys)((System.Windows.Forms.Keys.Control | System.Windows.Forms.Keys.O)));
-			this.menuLoad.Size = new System.Drawing.Size(152, 22);
-			this.menuLoad.Text = "Load...";
-			// 
-			// menuSave
-			// 
-			this.menuSave.Name = "menuSave";
-			this.menuSave.ShortcutKeys = ((System.Windows.Forms.Keys)((System.Windows.Forms.Keys.Control | System.Windows.Forms.Keys.S)));
-			this.menuSave.Size = new System.Drawing.Size(152, 22);
-			this.menuSave.Text = "Save...";
-			// 
-			// menuShaders
-			// 
-			this.menuShaders.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.MenuShaderAdd});
-			this.menuShaders.Name = "menuShaders";
-			this.menuShaders.Size = new System.Drawing.Size(60, 20);
-			this.menuShaders.Text = "Shaders";
-			// 
-			// MenuShaderAdd
-			// 
-			this.MenuShaderAdd.Name = "MenuShaderAdd";
-			this.MenuShaderAdd.ShortcutKeys = ((System.Windows.Forms.Keys)((System.Windows.Forms.Keys.Control | System.Windows.Forms.Keys.H)));
-			this.MenuShaderAdd.Size = new System.Drawing.Size(148, 22);
-			this.MenuShaderAdd.Text = "Add...";
-			// 
-			// menuTextures
-			// 
-			this.menuTextures.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.MenuTextureAdd});
-			this.menuTextures.Name = "menuTextures";
-			this.menuTextures.Size = new System.Drawing.Size(62, 20);
-			this.menuTextures.Text = "Textures";
-			// 
-			// MenuTextureAdd
-			// 
-			this.MenuTextureAdd.Name = "MenuTextureAdd";
-			this.MenuTextureAdd.Size = new System.Drawing.Size(105, 22);
-			this.MenuTextureAdd.Text = "Add...";
-			// 
-			// menuUniforms
-			// 
-			this.menuUniforms.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.addCameraUniformsToolStripMenuItem,
-            this.TextUniformAdd});
-			this.menuUniforms.Name = "menuUniforms";
-			this.menuUniforms.Size = new System.Drawing.Size(68, 20);
-			this.menuUniforms.Text = "Uniforms";
-			// 
-			// addCameraUniformsToolStripMenuItem
-			// 
-			this.addCameraUniformsToolStripMenuItem.Name = "addCameraUniformsToolStripMenuItem";
-			this.addCameraUniformsToolStripMenuItem.Size = new System.Drawing.Size(192, 22);
-			this.addCameraUniformsToolStripMenuItem.Text = "Add Camera Uniforms";
-			this.addCameraUniformsToolStripMenuItem.ToolTipText = "C";
-			// 
-			// TextUniformAdd
-			// 
-			this.TextUniformAdd.MaxLength = 40;
-			this.TextUniformAdd.Name = "TextUniformAdd";
-			this.TextUniformAdd.Size = new System.Drawing.Size(100, 23);
-			this.TextUniformAdd.ToolTipText = "Enter new uniform name";
-			this.TextUniformAdd.KeyDown += new System.Windows.Forms.KeyEventHandler(this.TextUniformAdd_KeyDown);
-			this.TextUniformAdd.TextChanged += new System.EventHandler(this.TextUniformAdd_TextChanged);
-			// 
-			// menuSound
-			// 
-			this.menuSound.Name = "menuSound";
-			this.menuSound.ShortcutKeys = ((System.Windows.Forms.Keys)((System.Windows.Forms.Keys.Control | System.Windows.Forms.Keys.D)));
-			this.menuSound.Size = new System.Drawing.Size(53, 20);
-			this.menuSound.Text = "Sound";
-			this.menuSound.MouseDown += new System.Windows.Forms.MouseEventHandler(this.MenuSound_MouseDown);
 			// 
 			// menuWindow
 			// 
@@ -226,7 +134,7 @@ namespace ShaderForm
             this.cameraWindowToolStripMenuItem,
             this.tracksWindowToolStripMenuItem});
 			this.menuWindow.Name = "menuWindow";
-			this.menuWindow.Size = new System.Drawing.Size(63, 20);
+			this.menuWindow.Size = new System.Drawing.Size(101, 34);
 			this.menuWindow.Text = "Window";
 			// 
 			// menuSizeSetting
@@ -246,7 +154,7 @@ namespace ShaderForm
             "f4096",
             "f8192"});
 			this.menuSizeSetting.Name = "menuSizeSetting";
-			this.menuSizeSetting.Size = new System.Drawing.Size(75, 23);
+			this.menuSizeSetting.Size = new System.Drawing.Size(75, 38);
 			this.menuSizeSetting.ToolTipText = "Window resolution";
 			// 
 			// menuScreenshot
@@ -255,7 +163,7 @@ namespace ShaderForm
 			this.menuScreenshot.Name = "menuScreenshot";
 			this.menuScreenshot.ShortcutKeys = ((System.Windows.Forms.Keys)(((System.Windows.Forms.Keys.Control | System.Windows.Forms.Keys.Shift) 
             | System.Windows.Forms.Keys.S)));
-			this.menuScreenshot.Size = new System.Drawing.Size(170, 22);
+			this.menuScreenshot.Size = new System.Drawing.Size(273, 34);
 			this.menuScreenshot.Text = "Save";
 			// 
 			// menuFullscreen
@@ -264,7 +172,7 @@ namespace ShaderForm
 			this.menuFullscreen.CheckOnClick = true;
 			this.menuFullscreen.Name = "menuFullscreen";
 			this.menuFullscreen.ShortcutKeys = System.Windows.Forms.Keys.F11;
-			this.menuFullscreen.Size = new System.Drawing.Size(170, 22);
+			this.menuFullscreen.Size = new System.Drawing.Size(273, 34);
 			this.menuFullscreen.Text = "Fullscreen";
 			this.menuFullscreen.ToolTipText = "F11";
 			this.menuFullscreen.CheckedChanged += new System.EventHandler(this.MenuFullscreen_CheckedChanged);
@@ -274,44 +182,138 @@ namespace ShaderForm
 			this.menuCompact.CheckOnClick = true;
 			this.menuCompact.Name = "menuCompact";
 			this.menuCompact.ShortcutKeys = System.Windows.Forms.Keys.F12;
-			this.menuCompact.Size = new System.Drawing.Size(170, 22);
+			this.menuCompact.Size = new System.Drawing.Size(273, 34);
 			this.menuCompact.Text = "Compact";
-			this.menuCompact.CheckStateChanged += new System.EventHandler(this.menuCompact_CheckStateChanged);
+			this.menuCompact.CheckStateChanged += new System.EventHandler(this.MenuCompact_CheckStateChanged);
 			// 
 			// menuOnTop
 			// 
 			this.menuOnTop.CheckOnClick = true;
 			this.menuOnTop.Name = "menuOnTop";
 			this.menuOnTop.ShortcutKeys = ((System.Windows.Forms.Keys)((System.Windows.Forms.Keys.Control | System.Windows.Forms.Keys.T)));
-			this.menuOnTop.Size = new System.Drawing.Size(170, 22);
+			this.menuOnTop.Size = new System.Drawing.Size(273, 34);
 			this.menuOnTop.Text = "OnTop";
 			// 
 			// logToolStripMenuItem
 			// 
 			this.logToolStripMenuItem.Name = "logToolStripMenuItem";
-			this.logToolStripMenuItem.Size = new System.Drawing.Size(170, 22);
+			this.logToolStripMenuItem.Size = new System.Drawing.Size(273, 34);
 			this.logToolStripMenuItem.Text = "Log Window";
 			// 
 			// cameraWindowToolStripMenuItem
 			// 
 			this.cameraWindowToolStripMenuItem.Name = "cameraWindowToolStripMenuItem";
-			this.cameraWindowToolStripMenuItem.Size = new System.Drawing.Size(170, 22);
+			this.cameraWindowToolStripMenuItem.Size = new System.Drawing.Size(273, 34);
 			this.cameraWindowToolStripMenuItem.Text = "Camera Window";
 			// 
 			// tracksWindowToolStripMenuItem
 			// 
 			this.tracksWindowToolStripMenuItem.Name = "tracksWindowToolStripMenuItem";
-			this.tracksWindowToolStripMenuItem.Size = new System.Drawing.Size(170, 22);
+			this.tracksWindowToolStripMenuItem.Size = new System.Drawing.Size(273, 34);
 			this.tracksWindowToolStripMenuItem.Text = "Tracks Window";
+			// 
+			// menuUniforms
+			// 
+			this.menuUniforms.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.addCameraUniformsToolStripMenuItem,
+            this.TextUniformAdd});
+			this.menuUniforms.Name = "menuUniforms";
+			this.menuUniforms.Size = new System.Drawing.Size(109, 34);
+			this.menuUniforms.Text = "Uniforms";
+			// 
+			// addCameraUniformsToolStripMenuItem
+			// 
+			this.addCameraUniformsToolStripMenuItem.Name = "addCameraUniformsToolStripMenuItem";
+			this.addCameraUniformsToolStripMenuItem.Size = new System.Drawing.Size(309, 34);
+			this.addCameraUniformsToolStripMenuItem.Text = "Add Camera Uniforms";
+			this.addCameraUniformsToolStripMenuItem.ToolTipText = "C";
+			// 
+			// TextUniformAdd
+			// 
+			this.TextUniformAdd.MaxLength = 40;
+			this.TextUniformAdd.Name = "TextUniformAdd";
+			this.TextUniformAdd.Size = new System.Drawing.Size(100, 35);
+			this.TextUniformAdd.ToolTipText = "Enter new uniform name";
+			this.TextUniformAdd.KeyDown += new System.Windows.Forms.KeyEventHandler(this.TextUniformAdd_KeyDown);
+			this.TextUniformAdd.TextChanged += new System.EventHandler(this.TextUniformAdd_TextChanged);
+			// 
+			// menuShaders
+			// 
+			this.menuShaders.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.MenuShaderAdd});
+			this.menuShaders.Name = "menuShaders";
+			this.menuShaders.Size = new System.Drawing.Size(98, 34);
+			this.menuShaders.Text = "Shaders";
+			// 
+			// MenuShaderAdd
+			// 
+			this.MenuShaderAdd.Name = "MenuShaderAdd";
+			this.MenuShaderAdd.ShortcutKeys = ((System.Windows.Forms.Keys)((System.Windows.Forms.Keys.Control | System.Windows.Forms.Keys.H)));
+			this.MenuShaderAdd.Size = new System.Drawing.Size(231, 34);
+			this.MenuShaderAdd.Text = "Add...";
+			// 
+			// menuTextures
+			// 
+			this.menuTextures.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.MenuTextureAdd});
+			this.menuTextures.Name = "menuTextures";
+			this.menuTextures.Size = new System.Drawing.Size(101, 34);
+			this.menuTextures.Text = "Textures";
+			// 
+			// MenuTextureAdd
+			// 
+			this.MenuTextureAdd.Name = "MenuTextureAdd";
+			this.MenuTextureAdd.Size = new System.Drawing.Size(157, 34);
+			this.MenuTextureAdd.Text = "Add...";
+			// 
+			// menuDemo
+			// 
+			this.menuDemo.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.clearToolStripMenuItem,
+            this.menuLoad,
+            this.menuSave});
+			this.menuDemo.Name = "menuDemo";
+			this.menuDemo.Size = new System.Drawing.Size(81, 34);
+			this.menuDemo.Text = "Demo";
+			// 
+			// clearToolStripMenuItem
+			// 
+			this.clearToolStripMenuItem.Name = "clearToolStripMenuItem";
+			this.clearToolStripMenuItem.Size = new System.Drawing.Size(239, 34);
+			this.clearToolStripMenuItem.Text = "Clear";
+			this.clearToolStripMenuItem.Click += new System.EventHandler(this.ClearToolStripMenuItem_Click);
+			// 
+			// menuLoad
+			// 
+			this.menuLoad.Name = "menuLoad";
+			this.menuLoad.ShortcutKeys = ((System.Windows.Forms.Keys)((System.Windows.Forms.Keys.Control | System.Windows.Forms.Keys.O)));
+			this.menuLoad.Size = new System.Drawing.Size(239, 34);
+			this.menuLoad.Text = "Load...";
+			// 
+			// menuSave
+			// 
+			this.menuSave.Name = "menuSave";
+			this.menuSave.ShortcutKeys = ((System.Windows.Forms.Keys)((System.Windows.Forms.Keys.Control | System.Windows.Forms.Keys.S)));
+			this.menuSave.Size = new System.Drawing.Size(239, 34);
+			this.menuSave.Text = "Save...";
+			// 
+			// menuSound
+			// 
+			this.menuSound.Name = "menuSound";
+			this.menuSound.ShortcutKeys = ((System.Windows.Forms.Keys)((System.Windows.Forms.Keys.Control | System.Windows.Forms.Keys.D)));
+			this.menuSound.Size = new System.Drawing.Size(84, 34);
+			this.menuSound.Text = "Sound";
+			this.menuSound.MouseDown += new System.Windows.Forms.MouseEventHandler(this.MenuSound_MouseDown);
 			// 
 			// panelSequence
 			// 
 			this.panelSequence.Controls.Add(this.buttonReload);
 			this.panelSequence.Controls.Add(this.sequenceBar1);
 			this.panelSequence.Dock = System.Windows.Forms.DockStyle.Bottom;
-			this.panelSequence.Location = new System.Drawing.Point(0, 499);
+			this.panelSequence.Location = new System.Drawing.Point(0, 884);
+			this.panelSequence.Margin = new System.Windows.Forms.Padding(6);
 			this.panelSequence.Name = "panelSequence";
-			this.panelSequence.Size = new System.Drawing.Size(648, 34);
+			this.panelSequence.Size = new System.Drawing.Size(955, 63);
 			this.panelSequence.TabIndex = 5;
 			// 
 			// buttonReload
@@ -319,8 +321,9 @@ namespace ShaderForm
 			this.buttonReload.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
 			this.buttonReload.Image = global::ShaderForm.Properties.Resources.Restart_6322;
 			this.buttonReload.Location = new System.Drawing.Point(0, 0);
+			this.buttonReload.Margin = new System.Windows.Forms.Padding(6);
 			this.buttonReload.Name = "buttonReload";
-			this.buttonReload.Size = new System.Drawing.Size(29, 34);
+			this.buttonReload.Size = new System.Drawing.Size(53, 63);
 			this.buttonReload.TabIndex = 6;
 			this.buttonReload.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageAboveText;
 			this.buttonReload.UseVisualStyleBackColor = true;
@@ -330,12 +333,12 @@ namespace ShaderForm
 			// 
 			this.sequenceBar1.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
-			this.sequenceBar1.Location = new System.Drawing.Point(29, 1);
-			this.sequenceBar1.Margin = new System.Windows.Forms.Padding(4);
+			this.sequenceBar1.Location = new System.Drawing.Point(53, 2);
+			this.sequenceBar1.Margin = new System.Windows.Forms.Padding(7);
 			this.sequenceBar1.Name = "sequenceBar1";
-			this.sequenceBar1.Size = new System.Drawing.Size(618, 32);
+			this.sequenceBar1.Size = new System.Drawing.Size(900, 59);
 			this.sequenceBar1.TabIndex = 5;
-			this.sequenceBar1.Changed += new System.EventHandler(this.sequenceBar1_OnChanged);
+			this.sequenceBar1.Changed += new System.EventHandler(this.SequenceBar1_OnChanged);
 			// 
 			// textBoxLastMessage
 			// 
@@ -344,11 +347,12 @@ namespace ShaderForm
 			this.textBoxLastMessage.BorderStyle = System.Windows.Forms.BorderStyle.None;
 			this.textBoxLastMessage.Dock = System.Windows.Forms.DockStyle.Fill;
 			this.textBoxLastMessage.Font = new System.Drawing.Font("Lucida Console", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-			this.textBoxLastMessage.Location = new System.Drawing.Point(0, 24);
+			this.textBoxLastMessage.Location = new System.Drawing.Point(0, 42);
+			this.textBoxLastMessage.Margin = new System.Windows.Forms.Padding(6);
 			this.textBoxLastMessage.Multiline = true;
 			this.textBoxLastMessage.Name = "textBoxLastMessage";
 			this.textBoxLastMessage.ReadOnly = true;
-			this.textBoxLastMessage.Size = new System.Drawing.Size(648, 475);
+			this.textBoxLastMessage.Size = new System.Drawing.Size(955, 842);
 			this.textBoxLastMessage.TabIndex = 6;
 			this.textBoxLastMessage.DragDrop += new System.Windows.Forms.DragEventHandler(this.GlControl_DragDrop);
 			this.textBoxLastMessage.DragOver += new System.Windows.Forms.DragEventHandler(this.GlControl_DragOver);
@@ -359,20 +363,20 @@ namespace ShaderForm
 			this.soundPlayerBar1.AutoSize = true;
 			this.soundPlayerBar1.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink;
 			this.soundPlayerBar1.Dock = System.Windows.Forms.DockStyle.Bottom;
-			this.soundPlayerBar1.Location = new System.Drawing.Point(0, 533);
-			this.soundPlayerBar1.Margin = new System.Windows.Forms.Padding(4);
+			this.soundPlayerBar1.Location = new System.Drawing.Point(0, 947);
+			this.soundPlayerBar1.Margin = new System.Windows.Forms.Padding(7);
 			this.soundPlayerBar1.Name = "soundPlayerBar1";
 			this.soundPlayerBar1.Playing = false;
 			this.soundPlayerBar1.Position = 0.867F;
-			this.soundPlayerBar1.Size = new System.Drawing.Size(648, 27);
+			this.soundPlayerBar1.Size = new System.Drawing.Size(955, 46);
 			this.soundPlayerBar1.TabIndex = 3;
 			this.soundPlayerBar1.TabStop = false;
 			// 
 			// FormMain
 			// 
-			this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
+			this.AutoScaleDimensions = new System.Drawing.SizeF(11F, 24F);
 			this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-			this.ClientSize = new System.Drawing.Size(648, 560);
+			this.ClientSize = new System.Drawing.Size(955, 993);
 			this.Controls.Add(this.textBoxLastMessage);
 			this.Controls.Add(this.glControl);
 			this.Controls.Add(this.panelSequence);
@@ -382,7 +386,7 @@ namespace ShaderForm
 			this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
 			this.KeyPreview = true;
 			this.MainMenuStrip = this.menuStrip;
-			this.Margin = new System.Windows.Forms.Padding(2);
+			this.Margin = new System.Windows.Forms.Padding(4);
 			this.Name = "FormMain";
 			this.Text = "ShaderForm";
 			this.TopMost = true;

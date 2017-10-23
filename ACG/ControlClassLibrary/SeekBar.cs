@@ -90,7 +90,7 @@ namespace ControlClassLibrary
 			timerChange = true;
 			Position = timeSource.Position;
 			timerChange = false;
-			//todo: cleanup handling of valuechanged (databinding?) udpate circles!
+			//todo: cleanup handling of value changed (data-binding?) update circles!
 		}
 
 		private void MarkerBarPosition_ValueChanged(object sender, EventArgs e)

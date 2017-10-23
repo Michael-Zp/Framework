@@ -261,7 +261,7 @@ namespace ShaderForm
 		{
 			//recreate sequence bar
 			sequenceBar1.Clear();
-			foreach (var shaderRatio in demo.ShaderKeyframes.CalculateRatios(soundPlayerBar1.Length))
+			foreach (var shaderRatio in demo.ShaderKeyframes.CalculateRatios(demo.TimeSource.Length))
 			{
 				//shader sequence
 				sequenceBar1.AddItem(new SequenceBarItem(
@@ -345,15 +345,16 @@ namespace ShaderForm
 			try
 			{
 				this.SaveLayout();
-				RegistryLoader.SaveValue(Name, "play", soundPlayerBar1.Playing);
+				RegistryLoader.SaveValue(Name, "play", demo.TimeSource.IsRunning);
 				RegistryLoader.SaveValue(Name, "granularity", menuSizeSetting.Text);
-				RegistryLoader.SaveValue(Name, "time", soundPlayerBar1.Position);
+				RegistryLoader.SaveValue(Name, "time", demo.TimeSource.Position);
 				RegistryLoader.SaveValue(Name, "showFPS", menuBenchmark.Checked);
 				RegistryLoader.SaveValue(Name, "compact", menuCompact.Checked);
 
 				multiGraph.SaveLayout();
 				log.SaveLayout();
 				camera.SaveLayout();
+				tracks.SaveLayout();
 				// rename old
 				DefaultFiles.RenameAutoSaveDemoFile();
 				// save new
@@ -372,15 +373,15 @@ namespace ShaderForm
 			switch (e.KeyCode)
 			{
 				case Keys.Escape: Close(); return;
-				case Keys.C: camera.AddKeyFrames(soundPlayerBar1.Position, demo.Uniforms); break;
+				case Keys.C: camera.AddKeyFrames(demo.TimeSource.Position, demo.Uniforms); break;
 				case Keys.K:
 					if (e.Control)
 					{
-						multiGraph.AddInterpolatedKeyframeTo(sender, soundPlayerBar1.Position);
+						multiGraph.AddInterpolatedKeyframeTo(sender, demo.TimeSource.Position);
 					}
 					else
 					{
-						multiGraph.AddInterpolatedKeyframeToVisible(soundPlayerBar1.Position);
+						multiGraph.AddInterpolatedKeyframeToVisible(demo.TimeSource.Position);
 					}
 					break;
 				case Keys.R:
@@ -398,7 +399,7 @@ namespace ShaderForm
 				case Keys.PageDown: soundPlayerBar1.Position += e.Alt ? 2.0f : 5.0f; break;
 				case Keys.PageUp: soundPlayerBar1.Position -= e.Alt ? 2.0f : 5.0f; break;
 				case Keys.Home: soundPlayerBar1.Position = 0.0f; break;
-				case Keys.End: soundPlayerBar1.Position = soundPlayerBar1.Length; break;
+				case Keys.End: soundPlayerBar1.Position = demo.TimeSource.Length; break;
 			}
 		}
 
@@ -416,7 +417,7 @@ namespace ShaderForm
 		private void GlControl_MouseMove(object sender, MouseEventArgs e)
 		{
 			mousePos = e.Location;
-			if (!soundPlayerBar1.Playing) glControl.Invalidate(); //todo: otherwise time stops during update?!
+			if (!demo.TimeSource.IsRunning) glControl.Invalidate(); //todo: otherwise time stops during update?!
 		}
 
 		private void GlControl_MouseUp(object sender, MouseEventArgs e)
@@ -500,13 +501,13 @@ namespace ShaderForm
 			}
 		}
 
-		private void sequenceBar1_OnChanged(object sender, EventArgs e)
+		private void SequenceBar1_OnChanged(object sender, EventArgs e)
 		{
 			//no udpate events during loading
 			demo.ShaderKeyframes.Changed -= ShaderKeframes_OnChange;
 			demo.ShaderKeyframes.Clear();
 			var ratios = sequenceBar1.Items.Select((item) => new Tuple<float, string>(item.Ratio, item.Data as string));
-			var keyframes = ShaderKeyframes.CalculatePosFromRatios(ratios, soundPlayerBar1.Length);
+			var keyframes = ShaderKeyframes.CalculatePosFromRatios(ratios, demo.TimeSource.Length);
 			foreach (var kf in keyframes)
 			{
 				demo.ShaderKeyframes.AddUpdate(kf.Item1, kf.Item2);
@@ -526,7 +527,7 @@ namespace ShaderForm
 					TextUniformAdd.Text = string.Empty;
 					if (ReferenceEquals(null,  kfs)) return;
 					kfs.AddUpdate(0.0f, 0.0f);
-					kfs.AddUpdate(soundPlayerBar1.Length, soundPlayerBar1.Length);
+					kfs.AddUpdate(demo.TimeSource.Length, demo.TimeSource.Length);
 					ShowUniformGraph(text);
 				}
 			}
@@ -537,13 +538,13 @@ namespace ShaderForm
 			TextUniformAdd.BackColor = UniformHelper.IsNameValid(TextUniformAdd.Text) ? Color.PaleGreen : Color.LightSalmon;
 		}
 
-		private void clearToolStripMenuItem_Click(object sender, EventArgs e)
+		private void ClearToolStripMenuItem_Click(object sender, EventArgs e)
 		{
 			demo.Clear();
 			camera.Reset();
 		}
 
-		private void menuCompact_CheckStateChanged(object sender, EventArgs e)
+		private void MenuCompact_CheckStateChanged(object sender, EventArgs e)
 		{
 			if (menuCompact.Checked)
 			{
