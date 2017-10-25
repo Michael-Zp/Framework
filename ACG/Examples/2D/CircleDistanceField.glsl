@@ -10,18 +10,19 @@ void main()
 	//4 component color red, green, blue, alpha
 	vec4 color =  vec4(1);
 
-	//coordinate system from [-2..2]²
-	uv *= 4.0;
-	uv -= 2.0;
+	//coordinate system scale
+	uv -= 0.5;
+	uv *= 8.0;
 	
 	//account for window aspect
 	float aspect = iResolution.x / iResolution.y;
 	uv.x *= aspect;
 	
 	//rotate circle centers over time
-	float x = sin(iGlobalTime);
-	float y = cos(iGlobalTime);
+	float x = 0;//sin(iGlobalTime);
+	float y = 0;//cos(iGlobalTime);
 	
+	uv = mod(uv, vec2(2));
 	//two circle distance fields
 	float distCircle1 = distance(uv, vec2(x, y));
 	// distCircle1 = fract(distCircle1 * 5);

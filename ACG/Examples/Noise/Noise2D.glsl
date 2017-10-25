@@ -70,7 +70,8 @@ float gnoise(vec2 coord)
 
 	vec2 weight = f; // linear interpolation
 	weight = smoothstep(0, 1, f); // cubic interpolation
-	weight = quinticInterpolation(f);
+	// weight = smoothstep(0, 1, weight); // x^6 interpolation
+	// weight = quinticInterpolation(f);
 
 	float x1 = mix(v00, v10, weight.x);
 	float x2 = mix(v01, v11, weight.x);
