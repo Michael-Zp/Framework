@@ -4,18 +4,16 @@ using System.Threading.Tasks;
 
 namespace Raytracer
 {
-	class Visual
+	class RenderImage
 	{
-		public int m_iMultiSamples = 1;
-
-		public Color renderPixel(Scene scene, Camera cam, float x_, float y_)
+		public static Color RenderPixel(Scene scene, Camera cam, float x_, float y_, int samples)
 		{
-			if (1 == m_iMultiSamples)
+			if (1 == samples)
 			{
 				return RayTracer.TraceRay(cam.Pos, cam.PerspectiveRayDir(x_, y_), scene, 0);
 			}
 			Color color = Color.Black();
-			float delta = 1.0f / ((float)Math.Sqrt(m_iMultiSamples));
+			float delta = 1.0f / ((float)Math.Sqrt(samples));
 			int count = 0;
 			for (float x = x_ - 0.5f; x < x_ + 0.5f; x += delta)
 			{
@@ -25,23 +23,23 @@ namespace Raytracer
 					++count;
 				}
 			}
-			return color * (1.0f / m_iMultiSamples);
+			return color * (1.0f / samples);
 		}
 
-		public void renderImage(Scene scene, Camera cam, Action<int, int, Color> setPixel)
+		public static void Run(Scene scene, Camera cam, int samples, Action<int, int, Color> setPixel)
 		{
-			PointF[] pixels = createPoints(cam.ViewportWidth, cam.ViewportHeight);
+			PointF[] pixels = CreatePoints(cam.ViewportWidth, cam.ViewportHeight);
 			pixels.Shuffle();
 			foreach (PointF pixel in pixels)
 			{
-				Color color = renderPixel(scene, cam, pixel.X, pixel.Y);
+				Color color = RenderPixel(scene, cam, pixel.X, pixel.Y, samples);
 				setPixel(Convert.ToInt32(pixel.X), Convert.ToInt32(pixel.Y), color);
 			}
 		}
 
-		private Random m_rnd = new Random();
+		private static Random sRnd = new Random();
 
-		private static PointF[] createJitteredPoints(int width, int height)
+		private static PointF[] CreateJitteredPoints(int width, int height)
 		{
 			Random rnd = new Random();
 			PointF[] pixels = new PointF[width * height];
@@ -59,7 +57,7 @@ namespace Raytracer
 			return pixels;
 		}
 
-		private static PointF[] createPoints(int width, int height)
+		private static PointF[] CreatePoints(int width, int height)
 		{
 			PointF[] pixels = new PointF[width * height];
 			int i = 0;

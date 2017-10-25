@@ -15,7 +15,11 @@ namespace Zenseless.Application
 		{
 			//var mode = new OpenTK.Graphics.GraphicsMode(new OpenTK.Graphics.ColorFormat(32), 24);
 			//gameWindow = new GameWindow(width, height, mode, "", GameWindowFlags.Default, DisplayDevice.Default, 3, 0, OpenTK.Graphics.GraphicsContextFlags.Default);
-			gameWindow = new GameWindow(width, height);
+			gameWindow = new GameWindow()
+			{
+				Width = width, //do not set extents in the constructor, because windows 10 with enabled scale != 100% scales our given sizes in the constructor of GameWindow
+				Height = height
+			};
 			RenderContext = new RenderContextGL();
 
 			var catalog = new AggregateCatalog();

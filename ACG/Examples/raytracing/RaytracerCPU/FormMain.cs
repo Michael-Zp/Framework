@@ -75,7 +75,7 @@ namespace Raytracer
 		private Queue<Pixel> m_quePixel = new Queue<Pixel>();
 		private List<Bitmap> m_lstBmp = new List<Bitmap>();
 
-        private void backgroundWorker_DoWork(object sender, System.ComponentModel.DoWorkEventArgs e)
+        private void BackgroundWorker_DoWork(object sender, System.ComponentModel.DoWorkEventArgs e)
         {
 			Size s = m_lstBmp[m_iCurRendering].Size;
             Camera cam = new Camera(new Vector3(5, 2, 6), new Vector3(-1, .5, 0), s.Width, s.Height);
@@ -83,9 +83,7 @@ namespace Raytracer
 			int cnt = 0;
             Stopwatch sw = Stopwatch.StartNew();
             backgroundWorker.ReportProgress(0);
-			Visual vis = e.Argument as Visual;
-			if (null == vis) return;
-			vis.renderImage(InputScene.Scene1, cam, (int x, int y, Color color) =>
+			RenderImage.Run(InputScene.Scene1, cam, GetSampleCount(), (int x, int y, Color color) =>
             {
 				if (backgroundWorker.CancellationPending) return;
 				lock (m_quePixel)
@@ -104,19 +102,7 @@ namespace Raytracer
 			backgroundWorker.ReportProgress(100, sw.ElapsedMilliseconds);
 		}
 
-		private Visual createVisual()
-		{
-			int multi = 1;
-			if(!Int32.TryParse(comboBoxMulti.Text, out multi))
-			{
-				multi = 1;
-			}
-			return new Visual { 
-				m_iMultiSamples = multi 
-			};
-		}
-
-        private void backgroundWorker_ProgressChanged(object sender, System.ComponentModel.ProgressChangedEventArgs e)
+        private void BackgroundWorker_ProgressChanged(object sender, System.ComponentModel.ProgressChangedEventArgs e)
         {
 			progressBar.Value = e.ProgressPercentage;
 			Bitmap bitmap = pictureBox.Image as Bitmap;
@@ -136,7 +122,7 @@ namespace Raytracer
 			}
 		}
 
-		private void menuItemNext_Click(object sender, EventArgs e)
+		private void MenuItemNext_Click(object sender, EventArgs e)
 		{
 			++m_iCurRendering;
 			if (m_lstBmp.Count < m_iCurRendering + 1) m_iCurRendering = m_lstBmp.Count - 1;
@@ -144,7 +130,7 @@ namespace Raytracer
 			Text = "Rendering: " + m_iCurRendering.ToString();
 		}
 
-		private void menuItemPrevious_Click(object sender, EventArgs e)
+		private void MenuItemPrevious_Click(object sender, EventArgs e)
 		{
 			--m_iCurRendering;
 			if(0 > m_iCurRendering) m_iCurRendering = 0;
@@ -152,7 +138,7 @@ namespace Raytracer
 			Text = "Rendering: " + m_iCurRendering.ToString();
 		}
 
-		private void menuItemSave_Click(object sender, EventArgs e)
+		private void MenuItemSave_Click(object sender, EventArgs e)
 		{
 			try
 			{
@@ -169,18 +155,18 @@ namespace Raytracer
 			finally { }
 		}
 
-		private void menuItemTrace_Click(object sender, EventArgs e)
+		private void MenuItemTrace_Click(object sender, EventArgs e)
 		{
 			if (!backgroundWorker.IsBusy)
 			{
 				menuItemTrace.Text = "Traceing...";
 				progressBar.Value = 0;
-				updateImage();
-				backgroundWorker.RunWorkerAsync(createVisual());
+				UpdateImage();
+				backgroundWorker.RunWorkerAsync();
 			}
 		}
 
-		private void updateImage()
+		private void UpdateImage()
 		{
 			Size s = pictureBox.ClientSize;
 			Bitmap bitmap = new Bitmap(s.Width, s.Height);
@@ -198,14 +184,18 @@ namespace Raytracer
             m_lstBmp.Add(bitmap);
         }
 
-		private void pictureBox_MouseClick(object sender, MouseEventArgs e)
+		private void PictureBox_MouseClick(object sender, MouseEventArgs e)
 		{
-			updateImage();
+			UpdateImage();
 			Bitmap bitmap = pictureBox.Image as  Bitmap;
 			if (null == bitmap) return;
-            Camera cam = new Camera(new Vector3(5, 2, 6), new Vector3(-1, .5, 0), bitmap.Width, bitmap.Height);
-			Color color = createVisual().renderPixel(InputScene.Scene1, cam, e.X, e.Y);
+			Camera cam = new Camera(new Vector3(5, 2, 6), new Vector3(-1, .5, 0), bitmap.Width, bitmap.Height);
+			Color color = RenderImage.RenderPixel(InputScene.Scene1, cam, e.X, e.Y, GetSampleCount());
 			bitmap.SetPixel(e.X,e.Y, ToDrawingColor(color));
 		}
-    }
+		private int GetSampleCount()
+		{
+			return Int32.TryParse(comboBoxMulti.Text, out int multi) ? multi : 1;
+		}
+	}
 }

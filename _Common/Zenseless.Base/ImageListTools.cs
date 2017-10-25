@@ -32,7 +32,7 @@ namespace Zenseless.Base
 			int i = 0;
 			foreach (var image in images)
 			{
-				image.Save($"{d} {i.ToString("00000")}.png");
+				image.Save($"{d}pic{i.ToString("0000")}.png");
 				++i;
 			}
 		}

@@ -30,13 +30,8 @@ namespace Raytracer
                                     Radius = .5,
                                     Surface = Surfaces.Glass
                                 }}
-                //,Lights = new Light[] {}
 				,
 				Lights = new Light[] { 
-								//new Light() {
-								//    Pos = new Vector3(-2,2.5,0),
-								//    Color = Color.White()
-								//},
 								new Light() {
 								    Pos = new Vector3(-2,2.5,0),
 								    Color = new Color(.49f,.07f,.07f)

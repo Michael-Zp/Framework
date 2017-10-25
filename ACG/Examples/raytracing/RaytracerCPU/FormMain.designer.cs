@@ -53,14 +53,14 @@
 			this.pictureBox.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
 			this.pictureBox.TabIndex = 0;
 			this.pictureBox.TabStop = false;
-			this.pictureBox.MouseClick += new System.Windows.Forms.MouseEventHandler(this.pictureBox_MouseClick);
+			this.pictureBox.MouseClick += new System.Windows.Forms.MouseEventHandler(this.PictureBox_MouseClick);
 			// 
 			// backgroundWorker
 			// 
 			this.backgroundWorker.WorkerReportsProgress = true;
 			this.backgroundWorker.WorkerSupportsCancellation = true;
-			this.backgroundWorker.DoWork += new System.ComponentModel.DoWorkEventHandler(this.backgroundWorker_DoWork);
-			this.backgroundWorker.ProgressChanged += new System.ComponentModel.ProgressChangedEventHandler(this.backgroundWorker_ProgressChanged);
+			this.backgroundWorker.DoWork += new System.ComponentModel.DoWorkEventHandler(this.BackgroundWorker_DoWork);
+			this.backgroundWorker.ProgressChanged += new System.ComponentModel.ProgressChangedEventHandler(this.BackgroundWorker_ProgressChanged);
 			// 
 			// progressBar
 			// 
@@ -83,14 +83,14 @@
 			this.menuItemTrace.ShortcutKeys = System.Windows.Forms.Keys.F9;
 			this.menuItemTrace.Size = new System.Drawing.Size(47, 19);
 			this.menuItemTrace.Text = "Trace";
-			this.menuItemTrace.Click += new System.EventHandler(this.menuItemTrace_Click);
+			this.menuItemTrace.Click += new System.EventHandler(this.MenuItemTrace_Click);
 			// 
 			// menuItemSave
 			// 
 			this.menuItemSave.Name = "menuItemSave";
 			this.menuItemSave.Size = new System.Drawing.Size(43, 19);
 			this.menuItemSave.Text = "Save";
-			this.menuItemSave.Click += new System.EventHandler(this.menuItemSave_Click);
+			this.menuItemSave.Click += new System.EventHandler(this.MenuItemSave_Click);
 			// 
 			// menuItemPrevious
 			// 
@@ -98,7 +98,7 @@
 			this.menuItemPrevious.ShortcutKeys = System.Windows.Forms.Keys.F7;
 			this.menuItemPrevious.Size = new System.Drawing.Size(27, 19);
 			this.menuItemPrevious.Text = "<";
-			this.menuItemPrevious.Click += new System.EventHandler(this.menuItemPrevious_Click);
+			this.menuItemPrevious.Click += new System.EventHandler(this.MenuItemPrevious_Click);
 			// 
 			// menuItemNext
 			// 
@@ -106,7 +106,7 @@
 			this.menuItemNext.ShortcutKeys = System.Windows.Forms.Keys.F8;
 			this.menuItemNext.Size = new System.Drawing.Size(27, 19);
 			this.menuItemNext.Text = ">";
-			this.menuItemNext.Click += new System.EventHandler(this.menuItemNext_Click);
+			this.menuItemNext.Click += new System.EventHandler(this.MenuItemNext_Click);
 			// 
 			// menuStrip
 			// 

@@ -43,10 +43,12 @@ vec2 repeatAndRotate(vec2 coord, float scale, float timeScale)
 {
 	coord *= scale; //zoom
 	float angle = angle(coord);
+	// angle = 0;
 	coord = fract(coord);
 	coord -= 0.5;
 	coord = rotate2D(coord, angle + TWOPI * timeScale * iGlobalTime);
 	coord += 0.5;
+	
 	return coord;
 }
 
@@ -56,9 +58,10 @@ void main() {
 	
 	coord.x *= iResolution.x / iResolution.y; //aspect
 	
-	coord = repeatAndRotate(coord, 10, 0.1);
+	// coord = repeatAndRotate(coord, 3, 0.21);
 	// coord = repeatAndRotate(coord, 4, 0.1); //rekursive pattern
-	
+	// coord = repeatAndRotate(coord, 4, 0.1); //rekursive pattern
+
 	float grid = triangle(coord, 0.01);
 	// grid = diagonal(coord, 0.05);
 	// grid = circles(coord);

@@ -74,7 +74,7 @@ namespace Raytracer
 		{
 			double cosI = Dot(normal, invRayDir);
 			double sinI2 = 1-cosI*cosI; //Pythagoras for incoming
-			double sinT2 = sinI2 * (eta * eta); //snells law
+			double sinT2 = sinI2 * (eta * eta); //Snell's law
 			double cosT2 = 1 - sinT2; //Pythagoras for outgoing
 			if (0 >= cosT2) return new Vector3(0, 0, 0);
 			double cosT = Math.Sqrt(cosT2);
