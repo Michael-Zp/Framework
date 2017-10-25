@@ -108,7 +108,7 @@ namespace DemoRecorder
 		{
 			demo.UpdateBuffer(0, 0, 0, bufferWidth, bufferHeight);
 			demo.Draw(gameWindow.Width, gameWindow.Height);
-			demo.SaveBuffer(saveDirectory + fileNumber.ToString("00000") + ".png");
+			demo.GetScreenshot().Save(saveDirectory + fileNumber.ToString("00000") + ".png");
 			gameWindow.SwapBuffers();
 			++fileNumber;
 			demo.TimeSource.Position += 1.0f / frameRate; //step 1/25 of a second

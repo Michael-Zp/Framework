@@ -1,6 +1,7 @@
 ﻿using Zenseless.Base;
 using ShaderForm.Interfaces;
 using ShaderForm.Visual;
+using System.Drawing;
 
 namespace ShaderForm.Demo
 {
@@ -40,9 +41,9 @@ namespace ShaderForm.Demo
 			visualContext.Draw(width, height);
 		}
 
-		public void SaveBuffer(string fileName)
+		public Bitmap GetScreenshot()
 		{
-			visualContext.Save(fileName);
+			return visualContext.GetScreenshot();
 		}
 
 		public bool UpdateBuffer(int mouseX, int mouseY, int mouseButton, int bufferWidth, int bufferHeight)

@@ -60,7 +60,8 @@ namespace ShaderForm
 						log.Append(ex.Message);
 					}
 				});
-			menuScreenshot.Click += (sender, e) => Dialogs.SaveFile("png (*.png)|*.png", (fileName) => { glControl.Invalidate(); demo.SaveBuffer(fileName); });
+			menuScreenshot.Click += (sender, e) => Dialogs.SaveFile("png (*.png)|*.png", (fileName) => { glControl.Invalidate(); demo.GetScreenshot().Save(fileName); });
+			copyImageToolStripMenuItem.Click += (sender, e) => { glControl.Invalidate(); Clipboard.SetImage(demo.GetScreenshot()); };
 
 			KeyDown += (sender, e) => { camera.KeyChange(e.KeyCode, true); };
 			KeyUp += (sender, e) => { camera.KeyChange(e.KeyCode, false); };

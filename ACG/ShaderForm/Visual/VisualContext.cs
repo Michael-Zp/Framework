@@ -7,6 +7,7 @@ using System.Diagnostics;
 using System.IO;
 using ShaderForm.Interfaces;
 using Zenseless.HLGL;
+using System.Drawing;
 
 namespace ShaderForm.Visual
 {
@@ -187,9 +188,9 @@ namespace ShaderForm.Visual
 			surface.SwapRenderBuffer();
 		}
 
-		public void Save(string fileName)
+		public Bitmap GetScreenshot()
 		{
-			TextureLoader.SaveToFile(surface.Active, fileName);
+			return TextureLoader.SaveToBitmap(surface.Active);
 		}
 
 		public float UpdateTime { get { return (float)(glTimer.ResultLong * 1e-9); } }
