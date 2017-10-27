@@ -19,7 +19,7 @@ namespace Example
 		public bool WaitForNextFrame()
 		{
 			SwapBuffers(); //double buffering
-			ProcessEvents(); //handle all events that are sent to the window (user inputs, operating system stuff); this call could destroy window, so check immediatily after this call if window still exists, otherwise gl calls will fail.
+			ProcessEvents(); //handle all events that are sent to the window (user inputs, operating system stuff); this call could destroy window, so check immediately after this call if window still exists, otherwise GL calls will fail.
 			return Exists;
 		}
 

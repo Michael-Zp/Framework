@@ -12,7 +12,7 @@ namespace Example
 			var wnd = new MyWindow();
 			//wnd.KeyDown += (s, a) => { if (Key.Escape == a.Key) wnd.Close(); }; //if Escape is pressed close window
 			//wnd.VSync = VSyncMode.Off; //uncomment for pc speed dependent rendering
-
+			
 			var x = -1f;
 			GL.ClearColor(Color.CornflowerBlue);
 

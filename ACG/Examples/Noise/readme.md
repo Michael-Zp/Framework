@@ -4,6 +4,7 @@
 	1. One way of creating pseudo random numbers
 1. [Random.glsl](Random.glsl)
 	1. Play around with the magic numbers
+	1. Try out random(float) for both axis; note symmetry
 	1. Try out random(vec2)
 	1. Hook it to mouse movement
 	1. Hook it to iGlobalTime

@@ -31,7 +31,7 @@ namespace DemoRecorder
 		private MyApplication()
 		{
 			gameWindow.KeyDown += GameWindow_KeyDown;
-			gameWindow.RenderFrame += game_RenderFrame;
+			gameWindow.RenderFrame += Game_RenderFrame;
 			visualContext = new VisualContext();
 			var textures = new Textures(visualContext);
 			var shaders = new Shaders(NewShaderFile);
@@ -104,7 +104,7 @@ namespace DemoRecorder
 			return new ShaderFile(visualContext);
 		}
 
-		private void game_RenderFrame(object sender, FrameEventArgs e)
+		private void Game_RenderFrame(object sender, FrameEventArgs e)
 		{
 			demo.UpdateBuffer(0, 0, 0, bufferWidth, bufferHeight);
 			demo.Draw(gameWindow.Width, gameWindow.Height);

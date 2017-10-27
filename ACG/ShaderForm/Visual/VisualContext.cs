@@ -1,13 +1,13 @@
-﻿using Zenseless.OpenGL;
-using Zenseless.Base;
-using OpenTK.Graphics.OpenGL4;
+﻿using OpenTK.Graphics.OpenGL4;
+using ShaderForm.Interfaces;
 using System;
 using System.Collections.Generic;
 using System.Diagnostics;
-using System.IO;
-using ShaderForm.Interfaces;
-using Zenseless.HLGL;
 using System.Drawing;
+using System.IO;
+using Zenseless.Base;
+using Zenseless.HLGL;
+using Zenseless.OpenGL;
 
 namespace ShaderForm.Visual
 {
