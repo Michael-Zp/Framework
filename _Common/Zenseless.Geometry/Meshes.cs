@@ -358,7 +358,7 @@ namespace Zenseless.Geometry
 
 			var startX = -sizeX / 2f;
 			var startZ= -sizeZ / 2f;
-			Shapes.CreatePlane(startX, sizeX, startZ, sizeZ, segmentsX, segmentsZ, CreateVertex, CreateID
+			Shapes.CreateGrid(startX, sizeX, startZ, sizeZ, segmentsX, segmentsZ, CreateVertex, CreateID
 				, CreateNormal, CreateUV);
 			return m;
 		}

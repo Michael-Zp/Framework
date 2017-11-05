@@ -9,15 +9,16 @@ float quad(float a)
 	return a * a;
 }
 
-//M = center of sphere
+//C = center of sphere
 //r = radius of sphere
 //O = origin of ray
-//D = direction of ray
+//D = direction of ray (with unit length)
 //return t of smaller hit point
-float sphere(vec3 M, float r, vec3 O, vec3 D)
+float sphere(vec3 C, float r, vec3 O, vec3 D)
 {
-	vec3 MO = O - M;
-	float root = quad(dot(D, MO))- quad(length(D)) * (quad(length(MO)) - quad(r));
+	vec3 V = O - C;
+	float dotVD = dot(V, D);
+	float root = quad(dotVD) - (quad(length(V)) - quad(r));
 	//does ray miss the sphere?
 	if(root < eps)
 	{
@@ -25,7 +26,7 @@ float sphere(vec3 M, float r, vec3 O, vec3 D)
 		return -bigNumber;
 	}
 	//ray hits the sphere -> calc t of hit point(s)
-	float p = -dot(D, MO);
+	float p = -dotVD;
 	float q = sqrt(root);
     return (p - q) > 0.0 ? p - q : p + q;
 }
@@ -64,7 +65,8 @@ void main()
 	vec3 camDir = normalize(vec3(p.x, p.y, 1.0));
 
 	//intersection
-	float t = sphere(vec3(0, 0, 1), 0.4, camP, camDir);
+	vec3 M = vec3(0, 0, 1);
+	float t = sphere(M, 0.4, camP, camDir);
 
 	//final color
 	vec3 color;
@@ -76,7 +78,8 @@ void main()
 	else
 	{
 		//sphere
-		color = vec3(1);
+		vec3 normal = sphereNormal(M, camP + t * camDir);
+		color = vec3(dot(normal,normalize(vec3(1, 1, -1))));
 	}
 	gl_FragColor = vec4(color, 1.0);
 }

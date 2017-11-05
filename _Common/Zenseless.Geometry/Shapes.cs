@@ -8,19 +8,19 @@ namespace Zenseless.Geometry
 	public static class Shapes
 	{
 		/// <summary>
-		/// creates a plane shape that is made up of a grid of pairs of triangles; stored as an indexed vertex array.
+		/// creates a grid shape made up of pairs of triangles; stored as an indexed vertex array.
 		/// </summary>
-		/// <param name="startU">start coordinate of the plane in the first coordinate axis</param>
-		/// <param name="sizeU">extent of the plane in the first coordinate axis</param>
-		/// <param name="startV">start coordinate of the plane in the second coordinate axis</param>
-		/// <param name="sizeV">extent of the plane in the second coordinate axis</param>
+		/// <param name="startU">start coordinate of the grid in the first coordinate axis</param>
+		/// <param name="sizeU">extent of the grid in the first coordinate axis</param>
+		/// <param name="startV">start coordinate of the grid in the second coordinate axis</param>
+		/// <param name="sizeV">extent of the grid in the second coordinate axis</param>
 		/// <param name="segmentsU">number of grid segments in the first coordinate axis</param>
 		/// <param name="segmentsV">number of grid segments in the second coordinate axis</param>
-		/// <param name="createVertex">callback foreach vertex creation</param>
-		/// <param name="createID">callback foreach index creation</param>
-		/// <param name="createNormal">callback foreach vertex normal creation</param>
-		/// <param name="createUV">callback foreach vertex texture coordinate creation</param>
-		public static void CreatePlane(float startU, float sizeU, float startV, float sizeV
+		/// <param name="createVertex">callback for each vertex creation</param>
+		/// <param name="createID">callback for each index creation</param>
+		/// <param name="createNormal">callback for each vertex normal creation</param>
+		/// <param name="createUV">callback for each vertex texture coordinate creation</param>
+		public static void CreateGrid(float startU, float sizeU, float startV, float sizeV
 			, uint segmentsU, uint segmentsV
 			, Action<float, float> createVertex, Action<uint> createID
 			, Action createNormal = null, Action<float, float> createUV = null)

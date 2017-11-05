@@ -83,7 +83,7 @@
       <DesignTime>True</DesignTime>
       <DependentUpon>Resourcen.resx</DependentUpon>
     </Compile>
-    <Compile Include="View.cs" />
+    <Compile Include="Renderer.cs" />
     <Compile Include="TextAlignment.cs" />
   </ItemGroup>
   <ItemGroup>

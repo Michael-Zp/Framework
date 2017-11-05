@@ -31,7 +31,7 @@ void main() {
 			vec2 delta = vec2(float(x),float(y));
 			vec2 point = random2(cell + delta); //one random point per cell
 			
-			point = 0.5 + 0.5 * sin(time + time * point); // animate each point
+			//point = 0.5 + 0.5 * sin(time + time * point); // animate each point
 			
 			float dist = distance(coordFract, delta + point);
 			minDist = min(minDist, dist);

@@ -9,7 +9,7 @@ namespace MvcSokoban
 		public RendererGL4(IRenderContext context)
 		{
 			levelVisual = new VisualLevel(context);
-			font = new FontGL(context);
+			font = new FontGL();
 		}
 
 		public void Clear()
