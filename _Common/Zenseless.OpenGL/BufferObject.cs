@@ -46,7 +46,7 @@ namespace Zenseless.OpenGL
 			int elementBytes = Marshal.SizeOf(typeof(DATA_ELEMENT_TYPE));
 			int bufferByteSize = data.Length * elementBytes;
 			// set buffer data
-			GL.BufferData(BufferTarget, (IntPtr)bufferByteSize, data, usageHint);
+			GL.BufferData(BufferTarget, bufferByteSize, data, usageHint);
 			//cleanup state
 			Deactivate();
 		}
