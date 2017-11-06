@@ -48,9 +48,9 @@ namespace Zenseless.Geometry
 			if (0 == Count) throw new ArgumentException("No control points to interpolate!");
 			var first = FindInfimum(t);
 			var second = FindSupremum(t);
-			float timeDelta = second.Key - first.Key;
-			//if too little time inbetween return data value of infimum 
-			float factor = (epsilon > Math.Abs(timeDelta)) ? 0 : (t - first.Key) / timeDelta;
+			float keyDelta = second.Key - first.Key;
+			//if too little time in between return data value of infimum 
+			float factor = (epsilon > Math.Abs(keyDelta)) ? 0 : (t - first.Key) / keyDelta;
 			return new Tuple<T, T, float>(first.Value, second.Value, factor);
 		}
 

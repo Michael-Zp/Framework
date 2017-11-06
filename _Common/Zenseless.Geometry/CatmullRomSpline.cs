@@ -51,6 +51,7 @@ namespace Zenseless.Geometry
 		{
 			return 0.5f * (pointR - pointL);
 		}
+
 		public static List<Vector2> FiniteDifferenceLoop(IList<Vector2> points)
 		{
 			var output = new List<Vector2>();

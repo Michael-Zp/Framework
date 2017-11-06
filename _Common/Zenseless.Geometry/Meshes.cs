@@ -7,15 +7,15 @@ namespace Zenseless.Geometry
 	{
 		public static void SetConstantUV(this Mesh mesh, Vector2 uv)
 		{
-			var uvs = mesh.uv.List;
-			uvs.Capacity = mesh.position.List.Count;
+			var uvs = mesh.Uv.List;
+			uvs.Capacity = mesh.Position.List.Count;
 			//overwrite existing
 			for(int i = 0; i < uvs.Count; ++i)
 			{
 				uvs[i] = uv;
 			}
 			//add
-			for(int i = uvs.Count; i < mesh.position.List.Count; ++i)
+			for(int i = uvs.Count; i < mesh.Position.List.Count; ++i)
 			{
 				uvs.Add(uv);
 			}
@@ -24,26 +24,26 @@ namespace Zenseless.Geometry
 		public static Mesh Clone(this Mesh m)
 		{
 			var mesh = new Mesh();
-			mesh.position.List.AddRange(m.position.List);
-			mesh.normal.List.AddRange(m.normal.List);
-			mesh.uv.List.AddRange(m.uv.List);
+			mesh.Position.List.AddRange(m.Position.List);
+			mesh.Normal.List.AddRange(m.Normal.List);
+			mesh.Uv.List.AddRange(m.Uv.List);
 			mesh.IDs.AddRange(m.IDs);
 			return mesh;
 		}
 
 		public static void Add(this Mesh a, Mesh b)
 		{
-			var count = (uint)a.position.List.Count;
-			a.position.List.AddRange(b.position.List);
-			if(b.normal.List.Count > 0)
+			var count = (uint)a.Position.List.Count;
+			a.Position.List.AddRange(b.Position.List);
+			if(b.Normal.List.Count > 0)
 			{
-				if (a.normal.List.Count != count) throw new ArgumentException("Original mesh has no normals, but added mesh has normals");
-				a.normal.List.AddRange(b.normal.List);
+				if (a.Normal.List.Count != count) throw new ArgumentException("Original mesh has no normals, but added mesh has normals");
+				a.Normal.List.AddRange(b.Normal.List);
 			}
-			if (b.uv.List.Count > 0)
+			if (b.Uv.List.Count > 0)
 			{
-				if (a.uv.List.Count != count) throw new ArgumentException("Original mesh has no uvs, but added mesh has uvs");
-				a.uv.List.AddRange(b.uv.List);
+				if (a.Uv.List.Count != count) throw new ArgumentException("Original mesh has no uvs, but added mesh has uvs");
+				a.Uv.List.AddRange(b.Uv.List);
 			}
 			foreach(var id in b.IDs)
 			{
@@ -54,17 +54,17 @@ namespace Zenseless.Geometry
 		public static Mesh Transform(this Mesh m, Matrix4x4 transform)
 		{
 			var mesh = new Mesh();
-			mesh.uv.List.AddRange(m.uv.List);
+			mesh.Uv.List.AddRange(m.Uv.List);
 			mesh.IDs.AddRange(m.IDs);
-			foreach (var pos in m.position.List)
+			foreach (var pos in m.Position.List)
 			{
 				var newPos = Vector3.Transform(pos, transform);
-				mesh.position.List.Add(newPos);
+				mesh.Position.List.Add(newPos);
 			}
-			foreach (var n in m.normal.List)
+			foreach (var n in m.Normal.List)
 			{
 				var newN = Vector3.Normalize(Vector3.TransformNormal(n, transform));
-				mesh.normal.List.Add(newN);
+				mesh.Normal.List.Add(newN);
 			}
 			return mesh;
 		}
@@ -72,19 +72,19 @@ namespace Zenseless.Geometry
 		public static Mesh SwitchHandedness(this Mesh m)
 		{
 			var mesh = new Mesh();
-			mesh.uv.List.AddRange(m.uv.List);
+			mesh.Uv.List.AddRange(m.Uv.List);
 			mesh.IDs.AddRange(m.IDs);
-			foreach (var pos in m.position.List)
+			foreach (var pos in m.Position.List)
 			{
 				var newPos = pos;
 				newPos.Z = -newPos.Z;
-				mesh.position.List.Add(newPos);
+				mesh.Position.List.Add(newPos);
 			}
-			foreach (var n in m.normal.List)
+			foreach (var n in m.Normal.List)
 			{
 				var newN = n;
 				newN.Z = -newN.Z;
-				mesh.normal.List.Add(newN);
+				mesh.Normal.List.Add(newN);
 			}
 			return mesh;
 		}
@@ -92,13 +92,13 @@ namespace Zenseless.Geometry
 		public static Mesh FlipNormals(this Mesh m)
 		{
 			var mesh = new Mesh();
-			mesh.position.List.AddRange(m.position.List);
-			mesh.uv.List.AddRange(m.uv.List);
+			mesh.Position.List.AddRange(m.Position.List);
+			mesh.Uv.List.AddRange(m.Uv.List);
 			mesh.IDs.AddRange(m.IDs);
-			foreach (var n in m.normal.List)
+			foreach (var n in m.Normal.List)
 			{
 				var newN = -n;
-				mesh.normal.List.Add(newN);
+				mesh.Normal.List.Add(newN);
 			}
 			return mesh;
 		}
@@ -106,9 +106,9 @@ namespace Zenseless.Geometry
 		public static Mesh SwitchTriangleMeshWinding(this Mesh m)
 		{
 			var mesh = new Mesh();
-			mesh.position.List.AddRange(m.position.List);
-			mesh.normal.List.AddRange(m.normal.List);
-			mesh.uv.List.AddRange(m.uv.List);
+			mesh.Position.List.AddRange(m.Position.List);
+			mesh.Normal.List.AddRange(m.Normal.List);
+			mesh.Uv.List.AddRange(m.Uv.List);
 			for (int i = 0; i < m.IDs.Count; i += 3)
 			{
 				mesh.IDs.Add(m.IDs[i]);
@@ -179,14 +179,14 @@ namespace Zenseless.Geometry
 			var mesh = new Mesh();
 
 			//corners
-			mesh.position.List.Add(new Vector3(s2, s2, -s2)); //0
-			mesh.position.List.Add(new Vector3(s2, s2, s2)); //1
-			mesh.position.List.Add(new Vector3(-s2, s2, s2)); //2
-			mesh.position.List.Add(new Vector3(-s2, s2, -s2)); //3
-			mesh.position.List.Add(new Vector3(s2, -s2, -s2)); //4
-			mesh.position.List.Add(new Vector3(-s2, -s2, -s2)); //5
-			mesh.position.List.Add(new Vector3(-s2, -s2, s2)); //6
-			mesh.position.List.Add(new Vector3(s2, -s2, s2)); //7
+			mesh.Position.List.Add(new Vector3(s2, s2, -s2)); //0
+			mesh.Position.List.Add(new Vector3(s2, s2, s2)); //1
+			mesh.Position.List.Add(new Vector3(-s2, s2, s2)); //2
+			mesh.Position.List.Add(new Vector3(-s2, s2, -s2)); //3
+			mesh.Position.List.Add(new Vector3(s2, -s2, -s2)); //4
+			mesh.Position.List.Add(new Vector3(-s2, -s2, -s2)); //5
+			mesh.Position.List.Add(new Vector3(-s2, -s2, s2)); //6
+			mesh.Position.List.Add(new Vector3(s2, -s2, s2)); //7
 
 			//Top Face
 			mesh.IDs.Add(0);
@@ -253,7 +253,7 @@ namespace Zenseless.Geometry
 			uint id = 0;
 			var n = -Vector3.UnitX;
 
-			Action<int> Add = (int pos) => { mesh.position.List.Add(c[pos]); mesh.normal.List.Add(n); mesh.IDs.Add(id); ++id; };
+			Action<int> Add = (int pos) => { mesh.Position.List.Add(c[pos]); mesh.Normal.List.Add(n); mesh.IDs.Add(id); ++id; };
 
 			//Left face
 			Add(2);
@@ -307,40 +307,12 @@ namespace Zenseless.Geometry
 
 		public static Mesh CreateSphere(float radius_ = 1.0f, uint subdivision = 1)
 		{
-			//idea: subdivide icosahedron
-			const float X = 0.525731112119133606f;
-			const float Z = 0.850650808352039932f;
-
-			var vdata = new float[12,3] {
-				{ -X, 0.0f, Z}, { X, 0.0f, Z}, { -X, 0.0f, -Z }, { X, 0.0f, -Z },
-				{ 0.0f, Z, X }, { 0.0f, Z, -X }, { 0.0f, -Z, X }, { 0.0f, -Z, -X },
-				{ Z, X, 0.0f }, { -Z, X, 0.0f }, { Z, -X, 0.0f }, { -Z, -X, 0.0f }
-			};
-			var tindices = new uint[20,3] {
-				{ 0, 4, 1 }, { 0, 9, 4 }, { 9, 5, 4 }, { 4, 5, 8 }, { 4, 8, 1 },
-				{ 8, 10, 1 }, { 8, 3, 10 }, { 5, 3, 8 }, { 5, 2, 3 }, { 2, 7, 3 },
-				{ 7, 10, 3 }, { 7, 6, 10 }, { 7, 11, 6 }, { 11, 0, 6 }, { 0, 1, 6 },
-				{ 6, 1, 10 }, { 9, 0, 11 }, { 9, 11, 2 }, { 9, 2, 5 }, { 7, 2, 11 } };
-
-			Mesh mesh = new Mesh();
-			for (int i = 0; i < 12; ++i)
-			{
-				var p = new Vector3(vdata[i, 0], vdata[i, 1], vdata[i, 2]);
-				mesh.normal.List.Add(p);
-				mesh.position.List.Add(p);
-			}
-			for (int i = 0; i < 20; ++i)
-			{
-				Subdivide(mesh, tindices[i, 0], tindices[i, 1], tindices[i, 2], subdivision);
-			}
-
-			//scale
-			for (int i = 0; i < mesh.position.List.Count; ++i)
-			{
-				mesh.position.List[i] *= radius_;
-			}
-
-			return mesh.SwitchTriangleMeshWinding();
+			Mesh m = new Mesh();
+			void createPosition(float x, float y, float z) => m.Position.List.Add(new Vector3(x, y, z));
+			void createID(uint id) => m.IDs.Add(id);
+			void createNormal(float x, float y, float z) => m.Normal.List.Add(new Vector3(x, y, z));
+			Shapes.CreateSphere(createPosition, createID, radius_, subdivision, createNormal);
+			return m;
 		}
 
 		public static Mesh CreateIcosahedron(float radius)
@@ -351,46 +323,16 @@ namespace Zenseless.Geometry
 		public static Mesh CreatePlane(float sizeX, float sizeZ, uint segmentsX, uint segmentsZ)
 		{
 			Mesh m = new Mesh();
-			void CreateVertex(float x, float z) => m.position.List.Add(new Vector3(x, 0.0f, z));
+			void CreateVertex(float x, float z) => m.Position.List.Add(new Vector3(x, 0.0f, z));
 			void CreateID(uint id) => m.IDs.Add(id);
-			void CreateNormal() => m.normal.List.Add(Vector3.UnitY);
-			void CreateUV(float u, float v) => m.uv.List.Add(new Vector2(u, v));
+			void CreateNormal() => m.Normal.List.Add(Vector3.UnitY);
+			void CreateUV(float u, float v) => m.Uv.List.Add(new Vector2(u, v));
 
 			var startX = -sizeX / 2f;
 			var startZ= -sizeZ / 2f;
 			Shapes.CreateGrid(startX, sizeX, startZ, sizeZ, segmentsX, segmentsZ, CreateVertex, CreateID
 				, CreateNormal, CreateUV);
 			return m;
-		}
-
-		private static uint CreateID(Mesh m, uint id1, uint id2)
-		{
-			//todo: could detect if edge already calculated and reuse....
-			uint i12 = (uint)m.position.List.Count;
-			Vector3 v12 = m.position.List[(int)id1] + m.position.List[(int)id2];
-			v12 /= v12.Length();
-			m.normal.List.Add(v12);
-			m.position.List.Add(v12);
-			return i12;
-		}
-
-		private static void Subdivide(Mesh m, uint id1, uint id2, uint id3, uint depth)
-		{
-			if (0 == depth)
-			{
-				m.IDs.Add(id1);
-				m.IDs.Add(id2);
-				m.IDs.Add(id3);
-				return;
-			}
-			uint i12 = CreateID(m, id1, id2);
-			uint i23 = CreateID(m, id2, id3);
-			uint i31 = CreateID(m, id3, id1);
-
-			Subdivide(m, id1, i12, i31, depth - 1);
-			Subdivide(m, id2, i23, i12, depth - 1);
-			Subdivide(m, id3, i31, i23, depth - 1);
-			Subdivide(m, i12, i23, i31, depth - 1);
 		}
 	}
 }

@@ -15,9 +15,21 @@ namespace Zenseless.OpenGL
 		public static VAO FromMesh(Mesh mesh, IShader shader)
 		{
 			var vao = new VAO();
-			if (mesh.position.List.Count > 0) vao.SetAttribute(shader.GetResourceLocation(ShaderResourceType.Attribute, mesh.position.Name), mesh.position.List.ToArray(), VertexAttribPointerType.Float, 3);
-			if (mesh.normal.List.Count > 0) vao.SetAttribute(shader.GetResourceLocation(ShaderResourceType.Attribute, mesh.normal.Name), mesh.normal.List.ToArray(), VertexAttribPointerType.Float, 3);
-			if (mesh.uv.List.Count > 0) vao.SetAttribute(shader.GetResourceLocation(ShaderResourceType.Attribute, mesh.uv.Name), mesh.uv.List.ToArray(), VertexAttribPointerType.Float, 2);
+			if (mesh.Position.List.Count > 0)
+			{
+				var loc = shader.GetResourceLocation(ShaderResourceType.Attribute, mesh.Position.Name);
+				vao.SetAttribute(loc, mesh.Position.List.ToArray(), VertexAttribPointerType.Float, 3);
+			}
+			if (mesh.Normal.List.Count > 0)
+			{
+				var loc = shader.GetResourceLocation(ShaderResourceType.Attribute, mesh.Normal.Name);
+				vao.SetAttribute(loc, mesh.Normal.List.ToArray(), VertexAttribPointerType.Float, 3);
+			}
+			if (mesh.Uv.List.Count > 0)
+			{
+				var loc = shader.GetResourceLocation(ShaderResourceType.Attribute, mesh.Uv.Name);
+				vao.SetAttribute(loc, mesh.Uv.List.ToArray(), VertexAttribPointerType.Float, 2);
+			}
 			vao.SetID(mesh.IDs.ToArray());
 			vao.PrimitiveType = PrimitiveType.Triangles;
 			return vao;
