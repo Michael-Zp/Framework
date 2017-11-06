@@ -28,7 +28,7 @@ namespace Zenseless.OpenGL
 		public PrimitiveType PrimitiveType { get; set; } = PrimitiveType.Triangles;
 		public DrawElementsType DrawElementsType { get; private set; } = DrawElementsType.UnsignedShort;
 
-		public void SetID<Index>(Index[] data) where Index : struct
+		public void SetIndex<IndexType>(IndexType[] data) where IndexType : struct
 		{
 			if (ReferenceEquals(null, data)) return;
 			if (0 == data.Length) return;
@@ -42,7 +42,7 @@ namespace Zenseless.OpenGL
 			Deactivate();
 			buffer.Deactivate();
 			//save data for draw call
-			DrawElementsType drawElementsType = GetDrawElementsType(typeof(Index));
+			DrawElementsType drawElementsType = GetDrawElementsType(typeof(IndexType));
 			IDLength = data.Length;
 			DrawElementsType = drawElementsType;
 		}

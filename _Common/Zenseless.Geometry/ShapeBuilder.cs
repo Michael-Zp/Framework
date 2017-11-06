@@ -7,8 +7,101 @@ namespace Zenseless.Geometry
 	/// <summary>
 	/// static class that provides geometric shape builder methods
 	/// </summary>
-	public static class Shapes
+	public static class ShapeBuilder
 	{
+		/// <summary>
+		/// Builds a cube made up of triangles
+		/// </summary>
+		/// <param name="createPosition">callback for each position creation</param>
+		/// <param name="createID">callback for each index creation</param>
+		/// <param name="size">length of one side</param>
+		/// <param name="createNormal">callback for each vertex normal creation</param>
+		public static void Cube(Action<float, float, float> createPosition, Action<uint> createID, float size = 1.0f
+			, Action<float, float, float> createNormal = null)
+		{
+			if (ReferenceEquals(null, createPosition)) throw new ArgumentNullException(nameof(createPosition) + " must not be null");
+			if (ReferenceEquals(null, createID)) throw new ArgumentNullException(nameof(createID) + " must not be null");
+			float s2 = size * 0.5f;
+
+			//corners
+			var c = new Vector3[] {
+				new Vector3(s2, s2, -s2),
+				new Vector3(s2, s2, s2),
+				new Vector3(-s2, s2, s2),
+				new Vector3(-s2, s2, -s2),
+				new Vector3(s2, -s2, -s2),
+				new Vector3(-s2, -s2, -s2),
+				new Vector3(-s2, -s2, s2),
+				new Vector3(s2, -s2, s2),
+			};
+
+			uint id = 0;
+			var n = -Vector3.UnitX;
+			Action<int> Add = (int pos) =>
+			{
+				var p = c[pos];
+				createPosition(p.X, p.Y, p.Z);
+				createNormal(n.X, n.Y, n.Z);
+				createID(id);
+				++id;
+			};
+
+			if (ReferenceEquals(null, createNormal))
+			{
+				//no normals
+				Add = (int pos) => { createID(id); ++id; }; //add only ids
+				foreach (var p in c) createPosition(p.X, p.Y, p.Z); //add corners once
+			}
+
+			//Left face
+			Add(2);
+			Add(5);
+			Add(6);
+			Add(2);
+			Add(3);
+			Add(5);
+			//Right face
+			n = Vector3.UnitX;
+			Add(1);
+			Add(4);
+			Add(0);
+			Add(1);
+			Add(7);
+			Add(4);
+			//Top Face
+			n = Vector3.UnitY;
+			Add(0);
+			Add(2);
+			Add(1);
+			Add(0);
+			Add(3);
+			Add(2);
+			//Bottom Face
+			n = -Vector3.UnitY;
+			Add(4);
+			Add(6);
+			Add(5);
+			Add(4);
+			Add(7);
+			Add(6);
+			//Front Face
+			n = Vector3.UnitZ;
+			Add(1);
+			Add(6);
+			Add(7);
+			Add(1);
+			Add(2);
+			Add(6);
+			//Back Face
+			n = -Vector3.UnitZ;
+			Add(0);
+			Add(5);
+			Add(3);
+			Add(0);
+			Add(4);
+			Add(5);
+		}
+
 		/// <summary>
 		/// creates a grid shape made up of pairs of triangles; stored as an indexed vertex array.
 		/// </summary>
@@ -22,7 +115,7 @@ namespace Zenseless.Geometry
 		/// <param name="createID">callback for each index creation</param>
 		/// <param name="createNormal">callback for each vertex normal creation</param>
 		/// <param name="createUV">callback for each vertex texture coordinate creation</param>
-		public static void CreateGrid(float startU, float sizeU, float startV, float sizeV
+		public static void Grid(float startU, float sizeU, float startV, float sizeV
 			, uint segmentsU, uint segmentsV
 			, Action<float, float> createPosition, Action<uint> createID
 			, Action createNormal = null, Action<float, float> createUV = null)
@@ -61,14 +154,14 @@ namespace Zenseless.Geometry
 		}
 
 		/// <summary>
-		/// Creates a sphere made up of triangles
+		/// Builds a sphere made up of triangles
 		/// </summary>
 		/// <param name="createPosition">callback for each position creation</param>
 		/// <param name="createID">callback for each index creation</param>
 		/// <param name="radius_">radius of the sphere</param>
 		/// <param name="subdivision">subdivision count, each subdivision creates 4 times more faces</param>
 		/// <param name="createNormal">callback for each vertex normal creation</param>
-		public static void CreateSphere(Action<float, float, float> createPosition, Action<uint> createID, float radius_ = 1.0f, uint subdivision = 1
+		public static void Sphere(Action<float, float, float> createPosition, Action<uint> createID, float radius_ = 1.0f, uint subdivision = 1
 			, Action<float, float, float> createNormal = null)
 		{
 			if (ReferenceEquals(null, createPosition)) throw new ArgumentNullException(nameof(createPosition) + " must not be null");

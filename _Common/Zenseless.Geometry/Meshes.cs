@@ -8,14 +8,15 @@ namespace Zenseless.Geometry
 		public static void SetConstantUV(this Mesh mesh, Vector2 uv)
 		{
 			var uvs = mesh.Uv.List;
-			uvs.Capacity = mesh.Position.List.Count;
+			var pos = mesh.Position.List;
+			uvs.Capacity = pos.Count;
 			//overwrite existing
 			for(int i = 0; i < uvs.Count; ++i)
 			{
 				uvs[i] = uv;
 			}
 			//add
-			for(int i = uvs.Count; i < mesh.Position.List.Count; ++i)
+			for(int i = uvs.Count; i < pos.Count; ++i)
 			{
 				uvs.Add(uv);
 			}
@@ -33,8 +34,9 @@ namespace Zenseless.Geometry
 
 		public static void Add(this Mesh a, Mesh b)
 		{
-			var count = (uint)a.Position.List.Count;
-			a.Position.List.AddRange(b.Position.List);
+			var aPos = a.Position.List;
+			var count = (uint)aPos.Count;
+			aPos.AddRange(b.Position.List);
 			if(b.Normal.List.Count > 0)
 			{
 				if (a.Normal.List.Count != count) throw new ArgumentException("Original mesh has no normals, but added mesh has normals");
@@ -173,153 +175,57 @@ namespace Zenseless.Geometry
 			return materials;
 		}
 
-		public static Mesh CreateCube(float size = 1.0f)
-		{
-			float s2 = size * 0.5f;
-			var mesh = new Mesh();
-
-			//corners
-			mesh.Position.List.Add(new Vector3(s2, s2, -s2)); //0
-			mesh.Position.List.Add(new Vector3(s2, s2, s2)); //1
-			mesh.Position.List.Add(new Vector3(-s2, s2, s2)); //2
-			mesh.Position.List.Add(new Vector3(-s2, s2, -s2)); //3
-			mesh.Position.List.Add(new Vector3(s2, -s2, -s2)); //4
-			mesh.Position.List.Add(new Vector3(-s2, -s2, -s2)); //5
-			mesh.Position.List.Add(new Vector3(-s2, -s2, s2)); //6
-			mesh.Position.List.Add(new Vector3(s2, -s2, s2)); //7
-
-			//Top Face
-			mesh.IDs.Add(0);
-			mesh.IDs.Add(2);
-			mesh.IDs.Add(1);
-			mesh.IDs.Add(0);
-			mesh.IDs.Add(3);
-			mesh.IDs.Add(2);
-			//Bottom Face
-			mesh.IDs.Add(4);
-			mesh.IDs.Add(6);
-			mesh.IDs.Add(5);
-			mesh.IDs.Add(4);
-			mesh.IDs.Add(7);
-			mesh.IDs.Add(6);
-			//Front Face
-			mesh.IDs.Add(1);
-			mesh.IDs.Add(6);
-			mesh.IDs.Add(7);
-			mesh.IDs.Add(1);
-			mesh.IDs.Add(2);
-			mesh.IDs.Add(6);
-			//Back Face
-			mesh.IDs.Add(0);
-			mesh.IDs.Add(5);
-			mesh.IDs.Add(3);
-			mesh.IDs.Add(0);
-			mesh.IDs.Add(4);
-			mesh.IDs.Add(5);
-			//Left face
-			mesh.IDs.Add(2);
-			mesh.IDs.Add(5);
-			mesh.IDs.Add(6);
-			mesh.IDs.Add(2);
-			mesh.IDs.Add(3);
-			mesh.IDs.Add(5);
-			//Right face
-			mesh.IDs.Add(1);
-			mesh.IDs.Add(4);
-			mesh.IDs.Add(0);
-			mesh.IDs.Add(1);
-			mesh.IDs.Add(7);
-			mesh.IDs.Add(4);
-			return mesh;
-		}
-
+		/// <summary>
+		/// Creates a cube made up of pairs of triangles; stored as an indexed vertex array
+		/// </summary>
+		/// <param name="size">length of one side</param>
+		/// <returns>Mesh with positions, ids, normals</returns>
 		public static Mesh CreateCubeWithNormals(float size = 1.0f)
-		{
-			float s2 = size * 0.5f;
-			var mesh = new Mesh();
-
-			//corners
-			var c = new Vector3[] {
-				new Vector3(s2, s2, -s2),
-				new Vector3(s2, s2, s2),
-				new Vector3(-s2, s2, s2),
-				new Vector3(-s2, s2, -s2),
-				new Vector3(s2, -s2, -s2),
-				new Vector3(-s2, -s2, -s2),
-				new Vector3(-s2, -s2, s2),
-				new Vector3(s2, -s2, s2),
-			};
-
-			uint id = 0;
-			var n = -Vector3.UnitX;
-
-			Action<int> Add = (int pos) => { mesh.Position.List.Add(c[pos]); mesh.Normal.List.Add(n); mesh.IDs.Add(id); ++id; };
-
-			//Left face
-			Add(2);
-			Add(5);
-			Add(6);
-			Add(2);
-			Add(3);
-			Add(5);
-			//Right face
-			n = Vector3.UnitX;
-			Add(1);
-			Add(4);
-			Add(0);
-			Add(1);
-			Add(7);
-			Add(4);
-			//Top Face
-			n = Vector3.UnitY;
-			Add(0);
-			Add(2);
-			Add(1);
-			Add(0);
-			Add(3);
-			Add(2);
-			//Bottom Face
-			n = -Vector3.UnitY;
-			Add(4);
-			Add(6);
-			Add(5);
-			Add(4);
-			Add(7);
-			Add(6);
-			//Front Face
-			n = Vector3.UnitZ;
-			Add(1);
-			Add(6);
-			Add(7);
-			Add(1);
-			Add(2);
-			Add(6);
-			//Back Face
-			n = -Vector3.UnitZ;
-			Add(0);
-			Add(5);
-			Add(3);
-			Add(0);
-			Add(4);
-			Add(5);
-			return mesh;
-		}
-
-		public static Mesh CreateSphere(float radius_ = 1.0f, uint subdivision = 1)
 		{
 			Mesh m = new Mesh();
 			void createPosition(float x, float y, float z) => m.Position.List.Add(new Vector3(x, y, z));
-			void createID(uint id) => m.IDs.Add(id);
+			void createID(uint index) => m.IDs.Add(index);
 			void createNormal(float x, float y, float z) => m.Normal.List.Add(new Vector3(x, y, z));
-			Shapes.CreateSphere(createPosition, createID, radius_, subdivision, createNormal);
+			ShapeBuilder.Cube(createPosition, createID, size, createNormal);
 			return m;
 		}
 
+		/// <summary>
+		/// creates a sphere made up of pairs of triangles; stored as an indexed vertex array
+		/// </summary>
+		/// <param name="radius">radius</param>
+		/// <param name="subdivision">subdivision count, each subdivision creates 4 times more faces</param>
+		/// <returns>Mesh with positions, ids, normals</returns>
+		public static Mesh CreateSphere(float radius = 1.0f, uint subdivision = 1)
+		{
+			Mesh m = new Mesh();
+			//var pos = m.AddAttribute<Vector3>(Mesh.PositionName);
+			//var normal = m.AddAttribute<Vector3>(Mesh.NormalName);
+			void createPosition(float x, float y, float z) => m.Position.List.Add(new Vector3(x, y, z));
+			void createID(uint id) => m.IDs.Add(id);
+			void createNormal(float x, float y, float z) => m.Normal.List.Add(new Vector3(x, y, z));
+			ShapeBuilder.Sphere(createPosition, createID, radius, subdivision, createNormal);
+			return m;
+		}
+
+		/// <summary>
+		/// creates an icosahedron made up of pairs of triangles; stored as an indexed vertex array
+		/// </summary>
+		/// <param name="radius">radius</param>
+		/// <returns>Mesh with positions, ids, normals</returns>
 		public static Mesh CreateIcosahedron(float radius)
 		{
 			return CreateSphere(radius, 0);
 		}
 
+		/// <summary>
+		/// Creates a plane made up of pairs of triangles; stored as an indexed vertex array.
+		/// </summary>
+		/// <param name="sizeX">extent of the grid in the x-coordinate axis</param>
+		/// <param name="sizeZ">extent of the grid in the z-coordinate axis</param>
+		/// <param name="segmentsX">number of grid segments in the x-coordinate axis</param>
+		/// <param name="segmentsZ">number of grid segments in the z-coordinate axis</param>
+		/// <returns>Mesh with positions, ids, normals, and uvs</returns>
 		public static Mesh CreatePlane(float sizeX, float sizeZ, uint segmentsX, uint segmentsZ)
 		{
 			Mesh m = new Mesh();
@@ -330,7 +236,7 @@ namespace Zenseless.Geometry
 
 			var startX = -sizeX / 2f;
 			var startZ= -sizeZ / 2f;
-			Shapes.CreateGrid(startX, sizeX, startZ, sizeZ, segmentsX, segmentsZ, CreateVertex, CreateID
+			ShapeBuilder.Grid(startX, sizeX, startZ, sizeZ, segmentsX, segmentsZ, CreateVertex, CreateID
 				, CreateNormal, CreateUV);
 			return m;
 		}
