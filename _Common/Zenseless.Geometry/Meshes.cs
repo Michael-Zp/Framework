@@ -5,10 +5,10 @@ namespace Zenseless.Geometry
 {
 	public static partial class Meshes
 	{
-		public static void SetConstantUV(this Mesh mesh, Vector2 uv)
+		public static void SetConstantUV(this DefaultMesh mesh, Vector2 uv)
 		{
-			var uvs = mesh.Uv.List;
-			var pos = mesh.Position.List;
+			var uvs = mesh.TexCoord;
+			var pos = mesh.Position;
 			uvs.Capacity = pos.Count;
 			//overwrite existing
 			for(int i = 0; i < uvs.Count; ++i)
@@ -22,30 +22,19 @@ namespace Zenseless.Geometry
 			}
 		}
 
-		public static Mesh Clone(this Mesh m)
+		public static void Add(this DefaultMesh a, DefaultMesh b)
 		{
-			var mesh = new Mesh();
-			mesh.Position.List.AddRange(m.Position.List);
-			mesh.Normal.List.AddRange(m.Normal.List);
-			mesh.Uv.List.AddRange(m.Uv.List);
-			mesh.IDs.AddRange(m.IDs);
-			return mesh;
-		}
-
-		public static void Add(this Mesh a, Mesh b)
-		{
-			var aPos = a.Position.List;
-			var count = (uint)aPos.Count;
-			aPos.AddRange(b.Position.List);
-			if(b.Normal.List.Count > 0)
+			var count = (uint)a.Position.Count;
+			a.Position.AddRange(b.Position);
+			if(b.Normal.Count > 0)
 			{
-				if (a.Normal.List.Count != count) throw new ArgumentException("Original mesh has no normals, but added mesh has normals");
-				a.Normal.List.AddRange(b.Normal.List);
+				if (a.Normal.Count != count) throw new ArgumentException("Original mesh has no normals, but added mesh has normals");
+				a.Normal.AddRange(b.Normal);
 			}
-			if (b.Uv.List.Count > 0)
+			if (b.TexCoord.Count > 0)
 			{
-				if (a.Uv.List.Count != count) throw new ArgumentException("Original mesh has no uvs, but added mesh has uvs");
-				a.Uv.List.AddRange(b.Uv.List);
+				if (a.TexCoord.Count != count) throw new ArgumentException("Original mesh has no uvs, but added mesh has uvs");
+				a.TexCoord.AddRange(b.TexCoord);
 			}
 			foreach(var id in b.IDs)
 			{
@@ -53,64 +42,64 @@ namespace Zenseless.Geometry
 			}
 		}
 
-		public static Mesh Transform(this Mesh m, Matrix4x4 transform)
+		public static DefaultMesh Transform(this DefaultMesh m, Matrix4x4 transform)
 		{
-			var mesh = new Mesh();
-			mesh.Uv.List.AddRange(m.Uv.List);
+			var mesh = new DefaultMesh();
+			mesh.TexCoord.AddRange(m.TexCoord);
 			mesh.IDs.AddRange(m.IDs);
-			foreach (var pos in m.Position.List)
+			foreach (var pos in m.Position)
 			{
 				var newPos = Vector3.Transform(pos, transform);
-				mesh.Position.List.Add(newPos);
+				mesh.Position.Add(newPos);
 			}
-			foreach (var n in m.Normal.List)
+			foreach (var n in m.Normal)
 			{
 				var newN = Vector3.Normalize(Vector3.TransformNormal(n, transform));
-				mesh.Normal.List.Add(newN);
+				mesh.Normal.Add(newN);
 			}
 			return mesh;
 		}
 
-		public static Mesh SwitchHandedness(this Mesh m)
+		public static DefaultMesh SwitchHandedness(this DefaultMesh m)
 		{
-			var mesh = new Mesh();
-			mesh.Uv.List.AddRange(m.Uv.List);
+			var mesh = new DefaultMesh();
+			mesh.TexCoord.AddRange(m.TexCoord);
 			mesh.IDs.AddRange(m.IDs);
-			foreach (var pos in m.Position.List)
+			foreach (var pos in m.Position)
 			{
 				var newPos = pos;
 				newPos.Z = -newPos.Z;
-				mesh.Position.List.Add(newPos);
+				mesh.Position.Add(newPos);
 			}
-			foreach (var n in m.Normal.List)
+			foreach (var n in m.Normal)
 			{
 				var newN = n;
 				newN.Z = -newN.Z;
-				mesh.Normal.List.Add(newN);
+				mesh.Normal.Add(newN);
 			}
 			return mesh;
 		}
 
-		public static Mesh FlipNormals(this Mesh m)
+		public static DefaultMesh FlipNormals(this DefaultMesh m)
 		{
-			var mesh = new Mesh();
-			mesh.Position.List.AddRange(m.Position.List);
-			mesh.Uv.List.AddRange(m.Uv.List);
+			var mesh = new DefaultMesh();
+			mesh.Position.AddRange(m.Position);
+			mesh.TexCoord.AddRange(m.TexCoord);
 			mesh.IDs.AddRange(m.IDs);
-			foreach (var n in m.Normal.List)
+			foreach (var n in m.Normal)
 			{
 				var newN = -n;
-				mesh.Normal.List.Add(newN);
+				mesh.Normal.Add(newN);
 			}
 			return mesh;
 		}
 
-		public static Mesh SwitchTriangleMeshWinding(this Mesh m)
+		public static DefaultMesh SwitchTriangleMeshWinding(this DefaultMesh m)
 		{
-			var mesh = new Mesh();
-			mesh.Position.List.AddRange(m.Position.List);
-			mesh.Normal.List.AddRange(m.Normal.List);
-			mesh.Uv.List.AddRange(m.Uv.List);
+			var mesh = new DefaultMesh();
+			mesh.Position.AddRange(m.Position);
+			mesh.Normal.AddRange(m.Normal);
+			mesh.TexCoord.AddRange(m.TexCoord);
 			for (int i = 0; i < m.IDs.Count; i += 3)
 			{
 				mesh.IDs.Add(m.IDs[i]);
@@ -120,9 +109,9 @@ namespace Zenseless.Geometry
 			return mesh;
 		}
 
-		public static Mesh CreateCornellBox(float roomSize = 2, float sphereRadius = 0.3f, float cubeSize = 0.6f)
+		public static DefaultMesh CreateCornellBox(float roomSize = 2, float sphereRadius = 0.3f, float cubeSize = 0.6f)
 		{
-			Mesh mesh = new Mesh();
+			var mesh = new DefaultMesh();
 			var plane = Meshes.CreatePlane(roomSize, roomSize, 2, 2);
 			
 			var xform = new Transformation();
@@ -180,12 +169,12 @@ namespace Zenseless.Geometry
 		/// </summary>
 		/// <param name="size">length of one side</param>
 		/// <returns>Mesh with positions, ids, normals</returns>
-		public static Mesh CreateCubeWithNormals(float size = 1.0f)
+		public static DefaultMesh CreateCubeWithNormals(float size = 1.0f)
 		{
-			Mesh m = new Mesh();
-			void createPosition(float x, float y, float z) => m.Position.List.Add(new Vector3(x, y, z));
+			var m = new DefaultMesh();
+			void createPosition(float x, float y, float z) => m.Position.Add(new Vector3(x, y, z));
 			void createID(uint index) => m.IDs.Add(index);
-			void createNormal(float x, float y, float z) => m.Normal.List.Add(new Vector3(x, y, z));
+			void createNormal(float x, float y, float z) => m.Normal.Add(new Vector3(x, y, z));
 			ShapeBuilder.Cube(createPosition, createID, size, createNormal);
 			return m;
 		}
@@ -196,14 +185,14 @@ namespace Zenseless.Geometry
 		/// <param name="radius">radius</param>
 		/// <param name="subdivision">subdivision count, each subdivision creates 4 times more faces</param>
 		/// <returns>Mesh with positions, ids, normals</returns>
-		public static Mesh CreateSphere(float radius = 1.0f, uint subdivision = 1)
+		public static DefaultMesh CreateSphere(float radius = 1.0f, uint subdivision = 1)
 		{
-			Mesh m = new Mesh();
+			var m = new DefaultMesh();
 			//var pos = m.AddAttribute<Vector3>(Mesh.PositionName);
 			//var normal = m.AddAttribute<Vector3>(Mesh.NormalName);
-			void createPosition(float x, float y, float z) => m.Position.List.Add(new Vector3(x, y, z));
+			void createPosition(float x, float y, float z) => m.Position.Add(new Vector3(x, y, z));
 			void createID(uint id) => m.IDs.Add(id);
-			void createNormal(float x, float y, float z) => m.Normal.List.Add(new Vector3(x, y, z));
+			void createNormal(float x, float y, float z) => m.Normal.Add(new Vector3(x, y, z));
 			ShapeBuilder.Sphere(createPosition, createID, radius, subdivision, createNormal);
 			return m;
 		}
@@ -213,7 +202,7 @@ namespace Zenseless.Geometry
 		/// </summary>
 		/// <param name="radius">radius</param>
 		/// <returns>Mesh with positions, ids, normals</returns>
-		public static Mesh CreateIcosahedron(float radius)
+		public static DefaultMesh CreateIcosahedron(float radius)
 		{
 			return CreateSphere(radius, 0);
 		}
@@ -226,13 +215,13 @@ namespace Zenseless.Geometry
 		/// <param name="segmentsX">number of grid segments in the x-coordinate axis</param>
 		/// <param name="segmentsZ">number of grid segments in the z-coordinate axis</param>
 		/// <returns>Mesh with positions, ids, normals, and uvs</returns>
-		public static Mesh CreatePlane(float sizeX, float sizeZ, uint segmentsX, uint segmentsZ)
+		public static DefaultMesh CreatePlane(float sizeX, float sizeZ, uint segmentsX, uint segmentsZ)
 		{
-			Mesh m = new Mesh();
-			void CreateVertex(float x, float z) => m.Position.List.Add(new Vector3(x, 0.0f, z));
+			var m = new DefaultMesh();
+			void CreateVertex(float x, float z) => m.Position.Add(new Vector3(x, 0.0f, z));
 			void CreateID(uint id) => m.IDs.Add(id);
-			void CreateNormal() => m.Normal.List.Add(Vector3.UnitY);
-			void CreateUV(float u, float v) => m.Uv.List.Add(new Vector2(u, v));
+			void CreateNormal() => m.Normal.Add(Vector3.UnitY);
+			void CreateUV(float u, float v) => m.TexCoord.Add(new Vector2(u, v));
 
 			var startX = -sizeX / 2f;
 			var startZ= -sizeZ / 2f;

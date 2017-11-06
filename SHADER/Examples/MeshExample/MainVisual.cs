@@ -21,7 +21,7 @@ namespace Example
 			this.shader = shader;
 			if (ReferenceEquals(shader, null)) return;
 			//load geometry
-			Mesh mesh = Obj2Mesh.FromObj(Resourcen.suzanne);
+			var mesh = Obj2Mesh.FromObj(Resourcen.suzanne);
 			geometry = VAOLoader.FromMesh(mesh, shader);
 		}
 

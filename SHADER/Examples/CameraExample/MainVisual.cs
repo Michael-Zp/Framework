@@ -53,7 +53,7 @@ namespace Example
 
 		private void UpdateMesh(IShader shader)
 		{
-			Mesh mesh = Obj2Mesh.FromObj(Resourcen.suzanne);
+			var mesh = Obj2Mesh.FromObj(Resourcen.suzanne);
 			geometry = VAOLoader.FromMesh(mesh, shader);
 
 			//per instance attributes

@@ -18,7 +18,7 @@ namespace Zenseless.HLGL
 		void UpdateInstanceAttribute(string name, Vector2[] data);
 		void UpdateInstanceAttribute(string name, Vector3[] data);
 		void UpdateInstanceAttribute(string name, Vector4[] data);
-		void UpdateMeshShader(Mesh mesh, string shaderName);
+		void UpdateMeshShader(DefaultMesh mesh, string shaderName);
 		void UpdateShaderBuffer<DATA_ELEMENT_TYPE>(string name, DATA_ELEMENT_TYPE[] uniformArray) where DATA_ELEMENT_TYPE : struct;
 		void UpdateUniforms<DATA>(string name, DATA uniforms) where DATA : struct;
 	}

@@ -17,12 +17,12 @@ namespace Zenseless.Geometry
 			}
 		}
 
-		public static Mesh FromObj(byte[] objByteData)
+		public static DefaultMesh FromObj(byte[] objByteData)
 		{
 			var parser = new ObjParser(objByteData);
 			var uniqueVertexIDs = new Dictionary<ObjParser.Vertex, uint>(new VertexComparer());
 
-			var mesh = new Mesh();
+			var mesh = new DefaultMesh();
 
 			foreach (var face in parser.faces)
 			{
@@ -36,11 +36,11 @@ namespace Zenseless.Geometry
 					}
 					else
 					{
-						uint id = (uint)mesh.Position.List.Count;
+						uint id = (uint)mesh.Position.Count;
 						//add vertex data to mesh
-						mesh.Position.List.Add(parser.position[vertex.idPos]);
-						if (-1 != vertex.idNormal) mesh.Normal.List.Add(parser.normals[vertex.idNormal]);
-						if (-1 != vertex.idTexCoord) mesh.Uv.List.Add(parser.texCoords[vertex.idTexCoord]);
+						mesh.Position.Add(parser.position[vertex.idPos]);
+						if (-1 != vertex.idNormal) mesh.Normal.Add(parser.normals[vertex.idNormal]);
+						if (-1 != vertex.idTexCoord) mesh.TexCoord.Add(parser.texCoords[vertex.idTexCoord]);
 						mesh.IDs.Add(id);
 						//new id
 						uniqueVertexIDs[vertex] = id;

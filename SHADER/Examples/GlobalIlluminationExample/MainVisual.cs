@@ -27,7 +27,7 @@ namespace Example
 			if (ShaderName != name) return;
 			this.shader = shader;
 			if (ReferenceEquals(shader, null)) return;
-			Mesh mesh = Meshes.CreateCornellBox();
+			var mesh = Meshes.CreateCornellBox();
 			geometry = VAOLoader.FromMesh(mesh, shader);
 			bufferMaterials.Set(Meshes.CreateCornellBoxMaterial(), BufferUsageHint.StaticDraw);
 		}

@@ -59,7 +59,7 @@ namespace Example
 
 		private void UpdateGeometry(IShader shader)
 		{
-			Mesh mesh = new Mesh();
+			var mesh = new DefaultMesh();
 			var roomSize = 8;
 			var plane = Meshes.CreatePlane(roomSize, roomSize, 2, 2);
 			var xform = new Transformation();

@@ -56,7 +56,7 @@ namespace Example
 
 		private void UpdateGeometry(IShader shader)
 		{
-			Mesh mesh = new Mesh();
+			var mesh = new DefaultMesh();
 			//mesh.Add(Meshes.CreateSphere(.7f, 3));
 			mesh.Add(Obj2Mesh.FromObj(Resourcen.suzanne));
 			geometry = VAOLoader.FromMesh(mesh, shader);

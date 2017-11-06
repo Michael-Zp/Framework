@@ -40,7 +40,7 @@ namespace Example
 
 		private void UpdateGeometry(IShader shader)
 		{
-			Mesh mesh = Meshes.CreateSphere(0.03f, 2);
+			var mesh = Meshes.CreateSphere(0.03f, 2);
 			geometry = VAOLoader.FromMesh(mesh, shader);
 
 			//per instance attributes

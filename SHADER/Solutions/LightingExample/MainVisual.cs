@@ -60,7 +60,7 @@ namespace Example
 
 		private void UpdateGeometry(IShader shader)
 		{
-			var mesh = new Mesh();
+			var mesh = new DefaultMesh();
 			var sphere = Meshes.CreateSphere(1, 4);
 			sphere.SetConstantUV(new System.Numerics.Vector2(0, 0));
 			mesh.Add(sphere);

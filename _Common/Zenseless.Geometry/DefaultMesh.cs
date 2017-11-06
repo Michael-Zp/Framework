@@ -5,6 +5,10 @@ namespace Zenseless.Geometry
 {
 	public class DefaultMesh : Mesh
 	{
+		public static readonly string PositionName = "position";
+		public static readonly string NormalName = "normal";
+		public static readonly string TexCoordName = "uv";
+
 		public List<Vector3> Position => position;
 		public List<Vector3> Normal => normal;
 		public List<Vector2> TexCoord => texCoord;

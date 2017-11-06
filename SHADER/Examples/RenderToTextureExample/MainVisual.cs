@@ -29,7 +29,7 @@ namespace Example
 			{
 				this.shader = shader;
 				if (ReferenceEquals(shader, null)) return;
-				Mesh mesh = Meshes.CreateCornellBox();
+				var mesh = Meshes.CreateCornellBox();
 				geometry = VAOLoader.FromMesh(mesh, shader);
 			}
 		}

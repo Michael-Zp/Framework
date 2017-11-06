@@ -90,7 +90,7 @@ namespace Zenseless.Application
 		//	Vao.SetAttribute(GetAttributeShaderLocationAndCheckVao(name), data, VertexAttribPointerType.Float, 3, true);
 		//}
 
-		public void UpdateMeshShader(Mesh mesh, string shaderName)
+		public void UpdateMeshShader(DefaultMesh mesh, string shaderName)
 		{
 			if (string.IsNullOrWhiteSpace(shaderName)) throw new ArgumentException("A shaderName is required");
 			var resShader = ResourceManager.Instance.Get<IShader>(shaderName);

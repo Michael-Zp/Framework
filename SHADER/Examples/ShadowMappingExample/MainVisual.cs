@@ -34,7 +34,7 @@ namespace Example
 			{
 				this.shader = shader;
 				if (ReferenceEquals(shader, null)) return;
-				Mesh mesh = Meshes.CreatePlane(10, 10, 10, 10);
+				var mesh = Meshes.CreatePlane(10, 10, 10, 10);
 				var sphere = Meshes.CreateSphere(0.5f, 2);
 				sphere.SetConstantUV(new System.Numerics.Vector2(0.5f, 0.5f));
 				var xform = new Transformation();
