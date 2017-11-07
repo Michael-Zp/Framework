@@ -15,9 +15,9 @@ namespace Example
 	{
 		private PostProcessing postProcessing;
 		private Stopwatch globalTime = new Stopwatch();
-		private Box2D bird = Box2dExtensions.CreateFromCenterSize(0.0f, -0.8f, 0.3f, 0.3f);
+		private Box2D bird = Box2DExtensions.CreateFromCenterSize(0.0f, -0.8f, 0.3f, 0.3f);
 		private ITexture texBird;
-		private Box2D background = new Box2D(-1.0f, -1.0f, 2.0f, 2.0f);
+		private IImmutableBox2D background = new Box2D(-1.0f, -1.0f, 2.0f, 2.0f);
 		private ITexture texBackground;
 
 		private MyVisual(int width, int height)

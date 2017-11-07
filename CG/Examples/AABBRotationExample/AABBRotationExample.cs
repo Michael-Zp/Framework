@@ -13,7 +13,7 @@ namespace Example
 	{
 		private const float size = 0.7f;
 		private Line stick = new Line(new Vector2(-size, -size), new Vector2(size, size));
-		private Box2D stickAABB = Box2D.EMPTY;
+		private Box2D stickAABB;
 
 		private Visual()
 		{
@@ -47,7 +47,7 @@ namespace Example
 			GL.End();
 		}
 
-		private static void DrawAABB(Box2D rect)
+		private static void DrawAABB(IImmutableBox2D rect)
 		{
 			GL.Begin(PrimitiveType.LineLoop);
 			GL.Vertex2(rect.MinX, rect.MinY);
@@ -68,7 +68,7 @@ namespace Example
 			DrawAABB(stickAABB);
 
 			GL.Color3(Color.Black);
-			DrawAABB(Box2dExtensions.CreateFromCenterSize(0, 0, 0.02f, 0.02f));
+			DrawAABB(Box2DExtensions.CreateFromCenterSize(0, 0, 0.02f, 0.02f));
 		}
 
 		private void Update(float updatePeriod)
@@ -80,7 +80,7 @@ namespace Example
 			var maxX = Math.Max(stick.Item1.X, stick.Item2.X);
 			var minY = Math.Min(stick.Item1.Y, stick.Item2.Y);
 			var maxY = Math.Max(stick.Item1.Y, stick.Item2.Y);
-			stickAABB = Box2dExtensions.CreateFromMinMax(minX, minY, maxX, maxY);
+			stickAABB = Box2DExtensions.CreateFromMinMax(minX, minY, maxX, maxY);
 		}
 
 		[STAThread]

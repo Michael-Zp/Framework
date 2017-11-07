@@ -21,7 +21,7 @@ namespace Zenseless.OpenGL
 			Texture.Deactivate();
 		}
 
-		public void Draw(Box2D rectangle, uint id)
+		public void Draw(IImmutableBox2D rectangle, uint id)
 		{
 			var texCoords = SpriteSheet.CalcSpriteTexCoords(id);
 			Texture.Activate();

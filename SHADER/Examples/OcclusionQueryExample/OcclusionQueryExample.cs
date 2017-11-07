@@ -51,7 +51,7 @@ namespace Example
 			boxB.MinX += moveDelta;
 		}
 
-		private static void DrawBox(Box2D rect, float depth)
+		private static void DrawBox(IImmutableBox2D rect, float depth)
 		{
 			GL.Begin(PrimitiveType.Quads);
 			GL.Vertex3(rect.MinX, rect.MinY, depth);

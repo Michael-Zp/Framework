@@ -205,7 +205,7 @@ namespace Zenseless.Geometry.Tests
 			var width = 10f;
 			var height = 10f;
 			var aspect = width / height;
-			var fitBox = Box2dExtensions.CreateContainingBox(width, height, aspect);
+			var fitBox = Box2DExtensions.CreateContainingBox(width, height, aspect);
 			Assert.AreEqual(new Box2D(0, 0, width, height), fitBox);
 		}
 
@@ -233,7 +233,7 @@ namespace Zenseless.Geometry.Tests
 
 		private static void PortraitTest(float width, float height, float aspect)
 		{
-			var fitBox = Box2dExtensions.CreateContainingBox(width, height, aspect);
+			var fitBox = Box2DExtensions.CreateContainingBox(width, height, aspect);
 			var delta = .0001f;
 			Assert.AreEqual(-.5f * (aspect * height - width), fitBox.MinX, delta);
 			Assert.AreEqual(0f, fitBox.MinY, delta);
@@ -243,7 +243,7 @@ namespace Zenseless.Geometry.Tests
 
 		private static void LandscapeTest(float width, float height, float aspect)
 		{
-			var fitBox = Box2dExtensions.CreateContainingBox(width, height, aspect);
+			var fitBox = Box2DExtensions.CreateContainingBox(width, height, aspect);
 			var delta = .0001f;
 			Assert.AreEqual(0f, fitBox.MinX, delta);
 			Assert.AreEqual(-.5f * (aspect * width - height), fitBox.MinY, delta);

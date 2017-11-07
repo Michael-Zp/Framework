@@ -37,7 +37,7 @@ namespace MiniGalaxyBirds
 			GL.MatrixMode(MatrixMode.Modelview);
 		}
 
-		public IDrawable CreateDrawable(string type, Box2D frame)
+		public IDrawable CreateDrawable(string type, IImmutableBox2D frame)
 		{
 			if (this.registeredTypes.TryGetValue(type, out ITexture tex))
 			{
@@ -48,7 +48,7 @@ namespace MiniGalaxyBirds
 			throw new Exception("Unregisterd type " + type.ToString());
 		}
 
-		public IDrawable CreateDrawable(string type, Box2D frame, IAnimation animation)
+		public IDrawable CreateDrawable(string type, IImmutableBox2D frame, IAnimation animation)
 		{
 			if (this.registeredTypes.TryGetValue(type, out ITexture tex))
 			{
@@ -64,7 +64,7 @@ namespace MiniGalaxyBirds
 			drawables.Remove(drawable);
 		}
 
-		public void DrawScreen(Box2D clipFrame, uint points)
+		public void DrawScreen(IImmutableBox2D clipFrame, uint points)
 		{
 			GL.Clear(ClearBufferMask.ColorBufferBit);
 			GL.LoadIdentity();

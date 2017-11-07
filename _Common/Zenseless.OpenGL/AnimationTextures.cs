@@ -45,7 +45,7 @@ namespace Zenseless.OpenGL
 		/// </summary>
 		/// <param name="rectangle">coordinates ofthe GL quad</param>
 		/// <param name="totalSeconds">animation position in seconds</param>
-		public void Draw(Box2D rectangle, float totalSeconds)
+		public void Draw(IImmutableBox2D rectangle, float totalSeconds)
 		{
 			var id = (int)CalcAnimationFrame(totalSeconds);
 			textures[id].Activate();

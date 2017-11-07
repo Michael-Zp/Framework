@@ -61,7 +61,7 @@ namespace Example
 			app.Run();
 		}
 
-		private static void DrawTexturedRect(Box2D rect, ITexture tex, Box2D texCoords)
+		private static void DrawTexturedRect(IImmutableBox2D rect, ITexture tex, IImmutableBox2D texCoords)
 		{
 			tex.Activate();
 			rect.DrawTexturedRect(texCoords);

@@ -48,7 +48,7 @@ namespace Example
 			texCoord.MinX += updatePeriod * 0.1f; //scroll texture coordinates
 		}
 
-		private static void DrawTexturedRect(Box2D rect, ITexture tex, Box2D texCoords)
+		private static void DrawTexturedRect(IImmutableBox2D rect, ITexture tex, IImmutableBox2D texCoords)
 		{
 			tex.Activate();
 			GL.Begin(PrimitiveType.Quads);

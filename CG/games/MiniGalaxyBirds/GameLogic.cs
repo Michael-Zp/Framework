@@ -8,7 +8,7 @@ namespace MiniGalaxyBirds
 {
 	class GameLogic
 	{
-		public static readonly Box2D visibleFrame = new Box2D(0.0f, 0.0f, 1.0f, 1.0f);
+		public static readonly IImmutableBox2D visibleFrame = new Box2D(0.0f, 0.0f, 1.0f, 1.0f);
 
 		public GameLogic(IRenderer renderer)
 		{

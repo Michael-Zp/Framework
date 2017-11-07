@@ -60,11 +60,12 @@ namespace Example
 				, wayTangents[activeSegment.Item1]
 				, wayTangents[activeSegment.Item2]
 				, seconds - (float)Math.Floor(seconds));
-			
-			bird = bird.MoveTo(pos);
+
+			bird.MinX = pos.X;
+			bird.MinY = pos.Y;
 		}
 
-		private static void DrawTexturedRect(Box2D Rectangle, ITexture tex)
+		private static void DrawTexturedRect(IImmutableBox2D Rectangle, ITexture tex)
 		{
 			GL.Color3(Color.White);
 			tex.Activate();

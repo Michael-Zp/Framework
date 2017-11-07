@@ -49,7 +49,7 @@ namespace Example
 			DrawTexturedRect(new Box2D(-.25f, -.25f, .5f, .5f), texShip);
 		}
 
-		private static void DrawTexturedRect(Box2D Rect, ITexture tex)
+		private static void DrawTexturedRect(IImmutableBox2D Rect, ITexture tex)
 		{
 			//the texture has to be enabled before use
 			tex.Activate();

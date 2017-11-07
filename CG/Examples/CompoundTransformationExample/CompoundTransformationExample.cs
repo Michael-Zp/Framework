@@ -29,10 +29,10 @@ namespace Example
 			//generate birds
 			for (float delta = .1f; delta < .5f; delta += .1f)
 			{
-				birds.Add(Box2dExtensions.CreateFromCenterSize(rotCenter.X - delta, rotCenter.Y - delta, .1f, .1f));
-				birds.Add(Box2dExtensions.CreateFromCenterSize(rotCenter.X - delta, rotCenter.Y + delta, .1f, .1f));
-				birds.Add(Box2dExtensions.CreateFromCenterSize(rotCenter.X + delta, rotCenter.Y - delta, .1f, .1f));
-				birds.Add(Box2dExtensions.CreateFromCenterSize(rotCenter.X + delta, rotCenter.Y + delta, .1f, .1f));
+				birds.Add(Box2DExtensions.CreateFromCenterSize(rotCenter.X - delta, rotCenter.Y - delta, .1f, .1f));
+				birds.Add(Box2DExtensions.CreateFromCenterSize(rotCenter.X - delta, rotCenter.Y + delta, .1f, .1f));
+				birds.Add(Box2DExtensions.CreateFromCenterSize(rotCenter.X + delta, rotCenter.Y - delta, .1f, .1f));
+				birds.Add(Box2DExtensions.CreateFromCenterSize(rotCenter.X + delta, rotCenter.Y + delta, .1f, .1f));
 			}
 		}
 
@@ -55,7 +55,7 @@ namespace Example
 			}
 		}
 
-		private static void DrawTexturedRect(Box2D Rectangle, ITexture tex)
+		private static void DrawTexturedRect(IImmutableBox2D Rectangle, ITexture tex)
 		{
 			GL.Color3(Color.White);
 			tex.Activate();

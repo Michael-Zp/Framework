@@ -20,20 +20,20 @@ namespace MvcSpaceInvaders
 			GL.Enable(EnableCap.Texture2D); //todo: only for non shader pipeline relevant -> remove at some point
 		}
 
-		public void DrawScreen(IEnumerable<Box2D> enemies, IEnumerable<Box2D> bullets, Box2D player)
+		public void DrawScreen(IEnumerable<IImmutableBox2D> enemies, IEnumerable<IImmutableBox2D> bullets, IImmutableBox2D player)
 		{
 			GL.Clear(ClearBufferMask.ColorBufferBit);
 			GL.LoadIdentity();
 			GL.Color3(Color.White);
 
 			texEnemy.Activate();
-			foreach (Box2D enemy in enemies)
+			foreach (var enemy in enemies)
 			{
 				Draw(enemy);
 			}
 			texEnemy.Deactivate();
 			texBullet.Activate();
-			foreach (Box2D bullet in bullets)
+			foreach (var bullet in bullets)
 			{
 				Draw(bullet);
 			}
@@ -47,7 +47,7 @@ namespace MvcSpaceInvaders
 		private readonly ITexture texPlayer;
 		private readonly ITexture texBullet;
 
-		private void Draw(Box2D rectangle)
+		private void Draw(IImmutableBox2D rectangle)
 		{
 			GL.Begin(PrimitiveType.Quads);
 				GL.TexCoord2(0.0f, 0.0f); GL.Vertex2(rectangle.MinX, rectangle.MinY);

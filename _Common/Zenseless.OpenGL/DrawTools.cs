@@ -7,7 +7,7 @@ namespace Zenseless.OpenGL
 {
 	public static class DrawTools
 	{
-		public static void DrawTexturedRect(this Box2D rect, Box2D texCoords)
+		public static void DrawTexturedRect(this IImmutableBox2D rect, IImmutableBox2D texCoords)
 		{
 			GL.Begin(PrimitiveType.Quads);
 			GL.TexCoord2(texCoords.MinX, texCoords.MinY); GL.Vertex2(rect.MinX, rect.MinY);

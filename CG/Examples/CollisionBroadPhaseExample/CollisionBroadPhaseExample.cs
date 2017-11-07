@@ -14,7 +14,7 @@ namespace Example
 	class Controller
 	{
 		private List<Collider> colliders = new List<Collider>();
-		private Box2D windowBorders = new Box2D(-1.0f, -1.0f, 2.0f, 2.0f);
+		private IImmutableBox2D windowBorders = new Box2D(-1.0f, -1.0f, 2.0f, 2.0f);
 		private CollisionGrid collisionGrid;
 		private Stopwatch time = new Stopwatch();
 		private double lastBenchmark = 0;
@@ -122,7 +122,7 @@ namespace Example
 			}
 		}
 		
-		private static void DrawBox(Box2D rect)
+		private static void DrawBox(IImmutableBox2D rect)
 		{
 			GL.Begin(PrimitiveType.Quads);
 			GL.Vertex2(rect.MinX, rect.MinY);

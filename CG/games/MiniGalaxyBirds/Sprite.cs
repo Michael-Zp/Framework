@@ -7,7 +7,7 @@ namespace MiniGalaxyBirds
 {
 	public class Sprite : IDrawable
 	{
-		public Sprite(ITexture tex, Box2D extents)
+		public Sprite(ITexture tex, IImmutableBox2D extents)
 		{
 			this.tex = tex;
 			this.Rect = extents;
@@ -26,7 +26,7 @@ namespace MiniGalaxyBirds
 			tex.Deactivate();
 		}
 
-		public Box2D Rect { get; private set; }
+		public IImmutableBox2D Rect { get; private set; }
 		private ITexture tex;
 	}
 }

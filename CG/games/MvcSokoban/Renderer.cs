@@ -32,7 +32,7 @@ namespace MvcSokoban
 		{
 			GL.Color3(tint);
 			GL.LoadIdentity();
-			var fitBox = Box2dExtensions.CreateContainingBox(level.Width, level.Height, windowAspect);
+			var fitBox = Box2DExtensions.CreateContainingBox(level.Width, level.Height, windowAspect);
 			GL.Ortho(fitBox.MinX, fitBox.MaxX, fitBox.MinY, fitBox.MaxY, 0.0, 1.0);
 			//spriteSheet.Activate();
 			for (int x = 0; x < level.Width; ++x)

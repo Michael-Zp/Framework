@@ -34,7 +34,7 @@ namespace LevelEditor
 			var leftTop = (Vector)element.TranslatePoint(p00, canvas);
 			var rightBottom = (Vector)element.TranslatePoint(p11, canvas);
 			//flip y coordinate
-			return Box2dExtensions.CreateFromMinMax(
+			return Box2DExtensions.CreateFromMinMax(
 				(float)leftTop.X, (float)(canvas.ActualHeight - rightBottom.Y),
 				(float)rightBottom.X, (float)(canvas.ActualHeight - leftTop.Y));
 		}

@@ -51,9 +51,19 @@ namespace Zenseless.Geometry
 			return Equals(other as Circle);
 		}
 
+		/// <summary>
+		/// A hash code produced out of hash codes of Radius and center.
+		/// </summary>
+		/// <returns>A hash code produced out of hash codes of Radius and center.</returns>
 		public override int GetHashCode()
 		{
-			return base.GetHashCode();
+			unchecked
+			{
+				var hashCode = Radius.GetHashCode();
+				hashCode = (hashCode * 397) ^ CenterX.GetHashCode();
+				hashCode = (hashCode * 397) ^ CenterY.GetHashCode();
+				return hashCode;
+			}
 		}
 
 		public override string ToString()

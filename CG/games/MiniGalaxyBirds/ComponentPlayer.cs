@@ -5,7 +5,7 @@ namespace MiniGalaxyBirds
 {
 	public class ComponentPlayer : IComponent, ITimedUpdate
 	{
-		public ComponentPlayer(Box2D frame, Box2D clipFrame)
+		public ComponentPlayer(Box2D frame, IImmutableBox2D clipFrame)
 		{
 			if (ReferenceEquals(null, frame))
 			{
@@ -54,7 +54,7 @@ namespace MiniGalaxyBirds
 		private float axisLeftRight = 0.0f;
 		private float shootCoolDown = 0.0f;
 		private Box2D frame;
-		private Box2D clipFrame;
+		private IImmutableBox2D clipFrame;
 		private float lastUpdate = 0.0f;
 	}
 }

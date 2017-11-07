@@ -4,10 +4,11 @@ using System.Diagnostics;
 namespace Zenseless.Geometry
 {
 	/// <summary>
-	/// Represents an 2D axis aligned bounding box
+	/// This class represents a mutable 2D axis aligned bounding box. 
+	/// It is a class, because Microsoft recommends structs to be immutable.
 	/// </summary>
 	[Serializable]
-	public class Box2D : IEquatable<Box2D>
+	public class Box2D : IImmutableBox2D
 	{
 		/// <summary>
 		/// Creates an 2D axis aligned bounding box
@@ -29,8 +30,8 @@ namespace Zenseless.Geometry
 		/// <summary>
 		/// Creates an 2D axis aligned bounding box.
 		/// </summary>
-		/// <param name="rectangle">Source to copy.</param>
-		public Box2D(Box2D rectangle)
+		/// <param name="rectangle">Source rectangle to copy.</param>
+		public Box2D(IImmutableBox2D rectangle)
 		{
 			this.MinX = rectangle.MinX;
 			this.MinY = rectangle.MinY;
@@ -41,55 +42,68 @@ namespace Zenseless.Geometry
 		/// <summary>
 		/// Box from coordinates [0,0] to [1,1].
 		/// </summary>
-		public static readonly Box2D BOX01 = new Box2D(0, 0, 1, 1);
+		public static readonly IImmutableBox2D BOX01 = new Box2D(0, 0, 1, 1);
 		/// <summary>
-		/// Box from coordinates [0,0] to [0,0].
-		/// </summary>
-		public static readonly Box2D EMPTY = new Box2D(0, 0, 0, 0);
-
-		/// <summary>
-		/// Size of the box in x-direction.
-		/// </summary>
-		public float SizeX { get; set; }
-		/// <summary>
-		/// Size of the box in y-direction.
-		/// </summary>
-		public float SizeY { get; set; }
-		/// <summary>
-		/// Minimal x coordinate
-		/// </summary>
-		public float MinX { get; set; }
-		/// <summary>
-		/// Minimal y coordinate
-		/// </summary>
-		public float MinY { get; set; }
-		/// <summary>
-		/// Maximal x coordinate
-		/// </summary>
-		public float MaxX { get { return MinX + SizeX; } set { SizeX = value - MinX; } }
-		/// <summary>
-		/// Maximal y coordinate
-		/// </summary>
-		public float MaxY { get { return MinY + SizeY; } set { SizeY = value - MinY; } }
-		/// <summary>
-		/// X-coordinate of the center of the box
+		/// X-coordinate of the center of the box. Setting the value will move the box, while to size will not change.
 		/// </summary>
 		public float CenterX { get { return MinX + 0.5f * SizeX; } set { MinX = value - 0.5f * SizeX; } }
 		/// <summary>
-		/// Y-coordinate of the center of the box
+		/// Y-coordinate of the center of the box. Setting the value will move the box, while to size will not change.
 		/// </summary>
 		public float CenterY { get { return MinY + 0.5f * SizeY; } set { MinY = value - 0.5f * SizeY; } }
+		/// <summary>
+		/// Maximal x coordinate. Setting the value will change the size of the box, while MinX and MinY will stay the same.
+		/// </summary>
+		public float MaxX { get { return MinX + SizeX; } set { SizeX = value - MinX; } }
+		/// <summary>
+		/// Maximal y coordinate. Setting the value will change the size of the box, while MinX and MinY will stay the same.
+		/// </summary>
+		public float MaxY { get { return MinY + SizeY; } set { SizeY = value - MinY; } }
+		/// <summary>
+		/// Minimal x coordinate. Setting the value will move the box, while to size will not change.
+		/// </summary>
+		public float MinX { get; set; }
+		/// <summary>
+		/// Minimal y coordinate. Setting the value will move the box, while to size will not change.
+		/// </summary>
+		public float MinY { get; set; }
+		/// <summary>
+		/// Size of the box in x-direction. Setting the value will change the size of the box, while MinX and MinY will stay the same.
+		/// </summary>
+		public float SizeX { get; set; }
+		/// <summary>
+		/// Size of the box in y-direction. Setting the value will change the size of the box, while MinX and MinY will stay the same.
+		/// </summary>
+		public float SizeY { get; set; }
 
+		/// <summary>
+		/// Compare two rectangles for equal size and position
+		/// </summary>
+		/// <param name="a">First rectangle to compare</param>
+		/// <param name="b">Second rectangle to compare</param>
+		/// <returns>true when size and position are the same</returns>
 		public static bool operator==(Box2D a, Box2D b)
 		{
 			return a.Equals(b);
 		}
 
+		/// <summary>
+		/// Compare two rectangles for equal size and position
+		/// </summary>
+		/// <param name="a">First rectangle to compare</param>
+		/// <param name="b">Second rectangle to compare</param>
+		/// <returns>false when size and position are the same</returns>
 		public static bool operator !=(Box2D a, Box2D b)
 		{
 			return !a.Equals(b);
 		}
 
+		/// <summary>
+		/// Checks if point is inside the rectangle (including borders)
+		/// </summary>
+		/// <param name="x">x-coordinate of point</param>
+		/// <param name="y">y-coordinate of point</param>
+		/// <returns>true if point is inside the rectangle (including borders)</returns>
 		public bool Contains(float x, float y)
 		{
 			if (x < MinX || MaxX < x) return false;
@@ -97,7 +111,12 @@ namespace Zenseless.Geometry
 			return true;
 		}
 
-		public bool Contains(Box2D rectangle)
+		/// <summary>
+		/// Checks if given input rectangle is inside this (including borders)
+		/// </summary>
+		/// <param name="rectangle">input rectangle, will be tested if it is contained inside this</param>
+		/// <returns>true if given rectangle is inside this (including borders)</returns>
+		public bool Contains(IImmutableBox2D rectangle)
 		{
 			if (MinX > rectangle.MinX) return false;
 			if (MaxX < rectangle.MaxX) return false;
@@ -106,32 +125,62 @@ namespace Zenseless.Geometry
 			return true;
 		}
 
-		public bool Equals(Box2D other)
+		/// <summary>
+		/// Tests two rectangles for equal size and position
+		/// </summary>
+		/// <param name="other">second rectangle</param>
+		/// <returns>False if not a rectangle</returns>
+		public bool Equals(IImmutableBox2D other)
 		{
 			if (ReferenceEquals(null, other)) return false;
 			return MinX == other.MinX && MinY == other.MinY && SizeX == other.SizeX && SizeY == other.SizeY;
 		}
 
+		/// <summary>
+		/// Test if two rectangles have equal position and size
+		/// </summary>
+		/// <param name="other">rectangle to compare to</param>
+		/// <returns>False if not a rectangle</returns>
 		public override bool Equals(object other)
 		{
-			return Equals(other as Box2D);
+			return Equals(other as IImmutableBox2D);
 		}
 
+		/// <summary>
+		/// A hash code produced out of hash codes of MinX, MinY, SizeX, SizeY.
+		/// </summary>
+		/// <returns>A hash code produced out of hash codes of MinX, MinY, SizeX, SizeY.</returns>
 		public override int GetHashCode()
 		{
-			return base.GetHashCode();
+			unchecked
+			{
+				var hashCode = MinX.GetHashCode();
+				hashCode = (hashCode * 397) ^ MinY.GetHashCode();
+				hashCode = (hashCode * 397) ^ SizeX.GetHashCode();
+				hashCode = (hashCode * 397) ^ SizeY.GetHashCode();
+				return hashCode;
+			}
 		}
 
-		public bool Intersects(Box2D rectangle)
+		/// <summary>
+		/// Test for intersection of two rectangles (excluding borders)
+		/// </summary>
+		/// <param name="rectangle">second rectangle</param>
+		/// <returns>true if the two rectangles overlap</returns>
+		public bool Intersects(IImmutableBox2D rectangle)
 		{
 			bool noXintersect = (MaxX <= rectangle.MinX) || (MinX >= rectangle.MaxX);
 			bool noYintersect = (MaxY <= rectangle.MinY) || (MinY >= rectangle.MaxY);
 			return !(noXintersect || noYintersect);
 		}
 
+		/// <summary>
+		/// Returns a string of format (MinX;MinY;SizeX;SizeY)
+		/// </summary>
+		/// <returns>String of format (MinX;MinY;SizeX;SizeY)</returns>
 		public override string ToString()
 		{
-			return '(' + MinX.ToString() + ';' + MinY.ToString() + ';' + SizeX.ToString() + ';' + SizeY.ToString() + ')';
+			return $"({MinX};{MinY};{SizeX};{SizeY})";
 		}
 	}
 }

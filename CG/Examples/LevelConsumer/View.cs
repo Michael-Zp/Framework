@@ -17,15 +17,16 @@ namespace Example
 			GL.Enable(EnableCap.Texture2D); //todo: only for non shader pipeline relevant -> remove at some point
 		}
 
-		public void AddSprite(string name, int layer, Box2D renderBounds, string textureName, Bitmap bitmap)
+		public void AddSprite(string name, int layer, IImmutableBox2D renderBounds, string textureName, Bitmap bitmap)
 		{
 			var texture = GetTexture(textureName, bitmap);
 			if (!layers.ContainsKey(layer))
 			{
 				layers.Add(layer, new Layer());
 			}
-			layers[layer].Add(texture, renderBounds);
-			AddNamedSprite(name, renderBounds);
+			var myBoundsCopy = new Box2D(renderBounds); //make a copy, otherwise we reference outside data
+			layers[layer].Add(texture, myBoundsCopy);
+			AddNamedSprite(name, myBoundsCopy);
 		}
 
 		public void Resize(int width, int height)
@@ -33,12 +34,12 @@ namespace Example
 			aspect = width / (float)height;
 		}
 
-		public void Render(Box2D bounds)
+		public void Render(IImmutableBox2D bounds)
 		{
 			GL.Clear(ClearBufferMask.ColorBufferBit);
 			GL.MatrixMode(MatrixMode.Projection);
 			GL.LoadIdentity();
-			var fitBox = Box2dExtensions.CreateContainingBox(bounds.SizeX, bounds.SizeY, aspect);
+			var fitBox = Box2DExtensions.CreateContainingBox(bounds.SizeX, bounds.SizeY, aspect);
 			GL.Ortho(fitBox.MinX, fitBox.MaxX, fitBox.MinY, fitBox.MaxY, 0, 1);
 			GL.MatrixMode(MatrixMode.Modelview);
 			foreach (var layer in layers)
@@ -60,11 +61,11 @@ namespace Example
 
 		private class Layer
 		{
-			public void Add(ITexture tex, Box2D bounds)
+			public void Add(ITexture tex, IImmutableBox2D bounds)
 			{
 				if (!textures.ContainsKey(tex))
 				{
-					textures.Add(tex, new List<Box2D>());
+					textures.Add(tex, new List<IImmutableBox2D>());
 				}
 				textures[tex].Add(bounds);
 			}
@@ -82,7 +83,7 @@ namespace Example
 				}
 			}
 
-			private Dictionary<ITexture, List<Box2D>> textures = new Dictionary<ITexture, List<Box2D>>();
+			private Dictionary<ITexture, List<IImmutableBox2D>> textures = new Dictionary<ITexture, List<IImmutableBox2D>>();
 		}
 
 		private SortedDictionary<int, Layer> layers = new SortedDictionary<int, Layer>();

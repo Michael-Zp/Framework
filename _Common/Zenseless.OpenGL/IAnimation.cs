@@ -6,6 +6,6 @@ namespace Zenseless.OpenGL
 	{
 		float AnimationLength { get; set; }
 
-		void Draw(Box2D rectangle, float totalSeconds);
+		void Draw(IImmutableBox2D rectangle, float totalSeconds);
 	}
 }

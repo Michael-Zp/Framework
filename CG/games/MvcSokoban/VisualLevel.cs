@@ -57,7 +57,7 @@ namespace MvcSokoban
 			UpdateLevelGeometry(levelState);
 			shdTexColor.Activate();
 			texArray.Activate();
-			var fitBox = Box2dExtensions.CreateContainingBox(levelState.Width, levelState.Height, windowAspect);
+			var fitBox = Box2DExtensions.CreateContainingBox(levelState.Width, levelState.Height, windowAspect);
 			var camera = Matrix4x4.CreateOrthographicOffCenter(fitBox.MinX, fitBox.MaxX, fitBox.MinY, fitBox.MaxY, 0, 1).ToOpenTK();
 
 			GL.Uniform4(locTint, tint);

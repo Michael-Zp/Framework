@@ -5,7 +5,7 @@ namespace Zenseless.Geometry
 {
 	public static class CircleExtensions
 	{
-		public static Circle CreateFromBox(Box2D box)
+		public static Circle CreateFromBox(IImmutableBox2D box)
 		{
 			var circle = new Circle(box.CenterX, box.CenterY, 0.5f * Math.Min(box.SizeX, box.SizeY));
 			return circle;
@@ -13,7 +13,7 @@ namespace Zenseless.Geometry
 
 		public static Circle CreateFromMinMax(float minX, float minY, float maxX, float maxY)
 		{
-			var box = Box2dExtensions.CreateFromMinMax(minX, minY, maxX, maxY);
+			var box = Box2DExtensions.CreateFromMinMax(minX, minY, maxX, maxY);
 			return CreateFromBox(box);
 		}
 

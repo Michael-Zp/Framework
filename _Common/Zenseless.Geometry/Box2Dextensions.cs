@@ -2,14 +2,33 @@
 
 namespace Zenseless.Geometry
 {
-	public static class Box2dExtensions
+	/// <summary>
+	/// This class contains static extension methods for Box2D.
+	/// </summary>
+	public static class Box2DExtensions
 	{
+		/// <summary>
+		/// Create a Box2D from min and max coordinates (calculates the size on creation)
+		/// </summary>
+		/// <param name="minX">Minimal X</param>
+		/// <param name="minY">Minimal Y</param>
+		/// <param name="maxX">Maximal X</param>
+		/// <param name="maxY">Maximal Y</param>
+		/// <returns>A new Box2D instance</returns>
 		public static Box2D CreateFromMinMax(float minX, float minY, float maxX, float maxY)
 		{
 			var rectangle = new Box2D(minX, minY, maxX - minX, maxY - minY);
 			return rectangle;
 		}
 
+		/// <summary>
+		/// Create a Box2D from its center and size (calculates the min coordinates on creation)
+		/// </summary>
+		/// <param name="centerX">Center x</param>
+		/// <param name="centerY">Center y</param>
+		/// <param name="sizeX">Size x</param>
+		/// <param name="sizeY">Size y</param>
+		/// <returns>A new Box2D instance</returns>
 		public static Box2D CreateFromCenterSize(float centerX, float centerY, float sizeX, float sizeY)
 		{
 			var rectangle = new Box2D(0, 0, sizeX, sizeY)
@@ -20,7 +39,13 @@ namespace Zenseless.Geometry
 			return rectangle;
 		}
 
-		public static bool PushXRangeInside(this Box2D rectangleA, Box2D rectangleB)
+		/// <summary>
+		/// Pushes rectangleA inside rectangleB, but only in regards to the x-direction
+		/// </summary>
+		/// <param name="rectangleA">rectangle to push</param>
+		/// <param name="rectangleB">bounds to push inside of</param>
+		/// <returns>true if a push was necessary</returns>
+		public static bool PushXRangeInside(this Box2D rectangleA, IImmutableBox2D rectangleB)
 		{
 			if (rectangleA.SizeX > rectangleB.SizeX) return false;
 			if (rectangleA.MinX < rectangleB.MinX)
@@ -34,7 +59,13 @@ namespace Zenseless.Geometry
 			return true;
 		}
 
-		public static bool PushYRangeInside(this Box2D rectangleA, Box2D rectangleB)
+		/// <summary>
+		/// Pushes rectangleA inside rectangleB, but only in regards to the y-direction
+		/// </summary>
+		/// <param name="rectangleA">rectangle to push</param>
+		/// <param name="rectangleB">bounds to push inside of</param>
+		/// <returns>true if a push was necessary</returns>
+		public static bool PushYRangeInside(this Box2D rectangleA, IImmutableBox2D rectangleB)
 		{
 			if (rectangleA.SizeY > rectangleB.SizeY) return false;
 			if (rectangleA.MinY < rectangleB.MinY)
@@ -55,7 +86,7 @@ namespace Zenseless.Geometry
 		/// <param name="rectangleA"></param>
 		/// <param name="rectangleB"></param>
 		/// <returns>AABR in the overlap</returns>
-		public static Box2D Overlap(this Box2D rectangleA, Box2D rectangleB)
+		public static Box2D Overlap(this IImmutableBox2D rectangleA, IImmutableBox2D rectangleB)
 		{
 			Box2D overlap = null;
 
@@ -73,6 +104,11 @@ namespace Zenseless.Geometry
 			return overlap;
 		}
 
+		/// <summary>
+		/// Transforms the center of a rectangle by a matrix
+		/// </summary>
+		/// <param name="rectangle">to transform</param>
+		/// <param name="M">transformation matrix to apply</param>
 		public static void TransformCenter(this Box2D rectangle, Matrix3x2 M)
 		{
 			Vector2 center = new Vector2(rectangle.CenterX, rectangle.CenterY);
@@ -84,8 +120,9 @@ namespace Zenseless.Geometry
 		/// <summary>
 		/// If an intersection with the frame occurs do the minimal translation to undo the overlap
 		/// </summary>
-		/// <param name="rectangleB">The AABR to check for intersect</param>
-		public static void UndoOverlap(this Box2D rectangleA, Box2D rectangleB)
+		/// <param name="rectangleA">The rectangle that will be moved to avoid intersection</param>
+		/// <param name="rectangleB">The rectangle to check for intersection</param>
+		public static void UndoOverlap(this Box2D rectangleA, IImmutableBox2D rectangleB)
 		{
 			if (!rectangleA.Intersects(rectangleB)) return;
 
@@ -113,12 +150,12 @@ namespace Zenseless.Geometry
 		}
 
 		/// <summary>
-		/// Create a box that is at least size <see cref="with"/> x <see cref="height"/>, but has aspect ratio <see cref="newWidth2heigth"/>
+		/// Create a box that is at least size with x height, but has aspect ratio newWidth2heigth
 		/// </summary>
-		/// <param name="width"></param>
-		/// <param name="height"></param>
-		/// <param name="newWidth2heigth"></param>
-		/// <returns></returns>
+		/// <param name="width">minimal width</param>
+		/// <param name="height">minimal height</param>
+		/// <param name="newWidth2heigth">new aspect ratio</param>
+		/// <returns>A box that is at least size with x height, but has aspect ratio newWidth2heigth</returns>
 		public static Box2D CreateContainingBox(float width, float height, float newWidth2heigth)
 		{
 			float fWinAspect = width / height;
@@ -128,20 +165,6 @@ namespace Zenseless.Geometry
 			var x = isLandscape ? 0f : (width - outputWidth) * .5f;
 			var y = isLandscape ? (height - outputHeight) * .5f : 0f;
 			return new Box2D(x, y, outputWidth, outputHeight);
-		}
-
-		public static Box2D MoveTo(this Box2D input, float minX, float minY)
-		{
-			return new Box2D(minX, minY, input.SizeX, input.SizeY);
-		}
-		public static Box2D MoveTo(this Box2D input, Vector2 min)
-		{
-			return new Box2D(min.X, min.Y, input.SizeX, input.SizeY);
-		}
-
-		public static Box2D Translate(this Box2D input, float tx, float ty)
-		{
-			return new Box2D(input.MinX + tx, input.MinY + ty, input.SizeX, input.SizeY);
 		}
 	}
 }

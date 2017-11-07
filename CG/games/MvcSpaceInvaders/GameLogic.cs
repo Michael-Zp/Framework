@@ -28,7 +28,7 @@ namespace MvcSpaceInvaders
 			if (Lost) return;
 			shootCoolDown.Update(absoluteTime);
 			//remove outside bullet - lazy remove
-			foreach (Box2D bullet in bullets)
+			foreach (var bullet in bullets)
 			{
 				if (bullet.MinY > 1.0f)
 				{
@@ -92,7 +92,7 @@ namespace MvcSpaceInvaders
 		private void HandleCollisions()
 		{
 			//intersections
-			foreach (Box2D enemy in enemies)
+			foreach (var enemy in enemies)
 			{
 				if (enemy.MinY < - 0.8f)
 				{
@@ -100,7 +100,7 @@ namespace MvcSpaceInvaders
 					Lost = true;
 					if (!ReferenceEquals(null, OnLost)) OnLost(this, null);
 				}
-				foreach (Box2D bullet in bullets)
+				foreach (var bullet in bullets)
 				{
 					if (bullet.Intersects(enemy))
 					{
@@ -116,7 +116,7 @@ namespace MvcSpaceInvaders
 
 		private void MoveEnemies(float timeDelta)
 		{
-			foreach (Box2D enemy in enemies)
+			foreach (var enemy in enemies)
 			{
 				enemy.MinY -= enemySpeed * timeDelta;
 			}
@@ -124,7 +124,7 @@ namespace MvcSpaceInvaders
 
 		private void MoveBullets(float timeDelta)
 		{
-			foreach (Box2D bullet in bullets)
+			foreach (var bullet in bullets)
 			{
 				bullet.MinY += timeDelta;
 			}

@@ -55,7 +55,7 @@ namespace Pong
 			return OpenTK.MathHelper.Clamp(paddleY, -1.0f, 0.6f);
 		}
 
-		private static float PaddleBallResponse(Box2D paddle, Box2D ball)
+		private static float PaddleBallResponse(IImmutableBox2D paddle, IImmutableBox2D ball)
 		{
 			float vY = (paddle.CenterY - ball.CenterY) / (0.5f * paddle.SizeY);
 			vY = OpenTK.MathHelper.Clamp(vY, -2.0f, 2.0f);
@@ -131,7 +131,7 @@ namespace Pong
 			GL.End();
 		}
 
-		static void DrawPaddle(Box2D frame)
+		static void DrawPaddle(IImmutableBox2D frame)
 		{
 			GL.Begin(PrimitiveType.Quads);
 			GL.Color3(Color.Green);

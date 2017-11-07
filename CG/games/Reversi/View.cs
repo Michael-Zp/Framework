@@ -23,7 +23,7 @@ namespace Reversi
 
 		public void Resize(IGameState gameState, int width, int height)
 		{
-			var fitBox = Box2dExtensions.CreateContainingBox(gameState.GridWidth, gameState.GridHeight, width / (float)height);
+			var fitBox = Box2DExtensions.CreateContainingBox(gameState.GridWidth, gameState.GridHeight, width / (float)height);
 			toClipSpace = Matrix4.CreateOrthographicOffCenter(fitBox.MinX, fitBox.MaxX, fitBox.MinY, fitBox.MaxY, 0f, 1f);
 		}
 

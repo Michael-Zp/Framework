@@ -12,7 +12,7 @@ namespace SpaceInvaders
 {
 	class Controller
 	{
-		private Box2D windowBorders = new Box2D(-1.0f, -1.0f, 2.0f, 2.0f);
+		private IImmutableBox2D windowBorders = new Box2D(-1.0f, -1.0f, 2.0f, 2.0f);
 		private Box2D player = new Box2D(0.0f, -1.0f, 0.1f, 0.05f);
 		private List<Box2D> enemies = new List<Box2D>();
 		private List<Box2D> bullets = new List<Box2D>();
@@ -31,11 +31,11 @@ namespace SpaceInvaders
 		private void Render()
 		{
 			GL.Clear(ClearBufferMask.ColorBufferBit);
-			foreach (Box2D enemy in enemies)
+			foreach (var enemy in enemies)
 			{
 				DrawEnemy(enemy);
 			}
-			foreach (Box2D bullet in bullets)
+			foreach (var bullet in bullets)
 			{
 				DrawBullet(bullet);
 			}
@@ -70,7 +70,7 @@ namespace SpaceInvaders
 		{
 			if (Lost) return;
 			//remove outside bullet
-			foreach (Box2D bullet in bullets)
+			foreach (var bullet in bullets)
 			{
 				if (bullet.MinY > windowBorders.MaxX)
 				{
@@ -92,7 +92,7 @@ namespace SpaceInvaders
 			}
 		}
 
-		private static void DrawBullet(Box2D o)
+		private static void DrawBullet(IImmutableBox2D o)
 		{
 			GL.Begin(PrimitiveType.Quads);
 			GL.Color3(Color.White);
@@ -103,7 +103,7 @@ namespace SpaceInvaders
 			GL.End();
 		}
 
-		private static void DrawEnemy(Box2D o)
+		private static void DrawEnemy(IImmutableBox2D o)
 		{
 			GL.Begin(PrimitiveType.Triangles);
 			GL.Color3(Color.White);
@@ -117,7 +117,7 @@ namespace SpaceInvaders
 			GL.End();
 		}
 
-		private static void DrawPlayer(Box2D o)
+		private static void DrawPlayer(IImmutableBox2D o)
 		{
 			GL.Begin(PrimitiveType.Triangles);
 			GL.Color3(Color.GreenYellow);
@@ -157,14 +157,14 @@ namespace SpaceInvaders
 		private void HandleCollisions()
 		{
 			//intersections
-			foreach (Box2D enemy in enemies)
+			foreach (var enemy in enemies)
 			{
 				if (enemy.MinY < windowBorders.MinY)
 				{
 					//game lost
 					Lost = true;
 				}
-				foreach (Box2D bullet in bullets)
+				foreach (var bullet in bullets)
 				{
 					if (bullet.Intersects(enemy))
 					{
@@ -188,7 +188,7 @@ namespace SpaceInvaders
 
 		private void MoveBullets(float timeDelta)
 		{
-			foreach (Box2D bullet in bullets)
+			foreach (var bullet in bullets)
 			{
 				bullet.MinY += timeDelta;
 			}

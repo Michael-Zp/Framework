@@ -40,7 +40,7 @@ namespace Example
 			}
 		}
 
-		private static void DrawDiamont(Box2D o)
+		private static void DrawDiamont(IImmutableBox2D o)
 		{
 			GL.Begin(PrimitiveType.Quads);
 			GL.Vertex2(o.CenterX, o.MinY);
@@ -50,7 +50,7 @@ namespace Example
 			GL.End();
 		}
 
-		private static void DrawCross(Box2D o)
+		private static void DrawCross(IImmutableBox2D o)
 		{
 			GL.Begin(PrimitiveType.Lines);
 			GL.Vertex2(o.MinX, o.MinY);

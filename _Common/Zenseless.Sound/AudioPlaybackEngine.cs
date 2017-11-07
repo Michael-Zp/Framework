@@ -54,6 +54,7 @@ namespace Zenseless.Sound
 		/// and buffered access if you use a memory stream
 		/// </summary>
 		/// <param name="stream">the input stream that contains the sound (can be compressed, like mp3)</param>
+		/// <param name="looped">should playback be looped forever</param>
 		public void PlaySound(Stream stream, bool looped = false)
 		{
 			WaveStream reader = FindCorrectWaveStream(stream);
@@ -115,6 +116,9 @@ namespace Zenseless.Sound
 			mixer.AddMixerInput(ConvertToRightChannelCount(input));
 		}
 
+		/// <summary>
+		/// Implements disposable pattern object disposal. Here it disposes the output device
+		/// </summary>
 		protected override void DisposeResources()
 		{
 			outputDevice.Dispose();

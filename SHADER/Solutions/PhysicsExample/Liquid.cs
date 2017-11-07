@@ -5,7 +5,7 @@ namespace Example
 {
 	public class Liquid
 	{
-		public Box Bounds { get; set; }
+		public Box3D Bounds { get; set; }
 
 		public float DragCoefficient { get; set; }
 

@@ -36,7 +36,7 @@
     <Reference Include="System.Numerics" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Box.cs" />
+    <Compile Include="Box3D.cs" />
     <Compile Include="Box2D.cs" />
     <Compile Include="Box2Dextensions.cs" />
     <Compile Include="CameraOrbit.cs" />
@@ -45,6 +45,7 @@
     <Compile Include="CircleExtensions.cs" />
     <Compile Include="ControlPoints.cs" />
     <Compile Include="DefaultMesh.cs" />
+    <Compile Include="IImmutableBox2D.cs" />
     <Compile Include="MathHelper.cs" />
     <Compile Include="Mesh.cs" />
     <Compile Include="Meshes.cs" />
