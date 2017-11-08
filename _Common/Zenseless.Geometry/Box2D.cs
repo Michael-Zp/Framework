@@ -5,7 +5,9 @@ namespace Zenseless.Geometry
 {
 	/// <summary>
 	/// This class represents a mutable 2D axis aligned bounding box. 
-	/// It is a class, because Microsoft recommends structs to be immutable.
+	/// It is a class, because Microsoft recommends structs to be immutable 
+	/// and this class will be often used as a function parameter, so less
+	/// copying is necessary.
 	/// </summary>
 	[Serializable]
 	public class Box2D : IImmutableBox2D
@@ -13,8 +15,8 @@ namespace Zenseless.Geometry
 		/// <summary>
 		/// Creates an 2D axis aligned bounding box
 		/// </summary>
-		/// <param name="minX">minimal x coordinate</param>
-		/// <param name="minY">minimal y coordinate</param>
+		/// <param name="minX">minimal x-coordinate</param>
+		/// <param name="minY">minimal y-coordinate</param>
 		/// <param name="sizeX">width</param>
 		/// <param name="sizeY">height</param>
 		public Box2D(float minX, float minY, float sizeX, float sizeY)
@@ -56,7 +58,8 @@ namespace Zenseless.Geometry
 		/// </summary>
 		public float MaxX { get { return MinX + SizeX; } set { SizeX = value - MinX; } }
 		/// <summary>
-		/// Maximal y coordinate. Setting the value will change the size of the box, while MinX and MinY will stay the same.
+		/// Maximal y coordinate. Setting the value will change the size of the box, 
+		/// while <see cref="MinX"/> and <see cref="MinY"/> will stay the same.
 		/// </summary>
 		public float MaxY { get { return MinY + SizeY; } set { SizeY = value - MinY; } }
 		/// <summary>
@@ -68,11 +71,13 @@ namespace Zenseless.Geometry
 		/// </summary>
 		public float MinY { get; set; }
 		/// <summary>
-		/// Size of the box in x-direction. Setting the value will change the size of the box, while MinX and MinY will stay the same.
+		/// Size of the box in x-direction. Setting the value will change the size of the box, 
+		/// while <see cref="MinX"/> and <see cref="MinY"/> will stay the same.
 		/// </summary>
 		public float SizeX { get; set; }
 		/// <summary>
-		/// Size of the box in y-direction. Setting the value will change the size of the box, while MinX and MinY will stay the same.
+		/// Size of the box in y-direction. Setting the value will change the size of the box, 
+		/// while <see cref="MinX"/> and <see cref="MinY"/> will stay the same.
 		/// </summary>
 		public float SizeY { get; set; }
 
@@ -148,9 +153,9 @@ namespace Zenseless.Geometry
 		}
 
 		/// <summary>
-		/// A hash code produced out of hash codes of MinX, MinY, SizeX, SizeY.
+		/// A hash code produced out of hash codes of <see cref="MinX"/>, <see cref="MinY"/>, <see cref="SizeX"/>, <see cref="SizeY"/>.
 		/// </summary>
-		/// <returns>A hash code produced out of hash codes of MinX, MinY, SizeX, SizeY.</returns>
+		/// <returns>A hash code produced out of hash codes of <see cref="MinX"/>, <see cref="MinY"/>, <see cref="SizeX"/>, <see cref="SizeY"/>.</returns>
 		public override int GetHashCode()
 		{
 			unchecked
@@ -176,9 +181,13 @@ namespace Zenseless.Geometry
 		}
 
 		/// <summary>
-		/// Returns a string of format (MinX;MinY;SizeX;SizeY)
+		/// Returns a string of format (<see cref = "MinX" />;<see cref = "MinY" />;
+		/// <see cref = "SizeX" />;<see cref = "SizeY" />)
 		/// </summary>
-		/// <returns>String of format (MinX;MinY;SizeX;SizeY)</returns>
+		/// <returns>
+		/// String of format (<see cref = "MinX" />;<see cref = "MinY" />;
+		/// <see cref = "SizeX" />;<see cref = "SizeY" />)
+		/// </returns>
 		public override string ToString()
 		{
 			return $"({MinX};{MinY};{SizeX};{SizeY})";

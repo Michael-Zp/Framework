@@ -3,6 +3,7 @@ uniform float iGlobalTime;
 
 const float bigNumber = 10000.0;
 const float eps = 0.001;
+const float PI = 3.14159;
 
 float quad(float a)
 {
@@ -57,16 +58,16 @@ float plane(vec3 N, float k, vec3 O, vec3 D)
 void main()
 {
 	//camera setup
-	float fov = 90.0;
-	float tanFov = tan(fov / 2.0 * 3.14159 / 180.0) / iResolution.x;
-	vec2 p = tanFov * (gl_FragCoord.xy * 2.0 - iResolution.xy);
+	float fov = 90.0 * (PI / 180.0);
+	float tanFov = tan(fov / 2) / iResolution.x;
+	vec2 d = tanFov * (gl_FragCoord.xy * 2.0 - iResolution.xy);
 
 	vec3 camP = vec3(0.0, 0.0, 0.0);
-	vec3 camDir = normalize(vec3(p.x, p.y, 1.0));
-
+	vec3 camDir = normalize(vec3(d.x, d.y, 1.0));
+	
 	//intersection
-	vec3 M = vec3(0, 0, 1);
-	float t = sphere(M, 0.4, camP, camDir);
+	vec3 C = vec3(0, 0, 1);
+	float t = sphere(C, 0.4, camP, camDir);
 
 	//final color
 	vec3 color;
@@ -77,10 +78,13 @@ void main()
 	}
 	else
 	{
-		//sphere
-		vec3 normal = sphereNormal(M, camP + t * camDir);
-		color = vec3(dot(normal,normalize(vec3(1, 1, -1))));
+		// color = vec3(1);
+
+		//sphere diffuse coloring
+		// vec3 normal = sphereNormal(C, camP + t * camDir);
+		// color = vec3(dot(normal,normalize(vec3(1, 1, -1))));
 	}
+	// gl_FragColor = vec4(camDir, 1.0);
 	gl_FragColor = vec4(color, 1.0);
 }
 
