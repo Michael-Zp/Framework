@@ -17,6 +17,7 @@ EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "_Common", "_Common", "{353CE3AB-3D8F-4859-9B2B-75BAC7BC2359}"
 	ProjectSection(SolutionItems) = preProject
 		_Common\Zenseless.nuspec = _Common\Zenseless.nuspec
+		_Common\Zenseless.Sources.nuspec = _Common\Zenseless.Sources.nuspec
 	EndProjectSection
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Zenseless.Base", "_Common\Zenseless.Base\Zenseless.Base.csproj", "{E5FF60A4-46FB-42D2-9430-BC523315C2E0}"

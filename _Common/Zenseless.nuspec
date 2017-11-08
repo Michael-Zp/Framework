@@ -2,7 +2,7 @@
 <package >
 	<metadata>
 		<id>Zenseless</id>
-		<version>0.3.7</version>
+		<version>0.3.8</version>
 		<authors>Daniel Scherzer</authors>
 		<owners>Daniel Scherzer</owners>
 		<projectUrl>https://github.com/danielscherzer/Framework</projectUrl>
@@ -13,7 +13,7 @@
 		<copyright>Copyright 2017 Daniel Scherzer</copyright>
 		<tags>computer-graphics real-time geometry mathematic vector matrix .net OpenGL GLSL</tags>
 		<dependencies>
-			<dependency id="OpenTK" version="[3.0.0-pre, )" />
+			<dependency id="OpenTK" version="3.0.0-pre" />
 			<dependency id="NAudio" version="1.8.3" />
 		</dependencies>
 	</metadata>
