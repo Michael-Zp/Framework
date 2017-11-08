@@ -16,14 +16,14 @@ namespace Example
 		public void Resize(int width, int height)
 		{
 			var size = Math.Min(width, height) * .01f; //keep points roughly the same size for different window sizes
-			GL.PointSize(size);
+			GL.PointSize(size); //particle size is in pixels
 		}
 
 		/// <summary>
 		/// Very inefficient function if you draw multiple points, but easy to understand
 		/// </summary>
-		/// <param name="location"></param>
-		/// <param name="color"></param>
+		/// <param name="location">particle location</param>
+		/// <param name="color">particle color</param>
 		public void DrawPoint(Vector2 location, Color color)
 		{
 			GL.Color3(color);

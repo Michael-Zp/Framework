@@ -19,9 +19,6 @@ namespace Example
 
 		public Model(int elementCount)
 		{
-			Func<float> Rnd01 = () => (float)rnd.NextDouble();
-			Func<float> Rndm11 = () => (Rnd01() - 0.5f) * 2.0f;
-
 			//set random location and velocity for each point, to have a nice simulation start
 			for (int i = 0; i < elementCount; ++i)
 			{
@@ -41,7 +38,7 @@ namespace Example
 			{
 				particle.ApplyForce(new Vector2(.03f, .1f)); //wind: upward draft, slightly to the right
 				particle.Update(deltaTime);
-				var lifeTime = 5f;  //particles life 10 seconds
+				var lifeTime = 5f;  //particles life 5 seconds
 				particle.Age += deltaTime / lifeTime;
 				
 				if (!particle.IsAlive)
@@ -59,7 +56,6 @@ namespace Example
 		//helper random function
 		private float Rnd01() => (float)rnd.NextDouble();
 		private float RndM11() => (Rnd01() - 0.5f) * 2.0f;
-		private Vector2 RndVectorM11() => new Vector2(RndM11() , RndM11());
 
 		private void Seed(Particle particle)
 		{

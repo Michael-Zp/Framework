@@ -1,5 +1,4 @@
-﻿using OpenTK.Graphics;
-using OpenTK.Input;
+﻿using OpenTK.Input;
 using System;
 using System.Drawing;
 using Zenseless.Application;
@@ -20,10 +19,10 @@ namespace Example
 			{
 				model.Emitter = window.GameWindow.ConvertWindowPixelCoords(e.X, e.Y); //convert pixel coordinates to [-1,1]²
 			};
-
+			
+			//move the mouse to move the particle source(emitter)
 			window.GameWindow.MouseMove += (s, a) => updateSourceLocation(a);
 			window.GameWindow.MouseDown += (s, a) => updateSourceLocation(a);
-
 
 			window.Update += (time) => model.Update(time);
 			window.Resize += renderer.Resize;
