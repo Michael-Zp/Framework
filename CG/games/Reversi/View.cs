@@ -27,10 +27,10 @@ namespace Reversi
 			toClipSpace = Matrix4.CreateOrthographicOffCenter(fitBox.MinX, fitBox.MaxX, fitBox.MinY, fitBox.MaxY, 0f, 1f);
 		}
 
-		public Point CalcGridPosFromNormalized(Vector2 coord)
+		public Point CalcGridPos(Vector2 coord)
 		{
 			//calculate the grid coordinates
-			var pos = new Vector4(2.0f * coord.X - 1.0f, 2.0f * coord.Y - 1.0f, 0.0f, 1.0f);
+			var pos = new Vector4(coord.X, coord.Y, 0.0f, 1.0f);
 			var fromClipSpace = toClipSpace.Inverted();
 			var gridPos = Vector4.Transform(pos, fromClipSpace);
 			return new Point((int)Math.Floor(gridPos.X), (int)Math.Floor(gridPos.Y));

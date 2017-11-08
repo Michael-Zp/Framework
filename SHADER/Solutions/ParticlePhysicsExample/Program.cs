@@ -15,9 +15,12 @@ namespace Example
 			var visual = new MainVisual(app.RenderContext);
 			Action<MouseEventArgs> updateMouseState = (e) => 
 			{
+				var pos = app.GameWindow.ConvertWindowPixelCoords(e.X, e.Y); //convert pixel coordinates to [0,1]²
+				pos *= .5f;
+				pos += System.Numerics.Vector2.One * .5f;
 				var mouseState = new MouseState()
 				{
-					position = app.GameWindow.ConvertCoords(e.X, e.Y), //convert pixel coordinates to [0,1]²
+					position = pos,
 					drawState = GetDrawState(e.Mouse)
 				};
 				visual.MouseState = mouseState;

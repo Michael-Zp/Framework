@@ -60,15 +60,16 @@ namespace Zenseless.OpenGL
 		}
 
 		/// <summary>
-		/// Converts pixel based coordinates to coordinates in range [0..1]²
+		/// Converts pixel based coordinates to coordinates in range [-1,1]²
 		/// </summary>
-		/// <param name="window">reference window</param>
-		/// <param name="pixelX">pixel x-coordinate</param>
-		/// <param name="pixelY">pixel y-coordinate</param>
-		/// <returns>Coordinates in range [0..1]²</returns>
-		public static System.Numerics.Vector2 ConvertCoords(this INativeWindow window, int pixelX, int pixelY)
+		/// <param name="window">window for which to convert the coordinates</param>
+		/// <param name="pixelX">Window pixel x-coordinate</param>
+		/// <param name="pixelY">Window pixel y-coordinate</param>
+		/// <returns>Coordinates in range [-1,1]²</returns>
+		public static System.Numerics.Vector2 ConvertWindowPixelCoords(this INativeWindow window, int pixelX, int pixelY)
 		{
-			return new System.Numerics.Vector2(pixelX / (window.Width - 1f), 1f - pixelY / (window.Height - 1f));
+			var coord01 = new System.Numerics.Vector2(pixelX / (window.Width - 1f), 1f - pixelY / (window.Height - 1f));
+			return coord01 * 2f - System.Numerics.Vector2.One;
 		}
 	}
 }

@@ -29,8 +29,8 @@ namespace Reversi
 			window.GameWindow.MouseDown += (s, e) =>
 			{
 				if (e.Button != MouseButton.Left) return; //only accept left mouse button
-				var coord = window.GameWindow.ConvertCoords(e.X, e.Y); //convert pixel coordinates to [0,1]²
-				var gridPos = view.CalcGridPosFromNormalized(new OpenTK.Vector2(coord.X, coord.Y)); //convert normalized mouse coordinates into grid coordinates
+				var coord = window.GameWindow.ConvertWindowPixelCoords(e.X, e.Y); //convert pixel coordinates to [-1,1]²
+				var gridPos = view.CalcGridPos(new OpenTK.Vector2(coord.X, coord.Y)); //convert mouse coordinates into grid coordinates
 				logic.Move(gridPos); //do move
 			};
 			window.Run();

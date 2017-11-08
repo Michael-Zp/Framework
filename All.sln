@@ -1,6 +1,6 @@
 Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio 15
-VisualStudioVersion = 15.0.26730.16
+VisualStudioVersion = 15.0.27004.2006
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{6DE0AA68-F375-4C8C-B207-141BF71DF96F}"
 	ProjectSection(SolutionItems) = preProject
@@ -194,6 +194,8 @@ EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Exercises", "Exercises", "{47842DCE-0946-4296-9D49-F15728A3389A}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Grow", "CG\Exercises\Grow\Grow.csproj", "{897591CD-CEC3-42B6-9207-0A23E92C0E5A}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SimpleParticleSystem2D", "CG\Examples\SimpleParticleSystem2D\SimpleParticleSystem2D.csproj", "{2C5315D0-1589-4044-BAA6-7DD8FD3E4AB6}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -493,6 +495,10 @@ Global
 		{897591CD-CEC3-42B6-9207-0A23E92C0E5A}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{897591CD-CEC3-42B6-9207-0A23E92C0E5A}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{897591CD-CEC3-42B6-9207-0A23E92C0E5A}.Release|Any CPU.Build.0 = Release|Any CPU
+		{2C5315D0-1589-4044-BAA6-7DD8FD3E4AB6}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{2C5315D0-1589-4044-BAA6-7DD8FD3E4AB6}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{2C5315D0-1589-4044-BAA6-7DD8FD3E4AB6}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{2C5315D0-1589-4044-BAA6-7DD8FD3E4AB6}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -576,6 +582,7 @@ Global
 		{613DB9B5-0255-4B4E-9482-EA6A127F7894} = {E6454C74-3D02-49DC-BF69-CCBD7CE40E25}
 		{47842DCE-0946-4296-9D49-F15728A3389A} = {B72415C1-5200-4C10-AE4D-358B8F822F60}
 		{897591CD-CEC3-42B6-9207-0A23E92C0E5A} = {47842DCE-0946-4296-9D49-F15728A3389A}
+		{2C5315D0-1589-4044-BAA6-7DD8FD3E4AB6} = {7784E3B6-CA36-4515-BC9D-7BEC5556D51E}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {1CA293D8-FC78-4BF1-BA73-543451A6B7AB}

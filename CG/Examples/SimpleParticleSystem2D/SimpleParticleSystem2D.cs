@@ -1,0 +1,42 @@
+﻿using OpenTK.Graphics;
+using OpenTK.Input;
+using System;
+using System.Drawing;
+using Zenseless.Application;
+using Zenseless.OpenGL;
+
+namespace Example
+{
+	class Program
+	{
+		[STAThread]
+		private static void Main()
+		{
+			var window = new ExampleWindow();
+			var model = new Model(1000);
+			var renderer = new Renderer();
+
+			Action<MouseEventArgs> updateSourceLocation = (e) =>
+			{
+				model.Emitter = window.GameWindow.ConvertWindowPixelCoords(e.X, e.Y); //convert pixel coordinates to [-1,1]²
+			};
+
+			window.GameWindow.MouseMove += (s, a) => updateSourceLocation(a);
+			window.GameWindow.MouseDown += (s, a) => updateSourceLocation(a);
+
+
+			window.Update += (time) => model.Update(time);
+			window.Resize += renderer.Resize;
+			window.Render += () =>
+			{
+				renderer.Clear();
+				foreach (var particle in model.Particles)
+				{
+					renderer.DrawPoint(particle.Location, particle.Age);
+				}
+				renderer.DrawPoint(model.Emitter, Color.Red);
+			};
+			window.Run();
+		}
+	}
+}

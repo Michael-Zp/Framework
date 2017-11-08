@@ -133,6 +133,7 @@ namespace Zenseless.Geometry
 		public bool Equals(IImmutableBox2D other)
 		{
 			if (ReferenceEquals(null, other)) return false;
+			if (ReferenceEquals(this, other)) return true;
 			return MinX == other.MinX && MinY == other.MinY && SizeX == other.SizeX && SizeY == other.SizeY;
 		}
 

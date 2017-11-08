@@ -27,8 +27,8 @@ namespace Example
 			window.GameWindow.KeyDown += (s, e) => { if (e.Key == OpenTK.Input.Key.R) gameState = new GameState(); }; //reset
 			window.GameWindow.MouseDown += (s, e) => 
 			{
-				var coord = window.GameWindow.ConvertCoords(e.X, e.Y); //convert pixel coordinates to [0,1]²
-				HandleInput(gameState, (int)e.Button, coord.X, coord.Y);
+				var coord = window.GameWindow.ConvertWindowPixelCoords(e.X, e.Y); //convert pixel coordinates to [-1,1]²
+				HandleInput(gameState, (int)e.Button, coord.X * .5f + .5f, coord.Y * .5f + .5f);
 			};
 			//todo student: app.Resize += (width, height) => //todo student: react on window changes (update apsect ratio of game)
 			window.Render += () => Visual.DrawScreen(gameState); //this draws the game using OpenGL

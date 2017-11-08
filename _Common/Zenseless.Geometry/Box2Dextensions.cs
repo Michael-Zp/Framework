@@ -40,6 +40,14 @@ namespace Zenseless.Geometry
 		}
 
 		/// <summary>
+		/// Checks if point is inside the rectangle (including borders)
+		/// </summary>
+		/// <param name="rectangle">Rectangle to check</param>
+		/// <param name="point">Coordinates of the point</param>
+		/// <returns>true if point is inside the rectangle (including borders)</returns>
+		public static bool Contains(this IImmutableBox2D rectangle, Vector2 point) => rectangle.Contains(point.X, point.Y);
+
+		/// <summary>
 		/// Pushes rectangleA inside rectangleB, but only in regards to the x-direction
 		/// </summary>
 		/// <param name="rectangleA">rectangle to push</param>
