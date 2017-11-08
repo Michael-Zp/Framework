@@ -16,11 +16,11 @@
 			<dependency id="OpenTK" version="3.0.0-pre" />
 			<dependency id="NAudio" version="1.8.3" />
 		</dependencies>
+		<contentFiles>
+			<files include="**\*.cs" buildAction="Compile" />
+		</contentFiles>
 	</metadata>
 	<files>
 		<file src="**\*.cs" target="content" />
 	</files>
-	<contentFiles>
-		<files include="**\*.cs" buildAction="Compile" />
-	</contentFiles>	
 </package>
