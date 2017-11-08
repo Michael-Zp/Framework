@@ -2,7 +2,7 @@
 <package >
 	<metadata>
 		<id>Zenseless</id>
-		<version>0.3.8</version>
+		<version>0.3.10</version>
 		<authors>Daniel Scherzer</authors>
 		<owners>Daniel Scherzer</owners>
 		<projectUrl>https://github.com/danielscherzer/Framework</projectUrl>
@@ -21,6 +21,6 @@
 		<file src="..\bin\release\Zenseless.*.dll" target="lib\net46" />
 		<file src="..\bin\release\Zenseless.*.pdb" target="lib\net46" />
 		<file src="..\bin\release\Zenseless.*.xml" target="lib\net46" />
-		<file src="**\*.cs" target="src" />
+		<file src="**\*.cs" target="src" exclude="**\bin\**;**\obj\**;**\Properties\**" />
 	</files>
 </package>

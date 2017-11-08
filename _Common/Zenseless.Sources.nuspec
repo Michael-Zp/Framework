@@ -2,7 +2,7 @@
 <package >
 	<metadata>
 		<id>Zenseless.sources</id>
-		<version>0.3.9</version>
+		<version>0.3.10</version>
 		<authors>Daniel Scherzer</authors>
 		<owners>Daniel Scherzer</owners>
 		<projectUrl>https://github.com/danielscherzer/Framework</projectUrl>
@@ -16,11 +16,19 @@
 			<dependency id="OpenTK" version="3.0.0-pre" />
 			<dependency id="NAudio" version="1.8.3" />
 		</dependencies>
+		<frameworkAssemblies>
+			<frameworkAssembly assemblyName="PresentationCore" />
+			<frameworkAssembly assemblyName="System.ComponentModel.Composition" />
+			<frameworkAssembly assemblyName="System.Drawing" />
+			<frameworkAssembly assemblyName="System.Runtime.Serialization.Formatters.Soap" />
+			<frameworkAssembly assemblyName="System.Windows.Forms" />
+			<frameworkAssembly assemblyName="WindowsBase" />
+		</frameworkAssemblies>
 		<contentFiles>
-			<files include="**\*.cs" buildAction="Compile" />
+			<files include="**\*.cs" buildAction="Compile" exclude="**\bin\**;**\obj\**;**\Properties\**" />
 		</contentFiles>
 	</metadata>
 	<files>
-		<file src="**\*.cs" target="content" />
+		<file src="**\*.cs" target="content" exclude="**\bin\**;**\obj\**;**\Properties\**" />
 	</files>
 </package>
