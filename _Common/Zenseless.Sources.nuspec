@@ -29,6 +29,6 @@
 		</contentFiles>
 	</metadata>
 	<files>
-		<file src="**\*.cs" target="content" exclude="**\bin\**;**\obj\**;**\Properties\**" />
+		<file src="**\*.cs" target="content\Zenseless" exclude="**\bin\**;**\obj\**;**\Properties\**" />
 	</files>
 </package>
