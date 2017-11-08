@@ -1,7 +1,7 @@
 <?xml version="1.0"?>
 <package >
 	<metadata>
-		<id>Zenseless</id>
+		<id>Zenseless.sources</id>
 		<version>0.3.7</version>
 		<authors>Daniel Scherzer</authors>
 		<owners>Daniel Scherzer</owners>
@@ -18,9 +18,6 @@
 		</dependencies>
 	</metadata>
 	<files>
-		<file src="..\bin\release\Zenseless.*.dll" target="lib\net46" />
-		<file src="..\bin\release\Zenseless.*.pdb" target="lib\net46" />
-		<file src="..\bin\release\Zenseless.*.xml" target="lib\net46" />
-		<file src="**\*.cs" target="src" />
+		<file src="**\*.cs" target="content" />
 	</files>
 </package>

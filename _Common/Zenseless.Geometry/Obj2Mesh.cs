@@ -38,9 +38,9 @@ namespace Zenseless.Geometry
 		}
 
 		/// <summary>
-		/// Froms the object.
+		/// Creates a <see cref="DefaultMesh"/>from a byte array.
 		/// </summary>
-		/// <param name="objByteData">The object byte data.</param>
+		/// <param name="objByteData">The byte data.</param>
 		/// <returns></returns>
 		public static DefaultMesh FromObj(byte[] objByteData)
 		{

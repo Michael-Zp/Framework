@@ -17,7 +17,8 @@ build:
   verbosity: minimal              # MSBuild verbosity level
 
 after_test:
-    nuget pack _Common\Zenseless.nuspec -symbols
+    nuget pack _Common\Zenseless.nuspec -symbols 
+    nuget pack _Common\Zenseless.Sources.nuspec 
 
 artifacts:
 - path: bin\$(configuration)\ShaderForm
@@ -32,7 +33,7 @@ deploy:
   auth_token:
     secure: IGRhoLQi/yyC2ej7s79ZRU3PL3NScj4Kxh1Lyydg/CEvD/PbRwIilxmBziEHfwjJ
   artifact: ShaderForm
-  draft: false
+  draft: true
   prerelease: false
 
 - provider: NuGet
