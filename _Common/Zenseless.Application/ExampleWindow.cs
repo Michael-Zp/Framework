@@ -103,7 +103,7 @@ namespace Zenseless.Application
 		public ResourceManager ResourceManager { get; private set; }
 
 		/// <summary>
-		/// Runs this instance.
+		/// Runs the window loop, which in turn calls the registered event handlers
 		/// </summary>
 		public void Run()
 		{
@@ -115,24 +115,10 @@ namespace Zenseless.Application
 			gameWindow.Run();
 		}
 
-		/// <summary>
-		/// The container
-		/// </summary>
 		private CompositionContainer _container;
-		/// <summary>
-		/// The game window
-		/// </summary>
 		private GameWindow gameWindow;
+		[Import] private IResourceProvider resourceProvider = null;
 
-		/// <summary>
-		/// The resource provider
-		/// </summary>
-		[Import]
-		private IResourceProvider resourceProvider = null;
-
-		/// <summary>
-		/// Games the window render.
-		/// </summary>
 		private void GameWindowRender()
 		{
 			ResourceManager?.CheckForShaderChange();
