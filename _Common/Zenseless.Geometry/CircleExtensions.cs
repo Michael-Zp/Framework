@@ -3,20 +3,43 @@ using System.Numerics;
 
 namespace Zenseless.Geometry
 {
+	/// <summary>
+	/// 
+	/// </summary>
 	public static class CircleExtensions
 	{
+		/// <summary>
+		/// Creates from box.
+		/// </summary>
+		/// <param name="box">The box.</param>
+		/// <returns></returns>
 		public static Circle CreateFromBox(IImmutableBox2D box)
 		{
 			var circle = new Circle(box.CenterX, box.CenterY, 0.5f * Math.Min(box.SizeX, box.SizeY));
 			return circle;
 		}
 
+		/// <summary>
+		/// Creates from minimum maximum.
+		/// </summary>
+		/// <param name="minX">The minimum x.</param>
+		/// <param name="minY">The minimum y.</param>
+		/// <param name="maxX">The maximum x.</param>
+		/// <param name="maxY">The maximum y.</param>
+		/// <returns></returns>
 		public static Circle CreateFromMinMax(float minX, float minY, float maxX, float maxY)
 		{
 			var box = Box2DExtensions.CreateFromMinMax(minX, minY, maxX, maxY);
 			return CreateFromBox(box);
 		}
 
+		/// <summary>
+		/// Pushes the x range inside.
+		/// </summary>
+		/// <param name="circle">The circle.</param>
+		/// <param name="minX">The minimum x.</param>
+		/// <param name="maxX">The maximum x.</param>
+		/// <returns></returns>
 		public static bool PushXRangeInside(this Circle circle, float minX, float maxX)
 		{
 			if (circle.Radius > maxX - minX) return false;
@@ -31,6 +54,13 @@ namespace Zenseless.Geometry
 			return true;
 		}
 
+		/// <summary>
+		/// Pushes the y range inside.
+		/// </summary>
+		/// <param name="circle">The circle.</param>
+		/// <param name="minY">The minimum y.</param>
+		/// <param name="maxY">The maximum y.</param>
+		/// <returns></returns>
 		public static bool PushYRangeInside(this Circle circle, float minY, float maxY)
 		{
 			if (circle.Radius > maxY - minY) return false;
@@ -45,6 +75,11 @@ namespace Zenseless.Geometry
 			return true;
 		}
 
+		/// <summary>
+		/// Undoes the overlap.
+		/// </summary>
+		/// <param name="a">a.</param>
+		/// <param name="b">The b.</param>
 		public static void UndoOverlap(this Circle a, Circle b)
 		{
 			Vector2 cB = new Vector2(b.CenterX, b.CenterY);

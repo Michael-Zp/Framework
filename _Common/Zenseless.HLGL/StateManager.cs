@@ -3,6 +3,10 @@ using System.Collections.Generic;
 
 namespace Zenseless.HLGL
 {
+	/// <summary>
+	/// 
+	/// </summary>
+	/// <seealso cref="IStateManager" />
 	public class StateManager : IStateManager
 	{
 		/// <summary>

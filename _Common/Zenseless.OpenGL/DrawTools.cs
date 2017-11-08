@@ -5,8 +5,16 @@ using System.Diagnostics;
 
 namespace Zenseless.OpenGL
 {
+	/// <summary>
+	/// 
+	/// </summary>
 	public static class DrawTools
 	{
+		/// <summary>
+		/// Draws the textured rect.
+		/// </summary>
+		/// <param name="rect">The rect.</param>
+		/// <param name="texCoords">The tex coords.</param>
 		public static void DrawTexturedRect(this IImmutableBox2D rect, IImmutableBox2D texCoords)
 		{
 			GL.Begin(PrimitiveType.Quads);
@@ -17,6 +25,9 @@ namespace Zenseless.OpenGL
 			GL.End();
 		}
 
+		/// <summary>
+		/// Writes the errors.
+		/// </summary>
 		public static void WriteErrors()
 		{
 			//check errors
@@ -27,11 +38,21 @@ namespace Zenseless.OpenGL
 			}
 		}
 
+		/// <summary>
+		/// To the open tk.
+		/// </summary>
+		/// <param name="v">The v.</param>
+		/// <returns></returns>
 		public static Vector3 ToOpenTK(this global::System.Numerics.Vector3 v)
 		{
 			return new Vector3(v.X, v.Y, v.Z);
 		}
 
+		/// <summary>
+		/// To the open tk.
+		/// </summary>
+		/// <param name="m">The m.</param>
+		/// <returns></returns>
 		public static Matrix4 ToOpenTK(this global::System.Numerics.Matrix4x4 m)
 		{
 			return new Matrix4(m.M11, m.M12, m.M13, m.M14,

@@ -4,6 +4,9 @@ using SysColor = System.Drawing.Color;
 
 namespace Zenseless.OpenGL
 {
+	/// <summary>
+	/// 
+	/// </summary>
 	public static class ColorSystems
 	{
 		/// <summary>
@@ -12,7 +15,9 @@ namespace Zenseless.OpenGL
 		/// <param name="h">Hue [0..1]</param>
 		/// <param name="s">Saturation [0..1]</param>
 		/// <param name="b">Brightness [0..1]</param>
-		/// <returns>rgb color</returns>
+		/// <returns>
+		/// rgb color
+		/// </returns>
 		public static Vector3 Hsb2rgb(float h, float s, float b)
 		{
 			s = MathHelper.Clamp(s, 0, 1);
@@ -26,22 +31,28 @@ namespace Zenseless.OpenGL
 			return b * Vector3.Lerp(Vector3.One, rgb, s);
 		}
 
-		/// <summary>
-		/// transformation not correct
-		/// </summary>
-		/// <param name="color"></param>
-		/// <returns></returns>
+		//todo: transformation not correct
 		//public static Vector3 Color2Hsb(SysColor color)
 		//{
 		//	return new Vector3(color.GetHue() / 360f, color.GetSaturation(), color.GetBrightness());
 		//}
 
+		/// <summary>
+		/// To the color of the system.
+		/// </summary>
+		/// <param name="color">The color.</param>
+		/// <returns></returns>
 		public static SysColor ToSystemColor(this Vector3 color)
 		{
 			color *= 255;
 			return SysColor.FromArgb((int)color.X, (int)color.Y, (int)color.Z);
 		}
 
+		/// <summary>
+		/// To the vector3.
+		/// </summary>
+		/// <param name="color">The color.</param>
+		/// <returns></returns>
 		public static Vector3 ToVector3(this SysColor color)
 		{
 			return new Vector3(color.R / 255f, color.G / 255f, color.B / 255f);

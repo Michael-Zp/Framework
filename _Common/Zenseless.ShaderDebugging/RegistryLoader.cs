@@ -4,8 +4,15 @@ using System;
 
 namespace Zenseless.ShaderDebugging
 {
+	/// <summary>
+	/// 
+	/// </summary>
 	public static class RegistryLoader
 	{
+		/// <summary>
+		/// Loads the layout.
+		/// </summary>
+		/// <param name="window">The window.</param>
 		public static void LoadLayout(this GameWindow window)
 		{
 			RegistryKey keyApp = RegistryLoaderForm.GetAppKey();
@@ -20,6 +27,10 @@ namespace Zenseless.ShaderDebugging
 			window.Y = Convert.ToInt32(key.GetValue("Y", window.Y));
 		}
 
+		/// <summary>
+		/// Saves the layout.
+		/// </summary>
+		/// <param name="window">The window.</param>
 		public static void SaveLayout(this GameWindow window)
 		{
 			RegistryKey keyApp = RegistryLoaderForm.GetAppKey();
@@ -34,6 +45,13 @@ namespace Zenseless.ShaderDebugging
 			key.SetValue("Y", window.Y);
 		}
 
+		/// <summary>
+		/// Loads the value.
+		/// </summary>
+		/// <param name="keyName">Name of the key.</param>
+		/// <param name="name">The name.</param>
+		/// <param name="defaultValue">The default value.</param>
+		/// <returns></returns>
 		public static object LoadValue(string keyName, string name, object defaultValue)
 		{
 			RegistryKey keyApp = RegistryLoaderForm.GetAppKey();
@@ -43,6 +61,12 @@ namespace Zenseless.ShaderDebugging
 			return key.GetValue(name, defaultValue);
 		}
 
+		/// <summary>
+		/// Saves the value.
+		/// </summary>
+		/// <param name="keyName">Name of the key.</param>
+		/// <param name="name">The name.</param>
+		/// <param name="value">The value.</param>
 		public static void SaveValue(string keyName, string name, object value)
 		{
 			RegistryKey keyApp = RegistryLoaderForm.GetAppKey();

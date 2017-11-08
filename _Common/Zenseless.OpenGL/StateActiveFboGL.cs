@@ -2,8 +2,18 @@
 
 namespace Zenseless.OpenGL
 {
+	/// <summary>
+	/// 
+	/// </summary>
+	/// <seealso cref="Zenseless.HLGL.IState" />
 	public class StateActiveFboGL : IState
 	{
+		/// <summary>
+		/// Gets or sets the fbo.
+		/// </summary>
+		/// <value>
+		/// The fbo.
+		/// </value>
 		public FBO Fbo
 		{
 			get => fbo;
@@ -16,6 +26,9 @@ namespace Zenseless.OpenGL
 			}
 		}
 
+		/// <summary>
+		/// The fbo
+		/// </summary>
 		private FBO fbo = null;
 	}
 }

@@ -5,14 +5,35 @@ using System.Numerics;
 
 namespace Zenseless.Geometry
 {
+	/// <summary>
+	/// 
+	/// </summary>
 	public class ObjParser
 	{
+		/// <summary>
+		/// 
+		/// </summary>
 		public class Vertex
 		{
+			/// <summary>
+			/// The identifier normal
+			/// </summary>
 			public int idNormal;
+			/// <summary>
+			/// The identifier position
+			/// </summary>
 			public int idPos;
+			/// <summary>
+			/// The identifier tex coord
+			/// </summary>
 			public int idTexCoord;
 
+			/// <summary>
+			/// Initializes a new instance of the <see cref="Vertex"/> class.
+			/// </summary>
+			/// <param name="idPos">The identifier position.</param>
+			/// <param name="idTexCoord">The identifier tex coord.</param>
+			/// <param name="idNormal">The identifier normal.</param>
 			public Vertex(int idPos, int idTexCoord, int idNormal)
 			{
 				this.idPos = idPos;
@@ -20,13 +41,32 @@ namespace Zenseless.Geometry
 				this.idNormal = idNormal;
 			}
 		}
-		
+
+		/// <summary>
+		/// The material file name
+		/// </summary>
 		public string materialFileName;
+		/// <summary>
+		/// The position
+		/// </summary>
 		public List<Vector3> position = new List<Vector3>();
+		/// <summary>
+		/// The normals
+		/// </summary>
 		public List<Vector3> normals = new List<Vector3>();
+		/// <summary>
+		/// The tex coords
+		/// </summary>
 		public List<Vector2> texCoords = new List<Vector2>();
+		/// <summary>
+		/// The faces
+		/// </summary>
 		public List<List<Vertex>> faces = new List<List<Vertex>>();
 
+		/// <summary>
+		/// Initializes a new instance of the <see cref="ObjParser"/> class.
+		/// </summary>
+		/// <param name="data">The data.</param>
 		public ObjParser(byte[] data)
 		{
 			char[] splitCharacters = new char[] { ' ' };
@@ -86,6 +126,11 @@ namespace Zenseless.Geometry
 			}
 		}
 
+		/// <summary>
+		/// Parses the vertex.
+		/// </summary>
+		/// <param name="faceParameter_">The face parameter.</param>
+		/// <returns></returns>
 		private Vertex ParseVertex(string faceParameter_)
 		{
 			char[] faceParameterSplitter = new char[] { '/' };
@@ -97,6 +142,13 @@ namespace Zenseless.Geometry
 			return new Vertex(idPos, idTexCoord, idNormal);
 		}
 
+		/// <summary>
+		/// Parses the identifier.
+		/// </summary>
+		/// <param name="parameters_">The parameters.</param>
+		/// <param name="pos_">The position.</param>
+		/// <param name="idCount">The identifier count.</param>
+		/// <returns></returns>
 		private static int ParseID(IList<string> parameters_, int pos_, int idCount)
 		{
 			if (parameters_.Count > pos_)

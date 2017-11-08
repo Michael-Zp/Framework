@@ -5,11 +5,21 @@ using System.Text;
 
 namespace Zenseless.ShaderDebugging
 {
+	/// <summary>
+	/// 
+	/// </summary>
 	public class ShaderFileDebugger
 	{
 		//public delegate void ShaderLoadedHandler();
 		//public event ShaderLoadedHandler ShaderLoaded;
 
+		/// <summary>
+		/// Initializes a new instance of the <see cref="ShaderFileDebugger"/> class.
+		/// </summary>
+		/// <param name="vertexFile">The vertex file.</param>
+		/// <param name="fragmentFile">The fragment file.</param>
+		/// <param name="vertexShader">The vertex shader.</param>
+		/// <param name="fragmentShader">The fragment shader.</param>
 		public ShaderFileDebugger(string vertexFile, string fragmentFile,
 			byte[] vertexShader = null, byte[] fragmentShader = null)
 		{
@@ -29,6 +39,10 @@ namespace Zenseless.ShaderDebugging
 			}
 		}
 
+		/// <summary>
+		/// Checks for shader change.
+		/// </summary>
+		/// <returns></returns>
 		public bool CheckForShaderChange()
 		{
 			//test if we even have file -> no files nothing to be done
@@ -55,16 +69,38 @@ namespace Zenseless.ShaderDebugging
 			return false;
 		}
 
+		/// <summary>
+		/// Shows the debug dialog.
+		/// </summary>
+		/// <param name="exception">The exception.</param>
 		private void ShowDebugDialog(ShaderException exception)
 		{
 			var newShaderCode = form.ShowModal(exception);
 		}
 
+		/// <summary>
+		/// Gets the shader.
+		/// </summary>
+		/// <value>
+		/// The shader.
+		/// </value>
 		public IShader Shader { get { return shader; } }
 
+		/// <summary>
+		/// The shader
+		/// </summary>
 		private IShader shader;
+		/// <summary>
+		/// The shader watcher vertex
+		/// </summary>
 		private FileWatcher shaderWatcherVertex = null;
+		/// <summary>
+		/// The shader watcher fragment
+		/// </summary>
 		private FileWatcher shaderWatcherFragment = null;
+		/// <summary>
+		/// The form
+		/// </summary>
 		private readonly FormShaderExceptionFacade form = new FormShaderExceptionFacade();
 	}
 }

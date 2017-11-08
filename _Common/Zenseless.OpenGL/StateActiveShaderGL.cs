@@ -2,8 +2,18 @@
 
 namespace Zenseless.OpenGL
 {
+	/// <summary>
+	/// 
+	/// </summary>
+	/// <seealso cref="Zenseless.HLGL.IState" />
 	public class StateActiveShaderGL : IState
 	{
+		/// <summary>
+		/// Gets or sets the shader.
+		/// </summary>
+		/// <value>
+		/// The shader.
+		/// </value>
 		public IShader Shader
 		{
 			get => shader;
@@ -16,6 +26,9 @@ namespace Zenseless.OpenGL
 			}
 		}
 
+		/// <summary>
+		/// The shader
+		/// </summary>
 		private IShader shader = null;
 	}
 }

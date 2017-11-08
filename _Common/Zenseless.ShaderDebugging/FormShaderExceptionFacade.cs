@@ -6,8 +6,16 @@ using System.Windows.Forms;
 
 namespace Zenseless.ShaderDebugging
 {
+	/// <summary>
+	/// 
+	/// </summary>
 	public class FormShaderExceptionFacade
 	{
+		/// <summary>
+		/// Shows the modal.
+		/// </summary>
+		/// <param name="e">The e.</param>
+		/// <returns></returns>
 		public string ShowModal(ShaderException e)
 		{
 			form = new FormShaderException();
@@ -55,6 +63,9 @@ namespace Zenseless.ShaderDebugging
 			return newShaderSourceCode;
 		}
 
+		/// <summary>
+		/// Closes this instance.
+		/// </summary>
 		public void Close()
 		{
 			if (ReferenceEquals(null, form)) return;
@@ -65,7 +76,13 @@ namespace Zenseless.ShaderDebugging
 			});
 		}
 
+		/// <summary>
+		/// The form
+		/// </summary>
 		private FormShaderException form = null;
+		/// <summary>
+		/// The close on file change
+		/// </summary>
 		private bool closeOnFileChange = false;
 	}
 }

@@ -9,8 +9,17 @@ using System.ComponentModel.Composition.Hosting;
 
 namespace Zenseless.Application
 {
+	/// <summary>
+	/// 
+	/// </summary>
 	public class ExampleWindow
 	{
+		/// <summary>
+		/// Initializes a new instance of the <see cref="ExampleWindow"/> class.
+		/// </summary>
+		/// <param name="width">The width.</param>
+		/// <param name="height">The height.</param>
+		/// <param name="updateRate">The update rate.</param>
 		public ExampleWindow(int width = 512, int height = 512, double updateRate = 60)
 		{
 			//var mode = new OpenTK.Graphics.GraphicsMode(new OpenTK.Graphics.ColorFormat(32), 24);
@@ -44,19 +53,58 @@ namespace Zenseless.Application
 			ResourceManager = resourceProvider as ResourceManager;
 		}
 
+		/// <summary>
+		/// Gets the game window.
+		/// </summary>
+		/// <value>
+		/// The game window.
+		/// </value>
 		public IGameWindow GameWindow { get { return gameWindow; } }
 
+		/// <summary>
+		/// Occurs when [render].
+		/// </summary>
 		public event Action Render;
+		/// <summary>
+		/// Gets the render context.
+		/// </summary>
+		/// <value>
+		/// The render context.
+		/// </value>
 		public IRenderContext RenderContext { get; private set; }
 
+		/// <summary>
+		/// 
+		/// </summary>
+		/// <param name="width">The width.</param>
+		/// <param name="height">The height.</param>
 		public delegate void ResizeHandler(int width, int height);
+		/// <summary>
+		/// Occurs when [resize].
+		/// </summary>
 		public event ResizeHandler Resize;
 
+		/// <summary>
+		/// 
+		/// </summary>
+		/// <param name="updatePeriod">The update period.</param>
 		public delegate void UpdateHandler(float updatePeriod);
+		/// <summary>
+		/// Occurs when [update].
+		/// </summary>
 		public event UpdateHandler Update;
 
+		/// <summary>
+		/// Gets the resource manager.
+		/// </summary>
+		/// <value>
+		/// The resource manager.
+		/// </value>
 		public ResourceManager ResourceManager { get; private set; }
 
+		/// <summary>
+		/// Runs this instance.
+		/// </summary>
 		public void Run()
 		{
 			//register a callback for updating the game logic
@@ -67,12 +115,24 @@ namespace Zenseless.Application
 			gameWindow.Run();
 		}
 
+		/// <summary>
+		/// The container
+		/// </summary>
 		private CompositionContainer _container;
+		/// <summary>
+		/// The game window
+		/// </summary>
 		private GameWindow gameWindow;
 
+		/// <summary>
+		/// The resource provider
+		/// </summary>
 		[Import]
 		private IResourceProvider resourceProvider = null;
 
+		/// <summary>
+		/// Games the window render.
+		/// </summary>
 		private void GameWindowRender()
 		{
 			ResourceManager?.CheckForShaderChange();
@@ -82,6 +142,11 @@ namespace Zenseless.Application
 			gameWindow.SwapBuffers();
 		}
 
+		/// <summary>
+		/// Handles the Resize event of the GameWindow control.
+		/// </summary>
+		/// <param name="sender">The source of the event.</param>
+		/// <param name="e">The <see cref="EventArgs"/> instance containing the event data.</param>
 		private void GameWindow_Resize(object sender, EventArgs e)
 		{
 			GL.Viewport(0, 0, gameWindow.Width, gameWindow.Height);

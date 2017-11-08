@@ -10,8 +10,20 @@ namespace Zenseless.OpenGL
 	using SysDraw = System.Drawing.Imaging;
 	using SysMedia = System.Windows.Media;
 
+	/// <summary>
+	/// 
+	/// </summary>
 	public static class TextureLoader
 	{
+		/// <summary>
+		/// Froms the array.
+		/// </summary>
+		/// <typeparam name="TYPE">The type of the ype.</typeparam>
+		/// <param name="data">The data.</param>
+		/// <param name="internalFormat">The internal format.</param>
+		/// <param name="format">The format.</param>
+		/// <param name="type">The type.</param>
+		/// <returns></returns>
 		public static ITexture FromArray<TYPE>(TYPE[,] data, PixelInternalFormat internalFormat, PixelFormat format, PixelType type)
 		{
 			GCHandle pinnedArray = GCHandle.Alloc(data, GCHandleType.Pinned);
@@ -33,6 +45,11 @@ namespace Zenseless.OpenGL
 			}
 		}
 
+		/// <summary>
+		/// Froms the bitmap.
+		/// </summary>
+		/// <param name="bitmap">The bitmap.</param>
+		/// <returns></returns>
 		public static ITexture FromBitmap(Bitmap bitmap)
 		{
 			var texture = new Texture2dGL();
@@ -52,6 +69,11 @@ namespace Zenseless.OpenGL
 			return texture;
 		}
 
+		/// <summary>
+		/// To the buffer.
+		/// </summary>
+		/// <param name="bitmap">The bitmap.</param>
+		/// <returns></returns>
 		public static byte[] ToBuffer(this Bitmap bitmap)
 		{
 			using (Bitmap bmp = new Bitmap(bitmap))
@@ -66,6 +88,11 @@ namespace Zenseless.OpenGL
 			}
 		}
 
+		/// <summary>
+		/// Froms the stream.
+		/// </summary>
+		/// <param name="stream">The stream.</param>
+		/// <returns></returns>
 		public static ITexture FromStream(Stream stream)
 		{
 			var texture = new Texture2dGL();
@@ -85,6 +112,13 @@ namespace Zenseless.OpenGL
 			return texture;
 		}
 
+		/// <summary>
+		/// Froms the file.
+		/// </summary>
+		/// <param name="fileName">Name of the file.</param>
+		/// <returns></returns>
+		/// <exception cref="ArgumentException"></exception>
+		/// <exception cref="FileLoadException"></exception>
 		public static ITexture FromFile(string fileName)
 		{
 			if (String.IsNullOrEmpty(fileName))
@@ -98,6 +132,12 @@ namespace Zenseless.OpenGL
 			return FromBitmap(new Bitmap(fileName));
 		}
 
+		/// <summary>
+		/// Saves to file.
+		/// </summary>
+		/// <param name="texture">The texture.</param>
+		/// <param name="fileName">Name of the file.</param>
+		/// <param name="format">The format.</param>
 		public static void SaveToFile(ITexture2D texture, string fileName, SysDraw.PixelFormat format = SysDraw.PixelFormat.Format32bppArgb)
 		{
 			using (var bitmap = SaveToBitmap(texture, format))
@@ -106,6 +146,12 @@ namespace Zenseless.OpenGL
 			}
 		}
 
+		/// <summary>
+		/// Saves to bitmap.
+		/// </summary>
+		/// <param name="texture">The texture.</param>
+		/// <param name="format">The format.</param>
+		/// <returns></returns>
 		public static Bitmap SaveToBitmap(ITexture2D texture, SysDraw.PixelFormat format = SysDraw.PixelFormat.Format32bppArgb)
 		{
 			try
@@ -126,6 +172,12 @@ namespace Zenseless.OpenGL
 			}
 		}
 
+		/// <summary>
+		/// Selects the pixel format.
+		/// </summary>
+		/// <param name="pixelFormat">The pixel format.</param>
+		/// <returns></returns>
+		/// <exception cref="FileLoadException">Wrong pixel format " + pixelFormat.ToString()</exception>
 		public static PixelFormat SelectPixelFormat(SysDraw.PixelFormat pixelFormat)
 		{
 			switch (pixelFormat)
@@ -137,6 +189,12 @@ namespace Zenseless.OpenGL
 			}
 		}
 
+		/// <summary>
+		/// Selects the internal pixel format.
+		/// </summary>
+		/// <param name="pixelFormat">The pixel format.</param>
+		/// <returns></returns>
+		/// <exception cref="FileLoadException">Wrong pixel format " + pixelFormat.ToString()</exception>
 		public static PixelInternalFormat SelectInternalPixelFormat(SysDraw.PixelFormat pixelFormat)
 		{
 			switch (pixelFormat)
@@ -148,6 +206,12 @@ namespace Zenseless.OpenGL
 			}
 		}
 
+		/// <summary>
+		/// Selects the internal pixel format.
+		/// </summary>
+		/// <param name="pixelFormat">The pixel format.</param>
+		/// <returns></returns>
+		/// <exception cref="FileLoadException">Wrong pixel format " + pixelFormat.ToString()</exception>
 		private static PixelInternalFormat SelectInternalPixelFormat(SysMedia.PixelFormat pixelFormat)
 		{
 			if (SysMedia.PixelFormats.Bgra32 == pixelFormat)
@@ -165,6 +229,12 @@ namespace Zenseless.OpenGL
 			else throw new FileLoadException("Wrong pixel format " + pixelFormat.ToString());
 		}
 
+		/// <summary>
+		/// Selects the pixel format.
+		/// </summary>
+		/// <param name="pixelFormat">The pixel format.</param>
+		/// <returns></returns>
+		/// <exception cref="FileLoadException">Wrong pixel format " + pixelFormat.ToString()</exception>
 		private static PixelFormat SelectPixelFormat(SysMedia.PixelFormat pixelFormat)
 		{
 			if (SysMedia.PixelFormats.Bgra32 == pixelFormat)

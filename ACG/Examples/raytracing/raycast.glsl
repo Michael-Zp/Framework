@@ -78,7 +78,7 @@ void main()
 	}
 	else
 	{
-		// color = vec3(1);
+		color = vec3(1);
 
 		//sphere diffuse coloring
 		// vec3 normal = sphereNormal(C, camP + t * camDir);

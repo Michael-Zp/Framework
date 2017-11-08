@@ -4,12 +4,33 @@ using System.Text;
 
 namespace Zenseless.ShaderDebugging
 {
+	/// <summary>
+	/// 
+	/// </summary>
 	public class ShaderLogLine
 	{
+		/// <summary>
+		/// The type
+		/// </summary>
 		public string Type = string.Empty;
+		/// <summary>
+		/// The file number
+		/// </summary>
 		public int FileNumber = -1;
+		/// <summary>
+		/// The line number
+		/// </summary>
 		public int LineNumber = -1;
+		/// <summary>
+		/// The message
+		/// </summary>
 		public string Message = string.Empty;
+		/// <summary>
+		/// Returns a <see cref="System.String" /> that represents this instance.
+		/// </summary>
+		/// <returns>
+		/// A <see cref="System.String" /> that represents this instance.
+		/// </returns>
 		public override string ToString()
 		{
 			StringBuilder sb = new StringBuilder();
@@ -28,8 +49,15 @@ namespace Zenseless.ShaderDebugging
 		}
 	}
 
+	/// <summary>
+	/// 
+	/// </summary>
 	public class ShaderLog
 	{
+		/// <summary>
+		/// Initializes a new instance of the <see cref="ShaderLog"/> class.
+		/// </summary>
+		/// <param name="log">The log.</param>
 		public ShaderLog(string log)
 		{
 			//parse error log
@@ -61,8 +89,20 @@ namespace Zenseless.ShaderDebugging
 			lines.AddRange(otherLines);
 		}
 
+		/// <summary>
+		/// Gets the lines.
+		/// </summary>
+		/// <value>
+		/// The lines.
+		/// </value>
 		public IList<ShaderLogLine> Lines { get { return lines; } }
 
+		/// <summary>
+		/// Parses the log line.
+		/// </summary>
+		/// <param name="line">The line.</param>
+		/// <returns></returns>
+		/// <exception cref="ArgumentException"></exception>
 		private ShaderLogLine ParseLogLine(string line)
 		{
 			ShaderLogLine logLine = new ShaderLogLine();
@@ -94,6 +134,12 @@ namespace Zenseless.ShaderDebugging
 			return logLine;
 		}
 
+		/// <summary>
+		/// Parses the log line nvidia.
+		/// </summary>
+		/// <param name="line">The line.</param>
+		/// <returns></returns>
+		/// <exception cref="ArgumentException"></exception>
 		private ShaderLogLine ParseLogLineNVIDIA(string line)
 		{
 			ShaderLogLine logLine = new ShaderLogLine();
@@ -114,6 +160,11 @@ namespace Zenseless.ShaderDebugging
 			return logLine;
 		}
 
+		/// <summary>
+		/// Parses the type of the nv.
+		/// </summary>
+		/// <param name="v">The v.</param>
+		/// <returns></returns>
 		private string ParseNVType(string v)
 		{
 			char[] splitChars = new char[] { ' ', '\t' };
@@ -121,6 +172,11 @@ namespace Zenseless.ShaderDebugging
 			return ParseType(elements[0]);
 		}
 
+		/// <summary>
+		/// Parses the nv line number.
+		/// </summary>
+		/// <param name="v">The v.</param>
+		/// <returns></returns>
 		private int ParseNVLineNumber(string v)
 		{
 			char[] splitChars = new char[] { '(',')', ' ', '\t' };
@@ -128,6 +184,11 @@ namespace Zenseless.ShaderDebugging
 			return Parse(elements[1]);
 		}
 
+		/// <summary>
+		/// Parses the nv file number.
+		/// </summary>
+		/// <param name="v">The v.</param>
+		/// <returns></returns>
 		private int ParseNVFileNumber(string v)
 		{
 			char[] splitChars = new char[] { '(', ')', ' ', '\t' };
@@ -135,11 +196,21 @@ namespace Zenseless.ShaderDebugging
 			return Parse(elements[0]);
 		}
 
+		/// <summary>
+		/// Parses the type.
+		/// </summary>
+		/// <param name="typeString">The type string.</param>
+		/// <returns></returns>
 		private string ParseType(string typeString)
 		{
 			return typeString.ToUpperInvariant().Trim();
 		}
 
+		/// <summary>
+		/// Parses the specified number.
+		/// </summary>
+		/// <param name="number">The number.</param>
+		/// <returns></returns>
 		private int Parse(string number)
 		{
 			int output;
@@ -153,6 +224,9 @@ namespace Zenseless.ShaderDebugging
 			}
 		}
 
+		/// <summary>
+		/// The lines
+		/// </summary>
 		private List<ShaderLogLine> lines = new List<ShaderLogLine>();
 	}
 }

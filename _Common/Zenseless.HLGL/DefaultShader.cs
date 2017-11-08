@@ -24,6 +24,9 @@
 					gl_Position = vec4(pos, 0.0, 1.0);
 				}";
 
+		/// <summary>
+		/// The vertex shader particle
+		/// </summary>
 		public const string VertexShaderParticle = @"
 				#version 130 //gl_DepthRange
 				uniform mat4 mvp = mat4(1.0);
@@ -35,6 +38,9 @@
 					gl_Position = pos;
 				}";
 
+		/// <summary>
+		/// The fragment shader color
+		/// </summary>
 		public const string FragmentShaderColor = @"
 			#version 430 core
 			uniform vec4 color = vec4(1);
@@ -42,6 +48,9 @@
 				gl_FragColor = color;
 			}";
 
+		/// <summary>
+		/// The fragment shader point circle
+		/// </summary>
 		public const string FragmentShaderPointCircle = @"
 			#version 430 core
 			uniform vec4 color = vec4(1);
@@ -51,6 +60,9 @@
 				gl_FragColor.a = 1 - smoothstep(0.4, 0.5, f);
 			}";
 
+		/// <summary>
+		/// The fragment shader copy
+		/// </summary>
 		public const string FragmentShaderCopy = @"
 			#version 430 core
 			uniform sampler2D image;
@@ -59,6 +71,9 @@
 				gl_FragColor = texture(image, uv);
 			}";
 
+		/// <summary>
+		/// The fragment shader checker
+		/// </summary>
 		public const string FragmentShaderChecker = @"
 			#version 430 core
 			in vec2 uv;

@@ -5,20 +5,44 @@ using System.Collections.Generic;
 
 namespace Zenseless.OpenGL
 {
+	/// <summary>
+	/// 
+	/// </summary>
+	/// <seealso cref="Zenseless.OpenGL.IAnimation" />
 	public class AnimationTextures : IAnimation
 	{
+		/// <summary>
+		/// Initializes a new instance of the <see cref="AnimationTextures"/> class.
+		/// </summary>
+		/// <param name="animationLength">Length of the animation.</param>
 		public AnimationTextures(float animationLength)
 		{
 			this.AnimationLength = animationLength;
 		}
 
+		/// <summary>
+		/// Adds the frame.
+		/// </summary>
+		/// <param name="textureFrame">The texture frame.</param>
 		public void AddFrame(ITexture textureFrame)
 		{
 			textures.Add(textureFrame);
 		}
 
+		/// <summary>
+		/// Gets or sets the length of the animation.
+		/// </summary>
+		/// <value>
+		/// The length of the animation.
+		/// </value>
 		public float AnimationLength { get; set; }
 
+		/// <summary>
+		/// Gets the textures.
+		/// </summary>
+		/// <value>
+		/// The textures.
+		/// </value>
 		public IList<ITexture> Textures
 		{
 			get
@@ -43,7 +67,7 @@ namespace Zenseless.OpenGL
 		/// <summary>
 		/// draws a GL quad, textured with an animation.
 		/// </summary>
-		/// <param name="rectangle">coordinates ofthe GL quad</param>
+		/// <param name="rectangle">coordinates of the GL quad</param>
 		/// <param name="totalSeconds">animation position in seconds</param>
 		public void Draw(IImmutableBox2D rectangle, float totalSeconds)
 		{

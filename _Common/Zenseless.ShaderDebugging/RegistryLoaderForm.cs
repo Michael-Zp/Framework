@@ -5,13 +5,24 @@ using System.Windows.Forms;
 
 namespace Zenseless.ShaderDebugging
 {
+	/// <summary>
+	/// 
+	/// </summary>
 	public static class RegistryLoaderForm
 	{
+		/// <summary>
+		/// Gets the application key.
+		/// </summary>
+		/// <returns></returns>
 		public static RegistryKey GetAppKey()
 		{
 			return System.Windows.Forms.Application.UserAppDataRegistry;
 		}
 
+		/// <summary>
+		/// Loads the layout.
+		/// </summary>
+		/// <param name="form">The form.</param>
 		public static void LoadLayout(this Form form)
 		{
 			RegistryKey keyApp = GetAppKey();
@@ -31,6 +42,10 @@ namespace Zenseless.ShaderDebugging
 			}
 		}
 
+		/// <summary>
+		/// Saves the layout.
+		/// </summary>
+		/// <param name="form">The form.</param>
 		public static void SaveLayout(this Form form)
 		{
 			RegistryKey keyApp = GetAppKey();

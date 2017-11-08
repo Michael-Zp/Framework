@@ -6,8 +6,16 @@ using System.Runtime.InteropServices;
 
 namespace Zenseless.OpenGL
 {
+	/// <summary>
+	/// 
+	/// </summary>
+	/// <seealso cref="Zenseless.Base.Disposable" />
 	public class BufferObject : Disposable
 	{
+		/// <summary>
+		/// Initializes a new instance of the <see cref="BufferObject"/> class.
+		/// </summary>
+		/// <param name="bufferTarget">The buffer target.</param>
 		public BufferObject(BufferTarget bufferTarget)
 		{
 			BufferTarget = bufferTarget;
@@ -20,14 +28,33 @@ namespace Zenseless.OpenGL
 			GL.GenBuffers​(1, out bufferID);
 		}
 
+		/// <summary>
+		/// Gets the buffer target.
+		/// </summary>
+		/// <value>
+		/// The buffer target.
+		/// </value>
 		public BufferTarget BufferTarget { get; private set; }
+		/// <summary>
+		/// Gets the type.
+		/// </summary>
+		/// <value>
+		/// The type.
+		/// </value>
 		public ShaderResourceType Type { get; private set; }
 
+		/// <summary>
+		/// Activates this instance.
+		/// </summary>
 		public void Activate()
 		{
 			GL.BindBuffer​(BufferTarget, bufferID);
 		}
 
+		/// <summary>
+		/// Activates the bind.
+		/// </summary>
+		/// <param name="index">The index.</param>
 		public void ActivateBind(int index) //todo: more than one bound buffer is not working, but have different indices; test: glUniformBlockBinding
 		{
 			Activate();
@@ -35,11 +62,20 @@ namespace Zenseless.OpenGL
 			GL.BindBufferBase​(target, index, bufferID);
 		}
 
+		/// <summary>
+		/// Deactivates this instance.
+		/// </summary>
 		public void Deactivate()
 		{
 			GL.BindBuffer​(BufferTarget, 0);
 		}
 
+		/// <summary>
+		/// Sets the specified data.
+		/// </summary>
+		/// <typeparam name="DATA_ELEMENT_TYPE">The type of the ata element type.</typeparam>
+		/// <param name="data">The data.</param>
+		/// <param name="usageHint">The usage hint.</param>
 		public void Set<DATA_ELEMENT_TYPE>(DATA_ELEMENT_TYPE[] data, BufferUsageHint usageHint) where DATA_ELEMENT_TYPE : struct
 		{
 			Activate();
@@ -51,6 +87,12 @@ namespace Zenseless.OpenGL
 			Deactivate();
 		}
 
+		/// <summary>
+		/// Sets the specified data.
+		/// </summary>
+		/// <typeparam name="DATA_TYPE">The type of the ata type.</typeparam>
+		/// <param name="data">The data.</param>
+		/// <param name="usageHint">The usage hint.</param>
 		public void Set<DATA_TYPE>(DATA_TYPE data, BufferUsageHint usageHint) where DATA_TYPE : struct
 		{
 			Activate();
@@ -61,6 +103,9 @@ namespace Zenseless.OpenGL
 			Deactivate();
 		}
 
+		/// <summary>
+		/// Will be called from the default Dispose method.
+		/// </summary>
 		protected override void DisposeResources()
 		{
 			if (-1 == bufferID) return;

@@ -7,27 +7,61 @@ using Zenseless.Base;
 
 namespace Zenseless.OpenGL
 {
+	/// <summary>
+	/// 
+	/// </summary>
+	/// <seealso cref="System.Exception" />
 	[Serializable]
 	public class VAOException : Exception
 	{
 		/// <summary>
-		/// Initializes a new instance of the <see cref="VAOException"/> class.
+		/// Initializes a new instance of the <see cref="VAOException" /> class.
 		/// </summary>
 		/// <param name="msg">The error msg.</param>
 		public VAOException(string msg) : base(msg) { }
 	}
 
+	/// <summary>
+	/// 
+	/// </summary>
+	/// <seealso cref="Zenseless.Base.Disposable" />
 	public class VAO : Disposable
 	{
+		/// <summary>
+		/// Initializes a new instance of the <see cref="VAO"/> class.
+		/// </summary>
 		public VAO()
 		{
 			idVAO = GL.GenVertexArray();
 		}
 
+		/// <summary>
+		/// Gets the length of the identifier.
+		/// </summary>
+		/// <value>
+		/// The length of the identifier.
+		/// </value>
 		public int IDLength { get; private set; } = 0;
+		/// <summary>
+		/// Gets or sets the type of the primitive.
+		/// </summary>
+		/// <value>
+		/// The type of the primitive.
+		/// </value>
 		public PrimitiveType PrimitiveType { get; set; } = PrimitiveType.Triangles;
+		/// <summary>
+		/// Gets the type of the draw elements.
+		/// </summary>
+		/// <value>
+		/// The type of the draw elements.
+		/// </value>
 		public DrawElementsType DrawElementsType { get; private set; } = DrawElementsType.UnsignedShort;
 
+		/// <summary>
+		/// Sets the index.
+		/// </summary>
+		/// <typeparam name="IndexType">The type of the ndex type.</typeparam>
+		/// <param name="data">The data.</param>
 		public void SetIndex<IndexType>(IndexType[] data) where IndexType : struct
 		{
 			if (ReferenceEquals(null, data)) return;
@@ -47,6 +81,15 @@ namespace Zenseless.OpenGL
 			DrawElementsType = drawElementsType;
 		}
 
+		/// <summary>
+		/// Sets the attribute.
+		/// </summary>
+		/// <typeparam name="DataElement">The type of the ata element.</typeparam>
+		/// <param name="bindingID">The binding identifier.</param>
+		/// <param name="data">The data.</param>
+		/// <param name="type">The type.</param>
+		/// <param name="elementSize">Size of the element.</param>
+		/// <param name="perInstance">if set to <c>true</c> [per instance].</param>
 		public void SetAttribute<DataElement>(int bindingID, DataElement[] data, VertexAttribPointerType type, int elementSize, bool perInstance = false) where DataElement : struct
 		{
 			if (-1 == bindingID) return; //if attribute not used in shader or wrong name
@@ -75,7 +118,7 @@ namespace Zenseless.OpenGL
 		/// </summary>
 		/// <param name="bindingID">shader binding location</param>
 		/// <param name="data">array of Matrix4 inputs</param>
-		/// <param name="perInstance"></param>
+		/// <param name="perInstance">if set to <c>true</c> [per instance].</param>
 		public void SetAttribute(int bindingID, Matrix4[] data, bool perInstance = false)
 		{
 			if (-1 == bindingID) return; //if matrix not used in shader or wrong name
@@ -106,16 +149,28 @@ namespace Zenseless.OpenGL
 			}
 		}
 
+		/// <summary>
+		/// Activates this instance.
+		/// </summary>
 		public void Activate()
 		{
 			GL.BindVertexArray(idVAO);
 		}
 
+		/// <summary>
+		/// Deactivates this instance.
+		/// </summary>
 		public void Deactivate()
 		{
 			GL.BindVertexArray(0);
 		}
 
+		/// <summary>
+		/// Draws the arrays.
+		/// </summary>
+		/// <param name="type">The type.</param>
+		/// <param name="count">The count.</param>
+		/// <param name="start">The start.</param>
 		public void DrawArrays(PrimitiveType type, int count, int start = 0)
 		{
 			Activate();
@@ -123,6 +178,11 @@ namespace Zenseless.OpenGL
 			Deactivate();
 		}
 
+		/// <summary>
+		/// Draws the specified instance count.
+		/// </summary>
+		/// <param name="instanceCount">The instance count.</param>
+		/// <exception cref="Zenseless.OpenGL.VAOException">Empty id data set! Draw yourself using active/deactivate!</exception>
 		public void Draw(int instanceCount = 1)
 		{
 			if (0 == IDLength) throw new VAOException("Empty id data set! Draw yourself using active/deactivate!");
@@ -131,10 +191,25 @@ namespace Zenseless.OpenGL
 			Deactivate();
 		}
 
+		/// <summary>
+		/// The identifier vao
+		/// </summary>
 		private int idVAO;
+		/// <summary>
+		/// The identifier buffer binding
+		/// </summary>
 		private const int idBufferBinding = int.MaxValue;
+		/// <summary>
+		/// The bound buffers
+		/// </summary>
 		private Dictionary<int, BufferObject> boundBuffers = new Dictionary<int, BufferObject>();
 
+		/// <summary>
+		/// Gets the type of the draw elements.
+		/// </summary>
+		/// <param name="type">The type.</param>
+		/// <returns></returns>
+		/// <exception cref="Zenseless.OpenGL.VAOException">Invalid index type</exception>
 		private static DrawElementsType GetDrawElementsType(Type type)
 		{
 			if (type == typeof(byte)) return DrawElementsType.UnsignedByte;
@@ -142,7 +217,13 @@ namespace Zenseless.OpenGL
 			if (type == typeof(uint)) return DrawElementsType.UnsignedInt;
 			throw new VAOException("Invalid index type");
 		}
-		
+
+		/// <summary>
+		/// Requests the buffer.
+		/// </summary>
+		/// <param name="bindingID">The binding identifier.</param>
+		/// <param name="bufferTarget">The buffer target.</param>
+		/// <returns></returns>
 		private BufferObject RequestBuffer(int bindingID, BufferTarget bufferTarget)
 		{
 			if (!boundBuffers.TryGetValue(bindingID, out BufferObject buffer))
@@ -153,6 +234,9 @@ namespace Zenseless.OpenGL
 			return buffer;
 		}
 
+		/// <summary>
+		/// Will be called from the default Dispose method.
+		/// </summary>
 		protected override void DisposeResources()
 		{
 			foreach (var buffer in boundBuffers.Values)

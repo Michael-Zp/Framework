@@ -6,8 +6,9 @@ using Zenseless.HLGL;
 namespace Zenseless.OpenGL
 {
 	/// <summary>
-	/// allows to print text were the individual characters come all from a single texture 
+	/// allows to print text were the individual characters come all from a single texture
 	/// </summary>
+	/// <seealso cref="Zenseless.Base.Disposable" />
 	public class TextureFont : Disposable
 	{
 		/// <summary>
@@ -39,6 +40,11 @@ namespace Zenseless.OpenGL
 			}
 		}
 
+		/// <summary>
+		/// Converts the string2 ASCII.
+		/// </summary>
+		/// <param name="text">The text.</param>
+		/// <returns></returns>
 		public byte[] ConvertString2Ascii(string text)
 		{
 			byte[] bytes = new byte[text.Length];
@@ -51,6 +57,14 @@ namespace Zenseless.OpenGL
 			return bytes;
 		}
 
+		/// <summary>
+		/// Prints the specified x position.
+		/// </summary>
+		/// <param name="xPos">The x position.</param>
+		/// <param name="yPos">The y position.</param>
+		/// <param name="zPos">The z position.</param>
+		/// <param name="size">The size.</param>
+		/// <param name="text">The text.</param>
 		public void Print(float xPos, float yPos, float zPos, float size, string text)
 		{
 			GL.PushMatrix();
@@ -63,15 +77,34 @@ namespace Zenseless.OpenGL
 			GL.PopMatrix();
 		}
 
+		/// <summary>
+		/// Widthes the specified text.
+		/// </summary>
+		/// <param name="text">The text.</param>
+		/// <param name="size">The size.</param>
+		/// <returns></returns>
 		public float Width(string text, float size)
 		{
 			return text.Length * size * characterSpacing;
 		}
 
-		private readonly uint baseList = 0;	// Base Display List For The Font
+		/// <summary>
+		/// The base list
+		/// </summary>
+		private readonly uint baseList = 0; // Base Display List For The Font
+											/// <summary>
+											/// The tex font
+											/// </summary>
 		private readonly SpriteSheet texFont;
+		/// <summary>
+		/// The character spacing
+		/// </summary>
 		private readonly float characterSpacing;
 
+		/// <summary>
+		/// Prints the raw quads.
+		/// </summary>
+		/// <param name="text">The text.</param>
 		private void PrintRawQuads(byte[] text)
 		{
 			if (ReferenceEquals(null,  text)) return;
@@ -83,6 +116,9 @@ namespace Zenseless.OpenGL
 			GL.PopAttrib();
 		}
 
+		/// <summary>
+		/// Will be called from the default Dispose method.
+		/// </summary>
 		protected override void DisposeResources()
 		{
 			GL.DeleteLists(this.baseList, 256); // Delete All 256 Display Lists

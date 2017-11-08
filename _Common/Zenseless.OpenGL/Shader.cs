@@ -12,23 +12,53 @@ namespace Zenseless.OpenGL
 	/// <summary>
 	/// Shader class
 	/// </summary>
+	/// <seealso cref="Zenseless.Base.Disposable" />
+	/// <seealso cref="Zenseless.HLGL.IShader" />
 	/// todo: rename to ShaderProgram and create Shader classes to compile individual (fragment, vertex, ...) shaders
 	public class Shader : Disposable, IShader
 	{
+		/// <summary>
+		/// Gets a value indicating whether this instance is linked.
+		/// </summary>
+		/// <value>
+		/// <c>true</c> if this instance is linked; otherwise, <c>false</c>.
+		/// </value>
 		public bool IsLinked { get; private set; } = false;
 
+		/// <summary>
+		/// Gets the last log.
+		/// </summary>
+		/// <value>
+		/// The last log.
+		/// </value>
 		public string LastLog { get; private set; }
 
+		/// <summary>
+		/// Gets the program identifier.
+		/// </summary>
+		/// <value>
+		/// The program identifier.
+		/// </value>
 		public int ProgramID { get; private set; } = 0;
 
 		/// <summary>
-		/// Initializes a new instance of the <see cref="Shader"/> class.
+		/// Initializes a new instance of the <see cref="Shader" /> class.
 		/// </summary>
 		public Shader()
 		{
 			ProgramID = GL.CreateProgram();
 		}
 
+		/// <summary>
+		/// Compiles the specified s shader.
+		/// </summary>
+		/// <param name="sShader">The s shader.</param>
+		/// <param name="type">The type.</param>
+		/// <exception cref="ShaderCompileException">
+		/// Could not create " + type.ToString() + " object
+		/// or
+		/// Error compiling  " + type.ToString()
+		/// </exception>
 		public void Compile(string sShader, ShaderType type)
 		{
 			IsLinked = false;
@@ -64,6 +94,13 @@ namespace Zenseless.OpenGL
 			GL.UseProgram(0);
 		}
 
+		/// <summary>
+		/// Gets the resource location.
+		/// </summary>
+		/// <param name="resourceType">Type of the resource.</param>
+		/// <param name="name">The name.</param>
+		/// <returns></returns>
+		/// <exception cref="ArgumentOutOfRangeException">Unknown ShaderResourceType</exception>
 		public int GetResourceLocation(ShaderResourceType resourceType, string name)
 		{
 			switch(resourceType)
@@ -76,6 +113,14 @@ namespace Zenseless.OpenGL
 			}
 		}
 
+		/// <summary>
+		/// Links this instance.
+		/// </summary>
+		/// <exception cref="ShaderException">
+		/// Unknown Link error!
+		/// or
+		/// Error linking shader
+		/// </exception>
 		public void Link()
 		{
 			try
@@ -95,6 +140,9 @@ namespace Zenseless.OpenGL
 			RemoveShaders();
 		}
 
+		/// <summary>
+		/// Will be called from the default Dispose method.
+		/// </summary>
 		protected override void DisposeResources()
 		{
 			if (0 != ProgramID)
@@ -103,8 +151,17 @@ namespace Zenseless.OpenGL
 			}
 		}
 
+		/// <summary>
+		/// The shader i ds
+		/// </summary>
 		private List<int> shaderIDs = new List<int>();
 
+		/// <summary>
+		/// Converts the type.
+		/// </summary>
+		/// <param name="type">The type.</param>
+		/// <returns></returns>
+		/// <exception cref="ArgumentOutOfRangeException">Unknown Shader type</exception>
 		private TKShaderType ConvertType(ShaderType type)
 		{
 			switch(type)
@@ -119,11 +176,20 @@ namespace Zenseless.OpenGL
 			}
 		}
 
+		/// <summary>
+		/// Gets the index of the resource.
+		/// </summary>
+		/// <param name="name">The name.</param>
+		/// <param name="type">The type.</param>
+		/// <returns></returns>
 		private int GetResourceIndex(string name, ProgramInterface type)
 		{
 			return GL.GetProgramResourceIndex(ProgramID, type, name);
 		}
 
+		/// <summary>
+		/// Removes the shaders.
+		/// </summary>
 		private void RemoveShaders()
 		{
 			foreach (int id in shaderIDs)

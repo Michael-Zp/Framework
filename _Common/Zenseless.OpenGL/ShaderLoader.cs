@@ -6,8 +6,14 @@ using System.Text;
 
 namespace Zenseless.OpenGL
 {
+	/// <summary>
+	/// 
+	/// </summary>
 	public static class ShaderLoader
 	{
+		/// <summary>
+		/// The exception data file name
+		/// </summary>
 		public const string ExceptionDataFileName = "fileName";
 
 		/// <summary>
@@ -15,7 +21,9 @@ namespace Zenseless.OpenGL
 		/// </summary>
 		/// <param name="sVertexShd_">The s vertex SHD_.</param>
 		/// <param name="sFragmentShd_">The s fragment SHD_.</param>
-		/// <returns>a new instance</returns>
+		/// <returns>
+		/// a new instance
+		/// </returns>
 		public static Shader FromStrings(string sVertexShd_, string sFragmentShd_)
 		{
 			Shader shd = new Shader();
@@ -33,6 +41,13 @@ namespace Zenseless.OpenGL
 			return shd;
 		}
 
+		/// <summary>
+		/// Froms the strings.
+		/// </summary>
+		/// <param name="shader">The shader.</param>
+		/// <param name="sVertexShd_">The s vertex SHD.</param>
+		/// <param name="sFragmentShd_">The s fragment SHD.</param>
+		/// <returns></returns>
 		public static string FromStrings(this IShader shader, string sVertexShd_, string sFragmentShd_)
 		{
 			shader.Compile(sVertexShd_, ShaderType.VertexShader);
@@ -46,7 +61,10 @@ namespace Zenseless.OpenGL
 		/// </summary>
 		/// <param name="sVertexShdFile_">The s vertex SHD file_.</param>
 		/// <param name="sFragmentShdFile_">The s fragment SHD file_.</param>
-		/// <returns>a new instance</returns>
+		/// <returns>
+		/// a new instance
+		/// </returns>
+		/// <exception cref="ArgumentOutOfRangeException">FromFiles called with unexpected shader type</exception>
 		public static Shader FromFiles(string sVertexShdFile_, string sFragmentShdFile_)
 		{
 			string sVertexShd = ShaderStringFromFileWithIncludes(sVertexShdFile_, false);
@@ -80,7 +98,14 @@ namespace Zenseless.OpenGL
 		/// </summary>
 		/// <param name="shaderFile">path to the shader file</param>
 		/// <param name="testCompileInclude">should includes be compiled (for error checking) before beeing pasted into the including shader</param>
-		/// <returns>string with contents of shaderFile</returns>
+		/// <returns>
+		/// string with contents of shaderFile
+		/// </returns>
+		/// <exception cref="FileNotFoundException">
+		/// Could not find shader file '" + shaderFile + "'
+		/// or
+		/// Could not find include-file '" + sIncludeFileName + "' for shader '" + shaderFile + "'.
+		/// </exception>
 		public static string ShaderStringFromFileWithIncludes(string shaderFile, bool testCompileInclude)
 		{
 			string sShader = null;
@@ -137,6 +162,11 @@ namespace Zenseless.OpenGL
 			return sShader;
 		}
 
+		/// <summary>
+		/// Extracts the name of the file.
+		/// </summary>
+		/// <param name="e">The e.</param>
+		/// <returns></returns>
 		public static string ExtractFileName(this ShaderException e)
 		{
 			if (e.Data.Contains(ExceptionDataFileName))

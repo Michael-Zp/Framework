@@ -8,15 +8,59 @@ using System.Collections.Generic;
 namespace Zenseless.Application
 {
 	//todo: make this into a node with typed inputs and outputs
+	/// <summary>
+	/// 
+	/// </summary>
+	/// <seealso cref="Zenseless.HLGL.IDrawConfiguration" />
 	public class DrawConfiguration : IDrawConfiguration
 	{
+		/// <summary>
+		/// Gets or sets a value indicating whether [backface culling].
+		/// </summary>
+		/// <value>
+		///   <c>true</c> if [backface culling]; otherwise, <c>false</c>.
+		/// </value>
 		public bool BackfaceCulling { get; set; } = false;
+		/// <summary>
+		/// Gets or sets the instance count.
+		/// </summary>
+		/// <value>
+		/// The instance count.
+		/// </value>
 		public int InstanceCount { get; set; } = 1;
+		/// <summary>
+		/// Gets or sets a value indicating whether [shader point size].
+		/// </summary>
+		/// <value>
+		///   <c>true</c> if [shader point size]; otherwise, <c>false</c>.
+		/// </value>
 		public bool ShaderPointSize { get; set; } = false;
+		/// <summary>
+		/// Gets the shader.
+		/// </summary>
+		/// <value>
+		/// The shader.
+		/// </value>
 		public IShader Shader { get; private set; }
+		/// <summary>
+		/// Gets the vao.
+		/// </summary>
+		/// <value>
+		/// The vao.
+		/// </value>
 		public VAO Vao { get; private set; }
+		/// <summary>
+		/// Gets or sets a value indicating whether [z buffer test].
+		/// </summary>
+		/// <value>
+		///   <c>true</c> if [z buffer test]; otherwise, <c>false</c>.
+		/// </value>
 		public bool ZBufferTest { get; set; } = false;
 
+		/// <summary>
+		/// Draws the specified context.
+		/// </summary>
+		/// <param name="context">The context.</param>
 		public void Draw(IRenderContext context)
 		{
 			var stateManager = context.StateManager;
@@ -50,36 +94,70 @@ namespace Zenseless.Application
 			UnbindTextures();
 		}
 
+		/// <summary>
+		/// Sets the input texture.
+		/// </summary>
+		/// <param name="name">The name.</param>
+		/// <param name="image">The image.</param>
 		public void SetInputTexture(string name, IRenderSurface image)
 		{
 			textures[name] = image.Texture;
 		}
 
+		/// <summary>
+		/// Sets the input texture.
+		/// </summary>
+		/// <param name="name">The name.</param>
 		public void SetInputTexture(string name)
 		{
 			textures[name] = ResourceManager.Instance.Get<ITexture>(name).Value;
 		}
 
+		/// <summary>
+		/// Updates the instance attribute.
+		/// </summary>
+		/// <param name="name">The name.</param>
+		/// <param name="data">The data.</param>
 		public void UpdateInstanceAttribute(string name, int[] data)
 		{
 			Vao.SetAttribute(GetAttributeShaderLocationAndCheckVao(name), data, VertexAttribPointerType.Int, 1, true);
 		}
 
+		/// <summary>
+		/// Updates the instance attribute.
+		/// </summary>
+		/// <param name="name">The name.</param>
+		/// <param name="data">The data.</param>
 		public void UpdateInstanceAttribute(string name, float[] data)
 		{
 			Vao.SetAttribute(GetAttributeShaderLocationAndCheckVao(name), data, VertexAttribPointerType.Float, 1, true);
 		}
 
+		/// <summary>
+		/// Updates the instance attribute.
+		/// </summary>
+		/// <param name="name">The name.</param>
+		/// <param name="data">The data.</param>
 		public void UpdateInstanceAttribute(string name, System.Numerics.Vector2[] data)
 		{
 			Vao.SetAttribute(GetAttributeShaderLocationAndCheckVao(name), data, VertexAttribPointerType.Float, 2, true);
 		}
 
+		/// <summary>
+		/// Updates the instance attribute.
+		/// </summary>
+		/// <param name="name">The name.</param>
+		/// <param name="data">The data.</param>
 		public void UpdateInstanceAttribute(string name, System.Numerics.Vector3[] data)
 		{
 			Vao.SetAttribute(GetAttributeShaderLocationAndCheckVao(name), data, VertexAttribPointerType.Float, 3, true);
 		}
 
+		/// <summary>
+		/// Updates the instance attribute.
+		/// </summary>
+		/// <param name="name">The name.</param>
+		/// <param name="data">The data.</param>
 		public void UpdateInstanceAttribute(string name, System.Numerics.Vector4[] data)
 		{
 			Vao.SetAttribute(GetAttributeShaderLocationAndCheckVao(name), data, VertexAttribPointerType.Float, 4, true);
@@ -90,6 +168,16 @@ namespace Zenseless.Application
 		//	Vao.SetAttribute(GetAttributeShaderLocationAndCheckVao(name), data, VertexAttribPointerType.Float, 3, true);
 		//}
 
+		/// <summary>
+		/// Updates the mesh shader.
+		/// </summary>
+		/// <param name="mesh">The mesh.</param>
+		/// <param name="shaderName">Name of the shader.</param>
+		/// <exception cref="ArgumentException">
+		/// A shaderName is required
+		/// or
+		/// Shader '" + shaderName + "' does not exist
+		/// </exception>
 		public void UpdateMeshShader(DefaultMesh mesh, string shaderName)
 		{
 			if (string.IsNullOrWhiteSpace(shaderName)) throw new ArgumentException("A shaderName is required");
@@ -100,6 +188,12 @@ namespace Zenseless.Application
 			Vao = ReferenceEquals(null, mesh) ? null : VAOLoader.FromMesh(mesh, Shader);
 		}
 
+		/// <summary>
+		/// Updates the uniforms.
+		/// </summary>
+		/// <typeparam name="DATA">The type of the ata.</typeparam>
+		/// <param name="name">The name.</param>
+		/// <param name="uniforms">The uniforms.</param>
 		public void UpdateUniforms<DATA>(string name, DATA uniforms) where DATA : struct
 		{
 			BufferObject buffer;
@@ -111,6 +205,12 @@ namespace Zenseless.Application
 			buffer.Set(uniforms, BufferUsageHint.StaticRead);
 		}
 
+		/// <summary>
+		/// Updates the shader buffer.
+		/// </summary>
+		/// <typeparam name="DATA_ELEMENT_TYPE">The type of the ata element type.</typeparam>
+		/// <param name="name">The name.</param>
+		/// <param name="uniformArray">The uniform array.</param>
 		public void UpdateShaderBuffer<DATA_ELEMENT_TYPE>(string name, DATA_ELEMENT_TYPE[] uniformArray) where DATA_ELEMENT_TYPE : struct
 		{
 			BufferObject buffer;
@@ -122,9 +222,19 @@ namespace Zenseless.Application
 			buffer.Set(uniformArray, BufferUsageHint.StaticCopy);
 		}
 
+		/// <summary>
+		/// The textures
+		/// </summary>
 		private Dictionary<string, ITexture> textures = new Dictionary<string, ITexture>();
+		/// <summary>
+		/// The buffers
+		/// </summary>
 		private Dictionary<string, BufferObject> buffers = new Dictionary<string, BufferObject>();
 
+		/// <summary>
+		/// Activates the buffers.
+		/// </summary>
+		/// <exception cref="ArgumentException">Could not find shader parameters '" + uBuffer.Key + "'</exception>
 		private void ActivateBuffers()
 		{
 			foreach (var uBuffer in buffers)
@@ -135,6 +245,9 @@ namespace Zenseless.Application
 			}
 		}
 
+		/// <summary>
+		/// Deactivates the buffers.
+		/// </summary>
 		private void DeactivateBuffers()
 		{
 			foreach (var uBuffer in buffers)
@@ -143,6 +256,9 @@ namespace Zenseless.Application
 			}
 		}
 
+		/// <summary>
+		/// Binds the textures.
+		/// </summary>
 		private void BindTextures()
 		{
 			int id = 0;
@@ -167,6 +283,9 @@ namespace Zenseless.Application
 			}
 		}
 
+		/// <summary>
+		/// Unbinds the textures.
+		/// </summary>
 		private void UnbindTextures()
 		{
 			int id = 0;
@@ -179,6 +298,12 @@ namespace Zenseless.Application
 			GL.ActiveTexture(TextureUnit.Texture0);
 		}
 
+		/// <summary>
+		/// Gets the attribute shader location and check vao.
+		/// </summary>
+		/// <param name="name">The name.</param>
+		/// <returns></returns>
+		/// <exception cref="InvalidOperationException">Specify mesh before setting instance attributes</exception>
 		private int GetAttributeShaderLocationAndCheckVao(string name)
 		{
 			if (ReferenceEquals(null, Vao)) throw new InvalidOperationException("Specify mesh before setting instance attributes");

@@ -2,21 +2,46 @@
 
 namespace Zenseless.Geometry
 {
+	/// <summary>
+	/// 
+	/// </summary>
 	public class Obj2Mesh
 	{
+		/// <summary>
+		/// 
+		/// </summary>
+		/// <seealso cref="IEqualityComparer{Vertex}" />
 		private class VertexComparer : IEqualityComparer<ObjParser.Vertex>
 		{
+			/// <summary>
+			/// Test if a and b are equal.
+			/// </summary>
+			/// <param name="a">a.</param>
+			/// <param name="b">The b.</param>
+			/// <returns></returns>
 			public bool Equals(ObjParser.Vertex a, ObjParser.Vertex b)
 			{
 				return (a.idNormal == b.idNormal) && (a.idPos == b.idPos) && (a.idTexCoord == b.idTexCoord);
 			}
 
+			/// <summary>
+			/// Returns a hash code for this instance.
+			/// </summary>
+			/// <param name="obj">The object.</param>
+			/// <returns>
+			/// A hash code for this instance, suitable for use in hashing algorithms and data structures like a hash table. 
+			/// </returns>
 			public int GetHashCode(ObjParser.Vertex obj)
 			{
 				return obj.idPos;
 			}
 		}
 
+		/// <summary>
+		/// Froms the object.
+		/// </summary>
+		/// <param name="objByteData">The object byte data.</param>
+		/// <returns></returns>
 		public static DefaultMesh FromObj(byte[] objByteData)
 		{
 			var parser = new ObjParser(objByteData);

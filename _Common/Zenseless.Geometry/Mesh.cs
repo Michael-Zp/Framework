@@ -9,8 +9,21 @@ namespace Zenseless.Geometry
 	/// </summary>
 	public class Mesh
 	{
+		/// <summary>
+		/// Gets the i ds.
+		/// </summary>
+		/// <value>
+		/// The i ds.
+		/// </value>
 		public List<uint> IDs { get; private set; } = new List<uint>();
 
+		/// <summary>
+		/// Adds the attribute.
+		/// </summary>
+		/// <typeparam name="ELEMENT_TYPE">The type of the element.</typeparam>
+		/// <param name="name">The attribute name.</param>
+		/// <returns></returns>
+		/// <exception cref="ArgumentException"></exception>
 		public List<ELEMENT_TYPE> AddAttribute<ELEMENT_TYPE>(string name)
 		{
 			if (Contains(name)) throw new ArgumentException($"Attribute '{name}' already exists");
@@ -19,8 +32,23 @@ namespace Zenseless.Geometry
 			return attribute;
 		}
 
+		/// <summary>
+		/// Determines whether [contains] [the specified name].
+		/// </summary>
+		/// <param name="name">The name.</param>
+		/// <returns>
+		///   <c>true</c> if [contains] [the specified name]; otherwise, <c>false</c>.
+		/// </returns>
 		public bool Contains(string name) => attributes.ContainsKey(name);
 
+		/// <summary>
+		/// Gets the specified name.
+		/// </summary>
+		/// <typeparam name="ELEMENT_TYPE">The type of the lement type.</typeparam>
+		/// <param name="name">The name.</param>
+		/// <returns></returns>
+		/// <exception cref="InvalidCastException"></exception>
+		/// <exception cref="KeyNotFoundException"></exception>
 		public List<ELEMENT_TYPE> Get<ELEMENT_TYPE>(string name)
 		{
 			if (attributes.TryGetValue(name, out object data))
@@ -35,6 +63,9 @@ namespace Zenseless.Geometry
 			throw new KeyNotFoundException($"No attribute with name '{name}' stored.");
 		}
 
+		/// <summary>
+		/// The attributes
+		/// </summary>
 		private Dictionary<string, object> attributes = new Dictionary<string, object>();
 	}
 }

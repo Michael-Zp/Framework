@@ -4,8 +4,19 @@ using Zenseless.HLGL;
 
 namespace Zenseless.OpenGL
 {
+	/// <summary>
+	/// 
+	/// </summary>
+	/// <seealso cref="Zenseless.OpenGL.IAnimation" />
 	public class SpriteSheetAnimation : IAnimation
 	{
+		/// <summary>
+		/// Initializes a new instance of the <see cref="SpriteSheetAnimation"/> class.
+		/// </summary>
+		/// <param name="spriteSheet">The sprite sheet.</param>
+		/// <param name="fromID">From identifier.</param>
+		/// <param name="toID">To identifier.</param>
+		/// <param name="animationLength">Length of the animation.</param>
 		public SpriteSheetAnimation(SpriteSheet spriteSheet, uint fromID, uint toID, float animationLength)
 		{
 			this.spriteSheet = spriteSheet;
@@ -14,9 +25,33 @@ namespace Zenseless.OpenGL
 			AnimationLength = animationLength;
 		}
 
+		/// <summary>
+		/// Gets or sets the length of the animation.
+		/// </summary>
+		/// <value>
+		/// The length of the animation.
+		/// </value>
 		public float AnimationLength { get; set; }
+		/// <summary>
+		/// Gets or sets from identifier.
+		/// </summary>
+		/// <value>
+		/// From identifier.
+		/// </value>
 		public uint FromID { get; set; }
+		/// <summary>
+		/// Gets the sprite sheet.
+		/// </summary>
+		/// <value>
+		/// The sprite sheet.
+		/// </value>
 		public SpriteSheet spriteSheet { get; private set; }
+		/// <summary>
+		/// Gets or sets to identifier.
+		/// </summary>
+		/// <value>
+		/// To identifier.
+		/// </value>
 		public uint ToID { get; set; }
 
 		/// <summary>
@@ -26,7 +61,9 @@ namespace Zenseless.OpenGL
 		/// <param name="toID">sprite id for last animation frame</param>
 		/// <param name="animationLength">total animation time in seconds</param>
 		/// <param name="time">current time</param>
-		/// <returns>sprite id of the current frame of the animation</returns>
+		/// <returns>
+		/// sprite id of the current frame of the animation
+		/// </returns>
 		public static uint CalcAnimationSpriteID(uint fromID, uint toID, float animationLength, float time)
 		{
 			float normalizedDeltaTime = (time % animationLength) / animationLength;

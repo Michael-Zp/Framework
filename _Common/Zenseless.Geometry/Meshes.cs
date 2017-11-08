@@ -3,8 +3,16 @@ using System.Numerics;
 
 namespace Zenseless.Geometry
 {
+	/// <summary>
+	/// 
+	/// </summary>
 	public static partial class Meshes
 	{
+		/// <summary>
+		/// Sets the constant uv.
+		/// </summary>
+		/// <param name="mesh">The mesh.</param>
+		/// <param name="uv">The uv.</param>
 		public static void SetConstantUV(this DefaultMesh mesh, Vector2 uv)
 		{
 			var uvs = mesh.TexCoord;
@@ -22,6 +30,14 @@ namespace Zenseless.Geometry
 			}
 		}
 
+		/// <summary>
+		/// Adds the specified b.
+		/// </summary>
+		/// <param name="a">a.</param>
+		/// <param name="b">The b.</param>
+		/// <exception cref="ArgumentException">Original mesh has no normals, but added mesh has normals
+		/// or
+		/// Original mesh has no uvs, but added mesh has uvs</exception>
 		public static void Add(this DefaultMesh a, DefaultMesh b)
 		{
 			var count = (uint)a.Position.Count;
@@ -42,6 +58,12 @@ namespace Zenseless.Geometry
 			}
 		}
 
+		/// <summary>
+		/// Transforms the specified transform.
+		/// </summary>
+		/// <param name="m">The m.</param>
+		/// <param name="transform">The transform.</param>
+		/// <returns></returns>
 		public static DefaultMesh Transform(this DefaultMesh m, Matrix4x4 transform)
 		{
 			var mesh = new DefaultMesh();
@@ -60,6 +82,11 @@ namespace Zenseless.Geometry
 			return mesh;
 		}
 
+		/// <summary>
+		/// Switches the handedness.
+		/// </summary>
+		/// <param name="m">The m.</param>
+		/// <returns></returns>
 		public static DefaultMesh SwitchHandedness(this DefaultMesh m)
 		{
 			var mesh = new DefaultMesh();
@@ -80,6 +107,11 @@ namespace Zenseless.Geometry
 			return mesh;
 		}
 
+		/// <summary>
+		/// Flips the normals.
+		/// </summary>
+		/// <param name="m">The m.</param>
+		/// <returns></returns>
 		public static DefaultMesh FlipNormals(this DefaultMesh m)
 		{
 			var mesh = new DefaultMesh();
@@ -94,6 +126,11 @@ namespace Zenseless.Geometry
 			return mesh;
 		}
 
+		/// <summary>
+		/// Switches the triangle mesh winding.
+		/// </summary>
+		/// <param name="m">The m.</param>
+		/// <returns></returns>
 		public static DefaultMesh SwitchTriangleMeshWinding(this DefaultMesh m)
 		{
 			var mesh = new DefaultMesh();
@@ -109,6 +146,13 @@ namespace Zenseless.Geometry
 			return mesh;
 		}
 
+		/// <summary>
+		/// Creates the cornell box.
+		/// </summary>
+		/// <param name="roomSize">Size of the room.</param>
+		/// <param name="sphereRadius">The sphere radius.</param>
+		/// <param name="cubeSize">Size of the cube.</param>
+		/// <returns></returns>
 		public static DefaultMesh CreateCornellBox(float roomSize = 2, float sphereRadius = 0.3f, float cubeSize = 0.6f)
 		{
 			var mesh = new DefaultMesh();
@@ -145,11 +189,24 @@ namespace Zenseless.Geometry
 			mesh.Add(cube.Transform(xform));
 			return mesh;
 		}
+		/// <summary>
+		/// 
+		/// </summary>
 		public struct CornellBoxMaterial //use 16 byte alignment or you have to query all variable offsets
 		{
+			/// <summary>
+			/// The color
+			/// </summary>
 			public Vector3 color;
+			/// <summary>
+			/// The shininess
+			/// </summary>
 			public float shininess;
 		};
+		/// <summary>
+		/// Creates the cornell box material.
+		/// </summary>
+		/// <returns></returns>
 		public static CornellBoxMaterial[] CreateCornellBoxMaterial()
 		{
 			var materials = new CornellBoxMaterial[4];
@@ -168,7 +225,9 @@ namespace Zenseless.Geometry
 		/// Creates a cube made up of pairs of triangles; stored as an indexed vertex array
 		/// </summary>
 		/// <param name="size">length of one side</param>
-		/// <returns>Mesh with positions, ids, normals</returns>
+		/// <returns>
+		/// Mesh with positions, ids, normals
+		/// </returns>
 		public static DefaultMesh CreateCubeWithNormals(float size = 1.0f)
 		{
 			var m = new DefaultMesh();
@@ -184,7 +243,9 @@ namespace Zenseless.Geometry
 		/// </summary>
 		/// <param name="radius">radius</param>
 		/// <param name="subdivision">subdivision count, each subdivision creates 4 times more faces</param>
-		/// <returns>Mesh with positions, ids, normals</returns>
+		/// <returns>
+		/// Mesh with positions, ids, normals
+		/// </returns>
 		public static DefaultMesh CreateSphere(float radius = 1.0f, uint subdivision = 1)
 		{
 			var m = new DefaultMesh();
@@ -201,7 +262,9 @@ namespace Zenseless.Geometry
 		/// creates an icosahedron made up of pairs of triangles; stored as an indexed vertex array
 		/// </summary>
 		/// <param name="radius">radius</param>
-		/// <returns>Mesh with positions, ids, normals</returns>
+		/// <returns>
+		/// Mesh with positions, ids, normals
+		/// </returns>
 		public static DefaultMesh CreateIcosahedron(float radius)
 		{
 			return CreateSphere(radius, 0);
@@ -214,7 +277,9 @@ namespace Zenseless.Geometry
 		/// <param name="sizeZ">extent of the grid in the z-coordinate axis</param>
 		/// <param name="segmentsX">number of grid segments in the x-coordinate axis</param>
 		/// <param name="segmentsZ">number of grid segments in the z-coordinate axis</param>
-		/// <returns>Mesh with positions, ids, normals, and uvs</returns>
+		/// <returns>
+		/// Mesh with positions, ids, normals, and uvs
+		/// </returns>
 		public static DefaultMesh CreatePlane(float sizeX, float sizeZ, uint segmentsX, uint segmentsZ)
 		{
 			var m = new DefaultMesh();

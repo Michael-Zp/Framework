@@ -5,18 +5,34 @@ using System;
 
 namespace Zenseless.OpenGL
 {
+	/// <summary>
+	/// 
+	/// </summary>
+	/// <seealso cref="System.Exception" />
 	[Serializable]
 	public class FBOException : Exception
 	{
 		/// <summary>
-		/// Initializes a new instance of the <see cref="FBOException"/> class.
+		/// Initializes a new instance of the <see cref="FBOException" /> class.
 		/// </summary>
 		/// <param name="msg">The error msg.</param>
 		public FBOException(string msg) : base(msg) { }
 	}
 
+	/// <summary>
+	/// 
+	/// </summary>
+	/// <seealso cref="Zenseless.Base.Disposable" />
 	public class FBO : Disposable
 	{
+		/// <summary>
+		/// Initializes a new instance of the <see cref="FBO"/> class.
+		/// </summary>
+		/// <param name="texture">The texture.</param>
+		/// <exception cref="Zenseless.OpenGL.FBOException">
+		/// Texture is null
+		/// or
+		/// </exception>
 		public FBO(ITexture2D texture)
 		{
 			if (ReferenceEquals(null, texture)) throw new FBOException("Texture is null");
@@ -36,9 +52,24 @@ namespace Zenseless.OpenGL
 			}
 		}
 
+		/// <summary>
+		/// Gets a value indicating whether this instance is active.
+		/// </summary>
+		/// <value>
+		///   <c>true</c> if this instance is active; otherwise, <c>false</c>.
+		/// </value>
 		public bool IsActive {  get { return currentFrameBufferHandle == m_FBOHandle; } }
+		/// <summary>
+		/// Gets the texture.
+		/// </summary>
+		/// <value>
+		/// The texture.
+		/// </value>
 		public ITexture2D Texture { get { return texture; } }
 
+		/// <summary>
+		/// Activates this instance.
+		/// </summary>
 		public void Activate()
 		{
 			GL.PushAttrib(AttribMask.ViewportBit);
@@ -48,6 +79,9 @@ namespace Zenseless.OpenGL
 			currentFrameBufferHandle = m_FBOHandle;
 		}
 
+		/// <summary>
+		/// Deactivates this instance.
+		/// </summary>
 		public void Deactivate()
 		{
 			GL.BindFramebuffer(FramebufferTarget.FramebufferExt, lastFBO);
@@ -55,11 +89,27 @@ namespace Zenseless.OpenGL
 			currentFrameBufferHandle = lastFBO;
 		}
 
+		/// <summary>
+		/// The texture
+		/// </summary>
 		private ITexture2D texture;
+		/// <summary>
+		/// The m fbo handle
+		/// </summary>
 		private uint m_FBOHandle = 0;
+		/// <summary>
+		/// The last fbo
+		/// </summary>
 		private uint lastFBO = 0;
+		/// <summary>
+		/// The current frame buffer handle
+		/// </summary>
 		private static uint currentFrameBufferHandle = 0;
 
+		/// <summary>
+		/// Gets the status message.
+		/// </summary>
+		/// <returns></returns>
 		private string GetStatusMessage()
 		{
 			switch (GL.CheckFramebufferStatus(FramebufferTarget.Framebuffer))
@@ -76,6 +126,9 @@ namespace Zenseless.OpenGL
 			}
 		}
 
+		/// <summary>
+		/// Will be called from the default Dispose method.
+		/// </summary>
 		protected override void DisposeResources()
 		{
 			GL.DeleteFramebuffers(1, ref m_FBOHandle);
