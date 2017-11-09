@@ -1,15 +1,15 @@
 ﻿using Zenseless.Base;
-using Zenseless.TimeTools;
 using NAudio.Wave;
 using System;
 
 namespace Zenseless.Sound
 {
 	/// <summary>
-	/// 
+	/// Encapsulates the playing and seeking of an audio file (unbuffered). 
+	/// Intended for use in multi-media applications.
 	/// </summary>
 	/// <seealso cref="Zenseless.Base.Disposable" />
-	/// <seealso cref="Zenseless.TimeTools.ITimeSource" />
+	/// <seealso cref="Zenseless.Base.ITimeSource" />
 	public class SoundTimeSource : Disposable, ITimeSource
 	{
 		/// <summary>
@@ -25,8 +25,10 @@ namespace Zenseless.Sound
 		{
 			waveOutDevice = new WaveOut();
 			audioFileReader = new AudioFileReader(fileName);
-			loopingWaveStream = new SoundLoopStream(audioFileReader);
-			loopingWaveStream.EnableLooping = false;
+			loopingWaveStream = new SoundLoopStream(audioFileReader)
+			{
+				EnableLooping = false
+			};
 			waveOutDevice.Init(loopingWaveStream);
 			waveOutDevice.PlaybackStopped += (s, a) => playing = false;
 			length = (float)audioFileReader.TotalTime.TotalSeconds;
@@ -46,7 +48,8 @@ namespace Zenseless.Sound
 		}
 
 		/// <summary>
-		/// Gets or sets a value indicating whether this instance is looping.
+		/// Lopping means that after the time source was running for its length it will
+		/// continue to run from the beginning
 		/// </summary>
 		/// <value>
 		/// <c>true</c> if this instance is looping; otherwise, <c>false</c>.
@@ -58,7 +61,7 @@ namespace Zenseless.Sound
 		}
 
 		/// <summary>
-		/// Gets or sets a value indicating whether this instance is running.
+		/// Gets or sets a value indicating whether this instance is running and the position is changing.
 		/// </summary>
 		/// <value>
 		/// <c>true</c> if this instance is running; otherwise, <c>false</c>.
@@ -70,10 +73,10 @@ namespace Zenseless.Sound
 		}
 
 		/// <summary>
-		/// Gets or sets the position.
+		/// Gets or sets the position in seconds.
 		/// </summary>
 		/// <value>
-		/// The position.
+		/// The position in seconds.
 		/// </value>
 		public float Position
 		{

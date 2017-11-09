@@ -1,6 +1,6 @@
 ﻿using Zenseless.Application;
 using Zenseless.Geometry;
-using Zenseless.TimeTools;
+using Zenseless.Base;
 using OpenTK.Graphics.OpenGL;
 using OpenTK.Input;
 using System;

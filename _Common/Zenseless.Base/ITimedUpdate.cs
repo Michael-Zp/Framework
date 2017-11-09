@@ -1,4 +1,4 @@
-﻿namespace Zenseless.TimeTools
+﻿namespace Zenseless.Base
 {
 	/// <summary>
 	/// 

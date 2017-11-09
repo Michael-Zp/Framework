@@ -244,9 +244,11 @@ namespace ShaderForm
 
 			foreach (var shaderPath in demo.Shaders)
 			{
-				var menu = new ToolStripMenuItem();
-				menu.Text = shaderPath;
-				menu.ToolTipText = "Right click removes shader";
+				var menu = new ToolStripMenuItem
+				{
+					Text = shaderPath,
+					ToolTipText = "Right click removes shader"
+				};
 				menu.MouseDown += MenuShader_MouseDown;
 				menuShaders.DropDownItems.Add(menu);
 				Text = Path.GetFileNameWithoutExtension(shaderPath); //set name of last loaded shader as window caption
@@ -277,9 +279,11 @@ namespace ShaderForm
 			while (menuTextures.DropDownItems.Count > 1) menuTextures.DropDownItems.RemoveAt(1);
 			foreach (var textureName in demo.Textures)
 			{
-				var menu = new ToolStripMenuItem();
-				menu.Text = textureName;
-				menu.ToolTipText = "Right click removes shader";
+				var menu = new ToolStripMenuItem
+				{
+					Text = textureName,
+					ToolTipText = "Right click removes shader"
+				};
 				menu.MouseDown += MenuTexture_MouseDown;
 				menuTextures.DropDownItems.Add(menu);
 			}
@@ -288,20 +292,26 @@ namespace ShaderForm
 
 		private void Uniforms_OnAdd(object sender, string uniformName)
 		{
-			var menu = new ToolStripMenuItem();
-			menu.Name = uniformName;
-			menu.Text = uniformName;
-			menu.ToolTipText = "Right click removes uniform";
+			var menu = new ToolStripMenuItem
+			{
+				Name = uniformName,
+				Text = uniformName,
+				ToolTipText = "Right click removes uniform"
+			};
 			menu.MouseDown += MenuUniform_MouseDown;
 			menuUniforms.DropDownItems.Add(menu);
-			var menuCopy = new ToolStripMenuItem();
-			menuCopy.Text = "Copy";
-			menuCopy.ToolTipText = "copy keyframe data to clipboard";
+			var menuCopy = new ToolStripMenuItem
+			{
+				Text = "Copy",
+				ToolTipText = "copy keyframe data to clipboard"
+			};
 			menuCopy.Click += (snder, args) => demo.Uniforms.GetKeyFrames(uniformName).CopyKeyframesToClipboard();
 			menu.DropDownItems.Add(menuCopy);
-			var menuPaste = new ToolStripMenuItem();
-			menuPaste.Text = "Paste";
-			menuPaste.ToolTipText = "paste keyframe data from clipboard";
+			var menuPaste = new ToolStripMenuItem
+			{
+				Text = "Paste",
+				ToolTipText = "paste keyframe data from clipboard"
+			};
 			menuPaste.Click += (snder, args) => demo.Uniforms.GetKeyFrames(uniformName).PasteKeyframesFromClipboard();
 			menu.DropDownItems.Add(menuPaste);
 		}

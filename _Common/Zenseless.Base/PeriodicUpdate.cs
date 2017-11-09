@@ -1,9 +1,9 @@
-﻿namespace Zenseless.TimeTools
+﻿namespace Zenseless.Base
 {
 	/// <summary>
-	/// Invokes a registered callback in regular intervalls
+	/// Invokes a registered callback in regular intervals
 	/// </summary>
-	/// <seealso cref="Zenseless.TimeTools.ITimedUpdate" />
+	/// <seealso cref="Zenseless.Base.ITimedUpdate" />
 	public class PeriodicUpdate : ITimedUpdate
 	{
 		/// <summary>
@@ -98,7 +98,7 @@
 		}
 
 		/// <summary>
-		/// The absolute time
+		/// The absolute time in seconds
 		/// </summary>
 		private float absoluteTime = 0.0f;
 	}

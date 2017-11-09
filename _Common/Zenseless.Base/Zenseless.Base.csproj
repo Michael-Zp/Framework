@@ -42,10 +42,15 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Disposable.cs" />
+    <Compile Include="FPSCounter.cs" />
     <Compile Include="ImageListTools.cs" />
+    <Compile Include="ITimedUpdate.cs" />
+    <Compile Include="ITimeSource.cs" />
     <Compile Include="PathTools.cs" />
+    <Compile Include="PeriodicUpdate.cs" />
     <Compile Include="Serialize.cs" />
     <Compile Include="Converter.cs" />
+    <Compile Include="TimeSource.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

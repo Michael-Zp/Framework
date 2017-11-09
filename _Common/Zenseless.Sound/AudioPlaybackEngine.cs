@@ -7,7 +7,7 @@ using System.IO;
 namespace Zenseless.Sound
 {
 	/// <summary>
-	/// This class allows the mixed playing of sounds from streams or files. 
+	/// This class allows the playing of multiple sounds from streams or files at the same time. 
 	/// All sounds are required to have the same sampling frequency.
 	/// </summary>
 	public class AudioPlaybackEngine : Disposable

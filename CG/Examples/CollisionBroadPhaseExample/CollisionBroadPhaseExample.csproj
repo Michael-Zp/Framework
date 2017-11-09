@@ -64,10 +64,6 @@
       <Project>{B37B7DDE-435B-4F27-9A9B-9B6DF8744EBE}</Project>
       <Name>Zenseless.Geometry</Name>
     </ProjectReference>
-    <ProjectReference Include="..\..\..\_Common\Zenseless.TimeTools\Zenseless.TimeTools.csproj">
-      <Project>{54156018-0F41-4EEF-AEB4-F1C99CF7A2AB}</Project>
-      <Name>Zenseless.TimeTools</Name>
-    </ProjectReference>
   </ItemGroup>
   <ItemGroup>
     <PackageReference Include="OpenTK">

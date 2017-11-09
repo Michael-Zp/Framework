@@ -1,4 +1,4 @@
-﻿using Zenseless.TimeTools;
+﻿using Zenseless.Base;
 using Zenseless.Geometry;
 
 namespace MiniGalaxyBirds

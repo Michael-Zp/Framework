@@ -1,6 +1,6 @@
 ﻿using System.Diagnostics;
 
-namespace Zenseless.TimeTools
+namespace Zenseless.Base
 {
 	/// <summary>
 	/// 

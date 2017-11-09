@@ -1,12 +1,12 @@
 ﻿using System.Diagnostics;
 using System.Timers;
 
-namespace Zenseless.TimeTools
+namespace Zenseless.Base
 {
 	/// <summary>
 	/// 
 	/// </summary>
-	/// <seealso cref="Zenseless.TimeTools.ITimeSource" />
+	/// <seealso cref="Zenseless.Base.ITimeSource" />
 	public class TimeSource : ITimeSource
 	{
 		/// <summary>
