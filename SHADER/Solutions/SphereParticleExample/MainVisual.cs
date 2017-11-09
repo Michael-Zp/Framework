@@ -2,7 +2,6 @@
 using OpenTK.Graphics.OpenGL4;
 using System;
 using System.Numerics;
-using System.Diagnostics;
 using Zenseless.Geometry;
 using Zenseless.HLGL;
 
@@ -19,7 +18,6 @@ namespace Example
 
 			GL.Enable(EnableCap.DepthTest);
 			GL.Enable(EnableCap.CullFace);
-			timeSource.Start();
 		}
 
 		public static readonly string ShaderName = nameof(shader);
@@ -60,7 +58,6 @@ namespace Example
 		}
 
 		private IShader shader;
-		private Stopwatch timeSource = new Stopwatch();
 		private const int instanceCount = (int)30000;
 		private Vector3[] instancePosition = new Vector3[instanceCount];
 		private Vector3[] instanceVelocity = new Vector3[instanceCount];

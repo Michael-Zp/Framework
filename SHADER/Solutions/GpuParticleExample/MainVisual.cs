@@ -2,7 +2,6 @@
 using OpenTK.Graphics.OpenGL4;
 using System;
 using System.Numerics;
-using System.Diagnostics;
 using Zenseless.Geometry;
 using Zenseless.HLGL;
 
@@ -32,7 +31,6 @@ namespace Example
 			GL.Enable(EnableCap.Blend);
 			GL.BlendFunc(BlendingFactorSrc.SrcAlpha, BlendingFactorDest.OneMinusSrcAlpha);
 			GL.BlendEquation(BlendEquationMode.FuncAdd);
-			timeSource.Start();
 		}
 
 		public static readonly string ShaderName = nameof(shader);
@@ -45,12 +43,9 @@ namespace Example
 			this.shader = shader;
 		}
 
-		public void Render()
+		public void Render(float deltaTime)
 		{
 			if (ReferenceEquals(null, shader)) return;
-			var time = (float)timeSource.Elapsed.TotalSeconds;
-			var deltaTime = time - lastRenderTime;
-			lastRenderTime = time;
 			//if ((destination - source).LengthSquared() < 0.01)
 			//{
 			//	destination = new Vector3(RndCoord(), RndCoord(), RndCoord());
@@ -82,8 +77,6 @@ namespace Example
 		private Vector3 acceleration = new Vector3(0, 0, 0);
 		private IShader shader;
 		private BufferObject bufferParticles;
-		private Stopwatch timeSource = new Stopwatch();
-		private float lastRenderTime = 0f;
 		private const int particelCount = (int)1e5;
 		private CameraOrbit camera = new CameraOrbit();
 		private Random rnd = new Random(12);

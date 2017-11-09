@@ -3,7 +3,6 @@ using Zenseless.OpenGL;
 using OpenTK;
 using OpenTK.Graphics.OpenGL4;
 using System;
-using System.Diagnostics;
 
 namespace Example
 {
@@ -15,7 +14,6 @@ namespace Example
 			GL.Enable(EnableCap.PointSprite);
 			GL.Enable(EnableCap.Blend);
 			GL.BlendFunc(BlendingFactorSrc.SrcAlpha, BlendingFactorDest.One);
-			timeSource.Start();
 		}
 
 		public static readonly string ShaderName = nameof(shader);
@@ -28,13 +26,13 @@ namespace Example
 			UpdateGeometry(shader);
 		}
 
-		public void Render()
+		public void Render(float time)
 		{
 			if (ReferenceEquals(shader, null)) return;
 			GL.Clear(ClearBufferMask.ColorBufferBit);
 			shader.Activate();
 			////ATTENTION: always give the time as a float if the uniform in the shader is a float
-			GL.Uniform1(shader.GetResourceLocation(ShaderResourceType.Uniform, "time"), (float)timeSource.Elapsed.TotalSeconds);
+			GL.Uniform1(shader.GetResourceLocation(ShaderResourceType.Uniform, "time"), time);
 			geometry.Activate();
 			GL.DrawArrays(PrimitiveType.Points, 0, pointCount);
 			geometry.Deactivate();
@@ -43,7 +41,6 @@ namespace Example
 
 		private const int pointCount = 500;
 		private IShader shader;
-		private Stopwatch timeSource = new Stopwatch();
 		private VAO geometry;
 
 		private void UpdateGeometry(IShader shader)

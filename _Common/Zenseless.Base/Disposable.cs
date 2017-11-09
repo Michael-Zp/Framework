@@ -3,12 +3,14 @@
 namespace Zenseless.Base
 {
 	/// <summary>
-	/// Implements a default disposing behaviour as recommended by Microsoft.
+	/// Implements the default disposing behavior as recommended by Microsoft.
+	/// If you have resources that need disposing, subclass this class.
 	/// </summary>
 	public abstract class Disposable : IDisposable
 	{
 		/// <summary>
-		/// Will be called from the default Dispose method.
+		/// Will be called from the default Dispose method. 
+		/// Implementers should dispose all their resources her.
 		/// </summary>
 		protected abstract void DisposeResources();
 

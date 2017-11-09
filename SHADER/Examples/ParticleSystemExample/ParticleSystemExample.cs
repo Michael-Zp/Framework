@@ -1,7 +1,6 @@
 ﻿using Zenseless.Application;
 using Zenseless.Base;
 using System;
-using System.Diagnostics;
 using System.IO;
 using Zenseless.OpenGL;
 
@@ -17,11 +16,11 @@ namespace Example
 			var controller = new Controller();
 			var visual = new MainVisual();
 			app.ResourceManager.ShaderChanged += visual.ShaderChanged;
-			var timeSource = new Stopwatch();
 			app.GameWindow.AddMayaCameraEvents(visual.OrbitCamera);
+
+			var time = new GameTime();
 			app.Render += visual.Render;
-			app.Update += (t) => visual.Update((float)timeSource.Elapsed.TotalSeconds);
-			timeSource.Start();
+			app.Update += (t) => visual.Update(time.Seconds);
 			app.Run();
 		}
 

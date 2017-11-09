@@ -5,7 +5,6 @@ using OpenTK.Graphics.OpenGL;
 using OpenTK.Input;
 using System;
 using System.Collections.Generic;
-using System.Diagnostics;
 using System.Drawing;
 
 namespace SpaceInvaders
@@ -17,7 +16,6 @@ namespace SpaceInvaders
 		private List<Box2D> enemies = new List<Box2D>();
 		private List<Box2D> bullets = new List<Box2D>();
 		private PeriodicUpdate shootCoolDown = new PeriodicUpdate(0.1f);
-		private Stopwatch timeSource = new Stopwatch();
 		private float enemySpeed = 0.05f;
 		private bool Lost;
 
@@ -25,7 +23,6 @@ namespace SpaceInvaders
 		{
 			shootCoolDown.PeriodElapsed += (s, t) => shootCoolDown.Stop();
 			CreateEnemies();
-			timeSource.Start();
 		}
 
 		private void Render()
@@ -42,9 +39,9 @@ namespace SpaceInvaders
 			DrawPlayer(player);
 		}
 
-		private void Update(float updatePeriod)
+		private void Update(float updatePeriod, float time)
 		{
-			shootCoolDown.Update((float)timeSource.Elapsed.TotalSeconds);
+			shootCoolDown.Update(time);
 			if (Lost)
 			{
 				return;
@@ -53,7 +50,7 @@ namespace SpaceInvaders
 			float axisLeftRight = Keyboard.GetState()[Key.Left] ? -1.0f : Keyboard.GetState()[Key.Right] ? 1.0f : 0.0f;
 			bool shoot = Keyboard.GetState()[Key.Space];
 
-			Update(updatePeriod, axisLeftRight, shoot);
+			Update(updatePeriod, time, axisLeftRight, shoot);
 		}
 
 		[STAThread]
@@ -62,11 +59,12 @@ namespace SpaceInvaders
 			var window = new ExampleWindow();
 			var controller = new Controller();
 			window.Render += controller.Render;
-			window.Update += controller.Update;
+			var time = new GameTime();
+			window.Update += (dt) => controller.Update(dt, time.Seconds);
 			window.Run();
 		}
 
-		private void Update(float timeDelta, float axisUpDown, bool shoot)
+		private void Update(float timeDelta, float time, float axisUpDown, bool shoot)
 		{
 			if (Lost) return;
 			//remove outside bullet
@@ -80,7 +78,7 @@ namespace SpaceInvaders
 			}
 			HandleCollisions();
 
-			UpdatePlayer(timeDelta, axisUpDown, shoot);
+			UpdatePlayer(timeDelta, time, axisUpDown, shoot);
 			MoveEnemies(timeDelta);
 			MoveBullets(timeDelta);
 
@@ -140,7 +138,7 @@ namespace SpaceInvaders
 			}
 		}
 
-		private void UpdatePlayer(float timeDelta, float axisUpDown, bool shoot)
+		private void UpdatePlayer(float timeDelta, float time, float axisUpDown, bool shoot)
 		{
 			player.MinX += timeDelta * axisUpDown;
 			//limit player position [left, right]
@@ -150,7 +148,7 @@ namespace SpaceInvaders
 			{
 				bullets.Add(new Box2D(player.MinX, player.MinY, 0.005f, 0.005f));
 				bullets.Add(new Box2D(player.MaxX, player.MinY, 0.005f, 0.005f));
-				shootCoolDown.Start((float)timeSource.Elapsed.TotalSeconds);
+				shootCoolDown.Start(time);
 			}
 		}
 

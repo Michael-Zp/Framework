@@ -15,7 +15,6 @@ namespace Example
 			GL.ClearColor(1, 1, 1, 1);
 			GL.Enable(EnableCap.DepthTest);
 			GL.Enable(EnableCap.CullFace);
-			timeSource.Start();
 		}
 
 		public static readonly string ShaderName = nameof(shader);
@@ -45,9 +44,8 @@ namespace Example
 			shader.Deactivate();
 		}
 
-		public void Update(float updatePeriod)
+		public void Update(float time)
 		{
-			var time = (float)timeSource.Elapsed.TotalSeconds;
 			//store matrices as per instance attributes
 			//Matrix4 transforms are row-major -> transforms are written T1*T2*...
 			for (int i = 0; i < instanceTransforms.Length; ++i)
@@ -65,7 +63,6 @@ namespace Example
 
 		private Matrix4[] instanceTransforms = new Matrix4[3];
 		private IShader shader;
-		private Stopwatch timeSource = new Stopwatch();
 		private VAO geometry;
 	}
 }

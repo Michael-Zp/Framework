@@ -16,14 +16,15 @@ namespace Example
 			window.GameWindow.AddMayaCameraEvents(visual.OrbitCamera);
 			window.ResourceManager.ShaderChanged += visual.ShaderChanged;
 			LoadResources(window.ResourceManager);
-			window.Render += () => window.GameWindow.Title = Math.Round(visual.Render()).ToString() + "msec";
+			var time = new GameTime();
+			window.Render += () => window.GameWindow.Title = $"{visual.Render(time.DeltaTime):F2}msec";
 			window.Run();
 		}
 
 		private static void LoadResources(ResourceManager resourceManager)
 		{
 			var dir = Path.GetDirectoryName(PathTools.GetSourceFilePath()) + "/Resources/";
-			resourceManager.AddShader(MainVisual.ShaderName, dir + "vertex.vert", dir + "fragment.frag"
+			resourceManager.AddShader(MainVisual.ShaderName, $"{dir}vertex.vert", $"{dir}fragment.frag"
 				, Resourcen.vertex, Resourcen.fragment);
 		}
 	}

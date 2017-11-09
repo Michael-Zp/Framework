@@ -16,7 +16,8 @@ namespace Example
 			var visual = new MainVisual();
 			window.ResourceManager.ShaderChanged += visual.ShaderChanged;
 			LoadResources(window.ResourceManager);
-			window.Render += () => visual.Render(model.Bodies);
+			var time = new GameTime();
+			window.Render += () => visual.Render(model.Bodies, time.Seconds);
 			window.Update += model.Update;
 			window.GameWindow.AddMayaCameraEvents(visual.Camera);
 			window.Run();

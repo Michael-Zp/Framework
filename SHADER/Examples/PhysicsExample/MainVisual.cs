@@ -4,7 +4,6 @@ using OpenTK;
 using OpenTK.Graphics.OpenGL4;
 using System;
 using System.Collections.Generic;
-using System.Diagnostics;
 using Zenseless.HLGL;
 
 namespace Example
@@ -17,7 +16,6 @@ namespace Example
 			camera.Distance = 30;
 			GL.Enable(EnableCap.DepthTest);
 			GL.Enable(EnableCap.CullFace);
-			timeSource.Start();
 		}
 
 		public static readonly string ShaderName = nameof(shader);
@@ -42,7 +40,7 @@ namespace Example
 
 		public CameraOrbit Camera { get { return camera; } }
 
-		public void Render(IEnumerable<IBody> bodies)
+		public void Render(IEnumerable<IBody> bodies, float time)
 		{
 			if (ReferenceEquals(null, shader)) return;
 			var instancePositions = new List<Vector3>();
@@ -55,8 +53,6 @@ namespace Example
 			geometryBody.SetAttribute(shader.GetResourceLocation(ShaderResourceType.Attribute, "instancePosition"), instancePositions.ToArray(), VertexAttribPointerType.Float, 3, true);
 			geometryBody.SetAttribute(shader.GetResourceLocation(ShaderResourceType.Attribute, "instanceScale"), instanceScale.ToArray(), VertexAttribPointerType.Float, 1, true);
 
-			var time = (float)timeSource.Elapsed.TotalSeconds;
-
 			GL.Clear(ClearBufferMask.ColorBufferBit | ClearBufferMask.DepthBufferBit);
 			shader.Activate();
 			GL.Uniform1(shader.GetResourceLocation(ShaderResourceType.Uniform, "time"), time);
@@ -68,7 +64,6 @@ namespace Example
 		}
 
 		private IShader shader;
-		private Stopwatch timeSource = new Stopwatch();
 		private VAO geometryBody, geometryPlane;
 		private CameraOrbit camera = new CameraOrbit();
 	}

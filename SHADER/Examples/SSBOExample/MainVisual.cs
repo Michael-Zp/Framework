@@ -2,7 +2,6 @@
 using OpenTK.Graphics.OpenGL4;
 using System;
 using System.Numerics;
-using System.Diagnostics;
 using Zenseless.Geometry;
 using Zenseless.HLGL;
 
@@ -26,7 +25,6 @@ namespace Example
 			GL.Enable(EnableCap.PointSprite);
 			GL.Enable(EnableCap.Blend);
 			GL.BlendFunc(BlendingFactorSrc.SrcAlpha, BlendingFactorDest.One);
-			timeSource.Start();
 		}
 
 		public static readonly string ShaderName = nameof(shader);
@@ -37,12 +35,9 @@ namespace Example
 			this.shader = shader;
 		}
 
-		public void Render()
+		public void Render(float deltaTime)
 		{
 			if (ReferenceEquals(null, shader)) return;
-			var time = (float)timeSource.Elapsed.TotalSeconds;
-			var deltaTime = time - lastRenderTime;
-			lastRenderTime = time;
 			GL.PointSize(1.0f);
 			GL.Clear(ClearBufferMask.ColorBufferBit);
 			shader.Activate();
@@ -57,8 +52,6 @@ namespace Example
 
 		private IShader shader;
 		private BufferObject bufferParticles;
-		private Stopwatch timeSource = new Stopwatch();
-		private float lastRenderTime = 0f;
 		private const int particelCount = (int)1e4;
 
 		private void InitParticles()

@@ -5,6 +5,7 @@ using OpenTK;
 using OpenTK.Graphics.OpenGL4;
 using System;
 using System.Diagnostics;
+using Zenseless.Base;
 
 namespace Example
 {
@@ -19,7 +20,6 @@ namespace Example
 
 			GL.Enable(EnableCap.DepthTest);
 			GL.Enable(EnableCap.CullFace);
-			timeSource.Start();
 		}
 
 		public void ShaderChanged(string name, IShader shader)
@@ -33,7 +33,7 @@ namespace Example
 		public void Render()
 		{
 			if (ReferenceEquals(shader, null)) return;
-			var time = (float)timeSource.Elapsed.TotalSeconds;
+			var time = gameTime.Seconds;
 			GL.Clear(ClearBufferMask.ColorBufferBit | ClearBufferMask.DepthBufferBit);
 			shader.Activate();
 			GL.Uniform1(shader.GetResourceLocation(ShaderResourceType.Uniform, "time"), time);
@@ -48,7 +48,7 @@ namespace Example
 		private const int particelCount = 500;
 
 		private IShader shader;
-		private Stopwatch timeSource = new Stopwatch();
+		private GameTime gameTime = new GameTime();
 		private VAO geometry;
 
 		private void UpdateMesh(IShader shader)

@@ -3,11 +3,11 @@ using Zenseless.Geometry;
 using OpenTK.Graphics.OpenGL;
 using System;
 using System.Collections.Generic;
-using System.Diagnostics;
 using System.Drawing;
 using Zenseless.Application;
 using Zenseless.HLGL;
 using System.Numerics;
+using Zenseless.Base;
 
 namespace Example
 {
@@ -16,7 +16,6 @@ namespace Example
 		//private double timeSec = 0;
 		private ITexture texBird;
 		private Box2D bird = new Box2D(0, 0, .2f, .2f);
-		private Stopwatch timeSource = new Stopwatch();
 		private List<Vector2> wayPoints = new List<Vector2>();
 		private List<Vector2> wayTangents;
 
@@ -40,7 +39,6 @@ namespace Example
 			GL.BlendFunc(BlendingFactorSrc.SrcAlpha, BlendingFactorDest.OneMinusSrcAlpha);
 			GL.Enable(EnableCap.Blend); // for transparency in textures
 			GL.Enable(EnableCap.Texture2D); //todo: only for non shader pipeline relevant -> remove at some point
-			timeSource.Start();
 		}
 
 		private void Render()
@@ -49,17 +47,14 @@ namespace Example
 			DrawTexturedRect(bird, texBird);
 		}
 
-		private void Update(float updatePeriod)
+		private void Update(float totalTime)
 		{
-			//timeSec += e.Time;
-			//var seconds = (float)timeSec;
-			var seconds = (float)timeSource.Elapsed.TotalSeconds;
-			var activeSegment = CatmullRomSpline.FindSegment(seconds, wayPoints.Count);
+			var activeSegment = CatmullRomSpline.FindSegment(totalTime, wayPoints.Count);
 			var pos = CatmullRomSpline.EvaluateSegment(wayPoints[activeSegment.Item1]
 				, wayPoints[activeSegment.Item2]
 				, wayTangents[activeSegment.Item1]
 				, wayTangents[activeSegment.Item2]
-				, seconds - (float)Math.Floor(seconds));
+				, totalTime - (float)Math.Floor(totalTime));
 
 			bird.MinX = pos.X;
 			bird.MinY = pos.Y;
@@ -83,8 +78,9 @@ namespace Example
 		{
 			var window = new ExampleWindow();
 			var visual = new MyVisual();
+			var time = new GameTime();
 			window.Render += visual.Render;
-			window.Update += visual.Update;
+			window.Update += (dt) => visual.Update(time.Seconds);
 			window.Run();
 		}
 	}

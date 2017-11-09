@@ -3,6 +3,7 @@ using Zenseless.OpenGL;
 using OpenTK.Input;
 using System;
 using System.Diagnostics;
+using Zenseless.Base;
 
 namespace MiniGalaxyBirds
 {
@@ -17,16 +18,15 @@ namespace MiniGalaxyBirds
 			LoadResources(renderer);
 			GameLogic gameLogic = new GameLogic(renderer);
 
-			Stopwatch timeSource = new Stopwatch();
+			GameTime time = new GameTime();
 
-			window.Update += (t) => HandleInput(gameLogic, (float)timeSource.Elapsed.TotalSeconds);
+			window.Update += (t) => HandleInput(gameLogic, time.Seconds);
 			window.Resize += renderer.ResizeWindow;
 			window.Render += () => renderer.DrawScreen(GameLogic.visibleFrame, gameLogic.Points);
+			window.Render += () => time.NewFrame();
+			window.Render += () => window.GameWindow.Title = $"{time.FPS}FPS";
 
-			timeSource.Start();
 			window.Run();
-			//ReadBack.FrameBuffer().Save("d:/screenshot.png");
-
 		}
 
 		private static void LoadResources(Renderer renderer)

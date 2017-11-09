@@ -4,7 +4,6 @@ using Zenseless.OpenGL;
 using OpenTK;
 using OpenTK.Graphics.OpenGL4;
 using System;
-using System.Diagnostics;
 
 namespace Example
 {
@@ -15,7 +14,6 @@ namespace Example
 			CameraDistance = 10.0f;
 			GL.Enable(EnableCap.DepthTest);
 			GL.Enable(EnableCap.CullFace);
-			timeSource.Start();
 		}
 
 		public float CameraDistance { get; set; }
@@ -47,7 +45,6 @@ namespace Example
 		public void Render()
 		{
 			if (ReferenceEquals(shader, null)) return;
-			var time = (float)timeSource.Elapsed.TotalSeconds;
 			GL.Clear(ClearBufferMask.ColorBufferBit | ClearBufferMask.DepthBufferBit);
 			shader.Activate();
 			GL.UniformMatrix4(shader.GetResourceLocation(ShaderResourceType.Uniform, "camera"), true, ref camera);
@@ -65,7 +62,6 @@ namespace Example
 		private const int particelCount = 500;
 
 		private IShader shader;
-		private Stopwatch timeSource = new Stopwatch();
 		private Matrix4 camera = Matrix4.Identity;
 		private VAO geometry;
 	}

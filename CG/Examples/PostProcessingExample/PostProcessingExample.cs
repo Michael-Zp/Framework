@@ -5,16 +5,15 @@ using Zenseless.OpenGL;
 using OpenTK.Graphics.OpenGL;
 using OpenTK.Input;
 using System;
-using System.Diagnostics;
 using System.Drawing;
 using System.Text;
+using Zenseless.Base;
 
 namespace Example
 {
 	class MyVisual
 	{
 		private PostProcessing postProcessing;
-		private Stopwatch globalTime = new Stopwatch();
 		private Box2D bird = Box2DExtensions.CreateFromCenterSize(0.0f, -0.8f, 0.3f, 0.3f);
 		private ITexture texBird;
 		private IImmutableBox2D background = new Box2D(-1.0f, -1.0f, 2.0f, 2.0f);
@@ -28,7 +27,7 @@ namespace Example
 			postProcessing = new PostProcessing(width, height);
 			try
 			{
-				postProcessing.SetShader(Encoding.UTF8.GetString(Resources.EdgeDetect));
+				postProcessing.SetShader(Encoding.UTF8.GetString(Resources.Swirl));
 			}
 			catch (ShaderException e)
 			{
@@ -39,11 +38,9 @@ namespace Example
 			GL.BlendFunc(BlendingFactorSrc.SrcAlpha, BlendingFactorDest.OneMinusSrcAlpha);
 			GL.Enable(EnableCap.Blend);
 			GL.Enable(EnableCap.Texture2D); //todo: only for non shader pipeline relevant -> remove at some point
-
-			globalTime.Start();
 		}
 
-		private void Render()
+		private void Render(float time)
 		{
 			bool doPostProcessing = !Keyboard.GetState()[Key.Space];
 
@@ -60,7 +57,7 @@ namespace Example
 			bird.DrawTexturedRect(Box2D.BOX01);
 			texBird.Deactivate();
 
-			if (doPostProcessing) postProcessing.EndAndApply((float)globalTime.Elapsed.TotalSeconds);
+			if (doPostProcessing) postProcessing.EndAndApply(time);
 		}
 
 		private void Update(float updatePeriod)
@@ -75,7 +72,8 @@ namespace Example
 		{
 			var window = new ExampleWindow();
 			var visual = new MyVisual(window.GameWindow.Width, window.GameWindow.Height);
-			window.Render += visual.Render;
+			var time = new GameTime();
+			window.Render += () => visual.Render(time.Seconds);
 			window.Update += visual.Update;
 			window.Run();
 		}

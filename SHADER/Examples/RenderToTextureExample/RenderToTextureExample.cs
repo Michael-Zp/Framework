@@ -2,7 +2,6 @@
 using Zenseless.Base;
 using OpenTK.Input;
 using System;
-using System.Diagnostics;
 using System.IO;
 using Zenseless.OpenGL;
 
@@ -18,15 +17,14 @@ namespace Example
 			app.ResourceManager.ShaderChanged += visual.ShaderChanged;
 			LoadResources(app.ResourceManager);
 
-			Stopwatch globalTime = new Stopwatch();
+			var globalTime = new GameTime();
 			bool doPostProcessing = false;
 
 			app.Render += () =>
 			{
-				float time = (float)globalTime.Elapsed.TotalSeconds;
 				if (doPostProcessing)
 				{
-					visual.DrawWithPostProcessing(time);
+					visual.DrawWithPostProcessing(globalTime.Seconds);
 				}
 				else
 				{
@@ -38,7 +36,6 @@ namespace Example
 			app.Resize += visual.Resize;
 			app.GameWindow.AddMayaCameraEvents(visual.OrbitCamera);
 
-			globalTime.Start();
 			app.Run();
 		}
 

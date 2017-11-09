@@ -16,13 +16,13 @@ namespace Example
 		private List<Collider> colliders = new List<Collider>();
 		private IImmutableBox2D windowBorders = new Box2D(-1.0f, -1.0f, 2.0f, 2.0f);
 		private CollisionGrid collisionGrid;
-		private Stopwatch time = new Stopwatch();
+		private GameTime time;
 		private double lastBenchmark = 0;
 
 		private Controller()
 		{
 			SetupColliders();
-			time.Start();
+			time = new GameTime();
 		}
 
 		private void SetupColliders()
@@ -36,8 +36,10 @@ namespace Example
 			{
 				for (float y = -0.9f; y < 0.9f; y += delta)
 				{
-					var collider = new Collider(x, y, size, size);
-					collider.Velocity = RandomVectors.Velocity();
+					var collider = new Collider(x, y, size, size)
+					{
+						Velocity = RandomVectors.Velocity()
+					};
 					colliders.Add(collider);
 					++i;
 				}
@@ -62,7 +64,7 @@ namespace Example
 				}
 			}
 
-			var t1 = time.Elapsed.TotalMilliseconds; //get time before collision detection
+			var t1 = time.Milliseconds; //get time before collision detection
 			//handle collisions
 			if(Keyboard.GetState().IsKeyDown(Key.Space))
 			{
@@ -72,7 +74,7 @@ namespace Example
 			{
 				GridCollision();
 			}
-			var t2 = time.Elapsed.TotalMilliseconds; //get time after collision detection
+			var t2 = time.Milliseconds; //get time after collision detection
 
 			if (t2 > lastBenchmark + 500.0)
 			{

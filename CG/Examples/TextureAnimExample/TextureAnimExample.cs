@@ -2,10 +2,10 @@
 using Zenseless.Geometry;
 using OpenTK.Graphics.OpenGL;
 using System;
-using System.Diagnostics;
 using System.Drawing;
 using Zenseless.Application;
 using Zenseless.HLGL;
+using Zenseless.Base;
 
 namespace Example
 {
@@ -18,7 +18,6 @@ namespace Example
 		private SpriteSheetAnimation girlDie;
 		private SpriteSheetAnimation girlBack;
 		private AnimationTextures alienShip;
-		private Stopwatch timeSource = new Stopwatch();
 
 		private MyVisual()
 		{
@@ -56,18 +55,15 @@ namespace Example
 			GL.BlendFunc(BlendingFactorSrc.SrcAlpha, BlendingFactorDest.OneMinusSrcAlpha);
 			GL.Enable(EnableCap.Blend);
 			GL.Enable(EnableCap.Texture2D); //todo: remove if shader is used
-								
-			timeSource.Start();//start game time
 		}
 
-		private void Render()
+		private void Render(float absoluteTimeSeconds)
 		{
 			GL.Clear(ClearBufferMask.ColorBufferBit);
 
 			//color is multiplied with texture color white == no change
 			GL.Color3(Color.White);
 
-			var absoluteTimeSeconds = (float)timeSource.Elapsed.TotalSeconds;
 			explosion.Draw(new Box2D(-.7f, .2f, .4f, .4f), absoluteTimeSeconds);
 			alienShip.Draw(new Box2D(.3f, .2f, .4f, .4f), absoluteTimeSeconds);
 
@@ -83,7 +79,8 @@ namespace Example
 		{
 			var window = new ExampleWindow();
 			var visual = new MyVisual();
-			window.Render += visual.Render;
+			var time = new GameTime();
+			window.Render += () => visual.Render(time.Seconds);
 			window.Run();
 		}
 	}

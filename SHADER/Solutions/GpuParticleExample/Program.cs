@@ -11,13 +11,15 @@ namespace Example
 		[STAThread]
 		private static void Main()
 		{
-			var app = new ExampleWindow();
+			var window = new ExampleWindow();
 			var visual = new MainVisual();
-			app.GameWindow.AddMayaCameraEvents(visual.OrbitCamera);
-			app.ResourceManager.ShaderChanged += visual.ShaderChanged;
-			LoadResources(app.ResourceManager);
-			app.Render += visual.Render;
-			app.Run();
+			window.GameWindow.AddMayaCameraEvents(visual.OrbitCamera);
+			window.ResourceManager.ShaderChanged += visual.ShaderChanged;
+			LoadResources(window.ResourceManager);
+
+			var time = new GameTime();
+			window.Render += () => visual.Render(time.DeltaTime);
+			window.Run();
 		}
 
 		private static void LoadResources(ResourceManager resourceManager)
