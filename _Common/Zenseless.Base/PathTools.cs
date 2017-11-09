@@ -51,7 +51,8 @@ namespace Zenseless.Base
 		}
 
 		/// <summary>
-		/// Returns the absolute path for the specified path string by using Path.GetFullPath. If an exception is thrown the input parameter is returned.
+		/// Returns the absolute path for the specified path string by using <see cref="Path.GetFullPath"/>.
+		/// If an exception is thrown by <see cref="Path.GetFullPath"/> the input parameter is returned.
 		/// </summary>
 		/// <param name="fileName">The file or directory for which to obtain absolute path information.</param>
 		/// <returns>The fully qualified location of path, such as "C:\MyFile.txt".</returns>

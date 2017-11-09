@@ -6,7 +6,8 @@ using System.IO;
 namespace Zenseless.Base
 {
 	/// <summary>
-	/// Contains tools for saving image lists.
+	/// Contains tools for saving image lists. 
+	/// Intended to be used for recording of videos. Is used in ExampleWindow.
 	/// </summary>
 	public static class ImageListTools
 	{

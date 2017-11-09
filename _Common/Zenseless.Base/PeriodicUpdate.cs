@@ -7,42 +7,30 @@
 	public class PeriodicUpdate : ITimedUpdate
 	{
 		/// <summary>
-		/// Initializes a new instance of the <see cref="PeriodicUpdate"/> class.
-		/// </summary>
-		/// <param name="interval">The interval.</param>
-		public PeriodicUpdate(float interval)
-		{
-			Interval = interval;
-			PeriodElapsedCount = 0;
-			Enabled = false;
-			PeriodRelativeTime = 0;
-		}
-
-		/// <summary>
-		/// Gets the period elapsed count.
+		/// Gets how often the period has elapsed.
 		/// </summary>
 		/// <value>
 		/// The period elapsed count.
 		/// </value>
-		public uint PeriodElapsedCount { get; private set; }
+		public uint PeriodElapsedCount { get; private set; } = 0;
 		/// <summary>
-		/// Gets the period relative time.
+		/// Gets the period relative time. The time that has elapsed since the current period has started.
 		/// </summary>
 		/// <value>
-		/// The period relative time.
+		/// The time that has elapsed since the current period has started.
 		/// </value>
-		public float PeriodRelativeTime { get; private set; }
+		public float PeriodRelativeTime { get; private set; } = 0;
 		/// <summary>
 		/// Gets a value indicating whether this <see cref="PeriodicUpdate"/> is enabled.
 		/// </summary>
 		/// <value>
 		///   <c>true</c> if enabled; otherwise, <c>false</c>.
 		/// </value>
-		public bool Enabled { get; private set; }
+		public bool Enabled { get; private set; } = false;
 		/// <summary>
 		/// 
 		/// </summary>
-		/// <param name="sender">The sender.</param>
+		/// <param name="sender">The <see cref="PeriodicUpdate"/> instance that called sender.</param>
 		/// <param name="absoluteTime">The absolute time.</param>
 		public delegate void PeriodElapsedHandler(PeriodicUpdate sender, float absoluteTime);
 		/// <summary>
@@ -58,12 +46,21 @@
 		public float Interval { get; set; }
 
 		/// <summary>
+		/// Initializes a new instance of the <see cref="PeriodicUpdate"/> class.
+		/// </summary>
+		/// <param name="interval">The regular interval in which <see cref="PeriodElapsed"/> will be called.</param>
+		public PeriodicUpdate(float interval)
+		{
+			Interval = interval;
+		}
+
+		/// <summary>
 		/// Starts the specified start time.
 		/// </summary>
 		/// <param name="startTime">The start time.</param>
 		public void Start(float startTime)
 		{
-			absoluteTime = startTime;
+			absoluteStartTime = startTime;
 			Enabled = true;
 		}
 
@@ -83,15 +80,15 @@
 		{
 			if (!Enabled)
 			{
-				this.absoluteTime = absoluteTime;
+				absoluteStartTime = absoluteTime;
 				PeriodRelativeTime = 0.0f;
 				return;
 			}
-			PeriodRelativeTime = absoluteTime - this.absoluteTime;
+			PeriodRelativeTime = absoluteTime - absoluteStartTime;
 			if (PeriodRelativeTime > Interval)
 			{
 				PeriodElapsed?.Invoke(this, absoluteTime);
-				this.absoluteTime = absoluteTime;
+				absoluteStartTime = absoluteTime;
 				PeriodRelativeTime = 0.0f;
 				++PeriodElapsedCount;
 			}
@@ -100,6 +97,6 @@
 		/// <summary>
 		/// The absolute time in seconds
 		/// </summary>
-		private float absoluteTime = 0.0f;
+		private float absoluteStartTime = 0.0f;
 	}
 }
