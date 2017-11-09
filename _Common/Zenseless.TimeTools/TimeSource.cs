@@ -117,7 +117,7 @@ namespace Zenseless.TimeTools
 		}
 
 		/// <summary>
-		/// Occurs when [time finished].
+		/// Occurs each time the time source is finished with running (length is reached).
 		/// </summary>
 		public event TimeFinishedHandler TimeFinished;
 

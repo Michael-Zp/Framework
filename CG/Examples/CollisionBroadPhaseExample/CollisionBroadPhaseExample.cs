@@ -138,12 +138,9 @@ namespace Example
 			var window = new ExampleWindow(512, 512, 30);
 			GL.ClearColor(Color.White);
 			var controller = new Controller();
-			var frames = new List<Bitmap>();
 			window.Update += (t) => controller.Update(t, (timing) => window.GameWindow.Title = $"{Math.Round(timing)}ms");
 			window.Render += controller.Render;
-			window.Render += () => frames.Add(FrameBuffer.ToBitmap());
 			window.Run();
-			frames.SaveToDefaultDir();
 		}
 	}
 }

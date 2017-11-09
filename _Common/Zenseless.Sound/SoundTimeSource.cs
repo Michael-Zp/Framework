@@ -13,7 +13,7 @@ namespace Zenseless.Sound
 	public class SoundTimeSource : Disposable, ITimeSource
 	{
 		/// <summary>
-		/// Occurs when [time finished].
+		/// Occurs each time the time source is finished with running (length is reached).
 		/// </summary>
 		public event TimeFinishedHandler TimeFinished;
 
@@ -33,10 +33,10 @@ namespace Zenseless.Sound
 		}
 
 		/// <summary>
-		/// Gets or sets the length.
+		/// Gets or sets the play length in seconds.
 		/// </summary>
 		/// <value>
-		/// The length.
+		/// The play length in seconds.
 		/// </value>
 		/// <exception cref="ArgumentException">NAudioFacade cannot change Length</exception>
 		public float Length

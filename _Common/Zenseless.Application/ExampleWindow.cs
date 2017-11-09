@@ -6,53 +6,27 @@ using OpenTK.Platform;
 using System;
 using System.ComponentModel.Composition;
 using System.ComponentModel.Composition.Hosting;
+using System.Linq;
+using System.Drawing;
+using System.Collections.Generic;
+using Zenseless.Base;
 
 namespace Zenseless.Application
 {
 	/// <summary>
-	/// 
+	/// Intended for use for small example programs in the <see cref="Zenseless"/> framework
+	/// creates a OpenTK.GameWindow;
+	/// reads command line arguments: 'capture' records each rendered frame into a png file; 'fullscreen'
+	/// handles keys: ESCAPE: closes application; F11: toggles full-screen; <see cref="RemoveDefaultKeyHandler"/>
+	/// create a MEF composition container for IOC;
+	/// creates experimental versions of high level GL abstraction and resource handling; use with car and subject to change;
 	/// </summary>
-	public class ExampleWindow
+	public sealed class ExampleWindow
 	{
 		/// <summary>
-		/// Initializes a new instance of the <see cref="ExampleWindow"/> class.
+		/// Occurs when in the render loop a new render of the window should be handled. Usually once per frame
 		/// </summary>
-		/// <param name="width">The width.</param>
-		/// <param name="height">The height.</param>
-		/// <param name="updateRate">The update rate.</param>
-		public ExampleWindow(int width = 512, int height = 512, double updateRate = 60)
-		{
-			//var mode = new OpenTK.Graphics.GraphicsMode(new OpenTK.Graphics.ColorFormat(32), 24);
-			//gameWindow = new GameWindow(width, height, mode, "", GameWindowFlags.Default, DisplayDevice.Default, 3, 0, OpenTK.Graphics.GraphicsContextFlags.Default);
-			gameWindow = new GameWindow()
-			{
-				Width = width, //do not set extents in the constructor, because windows 10 with enabled scale != 100% scales our given sizes in the constructor of GameWindow
-				Height = height
-			};
-			RenderContext = new RenderContextGL();
-
-			var catalog = new AggregateCatalog();
-			catalog.Catalogs.Add(new AssemblyCatalog(typeof(ExampleWindow).Assembly));
-			_container = new CompositionContainer(catalog);
-			try
-			{
-				_container.SatisfyImportsOnce(this);
-			}
-			catch (CompositionException e)
-			{
-				Console.WriteLine(e.ToString());
-			}
-
-			gameWindow.TargetUpdateFrequency = updateRate;
-			gameWindow.TargetRenderFrequency = updateRate;
-			gameWindow.VSync = VSyncMode.On;
-			//register callback for resizing of window
-			gameWindow.Resize += GameWindow_Resize;
-			//register callback for keyboard
-			gameWindow.AddDefaultExampleWindowEvents();
-			ResourceManager = resourceProvider as ResourceManager;
-		}
-
+		public event Action Render;
 		/// <summary>
 		/// Gets the game window.
 		/// </summary>
@@ -62,11 +36,7 @@ namespace Zenseless.Application
 		public IGameWindow GameWindow { get { return gameWindow; } }
 
 		/// <summary>
-		/// Occurs when [render].
-		/// </summary>
-		public event Action Render;
-		/// <summary>
-		/// Gets the render context.
+		/// Experimental! Gets the render context.
 		/// </summary>
 		/// <value>
 		/// The render context.
@@ -80,7 +50,7 @@ namespace Zenseless.Application
 		/// <param name="height">The height.</param>
 		public delegate void ResizeHandler(int width, int height);
 		/// <summary>
-		/// Occurs when [resize].
+		/// Occurs when the window is resized.
 		/// </summary>
 		public event ResizeHandler Resize;
 
@@ -90,17 +60,53 @@ namespace Zenseless.Application
 		/// <param name="updatePeriod">The update period.</param>
 		public delegate void UpdateHandler(float updatePeriod);
 		/// <summary>
-		/// Occurs when [update].
+		/// Occurs when in the update loop a new update should be handled. Usually once per frame
 		/// </summary>
 		public event UpdateHandler Update;
 
 		/// <summary>
-		/// Gets the resource manager.
+		/// Experimental!: Gets the resource manager.
 		/// </summary>
 		/// <value>
 		/// The resource manager.
 		/// </value>
 		public ResourceManager ResourceManager { get; private set; }
+
+		/// <summary>
+		/// Initializes a new instance of the <see cref="ExampleWindow"/> class.
+		/// </summary>
+		/// <param name="width">The window width.</param>
+		/// <param name="height">The window height.</param>
+		/// <param name="updateRenderRate">The update and render rate.</param>
+		public ExampleWindow(int width = 512, int height = 512, double updateRenderRate = 60)
+		{
+			//var mode = new OpenTK.Graphics.GraphicsMode(new OpenTK.Graphics.ColorFormat(32), 24);
+			//gameWindow = new GameWindow(width, height, mode, "", GameWindowFlags.Default, DisplayDevice.Default, 3, 0, OpenTK.Graphics.GraphicsContextFlags.Default);
+			gameWindow = new GameWindow()
+			{
+				Width = width, //do not set extents in the constructor, because windows 10 with enabled scale != 100% scales our given sizes in the constructor of GameWindow
+				Height = height
+			};
+			ProcessCommandLineArguments();
+
+			RenderContext = new RenderContextGL();
+
+			CreateIOCcontainer();
+
+			gameWindow.TargetUpdateFrequency = updateRenderRate;
+			gameWindow.TargetRenderFrequency = updateRenderRate;
+			gameWindow.VSync = VSyncMode.On;
+			//register callback for resizing of window
+			gameWindow.Resize += GameWindow_Resize;
+			//register callback for keyboard
+			gameWindow.KeyDown += INativeWindowExtensions.DefaultExampleWindowKeyEvents;
+			ResourceManager = resourceProvider as ResourceManager;
+		}
+
+		/// <summary>
+		/// Removes the default key handler.
+		/// </summary>
+		public void RemoveDefaultKeyHandler() => gameWindow.KeyDown -= INativeWindowExtensions.DefaultExampleWindowKeyEvents;
 
 		/// <summary>
 		/// Runs the window loop, which in turn calls the registered event handlers
@@ -113,17 +119,35 @@ namespace Zenseless.Application
 			gameWindow.RenderFrame += (sender, e) => GameWindowRender();
 			//run the update loop, which calls our registered callbacks
 			gameWindow.Run();
+			screenShots?.SaveToDefaultDir();
 		}
 
 		private CompositionContainer _container;
 		private GameWindow gameWindow;
 		[Import] private IResourceProvider resourceProvider = null;
+		private List<Bitmap> screenShots = null;
+
+		private void CreateIOCcontainer()
+		{
+			var catalog = new AggregateCatalog();
+			catalog.Catalogs.Add(new AssemblyCatalog(typeof(ExampleWindow).Assembly));
+			_container = new CompositionContainer(catalog);
+			try
+			{
+				_container.SatisfyImportsOnce(this);
+			}
+			catch (CompositionException e)
+			{
+				Console.WriteLine(e.ToString());
+			}
+		}
 
 		private void GameWindowRender()
 		{
 			ResourceManager?.CheckForShaderChange();
 			//render
 			Render?.Invoke();
+			screenShots?.Add(FrameBuffer.ToBitmap());
 			//buffer swap of double buffering (http://gameprogrammingpatterns.com/double-buffer.html)
 			gameWindow.SwapBuffers();
 		}
@@ -137,6 +161,19 @@ namespace Zenseless.Application
 		{
 			GL.Viewport(0, 0, gameWindow.Width, gameWindow.Height);
 			Resize?.Invoke(gameWindow.Width, gameWindow.Height);
+		}
+
+		private void ProcessCommandLineArguments()
+		{
+			var args = Environment.GetCommandLineArgs().Skip(1).Select(element => element.ToLowerInvariant());
+			if (args.Contains("capture"))
+			{
+				screenShots = new List<Bitmap>();
+			}
+			if (args.Contains("fullscreen"))
+			{
+				gameWindow.WindowState = WindowState.Fullscreen;
+			}
 		}
 	}
 }

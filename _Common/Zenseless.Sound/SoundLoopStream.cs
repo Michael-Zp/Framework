@@ -3,7 +3,7 @@
 namespace Zenseless.Sound
 {
 	/// <summary>
-	/// 
+	/// A wave stream that is looped when played back (can be turned off)
 	/// </summary>
 	/// <seealso cref="NAudio.Wave.WaveStream" />
 	public class SoundLoopStream : WaveStream

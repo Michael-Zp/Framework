@@ -20,6 +20,7 @@
 			<frameworkAssembly assemblyName="PresentationCore" />
 			<frameworkAssembly assemblyName="System.ComponentModel.Composition" />
 			<frameworkAssembly assemblyName="System.Drawing" />
+			<frameworkAssembly assemblyName="System.Numerics" />
 			<frameworkAssembly assemblyName="System.Runtime.Serialization.Formatters.Soap" />
 			<frameworkAssembly assemblyName="System.Windows.Forms" />
 			<frameworkAssembly assemblyName="WindowsBase" />

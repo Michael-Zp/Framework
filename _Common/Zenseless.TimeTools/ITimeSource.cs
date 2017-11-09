@@ -14,10 +14,10 @@ namespace Zenseless.TimeTools
 	public interface ITimeSource : IDisposable
 	{
 		/// <summary>
-		/// Gets or sets the length.
+		/// Gets or sets the length in seconds.
 		/// </summary>
 		/// <value>
-		/// The length.
+		/// The length in seconds.
 		/// </value>
 		float Length { get; set; }
 		/// <summary>
@@ -43,7 +43,7 @@ namespace Zenseless.TimeTools
 		float Position { get; set; }
 
 		/// <summary>
-		/// Occurs when [time finished].
+		/// Occurs each time the time source is finished with running (length is reached).
 		/// </summary>
 		event TimeFinishedHandler TimeFinished;
 	}

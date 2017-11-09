@@ -40,23 +40,23 @@ namespace Zenseless.OpenGL
 		}
 
 		/// <summary>
-		/// Add key bindings; ESCAPE for closing; F11 for toggling fullscreen
+		/// Default key bindings: ESCAPE for closing; F11 for toggling full-screen
 		/// </summary>
-		/// <param name="window">window that receives input system events</param>
-		public static void AddDefaultExampleWindowEvents(this INativeWindow window)
+		/// <param name="sender">window that receives input system events. Should be a <see cref="INativeWindow"/>.</param>
+		/// <param name="e">The <see cref="KeyboardKeyEventArgs"/> instance containing the event data.</param>
+		public static void DefaultExampleWindowKeyEvents(object sender, KeyboardKeyEventArgs e)
 		{
-			window.KeyDown += (object sender, KeyboardKeyEventArgs e) =>
+			var window = sender as INativeWindow;
+			if (ReferenceEquals(null, window)) return;
+			switch (e.Key)
 			{
-				switch (e.Key)
-				{
-					case Key.Escape:
-						window.Close();
-						break;
-					case Key.F11:
-						window.WindowState = WindowState.Fullscreen == window.WindowState ? WindowState.Normal : WindowState.Fullscreen;
-						break;
-				}
-			};
+				case Key.Escape:
+					window.Close();
+					break;
+				case Key.F11:
+					window.WindowState = WindowState.Fullscreen == window.WindowState ? WindowState.Normal : WindowState.Fullscreen;
+					break;
+			}
 		}
 
 		/// <summary>
