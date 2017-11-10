@@ -42,16 +42,16 @@ namespace ShaderForm.Demo
 			}
 		}
 
-		public float Position
+		public float CurrentTime
 		{
 			get
 			{
-				return timeSource.Position;
+				return timeSource.CurrentTime;
 			}
 
 			set
 			{
-				timeSource.Position = value;
+				timeSource.CurrentTime = value;
 			}
 		}
 

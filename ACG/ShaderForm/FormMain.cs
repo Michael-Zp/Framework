@@ -34,7 +34,7 @@ namespace ShaderForm
 			multiGraph.KeyDown += FormMain_KeyDown;
 			camera.Redraw += (position) => glControl.Invalidate();
 			cameraWindowToolStripMenuItem.Click += (s, e) => camera.Show();
-			addCameraUniformsToolStripMenuItem.Click += (s, e) => camera.AddKeyFrames(demo.TimeSource.Position, demo.Uniforms);
+			addCameraUniformsToolStripMenuItem.Click += (s, e) => camera.AddKeyFrames(demo.TimeSource.CurrentTime, demo.Uniforms);
 
 			logToolStripMenuItem.Click += (s, e) => log.Show();
 			tracksWindowToolStripMenuItem.Click += (s, e) => tracks.Show();
@@ -71,7 +71,7 @@ namespace ShaderForm
 		{
 			demo.Shaders.AddUpdateShader(fileName);
 			//put new shader at cursor position
-			float time = demo.TimeSource.Position;
+			float time = demo.TimeSource.CurrentTime;
 			demo.ShaderKeyframes.AddUpdate(time, fileName);
 		}
 
@@ -208,7 +208,7 @@ namespace ShaderForm
 				demo.Uniforms.UniformAdded += multiGraph.Uniforms_OnAdd;
 				demo.Uniforms.UniformRemoved += multiGraph.Uniforms_OnRemove;
 				demo.Uniforms.ChangedKeyframes += multiGraph.Uniforms_OnChange;
-				demo.Uniforms.ChangedKeyframes += (s, a) => camera.UpdateFromUniforms(demo.Uniforms, demo.TimeSource.Position);
+				demo.Uniforms.ChangedKeyframes += (s, a) => camera.UpdateFromUniforms(demo.Uniforms, demo.TimeSource.CurrentTime);
 				demo.Uniforms.ChangedKeyframes += (s, a) => glControl.Invalidate();
 				demo.Shaders.Changed += Shaders_OnChange;
 				demo.ShaderKeyframes.Changed += ShaderKeframes_OnChange;
@@ -224,7 +224,7 @@ namespace ShaderForm
 		{
 			if (demo.TimeSource.IsRunning)
 			{
-				if (camera.UpdateFromUniforms(demo.Uniforms, demo.TimeSource.Position)) return;
+				if (camera.UpdateFromUniforms(demo.Uniforms, demo.TimeSource.CurrentTime)) return;
 			}
 			camera.SetUniforms(visualContext);
 		}
@@ -358,7 +358,7 @@ namespace ShaderForm
 				this.SaveLayout();
 				RegistryLoader.SaveValue(Name, "play", demo.TimeSource.IsRunning);
 				RegistryLoader.SaveValue(Name, "granularity", menuSizeSetting.Text);
-				RegistryLoader.SaveValue(Name, "time", demo.TimeSource.Position);
+				RegistryLoader.SaveValue(Name, "time", demo.TimeSource.CurrentTime);
 				RegistryLoader.SaveValue(Name, "showFPS", menuBenchmark.Checked);
 				RegistryLoader.SaveValue(Name, "compact", menuCompact.Checked);
 
@@ -384,15 +384,15 @@ namespace ShaderForm
 			switch (e.KeyCode)
 			{
 				case Keys.Escape: Close(); return;
-				case Keys.C: camera.AddKeyFrames(demo.TimeSource.Position, demo.Uniforms); break;
+				case Keys.C: camera.AddKeyFrames(demo.TimeSource.CurrentTime, demo.Uniforms); break;
 				case Keys.K:
 					if (e.Control)
 					{
-						multiGraph.AddInterpolatedKeyframeTo(sender, demo.TimeSource.Position);
+						multiGraph.AddInterpolatedKeyframeTo(sender, demo.TimeSource.CurrentTime);
 					}
 					else
 					{
-						multiGraph.AddInterpolatedKeyframeToVisible(demo.TimeSource.Position);
+						multiGraph.AddInterpolatedKeyframeToVisible(demo.TimeSource.CurrentTime);
 					}
 					break;
 				case Keys.R:

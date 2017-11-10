@@ -17,7 +17,7 @@ namespace Converter
 			{
 				var fileName = args[0];
 				var fileNameNew = args[1];
-				var dataOld = Serialize.ObjFromXMLFile(fileName, typeof(DemoData)) as DemoData;
+				var dataOld = Serialization.FromXMLFile(fileName, typeof(DemoData)) as DemoData;
 				string oldDir = Directory.GetCurrentDirectory();
 				Directory.SetCurrentDirectory(Path.GetDirectoryName(Path.GetFullPath(fileName)));
 				var soundFileName = PathTools.GetFullPath(dataOld.SoundFileName);
@@ -39,11 +39,15 @@ namespace Converter
 				//convert ratios to absolute times
 				var keyframes = ShaderKeyframes.CalculatePosFromRatios(ratios, length);
 				//save to new format
-				DemoData2 data = new DemoData2();
-				data.SoundFileName = dataOld.SoundFileName;
-				data.Textures = dataOld.Textures.ToList();
-				var track = new Track();
-				track.Name = "sum";
+				DemoData2 data = new DemoData2
+				{
+					SoundFileName = dataOld.SoundFileName,
+					Textures = dataOld.Textures.ToList()
+				};
+				var track = new Track
+				{
+					Name = "sum"
+				};
 				data.Tracks.Add(track);
 				foreach (var element in keyframes)
 				{
@@ -58,7 +62,7 @@ namespace Converter
 					}
 					data.Uniforms.Add(uniform);
 				}
-				data.ObjIntoXMLFile(fileNameNew);
+				Serialization.ToXMLFile(data, fileNameNew);
 			}
 			catch (Exception e)
 			{

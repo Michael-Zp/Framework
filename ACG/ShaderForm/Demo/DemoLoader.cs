@@ -25,7 +25,7 @@ namespace ShaderForm.Demo
 	{
 		public static void LoadFromFile(DemoModel demo, string fileName, ErrorEventHandler progressHandler = null)
 		{
-			var data = Serialize.ObjFromXMLFile(fileName, typeof(DemoData2.DemoData2)) as DemoData2.DemoData2;
+			var data = Serialization.FromXMLFile(fileName, typeof(DemoData2.DemoData2)) as DemoData2.DemoData2;
 			data.ConvertToAbsolutePath(Path.GetDirectoryName(Path.GetFullPath(fileName)));
 			demo.Clear();
 			if (!LoadSound(data.SoundFileName, demo, progressHandler)) return;
@@ -48,7 +48,7 @@ namespace ShaderForm.Demo
 			var data = new DemoData2.DemoData2();
 			Save(demo, data);
 			data.ConvertToRelativePath(Path.GetDirectoryName(Path.GetFullPath(fileName)));
-			data.ObjIntoXMLFile(fileName);
+			Serialization.ToXMLFile(data, fileName);
 		}
 
 		private static void LoadUniforms(IEnumerable<Uniform> uniforms, DemoModel demo)
@@ -106,8 +106,10 @@ namespace ShaderForm.Demo
 		{
 			data.SoundFileName = demo.TimeSource.SoundFileName;
 			data.Textures = demo.Textures.ToList();
-			var track = new Track();
-			track.Name = "sum";
+			var track = new Track
+			{
+				Name = "sum"
+			};
 			data.Tracks.Add(track);
 			foreach (var element in demo.ShaderKeyframes.Items)
 			{

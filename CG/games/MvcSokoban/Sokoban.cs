@@ -16,7 +16,7 @@ namespace MvcSokoban
 			GameLogic logic;
 			try
 			{
-				logic = (GameLogic)Serialize.ObjFromBinFile(GetGameStateFilePath()); //try to load the last game state from a file at start of program
+				logic = (GameLogic)Serialization.FromBinFile(GetGameStateFilePath()); //try to load the last game state from a file at start of program
 			}
 			catch
 			{
@@ -24,7 +24,7 @@ namespace MvcSokoban
 			}
 			window.GameWindow.Title = "Sokoban";
 			//app.GameWindow.CursorVisible = false;
-			window.GameWindow.Closing += (s, e) => logic.ObjIntoBinFile(GetGameStateFilePath()); //save game state at end of program
+			window.GameWindow.Closing += (s, e) => Serialization.ToBinFile(logic, GetGameStateFilePath()); //save game state at end of program
 
 			var renderer = new RendererGL4(window.RenderContext);
 			//var renderer = new Renderer();

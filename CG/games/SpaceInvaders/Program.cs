@@ -67,13 +67,13 @@ namespace SpaceInvaders
 		private void Update(float timeDelta, float time, float axisUpDown, bool shoot)
 		{
 			if (Lost) return;
-			//remove outside bullet
+			//remove outside bullet - lazy remove (once per frame one bullet is removed)
 			foreach (var bullet in bullets)
 			{
 				if (bullet.MinY > windowBorders.MaxX)
 				{
 					bullets.Remove(bullet);
-					return;
+					break;
 				}
 			}
 			HandleCollisions();

@@ -34,7 +34,7 @@ namespace Example
 		{
 			using (var stream = new FileStream(levelFile, FileMode.Open))
 			{
-				Level level = Serialize.ObjFromBinStream(stream) as Level;
+				Level level = Serialization.FromBinStream(stream) as Level;
 				//set level bounds
 				logic.Bounds = level.Bounds;
 				//load colliders

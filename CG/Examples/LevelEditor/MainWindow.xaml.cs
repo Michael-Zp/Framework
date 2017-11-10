@@ -38,11 +38,11 @@ namespace LevelEditor
 
 		private void SaveLevelData(string fileName)
 		{
-			//do not use autosize for canvas -> set a fixed size
+			//do not use auto-size for canvas -> set a fixed size
 			levelData.Bounds.SizeX = (float)canvas.ActualWidth;
 			levelData.Bounds.SizeY = (float)canvas.ActualHeight;
 			TraverseLogicalTree(canvas, canvas, string.Empty);
-			levelData.ObjIntoBinFile(fileName);
+			Serialization.ToBinFile(levelData, fileName);
 		}
 
 		private void TraverseLogicalTree(DependencyObject dependencyObject, Canvas canvas, string parentName) //todo: move to tools class

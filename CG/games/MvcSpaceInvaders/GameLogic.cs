@@ -27,13 +27,13 @@ namespace MvcSpaceInvaders
 		{
 			if (Lost) return;
 			shootCoolDown.Update(absoluteTime);
-			//remove outside bullet - lazy remove
+			//remove outside bullet - lazy remove (once per frame one bullet is removed)
 			foreach (var bullet in bullets)
 			{
 				if (bullet.MinY > 1.0f)
 				{
 					bullets.Remove(bullet);
-					return;
+					break;
 				}
 			}
 			HandleCollisions();

@@ -111,7 +111,7 @@ namespace DemoRecorder
 			demo.GetScreenshot().Save(saveDirectory + fileNumber.ToString("00000") + ".png");
 			gameWindow.SwapBuffers();
 			++fileNumber;
-			demo.TimeSource.Position += 1.0f / frameRate; //step 1/25 of a second
+			demo.TimeSource.CurrentTime += 1.0f / frameRate; //step 1/25 of a second
 		}
 	}
 }

@@ -78,7 +78,7 @@ namespace Zenseless.Sound
 		/// <value>
 		/// The position in seconds.
 		/// </value>
-		public float Position
+		public float CurrentTime
 		{
 			get { return (float)audioFileReader.CurrentTime.TotalSeconds; }
 			set

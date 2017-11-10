@@ -13,6 +13,7 @@
 		/// The period elapsed count.
 		/// </value>
 		public uint PeriodElapsedCount { get; private set; } = 0;
+		
 		/// <summary>
 		/// Gets the period relative time. The time that has elapsed since the current period has started.
 		/// </summary>
@@ -20,6 +21,7 @@
 		/// The time that has elapsed since the current period has started.
 		/// </value>
 		public float PeriodRelativeTime { get; private set; } = 0;
+		
 		/// <summary>
 		/// Gets a value indicating whether this <see cref="PeriodicUpdate"/> is enabled.
 		/// </summary>
@@ -27,31 +29,34 @@
 		///   <c>true</c> if enabled; otherwise, <c>false</c>.
 		/// </value>
 		public bool Enabled { get; private set; } = false;
+		
 		/// <summary>
-		/// 
+		/// Event handler delegate type declaration
 		/// </summary>
-		/// <param name="sender">The <see cref="PeriodicUpdate"/> instance that called sender.</param>
-		/// <param name="absoluteTime">The absolute time.</param>
+		/// <param name="sender">The <see cref="PeriodicUpdate"/> instance that invokes the callback.</param>
+		/// <param name="absoluteTime">The absolute time at invoking.</param>
 		public delegate void PeriodElapsedHandler(PeriodicUpdate sender, float absoluteTime);
+		
 		/// <summary>
-		/// Occurs when [period elapsed].
+		/// A registered callback is called each time the Interval period has elapsed.
 		/// </summary>
 		public event PeriodElapsedHandler PeriodElapsed;
+		
 		/// <summary>
-		/// Gets or sets the interval.
+		/// Gets or sets the period of time.
 		/// </summary>
 		/// <value>
-		/// The interval.
+		/// The period of time.
 		/// </value>
-		public float Interval { get; set; }
+		public float Period { get; set; }
 
 		/// <summary>
 		/// Initializes a new instance of the <see cref="PeriodicUpdate"/> class.
 		/// </summary>
-		/// <param name="interval">The regular interval in which <see cref="PeriodElapsed"/> will be called.</param>
-		public PeriodicUpdate(float interval)
+		/// <param name="period">The regular time interval in which <see cref="PeriodElapsed"/> will be called.</param>
+		public PeriodicUpdate(float period)
 		{
-			Interval = interval;
+			Period = period;
 		}
 
 		/// <summary>
@@ -65,7 +70,8 @@
 		}
 
 		/// <summary>
-		/// Stops this instance.
+		/// Stops invoking of the callback and internal time counting.
+		/// Sets enabled to false.
 		/// </summary>
 		public void Stop()
 		{
@@ -73,9 +79,11 @@
 		}
 
 		/// <summary>
-		/// Updates the specified absolute time.
+		/// Updates the specified absolute time. 
+		/// This method is responsible for calling the <see cref="PeriodElapsed"/> callback.
+		/// This method has to be called at least once per frame to have frame exact callback evaluation.
 		/// </summary>
-		/// <param name="absoluteTime">The absolute time.</param>
+		/// <param name="absoluteTime">The current absolute time.</param>
 		public void Update(float absoluteTime)
 		{
 			if (!Enabled)
@@ -85,7 +93,7 @@
 				return;
 			}
 			PeriodRelativeTime = absoluteTime - absoluteStartTime;
-			if (PeriodRelativeTime > Interval)
+			if (PeriodRelativeTime > Period)
 			{
 				PeriodElapsed?.Invoke(this, absoluteTime);
 				absoluteStartTime = absoluteTime;
@@ -95,7 +103,7 @@
 		}
 
 		/// <summary>
-		/// The absolute time in seconds
+		/// The absolute start time in seconds
 		/// </summary>
 		private float absoluteStartTime = 0.0f;
 	}

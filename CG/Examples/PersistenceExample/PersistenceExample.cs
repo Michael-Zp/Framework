@@ -16,14 +16,14 @@ namespace Example
 			GameState gameState;
 			try
 			{
-				gameState = (GameState)Serialize.ObjFromBinFile(GetGameStateFilePath()); //try to load the game state from a file at start of program
+				gameState = (GameState)Serialization.FromBinFile(GetGameStateFilePath()); //try to load the game state from a file at start of program
 			}
 			catch
 			{
 				gameState = new GameState(); //loading failed -> reset
 			}
 
-			window.GameWindow.Closing += (s, e) => gameState.ObjIntoBinFile(GetGameStateFilePath()); //save game state at end of program
+			window.GameWindow.Closing += (s, e) => Serialization.ToBinFile(gameState, GetGameStateFilePath()); //save game state at end of program
 			window.GameWindow.KeyDown += (s, e) => { if (e.Key == OpenTK.Input.Key.R) gameState = new GameState(); }; //reset
 			window.GameWindow.MouseDown += (s, e) => 
 			{

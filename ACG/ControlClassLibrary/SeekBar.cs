@@ -88,7 +88,7 @@ namespace ControlClassLibrary
 		private void TimerUpdateMarkerBar_Tick(object sender, EventArgs e)
 		{
 			timerChange = true;
-			Position = timeSource.Position;
+			Position = timeSource.CurrentTime;
 			timerChange = false;
 			//todo: cleanup handling of value changed (data-binding?) update circles!
 		}
@@ -97,7 +97,7 @@ namespace ControlClassLibrary
 		{
 			PositionChanged?.Invoke(Position);
 			if (timerChange) return;
-			timeSource.Position = Position;
+			timeSource.CurrentTime = Position;
 		}
 	}
 }
