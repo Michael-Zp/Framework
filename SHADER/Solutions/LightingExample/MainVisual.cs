@@ -35,10 +35,10 @@ namespace Example
 			if (ReferenceEquals(shader, null)) return;
 			GL.Clear(ClearBufferMask.ColorBufferBit | ClearBufferMask.DepthBufferBit);
 			shader.Activate();
-			GL.Uniform3(shader.GetResourceLocation(ShaderResourceType.Uniform, "light1Direction"), new Vector3(-1, -1, -1).Normalized());
-			GL.Uniform4(shader.GetResourceLocation(ShaderResourceType.Uniform, "light1Color"), new Color4(1f, 1f, 1f, 1f));
-			GL.Uniform3(shader.GetResourceLocation(ShaderResourceType.Uniform, "light2Position"), new Vector3(-1, -1, 1));
-			GL.Uniform4(shader.GetResourceLocation(ShaderResourceType.Uniform, "light2Color"), new Color4(1f, .1f, .1f, 1f));
+			GL.Uniform3(shader.GetResourceLocation(ShaderResourceType.Uniform, "light1Direction"), new Vector3(-1, -1, 1).Normalized());
+			GL.Uniform4(shader.GetResourceLocation(ShaderResourceType.Uniform, "light1Color"), new Color4(1f, 0f, 0f, 1f));
+			GL.Uniform3(shader.GetResourceLocation(ShaderResourceType.Uniform, "light2Position"), new Vector3(1, 1, 1));
+			GL.Uniform4(shader.GetResourceLocation(ShaderResourceType.Uniform, "light2Color"), new Color4(1f, 1f, 1f, 1f));
 			GL.Uniform3(shader.GetResourceLocation(ShaderResourceType.Uniform, "light3Position"), new Vector3(-2, 2, 2));
 			GL.Uniform3(shader.GetResourceLocation(ShaderResourceType.Uniform, "light3Direction"), new Vector3(1, -1, -1).Normalized());
 			GL.Uniform1(shader.GetResourceLocation(ShaderResourceType.Uniform, "light3Angle"), Zenseless.Geometry.MathHelper.DegreesToRadians(10f));
@@ -50,6 +50,7 @@ namespace Example
 			GL.Uniform3(shader.GetResourceLocation(ShaderResourceType.Uniform, "cameraPosition"), camera.CalcPosition().ToOpenTK());
 			geometry.Draw();
 			shader.Deactivate();
+			//Clipboard.SetImage(FrameBuffer.ToBitmap());
 		}
 
 		public static readonly string ShaderName = nameof(shader);
