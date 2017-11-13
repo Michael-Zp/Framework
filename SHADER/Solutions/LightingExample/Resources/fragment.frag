@@ -63,4 +63,5 @@ void main()
 
 	//combine
 	color = ambient	+ light1 + light2 + light3;
+	color = vec4(abs(normal),1);
 }

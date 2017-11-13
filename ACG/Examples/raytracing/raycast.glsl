@@ -32,12 +32,12 @@ float sphere(vec3 C, float r, vec3 O, vec3 D)
     return (p - q) > 0.0 ? p - q : p + q;
 }
 
-//M = center of sphere
+//center = center of sphere
 //P = some point in space
 // return normal of sphere when looking from point P
-vec3 sphereNormal(vec3 M, vec3 P)
+vec3 sphereNormal(vec3 center, vec3 P)
 {
-	return normalize(P - M);
+	return normalize(P - center);
 }
 
 //N = normal of plane
@@ -59,8 +59,8 @@ void main()
 {
 	//camera setup
 	float fov = 90.0 * (PI / 180.0);
-	float tanFov = tan(fov / 2) / iResolution.x;
-	vec2 d = tanFov * (gl_FragCoord.xy * 2.0 - iResolution.xy);
+	float fx = tan(fov / 2) / iResolution.x;
+	vec2 d = fx * (gl_FragCoord.xy * 2.0 - iResolution.xy);
 
 	vec3 camP = vec3(0.0, 0.0, 0.0);
 	vec3 camDir = normalize(vec3(d.x, d.y, 1.0));
@@ -80,8 +80,10 @@ void main()
 	{
 		color = vec3(1);
 
+		
 		//sphere diffuse coloring
-		// vec3 normal = sphereNormal(C, camP + t * camDir);
+		vec3 normal = sphereNormal(C, camP + t * camDir);
+		color = normal;
 		// color = vec3(dot(normal,normalize(vec3(1, 1, -1))));
 	}
 	// gl_FragColor = vec4(camDir, 1.0);
