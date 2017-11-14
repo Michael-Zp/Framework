@@ -21,14 +21,15 @@
 		/// The time that has elapsed since the current period has started.
 		/// </value>
 		public float PeriodRelativeTime { get; private set; } = 0;
-		
+
 		/// <summary>
 		/// Gets a value indicating whether this <see cref="PeriodicUpdate"/> is enabled.
 		/// </summary>
 		/// <value>
-		///   <c>true</c> if enabled; otherwise, <c>false</c>.
+		///   <c>true</c> if enabled - callback and internal time counting active from this point onward. 
+		///   otherwise, <c>false - Stops invoking of the callback and internal time counting.</c>.
 		/// </value>
-		public bool Enabled { get; private set; } = false;
+		public bool Enabled { get; set; } = false;
 		
 		/// <summary>
 		/// Event handler delegate type declaration
@@ -54,28 +55,9 @@
 		/// Initializes a new instance of the <see cref="PeriodicUpdate"/> class.
 		/// </summary>
 		/// <param name="period">The regular time interval in which <see cref="PeriodElapsed"/> will be called.</param>
-		public PeriodicUpdate(/*ITime timeSource, */float period)
+		public PeriodicUpdate(float period)
 		{
 			Period = period;
-		}
-
-		/// <summary>
-		/// Enabling callback from this point onward.
-		/// </summary>
-		/// <param name="startTime">The start time.</param>
-		public void Start(float startTime)
-		{
-			absoluteStartTime = startTime;
-			Enabled = true;
-		}
-
-		/// <summary>
-		/// Stops invoking of the callback and internal time counting.
-		/// Sets enabled to false.
-		/// </summary>
-		public void Stop()
-		{
-			Enabled = false;
 		}
 
 		/// <summary>
@@ -86,13 +68,14 @@
 		/// <param name="absoluteTime">The current absolute time.</param>
 		public void Update(float absoluteTime)
 		{
+			if (!absoluteStartTime.HasValue) absoluteStartTime = absoluteTime;
 			if (!Enabled)
 			{
 				absoluteStartTime = absoluteTime;
 				PeriodRelativeTime = 0.0f;
 				return;
 			}
-			PeriodRelativeTime = absoluteTime - absoluteStartTime;
+			PeriodRelativeTime = absoluteTime - absoluteStartTime.Value;
 			if (PeriodRelativeTime > Period)
 			{
 				PeriodElapsed?.Invoke(this, absoluteTime);
@@ -105,6 +88,6 @@
 		/// <summary>
 		/// The absolute start time in seconds
 		/// </summary>
-		private float absoluteStartTime = 0.0f;
+		private float? absoluteStartTime = null;
 	}
 }

@@ -1,8 +1,8 @@
-﻿using Zenseless.Base;
-using Zenseless.Sound;
+﻿using Zenseless.Sound;
 using System;
 using System.Diagnostics;
 using System.IO;
+using ControlClassLibrary;
 
 namespace ShaderForm.Demo
 {
@@ -61,8 +61,10 @@ namespace ShaderForm.Demo
 		public DemoTimeSource(bool isLooping)
 		{
 			SoundFileName = string.Empty;
-			timeSource = new LoopableStopWatch(100.0f);
-			timeSource.IsLooping = isLooping;
+			timeSource = new LoopableStopWatch(100.0f)
+			{
+				IsLooping = isLooping
+			};
 			timeSource.TimeFinished += CallOnTimeFinished;
 		}
 

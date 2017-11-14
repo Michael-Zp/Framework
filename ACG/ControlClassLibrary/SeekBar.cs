@@ -1,6 +1,7 @@
 ﻿using Zenseless.Base;
 using System;
 using System.Windows.Forms;
+using Zenseless.Sound;
 
 namespace ControlClassLibrary
 {

@@ -36,6 +36,7 @@
   <ItemGroup>
     <Compile Include="AudioPlaybackEngine.cs" />
     <Compile Include="AutoDisposeSampleProvider.cs" />
+    <Compile Include="ITimedMedia.cs" />
     <Compile Include="SoundTimeSource.cs" />
     <Compile Include="SoundLoopStream.cs" />
   </ItemGroup>

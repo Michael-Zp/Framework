@@ -53,6 +53,10 @@
       <Project>{e5ff60a4-46fb-42d2-9430-bc523315c2e0}</Project>
       <Name>Zenseless.Base</Name>
     </ProjectReference>
+    <ProjectReference Include="..\..\_Common\Zenseless.Sound\Zenseless.Sound.csproj">
+      <Project>{78A88806-AD96-4821-B9AD-8FC060F6FEB6}</Project>
+      <Name>Zenseless.Sound</Name>
+    </ProjectReference>
     <ProjectReference Include="..\ShaderForm\ShaderForm.csproj">
       <Project>{38149468-a074-4408-8684-b06f7176b3f6}</Project>
       <Name>ShaderForm</Name>

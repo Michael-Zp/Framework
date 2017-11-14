@@ -2,7 +2,7 @@
 {
 	public class ComponentAnimated : ComponentPeriodicUpdate, IAnimation
 	{
-		public ComponentAnimated(float startTime, float length) : base(startTime, length) { }
+		public ComponentAnimated(float length) : base(length) { }
 
 		public float Length	{ get { return this.Period; }	}
 

@@ -19,7 +19,7 @@ namespace MvcSpaceInvaders
 
 		public GameLogic()
 		{
-			shootCoolDown.PeriodElapsed += (s, t) => shootCoolDown.Stop();
+			shootCoolDown.PeriodElapsed += (s, t) => shootCoolDown.Enabled = false;
 			CreateEnemies();
 		}
 
@@ -85,7 +85,7 @@ namespace MvcSpaceInvaders
 				OnShoot?.Invoke(this, null);
 				bullets.Add(new Box2D(player.MinX, player.MinY, 0.02f, 0.04f));
 				bullets.Add(new Box2D(player.MaxX, player.MinY, 0.02f, 0.04f));
-				shootCoolDown.Start(absoluteTime);
+				shootCoolDown.Enabled = true;
 			}
 		}
 

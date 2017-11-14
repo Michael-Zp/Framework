@@ -37,6 +37,7 @@
     <Reference Include="System.Windows.Forms" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="LoopableStopWatch.cs" />
     <Compile Include="MovableControlsLayoutPanel.cs">
       <SubType>Component</SubType>
     </Compile>
@@ -119,6 +120,10 @@
     <ProjectReference Include="..\..\_Common\Zenseless.Base\Zenseless.Base.csproj">
       <Project>{e5ff60a4-46fb-42d2-9430-bc523315c2e0}</Project>
       <Name>Zenseless.Base</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\_Common\Zenseless.Sound\Zenseless.Sound.csproj">
+      <Project>{78a88806-ad96-4821-b9ad-8fc060f6feb6}</Project>
+      <Name>Zenseless.Sound</Name>
     </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

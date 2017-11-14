@@ -9,7 +9,7 @@ namespace Zenseless.Sound
 	/// Intended for use in multi-media applications.
 	/// </summary>
 	/// <seealso cref="Zenseless.Base.Disposable" />
-	/// <seealso cref="Zenseless.Base.ITimedMedia" />
+	/// <seealso cref="Zenseless.Sound.ITimedMedia" />
 	public class SoundTimeSource : Disposable, ITimedMedia
 	{
 		/// <summary>

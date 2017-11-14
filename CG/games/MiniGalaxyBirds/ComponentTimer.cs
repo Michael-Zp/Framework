@@ -4,9 +4,9 @@ namespace MiniGalaxyBirds
 {
 	public class ComponentPeriodicUpdate : PeriodicUpdate, IComponent
 	{
-		public ComponentPeriodicUpdate(float startTime, float interval) : base(interval)
+		public ComponentPeriodicUpdate(float interval) : base(interval)
 		{
-			Start(startTime);
+			Enabled = true;
 		}
 	}
 }

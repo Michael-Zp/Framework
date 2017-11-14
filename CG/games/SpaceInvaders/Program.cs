@@ -21,7 +21,7 @@ namespace SpaceInvaders
 
 		public Controller()
 		{
-			shootCoolDown.PeriodElapsed += (s, t) => shootCoolDown.Stop();
+			shootCoolDown.PeriodElapsed += (s, t) => shootCoolDown.Enabled = false;
 			CreateEnemies();
 		}
 
@@ -148,7 +148,7 @@ namespace SpaceInvaders
 			{
 				bullets.Add(new Box2D(player.MinX, player.MinY, 0.005f, 0.005f));
 				bullets.Add(new Box2D(player.MaxX, player.MinY, 0.005f, 0.005f));
-				shootCoolDown.Start(time);
+				shootCoolDown.Enabled = true;
 			}
 		}
 
