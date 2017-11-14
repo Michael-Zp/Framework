@@ -16,7 +16,7 @@ namespace Example
 		private PostProcessing postProcessing;
 		private Box2D bird = Box2DExtensions.CreateFromCenterSize(0.0f, -0.8f, 0.3f, 0.3f);
 		private ITexture texBird;
-		private IImmutableBox2D background = new Box2D(-1.0f, -1.0f, 2.0f, 2.0f);
+		private IReadOnlyBox2D background = new Box2D(-1.0f, -1.0f, 2.0f, 2.0f);
 		private ITexture texBackground;
 
 		private MyVisual(int width, int height)
@@ -73,7 +73,7 @@ namespace Example
 			var window = new ExampleWindow();
 			var visual = new MyVisual(window.GameWindow.Width, window.GameWindow.Height);
 			var time = new GameTime();
-			window.Render += () => visual.Render(time.Seconds);
+			window.Render += () => visual.Render(time.AbsoluteTime);
 			window.Update += visual.Update;
 			window.Run();
 		}

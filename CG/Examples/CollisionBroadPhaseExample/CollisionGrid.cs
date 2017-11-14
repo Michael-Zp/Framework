@@ -15,7 +15,7 @@ namespace Example
 		public readonly int CellCountX;
 		public readonly int CellCountY;
 
-		public CollisionGrid(IImmutableBox2D bounds, float cellSizeX, float cellSizeY)
+		public CollisionGrid(IReadOnlyBox2D bounds, float cellSizeX, float cellSizeY)
 		{
 			Bounds = new Box2D(bounds);
 			CellSize = new Vector2(cellSizeX, cellSizeY);

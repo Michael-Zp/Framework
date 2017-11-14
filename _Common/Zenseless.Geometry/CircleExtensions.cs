@@ -13,7 +13,7 @@ namespace Zenseless.Geometry
 		/// </summary>
 		/// <param name="box">The box.</param>
 		/// <returns></returns>
-		public static Circle CreateFromBox(IImmutableBox2D box)
+		public static Circle CreateFromBox(IReadOnlyBox2D box)
 		{
 			var circle = new Circle(box.CenterX, box.CenterY, 0.5f * Math.Min(box.SizeX, box.SizeY));
 			return circle;

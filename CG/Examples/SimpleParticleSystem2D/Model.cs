@@ -51,7 +51,7 @@ namespace Example
 		//need random numbers for particle seeding
 		private Random rnd = new Random(12);
 		private List<Particle> particles = new List<Particle>();
-		private readonly IImmutableBox2D screen = new Box2D(-1, -1, 2, 2);
+		private readonly IReadOnlyBox2D screen = new Box2D(-1, -1, 2, 2);
 
 		//helper random function
 		private float Rnd01() => (float)rnd.NextDouble();

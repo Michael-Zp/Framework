@@ -24,7 +24,7 @@ namespace Example
 			{
 				if (doPostProcessing)
 				{
-					visual.DrawWithPostProcessing(globalTime.Seconds);
+					visual.DrawWithPostProcessing(globalTime.AbsoluteTime);
 				}
 				else
 				{

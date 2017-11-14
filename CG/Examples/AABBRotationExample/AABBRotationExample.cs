@@ -47,7 +47,7 @@ namespace Example
 			GL.End();
 		}
 
-		private static void DrawAABB(IImmutableBox2D rect)
+		private static void DrawAABB(IReadOnlyBox2D rect)
 		{
 			GL.Begin(PrimitiveType.LineLoop);
 			GL.Vertex2(rect.MinX, rect.MinY);

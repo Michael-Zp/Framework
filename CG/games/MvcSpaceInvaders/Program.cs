@@ -41,7 +41,7 @@ namespace MvcSpaceInvaders
 			var controller = new Controller();
 			var time = new GameTime();
 			window.Render += controller.Render;
-			window.Update += (dt) => controller.Update(time.Seconds);
+			window.Update += (dt) => controller.Update(time.AbsoluteTime);
 			window.Run();
 		}
 	}

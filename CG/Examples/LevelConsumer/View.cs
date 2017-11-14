@@ -17,7 +17,7 @@ namespace Example
 			GL.Enable(EnableCap.Texture2D); //todo: only for non shader pipeline relevant -> remove at some point
 		}
 
-		public void AddSprite(string name, int layer, IImmutableBox2D renderBounds, string textureName, Bitmap bitmap)
+		public void AddSprite(string name, int layer, IReadOnlyBox2D renderBounds, string textureName, Bitmap bitmap)
 		{
 			var texture = GetTexture(textureName, bitmap);
 			if (!layers.ContainsKey(layer))
@@ -34,7 +34,7 @@ namespace Example
 			aspect = width / (float)height;
 		}
 
-		public void Render(IImmutableBox2D bounds)
+		public void Render(IReadOnlyBox2D bounds)
 		{
 			GL.Clear(ClearBufferMask.ColorBufferBit);
 			GL.MatrixMode(MatrixMode.Projection);
@@ -61,11 +61,11 @@ namespace Example
 
 		private class Layer
 		{
-			public void Add(ITexture tex, IImmutableBox2D bounds)
+			public void Add(ITexture tex, IReadOnlyBox2D bounds)
 			{
 				if (!textures.ContainsKey(tex))
 				{
-					textures.Add(tex, new List<IImmutableBox2D>());
+					textures.Add(tex, new List<IReadOnlyBox2D>());
 				}
 				textures[tex].Add(bounds);
 			}
@@ -83,7 +83,7 @@ namespace Example
 				}
 			}
 
-			private Dictionary<ITexture, List<IImmutableBox2D>> textures = new Dictionary<ITexture, List<IImmutableBox2D>>();
+			private Dictionary<ITexture, List<IReadOnlyBox2D>> textures = new Dictionary<ITexture, List<IReadOnlyBox2D>>();
 		}
 
 		private SortedDictionary<int, Layer> layers = new SortedDictionary<int, Layer>();

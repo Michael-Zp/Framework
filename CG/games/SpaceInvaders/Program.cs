@@ -11,7 +11,7 @@ namespace SpaceInvaders
 {
 	class Controller
 	{
-		private IImmutableBox2D windowBorders = new Box2D(-1.0f, -1.0f, 2.0f, 2.0f);
+		private IReadOnlyBox2D windowBorders = new Box2D(-1.0f, -1.0f, 2.0f, 2.0f);
 		private Box2D player = new Box2D(0.0f, -1.0f, 0.1f, 0.05f);
 		private List<Box2D> enemies = new List<Box2D>();
 		private List<Box2D> bullets = new List<Box2D>();
@@ -60,7 +60,7 @@ namespace SpaceInvaders
 			var controller = new Controller();
 			window.Render += controller.Render;
 			var time = new GameTime();
-			window.Update += (dt) => controller.Update(dt, time.Seconds);
+			window.Update += (dt) => controller.Update(dt, time.AbsoluteTime);
 			window.Run();
 		}
 
@@ -90,7 +90,7 @@ namespace SpaceInvaders
 			}
 		}
 
-		private static void DrawBullet(IImmutableBox2D o)
+		private static void DrawBullet(IReadOnlyBox2D o)
 		{
 			GL.Begin(PrimitiveType.Quads);
 			GL.Color3(Color.White);
@@ -101,7 +101,7 @@ namespace SpaceInvaders
 			GL.End();
 		}
 
-		private static void DrawEnemy(IImmutableBox2D o)
+		private static void DrawEnemy(IReadOnlyBox2D o)
 		{
 			GL.Begin(PrimitiveType.Triangles);
 			GL.Color3(Color.White);
@@ -115,7 +115,7 @@ namespace SpaceInvaders
 			GL.End();
 		}
 
-		private static void DrawPlayer(IImmutableBox2D o)
+		private static void DrawPlayer(IReadOnlyBox2D o)
 		{
 			GL.Begin(PrimitiveType.Triangles);
 			GL.Color3(Color.GreenYellow);

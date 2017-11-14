@@ -9,13 +9,13 @@ namespace Zenseless.Sound
 	/// Intended for use in multi-media applications.
 	/// </summary>
 	/// <seealso cref="Zenseless.Base.Disposable" />
-	/// <seealso cref="Zenseless.Base.ITimeSource" />
-	public class SoundTimeSource : Disposable, ITimeSource
+	/// <seealso cref="Zenseless.Base.ITimedMedia" />
+	public class SoundTimeSource : Disposable, ITimedMedia
 	{
 		/// <summary>
 		/// Occurs each time the time source is finished with running (length is reached).
 		/// </summary>
-		public event TimeFinishedHandler TimeFinished;
+		public event FinishedHandler TimeFinished;
 
 		/// <summary>
 		/// Initializes a new instance of the <see cref="SoundTimeSource"/> class.
@@ -78,7 +78,7 @@ namespace Zenseless.Sound
 		/// <value>
 		/// The position in seconds.
 		/// </value>
-		public float CurrentTime
+		public float Position
 		{
 			get { return (float)audioFileReader.CurrentTime.TotalSeconds; }
 			set

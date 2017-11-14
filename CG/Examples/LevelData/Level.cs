@@ -29,14 +29,14 @@ namespace LevelData
 	[Serializable]
 	public class Sprite : Element
 	{
-		public Sprite(string name, IImmutableBox2D renderBounds, int layer) : base(name)
+		public Sprite(string name, IReadOnlyBox2D renderBounds, int layer) : base(name)
 		{
 			Layer = layer;
 			RenderBounds = renderBounds;
 		}
 
 		public int Layer { get; set; }
-		public IImmutableBox2D RenderBounds { get; set; }
+		public IReadOnlyBox2D RenderBounds { get; set; }
 		public string TextureName { get; set; }
 		public Bitmap Bitmap { get; set; }
 	}

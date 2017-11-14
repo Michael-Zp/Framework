@@ -4,7 +4,7 @@ namespace MiniGalaxyBirds
 {
 	public interface IDrawable
 	{
-		IImmutableBox2D Rect { get; }
+		IReadOnlyBox2D Rect { get; }
 		void Draw();
 	}
 }

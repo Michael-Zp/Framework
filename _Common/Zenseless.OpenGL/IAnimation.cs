@@ -20,6 +20,6 @@ namespace Zenseless.OpenGL
 		/// </summary>
 		/// <param name="rectangle">The rectangle.</param>
 		/// <param name="totalSeconds">The total seconds.</param>
-		void Draw(IImmutableBox2D rectangle, float totalSeconds);
+		void Draw(IReadOnlyBox2D rectangle, float totalSeconds);
 	}
 }

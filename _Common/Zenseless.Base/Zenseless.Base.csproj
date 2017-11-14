@@ -43,13 +43,14 @@
     <Compile Include="Disposable.cs" />
     <Compile Include="GameTime.cs" />
     <Compile Include="ImageListTools.cs" />
+    <Compile Include="ITime.cs" />
     <Compile Include="ITimedUpdate.cs" />
-    <Compile Include="ITimeSource.cs" />
+    <Compile Include="ITimedMedia.cs" />
     <Compile Include="PathTools.cs" />
     <Compile Include="PeriodicUpdate.cs" />
     <Compile Include="Serialization.cs" />
     <Compile Include="Converter.cs" />
-    <Compile Include="TimeSource.cs" />
+    <Compile Include="LoopableStopWatch.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

@@ -47,7 +47,7 @@ namespace Example
 			window.Run();
 		}
 
-		private void DrawRect(IImmutableBox2D rectangle, Color4 color)
+		private void DrawRect(IReadOnlyBox2D rectangle, Color4 color)
 		{
 			GL.Color4(color);
 			GL.Begin(PrimitiveType.Quads);

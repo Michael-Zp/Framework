@@ -14,7 +14,7 @@ namespace Example
 	class Controller
 	{
 		private List<Collider> colliders = new List<Collider>();
-		private IImmutableBox2D windowBorders = new Box2D(-1.0f, -1.0f, 2.0f, 2.0f);
+		private IReadOnlyBox2D windowBorders = new Box2D(-1.0f, -1.0f, 2.0f, 2.0f);
 		private CollisionGrid collisionGrid;
 		private GameTime time;
 		private double lastBenchmark = 0;
@@ -64,7 +64,7 @@ namespace Example
 				}
 			}
 
-			var t1 = time.Milliseconds; //get time before collision detection
+			var t1 = time.AbsoluteMilliseconds; //get time before collision detection
 			//handle collisions
 			if(Keyboard.GetState().IsKeyDown(Key.Space))
 			{
@@ -74,7 +74,7 @@ namespace Example
 			{
 				GridCollision();
 			}
-			var t2 = time.Milliseconds; //get time after collision detection
+			var t2 = time.AbsoluteMilliseconds; //get time after collision detection
 
 			if (t2 > lastBenchmark + 500.0)
 			{
@@ -124,7 +124,7 @@ namespace Example
 			}
 		}
 		
-		private static void DrawBox(IImmutableBox2D rect)
+		private static void DrawBox(IReadOnlyBox2D rect)
 		{
 			GL.Begin(PrimitiveType.Quads);
 			GL.Vertex2(rect.MinX, rect.MinY);

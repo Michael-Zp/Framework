@@ -45,7 +45,7 @@ namespace Zenseless.Geometry
 		/// <param name="rectangle">Rectangle to check</param>
 		/// <param name="point">Coordinates of the point</param>
 		/// <returns>true if point is inside the rectangle (including borders)</returns>
-		public static bool Contains(this IImmutableBox2D rectangle, Vector2 point) => rectangle.Contains(point.X, point.Y);
+		public static bool Contains(this IReadOnlyBox2D rectangle, Vector2 point) => rectangle.Contains(point.X, point.Y);
 
 		/// <summary>
 		/// Pushes rectangleA inside rectangleB, but only in regards to the x-direction
@@ -53,7 +53,7 @@ namespace Zenseless.Geometry
 		/// <param name="rectangleA">rectangle to push</param>
 		/// <param name="rectangleB">bounds to push inside of</param>
 		/// <returns>true if a push was necessary</returns>
-		public static bool PushXRangeInside(this Box2D rectangleA, IImmutableBox2D rectangleB)
+		public static bool PushXRangeInside(this Box2D rectangleA, IReadOnlyBox2D rectangleB)
 		{
 			if (rectangleA.SizeX > rectangleB.SizeX) return false;
 			if (rectangleA.MinX < rectangleB.MinX)
@@ -73,7 +73,7 @@ namespace Zenseless.Geometry
 		/// <param name="rectangleA">rectangle to push</param>
 		/// <param name="rectangleB">bounds to push inside of</param>
 		/// <returns>true if a push was necessary</returns>
-		public static bool PushYRangeInside(this Box2D rectangleA, IImmutableBox2D rectangleB)
+		public static bool PushYRangeInside(this Box2D rectangleA, IReadOnlyBox2D rectangleB)
 		{
 			if (rectangleA.SizeY > rectangleB.SizeY) return false;
 			if (rectangleA.MinY < rectangleB.MinY)
@@ -94,7 +94,7 @@ namespace Zenseless.Geometry
 		/// <param name="rectangleA"></param>
 		/// <param name="rectangleB"></param>
 		/// <returns>AABR in the overlap</returns>
-		public static Box2D Overlap(this IImmutableBox2D rectangleA, IImmutableBox2D rectangleB)
+		public static Box2D Overlap(this IReadOnlyBox2D rectangleA, IReadOnlyBox2D rectangleB)
 		{
 			Box2D overlap = null;
 
@@ -130,7 +130,7 @@ namespace Zenseless.Geometry
 		/// </summary>
 		/// <param name="rectangleA">The rectangle that will be moved to avoid intersection</param>
 		/// <param name="rectangleB">The rectangle to check for intersection</param>
-		public static void UndoOverlap(this Box2D rectangleA, IImmutableBox2D rectangleB)
+		public static void UndoOverlap(this Box2D rectangleA, IReadOnlyBox2D rectangleB)
 		{
 			if (!rectangleA.Intersects(rectangleB)) return;
 

@@ -20,7 +20,7 @@ namespace Example
 
 			var time = new GameTime();
 			app.Render += visual.Render;
-			app.Update += (t) => visual.Update(time.Seconds);
+			app.Update += (t) => visual.Update(time.AbsoluteTime);
 			app.Run();
 		}
 

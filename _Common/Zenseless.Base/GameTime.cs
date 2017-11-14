@@ -7,7 +7,7 @@ namespace Zenseless.Base
 	/// Can do frames-per-second counting.
 	/// Uses a <see cref="System.Diagnostics.Stopwatch" />
 	/// </summary>
-	public class GameTime
+	public class GameTime : ITime
 	{
 		/// <summary>
 		/// Gets the time since the last frame.
@@ -25,19 +25,19 @@ namespace Zenseless.Base
 		public float FPS { get; private set; }
 
 		/// <summary>
-		/// Gets the elapsed time in seconds.
+		/// Gets the absolute time since start in seconds.
 		/// </summary>
 		/// <value>
-		/// The time in seconds.
+		/// The absolute time in seconds.
 		/// </value>
-		public float Seconds => (float)stopwatch.Elapsed.TotalSeconds;
+		public float AbsoluteTime => (float)stopwatch.Elapsed.TotalSeconds;
 		/// <summary>
 		/// Gets the elapsed time in milliseconds.
 		/// </summary>
 		/// <value>
 		/// The time in milliseconds.
 		/// </value>
-		public float Milliseconds => (float)stopwatch.Elapsed.TotalMilliseconds;
+		public float AbsoluteMilliseconds => (float)stopwatch.Elapsed.TotalMilliseconds;
 
 		/// <summary>
 		/// Initializes a new instance of the <see cref="GameTime"/> class.
@@ -55,7 +55,7 @@ namespace Zenseless.Base
 		/// </summary>
 		public void NewFrame()
 		{
-			var time = Seconds;
+			var time = AbsoluteTime;
 			DeltaTime = time - lastRenderTime;
 			lastRenderTime = time;
 

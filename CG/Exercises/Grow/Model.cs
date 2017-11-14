@@ -39,6 +39,6 @@ namespace Example
 
 		private List<Element> elements = new List<Element>();
 		private Element player = new Element(Vector2.Zero, .5f);
-		private readonly IImmutableBox2D screen;
+		private readonly IReadOnlyBox2D screen;
 	}
 }

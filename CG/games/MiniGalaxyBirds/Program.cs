@@ -20,7 +20,7 @@ namespace MiniGalaxyBirds
 
 			GameTime time = new GameTime();
 
-			window.Update += (t) => HandleInput(gameLogic, time.Seconds);
+			window.Update += (t) => HandleInput(gameLogic, time.AbsoluteTime);
 			window.Resize += renderer.ResizeWindow;
 			window.Render += () => renderer.DrawScreen(GameLogic.visibleFrame, gameLogic.Points);
 			window.Render += () => time.NewFrame();

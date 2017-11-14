@@ -15,7 +15,7 @@ namespace Zenseless.OpenGL
 		/// </summary>
 		/// <param name="rect">The rect.</param>
 		/// <param name="texCoords">The tex coords.</param>
-		public static void DrawTexturedRect(this IImmutableBox2D rect, IImmutableBox2D texCoords)
+		public static void DrawTexturedRect(this IReadOnlyBox2D rect, IReadOnlyBox2D texCoords)
 		{
 			GL.Begin(PrimitiveType.Quads);
 			GL.TexCoord2(texCoords.MinX, texCoords.MinY); GL.Vertex2(rect.MinX, rect.MinY);

@@ -18,7 +18,7 @@ namespace Example
 
 			var time = new GameTime();
 			window.Render += visual.Render;
-			window.Update += (dt) => visual.Update(time.Seconds);
+			window.Update += (dt) => visual.Update(time.AbsoluteTime);
 			window.Run();
 		}
 

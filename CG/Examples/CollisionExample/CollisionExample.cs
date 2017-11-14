@@ -52,7 +52,7 @@ namespace Example
 			DrawBoxOutline(obstacle);
 		}
 
-		private void DrawBoxOutline(IImmutableBox2D rect)
+		private void DrawBoxOutline(IReadOnlyBox2D rect)
 		{
 			GL.Begin(PrimitiveType.LineLoop);
 			GL.Vertex2(rect.MinX, rect.MinY);
@@ -62,7 +62,7 @@ namespace Example
 			GL.End();
 		}
 
-		private void DrawComplex(IImmutableBox2D rect)
+		private void DrawComplex(IReadOnlyBox2D rect)
 		{
 			var xQuarter = rect.MinX + rect.SizeX * 0.25f;
 			var x3Quarter = rect.MinX + rect.SizeX * 0.75f;

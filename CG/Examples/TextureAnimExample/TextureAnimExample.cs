@@ -80,7 +80,7 @@ namespace Example
 			var window = new ExampleWindow();
 			var visual = new MyVisual();
 			var time = new GameTime();
-			window.Render += () => visual.Render(time.Seconds);
+			window.Render += () => visual.Render(time.AbsoluteTime);
 			window.Run();
 		}
 	}

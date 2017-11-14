@@ -10,7 +10,7 @@ namespace Zenseless.Geometry
 	/// copying is necessary.
 	/// </summary>
 	[Serializable]
-	public class Box2D : IImmutableBox2D
+	public class Box2D : IReadOnlyBox2D
 	{
 		/// <summary>
 		/// Creates an 2D axis aligned bounding box
@@ -33,7 +33,7 @@ namespace Zenseless.Geometry
 		/// Creates an 2D axis aligned bounding box.
 		/// </summary>
 		/// <param name="rectangle">Source rectangle to copy.</param>
-		public Box2D(IImmutableBox2D rectangle)
+		public Box2D(IReadOnlyBox2D rectangle)
 		{
 			this.MinX = rectangle.MinX;
 			this.MinY = rectangle.MinY;
@@ -44,7 +44,7 @@ namespace Zenseless.Geometry
 		/// <summary>
 		/// Box from coordinates [0,0] to [1,1].
 		/// </summary>
-		public static readonly IImmutableBox2D BOX01 = new Box2D(0, 0, 1, 1);
+		public static readonly IReadOnlyBox2D BOX01 = new Box2D(0, 0, 1, 1);
 		/// <summary>
 		/// X-coordinate of the center of the box. Setting the value will move the box, while to size will not change.
 		/// </summary>
@@ -121,7 +121,7 @@ namespace Zenseless.Geometry
 		/// </summary>
 		/// <param name="rectangle">input rectangle, will be tested if it is contained inside this</param>
 		/// <returns>true if given rectangle is inside this (including borders)</returns>
-		public bool Contains(IImmutableBox2D rectangle)
+		public bool Contains(IReadOnlyBox2D rectangle)
 		{
 			if (MinX > rectangle.MinX) return false;
 			if (MaxX < rectangle.MaxX) return false;
@@ -135,7 +135,7 @@ namespace Zenseless.Geometry
 		/// </summary>
 		/// <param name="other">second rectangle</param>
 		/// <returns>False if not a rectangle</returns>
-		public bool Equals(IImmutableBox2D other)
+		public bool Equals(IReadOnlyBox2D other)
 		{
 			if (ReferenceEquals(null, other)) return false;
 			if (ReferenceEquals(this, other)) return true;
@@ -149,7 +149,7 @@ namespace Zenseless.Geometry
 		/// <returns>False if not a rectangle</returns>
 		public override bool Equals(object other)
 		{
-			return Equals(other as IImmutableBox2D);
+			return Equals(other as IReadOnlyBox2D);
 		}
 
 		/// <summary>
@@ -173,7 +173,7 @@ namespace Zenseless.Geometry
 		/// </summary>
 		/// <param name="rectangle">second rectangle</param>
 		/// <returns>true if the two rectangles overlap</returns>
-		public bool Intersects(IImmutableBox2D rectangle)
+		public bool Intersects(IReadOnlyBox2D rectangle)
 		{
 			bool noXintersect = (MaxX <= rectangle.MinX) || (MinX >= rectangle.MaxX);
 			bool noYintersect = (MaxY <= rectangle.MinY) || (MinY >= rectangle.MaxY);

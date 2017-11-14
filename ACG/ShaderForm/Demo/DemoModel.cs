@@ -50,13 +50,13 @@ namespace ShaderForm.Demo
 		{
 			visualContext.UpdateSurfaceSize(bufferWidth, bufferHeight);
 
-			var currentShader = ShaderKeyframes.GetCurrentShader(TimeSource.CurrentTime);
+			var currentShader = ShaderKeyframes.GetCurrentShader(TimeSource.Position);
 			var shaderLinked = visualContext.SetShader(currentShader);
-			visualContext.SetUniform("iGlobalTime", TimeSource.CurrentTime);
+			visualContext.SetUniform("iGlobalTime", TimeSource.Position);
 			visualContext.SetUniform("iResolution", bufferWidth, bufferHeight);
 			visualContext.SetUniform("iMouse", mouseX, mouseY, mouseButton);
 
-			uniforms.Interpolate(TimeSource.CurrentTime, (name, value) => visualContext.SetUniform(name, value));
+			uniforms.Interpolate(TimeSource.Position, (name, value) => visualContext.SetUniform(name, value));
 
 			//override with custom uniforms
 			SetCustomUniforms?.Invoke(visualContext);

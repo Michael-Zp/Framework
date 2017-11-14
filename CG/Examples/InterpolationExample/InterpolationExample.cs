@@ -60,7 +60,7 @@ namespace Example
 			bird.MinY = pos.Y;
 		}
 
-		private static void DrawTexturedRect(IImmutableBox2D Rectangle, ITexture tex)
+		private static void DrawTexturedRect(IReadOnlyBox2D Rectangle, ITexture tex)
 		{
 			GL.Color3(Color.White);
 			tex.Activate();
@@ -80,7 +80,7 @@ namespace Example
 			var visual = new MyVisual();
 			var time = new GameTime();
 			window.Render += visual.Render;
-			window.Update += (dt) => visual.Update(time.Seconds);
+			window.Update += (dt) => visual.Update(time.AbsoluteTime);
 			window.Run();
 		}
 	}

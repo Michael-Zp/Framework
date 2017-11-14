@@ -40,7 +40,7 @@ namespace Zenseless.OpenGL
 		/// </summary>
 		/// <param name="rectangle">The rectangle.</param>
 		/// <param name="id">The identifier.</param>
-		public void Draw(IImmutableBox2D rectangle, uint id)
+		public void Draw(IReadOnlyBox2D rectangle, uint id)
 		{
 			var texCoords = SpriteSheet.CalcSpriteTexCoords(id);
 			Texture.Activate();

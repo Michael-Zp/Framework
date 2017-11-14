@@ -8,11 +8,11 @@ namespace ControlClassLibrary
 	{
 		public delegate void PositionHandler(float position);
 		public delegate void PlayingStateHandler(bool playing);
-		public event TimeFinishedHandler Finished;
+		public event FinishedHandler Finished;
 		public event PlayingStateHandler PlayingStateChanged;
 		public event PositionHandler PositionChanged;
 
-		public ITimeSource TimeSource
+		public ITimedMedia TimeSource
 		{
 			get { return timeSource; }
 			set
@@ -34,7 +34,7 @@ namespace ControlClassLibrary
 		public SeekBar()
 		{
 			InitializeComponent();
-			defaultTimeSource =	new TimeSource(100.0f);
+			defaultTimeSource =	new LoopableStopWatch(100.0f);
 			timeSource = defaultTimeSource;
 			timeSource.IsLooping = true;
 			timeSource.TimeFinished += CallOnFinished;
@@ -71,9 +71,9 @@ namespace ControlClassLibrary
 
 		public float Length { get { return timeSource.Length; } }
 
-		private ITimeSource timeSource;
+		private ITimedMedia timeSource;
 		private bool timerChange = false;
-		private readonly TimeSource defaultTimeSource;
+		private readonly LoopableStopWatch defaultTimeSource;
 
 		private void CallOnFinished()
 		{
@@ -88,7 +88,7 @@ namespace ControlClassLibrary
 		private void TimerUpdateMarkerBar_Tick(object sender, EventArgs e)
 		{
 			timerChange = true;
-			Position = timeSource.CurrentTime;
+			Position = timeSource.Position;
 			timerChange = false;
 			//todo: cleanup handling of value changed (data-binding?) update circles!
 		}
@@ -97,7 +97,7 @@ namespace ControlClassLibrary
 		{
 			PositionChanged?.Invoke(Position);
 			if (timerChange) return;
-			timeSource.CurrentTime = Position;
+			timeSource.Position = Position;
 		}
 	}
 }

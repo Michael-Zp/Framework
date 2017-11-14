@@ -33,7 +33,7 @@ namespace Example
 		public void Render()
 		{
 			if (ReferenceEquals(shader, null)) return;
-			var time = gameTime.Seconds;
+			var time = gameTime.AbsoluteTime;
 			GL.Clear(ClearBufferMask.ColorBufferBit | ClearBufferMask.DepthBufferBit);
 			shader.Activate();
 			GL.Uniform1(shader.GetResourceLocation(ShaderResourceType.Uniform, "time"), time);

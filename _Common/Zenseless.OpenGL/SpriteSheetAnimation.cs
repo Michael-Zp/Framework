@@ -76,7 +76,7 @@ namespace Zenseless.OpenGL
 		/// </summary>
 		/// <param name="rectangle">coordinates ofthe GL quad</param>
 		/// <param name="totalSeconds">animation position in seconds</param>
-		public void Draw(IImmutableBox2D rectangle, float totalSeconds)
+		public void Draw(IReadOnlyBox2D rectangle, float totalSeconds)
 		{
 			var id = CalcAnimationSpriteID(FromID, ToID, AnimationLength, totalSeconds);
 			var texCoords = spriteSheet.CalcSpriteTexCoords(id);

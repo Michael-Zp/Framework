@@ -6,7 +6,7 @@ using System.IO;
 
 namespace ShaderForm.Demo
 {
-	public class DemoTimeSource : ITimeSource
+	public class DemoTimeSource : ITimedMedia
 	{
 		public string SoundFileName { get; private set; }
 
@@ -42,31 +42,31 @@ namespace ShaderForm.Demo
 			}
 		}
 
-		public float CurrentTime
+		public float Position
 		{
 			get
 			{
-				return timeSource.CurrentTime;
+				return timeSource.Position;
 			}
 
 			set
 			{
-				timeSource.CurrentTime = value;
+				timeSource.Position = value;
 			}
 		}
 
 		public event EventHandler Loaded;
-		public event TimeFinishedHandler TimeFinished;
+		public event FinishedHandler TimeFinished;
 
 		public DemoTimeSource(bool isLooping)
 		{
 			SoundFileName = string.Empty;
-			timeSource = new TimeSource(100.0f);
+			timeSource = new LoopableStopWatch(100.0f);
 			timeSource.IsLooping = isLooping;
 			timeSource.TimeFinished += CallOnTimeFinished;
 		}
 
-		public static ITimeSource FromMediaFile(string fileName)
+		public static ITimedMedia FromMediaFile(string fileName)
 		{
 			try
 			{
@@ -83,7 +83,7 @@ namespace ShaderForm.Demo
 			}
 		}
 
-		public void Load(ITimeSource newTimeSource, string soundFileName)
+		public void Load(ITimedMedia newTimeSource, string soundFileName)
 		{
 			Debug.Assert(!ReferenceEquals(null,  timeSource));
 			if (ReferenceEquals(null,  newTimeSource))
@@ -109,7 +109,7 @@ namespace ShaderForm.Demo
 			//remove old
 			timeSource.Dispose();
 			//create new
-			timeSource = new TimeSource(100.0f);
+			timeSource = new LoopableStopWatch(100.0f);
 			SoundFileName = string.Empty;
 			timeSource.IsLooping = isLooping;
 			timeSource.TimeFinished += CallOnTimeFinished;
@@ -122,7 +122,7 @@ namespace ShaderForm.Demo
 			timeSource.Dispose();
 		}
 
-		private ITimeSource timeSource;
+		private ITimedMedia timeSource;
 
 		private void CallOnTimeFinished()
 		{

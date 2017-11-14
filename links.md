@@ -69,12 +69,25 @@
 + [NAudio](https://naudio.codeplex.com/documentation): The sound framework I use in the course framework.
 
 ## Content (can besearched on google via „site:“ prefix)
-+ [Bitmap Fonts](https://forum.thegamecreators.com/thread/74431)
-+ [opengameart.org](http://opengameart.org/)
-+ [deviantart](http://www.deviantart.com/)
-+ [mediamilitia](http://mediamilitia.com/category/freebies/)
-+ [Sketchfab](https://sketchfab.com/) often free 3d content (mostly (animated) models)
-+ [MillionthVector: Free Sprites](http://millionthvector.blogspot.com/p/free-sprites.html)
-+ [zapsplat.com: Free sound effects](http://www.zapsplat.com/)
-+ [freesound.org](http://freesound.org/)
-+ [gamesounds.xyz](https://gamesounds.xyz/)
++ Textures/Sprites/images only
+  + [Image*After](http://www.imageafter.com/textures.php)
+  + [textures.com](https://www.textures.com/)
+  + [freefoto.com](https://www.freefoto.com/browse/33-00-0/Textures)
+  + [noctua-graphics.de](http://www.noctua-graphics.de/english/freetex_e.htm)
+  + [Bitmap Fonts](https://forum.thegamecreators.com/thread/74431)
+  + [mediamilitia](http://mediamilitia.com/category/freebies/)
+  + [deviantart](http://www.deviantart.com/)
+  + [absolutecross.com](http://www.absolutecross.com/downloads/textures) seamless
+  + [MillionthVector: Free Sprites](http://millionthvector.blogspot.com/p/free-sprites.html)
++ Sound only
+  + [zapsplat.com: Free sound effects](http://www.zapsplat.com/)
+  + [freesound.org](http://freesound.org/)
+  + [gamesounds.xyz](https://gamesounds.xyz/)
++ 3d Models only
+  + [Sketchfab](https://sketchfab.com/) often free 3d content (mostly (animated) models)
+  + [highend3d.com](https://www.highend3d.com/downloads)
+  + [psionic3d.co.uk](http://www.psionic3d.co.uk/resources.html)
++ Multiple media types
+  + [opengameart.org](http://opengameart.org/)
+  + [grsites.com/archive/textures](http://www.grsites.com/archive/textures/)
+  + [telias.free.fr](http://telias.free.fr/)

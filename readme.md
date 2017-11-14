@@ -1,7 +1,4 @@
-<!-- Replace this badge with your own-->
 [![Build status](https://ci.appveyor.com/api/projects/status/qyi1li184k33ycqe?svg=true)](https://ci.appveyor.com/project/danielscherzer/framework)
-
-
 
 ## [Setup of framework](setup.md)
 

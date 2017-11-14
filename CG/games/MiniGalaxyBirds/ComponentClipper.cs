@@ -5,7 +5,7 @@ namespace MiniGalaxyBirds
 {
 	public class ComponentClipper : IComponent, ITimedUpdate
 	{
-		public ComponentClipper(IImmutableBox2D clipFrame, IImmutableBox2D frame, Clip clip)
+		public ComponentClipper(IReadOnlyBox2D clipFrame, IReadOnlyBox2D frame, Clip clip)
 		{
 			this.ClipFrame = clipFrame;
 			this.Frame = frame;
@@ -20,8 +20,8 @@ namespace MiniGalaxyBirds
 			}
 		}
 
-		public IImmutableBox2D ClipFrame { get; private set; }
-		public IImmutableBox2D Frame { get; private set; }
+		public IReadOnlyBox2D ClipFrame { get; private set; }
+		public IReadOnlyBox2D Frame { get; private set; }
 
 		public delegate void Clip();
 		public event Clip OnClip;

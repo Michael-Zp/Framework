@@ -15,7 +15,7 @@ namespace Example
 			app.ResourceManager.ShaderChanged += visual.ShaderChanged;
 			LoadResources(app.ResourceManager);
 			var time = new GameTime();
-			app.Render += () => visual.Render(time.Seconds);
+			app.Render += () => visual.Render(time.AbsoluteTime);
 			app.Run();
 		}
 

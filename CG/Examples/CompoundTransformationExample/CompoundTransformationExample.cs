@@ -55,7 +55,7 @@ namespace Example
 			}
 		}
 
-		private static void DrawTexturedRect(IImmutableBox2D Rectangle, ITexture tex)
+		private static void DrawTexturedRect(IReadOnlyBox2D Rectangle, ITexture tex)
 		{
 			GL.Color3(Color.White);
 			tex.Activate();

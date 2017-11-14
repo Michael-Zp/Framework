@@ -54,13 +54,13 @@
 		/// Initializes a new instance of the <see cref="PeriodicUpdate"/> class.
 		/// </summary>
 		/// <param name="period">The regular time interval in which <see cref="PeriodElapsed"/> will be called.</param>
-		public PeriodicUpdate(float period)
+		public PeriodicUpdate(/*ITime timeSource, */float period)
 		{
 			Period = period;
 		}
 
 		/// <summary>
-		/// Starts the specified start time.
+		/// Enabling callback from this point onward.
 		/// </summary>
 		/// <param name="startTime">The start time.</param>
 		public void Start(float startTime)
