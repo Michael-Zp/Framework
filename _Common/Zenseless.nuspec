@@ -2,7 +2,7 @@
 <package >
 	<metadata>
 		<id>Zenseless</id>
-		<version>0.3.$buildVersion$</version>
+		<version>$version$</version>
 		<authors>Daniel Scherzer</authors>
 		<owners>Daniel Scherzer</owners>
 		<projectUrl>https://github.com/danielscherzer/Framework</projectUrl>
