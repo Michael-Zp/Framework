@@ -23,11 +23,11 @@ namespace MvcSpaceInvaders
 			view.DrawScreen(logic.Enemies, logic.Bullets, logic.Player);
 		}
 
-		private void Update(float totalTime)
+		private void Update()
 		{
 			float axisLeftRight = Keyboard.GetState()[Key.Left] ? -1.0f : Keyboard.GetState()[Key.Right] ? 1.0f : 0.0f;
 			bool shoot = Keyboard.GetState()[Key.Space];
-			logic.Update(totalTime, axisLeftRight, shoot);
+			logic.Update(axisLeftRight, shoot);
 		}
 
 		private GameLogic logic;
@@ -39,9 +39,8 @@ namespace MvcSpaceInvaders
 		{
 			var window = new ExampleWindow();
 			var controller = new Controller();
-			var time = new GameTime();
 			window.Render += controller.Render;
-			window.Update += (dt) => controller.Update(time.AbsoluteTime);
+			window.Update += (dt) => controller.Update();
 			window.Run();
 		}
 	}

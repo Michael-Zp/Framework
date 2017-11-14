@@ -18,9 +18,11 @@ namespace SpaceInvaders
 		private PeriodicUpdate shootCoolDown = new PeriodicUpdate(0.1f);
 		private float enemySpeed = 0.05f;
 		private bool Lost;
+		private GameTime time;
 
 		public Controller()
 		{
+			time = new GameTime();
 			shootCoolDown.PeriodElapsed += (s, t) => shootCoolDown.Enabled = false;
 			CreateEnemies();
 		}
@@ -39,9 +41,9 @@ namespace SpaceInvaders
 			DrawPlayer(player);
 		}
 
-		private void Update(float updatePeriod, float time)
+		private void Update(float updatePeriod)
 		{
-			shootCoolDown.Update(time);
+			shootCoolDown.Update(time.AbsoluteTime);
 			if (Lost)
 			{
 				return;
@@ -50,7 +52,7 @@ namespace SpaceInvaders
 			float axisLeftRight = Keyboard.GetState()[Key.Left] ? -1.0f : Keyboard.GetState()[Key.Right] ? 1.0f : 0.0f;
 			bool shoot = Keyboard.GetState()[Key.Space];
 
-			Update(updatePeriod, time, axisLeftRight, shoot);
+			Update(updatePeriod, axisLeftRight, shoot);
 		}
 
 		[STAThread]
@@ -59,12 +61,11 @@ namespace SpaceInvaders
 			var window = new ExampleWindow();
 			var controller = new Controller();
 			window.Render += controller.Render;
-			var time = new GameTime();
-			window.Update += (dt) => controller.Update(dt, time.AbsoluteTime);
+			window.Update += (dt) => controller.Update(dt);
 			window.Run();
 		}
 
-		private void Update(float timeDelta, float time, float axisUpDown, bool shoot)
+		private void Update(float timeDelta, float axisUpDown, bool shoot)
 		{
 			if (Lost) return;
 			//remove outside bullet - lazy remove (once per frame one bullet is removed)
@@ -78,7 +79,7 @@ namespace SpaceInvaders
 			}
 			HandleCollisions();
 
-			UpdatePlayer(timeDelta, time, axisUpDown, shoot);
+			UpdatePlayer(timeDelta, axisUpDown, shoot);
 			MoveEnemies(timeDelta);
 			MoveBullets(timeDelta);
 
@@ -138,7 +139,7 @@ namespace SpaceInvaders
 			}
 		}
 
-		private void UpdatePlayer(float timeDelta, float time, float axisUpDown, bool shoot)
+		private void UpdatePlayer(float timeDelta, float axisUpDown, bool shoot)
 		{
 			player.MinX += timeDelta * axisUpDown;
 			//limit player position [left, right]

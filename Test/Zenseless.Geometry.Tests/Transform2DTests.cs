@@ -67,7 +67,8 @@ namespace Zenseless.Geometry.Tests
 		public void ScaleAroundTest()
 		{
 			var a = new Vector2(1, 1);
-			var t = Transformation2D.CreateScaleAround(-1, -1, 2, 3);
+			var pivot = new Vector2(-1, -1);
+			var t = Transformation2D.CreateScaleAround(pivot, 2, 3);
 			var expectedA = new Vector2(3, 5);
 			Assert.AreEqual(expectedA, t.Transform(a));
 		}

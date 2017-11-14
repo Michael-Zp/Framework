@@ -47,14 +47,14 @@ namespace Example
 			DrawTexturedRect(bird, texBird);
 		}
 
-		private void Update(float totalTime)
+		private void Update(float interpolationParameter)
 		{
-			var activeSegment = CatmullRomSpline.FindSegment(totalTime, wayPoints.Count);
+			var activeSegment = CatmullRomSpline.FindSegment(interpolationParameter, wayPoints.Count);
 			var pos = CatmullRomSpline.EvaluateSegment(wayPoints[activeSegment.Item1]
 				, wayPoints[activeSegment.Item2]
 				, wayTangents[activeSegment.Item1]
 				, wayTangents[activeSegment.Item2]
-				, totalTime - (float)Math.Floor(totalTime));
+				, interpolationParameter - (float)Math.Floor(interpolationParameter));
 
 			bird.MinX = pos.X;
 			bird.MinY = pos.Y;

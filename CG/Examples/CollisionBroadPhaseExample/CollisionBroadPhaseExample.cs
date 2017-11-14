@@ -1,13 +1,11 @@
-﻿using Zenseless.Application;
-using Zenseless.Geometry;
-using OpenTK.Graphics.OpenGL;
+﻿using OpenTK.Graphics.OpenGL;
 using OpenTK.Input;
 using System;
 using System.Collections.Generic;
-using System.Diagnostics;
-using Zenseless.OpenGL;
 using System.Drawing;
+using Zenseless.Application;
 using Zenseless.Base;
+using Zenseless.Geometry;
 
 namespace Example
 {

@@ -18,9 +18,9 @@ namespace Zenseless.Geometry
 		/// <summary>
 		/// Performs an implicit conversion from <see cref="Transformation2D"/> to <see cref="Matrix3x2"/>.
 		/// </summary>
-		/// <param name="t">The t.</param>
+		/// <param name="t">The <see cref="Transformation2D"/> to convert.</param>
 		/// <returns>
-		/// The result of the conversion.
+		/// The <see cref="Matrix3x2"/> result of the conversion.
 		/// </returns>
 		public static implicit operator Matrix3x2(Transformation2D t)
 		{
@@ -28,11 +28,11 @@ namespace Zenseless.Geometry
 		}
 
 		/// <summary>
-		/// create a rotation matrix that rotates around a given rotation center (pivot point)
+		/// Creates a rotation transform that rotates around a given rotation center (pivot point)
 		/// </summary>
 		/// <param name="pivot">pivot point</param>
 		/// <param name="degrees">rotation in degrees</param>
-		/// <returns></returns>
+		/// <returns>A <see cref="Transformation2D"/> that rotates around a given pivot point.</returns>
 		public static Transformation2D CreateRotationAround(Vector2 pivot, float degrees)
 		{
 			var t = new Transformation2D();
@@ -43,23 +43,23 @@ namespace Zenseless.Geometry
 		}
 
 		/// <summary>
-		/// create a scale matrix that scales around a given scale center (pivot point)
+		/// Create a scale transform that scales around a given scale center (pivot point)
 		/// </summary>
 		/// <param name="pivot">pivot point</param>
-		/// <param name="scaleX">The scale x.</param>
-		/// <param name="scaleY">The scale y.</param>
-		/// <returns></returns>
-		public static Transformation2D CreateScaleAround(float pivotX, float pivotY, float scaleX, float scaleY)
+		/// <param name="scaleX">The scale factor in x-direction.</param>
+		/// <param name="scaleY">The scale factor in y-direction.</param>
+		/// <returns>A <see cref="Transformation2D"/> that scales around a given pivot point.</returns>
+		public static Transformation2D CreateScaleAround(Vector2 pivot, float scaleX, float scaleY)
 		{
 			var t = new Transformation2D();
-			t.TranslateGlobal(-pivotX, -pivotY);
+			t.TranslateGlobal(-pivot);
 			t.ScaleGlobal(scaleX, scaleY);
-			t.TranslateGlobal(pivotX, pivotY);
+			t.TranslateGlobal(pivot);
 			return t;
 		}
 
 		/// <summary>
-		/// Resets this instance.
+		/// Resets to a transformation that does nothing
 		/// </summary>
 		public void Reset()
 		{
@@ -67,7 +67,7 @@ namespace Zenseless.Geometry
 		}
 
 		/// <summary>
-		/// Rotate Transform
+		/// Rotates globally
 		/// </summary>
 		/// <param name="degrees">The degrees.</param>
 		public void RotateGlobal(float degrees)

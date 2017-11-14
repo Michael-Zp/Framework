@@ -11,6 +11,7 @@ namespace MvcSpaceInvaders
 		public event EventHandler OnEnemyDestroy;
 		public event EventHandler OnLost;
 
+		private GameTime time;
 		private Box2D player = new Box2D(0.0f, -1.0f, 0.0789f, 0.15f);
 		private List<Box2D> enemies = new List<Box2D>();
 		private List<Box2D> bullets = new List<Box2D>();
@@ -19,14 +20,15 @@ namespace MvcSpaceInvaders
 
 		public GameLogic()
 		{
+			time = new GameTime();
 			shootCoolDown.PeriodElapsed += (s, t) => shootCoolDown.Enabled = false;
 			CreateEnemies();
 		}
 
-		public void Update(float absoluteTime, float axisUpDown, bool shoot)
+		public void Update(float axisUpDown, bool shoot)
 		{
 			if (Lost) return;
-			shootCoolDown.Update(absoluteTime);
+			shootCoolDown.Update(time.AbsoluteTime);
 			//remove outside bullet - lazy remove (once per frame one bullet is removed)
 			foreach (var bullet in bullets)
 			{
@@ -38,11 +40,9 @@ namespace MvcSpaceInvaders
 			}
 			HandleCollisions();
 
-			var timeDelta = absoluteTime - lastUpdateTime;
-			lastUpdateTime = absoluteTime;
-			UpdatePlayer(absoluteTime, timeDelta, axisUpDown, shoot);
-			MoveEnemies(timeDelta);
-			MoveBullets(timeDelta);
+			UpdatePlayer(axisUpDown, shoot);
+			MoveEnemies();
+			MoveBullets();
 
 			if (0 == enemies.Count && 0 == bullets.Count)
 			{
@@ -52,14 +52,13 @@ namespace MvcSpaceInvaders
 			}
 		}
 
-		public IEnumerable<Box2D> Enemies { get { return enemies; } }
+		public IEnumerable<IReadOnlyBox2D> Enemies { get { return enemies; } }
 
-		public IEnumerable<Box2D> Bullets { get { return bullets; } }
+		public IEnumerable<IReadOnlyBox2D> Bullets { get { return bullets; } }
 
 		public Box2D Player { get { return player; } }
 
 		private bool Lost { get; set; }
-		private float lastUpdateTime = 0.0f;
 
 		private void CreateEnemies()
 		{
@@ -74,9 +73,9 @@ namespace MvcSpaceInvaders
 			}
 		}
 		
-		private void UpdatePlayer(float absoluteTime, float timeDelta, float axisUpDown, bool shoot)
+		private void UpdatePlayer(float axisUpDown, bool shoot)
 		{
-			player.MinX += timeDelta * axisUpDown;
+			player.MinX += time.DeltaTime * axisUpDown;
 			//limit player position [left, right]
 			player.MinX = Math.Min(1.0f - player.SizeX, Math.Max(-1.0f, player.MinX));
 
@@ -114,19 +113,19 @@ namespace MvcSpaceInvaders
 			}
 		}
 
-		private void MoveEnemies(float timeDelta)
+		private void MoveEnemies()
 		{
 			foreach (var enemy in enemies)
 			{
-				enemy.MinY -= enemySpeed * timeDelta;
+				enemy.MinY -= enemySpeed * time.DeltaTime;
 			}
 		}
 
-		private void MoveBullets(float timeDelta)
+		private void MoveBullets()
 		{
 			foreach (var bullet in bullets)
 			{
-				bullet.MinY += timeDelta;
+				bullet.MinY += time.DeltaTime;
 			}
 		}
 	}
