@@ -1,12 +1,12 @@
 ﻿using Zenseless.OpenGL;
 using Zenseless.Geometry;
-using OpenTK;
 using OpenTK.Graphics.OpenGL;
 using System;
 using System.Collections.Generic;
 using System.Drawing;
 using Zenseless.Application;
 using Zenseless.HLGL;
+using System.Numerics;
 
 namespace Example
 {
@@ -39,7 +39,7 @@ namespace Example
 		private void Update(float updatePeriod)
 		{
 			rotCenter.X += updatePeriod * 0.1f;
-			var t = Transformation2D.CreateRotationAround(rotCenter.X, rotCenter.Y, updatePeriod * 200f);
+			var t = Transformation2D.CreateRotationAround(rotCenter, updatePeriod * 200f);
 			foreach (var bird in birds)
 			{
 				bird.TransformCenter(t);

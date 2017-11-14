@@ -3,7 +3,7 @@
 namespace Zenseless.Geometry
 {
 	/// <summary>
-	/// Transformation 2D class that is based on row-major matrices
+	/// Transformation 2D class that is internally based on row-major matrices
 	/// </summary>
 	public class Transformation2D
 	{
@@ -30,24 +30,22 @@ namespace Zenseless.Geometry
 		/// <summary>
 		/// create a rotation matrix that rotates around a given rotation center (pivot point)
 		/// </summary>
-		/// <param name="pivotX">rotation center x</param>
-		/// <param name="pivotY">rotation center y</param>
+		/// <param name="pivot">pivot point</param>
 		/// <param name="degrees">rotation in degrees</param>
 		/// <returns></returns>
-		public static Transformation2D CreateRotationAround(float pivotX, float pivotY, float degrees)
+		public static Transformation2D CreateRotationAround(Vector2 pivot, float degrees)
 		{
 			var t = new Transformation2D();
-			t.TranslateGlobal(-pivotX, -pivotY);
+			t.TranslateGlobal(-pivot);
 			t.RotateGlobal(degrees);
-			t.TranslateGlobal(pivotX, pivotY);
+			t.TranslateGlobal(pivot);
 			return t;
 		}
 
 		/// <summary>
-		/// Creates the scale around.
+		/// create a scale matrix that scales around a given scale center (pivot point)
 		/// </summary>
-		/// <param name="pivotX">The pivot x.</param>
-		/// <param name="pivotY">The pivot y.</param>
+		/// <param name="pivot">pivot point</param>
 		/// <param name="scaleX">The scale x.</param>
 		/// <param name="scaleY">The scale y.</param>
 		/// <returns></returns>

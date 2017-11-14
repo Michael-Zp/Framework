@@ -1,7 +1,8 @@
 ﻿namespace Zenseless.Base
 {
 	/// <summary>
-	/// Invokes a registered callback in regular intervals
+	/// Invokes a registered callback in regular intervals in the main thread 
+	/// (important if you do for instance OpenGL stuff)
 	/// </summary>
 	/// <seealso cref="Zenseless.Base.ITimedUpdate" />
 	public class PeriodicUpdate : ITimedUpdate

@@ -48,7 +48,7 @@ namespace Zenseless.Geometry.Tests
 		public void RotateAroundTest()
 		{
 			var a = Vector2.Zero;
-			var t = Transformation2D.CreateRotationAround(-1, -1, 90f);
+			var t = Transformation2D.CreateRotationAround(new Vector2(-1, -1), 90f);
 			var expectedA = -2 * Vector2.UnitX;
 			Assert.AreEqual(expectedA, t.Transform(a));
 		}
