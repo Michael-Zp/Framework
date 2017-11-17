@@ -17,7 +17,7 @@ namespace Zenseless.OpenGL
 		/// <returns>A vertex array object</returns>
 		public static VAO FromMesh(DefaultMesh mesh, IShader shader)
 		{
-			var vao = new VAO();
+			var vao = new VAO(PrimitiveType.Triangles);
 			if (mesh.Position.Count > 0)
 			{
 				var loc = shader.GetResourceLocation(ShaderResourceType.Attribute, DefaultMesh.PositionName);

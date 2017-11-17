@@ -91,7 +91,7 @@ namespace Example
 			GL.Uniform1(shaderWaterfall.GetResourceLocation(ShaderResourceType.Uniform, "pointSize"), 0.3f);
 			//GL.Uniform1(shader.GetResourceLocation(ShaderResourceType.Uniform, "texParticle"), 0);
 			texStar.Activate();
-			particles.DrawArrays(PrimitiveType.Points, particleSystem.ParticleCount);
+			particles.Draw();
 			texStar.Deactivate();
 			shaderWaterfall.Deactivate();
 
@@ -105,7 +105,7 @@ namespace Example
 		private IShader shaderWaterfall;
 
 		private ITexture texStar;
-		private VAO particles = new VAO();
+		private VAO particles = new VAO(PrimitiveType.Points);
 		private ParticleSystem<Particle> particleSystem = new ParticleSystem<Particle>(10000);
 		private Random random = new Random();
 		private readonly Vector3 emitterPos;

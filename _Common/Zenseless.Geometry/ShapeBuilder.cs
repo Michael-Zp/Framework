@@ -10,6 +10,26 @@ namespace Zenseless.Geometry
 	public static class ShapeBuilder
 	{
 		/// <summary>
+		/// Creates a circle shape out of points on the circumference.
+		/// </summary>
+		/// <param name="createPosition">Callback for each position creation</param>
+		/// <param name="centerX">The circle center x-coordinate.</param>
+		/// <param name="centerY">The circle center y-coordinate.</param>
+		/// <param name="radius">The circle radius.</param>
+		/// <param name="count">Circumference point count</param>
+		/// <exception cref="ArgumentNullException">createPosition</exception>
+		public static void Circle(Action<float, float> createPosition, float centerX, float centerY, float radius, int count)
+		{
+			if (ReferenceEquals(null, createPosition)) throw new ArgumentNullException(nameof(createPosition) + " must not be null");
+			var delta = MathHelper.TWO_PI / count;
+			for (float alpha = 0.0f; alpha < MathHelper.TWO_PI; alpha += delta)
+			{
+				float x = radius * (float)Math.Cos(alpha);
+				float y = radius * (float)Math.Sin(alpha);
+				createPosition(centerX + x, centerY + y);
+			}
+		}
+		/// <summary>
 		/// Builds a cube made up of triangles
 		/// </summary>
 		/// <param name="createPosition">callback for each position creation</param>

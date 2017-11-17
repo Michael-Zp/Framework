@@ -10,6 +10,7 @@ using System.Linq;
 using System.Drawing;
 using System.Collections.Generic;
 using Zenseless.Base;
+using System.Runtime.InteropServices;
 
 namespace Zenseless.Application
 {
@@ -80,13 +81,13 @@ namespace Zenseless.Application
 		/// <param name="updateRenderRate">The update and render rate.</param>
 		public ExampleWindow(int width = 512, int height = 512, double updateRenderRate = 60)
 		{
-			//var mode = new OpenTK.Graphics.GraphicsMode(new OpenTK.Graphics.ColorFormat(32), 24);
-			//gameWindow = new GameWindow(width, height, mode, "", GameWindowFlags.Default, DisplayDevice.Default, 3, 0, OpenTK.Graphics.GraphicsContextFlags.Default);
-			gameWindow = new GameWindow()
+			gameWindow = new GameWindow
 			{
-				Width = width, //do not set extents in the constructor, because windows 10 with enabled scale != 100% scales our given sizes in the constructor of GameWindow
-				Height = height
+				X = 200, //DPI scaling screws everything up, so use some hacked values
+				Y = 100,
+				ClientSize = new Size(width, height), //do not set extents in the constructor, because windows 10 with enabled scale != 100% scales our given sizes in the constructor of GameWindow
 			};
+
 			ProcessCommandLineArguments();
 
 			RenderContext = new RenderContextGL();
@@ -119,6 +120,7 @@ namespace Zenseless.Application
 			gameWindow.RenderFrame += (sender, e) => GameWindowRender();
 			//run the update loop, which calls our registered callbacks
 			gameWindow.Run();
+			screenShots?.ForEach((bmp) => bmp.RotateFlip()); //delayed rotate flip
 			screenShots?.SaveToDefaultDir();
 		}
 
@@ -147,7 +149,8 @@ namespace Zenseless.Application
 			ResourceManager?.CheckForShaderChange();
 			//render
 			Render?.Invoke();
-			screenShots?.Add(FrameBuffer.ToBitmap());
+			screenShots?.Add(FrameBuffer.ToBitmap(false));  //no rotate flip for speed
+			DrawTools.WriteErrors();
 			//buffer swap of double buffering (http://gameprogrammingpatterns.com/double-buffer.html)
 			gameWindow.SwapBuffers();
 		}

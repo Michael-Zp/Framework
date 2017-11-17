@@ -8,6 +8,7 @@ using System.Drawing;
 using System.Globalization;
 using System.IO;
 using System.Linq;
+using System.Threading;
 using System.Windows.Forms;
 
 namespace ShaderForm
@@ -190,6 +191,7 @@ namespace ShaderForm
 			//System.Threading.Interlocked.Exchange(ref painting, 0);
 			if (camera.IsActive)
 			{
+				Thread.Sleep(1000 / 60);
 				glControl.Invalidate();
 			}
 		}

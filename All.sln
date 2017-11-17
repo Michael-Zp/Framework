@@ -1,6 +1,6 @@
 Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio 15
-VisualStudioVersion = 15.0.27004.2008
+VisualStudioVersion = 15.0.27004.2009
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{6DE0AA68-F375-4C8C-B207-141BF71DF96F}"
 	ProjectSection(SolutionItems) = preProject
@@ -118,7 +118,7 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Examples", "Examples", "{E6
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "PhysicsExample", "SHADER\Examples\PhysicsExample\PhysicsExample.csproj", "{ADFE07A0-D2B7-42A7-8DDC-C0F1D441ACC1}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TransformationExample", "SHADER\Examples\TransformationExample\TransformationExample.csproj", "{5CE8B95A-A23E-49D0-BF5D-879472F6E7FC}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BasicTransformations3D", "SHADER\Examples\BasicTransformations3D\BasicTransformations3D.csproj", "{5CE8B95A-A23E-49D0-BF5D-879472F6E7FC}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "LightingExample", "SHADER\Solutions\LightingExample\LightingExample.csproj", "{F3FE3B20-36C7-4221-A2ED-EEDA4887E1E4}"
 EndProject
@@ -197,6 +197,9 @@ EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SimpleParticleSystem2D", "CG\Examples\SimpleParticleSystem2D\SimpleParticleSystem2D.csproj", "{2C5315D0-1589-4044-BAA6-7DD8FD3E4AB6}"
 EndProject
 Global
+	GlobalSection(Performance) = preSolution
+		HasPerformanceSessions = true
+	EndGlobalSection
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
 		Release|Any CPU = Release|Any CPU

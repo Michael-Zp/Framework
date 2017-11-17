@@ -79,7 +79,7 @@ namespace Example
 			GL.UniformMatrix4(shaderSmoke.GetResourceLocation(ShaderResourceType.Uniform, "camera"), true, ref camera);
 			//GL.Uniform1(shader.GetResourceLocation(ShaderResourceType.Uniform, "texParticle"), 0);
 			texStar.Activate();
-			particles.DrawArrays(PrimitiveType.Points, particleSystem.ParticleCount);
+			particles.Draw();
 			texStar.Deactivate();
 			shaderSmoke.Deactivate();
 
@@ -93,7 +93,7 @@ namespace Example
 		private IShader shaderSmoke;
 
 		private ITexture texStar;
-		private VAO particles = new VAO();
+		private VAO particles = new VAO(PrimitiveType.Points);
 		private ParticleSystem<Particle> particleSystem = new ParticleSystem<Particle>(1000);
 		private Random random = new Random();
 

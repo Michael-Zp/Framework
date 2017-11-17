@@ -11,10 +11,10 @@ namespace Zenseless.OpenGL
 	public static class DrawTools
 	{
 		/// <summary>
-		/// Draws the textured rect.
+		/// Draws a textured rectangle.
 		/// </summary>
-		/// <param name="rect">The rect.</param>
-		/// <param name="texCoords">The tex coords.</param>
+		/// <param name="rect">The rectangle coordinates.</param>
+		/// <param name="texCoords">The rectangle texture coordinates.</param>
 		public static void DrawTexturedRect(this IReadOnlyBox2D rect, IReadOnlyBox2D texCoords)
 		{
 			GL.Begin(PrimitiveType.Quads);
@@ -26,7 +26,7 @@ namespace Zenseless.OpenGL
 		}
 
 		/// <summary>
-		/// Writes the errors.
+		/// Writes OpenGL errors to the debug output.
 		/// </summary>
 		public static void WriteErrors()
 		{
@@ -43,7 +43,7 @@ namespace Zenseless.OpenGL
 		/// </summary>
 		/// <param name="v">The v.</param>
 		/// <returns></returns>
-		public static Vector3 ToOpenTK(this global::System.Numerics.Vector3 v)
+		public static Vector3 ToOpenTK(this System.Numerics.Vector3 v)
 		{
 			return new Vector3(v.X, v.Y, v.Z);
 		}
@@ -53,7 +53,7 @@ namespace Zenseless.OpenGL
 		/// </summary>
 		/// <param name="m">The m.</param>
 		/// <returns></returns>
-		public static Matrix4 ToOpenTK(this global::System.Numerics.Matrix4x4 m)
+		public static Matrix4 ToOpenTK(this System.Numerics.Matrix4x4 m)
 		{
 			return new Matrix4(m.M11, m.M12, m.M13, m.M14,
 				m.M21, m.M22, m.M23, m.M24,

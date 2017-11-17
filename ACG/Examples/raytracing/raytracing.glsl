@@ -1,13 +1,50 @@
-#version 120
+#version 420
+
+#include "../libs/camera.glsl"
+#include "../libs/rayIntersections.glsl"
+
 uniform vec3 iMouse;
 uniform vec2 iResolution;
 uniform float iGlobalTime;
-varying vec2 uv;
+in vec2 uv;
 
 const float bigNumber = 10000.0;
-const float eps = 0.001;
+const float eps = 1e-5;
 vec3 toLight = normalize(vec3(sin(iGlobalTime + 2.0), 0.6, cos(iGlobalTime + 2.0)));
-const vec3 ambient = vec3(0.2);
+const vec3 ambient = vec3(0);
+
+struct Object
+{
+	vec4 data;
+	int materialType; //-1 == background, 0 == plane, 1 == sphere
+};
+
+const int OBJECT_COUNT = 9;
+struct Scene
+{
+	Object objects[OBJECT_COUNT];
+};
+
+Scene buildScene()
+{
+	const vec3 delta = vec3(-0.5, -.2, 0);
+	Scene scene;
+	int i = 0;
+	for(float x = delta.x; x <= delta.x + 1.0; x += 1.0)
+	{
+		float y = delta.y;
+		for(float z = delta.z + 1.0; z <= delta.z + 4.0; z += 1.0)
+		{	
+			vec3 newM = vec3(x, y, z);
+			scene.objects[i] = Object(vec4(newM, 0.3), 1);
+			++i;
+		}
+	}
+	scene.objects[i] = Object(vec4(vec3(0.0, 1.0, 0.0), .5), 0);
+	return scene;
+};
+
+Scene scene = buildScene();
 
 vec3 background(vec3 dir)
 {
@@ -20,48 +57,9 @@ vec3 background(vec3 dir)
   pow(sky, 1.0) * vec3(0.5, 0.6, 0.7);
 }
 
-struct Ray
-{
-	vec3 origin;
-	vec3 dir;
-};
-
-float sphere(vec3 M, float r, struct Ray ray)
-{
-	vec3 MO = ray.origin - M;
-	float dotDirMO = dot(ray.dir, MO);
-	float root = dotDirMO * dotDirMO - dot(ray.dir, ray.dir) * (dot(MO, MO) - r * r);
-	if(root < eps)
-	{
-		return -bigNumber;
-	}
-	float p = -dot(ray.dir, MO);
-	float q = sqrt(root);
-    return (p - q) > 0.0 ? p - q : p + q;
-}
-
-//dot(n, O +t*d)= -k
-//dot(n,O) + dot(n, t*d) = -k
-//t*dot(n,d)=-k-dot(n,O)
-float plane(vec3 n, float k, struct Ray ray)
-{
-	float denominator = dot(n, ray.dir);
-	if(abs(denominator) < eps)
-	{
-		//no intersection
-		return -bigNumber;
-	}
-	return (-k-dot(n, ray.origin)) / denominator;
-}	
-
-vec3 sphereNormal(vec3 M, vec3 P)
-{
-	return normalize(P - M);
-}
-
 vec3 sphereColor(vec3 M)
 {
-	return abs(normalize(M - vec3(0.0, 0.0, 3.2)));
+	return abs(normalize(M - vec3(1.0, 0.0, 2.0)));
 }
 
 float lambert(vec3 n)
@@ -75,81 +73,121 @@ struct Intersection
 	vec3 n;
 	vec3 color;
 	vec3 point;
+	vec3 dirIn;
 };
 
-Intersection findNearestObjectHit(struct Ray ray)
+float intersect(Object obj, Ray ray)
 {
-	float t = bigNumber;
-	vec3 M = vec3(-bigNumber);
-	vec3 normal = vec3(0.0, 0.0, 0.0);
-	for(float x = -2.0; x <= 2.0; x += 0.7)
+	switch(obj.materialType)
 	{
-		float y = -1.0;
-		for(float z = 1.0; z <= 10.0; z += 0.7)
-		{	
-			vec3 newM = vec3(x, y, z);
-			float newT = sphere(newM, 0.1, ray);
-			if (0.0 < newT && newT < t)
-			{	
-				t = newT;
-				M = newM;
-			}
+		case 0: //plane
+			return plane(obj.data.xyz, obj.data.w, ray, eps);
+		case 1: //sphere
+			return sphere(obj.data.xyz, obj.data.w, ray, eps);
+		default:
+			return -bigNumber;
+	}
+}
+
+vec3 objectColor(int id)
+{
+	Object obj = scene.objects[id];
+	switch(obj.materialType)
+	{
+		case 0: //plane
+			return vec3(.5);
+		case 1: //sphere
+			return sphereColor(obj.data.xyz);
+		default:
+			return vec3(0);
+	}
+}
+
+vec3 normal(int id, vec3 point)
+{
+	Object obj = scene.objects[id];
+	switch(obj.materialType)
+	{
+		case 0: //plane
+			return obj.data.xyz;
+		case 1: //sphere
+			return sphereNormal(obj.data.xyz, point);
+		default:
+			return vec3(0);;
+	}
+}
+
+Intersection findNearestObjectHit(Ray ray)
+{
+	float tMin = bigNumber;
+	int idMin = -1;
+	for(int id = 0; id < OBJECT_COUNT; ++id)
+	{
+		Object obj = scene.objects[id];
+		float t = intersect(obj, ray);
+		if(0 < t && t < tMin)
+		{
+			tMin = t;
+			idMin = id;
 		}
 	}
-	Intersection obj;
-	obj.n = normalize(vec3(0.0, 1.0, 0.1));
-	float newT = plane(obj.n, 0.9, ray);
-	if (0.0 < newT && newT < t)
+	Intersection inter;
+	inter.exists = tMin < bigNumber;
+	if(inter.exists)
 	{
-		obj.exists = true;
-		obj.color = vec3(0.5, 0.5, 0.5);
-		obj.point = ray.origin + newT * ray.dir;
-		obj.point += obj.n * eps; // numerical stable point
-		return obj;
+		inter.point = ray.origin + tMin * ray.dir;
+		inter.n = normal(idMin, inter.point);
+		inter.color = objectColor(idMin);
+		inter.dirIn = ray.dir;
 	}
-	obj.exists = t < bigNumber;
-	if(!obj.exists) return obj;
-	obj.color = sphereColor(M);
-	obj.point = ray.origin + t * ray.dir;
-	obj.n = sphereNormal(M, obj.point);
-	obj.point += obj.n * eps; // numerical stable point
-	return obj;
-}
-
-vec3 directLighting(vec3 dir, Intersection inter)
-{
-	//shadow ray
-	if(findNearestObjectHit(Ray(inter.point, toLight)).exists) return ambient;
-	return ambient + inter.color * lambert(inter.n);
-}
-
-Intersection traceStep(struct Ray ray)
-{
-	Intersection inter = findNearestObjectHit(ray);
-	if(!inter.exists) inter.color = background(ray.dir);
-	inter.color = directLighting(ray.dir, inter);
 	return inter;
 }
 
+vec3 directLighting(Intersection inter)
+{
+	float inside = 0 < dot(inter.dirIn, inter.n) ? -1.0 : 1.0;
+	vec3 stableRayO = inter.point + inside * inter.n * eps;
+	//shadow ray
+	if(findNearestObjectHit(Ray(stableRayO, toLight)).exists) return ambient;
+	return ambient + inter.color * lambert(inter.n);
+}
+
+Intersection traceStep(Ray ray)
+{
+	Intersection inter = findNearestObjectHit(ray);
+	if(!inter.exists) 
+	{
+		inter.color = background(ray.dir);
+	}
+	else 
+	{
+		inter.color = directLighting(inter);
+	}
+	return inter;
+}
+
+Intersection reflection(in Intersection inter)
+{
+	Intersection r = traceStep(Ray(inter.point + inter.n * eps, reflect(inter.dirIn, inter.n)));
+	return r;
+}
 
 void main()
 {
-	//camera
-	float fov = 90.0;
-	float tanFov = tan(fov / 2.0 * 3.14159 / 180.0) / iResolution.x;
-	vec2 p = tanFov * (gl_FragCoord.xy * 2.0 - iResolution.xy);
-	vec3 camP = vec3(0.0, 0.0, 0.0);
-	vec3 camDir = normalize(vec3(p.x, p.y, 1.0));
+	vec3 camP = calcCameraPos();
+	vec3 camDir = calcCameraRayDir(70.0, gl_FragCoord.xy, iResolution);
 	
 	//primary ray
 	Intersection inter = traceStep(Ray(camP, camDir));
 	vec3 color = inter.color;
-	if(inter.exists) 
+	for(int i = 1; i <= 4; ++i)
 	{
-		//secondary ray - reflection
-		vec3 r = reflect(camDir, inter.n);
-		Intersection intRef = traceStep(Ray(inter.point, r));
-		color += intRef.color * 0.8;
+		if(inter.exists) 
+		{
+			//reflection
+			inter = reflection(inter);
+			color += inter.color * pow(.8, i);
+		}	
 	}
 
 	gl_FragColor = vec4(color, 1.0);

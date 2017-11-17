@@ -33,9 +33,7 @@ namespace Example
 			shader.Activate();
 			////ATTENTION: always give the time as a float if the uniform in the shader is a float
 			GL.Uniform1(shader.GetResourceLocation(ShaderResourceType.Uniform, "time"), time);
-			geometry.Activate();
-			GL.DrawArrays(PrimitiveType.Points, 0, pointCount);
-			geometry.Deactivate();
+			geometry.Draw();
 			shader.Deactivate();
 		}
 
@@ -45,8 +43,8 @@ namespace Example
 
 		private void UpdateGeometry(IShader shader)
 		{
-			geometry = new VAO();
-			//generate position arrray on CPU
+			geometry = new VAO(PrimitiveType.Points);
+			//generate position array on CPU
 			var rnd = new Random(12);
 			Func<float> Rnd01 = () => (float)rnd.NextDouble();
 			Func<float> RndCoord = () => (Rnd01() - 0.5f) * 2.0f;

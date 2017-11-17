@@ -51,7 +51,7 @@ namespace Zenseless.Base
 		}
 
 		/// <summary>
-		/// Start a new frame. You have to call this method exactly once per frame for correct FPS counting.
+		/// Start a new frame. You have to call this method exactly once per frame for correct FPS counting and delta time.
 		/// </summary>
 		public void NewFrame()
 		{

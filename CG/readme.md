@@ -1,5 +1,5 @@
 ## Examples
-1. [Minimal](/CG/Examples/MinimalExample)
+1. [GameLoop](/CG/Examples/GameLoopExample)
 1. [Collision](/CG/Examples/CollisionExample)
 1. [Texture](/CG/Examples/TextureExample)
 1. [Texture Wrap](/CG/Examples/TextureWrapExample)

@@ -35,8 +35,11 @@
   <PropertyGroup>
     <StartupObject />
   </PropertyGroup>
+  <PropertyGroup />
   <ItemGroup>
     <Compile Include="CollisionExample.cs" />
+    <Compile Include="Model.cs" />
+    <Compile Include="Renderer.cs" />
   </ItemGroup>
   <ItemGroup>
     <Reference Include="System" />
@@ -46,6 +49,10 @@
     <ProjectReference Include="..\..\..\_Common\Zenseless.Application\Zenseless.Application.csproj">
       <Project>{911C6DFF-BE3E-4EA5-ADF2-A363DF797F23}</Project>
       <Name>Zenseless.Application</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\..\_Common\Zenseless.Base\Zenseless.Base.csproj">
+      <Project>{E5FF60A4-46FB-42D2-9430-BC523315C2E0}</Project>
+      <Name>Zenseless.Base</Name>
     </ProjectReference>
     <ProjectReference Include="..\..\..\_Common\Zenseless.OpenGL\Zenseless.OpenGL.csproj">
       <Project>{c660f6af-c100-4169-a9fb-61e1ebe87f34}</Project>

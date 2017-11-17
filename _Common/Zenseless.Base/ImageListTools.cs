@@ -12,7 +12,7 @@ namespace Zenseless.Base
 	public static class ImageListTools
 	{
 		/// <summary>
-		/// Save a list of images to the dir given by PathTools.GetCurrentProcessOutputDir(true) 
+		/// Save a list of images to the directory given by PathTools.GetCurrentProcessOutputDir(true) 
 		/// </summary>
 		/// <param name="images">Images to save</param>
 		public static void SaveToDefaultDir(this IEnumerable<Bitmap> images)
@@ -27,6 +27,7 @@ namespace Zenseless.Base
 		/// <param name="directory">Directory to save to</param>
 		public static void Save(this IEnumerable<Bitmap> images, string directory)
 		{
+			if (ReferenceEquals(null, images)) return;
 			Directory.CreateDirectory(directory);
 			var d = PathTools.IncludeTrailingPathDelimiter(directory);
 			var time = DateTime.Now.ToString();

@@ -26,7 +26,7 @@ namespace MvcSokoban
 			shdTexColor = context.CreateShader();
 			shdTexColor.FromStrings(Converter.BytesToString(Resourcen.texColorVert), Converter.BytesToString(Resourcen.texColorFrag));
 
-			levelGeometry = new VAO();
+			levelGeometry = new VAO(PrimitiveType.Quads);
 			var quadPos = new Vector2[4]
 			{ Vector2.Zero, Vector2.UnitX, Vector2.One, Vector2.UnitY };
 			var locPosition = shdTexColor.GetResourceLocation(ShaderResourceType.Attribute, "position");
@@ -63,9 +63,7 @@ namespace MvcSokoban
 			GL.Uniform4(locTint, tint);
 			GL.UniformMatrix4(locCamera, false, ref camera);
 
-			levelGeometry.Activate();
-			GL.DrawArraysInstanced(PrimitiveType.Quads, 0, 4, levelState.Width * levelState.Height);
-			levelGeometry.Deactivate();
+			levelGeometry.Draw(levelState.Width * levelState.Height);
 
 			texArray.Deactivate();
 			shdTexColor.Deactivate();

@@ -4,10 +4,11 @@ using System;
 using System.Numerics;
 using Zenseless.Geometry;
 using Zenseless.HLGL;
+using System.Runtime.InteropServices;
 
 namespace Example
 {
-	//[StructLayout(LayoutKind.Sequential, Pack = 1)] // does not help with required shader alignment, affects only cpu part
+	[StructLayout(LayoutKind.Sequential, Pack = 1)] // does not help with required shader alignment, affects only cpu part
 	struct Particle //use 16 byte alignment or you have to query all variable offsets
 	{
 		public Vector3 position;

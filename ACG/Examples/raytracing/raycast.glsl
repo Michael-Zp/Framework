@@ -82,8 +82,8 @@ void main()
 
 		
 		//sphere diffuse coloring
-		vec3 normal = sphereNormal(C, camP + t * camDir);
-		color = normal;
+		// vec3 normal = sphereNormal(C, camP + t * camDir);
+		// color = normal;
 		// color = vec3(dot(normal,normalize(vec3(1, 1, -1))));
 	}
 	// gl_FragColor = vec4(camDir, 1.0);

@@ -11,7 +11,7 @@ namespace Example
 	{
 		public RendererPoints()
 		{
-			geometry = new VAO();
+			geometry = new VAO(PrimitiveType.Points);
 			GL.Enable(EnableCap.ProgramPointSize);
 			GL.Enable(EnableCap.PointSprite);
 			shader = ShaderLoader.FromStrings(DefaultShader.VertexShaderParticle, DefaultShader.FragmentShaderPointCircle);
@@ -23,9 +23,7 @@ namespace Example
 			geometry.SetAttribute(shader.GetResourceLocation(ShaderResourceType.Attribute, "position"), points, VertexAttribPointerType.Float, 3); //copy data to gpu mem
 			GL.Uniform1(shader.GetResourceLocation(ShaderResourceType.Uniform, "pointSize"), resolutionMin * size);
 			GL.Uniform4(shader.GetResourceLocation(ShaderResourceType.Uniform, "color"), color);
-			geometry.Activate();
-			GL.DrawArrays(PrimitiveType.Points, 0, points.Length); //draw
-			geometry.Deactivate();
+			geometry.Draw();
 			shader.Deactivate();
 		}
 

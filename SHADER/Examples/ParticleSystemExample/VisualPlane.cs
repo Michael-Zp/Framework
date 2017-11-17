@@ -30,7 +30,7 @@ namespace Example
 			GL.Enable(EnableCap.CullFace);
 		}
 
-		private VAO plane = new VAO();
+		private VAO plane = new VAO(PrimitiveType.Triangles);
 		private IShader shdPlane;
 	}
 }
