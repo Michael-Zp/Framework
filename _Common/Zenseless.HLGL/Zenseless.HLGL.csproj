@@ -49,6 +49,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="DefaultShader.cs" />
+    <Compile Include="IAnimation.cs" />
     <Compile Include="IRenderContext.cs" />
     <Compile Include="IDrawConfiguration.cs" />
     <Compile Include="IRenderSurface.cs" />

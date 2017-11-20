@@ -34,7 +34,7 @@ namespace Example
 		{
 			GL.Color3(Color.LightSlateGray);
 			DrawObstacle(box);
-			GL.Color3(Color.DeepSkyBlue);
+			GL.Color3(Color.White);
 			DrawBoxOutline(box);
 		}
 

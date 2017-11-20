@@ -8,9 +8,9 @@ namespace Zenseless.HLGL
 	public class SpriteSheet
 	{
 		/// <summary>
-		/// create a new isntance
+		/// create a new instance
 		/// </summary>
-		/// <param name="tex">The tex.</param>
+		/// <param name="tex">The texture.</param>
 		/// <param name="spritesPerRow">The sprites per row.</param>
 		/// <param name="spritesPerColumn">The sprites per column.</param>
 		/// <param name="spriteBoundingBoxWidth">Width of the sprite bounding box.</param>

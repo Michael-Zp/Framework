@@ -7,7 +7,7 @@ struct Ray
 //c = center of sphere
 //r = radius of sphere
 //return t of smaller hit point
-float sphere(vec3 c, float r, Ray ray, float EPSILON)
+float sphere(const vec3 c, const float r, const Ray ray, const float EPSILON)
 {
 	vec3 MO = ray.origin - c;
 	float dotDirMO = dot(ray.dir, MO);
@@ -24,14 +24,14 @@ float sphere(vec3 c, float r, Ray ray, float EPSILON)
 //center = center of sphere
 //P = some point in space
 // return normal of sphere in direction of P
-vec3 sphereNormal(vec3 center, vec3 P)
+vec3 sphereNormal(const vec3 center, const vec3 P)
 {
 	return normalize(P - center);
 }
 
 //n = normal of plane
 //d = distance to origin
-float plane(vec3 n, float d, Ray ray, float EPSILON)
+float plane(const vec3 n, const float d, const Ray ray, const float EPSILON)
 {
 	float denominator = dot(n, ray.dir);
 	if(abs(denominator) < EPSILON)

@@ -7,7 +7,7 @@ namespace Zenseless.OpenGL
 	/// <summary>
 	/// 
 	/// </summary>
-	/// <seealso cref="Zenseless.OpenGL.IAnimation" />
+	/// <seealso cref="IAnimation" />
 	public class SpriteSheetAnimation : IAnimation
 	{
 		/// <summary>
@@ -19,7 +19,7 @@ namespace Zenseless.OpenGL
 		/// <param name="animationLength">Length of the animation.</param>
 		public SpriteSheetAnimation(SpriteSheet spriteSheet, uint fromID, uint toID, float animationLength)
 		{
-			this.spriteSheet = spriteSheet;
+			this.SpriteSheet = spriteSheet;
 			FromID = fromID;
 			ToID = toID;
 			AnimationLength = animationLength;
@@ -45,7 +45,7 @@ namespace Zenseless.OpenGL
 		/// <value>
 		/// The sprite sheet.
 		/// </value>
-		public SpriteSheet spriteSheet { get; private set; }
+		public SpriteSheet SpriteSheet { get; private set; }
 		/// <summary>
 		/// Gets or sets to identifier.
 		/// </summary>
@@ -79,10 +79,10 @@ namespace Zenseless.OpenGL
 		public void Draw(IReadOnlyBox2D rectangle, float totalSeconds)
 		{
 			var id = CalcAnimationSpriteID(FromID, ToID, AnimationLength, totalSeconds);
-			var texCoords = spriteSheet.CalcSpriteTexCoords(id);
-			spriteSheet.Activate();
+			var texCoords = SpriteSheet.CalcSpriteTexCoords(id);
+			SpriteSheet.Activate();
 			rectangle.DrawTexturedRect(texCoords);
-			spriteSheet.Deactivate();
+			SpriteSheet.Deactivate();
 		}
 	}
 }

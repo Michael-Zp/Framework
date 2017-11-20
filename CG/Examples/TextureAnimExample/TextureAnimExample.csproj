@@ -56,51 +56,22 @@
   <ItemGroup>
     <None Include="readme.md" />
     <None Include="Resources\explosion.png" />
-  </ItemGroup>
-  <ItemGroup>
     <None Include="Resources\alien10001.png" />
-  </ItemGroup>
-  <ItemGroup>
     <None Include="Resources\alien10002.png" />
-  </ItemGroup>
-  <ItemGroup>
     <None Include="Resources\alien10003.png" />
-  </ItemGroup>
-  <ItemGroup>
     <None Include="Resources\alien10004.png" />
-  </ItemGroup>
-  <ItemGroup>
     <None Include="Resources\alien10005.png" />
-  </ItemGroup>
-  <ItemGroup>
     <None Include="Resources\alien10006.png" />
-  </ItemGroup>
-  <ItemGroup>
     <None Include="Resources\alien10007.png" />
-  </ItemGroup>
-  <ItemGroup>
     <None Include="Resources\alien10008.png" />
-  </ItemGroup>
-  <ItemGroup>
     <None Include="Resources\alien10009.png" />
-  </ItemGroup>
-  <ItemGroup>
     <None Include="Resources\alien10010.png" />
-  </ItemGroup>
-  <ItemGroup>
     <None Include="Resources\alien10011.png" />
-  </ItemGroup>
-  <ItemGroup>
     <None Include="Resources\alien10012.png" />
-  </ItemGroup>
-  <ItemGroup>
     <None Include="Resources\alien10013.png" />
-  </ItemGroup>
-  <ItemGroup>
     <None Include="Resources\alien10014.png" />
-  </ItemGroup>
-  <ItemGroup>
     <None Include="Resources\alien10015.png" />
+    <None Include="Resources\girl-2.png" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\..\..\_Common\Zenseless.Application\Zenseless.Application.csproj">
@@ -123,9 +94,6 @@
       <Project>{B37B7DDE-435B-4F27-9A9B-9B6DF8744EBE}</Project>
       <Name>Zenseless.Geometry</Name>
     </ProjectReference>
-  </ItemGroup>
-  <ItemGroup>
-    <None Include="Resources\girl-2.png" />
   </ItemGroup>
   <ItemGroup>
     <PackageReference Include="OpenTK">

@@ -1,6 +1,6 @@
 ﻿using Zenseless.Geometry;
 
-namespace Zenseless.OpenGL
+namespace Zenseless.HLGL
 {
 	/// <summary>
 	/// 

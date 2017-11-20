@@ -8,7 +8,7 @@ namespace Zenseless.OpenGL
 	/// <summary>
 	/// 
 	/// </summary>
-	/// <seealso cref="Zenseless.OpenGL.IAnimation" />
+	/// <seealso cref="IAnimation" />
 	public class AnimationTextures : IAnimation
 	{
 		/// <summary>

@@ -509,7 +509,7 @@ namespace ShaderForm
 				this.FormBorderStyle = FormBorderStyle.Sizable;
 				this.WindowState = FormWindowState.Normal;
 				this.menuStrip.Visible = true;
-				this.panelSequence.Visible = true;
+				this.panelSequence.Visible = 1 < demo.Shaders.Count();
 				this.soundPlayerBar1.Visible = true;
 			}
 		}
