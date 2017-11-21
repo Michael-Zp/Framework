@@ -49,7 +49,6 @@
     <Compile Include="RegistryLoader.cs" />
     <Compile Include="RegistryLoaderForm.cs" />
     <Compile Include="ShaderFileDebugger.cs" />
-    <Compile Include="ShaderLog.cs" />
   </ItemGroup>
   <ItemGroup>
     <EmbeddedResource Include="FormShaderException.resx">

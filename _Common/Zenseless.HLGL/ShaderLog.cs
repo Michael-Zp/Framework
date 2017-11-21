@@ -2,13 +2,25 @@
 using System.Collections.Generic;
 using System.Text;
 
-namespace Zenseless.ShaderDebugging
+namespace Zenseless.HLGL
 {
 	/// <summary>
 	/// 
 	/// </summary>
 	public class ShaderLogLine
 	{
+		/// <summary>
+		/// The string type for the well known type warning
+		/// </summary>
+		public const string WellKnownTypeWarning = "WARNING";
+		/// <summary>
+		/// The string type for the well known type error
+		/// </summary>
+		public const string WellKnownTypeError = "ERROR";
+		/// <summary>
+		/// The string type for the well known type information
+		/// </summary>
+		public const string WellKnownTypeInfo = "INFO";
 		/// <summary>
 		/// The type
 		/// </summary>
@@ -75,7 +87,7 @@ namespace Zenseless.ShaderDebugging
 				{
 					logLine = ParseLogLine(line);
 				}
-				if (logLine.Type.StartsWith("ERROR"))
+				if (logLine.Type.StartsWith(ShaderLogLine.WellKnownTypeError))
 				{
 					errorLines.Add(logLine);
 				}
@@ -95,7 +107,7 @@ namespace Zenseless.ShaderDebugging
 		/// <value>
 		/// The lines.
 		/// </value>
-		public IList<ShaderLogLine> Lines { get { return lines; } }
+		public IEnumerable<ShaderLogLine> Lines { get { return lines; } }
 
 		/// <summary>
 		/// Parses the log line.
@@ -213,8 +225,7 @@ namespace Zenseless.ShaderDebugging
 		/// <returns></returns>
 		private int Parse(string number)
 		{
-			int output;
-			if (int.TryParse(number, out output))
+			if (int.TryParse(number, out int output))
 			{
 				return output;
 			}

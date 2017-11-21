@@ -2,6 +2,7 @@
 using System.ComponentModel;
 using System.Drawing;
 using System.Windows.Forms;
+using Zenseless.HLGL;
 
 namespace Zenseless.ShaderDebugging
 {
@@ -45,7 +46,7 @@ namespace Zenseless.ShaderDebugging
 		public void Select(int id)
 		{
 			listBox.SelectedIndex = id;
-			listBox_SelectedIndexChanged(null, null);
+			ListBox_SelectedIndexChanged(null, null);
 		}
 
 		/// <summary>
@@ -106,7 +107,7 @@ namespace Zenseless.ShaderDebugging
 		/// </summary>
 		/// <param name="sender">The source of the event.</param>
 		/// <param name="e">The <see cref="EventArgs"/> instance containing the event data.</param>
-		private void listBox_SelectedIndexChanged(object sender, EventArgs e)
+		private void ListBox_SelectedIndexChanged(object sender, EventArgs e)
 		{
 			richTextBox.Select(0, richTextBox.Text.Length);
 			richTextBox.SelectionColor = Color.White;

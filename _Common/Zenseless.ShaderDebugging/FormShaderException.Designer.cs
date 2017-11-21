@@ -72,7 +72,7 @@
 			this.listBox.Name = "listBox";
 			this.listBox.Size = new System.Drawing.Size(726, 89);
 			this.listBox.TabIndex = 3;
-			this.listBox.SelectedIndexChanged += new System.EventHandler(this.listBox_SelectedIndexChanged);
+			this.listBox.SelectedIndexChanged += new System.EventHandler(this.ListBox_SelectedIndexChanged);
 			// 
 			// richTextBox
 			// 
