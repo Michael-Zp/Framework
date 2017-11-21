@@ -4,6 +4,7 @@ using System;
 using System.Drawing;
 using System.IO;
 using System.Runtime.InteropServices;
+using System.Numerics;
 
 namespace Zenseless.OpenGL
 {
@@ -32,8 +33,10 @@ namespace Zenseless.OpenGL
 				IntPtr pointer = pinnedArray.AddrOfPinnedObject();
 				var width = data.GetLength(0);
 				var height = data.GetLength(1);
-				var texture = new Texture2dGL();
-				texture.Filter = TextureFilterMode.Mipmap;
+				var texture = new Texture2dGL
+				{
+					Filter = TextureFilterMode.Mipmap
+				};
 				texture.Activate();
 				texture.LoadPixels(pointer, width, height, internalFormat, format, type);
 				texture.Deactivate();
@@ -52,8 +55,10 @@ namespace Zenseless.OpenGL
 		/// <returns></returns>
 		public static ITexture FromBitmap(Bitmap bitmap)
 		{
-			var texture = new Texture2dGL();
-			texture.Filter = TextureFilterMode.Mipmap;
+			var texture = new Texture2dGL
+			{
+				Filter = TextureFilterMode.Mipmap
+			};
 			texture.Activate();
 			//todo: 16bit channels
 			using (Bitmap bmp = new Bitmap(bitmap))
@@ -70,33 +75,16 @@ namespace Zenseless.OpenGL
 		}
 
 		/// <summary>
-		/// To the buffer.
-		/// </summary>
-		/// <param name="bitmap">The bitmap.</param>
-		/// <returns></returns>
-		public static byte[] ToBuffer(this Bitmap bitmap)
-		{
-			using (Bitmap bmp = new Bitmap(bitmap))
-			{
-				bmp.RotateFlip(RotateFlipType.RotateNoneFlipY);
-				var bmpData = bmp.LockBits(new Rectangle(0, 0, bmp.Width, bmp.Height), SysDraw.ImageLockMode.ReadOnly, bmp.PixelFormat);
-				var size = bmpData.Width * bmpData.Height * 4;
-				var buffer = new byte[size];
-				Marshal.Copy(bmpData.Scan0, buffer, 0, size);
-				bmp.UnlockBits(bmpData);
-				return buffer;
-			}
-		}
-
-		/// <summary>
 		/// Froms the stream.
 		/// </summary>
 		/// <param name="stream">The stream.</param>
 		/// <returns></returns>
 		public static ITexture FromStream(Stream stream)
 		{
-			var texture = new Texture2dGL();
-			texture.Filter = TextureFilterMode.Mipmap;
+			var texture = new Texture2dGL
+			{
+				Filter = TextureFilterMode.Mipmap
+			};
 			texture.Activate();
 			var source = new SysMedia.Imaging.BitmapImage();
 			source.BeginInit();
@@ -138,7 +126,7 @@ namespace Zenseless.OpenGL
 		/// <param name="texture">The texture.</param>
 		/// <param name="fileName">Name of the file.</param>
 		/// <param name="format">The format.</param>
-		public static void SaveToFile(ITexture2D texture, string fileName, SysDraw.PixelFormat format = SysDraw.PixelFormat.Format32bppArgb)
+		public static void SaveToFile(this ITexture2D texture, string fileName, SysDraw.PixelFormat format = SysDraw.PixelFormat.Format32bppArgb)
 		{
 			using (var bitmap = SaveToBitmap(texture, format))
 			{
@@ -152,7 +140,7 @@ namespace Zenseless.OpenGL
 		/// <param name="texture">The texture.</param>
 		/// <param name="format">The format.</param>
 		/// <returns></returns>
-		public static Bitmap SaveToBitmap(ITexture2D texture, SysDraw.PixelFormat format = SysDraw.PixelFormat.Format32bppArgb)
+		public static Bitmap SaveToBitmap(this ITexture2D texture, SysDraw.PixelFormat format = SysDraw.PixelFormat.Format32bppArgb)
 		{
 			try
 			{ 
@@ -169,6 +157,27 @@ namespace Zenseless.OpenGL
 			{
 				texture.Deactivate();
 				return null;
+			}
+		}
+
+		/// <summary>
+		/// Saves a texture to a buffer.
+		/// </summary>
+		/// <param name="texture">The texture to save.</param>
+		/// <param name="buffer">The buffer to write to</param>
+		public static void ToBuffer(this ITexture2D texture, ref Vector4[] buffer)
+		{
+			if (buffer == null) throw new ArgumentNullException(nameof(buffer));
+
+			try
+			{
+				texture.Activate();
+				GL.GetTexImage(TextureTarget.Texture2D, 0, PixelFormat.Rgba, PixelType.Float, buffer);
+				texture.Deactivate();
+			}
+			catch
+			{
+				texture.Deactivate();
 			}
 		}
 

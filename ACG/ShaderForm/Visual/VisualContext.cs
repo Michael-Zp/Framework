@@ -5,6 +5,7 @@ using System.Collections.Generic;
 using System.Diagnostics;
 using System.Drawing;
 using System.IO;
+using System.Numerics;
 using Zenseless.Base;
 using Zenseless.HLGL;
 using Zenseless.OpenGL;
@@ -96,6 +97,7 @@ namespace ShaderForm.Visual
 		public void UpdateSurfaceSize(int width, int height)
 		{
 			surface.UpdateSurfaceSize(width, height);
+			buffer = new Vector4[width * height];
 		}
 
 		public bool AddUpdateTexture(string fileName)
@@ -193,6 +195,13 @@ namespace ShaderForm.Visual
 			return TextureLoader.SaveToBitmap(surface.Active);
 		}
 
+		public Vector4[] GetBuffer()
+		{
+			TextureLoader.ToBuffer(surface.Active, ref buffer);
+			return buffer;
+		}
+
+
 		public float UpdateTime { get { return (float)(glTimer.ResultLong * 1e-9); } }
 		//public IEnumerable<string> ShaderList { get { return shaders.Keys; } }
 		//public IEnumerable<string> TextureList { get { return textureNames; } }
@@ -204,6 +213,7 @@ namespace ShaderForm.Visual
 		private TextureToFrameBuffer copyToScreen;
 		private IShader shaderCurrent;
 		private IShader shaderDefault;
+		private Vector4[] buffer;
 		private QueryObject glTimer = new QueryObject();
 
 		protected override void DisposeResources()

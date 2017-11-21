@@ -8,6 +8,7 @@ using System.Drawing;
 using System.Globalization;
 using System.IO;
 using System.Linq;
+using System.Numerics;
 using System.Threading;
 using System.Windows.Forms;
 
@@ -17,7 +18,7 @@ namespace ShaderForm
 	{
 		private DemoModel demo;
 		private int mouseButton = 0;
-		private Point mousePos;
+		private Vector2 mousePos;
 		//private int painting = 0;
 		private MultiGraph multiGraph = new MultiGraph();
 		private FacadeFormMessages log = new FacadeFormMessages();
@@ -135,13 +136,6 @@ namespace ShaderForm
 
 		private void GlControl_Paint(object sender, PaintEventArgs e)
 		{
-			//todo: paint in other thread?
-			//if (1 == painting) return;
-			//System.Threading.Interlocked.Exchange(ref painting, 1);
-
-			//normalized mouse pos
-			float mouseX = this.mousePos.X / (float)glControl.Width;
-			float mouseY = (glControl.Height - this.mousePos.Y) / (float)glControl.Height;
 			float factor = 1.0f;
 			try
 			{
@@ -162,15 +156,10 @@ namespace ShaderForm
 				width = (int)factor;
 				height = (int)factor;
 			}
-			//todo: update not in main thread -> make async;
-			//glControl.Context.MakeCurrent(null);
-			//await Task.Run(() =>
-			//{
-			//	glControl.MakeCurrent();
-			camera.Update(mouseX * width, mouseY * height, 1 == mouseButton);
+			camera.Update(mousePos.X * width, mousePos.Y * height, 1 == mouseButton);
 			try
 			{
-				if (!demo.UpdateBuffer((int)Math.Round(mouseX * width), (int)Math.Round(mouseY * height), mouseButton, width, height))
+				if (!demo.UpdateBuffer((int)Math.Round(mousePos.X * width), (int)Math.Round(mousePos.Y * height), mouseButton, width, height))
 				{
 					textBoxLastMessage.Text = lastMessage;
 					textBoxLastMessage.Visible = true;
@@ -181,14 +170,10 @@ namespace ShaderForm
 				}
 			}
 			catch { /* We do not care about errors at this level */ }
-			//	glControl.Context.MakeCurrent(null);
-			//});
-			//glControl.MakeCurrent();
 			demo.Draw(glControl.Width, glControl.Height);
 			glControl.SwapBuffers();
 
 			menuBenchmark.Text = menuBenchmark.Checked ? string.Format("{0:0.00}FPS ", 1 / demo.UpdateTime) : string.Format("{0:0.0}ms ", demo.UpdateTime * 1e3f);
-			//System.Threading.Interlocked.Exchange(ref painting, 0);
 			if (camera.IsActive)
 			{
 				Thread.Sleep(1000 / 60);
@@ -429,8 +414,13 @@ namespace ShaderForm
 
 		private void GlControl_MouseMove(object sender, MouseEventArgs e)
 		{
-			mousePos = e.Location;
-			if (!demo.TimeSource.IsRunning) glControl.Invalidate(); //todo: otherwise time stops during update?!
+			var m = e.Location;
+			//normalized mouse pos
+			float mouseX = m.X / (float)glControl.Width;
+			float mouseY = (glControl.Height - m.Y) / (float)glControl.Height;
+			mousePos = new Vector2(mouseX, mouseY);
+
+			if (!demo.TimeSource.IsRunning) glControl.Invalidate(); //TODO: otherwise time stops during update?!
 		}
 
 		private void GlControl_MouseUp(object sender, MouseEventArgs e)
@@ -442,7 +432,7 @@ namespace ShaderForm
 		private void Reload_Click(object sender, EventArgs e)
 		{
 			soundPlayerBar1.Position = 0.0f;
-			//todo: reload
+			//TODO: reload
 		}
 
 		private void MenuTexture_MouseDown(object sender, MouseEventArgs e)

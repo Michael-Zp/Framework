@@ -1,7 +1,9 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Drawing;
+using System.Drawing.Imaging;
 using System.IO;
+using System.Runtime.InteropServices;
 
 namespace Zenseless.Base
 {
@@ -36,6 +38,25 @@ namespace Zenseless.Base
 			{
 				image.Save($"{d}pic{i.ToString("0000")}.png");
 				++i;
+			}
+		}
+
+		/// <summary>
+		/// Converts a <see cref="Bitmap"/> into a byte buffer.
+		/// </summary>
+		/// <param name="bitmap">The bitmap to convert.</param>
+		/// <returns><see cref="byte"/>[]</returns>
+		public static byte[] ToBuffer(this Bitmap bitmap)
+		{
+			using (Bitmap bmp = new Bitmap(bitmap))
+			{
+				bmp.RotateFlip(RotateFlipType.RotateNoneFlipY);
+				var bmpData = bmp.LockBits(new Rectangle(0, 0, bmp.Width, bmp.Height), ImageLockMode.ReadOnly, bmp.PixelFormat);
+				var size = bmpData.Width * bmpData.Height * 4;
+				var buffer = new byte[size];
+				Marshal.Copy(bmpData.Scan0, buffer, 0, size);
+				bmp.UnlockBits(bmpData);
+				return buffer;
 			}
 		}
 	}
