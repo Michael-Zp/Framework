@@ -2,6 +2,7 @@
 using Zenseless.OpenGL;
 using System.IO;
 using System.Text;
+using Zenseless.Base;
 
 namespace Zenseless.ShaderDebugging
 {

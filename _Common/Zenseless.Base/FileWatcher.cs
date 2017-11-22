@@ -1,7 +1,7 @@
 ﻿using System.ComponentModel;
 using System.IO;
 
-namespace Zenseless.ShaderDebugging
+namespace Zenseless.Base
 {
 	/// <summary>
 	/// 
@@ -22,9 +22,11 @@ namespace Zenseless.ShaderDebugging
 			{
 				throw new FileNotFoundException("File does not exist", filePath);
 			}
-			watcher = new FileSystemWatcher(Path.GetDirectoryName(FullPath), Path.GetFileName(FullPath));
-			watcher.SynchronizingObject = syncObject;
-			watcher.Changed += FileNotification;
+            watcher = new FileSystemWatcher(Path.GetDirectoryName(FullPath), Path.GetFileName(FullPath))
+            {
+                SynchronizingObject = syncObject
+            };
+            watcher.Changed += FileNotification;
 			//visual studio does not change a file, but saves a copy and later deletes the original and renames
 			watcher.Created += FileNotification;
 			watcher.Renamed += FileNotification;

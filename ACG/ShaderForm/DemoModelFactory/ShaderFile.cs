@@ -3,11 +3,11 @@ using System;
 using System.ComponentModel;
 using System.IO;
 using System.Windows.Forms;
-using Zenseless.ShaderDebugging;
+using Zenseless.Base;
 
 namespace ShaderForm.DemoModelFactory
 {
-	public class ShaderFile : IShaderFile
+    public class ShaderFile : IShaderFile
 	{
 		public event EventHandler<string> Changed;
 
@@ -56,10 +56,12 @@ namespace ShaderForm.DemoModelFactory
 			}
 			catch (Exception e)
 			{
-				//try reload in 2 seconds, because sometimes file system is still busy
-				Timer timer = new Timer(); //todo: is this executed on main thread?
-				timer.Interval = 2000;
-				timer.Tick += (a, b) =>
+                //try reload in 2 seconds, because sometimes file system is still busy
+                Timer timer = new Timer
+                {
+                    Interval = 2000
+                }; //todo: is this executed on main thread?
+                timer.Tick += (a, b) =>
 				{
 					timer.Stop();
 					timer.Dispose();

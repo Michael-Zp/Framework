@@ -41,6 +41,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Disposable.cs" />
+    <Compile Include="FileWatcher.cs" />
     <Compile Include="GameTime.cs" />
     <Compile Include="ImageListTools.cs" />
     <Compile Include="ITime.cs" />

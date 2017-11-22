@@ -44,7 +44,6 @@
     <Compile Include="FormShaderException.Designer.cs">
       <DependentUpon>FormShaderException.cs</DependentUpon>
     </Compile>
-    <Compile Include="FileWatcher.cs" />
     <Compile Include="FormTools.cs" />
     <Compile Include="RegistryLoader.cs" />
     <Compile Include="RegistryLoaderForm.cs" />
