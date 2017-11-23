@@ -41,3 +41,27 @@ float plane(const vec3 n, const float d, const Ray ray, const float EPSILON)
 	}
 	return (-d-dot(n, ray.origin)) / denominator;
 }
+
+float box(const vec3 minP, const vec3 maxP, const Ray ray, const float EPSILON)
+{
+	vec3 diffMin = minP - ray.origin;
+	vec3 diffMax = maxP - ray.origin;
+	vec3 t0 = diffMin / ray.dir;
+	vec3 t1 = diffMax / ray.dir;
+	vec3 n = min(t0, t1);
+	vec3 f = max(t0, t1);
+	float enter = max(n.x, max(n.y, n.z));
+	float exit = min(f.x, min(f.y, f.z));
+	if(enter > exit) return -1;
+	if (0 < enter) return enter;
+	return exit;
+}
+
+vec3 boxNormal(const vec3 center, const vec3 point)
+{
+	vec3 diff = point - center;
+	vec3 a = abs(diff);
+	int axis = a.x > a.y ? (a.z > a.x ? 2 : 0) : (a.z > a.y ? 2 : 1);
+	diff[axis] *= 1e10;
+	return normalize(diff);
+}
