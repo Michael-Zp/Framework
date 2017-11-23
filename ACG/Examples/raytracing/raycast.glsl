@@ -5,55 +5,49 @@ const float bigNumber = 10000.0;
 const float eps = 0.001;
 const float PI = 3.14159;
 
-float quad(float a)
+struct Ray
 {
-	return a * a;
-}
+	vec3 origin; // origin of ray
+	vec3 dir; // direction of ray (unit length assumed)
+};
 
-//C = center of sphere
+//c = center of sphere
 //r = radius of sphere
-//O = origin of ray
-//D = direction of ray (with unit length)
 //return t of smaller hit point
-float sphere(vec3 C, float r, vec3 O, vec3 D)
+float sphere(const vec3 c, const float r, const Ray ray, const float EPSILON)
 {
-	vec3 V = O - C;
-	float dotVD = dot(V, D);
-	float root = quad(dotVD) - (quad(length(V)) - quad(r));
-	//does ray miss the sphere?
-	if(root < eps)
+	vec3 MO = ray.origin - c;
+	float dotDirMO = dot(ray.dir, MO);
+	float root = dotDirMO * dotDirMO - dot(ray.dir, ray.dir) * (dot(MO, MO) - r * r);
+	if(root < EPSILON)
 	{
-		//return something negative
-		return -bigNumber;
+		return -1.0;
 	}
-	//ray hits the sphere -> calc t of hit point(s)
-	float p = -dotVD;
+	float p = -dot(ray.dir, MO);
 	float q = sqrt(root);
     return (p - q) > 0.0 ? p - q : p + q;
 }
 
 //center = center of sphere
 //P = some point in space
-// return normal of sphere when looking from point P
-vec3 sphereNormal(vec3 center, vec3 P)
+// return normal of sphere in direction of P
+vec3 sphereNormal(const vec3 center, const vec3 P)
 {
 	return normalize(P - center);
 }
 
-//N = normal of plane
-//k = distance to origin
-//O = origin of ray
-//D = direction of ray
-float plane(vec3 N, float k, vec3 O, vec3 D)
+//n = normal of plane
+//d = distance to origin
+float plane(const vec3 n, const float d, const Ray ray, const float EPSILON)
 {
-	float denominator = dot(N, D);
-	if(abs(denominator) < eps)
+	float denominator = dot(n, ray.dir);
+	if(abs(denominator) < EPSILON)
 	{
 		//no intersection
-		return -bigNumber;
+		return -1.0;
 	}
-	return (-k - dot(N, O)) / denominator;
-}	
+	return (-d-dot(n, ray.origin)) / denominator;
+}
 
 void main()
 {
@@ -67,7 +61,7 @@ void main()
 	
 	//intersection
 	vec3 C = vec3(0, 0, 1);
-	float t = sphere(C, 0.4, camP, camDir);
+	float t = sphere(C, 0.4, Ray(camP, camDir), eps);
 
 	//final color
 	vec3 color;
