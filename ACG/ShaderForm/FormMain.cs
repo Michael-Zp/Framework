@@ -20,7 +20,6 @@ namespace ShaderForm
 		private DemoModel demo;
 		private int mouseButton = 0;
 		private Vector2 mousePos;
-		//private int painting = 0;
 		private MultiGraph multiGraph = new MultiGraph();
 		private FacadeFormMessages log = new FacadeFormMessages();
 		private FacadeCamera camera = new FacadeCamera();

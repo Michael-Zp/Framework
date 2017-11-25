@@ -1,16 +1,19 @@
 #version 330
 
 #include "../libs/camera.glsl" 
+#include "../libs/rayIntersections.glsl" 
 // #include "../libs/noise3D.glsl" //uncomment for simplex noise: slower but more "fractal"
 
 uniform float iGlobalTime;
 uniform vec2 iResolution;
 
-float time = iGlobalTime + 0.8;
+float time = iGlobalTime + 0.7;
 
 // adapted from https://www.shadertoy.com/view/4sfGzS 
 
 vec3 sundir = normalize( vec3(sin(time), 0.0, cos(time)) );
+
+const int STEPS = 200;
 
 float hash(vec3 p)
 {
@@ -59,52 +62,50 @@ float densityLayer(const vec3 p, const int octaves)
 	return clamp( 1.5 - p.y - 2.0 + 1.75 * f, 0.0, 1.0 );
 }
 
-vec4 integrate( const vec4 sum, const float dif, const float den, const vec3 bgcol, const float t )
+vec4 lighting(const float diff, const float cloudDensity, const vec3 backgroundColor, const float pathLength )
 {
-    // lighting
-    vec3 lin = vec3(0.65, 0.7, 0.75) * 1.4 + vec3(1.0, 0.6, 0.3) * dif;        
-    vec4 col = vec4( mix( vec3(1.0, 0.95, 0.8), vec3(0.25, 0.3, 0.35), den ), den );
-    col.rgb *= lin;
-	const float density = 0.003;
-    col.rgb = mix( col.rgb, bgcol, 1.0 - exp( -density * t * t ) );
-    // front to back blending    
-    col.a *= 0.4;
-    col.rgb *= col.a;
-    return sum + col * ( 1.0 - sum.a );
+    vec3 lightColor = vec3(0.91, 0.98, 1.0) + vec3(1.0, 0.6, 0.3) * 2.0 * diff;        
+	vec3 cloudAlbedo = mix( vec3(1.0, 0.95, 0.8), vec3(0.25, 0.3, 0.35), cloudDensity );
+
+	const float absorption = 0.003;
+	float transmittance = exp( -absorption * pathLength * pathLength );
+    vec3 col = mix(backgroundColor, cloudAlbedo * lightColor, transmittance );
+    
+    float alpha = cloudDensity * 0.4;
+    return vec4(col * alpha, alpha);
 }
 
-#define MARCH(STEPS,MAPLOD) for(int i=0; i<STEPS; i++) { vec3  pos = ro + t*rd; if( pos.y<-3.0 || pos.y>2.0 || sum.a > 0.99 ) break; float den = MAPLOD( pos ); if( den>0.01 ) { float dif =  clamp((den - MAPLOD(pos+0.3*sundir))/0.6, 0.0, 1.0 ); sum = integrate( sum, dif, den, bgcol, t ); } t += max(0.05,0.02*t); }
-
-float map5( const vec3 p ) { return densityLayer(p, 5); }
-float map4( const vec3 p ) { return densityLayer(p, 4); }
-float map3( const vec3 p ) { return densityLayer(p, 3); }
-float map2( const vec3 p ) { return densityLayer(p, 2); }
-
-vec4 raymarch( const vec3 ro, const vec3 rd, const vec3 bgcol )
+vec4 raymarchClouds(const Ray ray, const vec3 backgroundColor, const int octaves )
 {
 	vec4 sum = vec4(0.0);
-
 	float t = 0.0;
-
-	int steps = 30;
-    MARCH(steps, map5);
-    MARCH(steps, map4);
-    MARCH(steps, map3);
-    MARCH(steps, map2);
-
+	for(int i = 0; i < STEPS; ++i)
+	{
+		vec3  pos = ray.origin + t * ray.dir;
+		if( 0.99 < sum.a ) break; //break if opaque
+		float density = densityLayer( pos, octaves );
+		if( 0.01 < density ) // if not empty -> accumulate 
+		{
+			float lightDirDensity = densityLayer(pos + 0.3 * sundir, octaves); // sample in light dir
+			float diff = density - lightDirDensity;
+			vec4 color = lighting( clamp(diff, 0.0, 1.0), density, backgroundColor, t );
+			sum += color * ( 1.0 - sum.a ); //add new color contribution
+		}
+		t += max( 0.05, 0.02 * t ); //step size at least 0.05, increase with each step
+	}
     return clamp( sum, 0.0, 1.0 );
 }
 
-vec3 render(const vec3 ro, const vec3 rd )
+vec3 render(const Ray ray)
 {
     // background sky     
-	float sun = clamp( dot( sundir, rd ), 0.0, 1.0 );
+	float sun = clamp( dot( sundir, ray.dir ), 0.0, 1.0 );
 	vec3 backgroundSky = vec3( 0.7, 0.79, 0.83 )
-		- rd.y * 0.2 * vec3( 1.0, 0.5, 1.0 )
-		+ 0.2 * vec3( 1.0, .6, 0.1 ) * pow( sun, 8.0 );
+		- ray.dir.y * 0.2 * vec3( 1.0, 0.5, 1.0 )
+		+ 0.2 * vec3( 1.0, 0.6, 0.1 ) * pow( sun, 8.0 );
 
     // clouds    
-    vec4 res = raymarch( ro, rd, backgroundSky );
+    vec4 res = raymarchClouds( ray, backgroundSky, 3 );
     vec3 col = backgroundSky * ( 1.0 - res.a ) + res.rgb; // blend clouds with sky
     
     // add sun glare    
@@ -119,7 +120,7 @@ void main()
 	camP += vec3(7.4, 0.6, -4.8);
 	vec3 camDir = calcCameraRayDir(80.0, gl_FragCoord.xy, iResolution);
 
-    vec3 color = render( camP, camDir);
+    vec3 color = render( Ray( camP, camDir ) );
     gl_FragColor = vec4(color, 1.0 );
 }
 

@@ -93,6 +93,7 @@ namespace ShaderForm.Camera
 
 		private void Run(bool running)
 		{
+			if (IsActive) return;
 			if (running)
 			{
 				time.Restart();
