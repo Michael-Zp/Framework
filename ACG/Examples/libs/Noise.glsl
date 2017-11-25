@@ -1,3 +1,5 @@
+#ifndef noise_glsl
+#define noise_glsl
 
 float quinticInterpolation(float x)
 {
@@ -110,3 +112,5 @@ float gnoise(vec2 coord)
 	float x2 = mix(v01, v11, weight.x);
 	return mix(x1, x2, weight.y) + 0.5;
 }
+
+#endif

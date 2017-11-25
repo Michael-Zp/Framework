@@ -120,7 +120,7 @@ namespace Zenseless.OpenGL
 			string sName = Path.GetFileName(shaderFile);
 			//split into lines
 			var lines = sShader.Split(new[] { Environment.NewLine }, StringSplitOptions.None);
-			var pattern = @"^\s*#include\s+" + '"' + "(.+)" + '"';
+			var pattern = @"^\s*#include\s+""([^""]+)"""; //match everything inside " except " so we get shortest ".+" match 
 			int lineNr = 1;
 			foreach (var line in lines)
 			{

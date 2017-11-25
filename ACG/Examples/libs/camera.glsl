@@ -1,3 +1,6 @@
+#ifndef camera_glsl
+#define camera_glsl
+
 uniform float iCamPosX;
 uniform float iCamPosY;
 uniform float iCamPosZ;
@@ -29,3 +32,5 @@ vec3 calcCameraRayDir(float fov, vec2 fragCoord, vec2 resolution)
 	rotateAxis(rayDir.xy, iCamRotZ);
 	return rayDir;
 }
+
+#endif

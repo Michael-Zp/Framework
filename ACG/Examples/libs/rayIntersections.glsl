@@ -1,3 +1,6 @@
+#ifndef rayIntersections_glsl
+#define rayIntersections_glsl
+
 struct Ray
 {
 	vec3 origin; // origin of ray
@@ -65,3 +68,5 @@ vec3 boxNormal(const vec3 center, const vec3 point)
 	diff[axis] *= 1e10;
 	return normalize(diff);
 }
+
+#endif

@@ -1,3 +1,6 @@
+#ifndef operators_glsl
+#define operators_glsl
+
 float sPlane(vec3 point, vec3 normal, float d) {
     return dot(point, normal) - d;
 }
@@ -92,3 +95,4 @@ vec3 getNormal(vec3 point, float delta)
 	return normalize(gradient);
 }
 
+#endif

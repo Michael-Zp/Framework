@@ -506,12 +506,7 @@ namespace ShaderForm
 			}
 			else
 			{
-				this.TopMost = this.menuOnTop.Checked;
-				this.FormBorderStyle = FormBorderStyle.Sizable;
-				this.WindowState = FormWindowState.Normal;
-				this.menuStrip.Visible = true;
-				this.panelSequence.Visible = 1 < demo.Shaders.Count();
-				this.soundPlayerBar1.Visible = true;
+				NormalView();
 			}
 		}
 
@@ -572,10 +567,13 @@ namespace ShaderForm
 
 		private void NormalView()
 		{
+			this.TopMost = this.menuOnTop.Checked;
+			this.WindowState = FormWindowState.Normal;
 			FormBorderStyle = FormBorderStyle.Sizable;
 			this.menuStrip.Visible = true;
-			this.panelSequence.Visible = true;
+			this.panelSequence.Visible = 1 < demo.Shaders.Count();
 			this.soundPlayerBar1.Visible = true;
+
 		}
 
 		private void CompactView()
