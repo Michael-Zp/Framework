@@ -70,7 +70,7 @@
 			this.clearToolStripMenuItem.Name = "clearToolStripMenuItem";
 			this.clearToolStripMenuItem.Size = new System.Drawing.Size(46, 20);
 			this.clearToolStripMenuItem.Text = "Clear";
-			this.clearToolStripMenuItem.Click += new System.EventHandler(this.clearToolStripMenuItem_Click);
+			this.clearToolStripMenuItem.Click += new System.EventHandler(this.ClearToolStripMenuItem_Click);
 			// 
 			// fontBiggerToolStripMenuItem
 			// 
@@ -79,7 +79,7 @@
 			this.fontBiggerToolStripMenuItem.Size = new System.Drawing.Size(80, 20);
 			this.fontBiggerToolStripMenuItem.Text = "Font bigger";
 			this.fontBiggerToolStripMenuItem.ToolTipText = "CTRL+WHEEL_UP";
-			this.fontBiggerToolStripMenuItem.Click += new System.EventHandler(this.fontBiggerToolStripMenuItem_Click);
+			this.fontBiggerToolStripMenuItem.Click += new System.EventHandler(this.FontBiggerToolStripMenuItem_Click);
 			// 
 			// fontSmallerToolStripMenuItem
 			// 
@@ -88,7 +88,7 @@
 			this.fontSmallerToolStripMenuItem.Size = new System.Drawing.Size(84, 20);
 			this.fontSmallerToolStripMenuItem.Text = "Font smaller";
 			this.fontSmallerToolStripMenuItem.ToolTipText = "CTRL+WHEEL_UP";
-			this.fontSmallerToolStripMenuItem.Click += new System.EventHandler(this.fontSmallerToolStripMenuItem_Click);
+			this.fontSmallerToolStripMenuItem.Click += new System.EventHandler(this.FontSmallerToolStripMenuItem_Click);
 			// 
 			// checkBoxOnTop
 			// 
@@ -100,7 +100,7 @@
 			this.checkBoxOnTop.TabIndex = 5;
 			this.checkBoxOnTop.Text = "onTop";
 			this.checkBoxOnTop.UseVisualStyleBackColor = true;
-			this.checkBoxOnTop.CheckedChanged += new System.EventHandler(this.checkBoxOnTop_CheckedChanged);
+			this.checkBoxOnTop.CheckedChanged += new System.EventHandler(this.CheckBoxOnTop_CheckedChanged);
 			// 
 			// FormMessages
 			// 

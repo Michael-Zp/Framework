@@ -1,6 +1,6 @@
-﻿using ControlClassLibrary;
-using System.Windows.Forms;
+﻿using System.Windows.Forms;
 using System;
+using Zenseless.ShaderDebugging;
 
 namespace ShaderForm.Camera
 {
@@ -23,7 +23,7 @@ namespace ShaderForm.Camera
 			this.SaveLayout();
 		}
 
-		private void btnReset_Click(object sender, EventArgs e)
+		private void BtnReset_Click(object sender, EventArgs e)
 		{
 			var cam = propertyGrid1.SelectedObject as AdapterCamera;
 			if (ReferenceEquals(null,  cam)) return;
@@ -37,7 +37,7 @@ namespace ShaderForm.Camera
 			Visible = false;
 		}
 
-		private void checkBoxOnTop_CheckedChanged(object sender, EventArgs e)
+		private void CheckBoxOnTop_CheckedChanged(object sender, EventArgs e)
 		{
 			TopMost = checkBoxOnTop.Checked;
 		}

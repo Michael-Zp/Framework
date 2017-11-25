@@ -53,7 +53,7 @@
 			this.btnReset.TabIndex = 1;
 			this.btnReset.Text = "Reset";
 			this.btnReset.UseVisualStyleBackColor = true;
-			this.btnReset.Click += new System.EventHandler(this.btnReset_Click);
+			this.btnReset.Click += new System.EventHandler(this.BtnReset_Click);
 			// 
 			// checkBoxOnTop
 			// 
@@ -65,7 +65,7 @@
 			this.checkBoxOnTop.TabIndex = 2;
 			this.checkBoxOnTop.Text = "onTop";
 			this.checkBoxOnTop.UseVisualStyleBackColor = true;
-			this.checkBoxOnTop.CheckedChanged += new System.EventHandler(this.checkBoxOnTop_CheckedChanged);
+			this.checkBoxOnTop.CheckedChanged += new System.EventHandler(this.CheckBoxOnTop_CheckedChanged);
 			// 
 			// formCameraBindingSource
 			// 

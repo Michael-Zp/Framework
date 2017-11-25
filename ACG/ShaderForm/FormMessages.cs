@@ -1,7 +1,7 @@
-﻿using ControlClassLibrary;
-using System;
+﻿using System;
 using System.Drawing;
 using System.Windows.Forms;
+using Zenseless.ShaderDebugging;
 
 namespace ShaderForm
 {
@@ -68,17 +68,17 @@ namespace ShaderForm
 			}
 		}
 
-		private void clearToolStripMenuItem_Click(object sender, EventArgs e)
+		private void ClearToolStripMenuItem_Click(object sender, EventArgs e)
 		{
 			errorLog.Clear();
 		}
 
-		private void fontBiggerToolStripMenuItem_Click(object sender, EventArgs e)
+		private void FontBiggerToolStripMenuItem_Click(object sender, EventArgs e)
 		{
 			FontSize += 3.0f;
 		}
 
-		private void fontSmallerToolStripMenuItem_Click(object sender, EventArgs e)
+		private void FontSmallerToolStripMenuItem_Click(object sender, EventArgs e)
 		{
 			FontSize -= 3.0f;
 		}
@@ -89,7 +89,7 @@ namespace ShaderForm
 			e.Cancel = true;
 		}
 
-		private void checkBoxOnTop_CheckedChanged(object sender, EventArgs e)
+		private void CheckBoxOnTop_CheckedChanged(object sender, EventArgs e)
 		{
 			TopMost = checkBoxOnTop.Checked;
 		}

@@ -46,7 +46,6 @@
     </Compile>
     <Compile Include="ITrackItem.cs" />
     <Compile Include="NewControlBoundsArgs.cs" />
-    <Compile Include="RegistryLoader.cs" />
     <Compile Include="ISequenceBarItem.cs" />
     <Compile Include="FloatValueBar.cs">
       <SubType>UserControl</SubType>

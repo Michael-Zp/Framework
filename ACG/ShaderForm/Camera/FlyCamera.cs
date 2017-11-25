@@ -1,6 +1,7 @@
-﻿using System;
+﻿using OpenTK;
+using System;
+using System.Diagnostics;
 using System.Windows.Forms;
-using OpenTK;
 
 namespace ShaderForm.Camera
 {
@@ -15,13 +16,14 @@ namespace ShaderForm.Camera
 		public Vector3 Rotation;
 		public float Speed;
 
-		public bool IsActive { get { return fwd || left || right || back || up || down; } }
+		public bool IsActive => time.IsRunning;
 
 		public void Reset()
 		{
 			Position = new Vector3(0);
 			Rotation = new Vector3(0);
-			Speed = 0.05f;
+			Speed = 1f;
+			time.Reset();
 		}
 
 		public void Update(float mouseX, float mouseY, bool leftPressed)
@@ -50,13 +52,18 @@ namespace ShaderForm.Camera
 
 			var camUpTemp = -Vector3.Cross(camFwdTmp, camLeft);
 
-			if (fwd) Position += camFwdTmp * Speed;
-			if (back) Position -= camFwdTmp * Speed;
-			if (left) Position += camLeft * Speed;
-			if (right) Position -= camLeft * Speed;
-			if (up) Position += camUpTemp * Speed;
-			if (down) Position -= camUpTemp * Speed;
-
+			if (IsActive)
+			{
+				var total = (float)time.Elapsed.TotalSeconds;
+				var dt = total - lastTime;
+				lastTime = total;
+				if (fwd) Position += camFwdTmp * Speed * dt;
+				if (back) Position -= camFwdTmp * Speed * dt;
+				if (left) Position += camLeft * Speed * dt;
+				if (right) Position -= camLeft * Speed * dt;
+				if (up) Position += camUpTemp * Speed * dt;
+				if (down) Position -= camUpTemp * Speed * dt;
+			}
 			camFwd = camFwdTmp;
 		}
 
@@ -64,12 +71,12 @@ namespace ShaderForm.Camera
 		{
 			switch (key)
 			{
-				case Keys.W: fwd = pressed; break;
-				case Keys.A: left = pressed; break;
-				case Keys.S: back = pressed; break;
-				case Keys.D: right = pressed; break;
-				case Keys.Q: up = pressed; break;
-				case Keys.E: down = pressed; break;
+				case Keys.W: fwd = pressed; Run(pressed); break;
+				case Keys.A: left = pressed; Run(pressed); break;
+				case Keys.S: back = pressed; Run(pressed); break;
+				case Keys.D: right = pressed; Run(pressed); break;
+				case Keys.Q: up = pressed; Run(pressed); break;
+				case Keys.E: down = pressed; Run(pressed); break;
 				case Keys.Oemplus:
 				case Keys.Add: if(pressed) Speed *= 2.0f; break;
 				case Keys.OemMinus:
@@ -81,14 +88,29 @@ namespace ShaderForm.Camera
 		private bool fwd, back, left, right, up, down;
 		private float lastMouseX = 0;
 		private float lastMouseY = 0;
+		private Stopwatch time = new Stopwatch();
+		private float lastTime = 0f;
 
-		private Vector3 RotateX(Vector3 vec, float angle)
+		private void Run(bool running)
+		{
+			if (running)
+			{
+				time.Restart();
+			}
+			else
+			{
+				time.Reset();
+			}
+			lastTime = 0f;
+		}
+
+		private static Vector3 RotateX(Vector3 vec, float angle)
 		{
 			var rotateXM = Matrix3.CreateRotationX(angle);
 			return Vector3.Transform(vec, rotateXM);
 		}
 
-		private Vector3 RotateY(Vector3 vec, float angle)
+		private static Vector3 RotateY(Vector3 vec, float angle)
 		{
 			var rotateZM = Matrix3.CreateRotationY(angle);
 			return Vector3.Transform(vec, rotateZM);

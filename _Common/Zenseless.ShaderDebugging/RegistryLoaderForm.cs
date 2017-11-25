@@ -40,6 +40,7 @@ namespace Zenseless.ShaderDebugging
 				form.Top = top;
 				form.Left = left;
 			}
+			form.TopMost = Convert.ToBoolean(key.GetValue("TopMost", form.TopMost));
 		}
 
 		/// <summary>
@@ -58,6 +59,38 @@ namespace Zenseless.ShaderDebugging
 			key.SetValue("Height", form.Height);
 			key.SetValue("Top", form.Top);
 			key.SetValue("Left", form.Left);
+			key.SetValue("TopMost", form.TopMost);
+		}
+
+		/// <summary>
+		/// Loads a value from the registry key of the application.
+		/// </summary>
+		/// <param name="keyName">Name of the registry key.</param>
+		/// <param name="name">Name of the registry entry.</param>
+		/// <param name="defaultValue">The default value of the entry.</param>
+		/// <returns>value as <see cref="object"/></returns>
+		public static object LoadValue(string keyName, string name, object defaultValue)
+		{
+			RegistryKey keyApp = GetAppKey();
+			if (ReferenceEquals(null, keyApp)) return null;
+			var key = keyApp.CreateSubKey(keyName);
+			if (ReferenceEquals(null, key)) return null;
+			return key.GetValue(name, defaultValue);
+		}
+
+		/// <summary>
+		/// Saves the value to the registry key of the application.
+		/// </summary>
+		/// <param name="keyName">Name of the registry key.</param>
+		/// <param name="name">Name of the registry entry.</param>
+		/// <param name="value">The value to be stored.</param>
+		public static void SaveValue(string keyName, string name, object value)
+		{
+			RegistryKey keyApp = GetAppKey();
+			if (ReferenceEquals(null, keyApp)) return;
+			var key = keyApp.CreateSubKey(keyName);
+			if (ReferenceEquals(null, key)) return;
+			key.SetValue(name, value);
 		}
 	}
 }

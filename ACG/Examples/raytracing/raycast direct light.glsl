@@ -119,7 +119,7 @@ vec3 normal(const Object obj, const vec3 point)
 		case 1: //sphere
 			return sphereNormal(obj.data.xyz, point);
 		case 2: //cube
-			return cubeNormal(obj.data.xyz, point);
+			return boxNormal(obj.data.xyz, point);
 		default:
 			return vec3(0);
 	}

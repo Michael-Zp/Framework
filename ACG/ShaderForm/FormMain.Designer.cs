@@ -37,6 +37,7 @@ namespace ShaderForm
 			this.menuBenchmark = new System.Windows.Forms.ToolStripMenuItem();
 			this.menuWindow = new System.Windows.Forms.ToolStripMenuItem();
 			this.menuSizeSetting = new System.Windows.Forms.ToolStripComboBox();
+			this.copyImageToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
 			this.menuScreenshot = new System.Windows.Forms.ToolStripMenuItem();
 			this.menuFullscreen = new System.Windows.Forms.ToolStripMenuItem();
 			this.menuCompact = new System.Windows.Forms.ToolStripMenuItem();
@@ -61,7 +62,6 @@ namespace ShaderForm
 			this.sequenceBar1 = new ControlClassLibrary.SequenceBar();
 			this.textBoxLastMessage = new System.Windows.Forms.TextBox();
 			this.soundPlayerBar1 = new ControlClassLibrary.SeekBar();
-			this.copyImageToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
 			this.menuStrip.SuspendLayout();
 			this.panelSequence.SuspendLayout();
 			this.SuspendLayout();
@@ -148,6 +148,10 @@ namespace ShaderForm
             "x1",
             "x2",
             "x4",
+            "f8",
+            "f16",
+            "f32",
+            "f64",
             "f128",
             "f256",
             "f512",
@@ -158,6 +162,12 @@ namespace ShaderForm
 			this.menuSizeSetting.Name = "menuSizeSetting";
 			this.menuSizeSetting.Size = new System.Drawing.Size(75, 38);
 			this.menuSizeSetting.ToolTipText = "Window resolution";
+			// 
+			// copyImageToolStripMenuItem
+			// 
+			this.copyImageToolStripMenuItem.Name = "copyImageToolStripMenuItem";
+			this.copyImageToolStripMenuItem.Size = new System.Drawing.Size(374, 34);
+			this.copyImageToolStripMenuItem.Text = "Copy Image";
 			// 
 			// menuScreenshot
 			// 
@@ -373,12 +383,6 @@ namespace ShaderForm
 			this.soundPlayerBar1.Size = new System.Drawing.Size(955, 46);
 			this.soundPlayerBar1.TabIndex = 3;
 			this.soundPlayerBar1.TabStop = false;
-			// 
-			// copyImageToolStripMenuItem
-			// 
-			this.copyImageToolStripMenuItem.Name = "copyImageToolStripMenuItem";
-			this.copyImageToolStripMenuItem.Size = new System.Drawing.Size(374, 34);
-			this.copyImageToolStripMenuItem.Text = "Copy Image";
 			// 
 			// FormMain
 			// 

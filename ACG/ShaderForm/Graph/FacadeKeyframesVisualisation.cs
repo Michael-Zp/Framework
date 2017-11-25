@@ -1,7 +1,7 @@
-﻿using ControlClassLibrary;
-using ShaderForm.Interfaces;
+﻿using ShaderForm.Interfaces;
 using System.Collections.Generic;
 using System.Windows.Forms;
+using Zenseless.ShaderDebugging;
 
 namespace ShaderForm.Graph
 {

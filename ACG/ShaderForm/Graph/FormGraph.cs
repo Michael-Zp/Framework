@@ -1,10 +1,10 @@
-﻿using ControlClassLibrary;
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Drawing;
 using System.Linq;
 using System.Windows.Forms;
 using System.Windows.Forms.DataVisualization.Charting;
+using Zenseless.ShaderDebugging;
 
 namespace ShaderForm.Graph
 {
@@ -26,9 +26,9 @@ namespace ShaderForm.Graph
 			Name = "FormGraph_" + name;
 			Text = name + " (graph)";
 
-			chart1.MouseDown += chart1_MouseDown;
-			chart1.MouseUp += chart1_MouseUp;
-			chart1.MouseMove += chart1_MouseMove;
+			chart1.MouseDown += Chart1_MouseDown;
+			chart1.MouseUp += Chart1_MouseUp;
+			chart1.MouseMove += Chart1_MouseMove;
 			chart1.MouseWheel += Chart1_MouseWheel;
 
 			chart1.Legends.Clear();
@@ -109,7 +109,7 @@ namespace ShaderForm.Graph
 			area.AxisY.ScaleView.Zoom(posYStart, posYFinish);
 		}
 
-		private void chart1_MouseDown(object sender, MouseEventArgs e)
+		private void Chart1_MouseDown(object sender, MouseEventArgs e)
 		{
 			var result = chart1.HitTest(e.X, e.Y);
 			switch (result.ChartElementType)
@@ -169,7 +169,7 @@ namespace ShaderForm.Graph
 			ChangedPosition?.Invoke(x);
 		}
 
-		private void chart1_MouseMove(object sender, MouseEventArgs e)
+		private void Chart1_MouseMove(object sender, MouseEventArgs e)
 		{
 			if (-1 != selectedPoint)
 			{
@@ -209,7 +209,7 @@ namespace ShaderForm.Graph
 			}
 		}
 
-		private void chart1_MouseUp(object sender, MouseEventArgs e)
+		private void Chart1_MouseUp(object sender, MouseEventArgs e)
 		{
 			selectedPoint = -1;
 			dragingCursor = false;
@@ -239,7 +239,7 @@ namespace ShaderForm.Graph
 				Math.Max(Math.Min(y, chart1.Size.Height - 1), 0));
 		}
 
-		private void chart1_MouseHover(object sender, EventArgs e)
+		private void Chart1_MouseHover(object sender, EventArgs e)
 		{
 			//var pos = chart1.PointToClient(MousePosition);
 			//var result = chart1.HitTest(pos.X, pos.Y);
@@ -253,17 +253,17 @@ namespace ShaderForm.Graph
 			//}
 		}
 
-		private void copyToolStripMenuItem_Click(object sender, EventArgs e)
+		private void CopyToolStripMenuItem_Click(object sender, EventArgs e)
 		{
 			CopyCommand?.Invoke(sender, e);
 		}
 
-		private void pasteToolStripMenuItem_Click(object sender, EventArgs e)
+		private void PasteToolStripMenuItem_Click(object sender, EventArgs e)
 		{
 			PasteCommand?.Invoke(sender, e);
 		}
 
-		private void roundToolStripMenuItem_Click(object sender, EventArgs e)
+		private void RoundToolStripMenuItem_Click(object sender, EventArgs e)
 		{
 			var points = chart1.Series.First().Points;
 			for (int i = 0; i < points.Count; ++i)
@@ -275,7 +275,7 @@ namespace ShaderForm.Graph
 			CallOnChangePoint(points);
 		}
 
-		private void moveAxisToolStripMenuItem_CheckedChanged(object sender, EventArgs e)
+		private void MoveAxisToolStripMenuItem_CheckedChanged(object sender, EventArgs e)
 		{
 			if (moveAxisYToolStripMenuItem.Checked)
 				moveAxisYToolStripMenuItem.Text = "Move Y";

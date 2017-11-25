@@ -55,7 +55,7 @@
 			this.chart1.Size = new System.Drawing.Size(419, 440);
 			this.chart1.TabIndex = 0;
 			this.chart1.Text = "chart1";
-			this.chart1.MouseHover += new System.EventHandler(this.chart1_MouseHover);
+			this.chart1.MouseHover += new System.EventHandler(this.Chart1_MouseHover);
 			// 
 			// menuStrip1
 			// 
@@ -81,7 +81,7 @@
 			this.copyToolStripMenuItem.ShortcutKeys = ((System.Windows.Forms.Keys)((System.Windows.Forms.Keys.Control | System.Windows.Forms.Keys.C)));
 			this.copyToolStripMenuItem.Size = new System.Drawing.Size(47, 24);
 			this.copyToolStripMenuItem.Text = "Copy";
-			this.copyToolStripMenuItem.Click += new System.EventHandler(this.copyToolStripMenuItem_Click);
+			this.copyToolStripMenuItem.Click += new System.EventHandler(this.CopyToolStripMenuItem_Click);
 			// 
 			// pasteToolStripMenuItem
 			// 
@@ -90,14 +90,14 @@
 			this.pasteToolStripMenuItem.ShortcutKeys = ((System.Windows.Forms.Keys)((System.Windows.Forms.Keys.Control | System.Windows.Forms.Keys.P)));
 			this.pasteToolStripMenuItem.Size = new System.Drawing.Size(47, 24);
 			this.pasteToolStripMenuItem.Text = "Paste";
-			this.pasteToolStripMenuItem.Click += new System.EventHandler(this.pasteToolStripMenuItem_Click);
+			this.pasteToolStripMenuItem.Click += new System.EventHandler(this.PasteToolStripMenuItem_Click);
 			// 
 			// roundToolStripMenuItem
 			// 
 			this.roundToolStripMenuItem.Name = "roundToolStripMenuItem";
 			this.roundToolStripMenuItem.Size = new System.Drawing.Size(54, 24);
 			this.roundToolStripMenuItem.Text = "Round";
-			this.roundToolStripMenuItem.Click += new System.EventHandler(this.roundToolStripMenuItem_Click);
+			this.roundToolStripMenuItem.Click += new System.EventHandler(this.RoundToolStripMenuItem_Click);
 			// 
 			// moveAxisYToolStripMenuItem
 			// 
@@ -107,7 +107,7 @@
 			this.moveAxisYToolStripMenuItem.Name = "moveAxisYToolStripMenuItem";
 			this.moveAxisYToolStripMenuItem.Size = new System.Drawing.Size(59, 24);
 			this.moveAxisYToolStripMenuItem.Text = "Move Y";
-			this.moveAxisYToolStripMenuItem.CheckedChanged += new System.EventHandler(this.moveAxisToolStripMenuItem_CheckedChanged);
+			this.moveAxisYToolStripMenuItem.CheckedChanged += new System.EventHandler(this.MoveAxisToolStripMenuItem_CheckedChanged);
 			// 
 			// valueToolStripMenuItem
 			// 

@@ -4,13 +4,14 @@ using ShaderForm.Demo;
 using ShaderForm.Graph;
 using ShaderForm.Interfaces;
 using System;
+using System.Collections.Generic;
 using System.Drawing;
 using System.Globalization;
 using System.IO;
 using System.Linq;
 using System.Numerics;
-using System.Threading;
 using System.Windows.Forms;
+using Zenseless.ShaderDebugging;
 
 namespace ShaderForm
 {
@@ -64,9 +65,20 @@ namespace ShaderForm
 				});
 			menuScreenshot.Click += (sender, e) => Dialogs.SaveFile("png (*.png)|*.png", (fileName) => { glControl.Invalidate(); demo.GetScreenshot().Save(fileName); });
 			copyImageToolStripMenuItem.Click += (sender, e) => { glControl.Invalidate(); Clipboard.SetImage(demo.GetScreenshot()); };
-
-			KeyDown += (sender, e) => { camera.KeyChange(e.KeyCode, true); };
-			KeyUp += (sender, e) => { camera.KeyChange(e.KeyCode, false); };
+			var keyState = new Dictionary<Keys, bool>();
+			KeyDown += (sender, e) => {
+				if (keyState.TryGetValue(e.KeyCode, out bool pressed))
+				{
+					if (pressed) return;
+				}
+				keyState[e.KeyCode] = true;
+				camera.KeyChange(e.KeyCode, true);
+			}; //KEYDOWN is fired multiple times according to key repeat windows setting
+			KeyUp += (sender, e) => 
+			{
+				keyState[e.KeyCode] = false;
+				camera.KeyChange(e.KeyCode, false);
+			};
 		}
 
 		private void AddShader(string fileName)
@@ -173,10 +185,9 @@ namespace ShaderForm
 			demo.Draw(glControl.Width, glControl.Height);
 			glControl.SwapBuffers();
 
-			menuBenchmark.Text = menuBenchmark.Checked ? string.Format("{0:0.00}FPS ", 1 / demo.UpdateTime) : string.Format("{0:0.0}ms ", demo.UpdateTime * 1e3f);
+			menuBenchmark.Text = menuBenchmark.Checked ? $"{1 / demo.UpdateTime:F2}FPS" : $"{demo.UpdateTime * 1e3f:F1}ms";
 			if (camera.IsActive)
 			{
-				Thread.Sleep(1000 / 60);
 				glControl.Invalidate();
 			}
 		}
