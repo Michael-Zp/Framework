@@ -14,6 +14,7 @@ float time = iGlobalTime + 0.7;
 vec3 sundir = normalize( vec3(sin(time), 0.0, cos(time)) );
 
 const int STEPS = 200;
+const int OCTAVES = 3;
 
 float hash(vec3 p)
 {
@@ -55,43 +56,44 @@ float fbm(vec3 p, const int octaves )
 	return f;
 }
 
-float densityLayer(const vec3 p, const int octaves)
+float densityFunc(const vec3 p)
 {
-	vec3 q = p ; //+ vec3(0.0, 0.10, 1.0) * time; //cloud movement
-	float f = fbm(q, octaves);
-	return clamp( 1.5 - p.y - 2.0 + 1.75 * f, 0.0, 1.0 );
+	vec3 q = p;// + vec3(0.0, 0.10, 1.0) * time; //cloud movement
+	float f = fbm(q, OCTAVES);
+	return clamp( 2 * f - p.y - 1, 0.0, 1.0 );
 }
 
-vec4 lighting(const float diff, const float cloudDensity, const vec3 backgroundColor, const float pathLength )
+vec3 lighting(const vec3 pos, const float cloudDensity
+			, const vec3 backgroundColor, const float pathLength )
 {
-    vec3 lightColor = vec3(0.91, 0.98, 1.0) + vec3(1.0, 0.6, 0.3) * 2.0 * diff;        
+	float densityLightDir = densityFunc(pos + 0.3 * sundir); // sample in light dir
+	float gradientLightDir = clamp(cloudDensity - densityLightDir, 0.0, 1.0);
+			
+    vec3 litColor = vec3(0.91, 0.98, 1.0) + vec3(1.0, 0.6, 0.3) * 2.0 * gradientLightDir;        
 	vec3 cloudAlbedo = mix( vec3(1.0, 0.95, 0.8), vec3(0.25, 0.3, 0.35), cloudDensity );
 
 	const float absorption = 0.003;
-	float transmittance = exp( -absorption * pathLength * pathLength );
-    vec3 col = mix(backgroundColor, cloudAlbedo * lightColor, transmittance );
-    
-    float alpha = cloudDensity * 0.4;
-    return vec4(col * alpha, alpha);
+	float transmittance = exp( -absorption * pathLength );
+    return mix(backgroundColor, cloudAlbedo * litColor, transmittance );
 }
 
-vec4 raymarchClouds(const Ray ray, const vec3 backgroundColor, const int octaves )
+vec4 raymarchClouds(const Ray ray, const vec3 backgroundColor )
 {
 	vec4 sum = vec4(0.0);
 	float t = 0.0;
 	for(int i = 0; i < STEPS; ++i)
 	{
-		vec3  pos = ray.origin + t * ray.dir;
+		vec3 pos = ray.origin + t * ray.dir;
 		if( 0.99 < sum.a ) break; //break if opaque
-		float density = densityLayer( pos, octaves );
-		if( 0.01 < density ) // if not empty -> accumulate 
+		float cloudDensity = densityFunc( pos );
+		if( 0.01 < cloudDensity ) // if not empty -> light and accumulate 
 		{
-			float lightDirDensity = densityLayer(pos + 0.3 * sundir, octaves); // sample in light dir
-			float diff = density - lightDirDensity;
-			vec4 color = lighting( clamp(diff, 0.0, 1.0), density, backgroundColor, t );
-			sum += color * ( 1.0 - sum.a ); //add new color contribution
+			vec3 colorRGB = lighting( pos, cloudDensity, backgroundColor, t );
+			float alpha = cloudDensity * 0.4;
+			vec4 color = vec4(colorRGB * alpha, alpha);
+			sum += color * ( 1.0 - sum.a ); //blend-in new color contribution
 		}
-		t += max( 0.05, 0.02 * t ); //step size at least 0.05, increase with each step
+		t += max( 0.05, 0.02 * t ); //step size at least 0.05, increase t with each step
 	}
     return clamp( sum, 0.0, 1.0 );
 }
@@ -105,7 +107,7 @@ vec3 render(const Ray ray)
 		+ 0.2 * vec3( 1.0, 0.6, 0.1 ) * pow( sun, 8.0 );
 
     // clouds    
-    vec4 res = raymarchClouds( ray, backgroundSky, 3 );
+    vec4 res = raymarchClouds( ray, backgroundSky );
     vec3 col = backgroundSky * ( 1.0 - res.a ) + res.rgb; // blend clouds with sky
     
     // add sun glare    
@@ -117,7 +119,6 @@ vec3 render(const Ray ray)
 void main()
 {
 	vec3 camP = calcCameraPos();
-	camP += vec3(7.4, 0.6, -4.8);
 	vec3 camDir = calcCameraRayDir(80.0, gl_FragCoord.xy, iResolution);
 
     vec3 color = render( Ray( camP, camDir ) );

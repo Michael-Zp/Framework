@@ -37,7 +37,7 @@ float f(vec3 p)
 {
 	vec2 uv = toTextureSpace(p);
 	float func = texture(tex0, uv).x;
-	// func = sin(uv.x * 100) * cos(uv.y * 100) * 0.5 + 0.5; //analytical height field
+	func = sin(uv.x * 100) * cos(uv.y * 100) * 0.5 + 0.5; //analytical height field
 	return func * terrainExtents.y + terrainBottomCenter.y;
 }
 
@@ -99,6 +99,7 @@ vec3 getNormal(vec3 p, float delta)
 
 vec3 getShading(vec3 p, vec3 n)
 {
+	// return n;
 	vec3 color = colorF(p);
 	// return color;
 	return vec3(dot(toLight, n));
