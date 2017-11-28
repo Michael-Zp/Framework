@@ -58,7 +58,7 @@ float fbm(vec3 p, const int octaves )
 
 float densityFunc(const vec3 p)
 {
-	vec3 q = p;// + vec3(0.0, 0.10, 1.0) * time; //cloud movement
+	vec3 q = p;// + vec3(0.0, 0.10, 1.0) * time; //clouds move
 	float f = fbm(q, OCTAVES);
 	return clamp( 2 * f - p.y - 1, 0.0, 1.0 );
 }
@@ -72,8 +72,8 @@ vec3 lighting(const vec3 pos, const float cloudDensity
     vec3 litColor = vec3(0.91, 0.98, 1.0) + vec3(1.0, 0.6, 0.3) * 2.0 * gradientLightDir;        
 	vec3 cloudAlbedo = mix( vec3(1.0, 0.95, 0.8), vec3(0.25, 0.3, 0.35), cloudDensity );
 
-	const float absorption = 0.003;
-	float transmittance = exp( -absorption * pathLength );
+	const float extinction = 0.0003;
+	float transmittance = exp( -extinction * pathLength );
     return mix(backgroundColor, cloudAlbedo * litColor, transmittance );
 }
 

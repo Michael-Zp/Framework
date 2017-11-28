@@ -91,7 +91,7 @@ vec3 getNormal(vec3 p, float delta)
 {
     vec3 n;
 	n.x = f(p - vec3(delta, 0, 0)) - f(p + vec3(delta, 0, 0));
-	n.y = delta;
+	n.y = 2 * delta;
 	n.z = f(p - vec3(0, 0, delta)) - f(p + vec3(0, 0, delta));
     return normalize(n);
 }
