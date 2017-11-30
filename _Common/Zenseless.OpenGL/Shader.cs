@@ -114,7 +114,7 @@ namespace Zenseless.OpenGL
 		}
 
 		/// <summary>
-		/// Links this instance.
+		/// Links all compiled shaders to a shader program and deletes them.
 		/// </summary>
 		/// <exception cref="ShaderException">
 		/// Unknown Link error!
@@ -152,12 +152,12 @@ namespace Zenseless.OpenGL
 		}
 
 		/// <summary>
-		/// The shader i ds
+		/// The shader ids used for linking
 		/// </summary>
 		private List<int> shaderIDs = new List<int>();
 
 		/// <summary>
-		/// Converts the type.
+		/// Converts the shader type.
 		/// </summary>
 		/// <param name="type">The type.</param>
 		/// <returns></returns>

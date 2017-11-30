@@ -5,6 +5,8 @@
 	1. Implement diffuse lighting
 	1. Create a ground plane
 	1. Implement shadow rays
+	1. Move the camera (wasd+mouse-drag)
+	1. Look at [camera.glsl](../libs/camera.glsl)
 	1. Implement reflected rays
 	1. Implement soft shadows
 	1. Add Multiple light sources

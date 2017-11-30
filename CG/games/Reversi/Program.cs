@@ -1,6 +1,6 @@
-﻿using Zenseless.Application;
-using OpenTK.Input;
+﻿using OpenTK.Input;
 using System;
+using Zenseless.Application;
 using Zenseless.OpenGL;
 
 namespace Reversi
@@ -11,13 +11,13 @@ namespace Reversi
 		private static void Main()
 		{
 			var window = new ExampleWindow();
-			var logic = new GameLogic(); //todo student: load the game state
+			var logic = new GameLogic(); //TODO student: load the game state
 			var view = new View();
-			window.GameWindow.Closing += (s, e) => { /*todo student: save the game state */ };
+			window.GameWindow.Closing += (s, e) => { /*TODO student: save the game state */ };
 			window.Resize += (w, h) => view.Resize(logic.GameState, w, h);
 			window.Render += () =>
 			{
-				var score = "white:" + logic.CountWhite.ToString() + " black:" + logic.CountBlack.ToString(); ;
+				var score = $"white:{logic.CountWhite} black:{logic.CountBlack}";
 				window.GameWindow.Title = score;
 				view.Render(logic.GameState);
 				if (GameLogic.Result.PLAYING != logic.CurrentGameResult)

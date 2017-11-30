@@ -34,7 +34,7 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MiniGalaxyBirds", "CG\games
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Pong", "CG\games\Pong\Pong.csproj", "{4C2306E3-01BB-4A6F-9630-73E36A2BA57A}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MvcSpaceInvaders", "CG\games\MvcSpaceInvaders\MvcSpaceInvaders.csproj", "{C5389961-2C98-4528-AFF3-99D287C62D4A}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SpaceInvadersMvc", "CG\games\SpaceInvadersMvc\SpaceInvadersMvc.csproj", "{C5389961-2C98-4528-AFF3-99D287C62D4A}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MvcSokoban", "CG\games\MvcSokoban\MvcSokoban.csproj", "{CEF63B7C-D944-4EAA-8FCA-45C8160F3711}"
 EndProject

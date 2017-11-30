@@ -13,7 +13,7 @@ namespace MvcSokoban
 			//locCamera = shdFont.GetResourceLocation(ShaderResourceType.Uniform, "camera");
 			GL.Enable(EnableCap.Blend);
 			GL.BlendFunc(BlendingFactorSrc.SrcAlpha, BlendingFactorDest.OneMinusSrcAlpha);
-			GL.Enable(EnableCap.Texture2D); //todo: only for non shader pipeline relevant -> remove at some point
+			GL.Enable(EnableCap.Texture2D); //TODO: only for non shader pipeline relevant -> remove at some point
 
 			font = new TextureFont(TextureLoader.FromBitmap(Resourcen.Video_Phreak), 10, 32, 1, 1, .7f);
 		}

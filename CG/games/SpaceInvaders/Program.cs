@@ -170,7 +170,7 @@ namespace SpaceInvaders
 						//delete bullet and enemy
 						bullets.Remove(bullet);
 						enemies.Remove(enemy);
-						//need to return immediatly beause we change list
+						//need to return immediately because we change list
 						return;
 					}
 				}

@@ -28,7 +28,7 @@ namespace Example
 			//for transparency in textures
 			GL.BlendFunc(BlendingFactorSrc.SrcAlpha, BlendingFactorDest.OneMinusSrcAlpha);
 			GL.Enable(EnableCap.Blend); // for transparency in textures
-			GL.Enable(EnableCap.Texture2D); //todo: only for non shader pipeline relevant -> remove at some point
+			GL.Enable(EnableCap.Texture2D); //TODO: only for non shader pipeline relevant -> remove at some point
 			GL.Color3(Color.White); //color is multiplied with texture color white == no change
 		}
 

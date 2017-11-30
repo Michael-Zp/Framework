@@ -185,7 +185,7 @@ void main(void) {
 
 		c *= AO(p, 0.5*(n+normalize(n+l)));
 		
-		c *= calcNormal(dir);
+		// c *= calcNormal(dir);
 	}
 	
     gl_FragColor = vec4(c,1.0);

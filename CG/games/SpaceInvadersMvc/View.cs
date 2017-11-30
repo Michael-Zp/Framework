@@ -5,19 +5,19 @@ using System.Collections.Generic;
 using System.Drawing;
 using Zenseless.HLGL;
 
-namespace MvcSpaceInvaders
+namespace SpaceInvadersMvc
 {
 	public class View
 	{
 		public View()
 		{
-			texPlayer = TextureLoader.FromBitmap(Resourcen.blueships1);
-			texEnemy = TextureLoader.FromBitmap(Resourcen.redship4);
-			texBullet = TextureLoader.FromBitmap(Resourcen.blueLaserRay);
+			texPlayer = TextureLoader.FromBitmap(Resources.blueships1);
+			texEnemy = TextureLoader.FromBitmap(Resources.redship4);
+			texBullet = TextureLoader.FromBitmap(Resources.blueLaserRay);
 
 			GL.Enable(EnableCap.Blend);
 			GL.BlendFunc(BlendingFactorSrc.SrcAlpha, BlendingFactorDest.OneMinusSrcAlpha);
-			GL.Enable(EnableCap.Texture2D); //todo: only for non shader pipeline relevant -> remove at some point
+			GL.Enable(EnableCap.Texture2D); //TODO: only for non shader pipeline relevant -> remove at some point
 		}
 
 		public void DrawScreen(IEnumerable<IReadOnlyBox2D> enemies, IEnumerable<IReadOnlyBox2D> bullets, IReadOnlyBox2D player)
