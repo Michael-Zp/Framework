@@ -2,12 +2,11 @@
 using System.Text.RegularExpressions;
 using System;
 using Zenseless.HLGL;
-using System.Text;
 
 namespace Zenseless.OpenGL
 {
 	/// <summary>
-	/// 
+	/// Contains methods for loading Glsl Shader programs from files, streams or strings
 	/// </summary>
 	public static class ShaderLoader
 	{
@@ -97,7 +96,7 @@ namespace Zenseless.OpenGL
 		/// Reads the contents of a file into a string
 		/// </summary>
 		/// <param name="shaderFile">path to the shader file</param>
-		/// <param name="testCompileInclude">should includes be compiled (for error checking) before beeing pasted into the including shader</param>
+		/// <param name="testCompileInclude">should includes be compiled (for error checking) before being pasted into the including shader</param>
 		/// <returns>
 		/// string with contents of shaderFile
 		/// </returns>

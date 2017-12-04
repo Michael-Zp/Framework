@@ -115,6 +115,17 @@ namespace Zenseless.Geometry
 		}
 
 		/// <summary>
+		/// Finites the difference.
+		/// </summary>
+		/// <param name="pointL">The point l.</param>
+		/// <param name="pointR">The point r.</param>
+		/// <returns></returns>
+		public static Vector3 FiniteDifference(Vector3 pointL, Vector3 pointR)
+		{
+			return 0.5f * (pointR - pointL);
+		}
+
+		/// <summary>
 		/// Finites the difference loop.
 		/// </summary>
 		/// <param name="points">The points.</param>
@@ -122,6 +133,27 @@ namespace Zenseless.Geometry
 		public static List<Vector2> FiniteDifferenceLoop(IList<Vector2> points)
 		{
 			var output = new List<Vector2>();
+			if (points.Count < 3) return output;
+			//first tangent
+			output.Add(FiniteDifference(points[points.Count - 1], points[1]));
+			//the rest except last
+			for (int i = 0; i < points.Count - 2; ++i)
+			{
+				output.Add(FiniteDifference(points[i], points[i + 2]));
+			}
+			//add last
+			output.Add(FiniteDifference(points[points.Count - 2], points[0]));
+			return output;
+		}
+
+		/// <summary>
+		/// Finites the difference loop.
+		/// </summary>
+		/// <param name="points">The points.</param>
+		/// <returns></returns>
+		public static List<Vector3> FiniteDifferenceLoop(IList<Vector3> points)
+		{
+			var output = new List<Vector3>();
 			if (points.Count < 3) return output;
 			//first tangent
 			output.Add(FiniteDifference(points[points.Count - 1], points[1]));

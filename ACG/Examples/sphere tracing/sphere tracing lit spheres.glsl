@@ -15,13 +15,13 @@ vec3 opRepeat(vec3 point, vec3 c)
 //M = center of sphere
 //P = some point in space
 // return normal of sphere when looking from point P
-vec3 sphereNormal(vec3 M, vec3 P)
+vec3 sphereNormal(vec3 P, vec3 M)
 {
 	return normalize(P - M);
 }
 
 vec3 normalField(vec3 point){
-	point = -opRepeat(point, vec3(3, 3, 3));
+	point = opRepeat(point, vec3(3, 3, 3));
 	return sphereNormal(point, vec3(0, 0, 0));
 }
 
@@ -50,10 +50,10 @@ vec3 getNormal(vec3 point, float delta)
 	vec3 behind = point + vec3(0.0, 0.0, delta);
 	vec3 before = point + vec3(0.0, 0.0, -delta);
 	//calc difference of distance function values == numerical gradient
-	vec3 gradient = vec3(distField(right) - distField(left),
+	vec3 centralDifferences = vec3(distField(right) - distField(left),
 		distField(up) - distField(down),
 		distField(behind) - distField(before));
-	return normalize(gradient);
+	return normalize(centralDifferences);
 }
 
 void main()
@@ -84,8 +84,8 @@ void main()
 
 	if(objectHit)
 	{
-		// vec3 normal = getNormal(point, 0.01);
 		vec3 normal = normalField(point);
+		// vec3 normal = getNormal(point, 0.01);
 		vec3 lightPos = vec3(0);
 		float diffuse = max(0, dot(normalize(lightPos - point), normal));
 		vec3 color = vec3(1); //white

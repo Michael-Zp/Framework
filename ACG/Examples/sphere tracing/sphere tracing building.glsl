@@ -5,17 +5,22 @@
 
 uniform vec2 iResolution;
 
-const float epsilon = 0.0001;
+const float epsilon = 1e-5;
 const int maxSteps = 512;
 
 float distField(vec3 point)
 {
 	float dist1 = sBox(point, vec3(0, 0, 0), vec3(10, 10, 10));
+	// return dist1;
 	vec3 repXY = opRepeatCentered(point, vec3(.5, .5, 1));
 	float dist2 = sBox(repXY, vec3(0, 0, 0), vec3(0.1, 0.1, 10));
+	// return dist2;
 	vec3 repYZ = opRepeatCentered(point, vec3(1, .5, .5));
 	float dist3 = sBox(repYZ, vec3(0, 0, 0), vec3(10, 0.1, 0.1));
-	return opDifference(dist1, opUnion(dist2, dist3));
+	// return dist3;
+	float distCutOut = opUnion(dist2, dist3);
+	// return distCutOut;
+	return opDifference(dist1, distCutOut);
 }
 
 float ambientOcclusion(vec3 point, float delta, int samples)
@@ -43,7 +48,7 @@ void main()
 	float t = 0.0;
 	//step along the ray 
 	int steps = 0;
-    for(; (steps < maxSteps)&& (t < 10); ++steps)
+    for(; (steps < maxSteps)&& (t < 30); ++steps)
     {
 		//check how far the point is from the nearest surface
         float dist = distField(point);
@@ -77,7 +82,7 @@ void main()
 		vec3 ambient = vec3(0.2);
 
 		color = ambient + diffuse * material;	
-		color = ambientOcclusion(point, 0.02, 5) * color;
+		// color = ambientOcclusion(point, 0.02, 5) * color;
 	}
 	else
 	{

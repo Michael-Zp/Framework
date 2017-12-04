@@ -28,7 +28,7 @@ float distField(vec3 point)
 {
 	float distPlane = fPlane(point, vec3(0, 1, 0), 1);
 
-	point.y += sin(point.z - iGlobalTime * 6.0) * cos(point.x - iGlobalTime) * .25; //waves!
+	// point.y += sin(point.z - iGlobalTime * 6.0) * cos(point.x - iGlobalTime) * .25; //waves!
 	float distX = sBox(opRepeat(point - vec3(0,.5,0), vec3(0, 0, 1)), vec3(1000, 0.05, 0.05));
 	float distZ = sBox(opRepeat(point - vec3(0,.5,0), vec3(1, 0, 0)), vec3(0.05, 0.05, 1000));
 	return opUnion(distPlane, opUnion(distX, distZ));
