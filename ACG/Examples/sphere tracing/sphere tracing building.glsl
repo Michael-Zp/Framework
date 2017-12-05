@@ -5,12 +5,12 @@
 
 uniform vec2 iResolution;
 
-const float epsilon = 1e-5;
+const float epsilon = 1e-4;
 const int maxSteps = 512;
 
 float distField(vec3 point)
 {
-	float dist1 = sBox(point, vec3(0, 0, 0), vec3(10, 10, 10));
+	float bigBox = sBox(point, vec3(0, 0, 0), vec3(10, 10, 10));
 	// return dist1;
 	vec3 repXY = opRepeatCentered(point, vec3(.5, .5, 1));
 	float dist2 = sBox(repXY, vec3(0, 0, 0), vec3(0.1, 0.1, 10));
@@ -20,7 +20,7 @@ float distField(vec3 point)
 	// return dist3;
 	float distCutOut = opUnion(dist2, dist3);
 	// return distCutOut;
-	return opDifference(dist1, distCutOut);
+	return opDifference(bigBox, distCutOut);
 }
 
 float ambientOcclusion(vec3 point, float delta, int samples)
@@ -59,7 +59,7 @@ void main()
             break;
         }
 		//screen error decreases with distance
-		// dist = max(dist, t * 0.001);
+		dist = max(dist, t * 0.001);
 		//not so close -> we can step at least dist without hitting anything
 		t += dist;
 

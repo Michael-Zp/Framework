@@ -33,14 +33,15 @@ float distMonster(vec3 point)
 	float tentacle = distTentacle(point);
 	point.y -= 0.1;
 	float sphere = fSphere(point, 0.35);
+	// return sphere;
 	// return min(tentacle, sphere);
-	return smin(tentacle, sphere, 0.1 );
+	return smin(tentacle, sphere, 0.2 );
  }
 
 float distColumns(vec3 point)
 {
 	point = opRepeat(point, vec3(2));
-	point.xz = point.xz * point.y; //increase radius with y
+	point.xz *= point.y; //increase radius with y
 	float cylinder = fCylinder(point, 0.2, 5.0);
 	return cylinder;
 }
@@ -48,8 +49,11 @@ float distColumns(vec3 point)
 float distField(vec3 point)
 {
 	float plane = fPlane(point, vec3(0, 1, 0), 0.1);
+	// return plane;
 	float columns = distColumns(point);
+	// return min(columns, plane);
 	float monster = distMonster(point);
+	// return monster;
 	float d1 = min(plane, columns);
 	return min(d1, monster);
 }
