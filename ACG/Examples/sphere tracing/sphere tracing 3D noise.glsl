@@ -26,21 +26,26 @@ float fBm(vec3 coord)
     return value;
 }
 
-float mapTerrain( in vec3 pos )
+float distField(vec3 pos)
 {
-	// pos.y += sin(pos.z - iGlobalTime * 6.0) * cos(pos.x - iGlobalTime) * .15; //waves!
-	return pos.y * 0.1 + fBm(pos);// * cos(iGlobalTime);
+	return pos.y * 0.01 + fBm(pos); //line i
 }
 
-float distField(vec3 point)
+vec3 shade(vec3 point)
 {
-	return mapTerrain(point);
+	vec3 normal = getNormal(point, 0.01);
+	vec3 lightDir = normalize(vec3(1, -1.0, 1));
+	vec3 toLight = -lightDir;
+	float diffuse = max(0, dot(toLight, normal));
+	vec3 material = vec3(abs(sin(point * 3))); //line ii; some location based color
+	vec3 ambient = vec3(0);
+
+	return ambient + diffuse * material;	
 }
 
 void main()
 {
 	vec3 camP = calcCameraPos();
-	camP.y += 2;
 	vec3 camDir = calcCameraRayDir(80.0, gl_FragCoord.xy, iResolution);
 
 	//start point is the camera position
@@ -49,7 +54,7 @@ void main()
 	float t = 0.0;
 	//step along the ray 
 	int steps = 0;
-    for(; (steps < maxSteps) && (t < 10); ++steps)
+    for(; (steps < maxSteps) && (t < 100); ++steps)
     {
 		//check how far the point is from the nearest surface
         float dist = distField(point);
@@ -59,8 +64,6 @@ void main()
 			objectHit = true;
             break;
         }
-		//screen error decreases with distance
-		// dist = max(dist, t * 0.001);
 		//not so close -> we can step at least dist without hitting anything
 		t += dist;
 
@@ -73,20 +76,7 @@ void main()
 	vec3 red = vec3(1, 0, 0);
 	vec3 green = vec3(0, 1, 0);
 	vec3 color = mix(green, red, effort);
-	if(objectHit)
-	{
-		vec3 normal = getNormal(point, 0.01);
-		vec3 lightDir = normalize(vec3(1, -1.0, 1));
-		vec3 toLight = -lightDir;
-		float diffuse = max(0, dot(toLight, normal));
-		vec3 material = vec3(abs(sin(point * 3))); //some location based color
-		vec3 ambient = vec3(0);
+	color = objectHit ? shade(point) : vec3(0);
 
-		color = ambient + diffuse * material;	
-	}
-	else
-	{
-		color = vec3(0);
-	}
 	gl_FragColor = vec4(color, 1);
 }

@@ -40,14 +40,11 @@ float sdBox( vec3 p, vec3 b )
 
 vec2 map( in vec3 pos )
 {
-	//float box = sdBox( pos-vec3( 0.0,0.1, 0.0), vec3(0.29, 0.09, 0.29) );
 	float box = sdBox( opRep( opTwist(pos-vec3(0.0, 0.0, 0.0)) ), vec3(0.29, 0.09, 0.29) );
-	//float innerbox = sdBox( pos-vec3( 0.0, 0.1, 0.0), vec3(0.17, 0.1, 0.17) );
 	float innerbox = sdBox( opRep( opTwist(pos-vec3( 0.0, 0.0, 0.0)) ), vec3(0.17, 0.2, 0.17) );
 	
 	float logo = opS( innerbox, box );
 	
-	//res = opU( res, vec2( logo, 14.0 ) );
 	vec2 res = vec2( logo, 0.0 );
 	return res;
 }
@@ -115,10 +112,7 @@ void main( void )
 	p.x *= iResolution.x/iResolution.y;
 	
 	// camera 
-	// vec3 ro = vec3( -0.5+1.5*cos(0.1*time), 1.0, 0.5 + 1.5*sin(0.1*time) );
 	vec3 ro = vec3( 1.0*cos(0.2*iGlobalTime), 0.3, 1.0*sin(0.1*iGlobalTime) );
-	//vec3 ro = vec3( 0.8, 1.0, -0.8 );
-	//vec3 ta = vec3( -0.5, -0.4, 0.5 );
 	vec3 ta = vec3( 0.0, 0.2, 0.0 );
     
 	// camera tx

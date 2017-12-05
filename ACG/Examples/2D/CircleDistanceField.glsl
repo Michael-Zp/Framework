@@ -19,10 +19,10 @@ void main()
 	uv.x *= aspect;
 	
 	//rotate circle centers over time
-	float x = 0;//sin(iGlobalTime);
-	float y = 0;//cos(iGlobalTime);
+	float x = sin(iGlobalTime);
+	float y = cos(iGlobalTime);
 	
-	uv = mod(uv, vec2(2));
+	// uv = mod(uv, vec2(2));
 	//two circle distance fields
 	float distCircle1 = distance(uv, vec2(x, y));
 	// distCircle1 = fract(distCircle1 * 5);
@@ -31,7 +31,7 @@ void main()
 
 	color.rgb = vec3(distCircle1); // draw one circular distance field
 
-	// float distUnion = min(distCircle1, distCircle2); //todo
+	float distUnion = min(distCircle1, distCircle2); //todo
 	// color.rgb = vec3(distUnion); // draw union
 
 	// float blurryness = 0.031; //control sharpness of circles

@@ -24,7 +24,7 @@ vec3 opCoordinateRepetition(vec3 point, vec3 c)
 
 float distScene(vec3 point)
 {
-	point.y += sin(point.z - iGlobalTime * 6.0) * cos(point.x - iGlobalTime) * .25; //waves!
+	point.y += sin(point.z - iGlobalTime * 6.0) * cos(point.x - iGlobalTime) * .25; //waves! line iii
 	float distPlane = sPlane(point, vec3(0.0, 1.0, 0.0), -0.5);
 	point = opCoordinateRepetition(point, vec3(1.0, 1.0, 1.0));
 	float distSphere = sSphere(point, vec3(0.0, 0.0, 0.0), 0.2);
@@ -79,8 +79,8 @@ void main()
 	//fog
 	float tmax = 10.0;
 	float factor = t/tmax;
-	// factor = clamp(factor, 0.0, 1.0);
-	color = mix(color, vec3(1.0, 0.8, 0.1), factor);
+	// factor = clamp(factor, 0.0, 1.0); //line i
+	color = mix(color, vec3(1.0, 0.8, 0.1), factor); //line ii
 	
 	gl_FragColor = vec4(color, 1.0);
 }

@@ -93,16 +93,23 @@ namespace ShaderForm.Camera
 
 		private void Run(bool running)
 		{
-			if (IsActive) return;
 			if (running)
 			{
-				time.Restart();
+				if (!IsActive)
+				{
+					time.Restart();
+					lastTime = 0f;
+				}
 			}
 			else
 			{
-				time.Reset();
+				bool anyCameraKeyDown = fwd || left || right || back || up || down;
+				if (!anyCameraKeyDown)
+				{
+					time.Reset();
+					lastTime = 0f;
+				}
 			}
-			lastTime = 0f;
 		}
 
 		private static Vector3 RotateX(Vector3 vec, float angle)

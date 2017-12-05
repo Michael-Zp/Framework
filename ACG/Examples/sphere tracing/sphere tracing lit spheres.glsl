@@ -42,13 +42,14 @@ float distField(vec3 point)
 //by numerical gradient
 vec3 getNormal(vec3 point, float delta)
 {
+	vec2 d2 = vec2(delta, 0.0);
 	//get points a little bit to each side of the point
-	vec3 right = point + vec3(delta, 0.0, 0.0);
-	vec3 left = point + vec3(-delta, 0.0, 0.0);
-	vec3 up = point + vec3(0.0, delta, 0.0);
-	vec3 down = point + vec3(0.0, -delta, 0.0);
-	vec3 behind = point + vec3(0.0, 0.0, delta);
-	vec3 before = point + vec3(0.0, 0.0, -delta);
+	vec3 right = point + d2.xyy;
+	vec3 left = point - d2.xyy;
+	vec3 up = point + d2.yxy;
+	vec3 down = point - d2.yxy;
+	vec3 behind = point + d2.yyx;
+	vec3 before = point - d2.yyx;
 	//calc difference of distance function values == numerical gradient
 	vec3 centralDifferences = vec3(distField(right) - distField(left),
 		distField(up) - distField(down),
@@ -84,8 +85,8 @@ void main()
 
 	if(objectHit)
 	{
-		vec3 normal = normalField(point);
-		// vec3 normal = getNormal(point, 0.01);
+		// vec3 normal = normalField(point);
+		vec3 normal = getNormal(point, 0.01);
 		vec3 lightPos = vec3(0);
 		float diffuse = max(0, dot(normalize(lightPos - point), normal));
 		vec3 color = vec3(1); //white
