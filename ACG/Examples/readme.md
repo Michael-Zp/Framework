@@ -2,4 +2,4 @@
 1. [Noise](Noise)
 1. [Ray tracing Examples](raytracing)
 1. [Ray marching Examples](raymarching)
-1. [Sphere tracing Examples](sphere tracing)
+1. [Sphere tracing Examples](spheretracing)
