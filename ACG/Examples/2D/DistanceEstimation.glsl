@@ -1,5 +1,6 @@
 #version 330
 
+///based on http://www.iquilezles.org/www/articles/distance/distance.htm
 const float PI = 3.14159265359;
 const float TWOPI = 2 * PI;
 const float EPSILON = 10e-4;
@@ -16,6 +17,7 @@ float distToInt(float coord)
 
 float distField(const vec2 coord)
 {
+// return distance(vec2(0.5), coord);
 	//cartesian to polar coordinates
     float r = length(coord); // radius of current pixel
     float a = atan(coord.y, coord.x) + PI; //angel of current pixel [0..2*PI] 
@@ -23,11 +25,17 @@ float distField(const vec2 coord)
 	return r - 1 + 0.5 * sin(3 * a + 2 * r * r);
 }
 
-vec2 grad(const vec2 coord)
+vec2 grad(const vec2 coord, const float pixelDelta)
 {
-    vec2 h = vec2( 0.05, 0.0 );
+    vec2 h = vec2( pixelDelta, 0.0 );
     return vec2( distField(coord + h.xy) - distField(coord - h.xy),
                  distField(coord + h.yx) - distField(coord - h.yx) )/(2.0 * h.x);
+}
+
+vec2 gradGPU(const vec2 coord, const float pixelDelta)
+{
+	float f = distField(coord);
+    return vec2( dFdx(f), dFdy(f) ) / pixelDelta;
 }
 
 void main()
@@ -42,17 +50,24 @@ void main()
 	//aspect correction
 	uv.x *= iResolution.x / iResolution.y;
 	uv *= 2;
+	float pixelDelta = 4.0 / iResolution.y; //range / res
 	
 	float f = distField(uv);
-	float de = abs(f) / length(grad(uv));
+	float level = 0.0;
+	vec2 g = //uv.x < 0 ? gradGPU(uv, pixelDelta) : 
+	grad(uv, pixelDelta);
+	float de = abs(f) / length(g);
 
-	float subSet = f;
-	subSet = smoothstep(0.0, 0.03, de);
+	float subSet = f * 0.5;
 	// subSet = step(threshold, f);
+	// subSet = de;
+	// subSet = clamp(de, 0.0, 0.025) * 20;
+	subSet = smoothstep(0.0, 0.025, de);
 
-	// float blurryness = 0.012; //control sharpness
-	// float thickness = 0.005;
-	// subSet = smoothstep(thickness, thickness + blurryness, distToInt(subSet * 20)); // repeat step	
+	float thickness = 0.05;
+	float d = distToInt(de * 5);
+	float blurryness = 0.012; //control sharpness
+	// subSet = smoothstep(thickness, thickness + blurryness, d); // repeat step	
 	
 	vec3 color = vec3(subSet);	
 	
