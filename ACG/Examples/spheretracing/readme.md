@@ -1,7 +1,7 @@
 1. Implement sphere tracing of a sphere yourself
 1. [sphereTracing.glsl](sphereTracing.glsl)
 	1. Move the camera (wasd+mouse-drag)
-	1. Look at [camera.glsl](libs/camera.glsl)
+	1. Look at [camera.glsl](../libs/camera.glsl)
 	1. Add box(es)
 	1. Add operators
 	1. Add multiple spheres
