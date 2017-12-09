@@ -13,8 +13,8 @@
 		<copyright>Copyright 2017 Daniel Scherzer</copyright>
 		<tags>computer-graphics real-time geometry mathematic vector matrix .net OpenGL GLSL</tags>
 		<dependencies>
-			<dependency id="OpenTK" version="3.0.0-pre" />
-			<dependency id="NAudio" version="1.8.3" />
+			<dependency id="OpenTK" version="3.*" />
+			<dependency id="NAudio" version="1.*" />
 		</dependencies>
 		<frameworkAssemblies>
 			<frameworkAssembly assemblyName="PresentationCore" />

@@ -11,15 +11,15 @@ namespace Zenseless.OpenGL
 	public static class ShaderLoader
 	{
 		/// <summary>
-		/// The exception data file name
+		/// The exception data key string name that contains the file name
 		/// </summary>
 		public const string ExceptionDataFileName = "fileName";
 
 		/// <summary>
 		/// Compiles and links vertex and fragment shaders from strings.
 		/// </summary>
-		/// <param name="sVertexShd_">The s vertex SHD_.</param>
-		/// <param name="sFragmentShd_">The s fragment SHD_.</param>
+		/// <param name="sVertexShd_">The vertex shader source code string.</param>
+		/// <param name="sFragmentShd_">The fragment shader source code string.</param>
 		/// <returns>
 		/// a new instance
 		/// </returns>
@@ -28,9 +28,7 @@ namespace Zenseless.OpenGL
 			Shader shd = new Shader();
 			try
 			{
-				shd.Compile(sVertexShd_, ShaderType.VertexShader);
-				shd.Compile(sFragmentShd_, ShaderType.FragmentShader);
-				shd.Link();
+				shd.FromStrings(sVertexShd_, sFragmentShd_);
 			}
 			catch (Exception e)
 			{
@@ -41,12 +39,12 @@ namespace Zenseless.OpenGL
 		}
 
 		/// <summary>
-		/// Froms the strings.
+		/// Compiles and links vertex and fragment shaders from strings.
 		/// </summary>
-		/// <param name="shader">The shader.</param>
-		/// <param name="sVertexShd_">The s vertex SHD.</param>
-		/// <param name="sFragmentShd_">The s fragment SHD.</param>
-		/// <returns></returns>
+		/// <param name="shader">The empty shader to which the two shader sources are linked to.</param>
+		/// <param name="sVertexShd_">The vertex shader source code string.</param>
+		/// <param name="sFragmentShd_">The fragment shader source code string.</param>
+		/// <returns>The shader log, Empty if no errors.</returns>
 		public static string FromStrings(this IShader shader, string sVertexShd_, string sFragmentShd_)
 		{
 			shader.Compile(sVertexShd_, ShaderType.VertexShader);
