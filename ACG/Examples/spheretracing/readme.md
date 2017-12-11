@@ -16,7 +16,7 @@
 1. [sphereTracingWavy.glsl](sphereTracingWavy.glsl)
 	1. Look at versions of fog (uncomment line i, line ii, different tmax)
 	1. Look at space warp and change it; apply it only to plane/spheres (line iii)
-1. [shadertoy/MysteryBox3.glsll](../shadertoy/MysteryBox3.glsl)
+1. [shadertoy/MysteryBox3.glsl](../shadertoy/MysteryBox3.glsl)
 	1. Try to understand twist operator and use it in your own scene
 1. [sphereTracing3dNoise.glsl](sphereTracing3dNoise.glsl)
 	1. Move downward

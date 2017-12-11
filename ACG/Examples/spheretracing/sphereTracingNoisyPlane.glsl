@@ -44,7 +44,7 @@ float distTerrain(vec3 point)
 float distField(vec3 point)
 {
 	float terrain = distTerrain(point);
-	return terrain;
+	// return terrain;
 	float trees = distTree(point);
 	return smin(terrain, trees, 0.9);
 }
