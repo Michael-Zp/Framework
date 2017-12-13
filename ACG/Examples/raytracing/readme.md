@@ -14,14 +14,16 @@
 1. [RaytracerCPU](RaytracerCPU) 
 	1. Implement same scene on both
 	2. Compare speeds
+1. [DiffusePathTracer.glsl](DiffusePathTracer.glsl)
 1. [NaivePathTracer.glsl](NaivePathTracer.glsl)
 	1. Change sample count
-	1. Change the recursion depth (path length)
+	1. Change the recursion depth (path length); start with 1;
 	1. How is the intersection point biased?
-	1. Were do the shadows come from?
-	1. Change light size and brightness. What happens and why?
-	1. All samples are now equal. What happens if you weight them according to distance to pixel center?
+	1. Where do the shadows come from?
+	1. Constant seed
+	1. Change light size and brightness. What happens and why? Convergence?
+	1. All pixel samples are now equal. What happens if you weight them according to distance to pixel center?
 	1. What happens if you do not choose refraction vs. reflection with a random threshold?
-	1. Add a second light source.
+	1. Add a second light source (e.x.: the top plane).
 	1. Add a glossy box. What do you have to change in the BRDF?
 	

@@ -17,7 +17,7 @@ const float TWOPI = 2 * PI;
 const float BIG_NUMBER = 1e20;
 
 #define eps 0.0001
-#define EYEPATHLENGTH 6
+#define EYEPATHLENGTH 3
 #define SAMPLES 800
 
 #define LIGHTCOLOR vec3(16.86, 10.76, 8.2) * 1.3
@@ -132,16 +132,6 @@ vec3 matColor( const float mat )
     return nor;					  
 }
 
-bool matIsRefractive( const float mat ) 
-{
-    return mat > 5.5;
-}
-
-bool matIsSpecular( const float mat ) 
-{
-    return mat > 4.5;
-}
-
 bool matIsLight( const float mat ) 
 {
     return mat < 0.5;
@@ -181,43 +171,9 @@ mat3 coordinateSystem(const vec3 v1)
 	return mat3(v2, v3, v1);
 }
 
-vec3 getBRDFRay( in vec3 n, const vec3 dirIn, const float material ) 
-{
-    bool specularBounce = matIsSpecular(material);
-    
-    if( !specularBounce )
-	{
-		return coordinateSystem( n ) * cosWeightedRandomHemisphereDirection(); //diffuse
-    } 
-	else 
-	{
-		if(matIsRefractive(material))
-		{	//refractive
-			float n1, n2, ndotr = dot(dirIn, n);
-			//outside-in or inside-out
-			if( ndotr > 0.0 )
-			{
-				n1 = 1.0/1.5; n2 = 1.0;
-				n = -n;
-			}
-			else 
-			{
-				n2 = 1.0/1.5; n1 = 1.0;
-			}
-			//fresnel schlick approximation
-			float r0 = (n1 - n2) / (n1 + n2); 
-			r0 *= r0;
-			float fresnel = r0 + (1.0 - r0) * pow(1.0 - abs(ndotr), 5.0);
-			//choose reflection or refraction according to fresnel and random threshold
-			return hash1() < fresnel ? reflect( dirIn, n ) : refract( dirIn, n, n2/n1 );
-		}
-		return reflect( dirIn, n ); //reflective
-	}
-}
-
 vec3 traceEyePath( in vec3 ro, in vec3 rd ) 
 {
-    vec3 color = vec3(1.0);
+    vec3 color = vec3(1.0); //trace back attenuation of color start with white
     
     for(int i = 0; i < EYEPATHLENGTH; ++i) 
 	{
@@ -231,8 +187,10 @@ vec3 traceEyePath( in vec3 ro, in vec3 rd )
         }
         
         ro = ro + t * rd; // next intersection point
-        rd = getBRDFRay( normal, rd, material ); //new ray direction from brdf
-        color *= matColor( material ); // material color interaction
+        rd = coordinateSystem( normal ) * cosWeightedRandomHemisphereDirection(); //new ray direction from diffuse brdf
+        color *= matColor( material ); // material color interaction -> attenuate color by material color
+        // rd = coordinateSystem( normal ) * randomHemisphereDirection(); //new ray direction from diffuse brdf
+		// color *= matColor( material ) * 2.0 * dot(normal, rd);
     }    
     return vec3(0); //did not hit light source -> black ray
 }
