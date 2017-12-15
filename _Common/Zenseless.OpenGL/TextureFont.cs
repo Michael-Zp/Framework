@@ -1,4 +1,4 @@
-﻿using Zenseless.Geometry;
+using Zenseless.Geometry;
 using Zenseless.Base;
 using OpenTK.Graphics.OpenGL;
 using Zenseless.HLGL;
@@ -77,8 +77,29 @@ namespace Zenseless.OpenGL
 			GL.PopMatrix();
 		}
 
+
 		/// <summary>
-		/// Widthes the specified text.
+		/// Prints the specified x position. With specific x, y and z size.
+		/// </summary>
+		/// <param name="xPos">The x position.</param>
+		/// <param name="yPos">The y position.</param>
+		/// <param name="zPos">The z position.</param>
+		/// <param name="size">The size.</param>
+		/// <param name="text">The text.</param>
+		public void PrintWithSize(float xPos, float yPos, float zPos, float xSize, float ySize, float zSize, string text)
+		{
+			GL.PushMatrix();
+			GL.Translate(xPos, yPos, zPos);
+			GL.Scale(xSize, ySize, zSize);
+			var bytes = ConvertString2Ascii(text);
+			texFont.Activate();
+			PrintRawQuads(bytes);
+			texFont.Deactivate();
+			GL.PopMatrix();
+		}
+
+		/// <summary>
+		/// Returns the width of the given text with the given size scaling.
 		/// </summary>
 		/// <param name="text">The text.</param>
 		/// <param name="size">The size.</param>
