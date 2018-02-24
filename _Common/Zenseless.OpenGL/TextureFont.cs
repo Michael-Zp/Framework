@@ -84,7 +84,9 @@ namespace Zenseless.OpenGL
 		/// <param name="xPos">The x position.</param>
 		/// <param name="yPos">The y position.</param>
 		/// <param name="zPos">The z position.</param>
-		/// <param name="size">The size.</param>
+            	/// <param name="xSize">The size in the x dimension.</param>
+            	/// <param name="ySize">The size in the y dimension.</param>
+            	/// <param name="zSize">The size in the z dimension.</param>
 		/// <param name="text">The text.</param>
 		public void PrintWithSize(float xPos, float yPos, float zPos, float xSize, float ySize, float zSize, string text)
 		{
