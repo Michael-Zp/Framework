@@ -63,18 +63,11 @@ namespace Zenseless.OpenGL
 		/// <param name="xPos">The x position.</param>
 		/// <param name="yPos">The y position.</param>
 		/// <param name="zPos">The z position.</param>
-		/// <param name="size">The size.</param>
+		/// <param name="size">The x and y size. z size will always be 1.0.</param>
 		/// <param name="text">The text.</param>
 		public void Print(float xPos, float yPos, float zPos, float size, string text)
 		{
-			GL.PushMatrix();
-			GL.Translate(xPos, yPos, zPos);
-			GL.Scale(size, size, size);
-			var bytes = ConvertString2Ascii(text);
-			texFont.Activate();
-			PrintRawQuads(bytes);
-			texFont.Deactivate();
-			GL.PopMatrix();
+			PrintWithSize(xPos, yPos, zPos, size, size, text);
 		}
 
 
