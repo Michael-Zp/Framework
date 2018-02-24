@@ -67,7 +67,7 @@ namespace Zenseless.OpenGL
 		/// <param name="text">The text.</param>
 		public void Print(float xPos, float yPos, float zPos, float size, string text)
 		{
-			PrintWithSize(xPos, yPos, zPos, size, size, text);
+			Print(xPos, yPos, zPos, size, size, text);
 		}
 
 
@@ -81,7 +81,7 @@ namespace Zenseless.OpenGL
             	/// <param name="xSize">The size in the x dimension.</param>
             	/// <param name="ySize">The size in the y dimension.</param>
 		/// <param name="text">The text.</param>
-		public void PrintWithSize(float xPos, float yPos, float zPos, float xSize, float ySize, string text)
+		public void Print(float xPos, float yPos, float zPos, float xSize, float ySize, string text)
 		{
 			GL.PushMatrix();
 			GL.Translate(xPos, yPos, zPos);
