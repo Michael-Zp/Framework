@@ -79,20 +79,20 @@ namespace Zenseless.OpenGL
 
 
 		/// <summary>
-		/// Prints the specified x position. With specific x, y and z size.
+		/// Prints the specified x position. With specific x and y size.
+		/// There is no z size, because this text is 2D and will not be affected by the zSize.
 		/// </summary>
 		/// <param name="xPos">The x position.</param>
 		/// <param name="yPos">The y position.</param>
 		/// <param name="zPos">The z position.</param>
             	/// <param name="xSize">The size in the x dimension.</param>
             	/// <param name="ySize">The size in the y dimension.</param>
-            	/// <param name="zSize">The size in the z dimension.</param>
 		/// <param name="text">The text.</param>
-		public void PrintWithSize(float xPos, float yPos, float zPos, float xSize, float ySize, float zSize, string text)
+		public void PrintWithSize(float xPos, float yPos, float zPos, float xSize, float ySize, string text)
 		{
 			GL.PushMatrix();
 			GL.Translate(xPos, yPos, zPos);
-			GL.Scale(xSize, ySize, zSize);
+			GL.Scale(xSize, ySize, 1.0);
 			var bytes = ConvertString2Ascii(text);
 			texFont.Activate();
 			PrintRawQuads(bytes);
